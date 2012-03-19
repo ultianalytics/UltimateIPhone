@@ -1,0 +1,248 @@
+//
+//  PlayerDetailsViewController.m
+//  Ultimate
+//
+//  Created by james on 1/21/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "PlayerDetailsViewController.h"
+#import "Team.h"
+#import "SoundPlayer.h"
+#import "Constants.h"
+#import "ColorMaster.h"
+
+NSArray* cells;
+
+@implementation PlayerDetailsViewController
+@synthesize player,nickNameField,numberField,positionControl,sexControl,saveAndAddButton,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"Player", @"Player");
+    }
+    return self;
+}
+
+-(void)populateViewFromModel {
+    if (player) {
+        self.nickNameField.text = self.player.name;
+        self.numberField.text = self.player.number;
+        self.positionControl.selectedSegmentIndex = self.player.position == Any ? 2 : self.player.position == Handler ? 1 : 0;
+        self.sexControl.selectedSegmentIndex = self.player.isMale ? 0 : 1;
+    } else {
+        self.nickNameField.text = nil;
+        self.numberField.text = nil;
+        self.positionControl.selectedSegmentIndex = 0;
+        self.sexControl.selectedSegmentIndex = 0;
+    }
+}
+
+-(void)populateModelFromView {
+    self.player.name = [self getNickNameViewText];
+    self.player.number = [self getNumberViewText];
+    self.player.position = self.positionControl.selectedSegmentIndex == 2 ? Any : self.positionControl.selectedSegmentIndex == 1 ? Handler : Cutter;
+    self.player.isMale = self.sexControl.selectedSegmentIndex == 0 ? YES : NO;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    cells = [NSArray arrayWithObjects:nameTableCell, numberTableCell, positionTableCell, genderTableCell, nil];
+    return [cells count];
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
+    cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    return cell;
+}
+
+-(IBAction)addAnotherClicked: (id) sender{
+    if ([self verifyPlayer]) {
+        [self addPlayer];
+        self.player = nil;
+        [self populateViewFromModel];
+    }
+}
+-(IBAction)deleteClicked: (id) sender {
+    [self deletePlayer];
+    [self returnToTeamView];
+}
+-(void)okClicked {
+    if ([self verifyPlayer]) {
+        if (player) {
+            [self updatePlayer];
+        } else {
+            [self addPlayer];
+        }
+        [self returnToTeamView];
+    } 
+}
+-(void)cancelClicked {
+    [self returnToTeamView];
+}
+-(void)returnToTeamView {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(BOOL)verifyPlayer {
+    NSString* newPlayerName = [self getNickNameViewText];
+    NSString* newPlayerNumber = [self getNumberViewText];
+    if ([newPlayerName isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Invalid Player Name" 
+                              message:@"A name is required for each player"
+                              delegate:self 
+                              cancelButtonTitle:@"Try Again" 
+                              otherButtonTitles:nil]; 
+        [alert show];
+        return NO;
+    } else if ([self isDuplicatePlayerName:newPlayerName]) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Duplicate Player Name" 
+                              message:@"Each player must have a unique name"
+                              delegate:self 
+                              cancelButtonTitle:@"Try Again" 
+                              otherButtonTitles:nil]; 
+        [alert show];
+        return NO;  
+    } else if ([self isDuplicatePlayerNumber:newPlayerNumber]) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Duplicate Player Number" 
+                              message:@"Each player must have a unique number if assigned"
+                              delegate:self 
+                              cancelButtonTitle:@"Try Again" 
+                              otherButtonTitles:nil]; 
+        [alert show];
+        return NO;        
+    } else {
+        return YES;
+    } 
+}
+
+-(BOOL) isDuplicatePlayerName: (NSString*) newPlayerName {
+    if (self.player && [self.player.name caseInsensitiveCompare:newPlayerName] == NSOrderedSame) {
+        return NO;
+    }
+    return [[[Team getCurrentTeam] getAllPlayers] containsObject:[[Player alloc] initName:newPlayerName]];
+}
+
+-(BOOL) isDuplicatePlayerNumber: (NSString*) newPlayerNumber {
+    if (newPlayerNumber == nil || [[newPlayerNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString: @""]) {
+        return NO;
+    }
+    else if (self.player && [self.player.number caseInsensitiveCompare:newPlayerNumber] == NSOrderedSame) {
+        return NO;
+    } else {
+        for (Player* otherPlayer in [[Team getCurrentTeam] getAllPlayers]) {
+            if ([otherPlayer.number isEqualToString: newPlayerNumber]) {
+                return YES;
+            }
+        }
+        return NO;
+    }
+}
+
+-(NSString*) getNickNameViewText {
+     return self.nickNameField.text == nil ? @"" : [self.nickNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+-(NSString*) getNumberViewText {
+    return self.numberField.text == nil ? @"" : [self.numberField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+-(void)addPlayer {
+    self.player = [[Player alloc] init];
+    [self populateModelFromView];
+    [[Team getCurrentTeam] addPlayer:player];
+    [[Team getCurrentTeam] save];
+}
+
+-(void)updatePlayer {
+    [self populateModelFromView];
+    [[Team getCurrentTeam] save];
+}
+
+-(void)deletePlayer {
+    [[Team getCurrentTeam] removePlayer:player];
+    [[Team getCurrentTeam] save];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+
+/* Text field delegate */
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == nickNameField) {
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        BOOL isTooLong = (newLength > kMaxNicknameLength);
+        if (isTooLong) {
+            [SoundPlayer playKeyIgnored];
+        }
+        return !isTooLong;
+    } else {
+        return true;
+    }
+}
+
+
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
+    
+    self.nickNameField.delegate = self; 
+    
+    UIBarButtonItem *cancelNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelClicked)];
+    self.navigationItem.leftBarButtonItem = cancelNavBarItem;
+    
+    UIBarButtonItem *saveNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(okClicked)];
+    self.navigationItem.rightBarButtonItem = saveNavBarItem;    
+    
+    self.saveAndAddButton.hidden = player != nil;
+    self.deleteButton.hidden = player == nil;
+    [self populateViewFromModel];
+    
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    self.positionControl.tintColor = [ColorMaster getNavBarTintColor];
+    self.sexControl.tintColor = [ColorMaster getNavBarTintColor];   
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+@end

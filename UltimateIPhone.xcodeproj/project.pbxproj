@@ -957,6 +957,7 @@
 		1AFFE7A515175D4A004B4590 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";

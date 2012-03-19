@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Player.h"
+@class Player;
 
 @interface PlayerDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> 
 

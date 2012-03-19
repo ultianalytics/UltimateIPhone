@@ -10,6 +10,7 @@
 #define kMaxTournamentNameLength 20
 #define kMaxOpponentNameLength 20
 #define kMaxNicknameLength 8
+#define kMaxTeamNameLength 20
 
 @interface Constants : NSObject
 

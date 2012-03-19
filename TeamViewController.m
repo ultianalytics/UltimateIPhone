@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "Constants.h"
 #import "TeamViewController.h"
 #import "Team.h"
 #import "PlayerDetailsViewController.h"
@@ -43,7 +44,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    BOOL isTooLong = (newLength > 8);
+    BOOL isTooLong = (newLength > kMaxTeamNameLength);
     if (isTooLong) {
         [SoundPlayer playKeyIgnored];
     }

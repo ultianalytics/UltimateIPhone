@@ -11,6 +11,7 @@
 #import "SoundPlayer.h"
 #import "Constants.h"
 #import "ColorMaster.h"
+#import "Player.h"
 
 NSArray* cells;
 
@@ -60,6 +61,10 @@ NSArray* cells;
     UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 36;
 }
 
 -(IBAction)addAnotherClicked: (id) sender{

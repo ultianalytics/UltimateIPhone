@@ -14,7 +14,7 @@ NSArray* cells;
 
 
 @implementation SignonViewController
-@synthesize useridField,passwordField,useridCell,passwordCell,delegate,completion,errorMessage;
+@synthesize useridField,passwordField,useridCell,passwordCell,delegate,errorMessage;
 
 -(IBAction) signonButtonClicked: (id) sender {
     errorMessage.text = @"";

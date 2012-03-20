@@ -9,12 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SignonViewDelegate.h"
 
-typedef void (^Completion)(void);
-
 @interface SignonViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, strong) id<SignonViewDelegate> delegate;
-@property (nonatomic, strong) Completion completion;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* useridCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* passwordCell;

@@ -30,7 +30,7 @@
 -(IBAction)syncButtonClicked: (id) sender;
 -(IBAction)signoffButtonClicked: (id) sender;
 -(void)populateViewFromModel;
--(void)goSignonView: (void (^)(void)) completion;
+-(void)goSignonView;
 -(void)upload;
 -(void)doUpload;
 -(void)startBusyDialog;

@@ -23,17 +23,15 @@ NSArray* cloudCells;
 UIAlertView* busyView;
 
 -(void) userSignedOn {
-    SignonViewController* signonController = (SignonViewController*)self.presentedViewController;
-    [self dismissViewControllerAnimated: YES completion: signonController.completion];
+    [self dismissViewControllerAnimated: YES completion: ^() {[self upload]; }];
 }
 
 -(void) userCancelledSignedOn {
     [self dismissViewControllerAnimated: YES completion:  nil];
 }
 
--(void)goSignonView: (void (^)(void)) completion {
+-(void)goSignonView{
     SignonViewController* signonController = [[SignonViewController alloc] init];
-    signonController.completion = completion;
     signonController.delegate = self;
     [self presentViewController:signonController animated:YES completion:nil];
 }
@@ -70,10 +68,7 @@ UIAlertView* busyView;
     [self stopBusyDialog];
     if (uploadError) {
         if (uploadError.code == Unauthorized) {
-            void (^completion)(void) = ^() {
-                [self upload];
-            };
-            [self goSignonView: completion];
+            [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
                                   initWithTitle: NSLocalizedString(@"Upload FAILED",nil)

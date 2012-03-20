@@ -243,7 +243,9 @@ BOOL arePointSummariesValid;
 	{
 		if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error])	//Delete it
 		{
-			NSLog(@"Delete file error: %@", error);
+            if (error) {
+                NSLog(@"Delete file error: %@", error);
+            }
 		}
 	}
 }

@@ -336,7 +336,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A00013A1517697500600916 /* Cloud */ = {
+		1A00013A1517697500600916 /* Signon */ = {
 			isa = PBXGroup;
 			children = (
 				1AFFE85515175EB0004B4590 /* SignonViewController.h */,
@@ -344,7 +344,7 @@
 				1AFFE85715175EB0004B4590 /* SignonViewController.xib */,
 				1AFFE85815175EB0004B4590 /* SignonViewDelegate.h */,
 			);
-			name = Cloud;
+			name = Signon;
 			sourceTree = "<group>";
 		};
 		1A00013B151769AE00600916 /* Sound Player */ = {
@@ -433,7 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				1AF34E7915176A260065A16D /* Stats */,
-				1A00013A1517697500600916 /* Cloud */,
+				1A00013A1517697500600916 /* Signon */,
 				1AFFE8DD151764DB004B4590 /* Active Game */,
 				1AFFE8DC151764D9004B4590 /* Game Detail */,
 				1AFFE8DB151764D6004B4590 /* Game History */,

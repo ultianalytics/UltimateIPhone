@@ -14,6 +14,8 @@
 #import "Team.h"
 #import "Game.h"
 
+SignonViewController* signonController;
+
 @implementation PreferencesViewController
 @synthesize playerDisplaySegmentedControl,syncButton,playerDisplayCell,uploadCell,userCell,websiteCell,userLabel,websiteLabel,preferencesTableView,cloudTableView,signoffButton;
 
@@ -31,9 +33,8 @@ UIAlertView* busyView;
 }
 
 -(void)goSignonView{
-    SignonViewController* signonController = [[SignonViewController alloc] init];
-    signonController.delegate = self;
-    [self presentViewController:signonController animated:YES completion:nil];
+    signonController = [[SignonViewController alloc] init];
+    [self.navigationController pushViewController:signonController animated: YES];
 }
 
 -(void)populateViewFromModel {
@@ -157,7 +158,7 @@ UIAlertView* busyView;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Configuration", @"Configuration");
+        self.title = NSLocalizedString(@"Settings", @"Settings");
     }
     return self;
 }
@@ -184,6 +185,10 @@ UIAlertView* busyView;
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.playerDisplaySegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     [self populateViewFromModel];
+    if (signonController && signonController.isSignedOn) {
+        [self doUpload];
+    }
+    signonController = nil;
 }
 
 - (void)viewDidUnload

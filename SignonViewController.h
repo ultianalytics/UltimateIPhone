@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SignonViewDelegate.h"
 
 @interface SignonViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
-@property (nonatomic, strong) id<SignonViewDelegate> delegate;
+@property (nonatomic) BOOL isSignedOn;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* useridCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* passwordCell;

@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class GTMOAuthAuthentication;
-#import "SignonViewDelegate.h"
 
-@interface PreferencesViewController : UIViewController <SignonViewDelegate,UITableViewDelegate, UITableViewDataSource>
+@interface PreferencesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView* preferencesTableView;
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;

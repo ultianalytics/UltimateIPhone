@@ -14,7 +14,7 @@ NSArray* cells;
 
 
 @implementation SignonViewController
-@synthesize useridField,passwordField,useridCell,passwordCell,delegate,errorMessage;
+@synthesize useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
 
 -(IBAction) signonButtonClicked: (id) sender {
     errorMessage.text = @"";
@@ -25,7 +25,8 @@ NSArray* cells;
     } else {
         BOOL ok = [CloudClient signOnWithID:userid password:password];
         if (ok) {
-            [delegate userSignedOn];
+            self.isSignedOn = YES;
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             self.passwordField.text = @"";
             errorMessage.text = @"Signon failed";
@@ -34,7 +35,8 @@ NSArray* cells;
 }
 
 -(IBAction) cancelButtonClicked: (id) sender {
-    [delegate userCancelledSignedOn];   
+    self.isSignedOn = NO; 
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -290,8 +290,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [super viewWillAppear:animated];
-    [self populatePlayers];
-    [self updateEventViews];
     if (![Game hasCurrentGame]) {
         GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
         gameStartController.game = [[Game alloc] init];
@@ -300,6 +298,7 @@
     } else {
         Game* game = [Game getCurrentGame];
         [self setOffense: [game arePlayingOffense]];
+        [self updateEventViews];
         
         [self updateNavBarTitle]; 
         [[Game getCurrentGame] save];

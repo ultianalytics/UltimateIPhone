@@ -277,7 +277,6 @@
 		1AFFE85515175EB0004B4590 /* SignonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonViewController.h; sourceTree = "<group>"; };
 		1AFFE85615175EB0004B4590 /* SignonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonViewController.m; sourceTree = "<group>"; };
 		1AFFE85715175EB0004B4590 /* SignonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignonViewController.xib; sourceTree = "<group>"; };
-		1AFFE85815175EB0004B4590 /* SignonViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonViewDelegate.h; sourceTree = "<group>"; };
 		1AFFE85915175EB0004B4590 /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
 		1AFFE85A15175EB0004B4590 /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
 		1AFFE85B15175EB0004B4590 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
@@ -342,7 +341,6 @@
 				1AFFE85515175EB0004B4590 /* SignonViewController.h */,
 				1AFFE85615175EB0004B4590 /* SignonViewController.m */,
 				1AFFE85715175EB0004B4590 /* SignonViewController.xib */,
-				1AFFE85815175EB0004B4590 /* SignonViewDelegate.h */,
 			);
 			name = Signon;
 			sourceTree = "<group>";

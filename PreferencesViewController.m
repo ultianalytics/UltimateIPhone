@@ -24,14 +24,6 @@ NSArray* cloudCells;
 
 UIAlertView* busyView;
 
--(void) userSignedOn {
-    [self dismissViewControllerAnimated: YES completion: ^() {[self upload]; }];
-}
-
--(void) userCancelledSignedOn {
-    [self dismissViewControllerAnimated: YES completion:  nil];
-}
-
 -(void)goSignonView{
     signonController = [[SignonViewController alloc] init];
     [self.navigationController pushViewController:signonController animated: YES];

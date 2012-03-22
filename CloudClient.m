@@ -62,8 +62,7 @@
 
 // upload the object (passed as a ditionary).  answer the resonse json
 +(NSData*) upload: (NSDictionary*) objectAsDictionary relativeUrl: (NSString*) relativeUrl error:(NSError**) uploadError {
-NSLog(@"starting upload attempt");     
-    NSData* responseJSON = nil;
+     NSData* responseJSON = nil;
     if ([Preferences getCurrentPreferences].userid == nil) {
         // don't bother making a request if we don't know the user
         *uploadError = [NSError errorWithDomain:kBaseUrl code: Unauthorized userInfo:nil];
@@ -71,14 +70,12 @@ NSLog(@"starting upload attempt");
         NSHTTPURLResponse* response = nil;
         NSError* marshallError = nil;
         NSError* sendError = nil;
-NSLog(@"about to marshall");         
         NSData* objectAsJson = [NSJSONSerialization dataWithJSONObject:objectAsDictionary options:0 error:&marshallError];
         if (marshallError) {
             NSLog(@"Unable to marshall to JSON: %@", marshallError);
             *uploadError = [NSError errorWithDomain:kBaseUrl code: Marshalling userInfo:nil];
         } else {
             //NSLog(@"Object as JSON = %@",[[NSString alloc] initWithData:objectAsJson encoding:NSASCIIStringEncoding]);
-NSLog(@"about to send");             
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  kBaseUrl, relativeUrl]];
             NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
             [request setHTTPMethod:@"POST"];
@@ -86,7 +83,6 @@ NSLog(@"about to send");
             [request setHTTPBody:objectAsJson];
             
             responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
-NSLog(@"send complete");             
             if (sendError == nil && response != nil && [response statusCode] == 200) {
                 NSLog(@"Object upload successful");
             } else {
@@ -95,7 +91,6 @@ NSLog(@"send complete");
             } 
         }
     }
-NSLog(@"end of method");     
     return responseJSON;
 }
 
@@ -109,7 +104,6 @@ NSLog(@"end of method");
 }
 
 +(BOOL) isSignedOn { 
-NSLog(@"about to send");      
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  kBaseUrl, @"/rest/mobile/test"]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
@@ -120,12 +114,10 @@ NSLog(@"about to send");
     NSData* data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response
                                                      error:&sendError];
-NSLog(@"send done");      
     NSLog(@"URL response: %@",[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
     BOOL isSignedOn = response != nil && [response statusCode] == 200;
     NSLog(@"Http response status code = %d",[response statusCode]);
     NSLog(@"Is Signed On ? %@",isSignedOn ? @"YES" : @"NO");
-NSLog(@"method done");      
     return isSignedOn;
 }
 
@@ -150,8 +142,6 @@ NSLog(@"method done");
     
     // see http://stackoverflow.com/questions/471898/google-app-engine-with-clientlogin-interface-for-objective-c
     
-NSLog(@"starting");
-    
     //create request
     NSString* content = [NSString stringWithFormat:@"accountType=HOSTED_OR_GOOGLE&Email=%@&Passwd=%@&service=ah&source=ultimate-team", userid, password];
     NSURL* authUrl = [NSURL URLWithString:@"https://www.google.com/accounts/ClientLogin"];
@@ -163,7 +153,6 @@ NSLog(@"starting");
     NSHTTPURLResponse* authResponse;
     NSError* authError;
     NSData * authData = [NSURLConnection sendSynchronousRequest:authRequest returningResponse:&authResponse error:&authError];      
-NSLog(@"send complete");    
     NSString *authResponseBody = [[NSString alloc] initWithData:authData encoding:NSASCIIStringEncoding];
     
     //loop through response body which is key=value pairs, seperated by \n. The code below is not optimal and certainly error prone. 
@@ -175,7 +164,6 @@ NSLog(@"send complete");
             [token setObject:[kvpair objectAtIndex:1] forKey:[kvpair objectAtIndex:0]];
         }
     }
-NSLog(@"done looping response looking for error");    
     //if google returned an error in the body [google returns Error=Bad Authentication in the body. which is weird, not sure if they use status codes]
     if (authError || [token objectForKey:@"Error"]) {
         //handle error
@@ -197,7 +185,6 @@ NSLog(@"done looping response looking for error");
     
     NSData* cookieData = [NSURLConnection sendSynchronousRequest:cookieRequest returningResponse:&cookieResponse error:&cookieError];
     // NSLog([cookieData description]);
-NSLog(@"send to set cookie done");     
     if (cookieError) {
         //handle error
         NSLog(@"Error getting cookie: %@", [cookieError description]);
@@ -210,7 +197,6 @@ NSLog(@"send to set cookie done");
         [Preferences getCurrentPreferences].userid = userid;
         [[Preferences getCurrentPreferences] save];
     }
-NSLog(@"method done");     
     return isSignedOn;
 
     

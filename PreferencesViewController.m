@@ -17,7 +17,7 @@
 SignonViewController* signonController;
 
 @implementation PreferencesViewController
-@synthesize playerDisplaySegmentedControl,syncButton,playerDisplayCell,uploadCell,userCell,websiteCell,userLabel,websiteLabel,preferencesTableView,cloudTableView,signoffButton;
+@synthesize playerDisplaySegmentedControl,syncButton,playerDisplayCell,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,preferencesTableView,cloudTableView,signoffButton;
 
 NSArray* preferencesCells;
 NSArray* cloudCells;
@@ -120,7 +120,7 @@ UIAlertView* busyView;
         preferencesCells = [NSArray arrayWithObjects:playerDisplayCell, nil];
         return [preferencesCells count];
     } else {
-        cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, nil];
+        cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];
         return [cloudCells count];
     }
 }
@@ -141,6 +141,9 @@ UIAlertView* busyView;
                 NSURL *url = [NSURL URLWithString:websiteURL];
                 [[UIApplication sharedApplication] openURL:url];
             }
+        } else if (cell == adminSiteCell) {
+            NSString* adminUrl = adminSiteLabel.text;
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
         } 
     }
 } 

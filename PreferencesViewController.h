@@ -18,9 +18,11 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* uploadCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;
 
 @property (nonatomic, strong) IBOutlet UILabel* userLabel;
 @property (nonatomic, strong) IBOutlet UILabel* websiteLabel;
+@property (nonatomic, strong) IBOutlet UILabel* adminSiteLabel;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* playerDisplaySegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* syncButton;
 @property (nonatomic, strong) IBOutlet UIButton* signoffButton;

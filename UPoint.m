@@ -35,6 +35,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 
     [encoder encodeObject:self.events forKey:kEventsKey]; 
+    [encoder encodeObject:self.line forKey:kLineKey]; 
     [encoder encodeDouble:self.timeStartedSeconds forKey:kStartTimeKey]; 
     [encoder encodeDouble:self.timeEndedSeconds forKey:kEndTimeKey]; 
 } 

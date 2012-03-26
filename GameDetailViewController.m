@@ -56,6 +56,11 @@ NSArray* cells;
     }
 }
 
+-(void)dismissKeyboard {
+    [opposingTeamNameField resignFirstResponder];
+    [tournamentNameField resignFirstResponder];
+}
+
 -(void)populateUIFromModel {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
@@ -155,11 +160,13 @@ NSArray* cells;
 }
 
 -(IBAction)firstLineChanged: (id) sender {
+    [self dismissKeyboard];
     game.isFirstPointOline = self.initialLine.selectedSegmentIndex == 0;   
     [self saveChanges];
 }
 
 -(IBAction)gamePointChanged: (id) sender {
+    [self dismissKeyboard];
     int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint; 
     [Preferences getCurrentPreferences].gamePoint =gamePoint;
     [[Preferences getCurrentPreferences] save];
@@ -191,6 +198,7 @@ NSArray* cells;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
+    [self dismissKeyboard];
     NSUInteger row = [indexPath row]; 
     UITableViewCell* cell = [cells objectAtIndex:row];
     if (cell == windCell) {

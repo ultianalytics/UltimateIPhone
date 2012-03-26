@@ -33,6 +33,7 @@
 }
 
 -(IBAction)teamTypeChanged: (id) sender {
+    [self dismissKeyboard];
     [Team getCurrentTeam].isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
     [[Team getCurrentTeam] save];
 }
@@ -90,6 +91,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
+    [self dismissKeyboard];
     NSUInteger row = [indexPath row]; 
     Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
     
@@ -97,6 +99,10 @@
     playerController.player = player;
     [self.navigationController pushViewController:playerController animated:YES];
 } 
+
+-(void)dismissKeyboard {
+    [teamNameField resignFirstResponder];
+}
 							
 - (void)didReceiveMemoryWarning
 {

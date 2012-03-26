@@ -17,5 +17,6 @@
 -(void)goToAddItem;
 -(IBAction)nameChanged: (id) sender;
 -(IBAction)teamTypeChanged: (id) sender;
+-(void)dismissKeyboard;
 
 @end

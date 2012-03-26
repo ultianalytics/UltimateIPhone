@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -135,6 +136,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -319,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
+				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
 				1AFFE7B215175DC6004B4590 /* AudioToolbox.framework in Frameworks */,
 				1AFFE7B315175DC6004B4590 /* AVFoundation.framework in Frameworks */,
@@ -379,6 +382,7 @@
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
 				1AFFE78115175D4A004B4590 /* UltimateIPhone */,
 				1AFFE77A15175D4A004B4590 /* Frameworks */,
+				1AFFE7B615175DF8004B4590 /* libz.dylib */,
 				1AFFE77815175D4A004B4590 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -394,7 +398,7 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1AFFE7B615175DF8004B4590 /* libz.dylib */,
+				1AE669D21520012C000965B5 /* Twitter.framework */,
 				1AFFE7B415175DDC004B4590 /* QuartzCore.framework */,
 				1AFFE7B015175DC6004B4590 /* AudioToolbox.framework */,
 				1AFFE7B115175DC6004B4590 /* AVFoundation.framework */,

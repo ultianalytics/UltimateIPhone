@@ -45,5 +45,6 @@
 -(BOOL)verifyOpponentName;
 -(void)populateUIFromModel;
 -(void)saveChanges;
+-(void)dismissKeyboard;
 
 @end 

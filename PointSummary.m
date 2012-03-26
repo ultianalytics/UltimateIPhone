@@ -24,5 +24,9 @@
     
     return dict;
 }
+- (NSString*)description {
+    return [NSString stringWithFormat:@"score: ours=%d, theirs=%d isOline=%@ isFinished=%@ isAfterHalftime=%@, elapsedSeconds=%d",
+        score.ours, score.theirs, (isOline ? @"YES" : @"NO"), (isFinished ? @"YES" : @"NO"), (isAfterHalftime ? @"YES" : @"NO"), elapsedSeconds];
+}
 
 @end

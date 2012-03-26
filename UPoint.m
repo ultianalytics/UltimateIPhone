@@ -14,6 +14,10 @@
 @implementation UPoint
 @synthesize events, line, summary, timeStartedSeconds, timeEndedSeconds;
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"summary: %@ timeStartedSeconds=%d timeEndedSeconds=%d",summary, timeStartedSeconds, timeEndedSeconds];
+}
+
 -(id) init  {
     self = [super init];
     if (self) {

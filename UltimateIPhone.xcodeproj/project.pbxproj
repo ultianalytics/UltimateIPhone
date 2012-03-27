@@ -16,6 +16,7 @@
 		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
 		1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669FA152160FA000965B5 /* 234-cloud.png */; };
 		1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669FB152160FA000965B5 /* 234-cloud@2x.png */; };
+		1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A091521EA9B000965B5 /* tweet-button.png */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -154,6 +155,7 @@
 		1AE669F715215485000965B5 /* CloudViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CloudViewController.xib; sourceTree = "<group>"; };
 		1AE669FA152160FA000965B5 /* 234-cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "234-cloud.png"; sourceTree = "<group>"; };
 		1AE669FB152160FA000965B5 /* 234-cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "234-cloud@2x.png"; sourceTree = "<group>"; };
+		1AE66A091521EA9B000965B5 /* tweet-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tweet-button.png"; sourceTree = "<group>"; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -374,13 +376,6 @@
 			name = "Sound Player";
 			sourceTree = "<group>";
 		};
-		1AE669E5152149CD000965B5 /* Twitter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Twitter;
-			sourceTree = "<group>";
-		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,7 +399,6 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
-				1AE669E5152149CD000965B5 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
 				1AFFE8D015176431004B4590 /* UI */,
 				1AFFE8D11517643A004B4590 /* Model */,
@@ -685,6 +679,7 @@
 		1AFFE8DF151765B7004B4590 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1AE66A091521EA9B000965B5 /* tweet-button.png */,
 				1AE669FA152160FA000965B5 /* 234-cloud.png */,
 				1AE669FB152160FA000965B5 /* 234-cloud@2x.png */,
 				1AE669DC152148A0000965B5 /* 209-twitter.png */,
@@ -872,6 +867,7 @@
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
+				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

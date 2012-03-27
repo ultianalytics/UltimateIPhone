@@ -35,9 +35,12 @@ UIAlertView* busyView;
     TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
     
     // Optional: set an image, url and initial text
-    [twitter addImage:[UIImage imageNamed:@"iOSDevTips.png"]];
-    [twitter addURL:[NSURL URLWithString:[NSString stringWithString:@"http://iOSDeveloperTips.com/"]]];
-    [twitter setInitialText:@"Tweet from iOS 5 app using the Twitter framework."];
+//    [twitter addImage:[UIImage imageNamed:@"iOSDevTips.png"]];
+//    [twitter addURL:[NSURL URLWithString:[NSString stringWithString:@"http://iOSDeveloperTips.com/"]]];
+    Score score = [[Game getCurrentGame] getScore];
+    NSString* scoreText = [NSString stringWithFormat: @"Score: %d-%d %@. \n", score.ours, score.theirs, score.ours > score.theirs ?
+                           [Team getCurrentTeam].name : [Game getCurrentGame].opponentName];
+    [twitter setInitialText:scoreText];
     
     // Show the controller
     [self presentModalViewController:twitter animated:YES];

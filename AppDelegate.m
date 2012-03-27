@@ -7,13 +7,13 @@
 //
 
 #import "AppDelegate.h"
-
 #import "TeamViewController.h"
 #import "GameViewSwitcherController.h"
 #import "GameViewController.h"
 #import "GamesPlayedController.h"
 #import "PreferencesViewController.h"
 #import "TestFlight.h"
+#import "CloudViewController.h"
 
 @implementation AppDelegate
 
@@ -51,13 +51,18 @@
     UINavigationController* gamesPlayedNavController = [[UINavigationController alloc] initWithRootViewController:gamesPlayedController];
     UIViewController *viewController3 = gamesPlayedNavController;
     
-    // Tab 4: settings
+    // Tab 4: cloud
+    CloudViewController* cloudController = [[CloudViewController alloc] init];
+    UINavigationController* cloudNavController = [[UINavigationController alloc] initWithRootViewController:cloudController];
+    UIViewController* viewController4 = cloudNavController;
+    
+    // Tab 5: settings
     PreferencesViewController* preferencesController = [[PreferencesViewController alloc] init];
     UINavigationController* preferencesNavController = [[UINavigationController alloc] initWithRootViewController:preferencesController];
-    UIViewController *viewController4 = preferencesNavController;
+    UIViewController *viewController5 = preferencesNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,viewController5, nil];
     
     UITabBarItem* tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:0];
     tabBarItem.image = [UIImage imageNamed:@"112-group.png"];
@@ -72,8 +77,12 @@
     tabBarItem.title = @"Games History";  
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
+    tabBarItem.image = [UIImage imageNamed:@"234-cloud.png"];
+    tabBarItem.title = @"Cloud";  
+    
+    tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:4];
     tabBarItem.image = [UIImage imageNamed:@"19-gear.png"];
-    tabBarItem.title = @"Settings";  
+    tabBarItem.title = @"Prefs";  
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

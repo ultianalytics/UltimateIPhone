@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
+		1AE669E0152148A0000965B5 /* 209-twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669DC152148A0000965B5 /* 209-twitter.png */; };
+		1AE669E1152148A0000965B5 /* 209-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669DD152148A0000965B5 /* 209-twitter@2x.png */; };
+		1AE669E2152148A0000965B5 /* 210-twitterbird.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669DE152148A0000965B5 /* 210-twitterbird.png */; };
+		1AE669E3152148A0000965B5 /* 210-twitterbird@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669DF152148A0000965B5 /* 210-twitterbird@2x.png */; };
+		1AE669F815215485000965B5 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
+		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
+		1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669FA152160FA000965B5 /* 234-cloud.png */; };
+		1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669FB152160FA000965B5 /* 234-cloud@2x.png */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -137,6 +145,15 @@
 
 /* Begin PBXFileReference section */
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		1AE669DC152148A0000965B5 /* 209-twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "209-twitter.png"; path = "../../Users/james/Developer Tools/Images/GlyphishPro/icons/icons-white/209-twitter.png"; sourceTree = "<group>"; };
+		1AE669DD152148A0000965B5 /* 209-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "209-twitter@2x.png"; path = "../../Users/james/Developer Tools/Images/GlyphishPro/icons/icons-white/209-twitter@2x.png"; sourceTree = "<group>"; };
+		1AE669DE152148A0000965B5 /* 210-twitterbird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "210-twitterbird.png"; path = "../../Users/james/Developer Tools/Images/GlyphishPro/icons/icons-white/210-twitterbird.png"; sourceTree = "<group>"; };
+		1AE669DF152148A0000965B5 /* 210-twitterbird@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "210-twitterbird@2x.png"; path = "../../Users/james/Developer Tools/Images/GlyphishPro/icons/icons-white/210-twitterbird@2x.png"; sourceTree = "<group>"; };
+		1AE669F515215485000965B5 /* CloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudViewController.h; sourceTree = "<group>"; };
+		1AE669F615215485000965B5 /* CloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudViewController.m; sourceTree = "<group>"; };
+		1AE669F715215485000965B5 /* CloudViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CloudViewController.xib; sourceTree = "<group>"; };
+		1AE669FA152160FA000965B5 /* 234-cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "234-cloud.png"; sourceTree = "<group>"; };
+		1AE669FB152160FA000965B5 /* 234-cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "234-cloud@2x.png"; sourceTree = "<group>"; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -357,6 +374,23 @@
 			name = "Sound Player";
 			sourceTree = "<group>";
 		};
+		1AE669E5152149CD000965B5 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
+		1AE669EF1521534B000965B5 /* Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				1AE669F515215485000965B5 /* CloudViewController.h */,
+				1AE669F615215485000965B5 /* CloudViewController.m */,
+				1AE669F715215485000965B5 /* CloudViewController.xib */,
+			);
+			name = Cloud;
+			sourceTree = "<group>";
+		};
 		1AF34E7915176A260065A16D /* Stats */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +404,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
+				1AE669E5152149CD000965B5 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
 				1AFFE8D015176431004B4590 /* UI */,
 				1AFFE8D11517643A004B4590 /* Model */,
@@ -434,6 +469,7 @@
 		1AFFE8D015176431004B4590 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1AE669EF1521534B000965B5 /* Cloud */,
 				1AF34E7915176A260065A16D /* Stats */,
 				1A00013A1517697500600916 /* Signon */,
 				1AFFE8DD151764DB004B4590 /* Active Game */,
@@ -649,6 +685,12 @@
 		1AFFE8DF151765B7004B4590 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1AE669FA152160FA000965B5 /* 234-cloud.png */,
+				1AE669FB152160FA000965B5 /* 234-cloud@2x.png */,
+				1AE669DC152148A0000965B5 /* 209-twitter.png */,
+				1AE669DD152148A0000965B5 /* 209-twitter@2x.png */,
+				1AE669DE152148A0000965B5 /* 210-twitterbird.png */,
+				1AE669DF152148A0000965B5 /* 210-twitterbird@2x.png */,
 				1AFFE7C515175E7B004B4590 /* amazing.png */,
 				1AFFE7C615175E7B004B4590 /* anger.png */,
 				1AFFE7CD15175E7B004B4590 /* bad_egg.png */,
@@ -823,6 +865,13 @@
 				1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */,
 				1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */,
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
+				1AE669E0152148A0000965B5 /* 209-twitter.png in Resources */,
+				1AE669E1152148A0000965B5 /* 209-twitter@2x.png in Resources */,
+				1AE669E2152148A0000965B5 /* 210-twitterbird.png in Resources */,
+				1AE669E3152148A0000965B5 /* 210-twitterbird@2x.png in Resources */,
+				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
+				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
+				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -879,6 +928,7 @@
 				1AFFE8C715175EB0004B4590 /* Wind.m in Sources */,
 				1AFFE8C815175EB0004B4590 /* WindDirectionSwipeRecognizer.m in Sources */,
 				1AFFE8C915175EB0004B4590 /* WindViewController.m in Sources */,
+				1AE669F815215485000965B5 /* CloudViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 #define kCurrentGameFileKey     @"currentGameFileName"
 #define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kGamePointKey           @"gamePoint"
+#define kTweetEventsKey         @"tweetEvents"
 #define kUseridKey              @"userid"
 #define kDefaultGamePoint       13
 #define kMinGamePoint           9
@@ -20,7 +21,7 @@
 static Preferences* currentPreferences= nil;
 
 @implementation Preferences
-@synthesize filePath, tournamentName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid;
+@synthesize filePath, tournamentName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid,isTweetingEvents;
 
 -(id) init  {
     self = [super init];
@@ -42,6 +43,7 @@ static Preferences* currentPreferences= nil;
             self.gamePoint = kDefaultGamePoint;
         }
         self.userid = [decoder decodeObjectForKey:kUseridKey];
+        self.isTweetingEvents = [decoder decodeBoolForKey:kTweetEventsKey];
     } 
     return self; 
 } 
@@ -52,6 +54,7 @@ static Preferences* currentPreferences= nil;
     [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey]; 
     [encoder encodeBool:self.gamePoint forKey:kGamePointKey];
     [encoder encodeObject:self.userid forKey:kUseridKey];
+    [encoder encodeBool:self.isTweetingEvents forKey:kTweetEventsKey];
 } 
 
 +(Preferences*)getCurrentPreferences {

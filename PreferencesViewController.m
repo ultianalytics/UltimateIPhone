@@ -17,27 +17,11 @@
 SignonViewController* signonController;
 
 @implementation PreferencesViewController
-@synthesize playerDisplaySegmentedControl,syncButton,playerDisplayCell,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,preferencesTableView,cloudTableView,signoffButton;
-
+@synthesize preferencesTableView,playerDisplaySegmentedControl,playerDisplayCell;
 NSArray* preferencesCells;
-NSArray* cloudCells;
-
-UIAlertView* busyView;
-
--(void)goSignonView{
-    signonController = [[SignonViewController alloc] init];
-    [self.navigationController pushViewController:signonController animated: YES];
-}
 
 -(void)populateViewFromModel {
     self.playerDisplaySegmentedControl.selectedSegmentIndex = [Preferences getCurrentPreferences].isDiplayingPlayerNumber ? 1 : 0;
-    NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
-    self.websiteLabel.text = websiteURL == nil ?  @"unknown (do upload)" : websiteURL;
-    self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
-    NSString* userid = [Preferences getCurrentPreferences].userid;
-    self.userLabel.text = userid == nil ? @"unknown (do upload)" : userid;
-    self.signoffButton.hidden = userid == nil;
 }
 
 -(IBAction)isDiplayingPlayerNumberChanged: (id) sender {
@@ -45,109 +29,20 @@ UIAlertView* busyView;
     [[Preferences getCurrentPreferences] save];
 }
 
--(IBAction)syncButtonClicked: (id) sender {
-    [self upload];
-}
-
--(void)upload {
-    [self startBusyDialog];
-    [self performSelectorInBackground:@selector(doUpload) withObject:nil];
-}
-
--(void)doUpload {
-    NSError* uploadError = nil;
-    //[CloudClient uploadTeam:[Team getCurrentTeam] error: &uploadError];
-    [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames] error: &uploadError];
-    [self stopBusyDialog];
-    if (uploadError) {
-        if (uploadError.code == Unauthorized) {
-            [self goSignonView];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle: NSLocalizedString(@"Upload FAILED",nil)
-                                  message: NSLocalizedString(@"We were unable to upload your data to the cloud.  Try again later.",nil)
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                  otherButtonTitles: nil];
-            [alert show];
-        }
-    } else {
-        [self populateViewFromModel];
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"Upload Complete",nil)
-                              message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
-    }
-}
-
-
--(void)startBusyDialog {
-    busyView = [[UIAlertView alloc] initWithTitle: @"Uploading data to cloud..."
-                                                            message: nil
-                                                           delegate: self
-                                                  cancelButtonTitle: nil
-                                                  otherButtonTitles: nil];
-    // Add a spinner
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinner.frame = CGRectMake(50,50, 200, 50);
-    [busyView addSubview:spinner];
-    [spinner startAnimating];
-        
-    [busyView show];
-}
-
--(void)stopBusyDialog {
-    if (busyView) {
-        [busyView dismissWithClickedButtonIndex:0 animated:NO];
-        [busyView removeFromSuperview];
-    }
-}
-
--(IBAction)signoffButtonClicked: (id) sender {
-    [CloudClient signOff];
-    [self populateViewFromModel];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.preferencesTableView) {
         preferencesCells = [NSArray arrayWithObjects:playerDisplayCell, nil];
         return [preferencesCells count];
-    } else {
-        cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];
-        return [cloudCells count];
-    }
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = tableView == self.preferencesTableView ? [preferencesCells objectAtIndex:[indexPath row]] : [cloudCells objectAtIndex:[indexPath row]];
+    UITableViewCell* cell = [preferencesCells objectAtIndex:[indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
-    NSUInteger row = [indexPath row]; 
-    if (tableView == self.cloudTableView) {
-        UITableViewCell* cell = [cloudCells objectAtIndex:row];
-        if (cell == websiteCell) {
-            NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
-            if (websiteURL != nil) {
-                NSURL *url = [NSURL URLWithString:websiteURL];
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        } else if (cell == adminSiteCell) {
-            NSString* adminUrl = adminSiteLabel.text;
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
-        } 
-    }
-} 
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -180,10 +75,6 @@ UIAlertView* busyView;
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.playerDisplaySegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     [self populateViewFromModel];
-    if (signonController && signonController.isSignedOn) {
-        [self doUpload];
-    }
-    signonController = nil;
 }
 
 - (void)viewDidUnload

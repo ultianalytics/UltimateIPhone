@@ -16,10 +16,12 @@
 @property (nonatomic) BOOL isDiplayingPlayerNumber;
 @property (nonatomic) int gamePoint;
 @property (nonatomic, strong) NSString* userid;
+@property (nonatomic) BOOL isTweetingEvents;
 
 +(Preferences*)getCurrentPreferences;
 +(NSString*)getFilePath;
 -(void)save;
+
 @end
 
 

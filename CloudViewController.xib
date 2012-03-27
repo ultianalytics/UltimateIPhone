@@ -65,7 +65,7 @@
 					<object class="IBUILabel" id="154126944">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 143}, {46, 21}}</string>
+						<string key="NSFrame">{{14, 143}, {137, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="204451863"/>
@@ -75,7 +75,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Cloud</string>
+						<string key="IBUIText">Statistics Website</string>
 						<object class="NSColor" key="IBUITextColor" id="495119370">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -119,7 +119,7 @@
 					<object class="IBUILabel" id="753984814">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 12}, {165, 21}}</string>
+						<string key="NSFrame">{{14, 12}, {165, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="997090981"/>

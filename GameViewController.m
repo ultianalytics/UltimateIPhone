@@ -19,7 +19,7 @@
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
-    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView;
+    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel;
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
     if (isOffense) {
@@ -303,6 +303,7 @@
         [self updateNavBarTitle]; 
         [[Game getCurrentGame] save];
         [self updateViewFromGame:[Game getCurrentGame]];
+        self.tweetingLabel.hidden = ![Preferences getCurrentPreferences].isTweetingEvents;
     }
 }
 

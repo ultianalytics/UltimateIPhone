@@ -39,6 +39,8 @@
 @property (nonatomic, strong) IBOutlet UIView* swipeEventsView;
 @property (nonatomic, strong) IBOutlet UIView* hideReceiverView;
 
+@property (nonatomic, strong) IBOutlet UILabel* tweetingLabel;
+
 
 -(void) goToPlayersOnFieldView;
 -(void) goToHistoryView: (BOOL) curl;

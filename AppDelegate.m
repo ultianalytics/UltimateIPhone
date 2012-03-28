@@ -82,7 +82,7 @@
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:4];
     tabBarItem.image = [UIImage imageNamed:@"19-gear.png"];
-    tabBarItem.title = @"Prefs";  
+    tabBarItem.title = @"Config";  
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

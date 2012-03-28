@@ -21,7 +21,7 @@
 static Preferences* currentPreferences= nil;
 
 @implementation Preferences
-@synthesize filePath, tournamentName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid,isTweetingEvents;
+@synthesize filePath, tournamentName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid,isTweetingEvents,twitterAccountDescription;
 
 -(id) init  {
     self = [super init];

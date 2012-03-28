@@ -13,6 +13,7 @@
 #import "Event.h"
 #import "Team.h"
 #import "Preferences.h"
+#import "Tweeter.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -259,6 +260,7 @@ BOOL arePointSummariesValid;
     [[self getCurrentPoint] addEvent:event]; 
     [self updateLastLine: event];
     [self clearPointSummaries];
+    [Tweeter tweetEvent:event forGame:self isUndo:NO];
 }
 
 -(BOOL)hasEvents {
@@ -267,11 +269,13 @@ BOOL arePointSummariesValid;
 
 -(void)removeLastEvent {
     if ([self getCurrentPoint] != nil) {
+        Event* lastEvent = [self getLastEvent];
         [[self getCurrentPoint] removeLastEvent]; 
         if ([[self getCurrentPoint] getNumberOfEvents] == 0)  {
             [self.points removeLastObject];
         }
         [self clearPointSummaries];
+        [Tweeter tweetEvent:lastEvent forGame:self isUndo:YES];
     }
 }
 

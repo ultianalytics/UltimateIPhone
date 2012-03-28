@@ -17,6 +17,7 @@
 @property (nonatomic) int gamePoint;
 @property (nonatomic, strong) NSString* userid;
 @property (nonatomic) BOOL isTweetingEvents;
+@property (nonatomic, strong) NSString* twitterAccountDescription;
 
 +(Preferences*)getCurrentPreferences;
 +(NSString*)getFilePath;

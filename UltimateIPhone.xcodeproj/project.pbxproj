@@ -17,6 +17,8 @@
 		1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669FA152160FA000965B5 /* 234-cloud.png */; };
 		1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669FB152160FA000965B5 /* 234-cloud@2x.png */; };
 		1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A091521EA9B000965B5 /* tweet-button.png */; };
+		1AE66A1115227490000965B5 /* Tweeter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A1015227490000965B5 /* Tweeter.m */; };
+		1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE66A131522769B000965B5 /* Accounts.framework */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -156,6 +158,9 @@
 		1AE669FA152160FA000965B5 /* 234-cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "234-cloud.png"; sourceTree = "<group>"; };
 		1AE669FB152160FA000965B5 /* 234-cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "234-cloud@2x.png"; sourceTree = "<group>"; };
 		1AE66A091521EA9B000965B5 /* tweet-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tweet-button.png"; sourceTree = "<group>"; };
+		1AE66A0F15227490000965B5 /* Tweeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweeter.h; sourceTree = "<group>"; };
+		1AE66A1015227490000965B5 /* Tweeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweeter.m; sourceTree = "<group>"; };
+		1AE66A131522769B000965B5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -339,7 +344,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
+				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
 				1AFFE7B215175DC6004B4590 /* AudioToolbox.framework in Frameworks */,
@@ -350,6 +355,7 @@
 				1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */,
 				1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */,
 				1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */,
+				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
 				1AFFE89615175EB0004B4590 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +433,7 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1AE66A131522769B000965B5 /* Accounts.framework */,
 				1AE669D21520012C000965B5 /* Twitter.framework */,
 				1AFFE7B415175DDC004B4590 /* QuartzCore.framework */,
 				1AFFE7B015175DC6004B4590 /* AudioToolbox.framework */,
@@ -516,6 +523,8 @@
 			children = (
 				1AFFE7D315175E7B004B4590 /* CloudClient.h */,
 				1AFFE7D415175E7B004B4590 /* CloudClient.m */,
+				1AE66A0F15227490000965B5 /* Tweeter.h */,
+				1AE66A1015227490000965B5 /* Tweeter.m */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -925,6 +934,7 @@
 				1AFFE8C815175EB0004B4590 /* WindDirectionSwipeRecognizer.m in Sources */,
 				1AFFE8C915175EB0004B4590 /* WindViewController.m in Sources */,
 				1AE669F815215485000965B5 /* CloudViewController.m in Sources */,
+				1AE66A1115227490000965B5 /* Tweeter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

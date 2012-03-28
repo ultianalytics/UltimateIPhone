@@ -5,7 +5,7 @@
 //  Created by Jim Geppert on 2/17/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+#import <Twitter/Twitter.h>
 #import "CloudViewController.h"
 #import "Preferences.h"
 #import "ColorMaster.h"
@@ -13,7 +13,7 @@
 #import "SignonViewController.h"
 #import "Team.h"
 #import "Game.h"
-#import <Twitter/Twitter.h>
+#import "Tweeter.h"
 
 SignonViewController* signonController;
 
@@ -32,22 +32,14 @@ UIAlertView* busyView;
 
 -(IBAction)tweetButtonClicked: (id) sender; {
     // Create the view controller
-    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-    
-    // Optional: set an image, url and initial text
-//    [twitter addImage:[UIImage imageNamed:@"iOSDevTips.png"]];
-//    [twitter addURL:[NSURL URLWithString:[NSString stringWithString:@"http://iOSDeveloperTips.com/"]]];
-    Score score = [[Game getCurrentGame] getScore];
-    NSString* scoreText = [NSString stringWithFormat: @"Score: %d-%d %@. \n", score.ours, score.theirs, score.ours > score.theirs ?
-                           [Team getCurrentTeam].name : [Game getCurrentGame].opponentName];
-    [twitter setInitialText:scoreText];
+    TWTweetComposeViewController* twitter = [[TWTweetComposeViewController alloc] init];
+    [twitter setInitialText: [NSString stringWithFormat:@"%@.  ", [Tweeter getGameScoreDescription: [Game getCurrentGame]]]];
     
     // Show the controller
     [self presentModalViewController:twitter animated:YES];
     
     // Called when the tweet dialog has been closed
-    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 
-    {
+    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
         NSString *title = @"Tweet Status";
         NSString *msg; 
         

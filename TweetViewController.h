@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TweetViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
+@interface TweetViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tweetTextCell;
@@ -20,5 +20,7 @@
 
 -(void)cancelSend;
 -(void)sendTweet;
+-(void)populateViewFromModel;
+-(void)checkAccountAvailable;
 
 @end

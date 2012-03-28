@@ -9,9 +9,42 @@
 #import "TweetViewController.h"
 #import "ColorMaster.h"
 #import "SoundPlayer.h"
+#import "Tweeter.h"
+
+#define kNoAccountText @"NO TWITTER ACCOUNT DEFINED"
 
 @implementation TweetViewController
 @synthesize tableView,tweetTextCell,tweetAccountCell,accountNameLabel,tweetTextView,charCountLabel,initialText;
+
+-(void)populateViewFromModel {
+    NSString* currentAccount = [Tweeter getTwitterAccountName];
+    if (currentAccount == nil) {
+        self.accountNameLabel.text = kNoAccountText;
+    } else {
+        self.accountNameLabel.text = currentAccount;
+    }
+}
+
+-(void)checkAccountAvailable {
+    if (self.accountNameLabel.text == kNoAccountText) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle: NSLocalizedString(@"No Twitter Accounts",nil)
+                              message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings.",nil)
+                              delegate: self
+                              cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
+                              otherButtonTitles: NSLocalizedString(@"Open Settings",nil), nil];
+        [alert show];
+    } 
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -94,6 +127,13 @@
     [super viewWillAppear:animated];
     self.tweetTextView.text = initialText ? initialText : @"";
     self.charCountLabel.text = [NSString stringWithFormat:@"%d", [self.tweetTextView.text length]];
+    [self populateViewFromModel];
+    [self.tweetTextView becomeFirstResponder]; // makes the text view "in focus" and shows the keyboard
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self checkAccountAvailable];
 }
 
 - (void)viewDidUnload

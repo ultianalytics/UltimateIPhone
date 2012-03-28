@@ -10,6 +10,7 @@
 #import "ColorMaster.h"
 #import "SoundPlayer.h"
 #import "Tweeter.h"
+#import "TwitterAccountPickViewController.h"
 
 #define kNoAccountText @"NO TWITTER ACCOUNT DEFINED"
 
@@ -66,7 +67,8 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
     if ([indexPath section] == 1) {
-        // open view to pick account
+        TwitterAccountPickViewController* pickController = [[TwitterAccountPickViewController alloc] init];
+        [self.navigationController pushViewController:pickController animated: YES];
     }
 } 
 

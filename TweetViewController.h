@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString* initialText;
 
 +(void)alertNoAccount: (id<UIAlertViewDelegate>) delegate;
++(void)goToTwitterSettings;
 
 -(void)checkAccountAvailable;
 -(void)cancelSend;

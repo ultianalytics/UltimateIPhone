@@ -53,7 +53,7 @@ UIAlertView* busyView;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     // if user wants to set thier twitter account...take them to iphone settings
     if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+        [TweetViewController goToTwitterSettings];
     } 
 }
     

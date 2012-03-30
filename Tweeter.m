@@ -62,16 +62,23 @@
     }
 }
 
-+(NSArray*)getTwitterAccounts { 
++(NSArray*)getTwitterAccounts {
+    __block NSArray* accounts = nil;
     if ([TWTweetComposeViewController canSendTweet]) {
         // Create account store and ask it for all of the twitter type accounts
         ACAccountStore* accountStore = [[ACAccountStore alloc] init];
         ACAccountType* accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        // Request access from the user to access their Twitter account
+        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+            // Did user have access?
+            if (granted == YES) {
+                accounts = [accountStore accountsWithAccountType:accountType];
+            }
+        }];
         return [accountStore accountsWithAccountType:accountType];
         
-    } else {
-        return [[NSArray alloc] init];
-    }
+    } 
+    return accounts == nil ? [[NSArray alloc] init] : accounts;
 }
 
 +(ACAccount*)getTwitterAccount { 

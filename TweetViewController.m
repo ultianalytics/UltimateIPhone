@@ -26,11 +26,14 @@
 +(void)alertNoAccount: (id<UIAlertViewDelegate>) delegate {
     UIAlertView *alert = [[UIAlertView alloc] 
                           initWithTitle: NSLocalizedString(@"No Twitter Accounts",nil)
-                          message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings.",nil)
+                          message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings (or you are not granting access to this app).",nil)
                           delegate: delegate
                           cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
                           otherButtonTitles: NSLocalizedString(@"Open Settings",nil), nil];
     [alert show];
+}
++(void)goToTwitterSettings {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
 }
 
 -(void)checkAccountAvailable {
@@ -41,7 +44,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+        [TweetViewController goToTwitterSettings];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         [self.navigationController popViewControllerAnimated:YES];

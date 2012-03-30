@@ -70,14 +70,18 @@ static TweetQueue* current = nil;
     NSString*  message = @"";
     @synchronized(queue) {    
         NSMutableArray* tweeted = [[NSMutableArray alloc] init];
+        NSString* lastType =  nil;
         for (Tweet* tweet in queue) {
             NSString* newMessage = [NSString stringWithFormat:@"%@%@%@", message, [message isEqualToString:@""] ? @"" : @", ", tweet.message];
             if ([newMessage length] > 140) {
+                break;
+            } else if (lastType != nil && ![tweet.type isEqualToString:lastType]) {
                 break;
             } else {
                 message = newMessage;
                 [tweeted addObject:tweet];
             }
+            lastType = tweet.type;
         }
         [queue removeObjectsInArray:tweeted];
     }

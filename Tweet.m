@@ -11,12 +11,13 @@
 
 @implementation Tweet
 
-@synthesize message;
+@synthesize message, type;
 
--(id) initMessage: (NSString*) aMessage  {
+-(id) initMessage: (NSString*) aMessage type: aType  {
     self = [super init];
     if (self) {
         message = aMessage;
+        type = aType;
     }
     return self;
 }

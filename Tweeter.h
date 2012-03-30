@@ -10,11 +10,13 @@
 @class Event;
 @class Game;
 @class ACAccount;
+@class Tweet;
 
 @interface Tweeter : NSObject
 
 +(NSString*)getGameScoreDescription: (Game*) game;
-+(void)tweet:(NSString*) message;
++(void)tweet:(Tweet*) message;
++(void)tweetMessage:(NSString*) message;
 +(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 +(NSArray*)getTwitterAccounts;
 +(ACAccount*)getTwitterAccount;

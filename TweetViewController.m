@@ -96,7 +96,7 @@
 }
 
 -(void)sendTweet {
-    [Tweeter tweet:tweetTextView.text];
+    [Tweeter tweetMessage:tweetTextView.text];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

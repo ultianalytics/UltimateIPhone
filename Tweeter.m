@@ -36,11 +36,16 @@
         if ([event isGoal]) {
             message = [NSString stringWithFormat: @"%@ (%@)", message, [Tweeter getGameScoreDescription:game]];
         }
-        [self tweet:message];
+        NSString* type = [event isGoal] ? @"goal" : @"event";
+        [Tweeter tweet: [[Tweet alloc] initMessage:message type: type]];
     }
 }
 
-+(void)tweet:(NSString*) message { 
++(void)tweetMessage:(NSString*) message {
+    [Tweeter tweet: [[Tweet alloc] initMessage:message type:@"untyped"]];
+}
+
++(void)tweet:(Tweet*) tweet { 
     // start tweet queue (if not already started)
     [[TweetQueue getCurrent] start];
     
@@ -56,7 +61,7 @@
              if (granted == YES)
              {
                  // tweet
-                 [[TweetQueue getCurrent] addTweet: [[Tweet alloc] initMessage:message]];
+                 [[TweetQueue getCurrent] addTweet: tweet];
              }
          }];
     }

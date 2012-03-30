@@ -12,6 +12,7 @@
 @interface Tweet : NSObject
 
 @property (nonatomic, strong) NSString* message;
+@property (nonatomic, strong) NSString* type;
 
--(id) initMessage: (NSString*) aMessage;
+-(id) initMessage: (NSString*) aMessage type: aType;
 @end

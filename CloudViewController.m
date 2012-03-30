@@ -15,11 +15,13 @@
 #import "Game.h"
 #import "Tweeter.h"
 #import "TweetViewController.h"
+#import "TwitterAccountPickViewController.h"
+#import "Constants.h"
 
 SignonViewController* signonController;
 
 @implementation CloudViewController
-@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,twitterTableView,cloudTableView,signoffButton, tweetEveryEventCell, tweetButtonCell, tweetEveryEventSwitch;
+@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,twitterTableView,cloudTableView,signoffButton, tweetEveryEventCell, tweetButtonCell, tweetEveryEventSwitch, twitterAccountCell, twitterAccountNameLabel;
 
 NSArray* twitterCells;
 NSArray* cloudCells;
@@ -27,6 +29,12 @@ NSArray* cloudCells;
 UIAlertView* busyView;
 
 -(IBAction)isTweetingEveryEventChanged: (id) sender {
+    if (self.tweetEveryEventSwitch.on) {
+        if ([self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
+            self.tweetEveryEventSwitch.on = NO;
+            [TweetViewController alertNoAccount: self];
+        } 
+    }
     [Preferences getCurrentPreferences].isTweetingEvents =  self.tweetEveryEventSwitch.on;
     [[Preferences getCurrentPreferences] save];
 }
@@ -42,33 +50,13 @@ UIAlertView* busyView;
     [self.navigationController pushViewController:tweetController animated: YES];
 }
 
--(IBAction)tweetButtonClickedOLD: (id) sender; {
-    // Create the view controller
-    TWTweetComposeViewController* twitter = [[TWTweetComposeViewController alloc] init];
-    [twitter setInitialText: [NSString stringWithFormat:@"%@.  ", [Tweeter getGameScoreDescription: [Game getCurrentGame]]]];
-    
-    // Show the controller
-    [self presentModalViewController:twitter animated:YES];
-    
-    // Called when the tweet dialog has been closed
-    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
-        NSString *title = @"Tweet Status";
-        NSString *msg; 
-        
-        if (result == TWTweetComposeViewControllerResultCancelled)
-            msg = @"Tweet compostion was canceled.";
-        else if (result == TWTweetComposeViewControllerResultDone)
-            msg = @"Tweet composition completed.";
-        
-        // Show alert to see how things went...
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alertView show];
-        
-        // Dismiss the controller
-        [self dismissModalViewControllerAnimated:YES];
-    };
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // if user wants to set thier twitter account...take them to iphone settings
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+    } 
 }
-
+    
 -(void)goSignonView{
     signonController = [[SignonViewController alloc] init];
     [self.navigationController pushViewController:signonController animated: YES];
@@ -83,6 +71,9 @@ UIAlertView* busyView;
     self.userLabel.text = userid == nil ? @"unknown (do upload)" : userid;
     self.signoffButton.hidden = userid == nil;
     self.tweetEveryEventSwitch.on = [Preferences getCurrentPreferences].isTweetingEvents;
+    NSString* currentAccount = [Tweeter getTwitterAccountName];
+    self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
+    self.twitterAccountCell.accessoryType = currentAccount == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
 }
 
 -(IBAction)syncButtonClicked: (id) sender {
@@ -157,7 +148,7 @@ UIAlertView* busyView;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.twitterTableView) {
-        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, nil];
+        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, nil];
         return [twitterCells count];
     } else {
         cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];
@@ -172,19 +163,27 @@ UIAlertView* busyView;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
-    NSUInteger row = [indexPath row]; 
-    if (tableView == self.cloudTableView) {
-        UITableViewCell* cell = [cloudCells objectAtIndex:row];
-        if (cell == websiteCell) {
-            NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
-            if (websiteURL != nil) {
-                NSURL *url = [NSURL URLWithString:websiteURL];
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        } else if (cell == adminSiteCell) {
-            NSString* adminUrl = adminSiteLabel.text;
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
-        } 
+    if (tableView == cloudTableView) {
+        if (tableView == self.cloudTableView) {
+            UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
+            if (cell == websiteCell) {
+                NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
+                if (websiteURL != nil) {
+                    NSURL *url = [NSURL URLWithString:websiteURL];
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+            } else if (cell == adminSiteCell) {
+                NSString* adminUrl = adminSiteLabel.text;
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
+            } 
+        }
+    }
+    else {
+        UITableViewCell* cell = [twitterCells objectAtIndex:[indexPath row]];
+        if (cell == twitterAccountCell && ![self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
+            TwitterAccountPickViewController* pickController = [[TwitterAccountPickViewController alloc] init];
+            [self.navigationController pushViewController:pickController animated: YES];
+        }
     }
 } 
 
@@ -193,7 +192,7 @@ UIAlertView* busyView;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Settings", @"Settings");
+        self.title = NSLocalizedString(@"Cloud", @"Cloud");
     }
     return self;
 }
@@ -211,7 +210,10 @@ UIAlertView* busyView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(populateViewFromModel)
+                                                 name: @"UIApplicationWillEnterForegroundNotification"
+                                               object: nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -224,13 +226,13 @@ UIAlertView* busyView;
         [self doUpload];
     }
     signonController = nil;
+    
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

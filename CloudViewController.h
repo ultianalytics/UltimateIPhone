@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 @class GTMOAuthAuthentication;
 
-@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView* twitterTableView;
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* tweetEveryEventCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tweetButtonCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* twitterAccountCell;
+@property (nonatomic, strong) IBOutlet UILabel* twitterAccountNameLabel;
 @property (nonatomic, strong) IBOutlet UITableViewCell* uploadCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;

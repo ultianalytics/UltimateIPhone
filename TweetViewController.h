@@ -18,10 +18,12 @@
 @property (nonatomic, strong) IBOutlet UITextView* tweetTextView;
 @property (nonatomic, strong) NSString* initialText;
 
++(void)alertNoAccount: (id<UIAlertViewDelegate>) delegate;
+
+-(void)checkAccountAvailable;
 -(void)cancelSend;
 -(void)sendTweet;
 -(void)populateViewFromModel;
--(void)checkAccountAvailable;
-- (void)updateCharCount: (int) count;
+-(void)updateCharCount: (int) count;
 
 @end

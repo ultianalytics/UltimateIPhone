@@ -12,30 +12,30 @@
 #import "Tweeter.h"
 #import "TweetQueue.h"
 #import "TwitterAccountPickViewController.h"
+#import "Constants.h"
 
-#define kNoAccountText @"NO TWITTER ACCOUNT DEFINED"
 
 @implementation TweetViewController
 @synthesize tableView,tweetTextCell,tweetAccountCell,accountNameLabel,tweetTextView,charCountLabel,initialText;
 
 -(void)populateViewFromModel {
     NSString* currentAccount = [Tweeter getTwitterAccountName];
-    if (currentAccount == nil) {
-        self.accountNameLabel.text = kNoAccountText;
-    } else {
-        self.accountNameLabel.text = currentAccount;
-    }
+    self.accountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
+}
+
++(void)alertNoAccount: (id<UIAlertViewDelegate>) delegate {
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: NSLocalizedString(@"No Twitter Accounts",nil)
+                          message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings.",nil)
+                          delegate: delegate
+                          cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
+                          otherButtonTitles: NSLocalizedString(@"Open Settings",nil), nil];
+    [alert show];
 }
 
 -(void)checkAccountAvailable {
-    if (self.accountNameLabel.text == kNoAccountText) {
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"No Twitter Accounts",nil)
-                              message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings.",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
-                              otherButtonTitles: NSLocalizedString(@"Open Settings",nil), nil];
-        [alert show];
+    if ([self.accountNameLabel.text isEqualToString: kNoAccountText]) {
+        [TweetViewController alertNoAccount: self];
     } 
 }
 

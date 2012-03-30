@@ -22,5 +22,6 @@
 -(void)sendTweet;
 -(void)populateViewFromModel;
 -(void)checkAccountAvailable;
+- (void)updateCharCount: (int) count;
 
 @end

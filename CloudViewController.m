@@ -14,6 +14,7 @@
 #import "Team.h"
 #import "Game.h"
 #import "Tweeter.h"
+#import "TweetViewController.h"
 
 SignonViewController* signonController;
 
@@ -31,6 +32,17 @@ UIAlertView* busyView;
 }
 
 -(IBAction)tweetButtonClicked: (id) sender; {
+    // Create the view controller
+    TweetViewController* tweetController = [[TweetViewController alloc] init];
+    if (![Tweeter isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
+        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [Tweeter getGameScoreDescription: [Game getCurrentGame]]]];
+    }
+    
+    // Show the controller
+    [self.navigationController pushViewController:tweetController animated: YES];
+}
+
+-(IBAction)tweetButtonClickedOLD: (id) sender; {
     // Create the view controller
     TWTweetComposeViewController* twitter = [[TWTweetComposeViewController alloc] init];
     [twitter setInitialText: [NSString stringWithFormat:@"%@.  ", [Tweeter getGameScoreDescription: [Game getCurrentGame]]]];

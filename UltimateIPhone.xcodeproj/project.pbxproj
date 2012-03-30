@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
+		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AE669E0152148A0000965B5 /* 209-twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669DC152148A0000965B5 /* 209-twitter.png */; };
 		1AE669E1152148A0000965B5 /* 209-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669DD152148A0000965B5 /* 209-twitter@2x.png */; };
@@ -19,6 +21,10 @@
 		1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A091521EA9B000965B5 /* tweet-button.png */; };
 		1AE66A1115227490000965B5 /* Tweeter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A1015227490000965B5 /* Tweeter.m */; };
 		1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE66A131522769B000965B5 /* Accounts.framework */; };
+		1AE66A1C15233217000965B5 /* TweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A1A15233217000965B5 /* TweetViewController.m */; };
+		1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A1B15233217000965B5 /* TweetViewController.xib */; };
+		1AE66A2215235315000965B5 /* TwitterAccountPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */; };
+		1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -147,6 +153,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
+		1A6B265D15250E0D00C119A5 /* TweetQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetQueue.m; sourceTree = "<group>"; };
+		1A6B266015250FC400C119A5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
+		1A6B266115250FC400C119A5 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AE669DC152148A0000965B5 /* 209-twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "209-twitter.png"; path = "../../Users/james/Developer Tools/Images/GlyphishPro/icons/icons-white/209-twitter.png"; sourceTree = "<group>"; };
 		1AE669DD152148A0000965B5 /* 209-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "209-twitter@2x.png"; path = "../../Users/james/Developer Tools/Images/GlyphishPro/icons/icons-white/209-twitter@2x.png"; sourceTree = "<group>"; };
@@ -161,6 +171,12 @@
 		1AE66A0F15227490000965B5 /* Tweeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweeter.h; sourceTree = "<group>"; };
 		1AE66A1015227490000965B5 /* Tweeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweeter.m; sourceTree = "<group>"; };
 		1AE66A131522769B000965B5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		1AE66A1915233217000965B5 /* TweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetViewController.h; sourceTree = "<group>"; };
+		1AE66A1A15233217000965B5 /* TweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetViewController.m; sourceTree = "<group>"; };
+		1AE66A1B15233217000965B5 /* TweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetViewController.xib; sourceTree = "<group>"; };
+		1AE66A1F15235314000965B5 /* TwitterAccountPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccountPickViewController.h; sourceTree = "<group>"; };
+		1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccountPickViewController.m; sourceTree = "<group>"; };
+		1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterAccountPickViewController.xib; sourceTree = "<group>"; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -388,6 +404,12 @@
 				1AE669F515215485000965B5 /* CloudViewController.h */,
 				1AE669F615215485000965B5 /* CloudViewController.m */,
 				1AE669F715215485000965B5 /* CloudViewController.xib */,
+				1AE66A1915233217000965B5 /* TweetViewController.h */,
+				1AE66A1A15233217000965B5 /* TweetViewController.m */,
+				1AE66A1B15233217000965B5 /* TweetViewController.xib */,
+				1AE66A1F15235314000965B5 /* TwitterAccountPickViewController.h */,
+				1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */,
+				1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -525,6 +547,10 @@
 				1AFFE7D415175E7B004B4590 /* CloudClient.m */,
 				1AE66A0F15227490000965B5 /* Tweeter.h */,
 				1AE66A1015227490000965B5 /* Tweeter.m */,
+				1A6B265C15250E0D00C119A5 /* TweetQueue.h */,
+				1A6B265D15250E0D00C119A5 /* TweetQueue.m */,
+				1A6B266015250FC400C119A5 /* Tweet.h */,
+				1A6B266115250FC400C119A5 /* Tweet.m */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -877,6 +903,8 @@
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
 				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
+				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
+				1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,6 +963,10 @@
 				1AFFE8C915175EB0004B4590 /* WindViewController.m in Sources */,
 				1AE669F815215485000965B5 /* CloudViewController.m in Sources */,
 				1AE66A1115227490000965B5 /* Tweeter.m in Sources */,
+				1AE66A1C15233217000965B5 /* TweetViewController.m in Sources */,
+				1AE66A2215235315000965B5 /* TwitterAccountPickViewController.m in Sources */,
+				1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */,
+				1A6B266215250FC400C119A5 /* Tweet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

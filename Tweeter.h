@@ -14,11 +14,13 @@
 @interface Tweeter : NSObject
 
 +(NSString*)getGameScoreDescription: (Game*) game;
++(void)tweet:(NSString*) message;
 +(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 +(NSArray*)getTwitterAccounts;
 +(ACAccount*)getTwitterAccount;
 +(NSString*)getTwitterAccountName;
 +(NSArray*)getTwitterAccountsNames;
 +(void)setPreferredTwitterAccount: (NSString*) accountName;
++(BOOL)isTweetingEvents;
 
 @end

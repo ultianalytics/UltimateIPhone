@@ -10,6 +10,7 @@
 #import "ColorMaster.h"
 #import "SoundPlayer.h"
 #import "Tweeter.h"
+#import "TweetQueue.h"
 #import "TwitterAccountPickViewController.h"
 
 #define kNoAccountText @"NO TWITTER ACCOUNT DEFINED"
@@ -78,9 +79,13 @@
     if (isTooLong) {
         [SoundPlayer playKeyIgnored];
     } else {
-        charCountLabel.text = [NSString stringWithFormat:@"%d", newLength];
+        [self updateCharCount: newLength];
     }
     return !isTooLong;
+}
+
+- (void)updateCharCount: (int) count {
+    charCountLabel.text = [NSString stringWithFormat:@"%d", 140 - count];
 }
 
 -(void)cancelSend {
@@ -88,6 +93,7 @@
 }
 
 -(void)sendTweet {
+    [Tweeter tweet:tweetTextView.text];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -128,7 +134,7 @@
 {
     [super viewWillAppear:animated];
     self.tweetTextView.text = initialText ? initialText : @"";
-    self.charCountLabel.text = [NSString stringWithFormat:@"%d", [self.tweetTextView.text length]];
+    [self updateCharCount: [self.tweetTextView.text length]];
     [self populateViewFromModel];
     [self.tweetTextView becomeFirstResponder]; // makes the text view "in focus" and shows the keyboard
 }

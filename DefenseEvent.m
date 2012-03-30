@@ -63,11 +63,11 @@
     return self.action == Callahan || self.action == Goal;
 }
 
-- (NSString*)getDescription {
+- (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     if (self.action == Pull) {
         return [NSString stringWithFormat:@"Pull from %@", self.defender.name];
     } else if (self.action == Goal) {
-        return @"Opponent Goal";
+        return opponentName == nil ? @"Opponent Goal" : [NSString stringWithFormat:@"%@ Goal", opponentName];
     } else if (self.action == De) {
         return [self.defender isAnonymous] ? @"Team D" :[NSString stringWithFormat:@"D by %@", self.defender.name];
     } else {

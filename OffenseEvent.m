@@ -71,7 +71,7 @@
     return self; 
 } 
 
-- (NSString*)getDescription {
+- (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     switch(self.action) {
         case Catch:
             return [NSString stringWithFormat:@"%@ to %@", self.passer.name, self.receiver.name];
@@ -80,7 +80,7 @@
         case Throwaway:
             return [NSString stringWithFormat:@"%@ throwaway", self.passer.name];            
         case Goal:
-            return [NSString stringWithFormat:@"Our Goal (%@ to %@)", self.passer.name, self.receiver.name];
+            return [NSString stringWithFormat:@"%@ Goal (%@ to %@)", (teamName == nil ? @"Our" : teamName), self.passer.name, self.receiver.name];
         default:
             return @"";
     }

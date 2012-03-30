@@ -32,7 +32,7 @@
     if ([Tweeter isTweetingEvents]) {
         NSString* message = isUndo ? 
             [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", event] :
-            [NSString stringWithFormat: @"%@", [event getDescription]];
+        [NSString stringWithFormat: @"%@", [event getDescription: [Team getCurrentTeam].name opponent:[game opponentName]]];
         if ([event isGoal]) {
             message = [NSString stringWithFormat: @"%@ (%@)", message, [Tweeter getGameScoreDescription:game]];
         }

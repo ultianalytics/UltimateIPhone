@@ -42,14 +42,18 @@
     return [self getDescription];
 }
 
+- (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
+    [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
+    return nil;
+}
+
 - (NSDictionary*) asDictionary {
     [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
     return nil;
 }
 
 - (NSString*)getDescription {
-    [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
-    return nil;
+    return [self getDescription:nil opponent:nil];
 }
 
 - (BOOL) isOffense {

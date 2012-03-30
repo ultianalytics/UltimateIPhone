@@ -23,6 +23,7 @@ typedef enum {
 @property Action action;
 
 - (NSString*)getDescription;
+- (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName;
 - (BOOL) isOffense;
 - (BOOL) isGoal;
 - (BOOL) isOurGoal;

@@ -21,23 +21,13 @@
 SignonViewController* signonController;
 
 @implementation CloudViewController
-@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,twitterTableView,cloudTableView,signoffButton, tweetEveryEventCell, tweetButtonCell, tweetEveryEventSwitch, twitterAccountCell, twitterAccountNameLabel;
+@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton;
 
 NSArray* twitterCells;
 NSArray* cloudCells;
 
 UIAlertView* busyView;
 
--(IBAction)isTweetingEveryEventChanged: (id) sender {
-    if (self.tweetEveryEventSwitch.on) {
-        if ([Tweeter getTwitterAccountName] == nil) {
-            self.tweetEveryEventSwitch.on = NO;
-            [TweetViewController alertNoAccount: self];
-        } 
-    }
-    [Preferences getCurrentPreferences].isTweetingEvents =  self.tweetEveryEventSwitch.on;
-    [[Preferences getCurrentPreferences] save];
-}
 
 -(IBAction)tweetButtonClicked: (id) sender; {
     // Create the view controller
@@ -70,11 +60,6 @@ UIAlertView* busyView;
     NSString* userid = [Preferences getCurrentPreferences].userid;
     self.userLabel.text = userid == nil ? @"unknown (do upload)" : userid;
     self.signoffButton.hidden = userid == nil;
-    self.tweetEveryEventSwitch.on = [Preferences getCurrentPreferences].isTweetingEvents;
-    NSString* currentAccount = [Tweeter getTwitterAccountName];
-    self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
-    self.twitterAccountCell.accessoryType = currentAccount == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    [twitterTableView reloadData];
 }
 
 -(IBAction)syncButtonClicked: (id) sender {
@@ -148,49 +133,31 @@ UIAlertView* busyView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.twitterTableView) {
-        if ([Tweeter getTwitterAccountName]) {
-            twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, nil];
-        } else {
-            twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, nil];
-        }
-        return [twitterCells count];
-    } else {
-        cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];
-        return [cloudCells count];
-    }
+    cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];
+    return [cloudCells count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = tableView == self.twitterTableView ? [twitterCells objectAtIndex:[indexPath row]] : [cloudCells objectAtIndex:[indexPath row]];
+    UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
-    if (tableView == cloudTableView) {
-        if (tableView == self.cloudTableView) {
-            UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
-            if (cell == websiteCell) {
-                NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
-                if (websiteURL != nil) {
-                    NSURL *url = [NSURL URLWithString:websiteURL];
-                    [[UIApplication sharedApplication] openURL:url];
-                }
-            } else if (cell == adminSiteCell) {
-                NSString* adminUrl = adminSiteLabel.text;
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
-            } 
-        }
+    if (tableView == self.cloudTableView) {
+        UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
+        if (cell == websiteCell) {
+            NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
+            if (websiteURL != nil) {
+                NSURL *url = [NSURL URLWithString:websiteURL];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        } else if (cell == adminSiteCell) {
+            NSString* adminUrl = adminSiteLabel.text;
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
+        } 
     }
-    else {
-        UITableViewCell* cell = [twitterCells objectAtIndex:[indexPath row]];
-        if (cell == twitterAccountCell && ![self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
-            TwitterAccountPickViewController* pickController = [[TwitterAccountPickViewController alloc] init];
-            [self.navigationController pushViewController:pickController animated: YES];
-        }
-    }
-} 
+  } 
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -225,7 +192,6 @@ UIAlertView* busyView;
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.tweetEveryEventSwitch.onTintColor = [ColorMaster getNavBarTintColor];
     [self populateViewFromModel];
     if (signonController && signonController.isSignedOn) {
         [self doUpload];

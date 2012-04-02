@@ -9,14 +9,15 @@
 #import <Foundation/Foundation.h>
 @class Event;
 @class Game;
+@class UPoint;
 @class ACAccount;
 @class Tweet;
 
 @interface Tweeter : NSObject
 
-+(NSString*)getGameScoreDescription: (Game*) game;
 +(void)tweet:(Tweet*) tweet;    
 +(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
++(void)tweetFirstEventOfPoint:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
 +(NSArray*)getRecentTweetActivity;
 +(NSArray*)getTwitterAccounts;
 +(ACAccount*)getTwitterAccount;
@@ -24,5 +25,9 @@
 +(NSArray*)getTwitterAccountsNames;
 +(void)setPreferredTwitterAccount: (NSString*) accountName;
 +(BOOL)isTweetingEvents;
+
+// private
++(NSString*)getGameScoreDescription: (Game*) game;
++(NSString*)pointBeginMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
 
 @end

@@ -44,6 +44,15 @@
     }
 }
 
++(void)tweetFirstEventOfPoint:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
+    if ([Tweeter isTweetingEvents]) {
+        NSString* message = [Tweeter pointBeginMessage:event forGame: game point: point isUndo: isUndo];
+        Tweet* tweet = [[Tweet alloc] initMessage:message type:@"NewPoint"];
+        tweet.associatedEvent = event;
+        [self tweet: tweet];
+    }
+}
+
 +(void)tweet:(Tweet*) tweet { 
     // start tweet queue (if not already started)
     [[TweetQueue getCurrent] start];
@@ -127,6 +136,21 @@
 +(void)setPreferredTwitterAccount: (NSString*) accountName { 
     [Preferences getCurrentPreferences].twitterAccountDescription = accountName;
     [[Preferences getCurrentPreferences] save];
+}
+
++(NSString*)pointBeginMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
+    NSString* message = nil;
+    if (isUndo) {
+        message = [NSString stringWithFormat: @"New point was a boo-boo...never mind"];
+    } else {
+        NSString* windDescription = game.wind && game.wind.mph ? @"" : @"";
+        NSMutableArray* names = [[NSMutableArray alloc] init];
+        for (Player* player in point.line) {
+            [names addObject:player.name];
+        }
+        message = [NSString stringWithFormat:@"Point begins, %@ on %@%@, Line: %@", [Team getCurrentTeam].name, [game isPointOline:point] ? @"Offense" : @"Defense", windDescription, [names componentsJoinedByString:@", "]];
+    }
+    return message;
 }
 
 @end

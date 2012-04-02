@@ -13,6 +13,7 @@
 @property (nonatomic, strong) IBOutlet UITableView* tweetLogTableView;
 
 -(void)populateViewFromModel;
+-(NSString*)timeSince: (double) time;
 
 
 @end

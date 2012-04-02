@@ -11,21 +11,16 @@
 
 @implementation Tweet
 
-@synthesize message,type,status,undoMessage,error;
+@synthesize message,type,status,undoMessage,error,time;
 
 -(id) initMessage: (NSString*) aMessage {
-    self = [super init];
-    if (self) {
-        message = aMessage;
-        type = @"";
-        status = TweetQueued;
-    }
-    return self;
+    return [self initMessage: aMessage type: (NSString*) @""];
 }
 
 -(id) initMessage: (NSString*) aMessage type: (NSString*) aType {
     self = [super init];
     if (self) {
+        time = [NSDate timeIntervalSinceReferenceDate];
         message = aMessage;
         type = aType;
         status = TweetQueued;
@@ -34,20 +29,16 @@
 }
 
 -(id) initMessage: (NSString*) aMessage status: (TweetStatus) aStatus {
-    self = [super init];
+    self = [self initMessage: aMessage type: (NSString*) @""];
     if (self) {
-        message = aMessage;
-        type = @"";
         status = aStatus;
     }
     return self;
 }
 
 -(id) initMessage: (NSString*) aMessage failed: (NSString*)errorDescription {
-    self = [super init];
+    self = [self initMessage: aMessage type: (NSString*) @""];
     if (self) {
-        message = aMessage;
-        type = @"";
         status = TweetFailed;
         error = errorDescription;
     }

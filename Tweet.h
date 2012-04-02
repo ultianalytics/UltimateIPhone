@@ -22,6 +22,7 @@ typedef enum {
 @property (nonatomic, strong) NSString* undoMessage;
 @property (nonatomic) TweetStatus status;
 @property (nonatomic, strong) NSString* error;
+@property (nonatomic) double time;
 
 -(id) initMessage: (NSString*) aMessage type: (NSString*)type;
 -(id) initMessage: (NSString*) aMessage;

@@ -402,12 +402,32 @@
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				1AEE548815293B350067F539 /* TwitterController.h */,
-				1AEE548915293B350067F539 /* TwitterController.m */,
-				1AEE548A15293B350067F539 /* TwitterController.xib */,
 				1AE669F515215485000965B5 /* CloudViewController.h */,
 				1AE669F615215485000965B5 /* CloudViewController.m */,
 				1AE669F715215485000965B5 /* CloudViewController.xib */,
+			);
+			name = Cloud;
+			sourceTree = "<group>";
+		};
+		1AEE549E152944190067F539 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				1AE66A0F15227490000965B5 /* Tweeter.h */,
+				1AE66A1015227490000965B5 /* Tweeter.m */,
+				1A6B265C15250E0D00C119A5 /* TweetQueue.h */,
+				1A6B265D15250E0D00C119A5 /* TweetQueue.m */,
+				1A6B266015250FC400C119A5 /* Tweet.h */,
+				1A6B266115250FC400C119A5 /* Tweet.m */,
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
+		1AEE549F1529442E0067F539 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				1AEE548815293B350067F539 /* TwitterController.h */,
+				1AEE548915293B350067F539 /* TwitterController.m */,
+				1AEE548A15293B350067F539 /* TwitterController.xib */,
 				1AE66A1915233217000965B5 /* TweetViewController.h */,
 				1AE66A1A15233217000965B5 /* TweetViewController.m */,
 				1AE66A1B15233217000965B5 /* TweetViewController.xib */,
@@ -415,7 +435,7 @@
 				1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */,
 				1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */,
 			);
-			name = Cloud;
+			name = Twitter;
 			sourceTree = "<group>";
 		};
 		1AF34E7915176A260065A16D /* Stats */ = {
@@ -431,6 +451,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
+				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
 				1AFFE8D015176431004B4590 /* UI */,
 				1AFFE8D11517643A004B4590 /* Model */,
@@ -496,6 +517,7 @@
 		1AFFE8D015176431004B4590 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1AEE549F1529442E0067F539 /* Twitter */,
 				1AE669EF1521534B000965B5 /* Cloud */,
 				1AF34E7915176A260065A16D /* Stats */,
 				1A00013A1517697500600916 /* Signon */,
@@ -549,12 +571,6 @@
 			children = (
 				1AFFE7D315175E7B004B4590 /* CloudClient.h */,
 				1AFFE7D415175E7B004B4590 /* CloudClient.m */,
-				1AE66A0F15227490000965B5 /* Tweeter.h */,
-				1AE66A1015227490000965B5 /* Tweeter.m */,
-				1A6B265C15250E0D00C119A5 /* TweetQueue.h */,
-				1A6B265D15250E0D00C119A5 /* TweetQueue.m */,
-				1A6B266015250FC400C119A5 /* Tweet.h */,
-				1A6B266115250FC400C119A5 /* Tweet.m */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";

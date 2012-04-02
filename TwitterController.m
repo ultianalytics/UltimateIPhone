@@ -10,17 +10,16 @@
 #import "CloudViewController.h"
 #import "Preferences.h"
 #import "ColorMaster.h"
-#import "CloudClient.h"
-#import "SignonViewController.h"
 #import "Team.h"
 #import "Game.h"
 #import "Tweeter.h"
 #import "TweetViewController.h"
 #import "TwitterAccountPickViewController.h"
 #import "Constants.h"
+#import "TweetLogViewController.h"
 
 @implementation TwitterController
-@synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, tweetEveryEventSwitch, twitterAccountCell, twitterAccountNameLabel;
+@synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, tweetEveryEventSwitch, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
 
 NSArray* twitterCells;
 
@@ -56,7 +55,7 @@ UIAlertView* busyView;
 }
 
 
--(void)populateViewFromModel {
+-(void)populateViewFromModel {;
     self.tweetEveryEventSwitch.on = [Preferences getCurrentPreferences].isTweetingEvents;
     NSString* currentAccount = [Tweeter getTwitterAccountName];
     self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
@@ -70,9 +69,9 @@ UIAlertView* busyView;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([Tweeter getTwitterAccountName]) {
-        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, nil];
+        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, recentTweetsCell, nil];
     } else {
-        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, nil];
+        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, recentTweetsCell, nil];
     }
     return [twitterCells count];
 }
@@ -88,6 +87,9 @@ UIAlertView* busyView;
     if (cell == twitterAccountCell && ![self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
         TwitterAccountPickViewController* pickController = [[TwitterAccountPickViewController alloc] init];
         [self.navigationController pushViewController:pickController animated: YES];
+    } else if (cell == recentTweetsCell) {
+        TweetLogViewController* logController = [[TweetLogViewController alloc] init];
+        [self.navigationController pushViewController:logController animated:YES];                                
     }
 } 
 

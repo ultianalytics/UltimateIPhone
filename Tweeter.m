@@ -65,6 +65,10 @@
     }
 }
 
++(NSArray*)getRecentTweetActivity {
+    return [[TweetQueue getCurrent] getRecents];
+}
+
 +(NSArray*)getTwitterAccounts {
     __block NSArray* accounts = nil;
     if ([TWTweetComposeViewController canSendTweet]) {

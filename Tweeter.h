@@ -17,6 +17,7 @@
 +(NSString*)getGameScoreDescription: (Game*) game;
 +(void)tweet:(Tweet*) tweet;    
 +(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
++(NSArray*)getRecentTweetActivity;
 +(NSArray*)getTwitterAccounts;
 +(ACAccount*)getTwitterAccount;
 +(NSString*)getTwitterAccountName;

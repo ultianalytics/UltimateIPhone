@@ -11,7 +11,7 @@
 #import "Tweet.h"
 #import "Tweeter.h"
 
-#define kSendIntervalSeconds 30.0
+#define kSendIntervalSeconds 5.0
 #define kTimerIntervalSeconds 5.0
 
 NSTimer* timer;
@@ -58,6 +58,15 @@ static TweetQueue* current = nil;
         }
     }
 }
+
+-(NSArray*)getRecents {
+    @synchronized(queue) {
+        NSLog(@"queue is %d", [queue count]);
+                NSLog(@"recentTweets is %d", [recentTweets count]);
+        return [queue arrayByAddingObjectsFromArray:recentTweets];
+    }
+}
+
 
 // PRIVATE 
 
@@ -128,24 +137,24 @@ static TweetQueue* current = nil;
          {
              NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
              if ([urlResponse statusCode] == 200) {
-                 [self logTweet:message];
+                 [self logTweet: [[Tweet alloc] initMessage: message]];
              } else {
-                 [self logTweet: [NSString stringWithFormat:@"ERROR %d attempting to tweet \"%@\"", [urlResponse statusCode],message]];
+                 [self logTweet: [[Tweet alloc] initMessage: message failed: [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]]]];
              }
          }];
     }
     @catch (NSException *exception) {
         NSString* exceptionCaught = [NSString stringWithFormat:@"Exception: %@-%@", [exception name], [exception reason]];
         NSLog(@"Exception caught: %@", exceptionCaught);
-        [self logTweet:exceptionCaught];
+        [self logTweet: [[Tweet alloc] initMessage: message failed: exceptionCaught]];
     }
 }
 
--(void)logTweet: (NSString*) message {
+-(void)logTweet: (Tweet*) tweet {
     if ([recentTweets count] >= 20) {
         [recentTweets removeObjectAtIndex:0];
     }
-    [recentTweets addObject:message];
+    [recentTweets addObject:tweet];
 }
 
 -(void)sendTweet: (NSString*) message {

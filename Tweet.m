@@ -11,15 +11,48 @@
 
 @implementation Tweet
 
-@synthesize message,type,undoMessage;
+@synthesize message,type,status,undoMessage,error;
 
--(id) initMessage: (NSString*) aMessage type: (NSString*)aType {
+-(id) initMessage: (NSString*) aMessage {
+    self = [super init];
+    if (self) {
+        message = aMessage;
+        type = @"";
+        status = TweetQueued;
+    }
+    return self;
+}
+
+-(id) initMessage: (NSString*) aMessage type: (NSString*) aType {
     self = [super init];
     if (self) {
         message = aMessage;
         type = aType;
+        status = TweetQueued;
     }
     return self;
 }
+
+-(id) initMessage: (NSString*) aMessage status: (TweetStatus) aStatus {
+    self = [super init];
+    if (self) {
+        message = aMessage;
+        type = @"";
+        status = aStatus;
+    }
+    return self;
+}
+
+-(id) initMessage: (NSString*) aMessage failed: (NSString*)errorDescription {
+    self = [super init];
+    if (self) {
+        message = aMessage;
+        type = @"";
+        status = TweetFailed;
+        error = errorDescription;
+    }
+    return self;
+}
+
 
 @end

@@ -18,6 +18,7 @@
 +(TweetQueue*)getCurrent;
 -(void)start;
 -(void)addTweet: (Tweet*) tweet;
+-(NSArray*)getRecents;
 
 // private
 -(BOOL)attemptUndoTweet: (NSString*) tweetMessage;
@@ -26,6 +27,6 @@
 -(void)sendTweet: (NSString*) message;
 -(void)drainQueue;
 -(void)stopTimer;
--(void)logTweet: (NSString*) message;
+-(void)logTweet: (Tweet*) tweet;
 
 @end

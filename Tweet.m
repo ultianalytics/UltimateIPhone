@@ -11,7 +11,7 @@
 
 @implementation Tweet
 
-@synthesize message,type,status,undoMessage,error,time;
+@synthesize message,type,status,undoMessage,error,time,associatedEvent;
 
 -(id) initMessage: (NSString*) aMessage {
     return [self initMessage: aMessage type: (NSString*) @""];

@@ -21,7 +21,7 @@
 -(NSArray*)getRecents;
 
 // private
--(BOOL)attemptUndoTweet: (NSString*) tweetMessage;
+-(BOOL)attemptUndoTweet: (Tweet*) tweet;
 -(void)timePassed:(NSTimer*)theTimer;
 -(void)sendTweet: (NSString*) message toAccount: (ACAccount*) twitterAccount;
 -(void)sendTweet: (NSString*) message;

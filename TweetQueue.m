@@ -11,7 +11,7 @@
 #import "Tweet.h"
 #import "Tweeter.h"
 
-#define kSendIntervalSeconds 5.0
+#define kSendIntervalSeconds 15.0
 #define kTimerIntervalSeconds 5.0
 
 NSTimer* timer;
@@ -49,7 +49,7 @@ static TweetQueue* current = nil;
 
 -(void)addTweet: (Tweet*) tweet {
     @synchronized(queue) {
-        if (!(tweet.undoMessage && [self attemptUndoTweet: tweet.undoMessage])) {
+        if (!(tweet.undoMessage && [self attemptUndoTweet: tweet])) {
             [queue addObject:tweet];
             NSLog(@"Tweet %@ added to queue", tweet.message);
             if (!timer) {
@@ -68,16 +68,18 @@ static TweetQueue* current = nil;
 
 // PRIVATE 
 
--(BOOL)attemptUndoTweet: (NSString*) tweetMessage {
+-(BOOL)attemptUndoTweet: (Tweet*) tweet {
+    BOOL unDone = NO;
     if ([queue count] > 0) {
         Tweet* lastTweet = [queue lastObject];
-        if ([lastTweet.message isEqualToString:tweetMessage]) {
+        while (lastTweet && lastTweet.associatedEvent == tweet.associatedEvent) {
             [queue removeLastObject];
-            NSLog(@"Tweet %@ removed (undo) from queue",tweetMessage);
-            return YES;
+            NSLog(@"Tweet %@ removed (undo) from queue",tweet.message);
+            unDone = YES;
+            lastTweet = [queue lastObject];
         }
     }
-    return NO;
+    return unDone;
 }
 
 - (void)timePassed:(NSTimer*)theTimer {

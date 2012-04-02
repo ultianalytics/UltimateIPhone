@@ -39,6 +39,7 @@
             tweet.undoMessage = tweet.message;
             tweet.message = [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", event];
         }
+        tweet.associatedEvent = event;
         [self tweet: tweet];
     }
 }

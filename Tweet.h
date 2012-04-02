@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class ACAccount;
+@class Event;
 typedef enum {
     TweetQueued,
     TweetSent,
@@ -23,6 +24,7 @@ typedef enum {
 @property (nonatomic) TweetStatus status;
 @property (nonatomic, strong) NSString* error;
 @property (nonatomic) double time;
+@property (nonatomic, strong) Event* associatedEvent;
 
 -(id) initMessage: (NSString*) aMessage type: (NSString*)type;
 -(id) initMessage: (NSString*) aMessage;

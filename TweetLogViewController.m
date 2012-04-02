@@ -82,6 +82,9 @@ UIAlertView* busyView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(populateViewFromModel)];
+    self.navigationItem.rightBarButtonItem = refreshButton;    
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)
                                                  name: @"UIApplicationWillEnterForegroundNotification"

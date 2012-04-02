@@ -20,10 +20,12 @@
 -(void)addTweet: (Tweet*) tweet;
 
 // private
+-(BOOL)attemptUndoTweet: (NSString*) tweetMessage;
 -(void)timePassed:(NSTimer*)theTimer;
 -(void)sendTweet: (NSString*) message toAccount: (ACAccount*) twitterAccount;
 -(void)sendTweet: (NSString*) message;
 -(void)drainQueue;
 -(void)stopTimer;
+-(void)logTweet: (NSString*) message;
 
 @end

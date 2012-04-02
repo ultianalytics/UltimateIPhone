@@ -14,6 +14,8 @@
 #import "PreferencesViewController.h"
 #import "TestFlight.h"
 #import "CloudViewController.h"
+#import "TwitterController.h"
+
 
 @implementation AppDelegate
 
@@ -56,10 +58,10 @@
     UINavigationController* cloudNavController = [[UINavigationController alloc] initWithRootViewController:cloudController];
     UIViewController* viewController4 = cloudNavController;
     
-    // Tab 5: settings
-    PreferencesViewController* preferencesController = [[PreferencesViewController alloc] init];
-    UINavigationController* preferencesNavController = [[UINavigationController alloc] initWithRootViewController:preferencesController];
-    UIViewController *viewController5 = preferencesNavController;
+    // Tab 5: twitter
+    TwitterController* twitterController = [[TwitterController alloc] init];
+    UINavigationController* twitterNavController = [[UINavigationController alloc] initWithRootViewController:twitterController];
+    UIViewController *viewController5 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,viewController5, nil];
@@ -81,8 +83,8 @@
     tabBarItem.title = @"Cloud";  
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:4];
-    tabBarItem.image = [UIImage imageNamed:@"19-gear.png"];
-    tabBarItem.title = @"Config";  
+    tabBarItem.image = [UIImage imageNamed:@"210-twitterbird.png"];
+    tabBarItem.title = @"Twitter";  
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

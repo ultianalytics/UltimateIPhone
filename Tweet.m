@@ -11,9 +11,9 @@
 
 @implementation Tweet
 
-@synthesize message, type;
+@synthesize message,type,undoMessage;
 
--(id) initMessage: (NSString*) aMessage type: aType  {
+-(id) initMessage: (NSString*) aMessage type: (NSString*)aType {
     self = [super init];
     if (self) {
         message = aMessage;

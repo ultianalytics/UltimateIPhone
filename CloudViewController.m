@@ -30,7 +30,7 @@ UIAlertView* busyView;
 
 -(IBAction)isTweetingEveryEventChanged: (id) sender {
     if (self.tweetEveryEventSwitch.on) {
-        if ([self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
+        if ([Tweeter getTwitterAccountName] == nil) {
             self.tweetEveryEventSwitch.on = NO;
             [TweetViewController alertNoAccount: self];
         } 
@@ -56,7 +56,7 @@ UIAlertView* busyView;
         [TweetViewController goToTwitterSettings];
     } 
 }
-    
+
 -(void)goSignonView{
     signonController = [[SignonViewController alloc] init];
     [self.navigationController pushViewController:signonController animated: YES];
@@ -74,6 +74,7 @@ UIAlertView* busyView;
     NSString* currentAccount = [Tweeter getTwitterAccountName];
     self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
     self.twitterAccountCell.accessoryType = currentAccount == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    [twitterTableView reloadData];
 }
 
 -(IBAction)syncButtonClicked: (id) sender {
@@ -117,16 +118,16 @@ UIAlertView* busyView;
 
 -(void)startBusyDialog {
     busyView = [[UIAlertView alloc] initWithTitle: @"Uploading data to cloud..."
-                                                            message: nil
-                                                           delegate: self
-                                                  cancelButtonTitle: nil
-                                                  otherButtonTitles: nil];
+                                          message: nil
+                                         delegate: self
+                                cancelButtonTitle: nil
+                                otherButtonTitles: nil];
     // Add a spinner
     UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinner.frame = CGRectMake(50,50, 200, 50);
     [busyView addSubview:spinner];
     [spinner startAnimating];
-        
+    
     [busyView show];
 }
 
@@ -148,7 +149,11 @@ UIAlertView* busyView;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.twitterTableView) {
-        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, nil];
+        if ([Tweeter getTwitterAccountName]) {
+            twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, nil];
+        } else {
+            twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, nil];
+        }
         return [twitterCells count];
     } else {
         cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];

@@ -24,25 +24,23 @@
 
 +(NSString*)getGameScoreDescription: (Game*) game {
     Score score = [[Game getCurrentGame] getScore];
-    return [NSString stringWithFormat: @"current score: %d-%d %@", score.ours, score.theirs, score.ours > score.theirs ?
+    return [NSString stringWithFormat: @"%d-%d %@", score.ours, score.theirs, score.ours > score.theirs ?
             [Team getCurrentTeam].name : [Game getCurrentGame].opponentName];
 }
 
 +(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo { 
     if ([Tweeter isTweetingEvents]) {
-        NSString* message = isUndo ? 
-            [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", event] :
-        [NSString stringWithFormat: @"%@", [event getDescription: [Team getCurrentTeam].name opponent:[game opponentName]]];
+        NSString* message = [NSString stringWithFormat: @"%@", [event getDescription: [Team getCurrentTeam].name opponent:[game opponentName]]];
         if ([event isGoal]) {
             message = [NSString stringWithFormat: @"%@ (%@)", message, [Tweeter getGameScoreDescription:game]];
         }
-        NSString* type = [event isGoal] ? @"goal" : @"event";
-        [Tweeter tweet: [[Tweet alloc] initMessage:message type: type]];
+        Tweet* tweet = [[Tweet alloc] initMessage:message type:[NSString stringWithFormat:@"%d %@", event.action, isUndo ? @"@UNDO" : @""]];
+        if (isUndo) {
+            tweet.undoMessage = tweet.message;
+            tweet.message = [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", event];
+        }
+        [self tweet: tweet];
     }
-}
-
-+(void)tweetMessage:(NSString*) message {
-    [Tweeter tweet: [[Tweet alloc] initMessage:message type:@"untyped"]];
 }
 
 +(void)tweet:(Tweet*) tweet { 
@@ -57,13 +55,13 @@
         
         // Request access from the user to access their Twitter account
         [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-             // Did user allow us access?
-             if (granted == YES)
-             {
-                 // tweet
-                 [[TweetQueue getCurrent] addTweet: tweet];
-             }
-         }];
+            // Did user allow us access?
+            if (granted == YES)
+            {
+                // tweet
+                [[TweetQueue getCurrent] addTweet: tweet];
+            }
+        }];
     }
 }
 

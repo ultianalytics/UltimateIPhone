@@ -13,6 +13,7 @@
 #import "TweetQueue.h"
 #import "TwitterAccountPickViewController.h"
 #import "Constants.h"
+#import "Tweet.h"
 
 
 @implementation TweetViewController
@@ -96,7 +97,7 @@
 }
 
 -(void)sendTweet {
-    [Tweeter tweetMessage:tweetTextView.text];
+    [Tweeter tweet:[[Tweet alloc] initMessage: tweetTextView.text type: @"adhoc"]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -125,7 +126,7 @@
     [super viewDidLoad];
     tableView.sectionHeaderHeight = 3.0;
     tableView.sectionFooterHeight = 1.0;
-
+    
     UIBarButtonItem *playersNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelSend)];
     self.navigationItem.leftBarButtonItem = playersNavBarItem;
     

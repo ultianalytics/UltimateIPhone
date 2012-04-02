@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSString* message;
 @property (nonatomic, strong) NSString* type;
+@property (nonatomic, strong) NSString* undoMessage;
 
--(id) initMessage: (NSString*) aMessage type: aType;
+-(id) initMessage: (NSString*) aMessage type: (NSString*)type;
 @end

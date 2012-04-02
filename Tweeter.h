@@ -15,8 +15,7 @@
 @interface Tweeter : NSObject
 
 +(NSString*)getGameScoreDescription: (Game*) game;
-+(void)tweet:(Tweet*) message;
-+(void)tweetMessage:(NSString*) message;
++(void)tweet:(Tweet*) tweet;    
 +(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 +(NSArray*)getTwitterAccounts;
 +(ACAccount*)getTwitterAccount;

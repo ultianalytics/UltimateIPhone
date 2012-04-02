@@ -11,7 +11,8 @@
 typedef enum {
     TweetQueued,
     TweetSent,
-    TweetFailed
+    TweetFailed,
+    TweetIgnored
 } TweetStatus;
 
 @interface Tweet : NSObject

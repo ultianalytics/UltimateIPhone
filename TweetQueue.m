@@ -61,9 +61,7 @@ static TweetQueue* current = nil;
 
 -(NSArray*)getRecents {
     @synchronized(queue) {
-        NSLog(@"queue is %d", [queue count]);
-                NSLog(@"recentTweets is %d", [recentTweets count]);
-        return [queue arrayByAddingObjectsFromArray:recentTweets];
+        return [[[queue reverseObjectEnumerator] allObjects] arrayByAddingObjectsFromArray: [[recentTweets reverseObjectEnumerator] allObjects]];
     }
 }
 
@@ -137,7 +135,9 @@ static TweetQueue* current = nil;
          {
              NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
              if ([urlResponse statusCode] == 200) {
-                 [self logTweet: [[Tweet alloc] initMessage: message]];
+                 [self logTweet: [[Tweet alloc] initMessage: message status:TweetSent]];
+             } else if ([urlResponse statusCode] == 403) {
+                 [self logTweet: [[Tweet alloc] initMessage: message status:TweetIgnored]];
              } else {
                  [self logTweet: [[Tweet alloc] initMessage: message failed: [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]]]];
              }

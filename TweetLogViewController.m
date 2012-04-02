@@ -37,13 +37,26 @@ UIAlertView* busyView;
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.imageView.backgroundColor = [UIColor clearColor];
+                                 initWithStyle:UITableViewCellStyleDefault
+                                 reuseIdentifier:STD_ROW_TYPE];
+        for (UIView *view in cell.subviews) {
+            [view removeFromSuperview];
+        }
+        UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0, 320, 70)];
+        textView.backgroundColor = [UIColor clearColor];
+        [cell addSubview: textView];
     }
     Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
-    cell.textLabel.text = tweet.message;
+    UITextView* textView = (UITextView*) [cell.subviews objectAtIndex:0];
+    textView.text = tweet.message;
+    [textView setTextColor: tweet.status == TweetQueued ? [UIColor blueColor] : tweet.status == TweetSent ? [UIColor blackColor] : [UIColor redColor]];
+    textView.text = tweet.status == TweetIgnored ? [NSString stringWithFormat:@"TWITTER REJECTED: %@", tweet.message] : tweet.status == TweetFailed ? [NSString stringWithFormat:@"ERROR SENDING TO TWITTER: %@", tweet.message] : tweet.message;
+    textView.font = tweet.status == TweetIgnored || tweet.status == TweetFailed ? [UIFont systemFontOfSize: 10] : [UIFont systemFontOfSize: 14];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 73.0;
 }
 
 

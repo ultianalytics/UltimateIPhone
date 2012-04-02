@@ -25,6 +25,8 @@
 		1AEE548C15293B350067F539 /* TwitterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE548A15293B350067F539 /* TwitterController.xib */; };
 		1AEE549C15293DD30067F539 /* 210-twitterbird.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE549A15293DD30067F539 /* 210-twitterbird.png */; };
 		1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */; };
+		1AEE54A71529D2CA0067F539 /* TweetLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */; };
+		1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -178,6 +180,9 @@
 		1AEE548A15293B350067F539 /* TwitterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterController.xib; sourceTree = "<group>"; };
 		1AEE549A15293DD30067F539 /* 210-twitterbird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird.png"; sourceTree = "<group>"; };
 		1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird@2x.png"; sourceTree = "<group>"; };
+		1AEE54A41529D2CA0067F539 /* TweetLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetLogViewController.h; sourceTree = "<group>"; };
+		1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetLogViewController.m; sourceTree = "<group>"; };
+		1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetLogViewController.xib; sourceTree = "<group>"; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -434,6 +439,9 @@
 				1AE66A1F15235314000965B5 /* TwitterAccountPickViewController.h */,
 				1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */,
 				1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */,
+				1AEE54A41529D2CA0067F539 /* TweetLogViewController.h */,
+				1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */,
+				1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */,
 			);
 			name = Twitter;
 			sourceTree = "<group>";
@@ -922,6 +930,7 @@
 				1AEE548C15293B350067F539 /* TwitterController.xib in Resources */,
 				1AEE549C15293DD30067F539 /* 210-twitterbird.png in Resources */,
 				1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */,
+				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,6 +994,7 @@
 				1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */,
 				1A6B266215250FC400C119A5 /* Tweet.m in Sources */,
 				1AEE548B15293B350067F539 /* TwitterController.m in Sources */,
+				1AEE54A71529D2CA0067F539 /* TweetLogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,7 +56,6 @@ NSArray* tweetLog;
     UITextView* textView = (UITextView*) [cell.subviews objectAtIndex:0];
     NSString* text = [self tweetText:tweet];
     textView.font = tweetFont;
-NSLog(@"cellForRowAtIndexPath height is %f", [self heightForTweetText:text]);
     textView.frame = CGRectMake(0,0, kTweetViewWidth, [self heightForTweetText:text]);
     textView.text = text;
     [textView setTextColor: tweet.status == TweetQueued ? [UIColor blueColor] : tweet.status == TweetSent ? [UIColor blackColor] : [UIColor redColor]];    
@@ -70,7 +69,6 @@ NSLog(@"cellForRowAtIndexPath height is %f", [self heightForTweetText:text]);
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
-NSLog(@"heightForRowAtIndexPath cell height is %f", [self heightForTweetText:[self tweetText:tweet]]);
     return [self heightForTweetText:[self tweetText:tweet]];
 }
 

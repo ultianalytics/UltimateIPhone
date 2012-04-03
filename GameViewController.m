@@ -16,6 +16,7 @@
 #import "GameDetailViewController.h"
 #import "ColorMaster.h"
 #import "Preferences.h"
+#import "Tweeter.h"
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
@@ -143,9 +144,7 @@
 }
 
 -(IBAction) gameOverButtonClicked: (id) sender {
-    GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
-    gameStartController.game = [[Game alloc] init];
-    [self.navigationController pushViewController:gameStartController animated:YES];
+    [self gameOverConfirm];
 }
 
 -(IBAction)otherTeamScoreClicked: (id) sender {
@@ -347,6 +346,26 @@
                           cancelButtonTitle:@"OK" 
                           otherButtonTitles:nil]; 
     [alert show];
+}
+
+-(void)gameOverConfirm {
+    // Show the confirmation.
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: NSLocalizedString(@"Confirm Game Over",nil)
+                          message: NSLocalizedString(@"You clicked Game Over.  Please confirm.",nil)
+                          delegate: self
+                          cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
+                          otherButtonTitles: NSLocalizedString(@"Confirm",nil), nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) { // confirm
+        [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
+        GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
+        gameStartController.game = [[Game alloc] init];
+        [self.navigationController pushViewController:gameStartController animated:YES];
+    } 
 }
 
 - (void)viewWillDisappear:(BOOL)animated

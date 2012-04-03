@@ -11,7 +11,7 @@
 #import "EventView.h"
 #import "ActionListener.h"
 
-@interface GameViewController : UIViewController <ActionListener> {
+@interface GameViewController : UIViewController <ActionListener, UIAlertViewDelegate> {
     BOOL isOffense;
 }
 
@@ -60,7 +60,8 @@
 -(void) refreshTitle: (Event*) event;
 -(void) updateNavBarTitle;
 -(void) updateViewFromGame: (Game*) game;
--(void)halftimeWarning;
+-(void) halftimeWarning;
+-(void) gameOverConfirm;
 
 
 @end

@@ -88,6 +88,14 @@ NSDateFormatter* timeFormatter;
     }
 }
 
+-(void)tweetGameOver:(Game*) game {
+    if ([self isTweetingEvents]) {
+        NSString* message = [self gameOverTweetMessageForGame:game];
+        Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"GameOver"];
+        [self tweet: tweet]; 
+    }
+}
+
 -(void)tweet:(Tweet*) tweet { 
     // start tweet queue (if not already started)
     [[TweetQueue getCurrent] start];
@@ -224,6 +232,10 @@ NSDateFormatter* timeFormatter;
 
 -(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
     return isUndo ? @"\"Halftime\" was a boo-boo...never mind." : @"Halftime.";
+}
+
+-(NSString*)gameOverTweetMessageForGame: (Game*) game{
+    return [NSString stringWithFormat: @"Game over. %@.", [self getGameScoreDescription:game]];
 }
 
 -(NSString*) getTime {

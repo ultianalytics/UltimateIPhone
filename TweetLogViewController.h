@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Tweet;
 
 @interface TweetLogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
@@ -14,6 +15,8 @@
 
 -(void)populateViewFromModel;
 -(NSString*)timeSince: (double) time;
+-(NSString*)tweetText: (Tweet*) tweet;
+-(CGFloat)heightForTweetText:(NSString*)text;
 
 
 @end

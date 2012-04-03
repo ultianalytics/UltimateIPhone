@@ -11,9 +11,12 @@
 #import "Tweeter.h"
 #import "ColorMaster.h"
 
+#define kTweetViewWidth 290
+
 @implementation TweetLogViewController
 @synthesize tweetLogTableView;
 
+UIFont* tweetFont;
 NSArray* tweetLog;
 
 -(void)populateViewFromModel {
@@ -39,10 +42,11 @@ NSArray* tweetLog;
         for (UIView *view in cell.subviews) {
             [view removeFromSuperview];
         }
-        UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0, 290, 85)];
+        UITextView* textView = [[UITextView alloc] init];
         textView.backgroundColor = [UIColor clearColor];
+        textView.editable = NO;
         [cell addSubview: textView];
-        UILabel* timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(295,0, 25, 20)];
+        UILabel* timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kTweetViewWidth + 5,0, 25, 20)];
         timeLabel.backgroundColor = [UIColor clearColor];
         timeLabel.textColor = [UIColor grayColor];
         timeLabel.font =[UIFont systemFontOfSize: 12];
@@ -50,18 +54,34 @@ NSArray* tweetLog;
     }
     Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
     UITextView* textView = (UITextView*) [cell.subviews objectAtIndex:0];
-    UILabel* numberLabel = (UILabel*) [cell.subviews objectAtIndex:1];
-    textView.text = tweet.message;
-    numberLabel.text= tweet.status == TweetQueued ? @"" : [self timeSince:tweet.time];
-    textView.text = tweet.status == TweetIgnored ? [NSString stringWithFormat:@"TWITTER REJECTED: %@", tweet.message] : tweet.status == TweetFailed ? [NSString stringWithFormat:@"ERROR SENDING TO TWITTER: %@", tweet.message] : tweet.message;
+    NSString* text = [self tweetText:tweet];
+    textView.font = tweetFont;
+NSLog(@"cellForRowAtIndexPath height is %f", [self heightForTweetText:text]);
+    textView.frame = CGRectMake(0,0, kTweetViewWidth, [self heightForTweetText:text]);
+    textView.text = text;
     [textView setTextColor: tweet.status == TweetQueued ? [UIColor blueColor] : tweet.status == TweetSent ? [UIColor blackColor] : [UIColor redColor]];    
-    textView.font = tweet.status == TweetIgnored || tweet.status == TweetFailed ? [UIFont systemFontOfSize: 10] : [UIFont systemFontOfSize: 14];
+    textView.font = tweetFont;
+    
+    UILabel* numberLabel = (UILabel*) [cell.subviews objectAtIndex:1];
+    numberLabel.text= tweet.status == TweetQueued ? @"" : [self timeSince:tweet.time];
 
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 88.0;
+    Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
+NSLog(@"heightForRowAtIndexPath cell height is %f", [self heightForTweetText:[self tweetText:tweet]]);
+    return [self heightForTweetText:[self tweetText:tweet]];
+}
+
+- (CGFloat)heightForTweetText:(NSString*)text{
+    CGSize maxSize = CGSizeMake(kTweetViewWidth - 10,9999);  // reducing width by margins
+    CGSize titleSize = [text sizeWithFont:tweetFont constrainedToSize:maxSize lineBreakMode:UILineBreakModeWordWrap];
+    return titleSize.height + 20; // add some space for margin
+}
+
+-(NSString*) tweetText: (Tweet*) tweet {
+    return tweet.status == TweetIgnored ? [NSString stringWithFormat:@"TWITTER REJECTED: %@", tweet.message] : tweet.status == TweetFailed ? [NSString stringWithFormat:@"ERROR SENDING TO TWITTER: %@", tweet.message] : tweet.message;
 }
 
 -(NSString*)timeSince: (double) time {
@@ -106,6 +126,7 @@ NSArray* tweetLog;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    tweetFont = [UIFont systemFontOfSize: 14];
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(populateViewFromModel)];
     self.navigationItem.rightBarButtonItem = refreshButton;    
     [[NSNotificationCenter defaultCenter] addObserver: self

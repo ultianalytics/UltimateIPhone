@@ -58,6 +58,13 @@ NSDateFormatter* timeFormatter;
             tweet.associatedEvent = event;
             [self tweet: tweet];
         }
+        if ([event isGoal] && [game isNextEventImmediatelyAfterHalftime]) {
+            NSString* halftimeMessage = [self halftimeTweetMessage:event forGame:game isUndo:isUndo]; 
+            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", halftimeMessage, [self getTime]] type:@"Halftime"];
+            tweet.isUndo = isUndo;
+            tweet.associatedEvent = event;
+            [self tweet: tweet];
+        }
     }
 }
 
@@ -213,6 +220,10 @@ NSDateFormatter* timeFormatter;
         [NSString stringWithFormat: @"%@ (%@).", message, event.action == Drop ? @"drop" : @"throwaway"];
     }
     return message;
+}
+
+-(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
+    return isUndo ? @"\"Halftime\" was a boo-boo...never mind." : @"Halftime.";
 }
 
 -(NSString*) getTime {

@@ -74,7 +74,7 @@
 -(void)updatePointSummaries;
 -(void)clearPointSummaries;
 -(Score)createScoreForOurs: (int) ours theirs: (int) theirs;
--(void)tweetEvent: (Event*) event isUndo: (BOOL) isUndo;
+-(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo;
 
 
 @end

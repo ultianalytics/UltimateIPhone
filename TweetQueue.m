@@ -49,7 +49,7 @@ static TweetQueue* current = nil;
 
 -(void)addTweet: (Tweet*) tweet {
     @synchronized(queue) {
-        if (!(tweet.undoMessage && [self attemptUndoTweet: tweet])) {
+        if (!(tweet.isUndo && [self attemptUndoTweet: tweet])) {
             [queue addObject:tweet];
             NSLog(@"Tweet %@ added to queue", tweet.message);
             if (!timer) {

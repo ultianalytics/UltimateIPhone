@@ -260,7 +260,7 @@ BOOL arePointSummariesValid;
     [[self getCurrentPoint] addEvent:event]; 
     [self updateLastLine: event];
     [self clearPointSummaries];
-    [self tweetEvent: event isUndo: NO];
+    [self tweetEvent: event point: [self getCurrentPoint] isUndo: NO];
 }
 
 -(BOOL)hasEvents {
@@ -270,7 +270,7 @@ BOOL arePointSummariesValid;
 -(void)removeLastEvent {
     if ([self getCurrentPoint] != nil) {
         Event* lastEvent = [self getLastEvent];
-        [self tweetEvent: lastEvent isUndo: YES];
+        [self tweetEvent: lastEvent point: [self getCurrentPoint] isUndo: YES];
         [[self getCurrentPoint] removeLastEvent]; 
         if ([[self getCurrentPoint] getNumberOfEvents] == 0)  {
             [self.points removeLastObject];
@@ -524,9 +524,12 @@ BOOL arePointSummariesValid;
     return dict;
 }
 
--(void)tweetEvent: (Event*) event isUndo: (BOOL) isUndo {
-    NSLog(@"%@", [[Game getCurrentGame].getCurrentLine descriptionWithLocale: nil]);
-    [Tweeter tweetEvent:event forGame:self isUndo:NO];
+-(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo {
+    if ([[point getEvents] count] == 1) {
+        [Tweeter tweetFirstEventOfPoint:event forGame:self point:point isUndo:isUndo];
+    } else {
+        [Tweeter tweetEvent:event forGame:self isUndo:NO];
+    }
 }
 
 @end

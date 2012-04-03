@@ -36,7 +36,7 @@
         }
         Tweet* tweet = [[Tweet alloc] initMessage:message type:[NSString stringWithFormat:@"%d %@", event.action, isUndo ? @"@UNDO" : @""]];
         if (isUndo) {
-            tweet.undoMessage = tweet.message;
+            tweet.isUndo = YES;
             tweet.message = [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", event];
         }
         tweet.associatedEvent = event;
@@ -49,7 +49,7 @@
         NSString* message = [Tweeter pointBeginMessage:event forGame: game point: point isUndo: isUndo];
         Tweet* tweet = [[Tweet alloc] initMessage:message type:@"NewPoint"];
         tweet.associatedEvent = event;
-        [self tweet: tweet];
+        [self tweet: tweet]; 
     }
 }
 

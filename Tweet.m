@@ -8,7 +8,6 @@
 
 #import "Tweet.h"
 
-
 @implementation Tweet
 
 @synthesize message,type,status,error,time,associatedEvent,isUndo;
@@ -43,6 +42,10 @@
         error = errorDescription;
     }
     return self;
+}
+
+-(BOOL)isAdHoc {
+    return [kAdHocType isEqualToString:self.type];
 }
 
 

@@ -89,7 +89,7 @@ static TweetQueue* current = nil;
     double now = [NSDate timeIntervalSinceReferenceDate];
     NSArray* tweets = [queue copy];
     for (Tweet* tweet in tweets) {
-        if (tweet.isUndo || tweet.time + kSendWaitSeconds < now) {
+        if (tweet.isUndo || tweet.isAdHoc || tweet.time + kSendWaitSeconds < now) {
             [self sendTweet: tweet];
         } else {
             break;                

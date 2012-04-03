@@ -16,6 +16,8 @@ typedef enum {
     TweetIgnored
 } TweetStatus;
 
+#define kAdHocType @"AdHoc"
+
 @interface Tweet : NSObject
 
 @property (nonatomic, strong) NSString* message;
@@ -30,5 +32,6 @@ typedef enum {
 -(id) initMessage: (NSString*) aMessage;
 -(id) initMessage: (NSString*) aMessage status: (TweetStatus)status;
 -(id) initMessage: (NSString*) aMessage failed: (NSString*)error;
+-(BOOL)isAdHoc;
 
 @end

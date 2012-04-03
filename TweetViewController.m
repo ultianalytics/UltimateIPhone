@@ -97,7 +97,7 @@
 }
 
 -(void)sendTweet {
-    [[Tweeter getCurrent] tweet:[[Tweet alloc] initMessage: tweetTextView.text type: @"adhoc"]];
+    [[Tweeter getCurrent] tweet:[[Tweet alloc] initMessage: tweetTextView.text type: kAdHocType]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

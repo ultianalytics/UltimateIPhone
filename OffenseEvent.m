@@ -90,6 +90,10 @@
     return YES;
 }
 
+- (BOOL) isTurnover {
+    return self.action == Drop || self.action == Throwaway;
+}
+
 - (BOOL) isNextEventOffense {
     return self.action == Catch;
 }

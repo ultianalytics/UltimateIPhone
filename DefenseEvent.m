@@ -59,6 +59,10 @@
     return self.action == Goal || self.action == Callahan;
 }
 
+- (BOOL) isTurnover {
+    return self.action == De;
+}
+
 - (BOOL) isFinalEventOfPoint {
     return self.action == Callahan || self.action == Goal;
 }

@@ -54,6 +54,7 @@ NSDateFormatter* timeFormatter;
         NSString* message = [self eventTweetMessage:event forGame:game isUndo:isUndo]; 
         if (message) {
             Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"Event"];
+            tweet.isUndo = isUndo;
             tweet.associatedEvent = event;
             [self tweet: tweet];
         }
@@ -64,6 +65,7 @@ NSDateFormatter* timeFormatter;
     if ([self isTweetingEvents]) {
         NSString* message = [self pointBeginTweetMessage:event forGame: game point: point isUndo: isUndo];
         Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewPoint"];
+        tweet.isUndo = isUndo;
         tweet.associatedEvent = event;
         [self tweet: tweet]; 
         if ([event isGoal] || [event isTurnover]) {

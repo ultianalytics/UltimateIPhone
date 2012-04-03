@@ -23,9 +23,9 @@
 // private
 -(BOOL)attemptUndoTweet: (Tweet*) tweet;
 -(void)timePassed:(NSTimer*)theTimer;
--(void)sendTweet: (NSString*) message toAccount: (ACAccount*) twitterAccount;
--(void)sendTweet: (NSString*) message;
--(void)drainQueue;
+-(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
+-(void)sendTweet: (Tweet*) tweet;
+-(void)sendReadyTweets;
 -(void)stopTimer;
 -(void)logTweet: (Tweet*) tweet;
 

@@ -11,13 +11,12 @@
 #import "Tweet.h"
 #import "Tweeter.h"
 
-#define kSendIntervalSeconds 15.0
-#define kTimerIntervalSeconds 5.0
+#define kSendWaitSeconds 10.0
+#define kTimerIntervalSeconds 3.0
 
 NSTimer* timer;
 NSMutableArray* queue;  // queue of Tweets to post
 NSMutableArray* recentTweets;  // log of recent Tweets sent
-double lastTweetSecondsSinceEpoch;
 
 static TweetQueue* current = nil;
 
@@ -25,7 +24,6 @@ static TweetQueue* current = nil;
 
 +(void)initialize {
     current = [[TweetQueue alloc] init];
-    lastTweetSecondsSinceEpoch = [NSDate timeIntervalSinceReferenceDate];
 }
 
 +(TweetQueue*)getCurrent {
@@ -65,6 +63,11 @@ static TweetQueue* current = nil;
     }
 }
 
+- (void)timePassed:(NSTimer*)theTimer {
+    @synchronized(queue) {
+        [self sendReadyTweets];
+    }
+}
 
 // PRIVATE 
 
@@ -82,37 +85,18 @@ static TweetQueue* current = nil;
     return unDone;
 }
 
-- (void)timePassed:(NSTimer*)theTimer {
-    @synchronized(queue) {
-        if (lastTweetSecondsSinceEpoch + kSendIntervalSeconds < [NSDate timeIntervalSinceReferenceDate]) {
-            [self drainQueue];
-            lastTweetSecondsSinceEpoch = [NSDate timeIntervalSinceReferenceDate];
-        }
+-(void)sendReadyTweets {
+    NSMutableArray* tweeted = [[NSMutableArray alloc] init];
+    double now = [NSDate timeIntervalSinceReferenceDate];
+    for (Tweet* tweet in queue) {
+        if (tweet.isUndo || tweet.time + kSendWaitSeconds < now) {
+            [self sendTweet: tweet];
+            [tweeted addObject:tweet];
+        } else {
+            break;                
+        } 
     }
-}
-
--(void)drainQueue {
-    NSString*  message = @"";
-    @synchronized(queue) {    
-        NSMutableArray* tweeted = [[NSMutableArray alloc] init];
-        NSString* lastTweetType = nil;
-        for (Tweet* tweet in queue) {
-            NSString* newMessage = [NSString stringWithFormat:@"%@%@%@", message, [message isEqualToString:@""] ? @"" : @", ", tweet.message];
-            if ([newMessage length] > 140) {
-                break;
-            } else if (lastTweetType != nil && ![lastTweetType isEqualToString:tweet.type]) {
-                break;                
-            } else {
-                message = newMessage;
-                [tweeted addObject:tweet];
-            }
-            lastTweetType = tweet.type;
-        }
-        [queue removeObjectsInArray:tweeted];
-    }
-    if (![message isEqualToString:@""]) {
-        [self sendTweet: message];
-    }
+    [queue removeObjectsInArray:tweeted];
 }
 
 -(void)stopTimer {
@@ -122,44 +106,7 @@ static TweetQueue* current = nil;
     }
 }
 
--(void)sendTweet: (NSString*) message toAccount: (ACAccount*) twitterAccount {
-    NSLog(@"Sending tweet %@ to twitter", message);
-    @try {
-        // Build a twitter request
-        TWRequest *postRequest = [[TWRequest alloc] initWithURL: [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] 
-                                                     parameters:[NSDictionary dictionaryWithObject:message forKey:@"status"] requestMethod:TWRequestMethodPOST];
-        
-        // Post the request
-        [postRequest setAccount:twitterAccount];
-        
-        // Block handler to manage the response
-        [postRequest  performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) 
-         {
-             NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
-             if ([urlResponse statusCode] == 200) {
-                 [self logTweet: [[Tweet alloc] initMessage: message status:TweetSent]];
-             } else if ([urlResponse statusCode] == 403) {
-                 [self logTweet: [[Tweet alloc] initMessage: message status:TweetIgnored]];
-             } else {
-                 [self logTweet: [[Tweet alloc] initMessage: message failed: [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]]]];
-             }
-         }];
-    }
-    @catch (NSException *exception) {
-        NSString* exceptionCaught = [NSString stringWithFormat:@"Exception: %@-%@", [exception name], [exception reason]];
-        NSLog(@"Exception caught: %@", exceptionCaught);
-        [self logTweet: [[Tweet alloc] initMessage: message failed: exceptionCaught]];
-    }
-}
-
--(void)logTweet: (Tweet*) tweet {
-    if ([recentTweets count] >= 20) {
-        [recentTweets removeObjectAtIndex:0];
-    }
-    [recentTweets addObject:tweet];
-}
-
--(void)sendTweet: (NSString*) message {
+-(void)sendTweet: (Tweet*) tweet {
     if ([TWTweetComposeViewController canSendTweet]) {
         // Create account store, followed by a twitter account identifier
         // At this point, twitter is the only account type available
@@ -185,11 +132,53 @@ static TweetQueue* current = nil;
                  // if we are good to go, tweet
                  if (acct) 
                  {
-                     [self sendTweet:message toAccount:acct];
+                     [self sendTweet:tweet toAccount:acct];
                  }
              }
          }];
     }
 }
+
+-(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount {
+    NSLog(@"Sending tweet %@ to twitter", tweet.message);
+    @try {
+        // Build a twitter request
+        TWRequest *postRequest = [[TWRequest alloc] initWithURL: [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] 
+                                                     parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"] requestMethod:TWRequestMethodPOST];
+        
+        // Post the request
+        [postRequest setAccount:twitterAccount];
+        
+        // Block handler to manage the response
+        [postRequest  performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) 
+         {
+             NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
+             if ([urlResponse statusCode] == 200) {
+                 tweet.status = TweetSent;
+             } else if ([urlResponse statusCode] == 403) {
+                 tweet.status = TweetIgnored;
+             } else {
+                 tweet.status = TweetFailed;
+                 tweet.error = [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]];
+             }
+             [self logTweet: tweet];
+         }];
+    }
+    @catch (NSException *exception) {
+        NSString* exceptionCaught = [NSString stringWithFormat:@"Exception: %@-%@", [exception name], [exception reason]];
+        NSLog(@"Exception caught: %@", exceptionCaught);
+        tweet.status = TweetFailed;
+        tweet.error = exceptionCaught;
+        [self logTweet: tweet];
+    }
+}
+
+-(void)logTweet: (Tweet*) tweet {
+    if ([recentTweets count] >= 20) {
+        [recentTweets removeObjectAtIndex:0];
+    }
+    [recentTweets addObject:tweet];
+}
+
 
 @end

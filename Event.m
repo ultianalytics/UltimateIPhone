@@ -27,15 +27,20 @@
 }
 
 - (BOOL) isGoal {
-    return false;
+    return NO;
 }
 
 - (BOOL) isOurGoal {
-    return false;
+    return NO;
+}
+
+- (BOOL) isTurnover {
+   [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
+    return NO;
 }
 
 - (BOOL) isFinalEventOfPoint {
-    return false;
+    return NO;
 }
 
 - (NSString*)description {

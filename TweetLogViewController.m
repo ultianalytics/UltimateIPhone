@@ -17,7 +17,7 @@
 NSArray* tweetLog;
 
 -(void)populateViewFromModel {
-    tweetLog = [Tweeter getRecentTweetActivity];
+    tweetLog = [[Tweeter getCurrent] getRecentTweetActivity];
     [tweetLogTableView reloadData];
 }
 

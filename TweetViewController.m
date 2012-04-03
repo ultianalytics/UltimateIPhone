@@ -20,7 +20,7 @@
 @synthesize tableView,tweetTextCell,tweetAccountCell,accountNameLabel,tweetTextView,charCountLabel,initialText;
 
 -(void)populateViewFromModel {
-    NSString* currentAccount = [Tweeter getTwitterAccountName];
+    NSString* currentAccount = [[Tweeter getCurrent] getTwitterAccountName];
     self.accountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
 }
 
@@ -97,7 +97,7 @@
 }
 
 -(void)sendTweet {
-    [Tweeter tweet:[[Tweet alloc] initMessage: tweetTextView.text type: @"adhoc"]];
+    [[Tweeter getCurrent] tweet:[[Tweet alloc] initMessage: tweetTextView.text type: @"adhoc"]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

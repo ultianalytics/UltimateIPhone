@@ -32,8 +32,8 @@ UIAlertView* busyView;
 -(IBAction)tweetButtonClicked: (id) sender; {
     // Create the view controller
     TweetViewController* tweetController = [[TweetViewController alloc] init];
-    if (![Tweeter isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
-        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [Tweeter getGameScoreDescription: [Game getCurrentGame]]]];
+    if (![[Tweeter getCurrent] isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
+        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [[Tweeter getCurrent] getGameScoreDescription: [Game getCurrentGame]]]];
     }
     
     // Show the controller

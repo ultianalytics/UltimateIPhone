@@ -27,7 +27,7 @@ UIAlertView* busyView;
 
 -(IBAction)isTweetingEveryEventChanged: (id) sender {
     if (self.tweetEveryEventSwitch.on) {
-        if ([Tweeter getTwitterAccountName] == nil) {
+        if ([[Tweeter getCurrent] getTwitterAccountName] == nil) {
             self.tweetEveryEventSwitch.on = NO;
             [TweetViewController alertNoAccount: self];
         } 
@@ -39,8 +39,8 @@ UIAlertView* busyView;
 -(IBAction)tweetButtonClicked: (id) sender; {
     // Create the view controller
     TweetViewController* tweetController = [[TweetViewController alloc] init];
-    if (![Tweeter isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
-        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [Tweeter getGameScoreDescription: [Game getCurrentGame]]]];
+    if (![[Tweeter getCurrent] isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
+        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [[Tweeter getCurrent] getGameScoreDescription: [Game getCurrentGame]]]];
     }
     
     // Show the controller
@@ -57,7 +57,7 @@ UIAlertView* busyView;
 
 -(void)populateViewFromModel {;
     self.tweetEveryEventSwitch.on = [Preferences getCurrentPreferences].isTweetingEvents;
-    NSString* currentAccount = [Tweeter getTwitterAccountName];
+    NSString* currentAccount = [[Tweeter getCurrent] getTwitterAccountName];
     self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
     self.twitterAccountCell.accessoryType = currentAccount == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     [twitterTableView reloadData];
@@ -68,7 +68,7 @@ UIAlertView* busyView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([Tweeter getTwitterAccountName]) {
+    if ([[Tweeter getCurrent] getTwitterAccountName]) {
         twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, recentTweetsCell, nil];
     } else {
         twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, recentTweetsCell, nil];

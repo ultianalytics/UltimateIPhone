@@ -34,7 +34,7 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
     NSString* accountName = [self.accountNames objectAtIndex:[indexPath row]];
-    [Tweeter setPreferredTwitterAccount:accountName];
+    [[Tweeter getCurrent] setPreferredTwitterAccount:accountName];
     [self.navigationController popViewControllerAnimated:YES];
 } 
 
@@ -60,7 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.accountNames = [Tweeter getTwitterAccountsNames];
+    self.accountNames = [[Tweeter getCurrent] getTwitterAccountsNames];
     // Do any additional setup after loading the view from its nib.
 }
 

@@ -174,7 +174,7 @@ static TweetQueue* current = nil;
              {
                  // Populate array with all available Twitter accounts
                  NSArray* arrayOfAccounts = [accountStore accountsWithAccountType:accountType];
-                 NSString* accountName = [Tweeter getTwitterAccountName];
+                 NSString* accountName = [[Tweeter getCurrent] getTwitterAccountName];
                  ACAccount* acct = nil;
                  for (ACAccount* twitAcct in arrayOfAccounts) {
                      if ([twitAcct.accountDescription isEqualToString:accountName]) {

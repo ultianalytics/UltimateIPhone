@@ -526,9 +526,9 @@ BOOL arePointSummariesValid;
 
 -(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo {
     if ([[point getEvents] count] == 1) {
-        [Tweeter tweetFirstEventOfPoint:event forGame:self point:point isUndo:isUndo];
+        [[Tweeter getCurrent] tweetFirstEventOfPoint:event forGame:self point:point isUndo:isUndo];
     } else {
-        [Tweeter tweetEvent:event forGame:self isUndo:NO];
+        [[Tweeter getCurrent] tweetEvent:event forGame:self isUndo:NO];
     }
 }
 

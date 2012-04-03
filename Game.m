@@ -384,6 +384,10 @@ BOOL arePointSummariesValid;
     return [point.summary isOline];
 }
 
+-(BOOL)isFirstPoint: (UPoint*) point {
+    return [self.points count] > 0 && [self.points objectAtIndex:0] == point;
+}
+
 -(BOOL)isCurrentlyOline {
     [self updatePointSummaries];
     if ([self getCurrentPoint] == nil) {

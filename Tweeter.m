@@ -63,6 +63,13 @@ NSDateFormatter* timeFormatter;
 
 -(void)tweetFirstEventOfPoint:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
     if ([self isTweetingEvents]) {
+        if ([game isFirstPoint:point]) {
+            NSString* message = [self gameBeginTweetMessage:event forGame: game isUndo: isUndo];
+            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewGame"];
+            tweet.isUndo = isUndo;
+            tweet.associatedEvent = event;
+            [self tweet: tweet]; 
+        }
         NSString* message = [self pointBeginTweetMessage:event forGame: game point: point isUndo: isUndo];
         Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewPoint"];
         tweet.isUndo = isUndo;
@@ -157,6 +164,17 @@ NSDateFormatter* timeFormatter;
 -(void)setPreferredTwitterAccount: (NSString*) accountName { 
     [Preferences getCurrentPreferences].twitterAccountDescription = accountName;
     [[Preferences getCurrentPreferences] save];
+}
+
+-(NSString*)gameBeginTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
+    NSString* message = nil;
+    if (isUndo) {
+        message = [NSString stringWithFormat: @"New game was a boo-boo...never mind."];
+    } else {
+        NSString* windDescription = game.wind && game.wind.mph ? [NSString stringWithFormat: @" Wind: %dmph.", game.wind.mph] : @"";
+        message = [NSString stringWithFormat:@"New game vs. %@.  Game point: %d. %@", game.opponentName, game.gamePoint, windDescription];
+    }
+    return message;
 }
 
 -(NSString*)pointBeginTweetMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {

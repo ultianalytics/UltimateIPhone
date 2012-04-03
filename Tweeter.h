@@ -30,6 +30,7 @@
 
 // private
 -(NSString*)getGameScoreDescription: (Game*) game;
+-(NSString*)gameBeginTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 -(NSString*)pointBeginTweetMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
 -(NSString*)eventTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 -(NSString*) getTime;

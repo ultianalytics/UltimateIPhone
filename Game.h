@@ -59,6 +59,7 @@
 -(void)clearCurrentLine;
 -(BOOL)arePlayingOffense;
 -(BOOL)isPointOline: (UPoint*) point;
+-(BOOL)isFirstPoint: (UPoint*) point;
 -(BOOL)isCurrentlyOline;
 -(UPoint*)findPreviousPoint: (UPoint*) pointParam;
 -(void)updateLastLine: (Event*) event;

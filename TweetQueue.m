@@ -72,17 +72,18 @@ static TweetQueue* current = nil;
 // PRIVATE 
 
 -(BOOL)attemptUndoTweet: (Tweet*) tweet {
-    BOOL unDone = NO;
-    if ([queue count] > 0) {
-        Tweet* lastTweet = [queue lastObject];
-        while (lastTweet && lastTweet.associatedEvent == tweet.associatedEvent) {
-            [queue removeLastObject];
-            NSLog(@"Tweet %@ removed (undo) from queue",tweet.message);
-            unDone = YES;
-            lastTweet = [queue lastObject];
+    Tweet* removedTweet = nil;
+    for (Tweet* previousTweet in queue) {
+        if (previousTweet.associatedEvent == tweet.associatedEvent && [previousTweet.type isEqualToString:tweet.type]) {
+            removedTweet = previousTweet;
+            break;
         }
     }
-    return unDone;
+    if (removedTweet) {
+        [queue removeObject:removedTweet];
+        NSLog(@"Tweet %@ removed (undo) from queue",removedTweet.message);
+    }
+    return removedTweet != nil;
 }
 
 -(void)sendReadyTweets {

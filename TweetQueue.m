@@ -86,17 +86,15 @@ static TweetQueue* current = nil;
 }
 
 -(void)sendReadyTweets {
-    NSMutableArray* tweeted = [[NSMutableArray alloc] init];
     double now = [NSDate timeIntervalSinceReferenceDate];
-    for (Tweet* tweet in queue) {
+    NSArray* tweets = [queue copy];
+    for (Tweet* tweet in tweets) {
         if (tweet.isUndo || tweet.time + kSendWaitSeconds < now) {
             [self sendTweet: tweet];
-            [tweeted addObject:tweet];
         } else {
             break;                
         } 
     }
-    [queue removeObjectsInArray:tweeted];
 }
 
 -(void)stopTimer {
@@ -161,7 +159,6 @@ static TweetQueue* current = nil;
                  tweet.status = TweetFailed;
                  tweet.error = [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]];
              }
-             [self logTweet: tweet];
          }];
     }
     @catch (NSException *exception) {
@@ -169,8 +166,9 @@ static TweetQueue* current = nil;
         NSLog(@"Exception caught: %@", exceptionCaught);
         tweet.status = TweetFailed;
         tweet.error = exceptionCaught;
-        [self logTweet: tweet];
     }
+    [self logTweet: tweet];
+    [queue removeObject:tweet];
 }
 
 -(void)logTweet: (Tweet*) tweet {

@@ -51,19 +51,26 @@ NSDateFormatter* timeFormatter;
 
 -(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo { 
     if ([self isTweetingEvents]) {
-        NSString* message = [self eventTweetMessage:event forGame:game isUndo:isUndo]; 
-        if (message) {
+        if ([event isGoal]) {
+            NSString* message = [self goalTweetMessage:event forGame:game isUndo:isUndo]; 
             Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"Event"];
             tweet.isUndo = isUndo;
             tweet.associatedEvent = event;
             [self tweet: tweet];
-        }
-        if ([event isGoal] && [game isNextEventImmediatelyAfterHalftime]) {
-            NSString* halftimeMessage = [self halftimeTweetMessage:event forGame:game isUndo:isUndo]; 
-            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", halftimeMessage, [self getTime]] type:@"Halftime"];
+            if ([game isNextEventImmediatelyAfterHalftime]) {
+                NSString* halftimeMessage = [self halftimeTweetMessage:event forGame:game isUndo:isUndo]; 
+                Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", halftimeMessage, [self getTime]] type:@"Halftime"];
+                tweet.isUndo = isUndo;
+                tweet.associatedEvent = event;
+                [self tweet: tweet];
+            }
+        } else if ([event isTurnover]) {
+            NSString* message = [self turnoverTweetMessage:event forGame:game isUndo:isUndo]; 
+            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"Event"];
             tweet.isUndo = isUndo;
             tweet.associatedEvent = event;
-            [self tweet: tweet];
+            tweet.isOptional = YES;
+            [self tweet: tweet]; 
         }
     }
 }
@@ -207,26 +214,27 @@ NSDateFormatter* timeFormatter;
     return message;
 }
 
--(NSString*)eventTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
+-(NSString*)goalTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
     NSString* ourTeam = [Team getCurrentTeam].name;
-    NSString* message = nil;
-    if ([event isGoal]) {
-        message = [NSString stringWithFormat: @"Goal %@", [event isOurGoal] ? ourTeam : game.opponentName];
-        message = 
+    NSString* message = [NSString stringWithFormat: @"Goal %@", [event isOurGoal] ? ourTeam : game.opponentName];
+    message = 
             isUndo ? 
                 [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", message] : 
             [event isOurGoal] ?
                 [NSString stringWithFormat: @"%@!!! %@ to %@. %@.", message, ((OffenseEvent*)event).passer.name, ((OffenseEvent*)event).receiver.name, [self getGameScoreDescription:game]]:
                 [NSString stringWithFormat: @"%@. %@.", message, [self getGameScoreDescription:game]];
-    } else if ([event isTurnover]) {
-        message = [NSString stringWithFormat: @"%@ %@ the disc", ourTeam, event.action == De ? @"steal" : @"lose"];
+    return message;
+}
+
+-(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
+    NSString* ourTeam = [Team getCurrentTeam].name;
+    NSString* message = [NSString stringWithFormat: @"%@ %@ the disc", ourTeam, event.action == De ? @"steal" : @"lose"];
         message = 
-            isUndo ? 
-                [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind.", message] : 
-            event.action == De ?
-                [NSString stringWithFormat: @"%@!!! (%@).", message, [event getDescription]]:
+        isUndo ? 
+        [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind.", message] : 
+        event.action == De ?
+        [NSString stringWithFormat: @"%@!!! (%@).", message, [event getDescription]]:
         [NSString stringWithFormat: @"%@ (%@).", message, event.action == Drop ? @"drop" : @"throwaway"];
-    }
     return message;
 }
 

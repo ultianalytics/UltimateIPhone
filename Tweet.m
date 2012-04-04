@@ -10,7 +10,7 @@
 
 @implementation Tweet
 
-@synthesize message,type,status,error,time,associatedEvent,isUndo;
+@synthesize message,type,status,error,time,associatedEvent,isUndo,isOptional;
 
 -(id) initMessage: (NSString*) aMessage {
     return [self initMessage: aMessage type: (NSString*) @""];

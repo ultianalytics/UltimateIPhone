@@ -24,9 +24,11 @@
 -(BOOL)attemptUndoTweet: (Tweet*) tweet;
 -(void)timePassed:(NSTimer*)theTimer;
 -(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
+-(void)sendTweetLimited: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
 -(void)sendTweet: (Tweet*) tweet;
 -(void)sendReadyTweets;
 -(void)stopTimer;
 -(void)logTweet: (Tweet*) tweet;
+-(void)expireRecentTweets;
 
 @end

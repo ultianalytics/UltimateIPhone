@@ -73,13 +73,23 @@ NSArray* tweetLog;
 }
 
 - (CGFloat)heightForTweetText:(NSString*)text{
-    CGSize maxSize = CGSizeMake(kTweetViewWidth - 10,9999);  // reducing width by margins
+    CGSize maxSize = CGSizeMake(kTweetViewWidth - 15,9999);  // reducing width by margins
     CGSize titleSize = [text sizeWithFont:tweetFont constrainedToSize:maxSize lineBreakMode:UILineBreakModeWordWrap];
     return titleSize.height + 20; // add some space for margin
 }
 
 -(NSString*) tweetText: (Tweet*) tweet {
-    return tweet.status == TweetIgnored ? [NSString stringWithFormat:@"TWITTER REJECTED: %@", tweet.message] : tweet.status == TweetFailed ? [NSString stringWithFormat:@"ERROR SENDING TO TWITTER: %@", tweet.message] : tweet.message;
+    switch(tweet.status)
+    {
+        case TweetIgnored:
+            return [NSString stringWithFormat:@"TWITTER REJECTED: %@", tweet.message];
+        case TweetFailed:
+            return [NSString stringWithFormat:@"ERROR SENDING TO TWITTER: %@", tweet.message];
+        case TweetSkipped:
+            return [NSString stringWithFormat:@"SKIPPED...TOO MANY RECENT TWEETS: %@", tweet.message];
+        default:
+            return tweet.message;
+    }
 }
 
 -(NSString*)timeSince: (double) time {

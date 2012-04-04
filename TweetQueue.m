@@ -13,6 +13,8 @@
 
 #define kSendWaitSeconds 10.0
 #define kTimerIntervalSeconds 3.0
+#define kRecentTweetExpireSeconds 1800
+#define kMaxRecentsTweetsAllowed 50
 
 NSTimer* timer;
 NSMutableArray* queue;  // queue of Tweets to post
@@ -131,10 +133,20 @@ static TweetQueue* current = nil;
                  // if we are good to go, tweet
                  if (acct) 
                  {
-                     [self sendTweet:tweet toAccount:acct];
+                     [self sendTweetLimited:tweet toAccount:acct];
                  }
              }
          }];
+    }
+}
+
+-(void)sendTweetLimited: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount {
+    [self expireRecentTweets];
+    if (tweet.isOptional && [recentTweets count] >= kMaxRecentsTweetsAllowed) {  // too many tweets per hour
+        tweet.status = TweetSkipped;
+        [self logTweet:tweet];
+    } else {
+        [self sendTweet: tweet toAccount: twitterAccount];
     }
 }
 
@@ -173,10 +185,19 @@ static TweetQueue* current = nil;
 }
 
 -(void)logTweet: (Tweet*) tweet {
-    if ([recentTweets count] >= 20) {
-        [recentTweets removeObjectAtIndex:0];
-    }
     [recentTweets addObject:tweet];
+}
+
+-(void)expireRecentTweets {
+    double expiredTime = [NSDate timeIntervalSinceReferenceDate] - kRecentTweetExpireSeconds;
+    NSMutableIndexSet* indicesToRemove = [[NSMutableIndexSet alloc] init];
+    for (int i=0; i < [recentTweets count]; i++) {
+        Tweet* tweet = [recentTweets objectAtIndex:i];
+        if (tweet.time < expiredTime) {
+            [indicesToRemove addIndex:i];
+        }
+    }
+    [recentTweets removeObjectsAtIndexes:indicesToRemove];
 }
 
 

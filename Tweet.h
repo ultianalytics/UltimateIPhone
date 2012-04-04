@@ -13,7 +13,8 @@ typedef enum {
     TweetQueued,
     TweetSent,
     TweetFailed,
-    TweetIgnored
+    TweetIgnored,
+    TweetSkipped
 } TweetStatus;
 
 #define kAdHocType @"AdHoc"
@@ -27,6 +28,7 @@ typedef enum {
 @property (nonatomic) double time;
 @property (nonatomic, strong) Event* associatedEvent;
 @property (nonatomic) BOOL isUndo;
+@property (nonatomic) BOOL isOptional;
 
 -(id) initMessage: (NSString*) aMessage type: (NSString*)type;
 -(id) initMessage: (NSString*) aMessage;

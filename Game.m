@@ -55,9 +55,9 @@ BOOL arePointSummariesValid;
                 }
             } 
             point.summary.score = [self createScoreForOurs:score.ours theirs:score.theirs];
-            point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : [self getHalftimePoint] == MAX(score.ours, score.theirs) ?
-                !self.isFirstPointOline : ![lastPoint isOurPoint];
             point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint]<= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
+            BOOL isFirstPointAfterHalftime = lastPoint != nil && point.summary.isAfterHalftime && !lastPoint.summary.isAfterHalftime;
+            point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
             point.summary.elapsedSeconds = point.timeEndedSeconds - point.timeStartedSeconds;
             point.summary.previousPoint = lastPoint;
 

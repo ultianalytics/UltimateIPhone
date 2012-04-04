@@ -316,15 +316,9 @@
     Score score = [[Game getCurrentGame] getScore];
     NSString* leaderDescription = score.ours == score.theirs ? @"" : score.ours > score.theirs    ? @", us" :  @", them";
     NSString* navBarTitle = [NSString stringWithFormat:@"%@ (%d-%d%@)", NSLocalizedString(@"Game", @"Game"), score.ours, score.theirs, leaderDescription];
-    self.title = navBarTitle;
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont boldSystemFontOfSize:16.0];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor =[UIColor whiteColor];
-    label.text=self.title;  
-    self.navigationItem.titleView = label;   
+    self.navigationItem.title = navBarTitle;
+    // use a smaller font
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
 }
 
 -(void) updateViewFromGame: (Game*) game {

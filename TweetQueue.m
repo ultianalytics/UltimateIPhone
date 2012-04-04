@@ -145,6 +145,7 @@ static TweetQueue* current = nil;
     if (tweet.isOptional && [recentTweets count] >= kMaxRecentsTweetsAllowed) {  // too many tweets per hour
         tweet.status = TweetSkipped;
         [self logTweet:tweet];
+        [queue removeObject:tweet];
     } else {
         [self sendTweet: tweet toAccount: twitterAccount];
     }

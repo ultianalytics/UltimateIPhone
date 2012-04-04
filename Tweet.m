@@ -48,5 +48,9 @@
     return [kAdHocType isEqualToString:self.type];
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"tweet: %@, type: %@, status: %d, error: %@, time: %f, isUndo: %d, isOptional: %d,",
+            message, type, status, error, time, isUndo, isOptional];
+}
 
 @end

@@ -40,7 +40,16 @@ NSDateFormatter* timeFormatter;
 }
 
 -(BOOL)isTweetingEvents {
-    return [Preferences getCurrentPreferences].isTweetingEvents;
+    return [Preferences getCurrentPreferences].autoTweetLevel != NoAutoTweet;
+}
+
+-(AutoTweetLevel)getAutoTweetLevel {
+    return [Preferences getCurrentPreferences].autoTweetLevel;
+}
+
+-(void)setAutoTweetLevel:(AutoTweetLevel) level {
+    [Preferences getCurrentPreferences].autoTweetLevel = level;
+    [[Preferences getCurrentPreferences] save];
 }
 
 -(NSString*)getGameScoreDescription: (Game*) game {
@@ -64,7 +73,7 @@ NSDateFormatter* timeFormatter;
                 tweet.associatedEvent = event;
                 [self tweet: tweet];
             }
-        } else if ([event isTurnover]) {
+        } else if ([event isTurnover] && [self getAutoTweetLevel] == TweetGoalsAndTurns) {
             NSString* message = [self turnoverTweetMessage:event forGame:game isUndo:isUndo]; 
             Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"Event"];
             tweet.isUndo = isUndo;

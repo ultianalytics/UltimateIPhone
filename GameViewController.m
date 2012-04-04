@@ -302,7 +302,7 @@
         [self updateNavBarTitle]; 
         [[Game getCurrentGame] save];
         [self updateViewFromGame:[Game getCurrentGame]];
-        self.tweetingLabel.hidden = ![Preferences getCurrentPreferences].isTweetingEvents;
+        self.tweetingLabel.hidden = ![Tweeter getCurrent].isTweetingEvents;
     }
 }
 

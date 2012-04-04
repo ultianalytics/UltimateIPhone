@@ -14,7 +14,7 @@
 			<string>IBUIView</string>
 			<string>IBProxyObject</string>
 			<string>IBUILabel</string>
-			<string>IBUISwitch</string>
+			<string>IBUISegmentedControl</string>
 			<string>IBUITableView</string>
 			<string>IBUITableViewCell</string>
 			<string>IBUIButton</string>
@@ -157,26 +157,13 @@
 						<reference key="NSNextResponder" ref="1046355267"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUISwitch" id="33082105">
-								<reference key="NSNextResponder" ref="72014422"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{198, 8}, {94, 27}}</string>
-								<reference key="NSSuperview" ref="72014422"/>
-								<reference key="NSWindow"/>
-								<string key="NSReuseIdentifierKey">_NS:606</string>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<bool key="IBUIOn">YES</bool>
-							</object>
 							<object class="IBUILabel" id="800328235">
 								<reference key="NSNextResponder" ref="72014422"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{14, 11}, {143, 21}}</string>
 								<reference key="NSSuperview" ref="72014422"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="33082105"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -200,6 +187,44 @@
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
 								</object>
+							</object>
+							<object class="IBUISegmentedControl" id="487094499">
+								<reference key="NSNextResponder" ref="72014422"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{113, 7}, {162, 30}}</string>
+								<reference key="NSSuperview" ref="72014422"/>
+								<reference key="NSWindow"/>
+								<string key="NSReuseIdentifierKey">_NS:273</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBSegmentControlStyle">2</int>
+								<int key="IBNumberOfSegments">3</int>
+								<int key="IBSelectedSegmentIndex">0</int>
+								<array key="IBSegmentTitles">
+									<string>NONE</string>
+									<string>Goals</string>
+									<string>+Turns</string>
+								</array>
+								<array class="NSMutableArray" key="IBSegmentWidths">
+									<real value="0.0"/>
+									<real value="0.0"/>
+									<real value="0.0"/>
+								</array>
+								<array class="NSMutableArray" key="IBSegmentEnabledStates">
+									<boolean value="YES"/>
+									<boolean value="YES"/>
+									<boolean value="YES"/>
+								</array>
+								<array class="NSMutableArray" key="IBSegmentContentOffsets">
+									<string>{0, 0}</string>
+									<string>{0, 0}</string>
+									<string>{0, 0}</string>
+								</array>
+								<array class="NSMutableArray" key="IBSegmentImages">
+									<object class="NSNull" id="4"/>
+									<reference ref="4"/>
+									<reference ref="4"/>
+								</array>
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 43}</string>
@@ -419,20 +444,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tweetEveryEventSwitch</string>
+						<string key="label">autoTweetSegmentedControl</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="33082105"/>
+						<reference key="destination" ref="487094499"/>
 					</object>
-					<int key="connectionID">35</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">isTweetingEveryEventChanged:</string>
-						<reference key="source" ref="33082105"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">13</int>
-					</object>
-					<int key="connectionID">22</int>
+					<int key="connectionID">38</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -458,6 +474,15 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">autoTweetChanged:</string>
+						<reference key="source" ref="487094499"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">39</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -499,8 +524,8 @@
 						<int key="objectID">5</int>
 						<reference key="object" ref="1046355267"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="33082105"/>
 							<reference ref="800328235"/>
+							<reference ref="487094499"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -522,11 +547,6 @@
 						<int key="objectID">8</int>
 						<reference key="object" ref="173240596"/>
 						<reference key="parent" ref="1013190098"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9</int>
-						<reference key="object" ref="33082105"/>
-						<reference key="parent" ref="1046355267"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
@@ -556,6 +576,11 @@
 						<reference key="object" ref="467344517"/>
 						<reference key="parent" ref="551149425"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">36</int>
+						<reference key="object" ref="487094499"/>
+						<reference key="parent" ref="1046355267"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -569,18 +594,19 @@
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<integer value="0" key="36.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">39</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -588,12 +614,12 @@
 					<string key="className">TwitterController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="isTweetingEveryEventChanged:">id</string>
+						<string key="autoTweetChanged:">id</string>
 						<string key="tweetButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="isTweetingEveryEventChanged:">
-							<string key="name">isTweetingEveryEventChanged:</string>
+						<object class="IBActionInfo" key="autoTweetChanged:">
+							<string key="name">autoTweetChanged:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="tweetButtonClicked:">
@@ -602,16 +628,20 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="autoTweetSegmentedControl">UISegmentedControl</string>
 						<string key="recentTweetsCell">UITableViewCell</string>
 						<string key="tweetButtonCell">UITableViewCell</string>
 						<string key="tweetEveryEventCell">UITableViewCell</string>
-						<string key="tweetEveryEventSwitch">UISwitch</string>
 						<string key="tweetLogTableView">UITableView</string>
 						<string key="twitterAccountCell">UITableViewCell</string>
 						<string key="twitterAccountNameLabel">UILabel</string>
 						<string key="twitterTableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="autoTweetSegmentedControl">
+							<string key="name">autoTweetSegmentedControl</string>
+							<string key="candidateClassName">UISegmentedControl</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="recentTweetsCell">
 							<string key="name">recentTweetsCell</string>
 							<string key="candidateClassName">UITableViewCell</string>
@@ -623,10 +653,6 @@
 						<object class="IBToOneOutletInfo" key="tweetEveryEventCell">
 							<string key="name">tweetEveryEventCell</string>
 							<string key="candidateClassName">UITableViewCell</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tweetEveryEventSwitch">
-							<string key="name">tweetEveryEventSwitch</string>
-							<string key="candidateClassName">UISwitch</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tweetLogTableView">
 							<string key="name">tweetLogTableView</string>

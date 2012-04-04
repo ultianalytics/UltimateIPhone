@@ -19,21 +19,20 @@
 #import "TweetLogViewController.h"
 
 @implementation TwitterController
-@synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, tweetEveryEventSwitch, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
+@synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, autoTweetSegmentedControl, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
 
 NSArray* twitterCells;
 
 UIAlertView* busyView;
 
--(IBAction)isTweetingEveryEventChanged: (id) sender {
-    if (self.tweetEveryEventSwitch.on) {
+-(IBAction)autoTweetChanged: (id) sender {
+    if (self.autoTweetSegmentedControl.selectedSegmentIndex != NoAutoTweet) {
         if ([[Tweeter getCurrent] getTwitterAccountName] == nil) {
-            self.tweetEveryEventSwitch.on = NO;
+            self.autoTweetSegmentedControl.selectedSegmentIndex = NoAutoTweet;
             [TweetViewController alertNoAccount: self];
         } 
     }
-    [Preferences getCurrentPreferences].isTweetingEvents =  self.tweetEveryEventSwitch.on;
-    [[Preferences getCurrentPreferences] save];
+    [[Tweeter getCurrent] setAutoTweetLevel:self.autoTweetSegmentedControl.selectedSegmentIndex];
 }
 
 -(IBAction)tweetButtonClicked: (id) sender; {
@@ -56,7 +55,7 @@ UIAlertView* busyView;
 
 
 -(void)populateViewFromModel {;
-    self.tweetEveryEventSwitch.on = [Preferences getCurrentPreferences].isTweetingEvents;
+    self.autoTweetSegmentedControl.selectedSegmentIndex = [[Tweeter getCurrent] getAutoTweetLevel];
     NSString* currentAccount = [[Tweeter getCurrent] getTwitterAccountName];
     self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
     self.twitterAccountCell.accessoryType = currentAccount == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
@@ -126,7 +125,7 @@ UIAlertView* busyView;
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.tweetEveryEventSwitch.onTintColor = [ColorMaster getNavBarTintColor];
+    self.autoTweetSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     [self populateViewFromModel];
     
 }

@@ -12,6 +12,11 @@
 @class UPoint;
 @class ACAccount;
 @class Tweet;
+typedef enum {
+    NoAutoTweet,
+    TweetGoals,
+    TweetGoalsAndTurns
+} AutoTweetLevel;
 
 @interface Tweeter : NSObject
 
@@ -28,6 +33,8 @@
 -(NSArray*)getTwitterAccountsNames;
 -(void)setPreferredTwitterAccount: (NSString*) accountName;
 -(BOOL)isTweetingEvents;
+-(AutoTweetLevel)getAutoTweetLevel;
+-(void)setAutoTweetLevel:(AutoTweetLevel) level;
 
 // private
 -(NSString*)getGameScoreDescription: (Game*) game;
@@ -37,6 +44,6 @@
 -(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 -(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 -(NSString*)gameOverTweetMessageForGame: (Game*) game;
--(NSString*) getTime;
+-(NSString*)getTime;
 
 @end

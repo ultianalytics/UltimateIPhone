@@ -19,9 +19,9 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* recentTweetsCell;
 @property (nonatomic, strong) IBOutlet UILabel* twitterAccountNameLabel;
 
-@property (nonatomic, strong) IBOutlet UISwitch* tweetEveryEventSwitch;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* autoTweetSegmentedControl;
 
--(IBAction)isTweetingEveryEventChanged: (id) sender;
+-(IBAction)autoTweetChanged: (id) sender;
 -(IBAction)tweetButtonClicked: (id) sender;
 -(void)populateViewFromModel;
 

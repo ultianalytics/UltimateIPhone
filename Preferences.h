@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Tweeter.h"
 
 @interface Preferences : NSObject 
     
@@ -16,7 +17,7 @@
 @property (nonatomic) BOOL isDiplayingPlayerNumber;
 @property (nonatomic) int gamePoint;
 @property (nonatomic, strong) NSString* userid;
-@property (nonatomic) BOOL isTweetingEvents;
+@property (nonatomic) AutoTweetLevel autoTweetLevel;
 @property (nonatomic, strong) NSString* twitterAccountDescription;
 
 +(Preferences*)getCurrentPreferences;

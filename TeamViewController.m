@@ -20,34 +20,44 @@
 
 NSArray* cells;
 
+-(void)populateViewFromModel {
+    [self.teamNameField setText:team.name];
+    self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
+    self.playerDisplayTypeSegmentedControl.selectedSegmentIndex = team.isDiplayingPlayerNumber ? 1 : 0;
+}
+
+-(void)populateModelFromView {
+    team.name = teamNameField.text;
+    team.name = teamNameField.text;
+    team.isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
+}
+
+
 -(void)saveAndReturn {
-    if ([self verifyTeamName]) {
-        [self.team save];  
+    if ([self saveChanges]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
--(void)saveChanges {
-    if ([self.team hasBeenSaved]) {
+-(BOOL)saveChanges {
+    if ([self verifyTeamName]) {
+        [self populateModelFromView];
         [self.team save];  
+        return YES;
     }
+    return NO;
 }
 
 -(IBAction)nameChanged: (id) sender {
-    team.name = teamNameField.text;
-    [self saveChanges];
+   
 }
 
 -(IBAction)teamTypeChanged: (id) sender {
     [self dismissKeyboard];
-    team.isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
-    [self saveChanges];
 }
 
 -(IBAction)playerDisplayChanged: (id) sender {
     [self dismissKeyboard];
-    team.isDiplayingPlayerNumber =  self.playerDisplayTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
-    [self saveChanges];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -154,13 +164,14 @@ NSArray* cells;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     cells = [[NSArray alloc] initWithObjects:nameCell, typeCell, displayCell, playersCell, nil];
-    
     self.teamNameField.delegate = self; 
-    
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
-  
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    self.teamTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    self.playerDisplayTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndReturn)];
+    self.navigationItem.rightBarButtonItem = saveBarItem;    
 
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -175,17 +186,8 @@ NSArray* cells;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.teamNameField setText:team.name];
-    self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
-    self.playerDisplayTypeSegmentedControl.selectedSegmentIndex = team.isDiplayingPlayerNumber ? 1 : 0;
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.teamTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
-    self.playerDisplayTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
-    
-    if (![self.team hasBeenSaved]) {
-        UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndReturn)];
-        self.navigationItem.rightBarButtonItem = saveBarItem;    
-    }
+    [self populateViewFromModel];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated

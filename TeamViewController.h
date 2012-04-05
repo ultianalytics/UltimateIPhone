@@ -25,10 +25,13 @@
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;
 -(void)dismissKeyboard;
--(void)saveChanges;
+-(BOOL)saveChanges;
 -(BOOL)verifyTeamName;
 -(NSString*) getText: (UITextField*) textField;
 -(BOOL) isDuplicateTeamName: (NSString*) newTeamName;
 -(void)saveAndReturn;
+-(void)populateViewFromModel;
+-(void)populateModelFromView;
+
 
 @end

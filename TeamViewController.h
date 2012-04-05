@@ -35,6 +35,8 @@
 -(void)saveAndReturn;
 -(void)populateViewFromModel;
 -(void)populateModelFromView;
+-(void)goToBestView;
+-(void)goToPlayersView: (BOOL) animated;
 
 
 @end

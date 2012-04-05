@@ -100,8 +100,7 @@ NSArray* cells;
         if ([self verifyTeamName]) {
             [self.team save]; 
             [Team setCurrentTeam: team.teamId];
-            TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
-            [self.navigationController pushViewController:playersController animated:YES];
+            [self goToPlayersView: YES];
         }
     };
 } 
@@ -186,6 +185,18 @@ NSArray* cells;
         }
     }
     return NO;
+}
+
+-(void)goToPlayersView: (BOOL) animated {
+    TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
+    [self.navigationController pushViewController:playersController animated:YES];
+}
+
+-(void)goToBestView {
+    // if we've already started adding players..go back there on app start
+    if ([team.players count] > 0) {
+        [self goToPlayersView: NO];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

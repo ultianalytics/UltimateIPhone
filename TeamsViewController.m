@@ -19,10 +19,13 @@ NSArray* teamDescriptions;
 
 
 -(void)goToAddTeam {
-    Team* team = [[Team alloc] init];
+    [self goToTeamView: [[Team alloc] init] animated: YES];
+}
+
+-(void)goToTeamView: (Team*) team animated: (BOOL) animated {
     TeamViewController* teamController = [[TeamViewController alloc] init];
     teamController.team = team;
-    [self.navigationController pushViewController:teamController animated:YES];
+    [self.navigationController pushViewController:teamController animated:animated]; 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -52,9 +55,7 @@ NSArray* teamDescriptions;
     NSUInteger row = [indexPath row]; 
     TeamDescription* teamDescription = [teamDescriptions objectAtIndex:row];
     Team* team = [Team readTeam:teamDescription.teamId];
-    TeamViewController* teamController = [[TeamViewController alloc] init];
-    teamController.team = team;
-    [self.navigationController pushViewController:teamController animated:YES];
+    [self goToTeamView: team animated: YES];
 } 
 
 -(void)retrieveTeamDescriptions {
@@ -66,6 +67,11 @@ NSArray* teamDescriptions;
         NSString* second = ((TeamDescription*)b).name;
         return [first compare:second];
     }];
+}
+
+-(void)goToBestView {
+    // go to the current team on app start
+    [self goToTeamView: [Team getCurrentTeam] animated: NO];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -91,7 +97,7 @@ NSArray* teamDescriptions;
 {
     [super viewDidLoad];
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddTeam)];
-    self.navigationItem.rightBarButtonItem = historyNavBarItem;    
+    self.navigationItem.rightBarButtonItem = historyNavBarItem;  
 }
 
 - (void)viewWillAppear:(BOOL)animated {

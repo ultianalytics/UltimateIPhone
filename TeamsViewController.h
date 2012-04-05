@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Team;
 
 @interface TeamsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
@@ -14,5 +15,7 @@
 
 -(void)retrieveTeamDescriptions;
 -(void)goToAddTeam;
+-(void)goToBestView;
+-(void)goToTeamView: (Team*) team animated: (BOOL) animated;
 
 @end

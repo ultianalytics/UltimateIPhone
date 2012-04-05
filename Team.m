@@ -16,12 +16,13 @@
 #define kPlayersKey             @"players"
 #define kNameKey                @"name"
 #define kIsMixedKey             @"mixed"
+#define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kTeamFileNamePrefixKey  @"team-"
 
 static Team* currentTeam = nil;
 
 @implementation Team
-@synthesize teamId, players, name, isMixed,cloudId;
+@synthesize teamId, players, name, isMixed, isDiplayingPlayerNumber, cloudId;
 
 +(NSArray*)retrieveTeamDescriptions {
     NSMutableArray* descriptions = [[NSMutableArray alloc] init];
@@ -122,6 +123,7 @@ static Team* currentTeam = nil;
         self.players = [decoder decodeObjectForKey:kPlayersKey]; 
         self.name = [decoder decodeObjectForKey:kNameKey];
         self.isMixed = [decoder decodeBoolForKey:kIsMixedKey];
+        self.isDiplayingPlayerNumber = [decoder decodeBoolForKey:kDisplayPlayerNumberKey];
         self.cloudId = [decoder decodeObjectForKey:kCloudIdKey];
     } 
     return self; 
@@ -131,7 +133,8 @@ static Team* currentTeam = nil;
     [encoder encodeObject:self.teamId forKey:kTeamIdKey]; 
     [encoder encodeObject:self.players forKey:kPlayersKey]; 
     [encoder encodeObject:self.name forKey:kNameKey]; 
-    [encoder encodeBool:self.isMixed forKey:kIsMixedKey]; 
+    [encoder encodeBool:self.isMixed forKey:kIsMixedKey];
+    [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey];     
     [encoder encodeObject:self.cloudId forKey:kCloudIdKey]; 
 } 
 

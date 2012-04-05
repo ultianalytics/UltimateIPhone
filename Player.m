@@ -138,7 +138,7 @@ static AnonymousPlayer* singleAnonymous = nil;
 }
 
 -(NSString*)getDisplayName {
-    return [[Preferences getCurrentPreferences]isDiplayingPlayerNumber] && self.number !=  nil && (![self.number isEqualToString: @""]) ? self.number : self.name;
+    return [[Team getCurrentTeam]isDiplayingPlayerNumber] && self.number !=  nil && (![self.number isEqualToString: @""]) ? self.number : self.name;
 }
 
 @end

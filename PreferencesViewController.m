@@ -17,16 +17,11 @@
 SignonViewController* signonController;
 
 @implementation PreferencesViewController
-@synthesize preferencesTableView,playerDisplaySegmentedControl,playerDisplayCell;
+@synthesize preferencesTableView;
 NSArray* preferencesCells;
 
 -(void)populateViewFromModel {
-    self.playerDisplaySegmentedControl.selectedSegmentIndex = [Preferences getCurrentPreferences].isDiplayingPlayerNumber ? 1 : 0;
-}
 
--(IBAction)isDiplayingPlayerNumberChanged: (id) sender {
-    [Preferences getCurrentPreferences].isDiplayingPlayerNumber =  self.playerDisplaySegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
-    [[Preferences getCurrentPreferences] save];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -34,7 +29,7 @@ NSArray* preferencesCells;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        preferencesCells = [NSArray arrayWithObjects:playerDisplayCell, nil];
+        preferencesCells = [NSArray arrayWithObjects: nil];
         return [preferencesCells count];
 }
 
@@ -73,7 +68,6 @@ NSArray* preferencesCells;
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.playerDisplaySegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     [self populateViewFromModel];
 }
 

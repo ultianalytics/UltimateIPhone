@@ -432,7 +432,7 @@ BOOL arePointSummariesValid;
 }
 
 -(NSMutableArray*)getCurrentLineSorted {
-    if ([Preferences getCurrentPreferences].isDiplayingPlayerNumber ) {
+    if ([Team getCurrentTeam].isDiplayingPlayerNumber ) {
         [[self getCurrentLine] sortUsingComparator:^(id a, id b) {
             int first = ((Player*)a).number.intValue;
             int second = ((Player*)b).number.intValue;

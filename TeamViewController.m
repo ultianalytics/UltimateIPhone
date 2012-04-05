@@ -46,7 +46,8 @@ NSArray* cells;
 
 -(IBAction)playerDisplayChanged: (id) sender {
     [self dismissKeyboard];
-
+    team.isDiplayingPlayerNumber =  self.playerDisplayTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
+    [self saveChanges];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -176,6 +177,7 @@ NSArray* cells;
     [super viewWillAppear:animated];
     [self.teamNameField setText:team.name];
     self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
+    self.playerDisplayTypeSegmentedControl.selectedSegmentIndex = team.isDiplayingPlayerNumber ? 1 : 0;
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.teamTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.playerDisplayTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];

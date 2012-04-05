@@ -15,7 +15,6 @@
 @property (nonatomic, strong) NSString* currentTeamFileName;
 @property (nonatomic, strong) NSString* currentGameFileName;
 @property (nonatomic, strong) NSString* filePath;
-@property (nonatomic) BOOL isDiplayingPlayerNumber;
 @property (nonatomic) int gamePoint;
 @property (nonatomic, strong) NSString* userid;
 @property (nonatomic) AutoTweetLevel autoTweetLevel;

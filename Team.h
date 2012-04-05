@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray* players;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic) BOOL isMixed;
+@property (nonatomic) BOOL isDiplayingPlayerNumber;
 @property (nonatomic, strong) NSString* cloudId;
 
 +(Team*)getCurrentTeam;

@@ -12,7 +12,6 @@
 #define kTournamentKey          @"tournament"
 #define kCurrentTeamFileKey     @"currentTeamFileName"
 #define kCurrentGameFileKey     @"currentGameFileName"
-#define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kGamePointKey           @"gamePoint"
 #define kAutoTweetLevelKey      @"autoTweetLevel"
 #define kUseridKey              @"userid"
@@ -22,7 +21,7 @@
 static Preferences* currentPreferences= nil;
 
 @implementation Preferences
-@synthesize filePath, tournamentName,currentTeamFileName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid,autoTweetLevel,twitterAccountDescription;
+@synthesize filePath, tournamentName,currentTeamFileName,currentGameFileName, gamePoint,userid,autoTweetLevel,twitterAccountDescription;
 
 -(id) init  {
     self = [super init];
@@ -39,7 +38,6 @@ static Preferences* currentPreferences= nil;
         self.tournamentName = [decoder decodeObjectForKey:kTournamentKey];
         self.currentTeamFileName = [decoder decodeObjectForKey:kCurrentTeamFileKey];
         self.currentGameFileName = [decoder decodeObjectForKey:kCurrentGameFileKey];
-        self.isDiplayingPlayerNumber = [decoder decodeBoolForKey:kDisplayPlayerNumberKey];
         self.gamePoint = [decoder decodeBoolForKey:kGamePointKey];
         if (self.gamePoint < kMinGamePoint || self.gamePoint > kMaxGamePoint) {
             self.gamePoint = kDefaultGamePoint;
@@ -54,7 +52,6 @@ static Preferences* currentPreferences= nil;
     [encoder encodeObject:self.tournamentName forKey:kTournamentKey]; 
     [encoder encodeObject:self.currentTeamFileName forKey:kCurrentTeamFileKey]; 
     [encoder encodeObject:self.currentGameFileName forKey:kCurrentGameFileKey];
-    [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey]; 
     [encoder encodeBool:self.gamePoint forKey:kGamePointKey];
     [encoder encodeObject:self.userid forKey:kUseridKey];
     [encoder encodeInt:self.autoTweetLevel forKey:kAutoTweetLevelKey];

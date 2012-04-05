@@ -12,10 +12,7 @@
 @interface PreferencesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView* preferencesTableView;
-@property (nonatomic, strong) IBOutlet UITableViewCell* playerDisplayCell;
-@property (nonatomic, strong) IBOutlet UISegmentedControl* playerDisplaySegmentedControl;
 
--(IBAction)isDiplayingPlayerNumberChanged: (id) sender;
 -(void)populateViewFromModel;
 
 @end

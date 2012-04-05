@@ -27,6 +27,7 @@
 +(NSArray*)retrieveTeamDescriptions;
 
 -(void)save;
+-(void)delete;
 -(BOOL)hasBeenSaved;
 -(NSArray*) getAllPlayers;
 -(void) addPlayer: (Player*) player;

@@ -16,7 +16,7 @@
 #import "TeamPlayersViewController.h"
 
 @implementation TeamViewController
-@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell;
+@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView;
 
 NSArray* cells;
 
@@ -24,6 +24,7 @@ NSArray* cells;
     [self.teamNameField setText:team.name];
     self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
     self.playerDisplayTypeSegmentedControl.selectedSegmentIndex = team.isDiplayingPlayerNumber ? 1 : 0;
+    self.deleteButton.hidden = ![team hasBeenSaved];
 }
 
 -(void)populateModelFromView {
@@ -50,6 +51,10 @@ NSArray* cells;
 
 -(IBAction)nameChanged: (id) sender {
    
+}
+
+-(IBAction)deleteClicked: (id) sender {
+    [self verifyAndDelete];
 }
 
 -(IBAction)teamTypeChanged: (id) sender {
@@ -79,6 +84,7 @@ NSArray* cells;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    cells = [[NSArray alloc] initWithObjects:nameCell, typeCell, displayCell, playersCell, nil];
     return [cells count];
 }
 
@@ -129,6 +135,44 @@ NSArray* cells;
     } 
 }
 
+-(void)verifyAndDelete {
+    if ([[Team retrieveTeamDescriptions] count] < 2) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Delete not allowed" 
+                              message:@"You cannot delete this team because it is the only team remaining."
+                              delegate:self 
+                              cancelButtonTitle:@"OK" 
+                              otherButtonTitles:nil]; 
+        [alert show];
+    } else {
+        deleteAlertView = [[UIAlertView alloc] 
+                              initWithTitle: NSLocalizedString(@"Delete Team",nil)
+                              message: NSLocalizedString(@"Are you sure you want to delete this team?",nil)
+                              delegate: self
+                              cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
+                              otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
+        [deleteAlertView show];
+    } 
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == deleteAlertView) {
+        switch (buttonIndex) {
+            case 0: 
+            {       
+                //NSLog(@"Delete was cancelled by the user");
+            }
+                break;
+                
+            case 1: 
+            {
+                [self.team delete];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+                break;
+        }
+    }
+}
 
 -(NSString*) getText: (UITextField*) textField {
     return textField.text == nil ? @"" : [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -164,7 +208,6 @@ NSArray* cells;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    cells = [[NSArray alloc] initWithObjects:nameCell, typeCell, displayCell, playersCell, nil];
     self.teamNameField.delegate = self; 
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];

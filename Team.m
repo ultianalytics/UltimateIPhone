@@ -112,7 +112,7 @@ static Team* currentTeam = nil;
     if (self) {
         self.teamId = [self generateUniqueFileName];
         self.players = [[NSMutableArray alloc] init];
-        self.name = @"Us";
+        self.name = @"";
     }
     return self;
 }
@@ -166,6 +166,29 @@ static Team* currentTeam = nil;
 -(BOOL)hasBeenSaved {
     NSString* filePath = [Team getFilePath: teamId]; 
 	return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+}
+
+-(void)delete {
+    if ([Team isCurrentTeam:self.teamId]) {
+        // move "current" to another team
+        for (TeamDescription* teamDesc in [Team retrieveTeamDescriptions]) {
+            if (teamDesc.teamId != self.teamId) {
+                [Team setCurrentTeam:teamDesc.teamId];
+                break;
+            }
+        }
+    }
+    NSString *path = [Team getFilePath:self.teamId];
+	NSError *error;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path])		//Does file exist?
+	{
+		if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error])	//Delete it
+		{
+            if (error) {
+                NSLog(@"Delete team file error: %@", error);
+            }
+		}
+	}
 }
 
 -(NSArray*) getAllPlayers {

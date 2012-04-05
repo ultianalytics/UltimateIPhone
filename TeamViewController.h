@@ -20,13 +20,16 @@
 @property (nonatomic, strong) IBOutlet UITextField* teamNameField;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* teamTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* playerDisplayTypeSegmentedControl;
+@property (nonatomic, strong) IBOutlet UIButton* deleteButton;
+@property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
 
--(IBAction)nameChanged: (id) sender;
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;
+-(IBAction)deleteClicked: (id) sender;
 -(void)dismissKeyboard;
 -(BOOL)saveChanges;
 -(BOOL)verifyTeamName;
+-(void)verifyAndDelete;
 -(NSString*) getText: (UITextField*) textField;
 -(BOOL) isDuplicateTeamName: (NSString*) newTeamName;
 -(void)saveAndReturn;

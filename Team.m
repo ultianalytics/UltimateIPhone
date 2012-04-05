@@ -7,23 +7,110 @@
 //
 
 #import "Team.h"
+#import "Preferences.h"
+#import "TeamDescription.h"
 
-#define kArchiveFileName    @"team"
-#define kTeamKey            @"team"
-#define kPlayersKey         @"players"
-#define kNameKey            @"name"
-#define kIsMixedKey         @"mixed"
+#define kArchiveFileName        @"team"
+#define kTeamKey                @"team"
+#define kTeamIdKey              @"id"
+#define kPlayersKey             @"players"
+#define kNameKey                @"name"
+#define kIsMixedKey             @"mixed"
+#define kTeamFileNamePrefixKey  @"team-"
 
 static Team* currentTeam = nil;
 
 @implementation Team
-@synthesize players, filePath, name, isMixed,cloudId;
+@synthesize teamId, players, name, isMixed,cloudId;
+
++(NSArray*)retrieveTeamDescriptions {
+    NSMutableArray* descriptions = [[NSMutableArray alloc] init];
+    NSArray* fileNames = [Team getAllTeamFileNames];
+    for (NSString* idOfTeam in fileNames) {
+        Team* team = [Team readTeam:idOfTeam];
+        TeamDescription* teamDesc = [[TeamDescription alloc] initWithId:team.teamId name:team.name];
+        [descriptions addObject:teamDesc];
+    }
+    return descriptions;
+}
+
++(Team*)getCurrentTeam {
+    @synchronized(self) {
+        if (! currentTeam) {
+            NSString* currentTeamFileName = [Preferences getCurrentPreferences].currentTeamFileName;
+            currentTeam = [self readTeam: currentTeamFileName];    
+            if (currentTeam == nil) {
+                Team* team = [[Team alloc] init];
+                [team save];
+                [Preferences getCurrentPreferences].currentTeamFileName = team.teamId;
+                [[Preferences getCurrentPreferences] save];
+                currentTeam = team;
+            }
+        }
+        return currentTeam;
+    }
+}
+
++(BOOL)isCurrentTeam: (NSString*) teamId {
+    return [teamId isEqualToString:[Preferences getCurrentPreferences].currentTeamFileName];
+}
+
++(void)setCurrentTeam: (NSString*) teamId {
+    currentTeam = [Team readTeam:teamId];
+    [Preferences getCurrentPreferences].currentTeamFileName = currentTeam.teamId;
+    [[Preferences getCurrentPreferences] save];
+}
+
++(Team*)readTeam: (NSString*) teamId {
+    if (teamId == nil) {
+        return nil;
+    }
+    NSString* filePath = [Team getFilePath: teamId]; 
+    
+    NSData* data = [[NSData alloc] initWithContentsOfFile: filePath]; 
+    if (data == nil) {
+        return nil;
+    } 
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] 
+                                     initForReadingWithData:data]; 
+    Team* loadedTeam = [unarchiver decodeObjectForKey:kTeamKey]; 
+    currentTeam = loadedTeam ? loadedTeam : [[Team alloc] init]; 
+    return loadedTeam;
+}
+
++(NSArray*)getAllTeamFileNames {
+    NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    NSArray* directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+    
+    NSMutableArray* fileNames = [[NSMutableArray alloc] init];
+    for (int i = 0; i < (int)[directoryContent count]; i++)
+    {
+        NSString* fileName = [directoryContent objectAtIndex:i];
+        if ([fileName hasPrefix:kTeamFileNamePrefixKey]) {
+            [fileNames addObject:fileName];
+        }
+    }
+    return fileNames;
+}
+
++(NSString*)getFilePath: (NSString*) teamdId { 
+    NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
+    NSString* documentsDirectory = [paths objectAtIndex:0]; 
+    return [documentsDirectory stringByAppendingPathComponent:teamdId]; 
+}
+
+-(NSString*)generateUniqueFileName {
+    CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
+    //get the string representation of the UUID
+    return [NSString stringWithFormat:@"%@%@", kTeamFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
+}
 
 -(id) init  {
     self = [super init];
     if (self) {
+        self.teamId = [self generateUniqueFileName];
         self.players = [[NSMutableArray alloc] init];
-        self.filePath = [Team getFilePath];
         self.name = @"Us";
     }
     return self;
@@ -31,7 +118,7 @@ static Team* currentTeam = nil;
 
 - (id)initWithCoder:(NSCoder *)decoder { 
     if (self = [super init]) { 
-        self.filePath = [Team getFilePath];
+        self.teamId = [decoder decodeObjectForKey:kTeamIdKey];
         self.players = [decoder decodeObjectForKey:kPlayersKey]; 
         self.name = [decoder decodeObjectForKey:kNameKey];
         self.isMixed = [decoder decodeBoolForKey:kIsMixedKey];
@@ -41,6 +128,7 @@ static Team* currentTeam = nil;
 } 
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 
+    [encoder encodeObject:self.teamId forKey:kTeamIdKey]; 
     [encoder encodeObject:self.players forKey:kPlayersKey]; 
     [encoder encodeObject:self.name forKey:kNameKey]; 
     [encoder encodeBool:self.isMixed forKey:kIsMixedKey]; 
@@ -60,37 +148,21 @@ static Team* currentTeam = nil;
     return dict;
 }
 
-+(Team*)getCurrentTeam {
-    @synchronized(self) {
-        if (! currentTeam) {
-            currentTeam = [[Team alloc] init];    
-            
-            NSData *data = [[NSData alloc] initWithContentsOfFile: [Team getFilePath]]; 
-            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] 
-                                             initForReadingWithData:data]; 
-            Team* loadedTeam = [unarchiver decodeObjectForKey:kTeamKey]; 
-            currentTeam = loadedTeam ? loadedTeam : [[Team alloc] init]; 
-        }
-        return currentTeam;
-    }
-}
-
 -(void)save {
     NSMutableData *data = [[NSMutableData alloc] init]; 
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] 
                                  initForWritingWithMutableData:data]; 
     [archiver encodeObject: self forKey:kTeamKey]; 
     [archiver finishEncoding]; 
-    BOOL success = [data writeToFile:self.filePath atomically:YES]; 
+    BOOL success = [data writeToFile:[Team getFilePath:self.teamId]atomically:YES]; 
     if (!success) {
         [NSException raise:@"Failed trying to save team" format:@"failed saving team"];
     }
 }
 
-+ (NSString*)getFilePath { 
-    NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
-    NSString* documentsDirectory = [paths objectAtIndex:0]; 
-    return [documentsDirectory stringByAppendingPathComponent:kArchiveFileName]; 
+-(BOOL)hasBeenSaved {
+    NSString* filePath = [Team getFilePath: teamId]; 
+	return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
 -(NSArray*) getAllPlayers {

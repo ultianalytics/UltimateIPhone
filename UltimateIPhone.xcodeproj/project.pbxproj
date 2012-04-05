@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
 		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
+		1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */; };
+		1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AE669F815215485000965B5 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
 		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
@@ -21,6 +23,9 @@
 		1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A1B15233217000965B5 /* TweetViewController.xib */; };
 		1AE66A2215235315000965B5 /* TwitterAccountPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */; };
 		1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */; };
+		1AEAE9E6152D1C88008574C2 /* TeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */; };
+		1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */; };
+		1AEAE9EA152D1D80008574C2 /* TeamDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAE9E9152D1D80008574C2 /* TeamDescription.m */; };
 		1AEE548B15293B350067F539 /* TwitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEE548915293B350067F539 /* TwitterController.m */; };
 		1AEE548C15293B350067F539 /* TwitterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE548A15293B350067F539 /* TwitterController.xib */; };
 		1AEE549C15293DD30067F539 /* 210-twitterbird.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE549A15293DD30067F539 /* 210-twitterbird.png */; };
@@ -159,6 +164,9 @@
 		1A6B265D15250E0D00C119A5 /* TweetQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetQueue.m; sourceTree = "<group>"; };
 		1A6B266015250FC400C119A5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		1A6B266115250FC400C119A5 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
+		1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamPlayersViewController.h; sourceTree = "<group>"; };
+		1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamPlayersViewController.m; sourceTree = "<group>"; };
+		1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamPlayersViewController.xib; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AE669F515215485000965B5 /* CloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudViewController.h; sourceTree = "<group>"; };
 		1AE669F615215485000965B5 /* CloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudViewController.m; sourceTree = "<group>"; };
@@ -175,6 +183,11 @@
 		1AE66A1F15235314000965B5 /* TwitterAccountPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccountPickViewController.h; sourceTree = "<group>"; };
 		1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccountPickViewController.m; sourceTree = "<group>"; };
 		1AE66A2115235315000965B5 /* TwitterAccountPickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterAccountPickViewController.xib; sourceTree = "<group>"; };
+		1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsViewController.h; sourceTree = "<group>"; };
+		1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsViewController.m; sourceTree = "<group>"; };
+		1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamsViewController.xib; sourceTree = "<group>"; };
+		1AEAE9E8152D1D80008574C2 /* TeamDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDescription.h; sourceTree = "<group>"; };
+		1AEAE9E9152D1D80008574C2 /* TeamDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDescription.m; sourceTree = "<group>"; };
 		1AEE548815293B350067F539 /* TwitterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterController.h; sourceTree = "<group>"; };
 		1AEE548915293B350067F539 /* TwitterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterController.m; sourceTree = "<group>"; };
 		1AEE548A15293B350067F539 /* TwitterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterController.xib; sourceTree = "<group>"; };
@@ -570,6 +583,8 @@
 				1AFFE84815175EB0004B4590 /* Preferences.m */,
 				1AFFE87315175EB0004B4590 /* Wind.h */,
 				1AFFE87415175EB0004B4590 /* Wind.m */,
+				1AEAE9E8152D1D80008574C2 /* TeamDescription.h */,
+				1AEAE9E9152D1D80008574C2 /* TeamDescription.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -641,9 +656,15 @@
 		1AFFE8D71517647F004B4590 /* Team */ = {
 			isa = PBXGroup;
 			children = (
+				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
+				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
+				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
 				1AFFE86815175EB0004B4590 /* TeamViewController.h */,
 				1AFFE86915175EB0004B4590 /* TeamViewController.m */,
 				1AFFE8CD151761AA004B4590 /* TeamViewController.xib */,
+				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
+				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
+				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
 				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
 				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
 				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
@@ -931,6 +952,8 @@
 				1AEE549C15293DD30067F539 /* 210-twitterbird.png in Resources */,
 				1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */,
 				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
+				1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */,
+				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,6 +1018,9 @@
 				1A6B266215250FC400C119A5 /* Tweet.m in Sources */,
 				1AEE548B15293B350067F539 /* TwitterController.m in Sources */,
 				1AEE54A71529D2CA0067F539 /* TweetLogViewController.m in Sources */,
+				1AEAE9E6152D1C88008574C2 /* TeamsViewController.m in Sources */,
+				1AEAE9EA152D1D80008574C2 /* TeamDescription.m in Sources */,
+				1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

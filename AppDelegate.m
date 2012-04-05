@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TeamsViewController.h"
 #import "TeamViewController.h"
 #import "GameViewSwitcherController.h"
 #import "GameViewController.h"
@@ -39,7 +40,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Tab 1: team
-    TeamViewController *teamController = [[TeamViewController alloc] initWithNibName:@"TeamViewController" bundle:nil];
+    TeamsViewController *teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
+    //TeamViewController *teamController = [[TeamViewController alloc] initWithNibName:@"TeamViewController" bundle:nil];
     UINavigationController* teamNavController = [[UINavigationController alloc] initWithRootViewController:teamController];
     UIViewController *viewController1 = teamNavController;
 

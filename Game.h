@@ -72,6 +72,7 @@
 -(NSMutableDictionary*) asDictionary;
 
 // private
++(NSString*)getDirectoryPath;
 -(void)updatePointSummaries;
 -(void)clearPointSummaries;
 -(Score)createScoreForOurs: (int) ours theirs: (int) theirs;

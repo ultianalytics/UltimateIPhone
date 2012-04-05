@@ -9,33 +9,44 @@
 #import "Constants.h"
 #import "TeamViewController.h"
 #import "Team.h"
-#import "PlayerDetailsViewController.h"
-#import "ImageMaster.h"
+#import "TeamDescription.h"
 #import "SoundPlayer.h"
 #import "Preferences.h"
 #import "ColorMaster.h"
+#import "TeamPlayersViewController.h"
 
 @implementation TeamViewController
-@synthesize playersTableView, teamNameField,teamTypeSegmentedControl;
+@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Team", @"Team");
+NSArray* cells;
+
+-(void)saveAndReturn {
+    if ([self verifyTeamName]) {
+        [self.team save];  
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    return self;
+}
+
+-(void)saveChanges {
+    if ([self.team hasBeenSaved]) {
+        [self.team save];  
+    }
 }
 
 -(IBAction)nameChanged: (id) sender {
-    [Team getCurrentTeam].name = teamNameField.text;
-    [[Team getCurrentTeam] save];
+    team.name = teamNameField.text;
+    [self saveChanges];
 }
 
 -(IBAction)teamTypeChanged: (id) sender {
     [self dismissKeyboard];
-    [Team getCurrentTeam].isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
-    [[Team getCurrentTeam] save];
+    team.isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
+    [self saveChanges];
+}
+
+-(IBAction)playerDisplayChanged: (id) sender {
+    [self dismissKeyboard];
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -52,56 +63,83 @@
     return !isTooLong;
 }
 
--(void)goToAddItem {
-    PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
-    [self.navigationController pushViewController:playerController animated:YES];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[Team getCurrentTeam] players] count];
+    return [cells count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = [indexPath row];
-    
-    static NSString* STD_ROW_TYPE = @"stdRowType";
-    
-    Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
-    
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.imageView.backgroundColor = [UIColor clearColor];
-    }
-    cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
-
-    NSString* text = player.name;
-    if (player.number != nil && ![player.number isEqualToString:@""]) {
-        text = [NSString stringWithFormat:@"%@ (%@)", text, player.number];
-    }
-    cell.textLabel.text = text;
+    UITableViewCell* cell = [cells objectAtIndex: [indexPath row]];
+    cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     [self dismissKeyboard];
-    NSUInteger row = [indexPath row]; 
-    Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
-    
-    PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
-    playerController.player = player;
-    [self.navigationController pushViewController:playerController animated:YES];
+    if ([cells objectAtIndex:[indexPath row]] == playersCell) {
+        if ([self verifyTeamName]) {
+            [self.team save]; 
+            [Team setCurrentTeam: team.teamId];
+            TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
+            [self.navigationController pushViewController:playersController animated:YES];
+        }
+    };
 } 
 
 -(void)dismissKeyboard {
     [teamNameField resignFirstResponder];
+}
+
+-(BOOL)verifyTeamName {
+    NSString* teamName = [self getText: self.teamNameField];
+    if ([teamName isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Invalid Team Name" 
+                              message:@"Team name is required"
+                              delegate:self 
+                              cancelButtonTitle:@"Try Again" 
+                              otherButtonTitles:nil]; 
+        [alert show];
+        return NO;
+    } else if ([self isDuplicateTeamName:teamName]) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Duplicate Team Name" 
+                              message:@"Each team must have a unique name"
+                              delegate:self 
+                              cancelButtonTitle:@"Try Again" 
+                              otherButtonTitles:nil]; 
+        [alert show];
+        return NO;  
+    } else {
+        return YES;
+    } 
+}
+
+
+-(NSString*) getText: (UITextField*) textField {
+    return textField.text == nil ? @"" : [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+-(BOOL) isDuplicateTeamName: (NSString*) newTeamName {
+    NSArray* teamDescriptions = [Team retrieveTeamDescriptions];
+    for (TeamDescription* desc in teamDescriptions) {
+        if (![desc.teamId isEqualToString: self.team.teamId] && [desc.name caseInsensitiveCompare:newTeamName] == NSOrderedSame) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"Team", @"Team");
+    }
+    return self;
 }
 							
 - (void)didReceiveMemoryWarning
@@ -116,14 +154,13 @@
 {
     [super viewDidLoad];
     
-    self.playersTableView.separatorColor = [ColorMaster getTableListSeparatorColor];
+    cells = [[NSArray alloc] initWithObjects:nameCell, typeCell, displayCell, playersCell, nil];
     
     self.teamNameField.delegate = self; 
     
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
-    
-    UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
-    self.navigationItem.rightBarButtonItem = historyNavBarItem;    
+  
+
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -137,12 +174,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[Team getCurrentTeam] sortPlayers];
-    [self.playersTableView reloadData];
-    [self.teamNameField setText:[Team getCurrentTeam].name];
-    self.teamTypeSegmentedControl.selectedSegmentIndex = [Team getCurrentTeam].isMixed ? 1 : 0;
+    [self.teamNameField setText:team.name];
+    self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.teamTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    self.playerDisplayTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    
+    if (![self.team hasBeenSaved]) {
+        UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndReturn)];
+        self.navigationItem.rightBarButtonItem = saveBarItem;    
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

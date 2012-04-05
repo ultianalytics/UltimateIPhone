@@ -123,9 +123,8 @@ BOOL arePointSummariesValid;
 }
 
 +(NSArray*)getAllGameFileNames {
-    NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
-    NSString* documentsDirectory = [paths objectAtIndex:0];
-    NSArray* directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+    NSString* gamesDirectory = [Game getDirectoryPath];
+    NSArray* directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:gamesDirectory error:NULL];
     
     NSMutableArray* fileNames = [[NSMutableArray alloc] init];
     for (int i = 0; i < (int)[directoryContent count]; i++)
@@ -145,9 +144,23 @@ BOOL arePointSummariesValid;
 }
 
 + (NSString*)getFilePath: (NSString*) gameId { 
+    NSString* filePath = [NSString stringWithFormat:@"%@/%@", [Game getDirectoryPath], gameId];
+    return filePath;
+}
+
++ (NSString*)getDirectoryPath { 
     NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
     NSString* documentsDirectory = [paths objectAtIndex:0]; 
-    return [documentsDirectory stringByAppendingPathComponent:gameId]; 
+    NSString* gamesFolderPath = [NSString stringWithFormat:@"%@/games-%@", documentsDirectory, [Team getCurrentTeam].teamId];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:gamesFolderPath]) {	//Does directory already exist?
+        NSError* error;
+		if (![[NSFileManager defaultManager] createDirectoryAtPath:gamesFolderPath withIntermediateDirectories:NO attributes:nil error:&error]) {
+            if (error) {
+                NSLog(@"Create directory error: %@", error);
+            }
+		}
+	}
+    return gamesFolderPath;
 }
 
 -(id) init  {

@@ -10,6 +10,7 @@
 #define kPreferencesFileName    @"preferences"
 #define kPreferencesKey         @"preferences"
 #define kTournamentKey          @"tournament"
+#define kCurrentTeamFileKey     @"currentTeamFileName"
 #define kCurrentGameFileKey     @"currentGameFileName"
 #define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kGamePointKey           @"gamePoint"
@@ -21,7 +22,7 @@
 static Preferences* currentPreferences= nil;
 
 @implementation Preferences
-@synthesize filePath, tournamentName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid,autoTweetLevel,twitterAccountDescription;
+@synthesize filePath, tournamentName,currentTeamFileName,currentGameFileName, isDiplayingPlayerNumber,gamePoint,userid,autoTweetLevel,twitterAccountDescription;
 
 -(id) init  {
     self = [super init];
@@ -36,6 +37,7 @@ static Preferences* currentPreferences= nil;
     if (self = [super init]) { 
         self.filePath = [Preferences getFilePath];
         self.tournamentName = [decoder decodeObjectForKey:kTournamentKey];
+        self.currentTeamFileName = [decoder decodeObjectForKey:kCurrentTeamFileKey];
         self.currentGameFileName = [decoder decodeObjectForKey:kCurrentGameFileKey];
         self.isDiplayingPlayerNumber = [decoder decodeBoolForKey:kDisplayPlayerNumberKey];
         self.gamePoint = [decoder decodeBoolForKey:kGamePointKey];
@@ -50,7 +52,8 @@ static Preferences* currentPreferences= nil;
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 
     [encoder encodeObject:self.tournamentName forKey:kTournamentKey]; 
-    [encoder encodeObject:self.currentGameFileName forKey:kCurrentGameFileKey]; 
+    [encoder encodeObject:self.currentTeamFileName forKey:kCurrentTeamFileKey]; 
+    [encoder encodeObject:self.currentGameFileName forKey:kCurrentGameFileKey];
     [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey]; 
     [encoder encodeBool:self.gamePoint forKey:kGamePointKey];
     [encoder encodeObject:self.userid forKey:kUseridKey];

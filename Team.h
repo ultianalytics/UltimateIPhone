@@ -11,23 +11,34 @@
 #define kCloudIdKey         @"cloudId"
 
 @interface Team : NSObject 
-    
+
+@property (nonatomic, strong) NSString* teamId;
 @property (nonatomic, strong) NSMutableArray* players;
 @property (nonatomic, strong) NSString* name;
-@property (nonatomic, strong) NSString* filePath;
 @property (nonatomic) BOOL isMixed;
 @property (nonatomic, strong) NSString* cloudId;
 
 +(Team*)getCurrentTeam;
++(Team*)readTeam: (NSString*) teamId;
++(void)setCurrentTeam: (NSString*) teamId;
++(BOOL)isCurrentTeam: (NSString*) teamId;
++(NSArray*)getAllTeamFileNames;
++(NSArray*)retrieveTeamDescriptions;
+
 -(void)save;
+-(BOOL)hasBeenSaved;
 -(NSArray*) getAllPlayers;
 -(void) addPlayer: (Player*) player;
 -(void) removePlayer: (Player*) player;
-+(NSString*)getFilePath;
 -(NSMutableArray*)getInitialOLine;
 -(NSMutableArray*)getInitialDLine;
 -(void)sortPlayers;
 -(NSDictionary*) asDictionary;
+
+// private
++(NSString*)getFilePath: (NSString*) teamdId;
+-(NSString*)generateUniqueFileName;
+
 @end
 
 

@@ -12,6 +12,7 @@
 @interface Preferences : NSObject 
     
 @property (nonatomic, strong) NSString* tournamentName;
+@property (nonatomic, strong) NSString* currentTeamFileName;
 @property (nonatomic, strong) NSString* currentGameFileName;
 @property (nonatomic, strong) NSString* filePath;
 @property (nonatomic) BOOL isDiplayingPlayerNumber;

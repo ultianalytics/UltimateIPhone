@@ -27,6 +27,7 @@
 +(BOOL)isCurrentTeam: (NSString*) teamId;
 +(NSArray*)getAllTeamFileNames;
 +(NSArray*)retrieveTeamDescriptions;
++(Team*)fromDictionary:(NSDictionary*) dict;
 
 -(void)save;
 -(void)delete;

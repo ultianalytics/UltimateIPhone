@@ -58,6 +58,16 @@ static AnonymousPlayer* singleAnonymous = nil;
     return replacementArray;
 }
 
++(Player*)fromDictionary:(NSDictionary*) dict {
+    Player* player = [[Player alloc] initName:[dict valueForKey:kNameKey]];
+    NSString* positionString = [dict valueForKey:kPositionKey];
+    player.position = [positionString isEqualToString:@"Cutter"] ? Cutter : [positionString isEqualToString:@"Handler"] ? Handler : Any;
+    NSNumber* isMaleNumber = [dict valueForKey:kIsMaleKey];
+    player.isMale = [isMaleNumber boolValue];
+    player.number = [dict valueForKey:kNumberKey];
+    return player;
+}
+
 -(id) initName:  (NSString*) aName {
     self = [super init];
     if (self) {

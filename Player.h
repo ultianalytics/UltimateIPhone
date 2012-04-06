@@ -22,6 +22,8 @@ typedef enum {
 +(Player*)getAnonymous;
 +(Player*)replaceWithSharedPlayer: (Player*) player;
 +(NSMutableArray*)replaceAllWithSharedPlayer: (NSArray*) playersArray;
++(Player*)fromDictionary:(NSDictionary*) dict;
+
 -(id) initName:  (NSString*) aName;
 -(id) initName:  (NSString*) aName position: (Position) aPosition isMale: (BOOL) isPlayerMale;
 -(BOOL) isAnonymous;

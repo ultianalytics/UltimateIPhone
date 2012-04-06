@@ -103,6 +103,34 @@ static Team* currentTeam = nil;
     return [documentsDirectory stringByAppendingPathComponent:teamdId]; 
 }
 
++(Team*)fromDictionary:(NSDictionary*) dict {
+    Team* team = [[Team alloc] init];
+    team.teamId = [dict valueForKey:kTeamIdKey];
+    team.cloudId = [dict valueForKey:kCloudIdKey];
+    team.name = [dict valueForKey:kNameKey];
+    NSNumber* isMixedNumber = [dict valueForKey:kIsMixedKey];
+    team.isMixed = [isMixedNumber boolValue];
+    NSArray* playerDictionaries = [dict valueForKey:kPlayersKey];
+    for (NSDictionary* playerDictionary in playerDictionaries) {
+        [team.players addObject:[Player fromDictionary:playerDictionary]];
+    }
+    return team;
+}
+
+-(NSDictionary*) asDictionary {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue: self.teamId forKey:kTeamIdKey];
+    [dict setValue: self.name forKey:kNameKey];
+    [dict setValue: self.cloudId forKey:kCloudIdKey];
+    [dict setValue: [NSNumber numberWithBool:self.isMixed ] forKey:kIsMixedKey];
+    NSMutableArray* arrayOfPlayers = [[NSMutableArray alloc] init];
+    for (Player* player in self.players) {
+        [arrayOfPlayers addObject:[player asDictionary]];
+    }
+    [dict setValue: arrayOfPlayers forKey:kPlayersKey];
+    return dict;
+}
+
 -(NSString*)generateUniqueFileName {
     CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
     //get the string representation of the UUID
@@ -139,19 +167,6 @@ static Team* currentTeam = nil;
     [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey];     
     [encoder encodeObject:self.cloudId forKey:kCloudIdKey]; 
 } 
-
--(NSDictionary*) asDictionary {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setValue: self.name forKey:kNameKey];
-    [dict setValue: self.cloudId forKey:kCloudIdKey];
-    [dict setValue: [NSNumber numberWithBool:self.isMixed ] forKey:kIsMixedKey];
-    NSMutableArray* arrayOfPlayers = [[NSMutableArray alloc] init];
-    for (Player* player in self.players) {
-        [arrayOfPlayers addObject:[player asDictionary]];
-    }
-    [dict setValue: arrayOfPlayers forKey:kPlayersKey];
-    return dict;
-}
 
 -(void)save {
     NSMutableData *data = [[NSMutableData alloc] init]; 

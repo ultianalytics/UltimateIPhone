@@ -95,7 +95,6 @@
 				<string key="NSFrame">{{0, 64}, {320, 372}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MC42IDAuNiAwLjQAA</bytes>
@@ -120,7 +119,7 @@
 							<object class="IBUIButton" id="638154734">
 								<reference key="NSNextResponder" ref="704801695"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{103, 2}, {98, 37}}</string>
+								<string key="NSFrame">{{9, 2}, {282, 37}}</string>
 								<reference key="NSSuperview" ref="704801695"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
@@ -190,7 +189,7 @@
 							<object class="IBUIButton" id="137845297">
 								<reference key="NSNextResponder" ref="811349917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{231, 2}, {55, 37}}</string>
+								<string key="NSFrame">{{236, 2}, {55, 37}}</string>
 								<reference key="NSSuperview" ref="811349917"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
@@ -212,7 +211,7 @@
 							<object class="IBUILabel" id="932349873">
 								<reference key="NSNextResponder" ref="811349917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 9}, {54, 21}}</string>
+								<string key="NSFrame">{{9, 9}, {54, 21}}</string>
 								<reference key="NSSuperview" ref="811349917"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="205869112"/>
@@ -303,7 +302,7 @@
 							<object class="IBUILabel" id="559163799">
 								<reference key="NSNextResponder" ref="467690434"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 0}, {107, 21}}</string>
+								<string key="NSFrame">{{9, 0}, {107, 21}}</string>
 								<reference key="NSSuperview" ref="467690434"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="331024478"/>
@@ -324,7 +323,7 @@
 							<object class="IBUILabel" id="331024478">
 								<reference key="NSNextResponder" ref="467690434"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 20}, {256, 21}}</string>
+								<string key="NSFrame">{{12, 20}, {256, 21}}</string>
 								<reference key="NSSuperview" ref="467690434"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
@@ -386,7 +385,7 @@
 							<object class="IBUILabel" id="704434603">
 								<reference key="NSNextResponder" ref="479087880"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 0}, {113, 21}}</string>
+								<string key="NSFrame">{{12, 0}, {113, 21}}</string>
 								<reference key="NSSuperview" ref="479087880"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="239088363"/>
@@ -407,7 +406,7 @@
 							<object class="IBUILabel" id="239088363">
 								<reference key="NSNextResponder" ref="479087880"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 20}, {251, 21}}</string>
+								<string key="NSFrame">{{12, 20}, {251, 21}}</string>
 								<reference key="NSSuperview" ref="479087880"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
@@ -533,6 +532,14 @@
 						<reference key="destination" ref="723665747"/>
 					</object>
 					<int key="connectionID">72</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">syncButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="638154734"/>
+					</object>
+					<int key="connectionID">80</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -713,7 +720,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">79</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

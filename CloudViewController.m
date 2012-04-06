@@ -59,6 +59,7 @@ UIAlertView* busyView;
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
     self.userLabel.text = userid == nil ? @"unknown (do upload)" : userid;
+    [self.syncButton setTitle:[NSString stringWithFormat:@"Upload %@",[Team getCurrentTeam].name] forState:UIControlStateNormal];
     self.signoffButton.hidden = userid == nil;
 }
 
@@ -186,12 +187,12 @@ UIAlertView* busyView;
                                              selector: @selector(populateViewFromModel)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
                                                object: nil];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [self populateViewFromModel];
     if (signonController && signonController.isSignedOn) {
         [self doUpload];

@@ -22,6 +22,7 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl* playerDisplayTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
+@property (nonatomic) BOOL shouldSkipToPlayers;
 
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;

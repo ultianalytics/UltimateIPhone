@@ -76,7 +76,10 @@ BOOL isAfterFirstView;
     // go to the current team on app start
     if (!isAfterFirstView) {
         isAfterFirstView = YES;
-        [self goToTeamView: [Team getCurrentTeam] animated: NO];
+        TeamViewController* teamController = [[TeamViewController alloc] init];
+        teamController.team = [Team getCurrentTeam];
+        teamController.shouldSkipToPlayers = YES;
+        [self.navigationController pushViewController:teamController animated:NO]; 
     }
 }
 

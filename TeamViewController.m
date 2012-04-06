@@ -16,10 +16,9 @@
 #import "TeamPlayersViewController.h"
 
 @implementation TeamViewController
-@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView;
+@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
 NSArray* cells;
-BOOL isAfterFirstView;
 
 -(void)populateViewFromModel {
     [self.teamNameField setText:(team.name == kNoName ? @"" : team.name)];
@@ -194,8 +193,8 @@ BOOL isAfterFirstView;
 
 -(void)goToBestView {
     // if we've already started adding players..go back there on app start
-    if (!isAfterFirstView) {
-        isAfterFirstView = YES;
+    if (shouldSkipToPlayers) {
+        shouldSkipToPlayers = NO;
         if ([team.players count] > 0) {
             [self goToPlayersView: NO];
         }
@@ -207,7 +206,6 @@ BOOL isAfterFirstView;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Team", @"Team");
-        isAfterFirstView = NO;
     }
     return self;
 }

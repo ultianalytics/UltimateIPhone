@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Player.h"
 #define kCloudIdKey         @"cloudId"
+#define kNoName             @"ANONYMOUS TEAM"
 
 @interface Team : NSObject 
 

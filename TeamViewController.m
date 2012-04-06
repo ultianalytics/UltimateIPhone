@@ -22,7 +22,7 @@ NSArray* cells;
 BOOL isAfterFirstView;
 
 -(void)populateViewFromModel {
-    [self.teamNameField setText:team.name];
+    [self.teamNameField setText:(team.name == kNoName ? @"" : team.name)];
     self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
     self.playerDisplayTypeSegmentedControl.selectedSegmentIndex = team.isDiplayingPlayerNumber ? 1 : 0;
     self.deleteButton.hidden = ![team hasBeenSaved];
@@ -30,8 +30,8 @@ BOOL isAfterFirstView;
 
 -(void)populateModelFromView {
     team.name = teamNameField.text;
-    team.name = teamNameField.text;
     team.isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
+    team.isDiplayingPlayerNumber = self.playerDisplayTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
 }
 
 
@@ -98,8 +98,7 @@ BOOL isAfterFirstView;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     [self dismissKeyboard];
     if ([cells objectAtIndex:[indexPath row]] == playersCell) {
-        if ([self verifyTeamName]) {
-            [self.team save]; 
+        if ([self saveChanges]) {
             [Team setCurrentTeam: team.teamId];
             [self goToPlayersView: YES];
         }

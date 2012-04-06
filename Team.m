@@ -111,7 +111,7 @@ static Team* currentTeam = nil;
     if (self) {
         self.teamId = [self generateUniqueFileName];
         self.players = [[NSMutableArray alloc] init];
-        self.name = @"";
+        self.name = kNoName;
     }
     return self;
 }

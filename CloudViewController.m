@@ -74,7 +74,7 @@ UIAlertView* busyView;
 -(void)doUpload {
     NSError* uploadError = nil;
     //[CloudClient uploadTeam:[Team getCurrentTeam] error: &uploadError];
-    [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames] error: &uploadError];
+    [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames:[Team getCurrentTeam].teamId] error: &uploadError];
     [self stopBusyDialog];
     if (uploadError) {
         if (uploadError.code == Unauthorized) {

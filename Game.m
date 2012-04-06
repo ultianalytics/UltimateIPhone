@@ -37,40 +37,6 @@ static Game* currentGame = nil;
 
 BOOL arePointSummariesValid;
 
--(void)updatePointSummaries {
-    if (!arePointSummariesValid) {
-        Score score;
-        score.ours = 0;
-        score.theirs = 0;
-        UPoint* lastPoint = nil;
-        for (int i = 0; i < [self.points count]; i++) {
-            UPoint* point = [self.points objectAtIndex:i];
-            point.summary = [[PointSummary alloc] init];
-            point.summary.isFinished = point.isFinished;
-            if (point.summary.isFinished) {
-                if ([point isOurPoint]) {
-                    score.ours++;
-                } else { 
-                    score.theirs++;
-                }
-            } 
-            point.summary.score = [self createScoreForOurs:score.ours theirs:score.theirs];
-            point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint]<= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
-            BOOL isFirstPointAfterHalftime = lastPoint != nil && point.summary.isAfterHalftime && !lastPoint.summary.isAfterHalftime;
-            point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
-            point.summary.elapsedSeconds = point.timeEndedSeconds - point.timeStartedSeconds;
-            point.summary.previousPoint = lastPoint;
-
-            lastPoint = point;
-        }
-        arePointSummariesValid = YES;
-    }
-}
-
--(void)clearPointSummaries {
-    arePointSummariesValid = NO;
-}
-
 // return nil if no current game
 +(Game*)getCurrentGame {
     @synchronized(self) {
@@ -122,8 +88,8 @@ BOOL arePointSummariesValid;
     }
 }
 
-+(NSArray*)getAllGameFileNames {
-    NSString* gamesDirectory = [Game getDirectoryPath];
++(NSArray*)getAllGameFileNames: (NSString*) teamId {
+    NSString* gamesDirectory = [Game getDirectoryPath: teamId];
     NSArray* directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:gamesDirectory error:NULL];
     
     NSMutableArray* fileNames = [[NSMutableArray alloc] init];
@@ -144,14 +110,14 @@ BOOL arePointSummariesValid;
 }
 
 + (NSString*)getFilePath: (NSString*) gameId { 
-    NSString* filePath = [NSString stringWithFormat:@"%@/%@", [Game getDirectoryPath], gameId];
+    NSString* filePath = [NSString stringWithFormat:@"%@/%@", [Game getDirectoryPath: [Team getCurrentTeam].teamId], gameId];
     return filePath;
 }
 
-+ (NSString*)getDirectoryPath { 
++ (NSString*)getDirectoryPath: (NSString*) teamId { 
     NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
     NSString* documentsDirectory = [paths objectAtIndex:0]; 
-    NSString* gamesFolderPath = [NSString stringWithFormat:@"%@/games-%@", documentsDirectory, [Team getCurrentTeam].teamId];
+    NSString* gamesFolderPath = [NSString stringWithFormat:@"%@/games-%@", documentsDirectory, teamId];
     if (![[NSFileManager defaultManager] fileExistsAtPath:gamesFolderPath]) {	//Does directory already exist?
         NSError* error;
 		if (![[NSFileManager defaultManager] createDirectoryAtPath:gamesFolderPath withIntermediateDirectories:NO attributes:nil error:&error]) {
@@ -161,6 +127,32 @@ BOOL arePointSummariesValid;
 		}
 	}
     return gamesFolderPath;
+}
+
++(void)deleteAllGamesForTeam: (NSString*) teamId {
+    NSArray* fileNames = [Game getAllGameFileNames: teamId];
+    for (NSString* fileName in fileNames) {
+        [Game delete: fileName];
+    }
+}
+
++(void)delete: (NSString*) aGameId {
+    if ([[Preferences getCurrentPreferences].currentGameFileName isEqualToString:aGameId]) {
+        [Preferences getCurrentPreferences].currentGameFileName = nil;
+        [[Preferences getCurrentPreferences] save];
+        [Game setCurrentGame:nil];
+    }
+    NSString *path = [Game getFilePath:aGameId];
+	NSError *error;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path])		//Does file exist?
+	{
+		if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error])	//Delete it
+		{
+            if (error) {
+                NSLog(@"Delete file error: %@", error);
+            }
+		}
+	}
 }
 
 -(id) init  {
@@ -246,22 +238,7 @@ BOOL arePointSummariesValid;
 }
 
 -(void)delete {
-    if ([[Preferences getCurrentPreferences].currentGameFileName isEqualToString:self.gameId]) {
-        [Preferences getCurrentPreferences].currentGameFileName = nil;
-        [[Preferences getCurrentPreferences] save];
-        [Game setCurrentGame:nil];
-    }
-    NSString *path = [Game getFilePath:self.gameId];
-	NSError *error;
-	if ([[NSFileManager defaultManager] fileExistsAtPath:path])		//Does file exist?
-	{
-		if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error])	//Delete it
-		{
-            if (error) {
-                NSLog(@"Delete file error: %@", error);
-            }
-		}
-	}
+    [Game delete: self.gameId];
 }
 
 -(void)addEvent: (Event*) event{
@@ -548,5 +525,40 @@ BOOL arePointSummariesValid;
         [[Tweeter getCurrent] tweetEvent:event forGame:self isUndo:isUndo];
     }
 }
+
+-(void)updatePointSummaries {
+    if (!arePointSummariesValid) {
+        Score score;
+        score.ours = 0;
+        score.theirs = 0;
+        UPoint* lastPoint = nil;
+        for (int i = 0; i < [self.points count]; i++) {
+            UPoint* point = [self.points objectAtIndex:i];
+            point.summary = [[PointSummary alloc] init];
+            point.summary.isFinished = point.isFinished;
+            if (point.summary.isFinished) {
+                if ([point isOurPoint]) {
+                    score.ours++;
+                } else { 
+                    score.theirs++;
+                }
+            } 
+            point.summary.score = [self createScoreForOurs:score.ours theirs:score.theirs];
+            point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint]<= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
+            BOOL isFirstPointAfterHalftime = lastPoint != nil && point.summary.isAfterHalftime && !lastPoint.summary.isAfterHalftime;
+            point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
+            point.summary.elapsedSeconds = point.timeEndedSeconds - point.timeStartedSeconds;
+            point.summary.previousPoint = lastPoint;
+            
+            lastPoint = point;
+        }
+        arePointSummariesValid = YES;
+    }
+}
+
+-(void)clearPointSummaries {
+    arePointSummariesValid = NO;
+}
+
 
 @end

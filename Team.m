@@ -9,10 +9,10 @@
 #import "Team.h"
 #import "Preferences.h"
 #import "TeamDescription.h"
+#import "Game.h"
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"
-#define kTeamIdKey              @"id"
 #define kPlayersKey             @"players"
 #define kNameKey                @"name"
 #define kIsMixedKey             @"mixed"
@@ -106,7 +106,7 @@ static Team* currentTeam = nil;
     return [NSString stringWithFormat:@"%@%@", kTeamFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
 }
 
--(id) init  {
+-(id) init {
     self = [super init];
     if (self) {
         self.teamId = [self generateUniqueFileName];
@@ -177,6 +177,11 @@ static Team* currentTeam = nil;
             }
         }
     }
+    
+    // delete the associated games
+    [Game deleteAllGamesForTeam:self.teamId];
+    
+    // delete the team
     NSString *path = [Team getFilePath:self.teamId];
 	NSError *error;
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path])		//Does file exist?

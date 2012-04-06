@@ -12,6 +12,7 @@
 #import "ColorMaster.h"
 #import "Preferences.h"
 #import "GameDetailViewController.h"
+#import "Team.h"
 
 @implementation GamesPlayedController
 @synthesize gameDescriptions,gamesTableView;
@@ -19,7 +20,7 @@
 -(void)retrieveGameDescriptions {
     // make array of descriptions so we don't have to crack open the game objects as we scroll the list
     NSMutableArray* descriptions = [[NSMutableArray alloc] init];
-    NSArray* fileNames = [Game getAllGameFileNames];
+    NSArray* fileNames = [Game getAllGameFileNames: [Team getCurrentTeam].teamId];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
     for (NSString* gameId in fileNames) {

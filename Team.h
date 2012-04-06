@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Player.h"
+#define kTeamIdKey          @"teamId"
 #define kCloudIdKey         @"cloudId"
 #define kNoName             @"ANONYMOUS TEAM"
 

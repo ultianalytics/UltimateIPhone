@@ -12,7 +12,6 @@
 #import "PointSummary.h"
 
 #define kDefaultGamePoint 15
-#define kTeamIdKey @"teamId"
 
 @interface Game : NSObject
 @property (nonatomic, strong) NSString* gameId;
@@ -33,9 +32,10 @@
 +(void)setCurrentGame: (NSString*) gameId;
 +(void)startNewGame;
 +(Game*)readGame: (NSString*) gameId;
-+(NSArray*)getAllGameFileNames;
++(NSArray*)getAllGameFileNames: (NSString*) teamId;
 +(NSString*)getFilePath: (NSString*) gameId;
 +(NSString*)generateUniqueFileName;
++(void)deleteAllGamesForTeam: (NSString*) teamId;
 
 -(void)save;
 -(BOOL)hasBeenSaved;
@@ -72,7 +72,8 @@
 -(NSMutableDictionary*) asDictionary;
 
 // private
-+(NSString*)getDirectoryPath;
++(NSString*)getDirectoryPath: (NSString*) teamId;
++(void)delete: (NSString*) aGameId;
 -(void)updatePointSummaries;
 -(void)clearPointSummaries;
 -(Score)createScoreForOurs: (int) ours theirs: (int) theirs;

@@ -19,6 +19,7 @@
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView;
 
 NSArray* cells;
+BOOL isAfterFirstView;
 
 -(void)populateViewFromModel {
     [self.teamNameField setText:team.name];
@@ -189,13 +190,16 @@ NSArray* cells;
 
 -(void)goToPlayersView: (BOOL) animated {
     TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
-    [self.navigationController pushViewController:playersController animated:YES];
+    [self.navigationController pushViewController:playersController animated:animated];
 }
 
 -(void)goToBestView {
     // if we've already started adding players..go back there on app start
-    if ([team.players count] > 0) {
-        [self goToPlayersView: NO];
+    if (!isAfterFirstView) {
+        isAfterFirstView = YES;
+        if ([team.players count] > 0) {
+            [self goToPlayersView: NO];
+        }
     }
 }
 
@@ -204,6 +208,7 @@ NSArray* cells;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Team", @"Team");
+        isAfterFirstView = NO;
     }
     return self;
 }
@@ -244,9 +249,8 @@ NSArray* cells;
 
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [self goToBestView];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

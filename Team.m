@@ -37,7 +37,7 @@ static Team* currentTeam = nil;
 
 +(Team*)getCurrentTeam {
     @synchronized(self) {
-        if (! currentTeam) {
+        if (currentTeam == nil) {
             NSString* currentTeamFileName = [Preferences getCurrentPreferences].currentTeamFileName;
             currentTeam = [self readTeam: currentTeamFileName];    
             if (currentTeam == nil) {
@@ -75,7 +75,6 @@ static Team* currentTeam = nil;
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] 
                                      initForReadingWithData:data]; 
     Team* loadedTeam = [unarchiver decodeObjectForKey:kTeamKey]; 
-    currentTeam = loadedTeam ? loadedTeam : [[Team alloc] init]; 
     return loadedTeam;
 }
 

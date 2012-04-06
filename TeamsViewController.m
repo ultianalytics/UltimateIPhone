@@ -13,6 +13,7 @@
 #import "TeamViewController.h"
 
 NSArray* teamDescriptions;
+BOOL isAfterFirstView;
 
 @implementation TeamsViewController
 @synthesize teamsTableView;
@@ -54,8 +55,10 @@ NSArray* teamDescriptions;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     NSUInteger row = [indexPath row]; 
     TeamDescription* teamDescription = [teamDescriptions objectAtIndex:row];
-    Team* team = [Team readTeam:teamDescription.teamId];
-    [self goToTeamView: team animated: YES];
+    if (![teamDescription.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
+        [Team setCurrentTeam:teamDescription.teamId];
+    }
+    [self goToTeamView: [Team getCurrentTeam] animated: YES];
 } 
 
 -(void)retrieveTeamDescriptions {
@@ -71,7 +74,10 @@ NSArray* teamDescriptions;
 
 -(void)goToBestView {
     // go to the current team on app start
-    [self goToTeamView: [Team getCurrentTeam] animated: NO];
+    if (!isAfterFirstView) {
+        isAfterFirstView = YES;
+        [self goToTeamView: [Team getCurrentTeam] animated: NO];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -79,6 +85,7 @@ NSArray* teamDescriptions;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Teams", @"Teams");
+        isAfterFirstView = NO;
     }
     return self;
 }
@@ -105,6 +112,10 @@ NSArray* teamDescriptions;
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [self retrieveTeamDescriptions];
     [self.teamsTableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self goToBestView];
 }
 
 - (void)viewDidUnload

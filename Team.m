@@ -57,6 +57,9 @@ static Team* currentTeam = nil;
 }
 
 +(void)setCurrentTeam: (NSString*) teamId {
+    if (currentTeam && ![currentTeam.teamId isEqualToString:teamId]) {
+        [Game setCurrentGame:nil];
+    }
     currentTeam = [Team readTeam:teamId];
     [Preferences getCurrentPreferences].currentTeamFileName = currentTeam.teamId;
     [[Preferences getCurrentPreferences] save];

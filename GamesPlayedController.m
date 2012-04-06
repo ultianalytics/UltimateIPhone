@@ -142,12 +142,14 @@
 {
     [super viewDidLoad];
     self.gamesTableView.separatorColor = [ColorMaster getTableListSeparatorColor];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Games", @"Games"),[Team getCurrentTeam].name];
     [self retrieveGameDescriptions];
     [self.gamesTableView reloadData];
 }

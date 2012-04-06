@@ -96,7 +96,8 @@ NSArray* cells;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     [self dismissKeyboard];
-    if ([cells objectAtIndex:[indexPath row]] == playersCell) {
+    UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
+    if (cell == playersCell) {
         if ([self saveChanges]) {
             [Team setCurrentTeam: team.teamId];
             [self goToPlayersView: YES];

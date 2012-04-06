@@ -96,8 +96,8 @@ NSArray* cells;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     [self dismissKeyboard];
-    UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
-    if (cell == playersCell) {
+    //if ([cells objectAtIndex:[indexPath row] == playersCell) {
+    if ([indexPath row] == 3) { // ARG!!!! Can't get the code above to work consistently so doing this rudimentary approach
         if ([self saveChanges]) {
             [Team setCurrentTeam: team.teamId];
             [self goToPlayersView: YES];

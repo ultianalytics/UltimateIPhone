@@ -90,18 +90,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     if (self.isCurlAnimation) {
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(popWithCurl)];
         self.navigationItem.leftBarButtonItem = settingsButton;
     }
-    
-        
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
+        [super viewWillAppear:animated];
+    } else {  // no longer open on the current game...pop back to previous view
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 - (void)viewDidUnload

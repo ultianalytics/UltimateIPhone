@@ -15,7 +15,7 @@
 #import "ColorMaster.h"
 
 @implementation PickPlayersController
-@synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel;
+@synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -274,6 +274,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -286,12 +287,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    [super viewWillAppear:animated];
-    [self loadPlayerStats];
-    [self loadPlayerButtons];
-    [self updateBenchView];
-    [self intializeForLineType];
+    if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
+        [super viewWillAppear:animated];
+        [self loadPlayerStats];
+        [self loadPlayerButtons];
+        [self updateBenchView];
+        [self intializeForLineType];
+    } else {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {

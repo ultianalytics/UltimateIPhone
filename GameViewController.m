@@ -117,6 +117,7 @@
 
 -(void) goToPlayersOnFieldView {
     PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
+    pickPlayersController.game = [Game getCurrentGame];
     [self.navigationController pushViewController:pickPlayersController animated:YES];
 }
 

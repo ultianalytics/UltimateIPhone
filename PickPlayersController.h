@@ -10,12 +10,14 @@
 #import "PlayerButtonListener.h"
 #import "Player.h"
 #import "PlayerButton.h"
+@class Game;
 
 
 @interface PickPlayersController : UIViewController <UITableViewDelegate, UITableViewDataSource, PlayerButtonListener> {
     int numberOfPlayersOnBench;
 }
 
+@property (nonatomic, strong) Game* game;
 @property (nonatomic, strong) IBOutlet UITableView* benchTableView;
 @property (nonatomic, strong) NSMutableArray* benchTableCells;
 @property (nonatomic, strong) IBOutlet UIView* fieldView;

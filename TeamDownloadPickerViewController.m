@@ -22,10 +22,6 @@
     return [teams count];
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    return @"Pick the team to download";
-//}
-
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* STD_ROW_TYPE = @"stdRowType";
    
@@ -76,7 +72,7 @@
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)];
     headerLabel.numberOfLines = 2;
     headerLabel.lineBreakMode = UILineBreakModeWordWrap;
-    headerLabel.text = NSLocalizedString(@"Pick a team to download to your iPhone", @"");
+    headerLabel.text = NSLocalizedString(@"Pick a team to download to your iPhone (does not include games)", @"");
     headerLabel.textColor = [UIColor whiteColor];
     headerLabel.shadowColor = [UIColor blackColor];
     headerLabel.shadowOffset = CGSizeMake(0, 1);

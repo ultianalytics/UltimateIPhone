@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
+		1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */; };
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
 		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
 		1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */; };
@@ -160,6 +162,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDownloadPickerViewController.h; sourceTree = "<group>"; };
+		1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDownloadPickerViewController.m; sourceTree = "<group>"; };
+		1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamDownloadPickerViewController.xib; sourceTree = "<group>"; };
 		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
 		1A6B265D15250E0D00C119A5 /* TweetQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetQueue.m; sourceTree = "<group>"; };
 		1A6B266015250FC400C119A5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
@@ -423,6 +428,9 @@
 				1AE669F515215485000965B5 /* CloudViewController.h */,
 				1AE669F615215485000965B5 /* CloudViewController.m */,
 				1AE669F715215485000965B5 /* CloudViewController.xib */,
+				1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */,
+				1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */,
+				1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -955,6 +963,7 @@
 				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
 				1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */,
 				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
+				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1022,6 +1031,7 @@
 				1AEAE9E6152D1C88008574C2 /* TeamsViewController.m in Sources */,
 				1AEAE9EA152D1D80008574C2 /* TeamDescription.m in Sources */,
 				1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */,
+				1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

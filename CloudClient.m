@@ -59,6 +59,44 @@
     *uploadError = error;
 }
 
++(NSArray*) getTeams: (NSError**) getError {
+    NSError* sendError = nil;
+    NSData* responseJson = [CloudClient get: @"/rest/mobile/teams" error: &sendError];
+    NSMutableArray* teams = [[NSMutableArray alloc] init];
+    NSError* unmarshallingError = nil;
+    if (responseJson) {
+        NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:responseJson options:0 error:&unmarshallingError]; 
+        for (NSDictionary* teamAsDictionary in responseArray) {
+            Team* team = [Team fromDictionary:teamAsDictionary];
+            [teams addObject:team];
+        }
+    }
+    *getError = sendError == nil ? unmarshallingError : sendError;
+    return teams;
+}
+    
++(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError {
+    NSData* responseJSON = nil;
+    if ([Preferences getCurrentPreferences].userid == nil) {
+        // don't bother making a request if we don't know the user
+        *getError = [NSError errorWithDomain:kBaseUrl code: Unauthorized userInfo:nil];
+    } else {
+        NSHTTPURLResponse* response = nil;
+        NSError* sendError = nil;
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  kBaseUrl, relativeUrl]];
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+        [request setHTTPMethod:@"GET"];
+        
+        responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
+        if (sendError == nil && response != nil && [response statusCode] == 200) {
+            NSLog(@"http GET successful");
+        } else {
+            *getError = [NSError errorWithDomain:kBaseUrl code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
+            NSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
+        }
+    }
+    return responseJSON;
+}
 
 // upload the object (passed as a ditionary).  answer the resonse json
 +(NSData*) upload: (NSDictionary*) objectAsDictionary relativeUrl: (NSString*) relativeUrl error:(NSError**) uploadError {

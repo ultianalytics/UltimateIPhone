@@ -5,51 +5,38 @@
 //  Created by Jim Geppert on 2/17/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-#import <Twitter/Twitter.h>
 #import "CloudViewController.h"
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "CloudClient.h"
 #import "SignonViewController.h"
+#import "TeamDownloadPickerViewController.h"
 #import "Team.h"
 #import "Game.h"
-#import "Tweeter.h"
-#import "TweetViewController.h"
-#import "TwitterAccountPickViewController.h"
 #import "Constants.h"
 
-SignonViewController* signonController;
-
 @implementation CloudViewController
-@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton;
+@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadCell,downloadButton;
 
-NSArray* twitterCells;
 NSArray* cloudCells;
-
+SignonViewController* signonController;
+TeamDownloadPickerViewController* teamDownloadController;
 UIAlertView* busyView;
+void (^signonCompletion)();
 
-
--(IBAction)tweetButtonClicked: (id) sender; {
-    // Create the view controller
-    TweetViewController* tweetController = [[TweetViewController alloc] init];
-    if (![[Tweeter getCurrent] isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
-        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [[Tweeter getCurrent] getGameScoreDescription: [Game getCurrentGame]]]];
-    }
-    
-    // Show the controller
-    [self.navigationController pushViewController:tweetController animated: YES];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    // if user wants to set thier twitter account...take them to iphone settings
-    if (buttonIndex == 1) {
-        [TweetViewController goToTwitterSettings];
-    } 
+-(IBAction)downloadButtonClicked: (id) sender {
+    [self downloadTeams];
 }
 
 -(void)goSignonView{
     signonController = [[SignonViewController alloc] init];
     [self.navigationController pushViewController:signonController animated: YES];
+}
+
+-(void)goTeamPickerView: (NSArray*) teams {
+    teamDownloadController = [[TeamDownloadPickerViewController alloc] init];
+    teamDownloadController.teams = teams;
+    [self.navigationController pushViewController:teamDownloadController animated: YES];
 }
 
 -(void)populateViewFromModel {
@@ -67,6 +54,10 @@ UIAlertView* busyView;
     [self upload];
 }
 
+-(void)downloadTeam:(NSString*) cloudId {
+    NSLog(@"Downloading team %@", cloudId);
+}
+
 -(void)upload {
     [self startBusyDialog];
     [self performSelectorInBackground:@selector(doUpload) withObject:nil];
@@ -74,11 +65,11 @@ UIAlertView* busyView;
 
 -(void)doUpload {
     NSError* uploadError = nil;
-    //[CloudClient uploadTeam:[Team getCurrentTeam] error: &uploadError];
     [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames:[Team getCurrentTeam].teamId] error: &uploadError];
     [self stopBusyDialog];
     if (uploadError) {
         if (uploadError.code == Unauthorized) {
+            signonCompletion = ^{[self doUpload];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -101,9 +92,36 @@ UIAlertView* busyView;
     }
 }
 
+-(void)downloadTeams {
+    [self startBusyDialog];
+    [self performSelectorInBackground:@selector(doTeamsRetrieve) withObject:nil];
+}
+
+-(void)doTeamsRetrieve {
+    NSError* getError = nil;
+    NSArray* teams = [CloudClient getTeams:&getError];
+    [self stopBusyDialog];
+    if (getError) {
+        if (getError.code == Unauthorized) {
+            signonCompletion = ^{[self doTeamsRetrieve];};
+            [self goSignonView];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] 
+                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
+                                  message: NSLocalizedString(@"We were unable to download your team list from the cloud.  Try again later.",nil)
+                                  delegate: self
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+        }
+    } else {
+        [self goTeamPickerView: teams];
+    }
+}
+
 
 -(void)startBusyDialog {
-    busyView = [[UIAlertView alloc] initWithTitle: @"Uploading data to cloud..."
+    busyView = [[UIAlertView alloc] initWithTitle: @"Talking to cloud..."
                                           message: nil
                                          delegate: self
                                 cancelButtonTitle: nil
@@ -134,7 +152,7 @@ UIAlertView* busyView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = [NSArray arrayWithObjects:uploadCell, userCell, websiteCell, adminSiteCell, nil];
+    cloudCells = [NSArray arrayWithObjects:uploadCell, downloadCell, userCell, websiteCell, adminSiteCell, nil];
     return [cloudCells count];
 }
 
@@ -158,8 +176,7 @@ UIAlertView* busyView;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
         } 
     }
-  } 
-
+} 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -195,9 +212,13 @@ UIAlertView* busyView;
     [super viewWillAppear:animated];
     [self populateViewFromModel];
     if (signonController && signonController.isSignedOn) {
-        [self doUpload];
-    }
+        signonCompletion();
+    } else if  (teamDownloadController && teamDownloadController.selectedTeam) {
+        [self downloadTeam: teamDownloadController.selectedTeam.cloudId];
+    } 
+
     signonController = nil;
+    teamDownloadController = nil;
     
 }
 

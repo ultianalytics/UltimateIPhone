@@ -25,6 +25,7 @@ typedef enum {
 +(void) uploadTeam: (Team*) team error:(NSError**) error;
 +(void) uploadTeam: (Team*) team withGames: (NSArray*) gameIds error:(NSError**) error;
 +(NSString*) getWebsiteURL: (Team*) team;
++(NSArray*) getTeams: (NSError**) error; 
 
 // private
 
@@ -32,5 +33,6 @@ typedef enum {
 +(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError;
 +(CloudError) errorCodeFromResponse: (NSHTTPURLResponse*) httpResponse error: (NSError*) sendError;
 +(void) saveTeamCloudId:(NSData *)responseJSON;
++(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError; 
 
 @end

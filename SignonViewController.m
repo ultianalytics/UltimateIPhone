@@ -76,12 +76,12 @@ NSArray* cells;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    self.passwordField.secureTextEntry = YES;
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.passwordField.secureTextEntry = YES;
     errorMessage.text = @"";
 }
 

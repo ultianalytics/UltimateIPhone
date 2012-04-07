@@ -111,8 +111,10 @@ static Team* currentTeam = nil;
     NSNumber* isMixedNumber = [dict valueForKey:kIsMixedKey];
     team.isMixed = [isMixedNumber boolValue];
     NSArray* playerDictionaries = [dict valueForKey:kPlayersKey];
-    for (NSDictionary* playerDictionary in playerDictionaries) {
-        [team.players addObject:[Player fromDictionary:playerDictionary]];
+    if (playerDictionaries) {
+        for (NSDictionary* playerDictionary in playerDictionaries) {
+            [team.players addObject:[Player fromDictionary:playerDictionary]];
+        }
     }
     return team;
 }

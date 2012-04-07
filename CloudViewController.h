@@ -14,6 +14,7 @@
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* uploadCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* downloadCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;
@@ -22,15 +23,21 @@
 @property (nonatomic, strong) IBOutlet UILabel* websiteLabel;
 @property (nonatomic, strong) IBOutlet UILabel* adminSiteLabel;
 @property (nonatomic, strong) IBOutlet UIButton* syncButton;
+@property (nonatomic, strong) IBOutlet UIButton* downloadButton;
 @property (nonatomic, strong) IBOutlet UIButton* signoffButton;
 
 -(IBAction)syncButtonClicked: (id) sender;
+-(IBAction)downloadButtonClicked: (id) sender;
 -(IBAction)signoffButtonClicked: (id) sender;
 -(void)populateViewFromModel;
 -(void)goSignonView;
+-(void)goTeamPickerView: (NSArray*) teams;
 -(void)upload;
 -(void)doUpload;
+-(void)downloadTeam:(NSString*) cloudId;
 -(void)startBusyDialog;
 -(void)stopBusyDialog;
+-(void)downloadTeams;
+-(void)doTeamsRetrieve;
 
 @end

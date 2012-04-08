@@ -77,7 +77,7 @@
 
 +(void) downloadTeam: (NSString*) cloudId error: (NSError**) getError {
     NSError* sendError = nil;
-    NSData* responseJson = [CloudClient get: [NSString stringWithFormat: @"/rest/mobile/team/%@", cloudId ] error: &sendError];
+    NSData* responseJson = [CloudClient get: [NSString stringWithFormat: @"/rest/mobile/team/%@?players=true", cloudId ] error: &sendError];
     Team* team = nil;
     NSError* unmarshallingError = nil;
     if (responseJson) {

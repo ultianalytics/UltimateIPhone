@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString* teamId;
 @property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSString* cloudId;
 
 - (id)initWithId:(NSString*)aTeamId name:(NSString*)aName;
 

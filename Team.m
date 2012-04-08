@@ -30,6 +30,7 @@ static Team* currentTeam = nil;
     for (NSString* idOfTeam in fileNames) {
         Team* team = [Team readTeam:idOfTeam];
         TeamDescription* teamDesc = [[TeamDescription alloc] initWithId:team.teamId name:team.name];
+        teamDesc.cloudId = team.cloudId;
         [descriptions addObject:teamDesc];
     }
     return descriptions;
@@ -113,6 +114,8 @@ static Team* currentTeam = nil;
     team.name = [dict valueForKey:kNameKey];
     NSNumber* isMixedNumber = [dict valueForKey:kIsMixedKey];
     team.isMixed = [isMixedNumber boolValue];
+    NSNumber* isDisplayingPlayerNumberNumber = [dict valueForKey:kDisplayPlayerNumberKey];
+    team.isDiplayingPlayerNumber = [isDisplayingPlayerNumberNumber boolValue];    
     NSArray* playerDictionaries = [dict valueForKey:kPlayersKey];
     if (playerDictionaries) {
         for (NSDictionary* playerDictionary in playerDictionaries) {
@@ -128,6 +131,7 @@ static Team* currentTeam = nil;
     [dict setValue: self.name forKey:kNameKey];
     [dict setValue: self.cloudId forKey:kCloudIdKey];
     [dict setValue: [NSNumber numberWithBool:self.isMixed ] forKey:kIsMixedKey];
+    [dict setValue: [NSNumber numberWithBool:self.isDiplayingPlayerNumber ] forKey:kDisplayPlayerNumberKey];
     NSMutableArray* arrayOfPlayers = [[NSMutableArray alloc] init];
     for (Player* player in self.players) {
         [arrayOfPlayers addObject:[player asDictionary]];

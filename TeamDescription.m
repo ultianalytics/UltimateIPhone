@@ -9,7 +9,7 @@
 #import "TeamDescription.h"
 
 @implementation TeamDescription
-@synthesize teamId,name;
+@synthesize teamId,name,cloudId;
 
 - (id)initWithId:(NSString*)aTeamId name:(NSString*)aName {
     self = [super init];

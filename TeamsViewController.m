@@ -43,11 +43,14 @@ BOOL isAfterFirstView;
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
+                initWithStyle:UITableViewCellStyleValue1
                 reuseIdentifier:STD_ROW_TYPE];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
     cell.textLabel.text = team.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"ID %@", team.cloudId];
     cell.textLabel.textColor = [Team isCurrentTeam:team.teamId]  ? [ColorMaster getActiveGameColor] : [UIColor blackColor];
     return cell;
 }

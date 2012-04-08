@@ -106,6 +106,9 @@ static Team* currentTeam = nil;
 +(Team*)fromDictionary:(NSDictionary*) dict {
     Team* team = [[Team alloc] init];
     team.teamId = [dict valueForKey:kTeamIdKey];
+    if (team.teamId == nil) {
+        team.teamId = [Team generateUniqueFileName];  // just for handling Kyle's data.  
+    }
     team.cloudId = [dict valueForKey:kCloudIdKey];
     team.name = [dict valueForKey:kNameKey];
     NSNumber* isMixedNumber = [dict valueForKey:kIsMixedKey];
@@ -133,7 +136,7 @@ static Team* currentTeam = nil;
     return dict;
 }
 
--(NSString*)generateUniqueFileName {
++(NSString*)generateUniqueFileName {
     CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
     //get the string representation of the UUID
     return [NSString stringWithFormat:@"%@%@", kTeamFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
@@ -142,7 +145,7 @@ static Team* currentTeam = nil;
 -(id) init {
     self = [super init];
     if (self) {
-        self.teamId = [self generateUniqueFileName];
+        self.teamId = [Team generateUniqueFileName];
         self.players = [[NSMutableArray alloc] init];
         self.name = kNoName;
     }

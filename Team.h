@@ -42,7 +42,7 @@
 
 // private
 +(NSString*)getFilePath: (NSString*) teamdId;
--(NSString*)generateUniqueFileName;
++(NSString*)generateUniqueFileName;
 
 @end
 

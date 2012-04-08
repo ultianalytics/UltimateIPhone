@@ -87,13 +87,16 @@
         }
     }
     *getError = sendError == nil ? unmarshallingError : sendError;
-    if(!getError) {
+    if(!unmarshallingError && !sendError) {
         [self saveDownloadedTeam: team];
     }
 }
 
 +(void) saveDownloadedTeam:(Team*)team {
-    NSLog(@"Saving downloaded team");
+    [team save];
+    if ([Team isCurrentTeam:team.teamId]) {
+        [Team setCurrentTeam:team.teamId];
+    }
 }
 
 +(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError {

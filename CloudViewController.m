@@ -54,10 +54,6 @@ void (^signonCompletion)();
     [self upload];
 }
 
--(void)downloadTeam:(NSString*) cloudId {
-    NSLog(@"Downloading team %@", cloudId);
-}
-
 -(void)upload {
     [self startBusyDialog];
     [self performSelectorInBackground:@selector(doUpload) withObject:nil];
@@ -116,6 +112,39 @@ void (^signonCompletion)();
         }
     } else {
         [self goTeamPickerView: teams];
+    }
+}
+
+-(void)downloadTeam: (NSString*) cloudId {
+    [self startBusyDialog];
+    [self performSelectorInBackground:@selector(doDownloadTeam:) withObject:cloudId];
+}
+
+-(void)doDownloadTeam: (NSString*) cloudId {
+    NSError* getError = nil;
+    [CloudClient downloadTeam: cloudId error:&getError];
+    [self stopBusyDialog];
+    if (getError) {
+        if (getError.code == Unauthorized) {
+            signonCompletion = ^{[self doDownloadTeam: cloudId];};
+            [self goSignonView];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] 
+                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
+                                  message: NSLocalizedString(@"We were unable to download your team from the cloud.  Try again later.",nil)
+                                  delegate: self
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+        }
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle: NSLocalizedString(@"Download Complete",nil)
+                              message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)
+                              delegate: self
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
     }
 }
 

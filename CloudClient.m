@@ -74,7 +74,28 @@
     *getError = sendError == nil ? unmarshallingError : sendError;
     return teams;
 }
-    
+
++(void) downloadTeam: (NSString*) cloudId error: (NSError**) getError {
+    NSError* sendError = nil;
+    NSData* responseJson = [CloudClient get: [NSString stringWithFormat: @"/rest/mobile/team/%@", cloudId ] error: &sendError];
+    Team* team = nil;
+    NSError* unmarshallingError = nil;
+    if (responseJson) {
+        NSDictionary* teamAsDictionary = [NSJSONSerialization JSONObjectWithData:responseJson options:0 error:&unmarshallingError];
+        if (!unmarshallingError) {
+            team = [Team fromDictionary:teamAsDictionary];
+        }
+    }
+    *getError = sendError == nil ? unmarshallingError : sendError;
+    if(!getError) {
+        [self saveDownloadedTeam: team];
+    }
+}
+
++(void) saveDownloadedTeam:(Team*)team {
+    NSLog(@"Saving downloaded team");
+}
+
 +(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError {
     NSData* responseJSON = nil;
     if ([Preferences getCurrentPreferences].userid == nil) {

@@ -38,6 +38,6 @@
 -(void)startBusyDialog;
 -(void)stopBusyDialog;
 -(void)downloadTeams;
--(void)doTeamsRetrieve;
+-(void)downloadTeam: (NSString*) cloudId;
 
 @end

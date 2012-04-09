@@ -354,9 +354,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) { // confirm
         [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
-        GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
-        gameStartController.game = [[Game alloc] init];
-        [self.navigationController pushViewController:gameStartController animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     } 
 }
 

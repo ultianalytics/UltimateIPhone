@@ -29,7 +29,6 @@
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
 @property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;
-@property (nonatomic, strong) IBOutlet UIButton* makeCurrentButton;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton* startButton;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* initialLine;
@@ -46,5 +45,7 @@
 -(void)populateUIFromModel;
 -(void)saveChanges;
 -(void)dismissKeyboard;
+-(void)upateViewTitle;
+-(void)goToActionView;
 
 @end 

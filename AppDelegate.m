@@ -36,37 +36,31 @@
 {
     // start up test flight SDK
     [TestFlight takeOff:@"01dff7f7ad89edec89a36930e359a707_NjE1NDUyMDEyLTAyLTEyIDEzOjM5OjU0Ljc5NDg1OQ"];
- 
-    
+     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     // Tab 1: team
     TeamsViewController *teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-    //TeamViewController *teamController = [[TeamViewController alloc] initWithNibName:@"TeamViewController" bundle:nil];
     UINavigationController* teamNavController = [[UINavigationController alloc] initWithRootViewController:teamController];
     UIViewController *viewController1 = teamNavController;
 
     // Tab 2: game
-    GameViewController* gameController = [[GameViewController alloc] init];
+    GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
     UINavigationController* gameNavController = [[UINavigationController alloc] initWithRootViewController:gameController];
     UIViewController *viewController2 = gameNavController;
     
-    // Tab 3: games played
-    GamesPlayedController* gamesPlayedController = [[GamesPlayedController alloc] init];
-    UINavigationController* gamesPlayedNavController = [[UINavigationController alloc] initWithRootViewController:gamesPlayedController];
-    UIViewController *viewController3 = gamesPlayedNavController;
-    
-    // Tab 4: cloud
+    // Tab 3: cloud
     CloudViewController* cloudController = [[CloudViewController alloc] init];
     UINavigationController* cloudNavController = [[UINavigationController alloc] initWithRootViewController:cloudController];
-    UIViewController* viewController4 = cloudNavController;
+    UIViewController* viewController3 = cloudNavController;
     
-    // Tab 5: twitter
+    // Tab 4: twitter
     TwitterController* twitterController = [[TwitterController alloc] init];
     UINavigationController* twitterNavController = [[UINavigationController alloc] initWithRootViewController:twitterController];
-    UIViewController *viewController5 = twitterNavController;
+    UIViewController *viewController4 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,viewController5, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,nil];
     
     UITabBarItem* tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:0];
     tabBarItem.image = [UIImage imageNamed:@"112-group.png"];
@@ -77,14 +71,10 @@
     tabBarItem.title = @"Game";
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
-    tabBarItem.image = [UIImage imageNamed:@"255-box.png"];
-    tabBarItem.title = @"Games History";  
-    
-    tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
     tabBarItem.image = [UIImage imageNamed:@"234-cloud.png"];
     tabBarItem.title = @"Cloud";  
     
-    tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:4];
+    tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
     tabBarItem.image = [UIImage imageNamed:@"210-twitterbird.png"];
     tabBarItem.title = @"Twitter";  
     

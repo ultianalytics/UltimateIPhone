@@ -17,6 +17,12 @@
 @implementation GamesPlayedController
 @synthesize gameDescriptions,gamesTableView;
 
+-(void)goToAddGame {
+    GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
+    gameStartController.game = [[Game alloc] init];
+    [self.navigationController pushViewController:gameStartController animated:YES]; 
+}
+
 -(void)retrieveGameDescriptions {
     // make array of descriptions so we don't have to crack open the game objects as we scroll the list
     NSMutableArray* descriptions = [[NSMutableArray alloc] init];
@@ -122,8 +128,10 @@
     GameDescription* gameDesc = [self.gameDescriptions objectAtIndex:row];
     
     GameDetailViewController* gameSummaryController = [[GameDetailViewController alloc] init];
-    Game* gameToView = [gameDesc.gameId isEqualToString: [Game getCurrentGameId]] ? [Game getCurrentGame] : [Game readGame:gameDesc.gameId];
-    gameSummaryController.game = gameToView;
+    if (![gameDesc.gameId isEqualToString: [Game getCurrentGameId]]) {
+        [Game setCurrentGame:gameDesc.gameId];
+    }
+    gameSummaryController.game = [Game getCurrentGame];
     [self.navigationController pushViewController:gameSummaryController animated:YES];
 } 
 
@@ -141,6 +149,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIBarButtonItem *navBarAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddGame)];
+    self.navigationItem.rightBarButtonItem = navBarAddButton; 
+    
     self.gamesTableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];

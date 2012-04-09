@@ -247,7 +247,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // use a smaller font
+    // use a smaller font for nav bat title
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
     
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
@@ -259,11 +259,8 @@
     [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
     [self.swipeEventsView addGestureRecognizer:swipeRecognizer];
     
-    UIBarButtonItem *playersNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStyleBordered target:self action:@selector(goToPlayersOnFieldView)];
-    self.navigationItem.leftBarButtonItem = playersNavBarItem;
-    
-    UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStyleBordered target:self action:@selector(goToHistoryViewRight)];
-    self.navigationItem.rightBarButtonItem = historyNavBarItem;    
+    UIBarButtonItem *navBarLineButton = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStyleBordered target:self action:@selector(goToPlayersOnFieldView)];
+    self.navigationItem.rightBarButtonItem = navBarLineButton;    
     
     self.throwAwayButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.throwAwayButton.titleLabel.textAlignment = UITextAlignmentCenter;

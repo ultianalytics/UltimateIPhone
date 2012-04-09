@@ -15,14 +15,20 @@
 #import "WindViewController.h"
 #import "StatsViewController.h"
 #import "GameHistoryController.h"
+#import "GameViewController.h"
 
 #define kLowestGamePoint 9
 
 NSArray* cells;
 
 @implementation GameDetailViewController
-@synthesize opposingTeamNameField,tournamentNameField,game,startTimeLabel,scoreLabel,makeCurrentButton,startTimeCell,scoreCell,opponentCell,tournamentCell,windCell,statsCell,eventsCell,windLabel,tableView,initialLineCell,gamePointsCell,initialLine,gamePointsSegmentedControl,
+@synthesize opposingTeamNameField,tournamentNameField,game,startTimeLabel,scoreLabel,startTimeCell,scoreCell,opponentCell,tournamentCell,windCell,statsCell,eventsCell,windLabel,tableView,initialLineCell,gamePointsCell,initialLine,gamePointsSegmentedControl,
     deleteButton, startButton;
+
+-(void)goToActionView {
+    GameViewController* gameController = [[GameViewController alloc] init];
+    [self.navigationController pushViewController:gameController animated:YES]; 
+}
 
 -(IBAction) makeCurrentClicked: (id) sender {
     [Game setCurrentGame:game.gameId];
@@ -41,11 +47,13 @@ NSArray* cells;
 }
 
 -(IBAction)startClicked: (id) sender {
+    [self dismissKeyboard];
     if ([self verifyOpponentName]) {
         game.startDateTime = [NSDate date];
         [game save];
         [Game setCurrentGame:game.gameId];
-        [self.navigationController popViewControllerAnimated:YES];    
+        [self upateViewTitle];
+        [self goToActionView];
     }
 }
 
@@ -62,6 +70,7 @@ NSArray* cells;
 }
 
 -(void)populateUIFromModel {
+   [self upateViewTitle];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
     self.startTimeLabel.text = [dateFormat stringFromDate:game.startDateTime];
@@ -90,10 +99,13 @@ NSArray* cells;
     }
     self.gamePointsSegmentedControl.selectedSegmentIndex = segmentIndex;    
     
-    self.makeCurrentButton.hidden = (![self.game hasBeenSaved]) || [[Preferences getCurrentPreferences].currentGameFileName isEqualToString:self.game.gameId];
     self.deleteButton.hidden = ![self.game hasBeenSaved];
     self.startButton.hidden = [self.game hasBeenSaved];
-    
+    if ([game hasBeenSaved]) {
+        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(goToActionView)];
+        self.navigationItem.rightBarButtonItem = navBarActionButton;    
+    }
+    [self.tableView reloadData];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -229,6 +241,10 @@ NSArray* cells;
     return self;
 }
 
+-(void)upateViewTitle {
+        self.title = [game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -243,9 +259,8 @@ NSArray* cells;
 {
     [super viewDidLoad];
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     
-    self.title = [game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
-
     self.gamePointsSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.initialLine.tintColor = [ColorMaster getNavBarTintColor];    
     
@@ -254,16 +269,14 @@ NSArray* cells;
     self.opposingTeamNameField.delegate = self; 
     self.tournamentNameField.delegate = self; 
     
-    [self populateUIFromModel]; 
-    
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];    
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    [super viewWillAppear:animated];  
+    [self dismissKeyboard];
     self.windLabel.text = [game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", game.wind.mph] : @"NOT SPECIFIED YET"; 
-    [self.tableView reloadData];
+    [self populateUIFromModel]; 
 }
 
 - (void)viewDidUnload

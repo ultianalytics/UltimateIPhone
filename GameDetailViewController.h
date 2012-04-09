@@ -47,5 +47,6 @@
 -(void)dismissKeyboard;
 -(void)upateViewTitle;
 -(void)goToActionView;
+-(void)addFooterButton;
 
 @end 

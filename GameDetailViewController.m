@@ -22,8 +22,7 @@
 NSArray* cells;
 
 @implementation GameDetailViewController
-@synthesize opposingTeamNameField,tournamentNameField,game,startTimeLabel,scoreLabel,startTimeCell,scoreCell,opponentCell,tournamentCell,windCell,statsCell,eventsCell,windLabel,tableView,initialLineCell,gamePointsCell,initialLine,gamePointsSegmentedControl,
-    deleteButton, startButton;
+@synthesize opposingTeamNameField,tournamentNameField,game,startTimeLabel,scoreLabel,startTimeCell,scoreCell,opponentCell,tournamentCell,windCell,statsCell,eventsCell,windLabel,tableView,initialLineCell,gamePointsCell,initialLine,gamePointsSegmentedControl,deleteButton, startButton;
 
 -(void)goToActionView {
     GameViewController* gameController = [[GameViewController alloc] init];
@@ -106,6 +105,7 @@ NSArray* cells;
         self.navigationItem.rightBarButtonItem = navBarActionButton;    
     }
     [self.tableView reloadData];
+    [self addFooterButton];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -230,6 +230,14 @@ NSArray* cells;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 34;
+}
+
+-(void)addFooterButton {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
+    UIButton* footerButton = [game hasBeenSaved] ? deleteButton : startButton;
+    footerButton.frame = CGRectMake(95, 0, footerButton.frame.size.width, footerButton.frame.size.height);
+    [headerView addSubview: footerButton];
+    tableView.tableFooterView = headerView;
 }
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil

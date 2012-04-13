@@ -253,4 +253,8 @@ static Team* currentTeam = nil;
     }];
 }
 
+- (NSString* )description {
+    return [NSString stringWithFormat:@"Team %@ teamId=%@, cloudId=%@", self.name, self.teamId, self.cloudId];
+}
+
 @end

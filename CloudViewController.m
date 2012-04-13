@@ -240,15 +240,17 @@ void (^signonCompletion)();
 {
     [super viewWillAppear:animated];
     [self populateViewFromModel];
-    if (signonController && signonController.isSignedOn) {
-        signonCompletion();
+    if (signonController) {
+        if (signonController.isSignedOn) {
+            signonCompletion();
+        }
+        signonController = nil;
     } else if  (teamDownloadController && teamDownloadController.selectedTeam) {
-        [self downloadTeam: teamDownloadController.selectedTeam.cloudId];
+        if (teamDownloadController.selectedTeam) {
+            [self downloadTeam: teamDownloadController.selectedTeam.cloudId];
+        }
+        teamDownloadController = nil;
     } 
-
-    signonController = nil;
-    teamDownloadController = nil;
-    
 }
 
 - (void)viewDidUnload

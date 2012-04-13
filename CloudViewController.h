@@ -32,12 +32,15 @@
 -(void)populateViewFromModel;
 -(void)goSignonView;
 -(void)goTeamPickerView: (NSArray*) teams;
--(void)upload;
--(void)doUpload;
+-(void)startUpload;
+-(void)uploadToServer;
+-(void)handleUploadFailure: (NSNumber*) errorCode;
+-(void)notifyUserOfUploadSuccess;
 -(void)downloadTeam:(NSString*) cloudId;
 -(void)startBusyDialog;
 -(void)stopBusyDialog;
 -(void)downloadTeams;
 -(void)downloadTeam: (NSString*) cloudId;
+
 
 @end

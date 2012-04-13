@@ -51,41 +51,50 @@ void (^signonCompletion)();
 }
 
 -(IBAction)syncButtonClicked: (id) sender {
-    [self upload];
+    [self startUpload];
 }
 
--(void)upload {
+-(void)startUpload {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(doUpload) withObject:nil];
+    [self performSelectorInBackground:@selector(uploadToServer) withObject:nil];
 }
 
--(void)doUpload {
+-(void)uploadToServer {
     NSError* uploadError = nil;
     [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames:[Team getCurrentTeam].teamId] error: &uploadError];
-    [self stopBusyDialog];
     if (uploadError) {
-        if (uploadError.code == Unauthorized) {
-            signonCompletion = ^{[self doUpload];};
-            [self goSignonView];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle: NSLocalizedString(@"Upload FAILED",nil)
-                                  message: NSLocalizedString(@"We were unable to upload your data to the cloud.  Try again later.",nil)
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                  otherButtonTitles: nil];
-            [alert show];
-        }
+        [self performSelectorOnMainThread:@selector(handleUploadFailure:) withObject:[NSNumber numberWithInt: uploadError.code] waitUntilDone:NO];
     } else {
-        [self populateViewFromModel];
+        [self performSelectorOnMainThread:@selector(notifyUserOfUploadSuccess) withObject:nil waitUntilDone:NO];
+    }
+}
+
+-(void)handleUploadFailure: (NSNumber*) errorCode {
+    [self stopBusyDialog];
+    if (errorCode && [errorCode intValue] == Unauthorized) {
+        signonCompletion = ^{[self uploadToServer];};
+        [self goSignonView];
+    } else {
         UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"Upload Complete",nil)
-                              message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)
+                              initWithTitle: NSLocalizedString(@"Upload FAILED",nil)
+                              message: NSLocalizedString(@"We were unable to upload your data to the cloud.  Try again later.",nil)
                               delegate: self
                               cancelButtonTitle: NSLocalizedString(@"OK",nil)
                               otherButtonTitles: nil];
         [alert show];
     }
+}
+
+-(void)notifyUserOfUploadSuccess {
+    [self stopBusyDialog];
+    [self populateViewFromModel];
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: NSLocalizedString(@"Upload Complete",nil)
+                          message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)
+                          delegate: self
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
 }
 
 -(void)downloadTeams {

@@ -11,7 +11,7 @@
 #import "CloudClient.h"
 
 NSArray* cells;
-
+UIAlertView* busyView;
 
 @implementation SignonViewController
 @synthesize useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
@@ -23,14 +23,31 @@ NSArray* cells;
     if ([password isEqualToString:@""] || [userid isEqualToString:@""]) {
         errorMessage.text = @"Userid and Password required";
     } else {
-        BOOL ok = [CloudClient signOnWithID:userid password:password];
-        if (ok) {
-            self.isSignedOn = YES;
-            [self.navigationController popViewControllerAnimated:YES];
-        } else {
-            self.passwordField.text = @"";
-            errorMessage.text = @"Signon failed";
-        }
+        [self startSignon];
+    }
+}
+
+-(void)startSignon {
+    [self startBusyDialog];
+    [self performSelectorInBackground:@selector(signon) withObject:nil];
+}
+
+-(void)signon {
+    NSString* userid = [self.useridField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    BOOL ok = [CloudClient signOnWithID:userid password:password];
+    [self performSelectorOnMainThread:@selector(handleSignonCompletion:) withObject: [NSNumber numberWithBool: ok]waitUntilDone:NO];
+}
+
+-(void)handleSignonCompletion: (NSNumber*) isOk {
+    [self stopBusyDialog];
+    BOOL ok = [isOk boolValue];
+    if (ok) {
+        self.isSignedOn = YES;
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        self.passwordField.text = @"";
+        errorMessage.text = @"Signon failed";
     }
 }
 
@@ -52,6 +69,28 @@ NSArray* cells;
     UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
+}
+
+-(void)startBusyDialog {
+    busyView = [[UIAlertView alloc] initWithTitle: @"Talking to cloud..."
+                                          message: nil
+                                         delegate: self
+                                cancelButtonTitle: nil
+                                otherButtonTitles: nil];
+    // Add a spinner
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(50,50, 200, 50);
+    [busyView addSubview:spinner];
+    [spinner startAnimating];
+    
+    [busyView show];
+}
+
+-(void)stopBusyDialog {
+    if (busyView) {
+        [busyView dismissWithClickedButtonIndex:0 animated:NO];
+        [busyView removeFromSuperview];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

@@ -21,4 +21,8 @@
 -(IBAction) signonButtonClicked: (id) sender;
 -(IBAction) cancelButtonClicked: (id) sender;
 
+-(void)startSignon;
+-(void)startBusyDialog;
+-(void)stopBusyDialog;
+
 @end

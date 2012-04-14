@@ -33,11 +33,10 @@
 -(void)goSignonView;
 -(void)goTeamPickerView: (NSArray*) teams;
 -(void)startUpload;
--(void)downloadTeam:(NSString*) cloudId;
+-(void)startTeamsDownload;
+-(void)startTeamDownload:(NSString*) cloudId;
+
 -(void)startBusyDialog;
 -(void)stopBusyDialog;
--(void)downloadTeams;
--(void)handleTeamsRetrieveCompletion: (id)response;
--(void)downloadTeam: (NSString*) cloudId;
 
 @end

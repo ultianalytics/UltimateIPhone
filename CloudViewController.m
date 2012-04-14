@@ -25,7 +25,7 @@ UIAlertView* busyView;
 void (^signonCompletion)();
 
 -(IBAction)downloadButtonClicked: (id) sender {
-    [self downloadTeams];
+    [self startTeamsDownload];
 }
 
 -(void)goSignonView{
@@ -90,25 +90,26 @@ void (^signonCompletion)();
     }
 }
 
--(void)downloadTeams {
+-(void)startTeamsDownload {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(doTeamsRetrieve) withObject:nil];
+    [self performSelectorInBackground:@selector(downloadTeamsFromServer) withObject:nil];
 }
 
--(void)doTeamsRetrieve {
+-(void)downloadTeamsFromServer {
     NSError* getError = nil;
     NSArray* teams = [CloudClient getTeams:&getError];
-    [self handleTeamsRetrieveCompletion: getError ? [NSNumber numberWithInt: getError.code] : teams];
+    [self performSelectorOnMainThread:@selector(handleTeamsDownloadCompletion:) 
+                           withObject:(getError ? [NSNumber numberWithInt: getError.code] : teams) waitUntilDone:YES];
 }
 
--(void)handleTeamsRetrieveCompletion: (id)response {
+-(void)handleTeamsDownloadCompletion: (id)response {
     [self stopBusyDialog];
     if ([response isKindOfClass:[NSArray class]]) {
         NSArray* teams = (NSArray*)response;
         [self goTeamPickerView: teams];
     } else {
         if (((NSNumber*)response).intValue == Unauthorized) {
-            signonCompletion = ^{[self doTeamsRetrieve];};
+            signonCompletion = ^{[self downloadTeamsFromServer];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -122,18 +123,23 @@ void (^signonCompletion)();
     } 
 }
 
--(void)downloadTeam: (NSString*) cloudId {
+-(void)startTeamDownload: (NSString*) cloudId {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(doDownloadTeam:) withObject:cloudId];
+    [self performSelectorInBackground:@selector(downloadTeamFromServer:) withObject:cloudId];
 }
 
--(void)doDownloadTeam: (NSString*) cloudId {
+-(void)downloadTeamFromServer: (NSString*) cloudId {
     NSError* getError = nil;
     [CloudClient downloadTeam: cloudId error:&getError];
+    [self performSelectorOnMainThread:@selector(handleTeamDownloadCompletion:) 
+                           withObject:(getError ? [NSNumber numberWithInt: getError.code] : cloudId) waitUntilDone:YES];
+}
+
+-(void)handleTeamDownloadCompletion: (NSString*) cloudIdOrErrorCode {
     [self stopBusyDialog];
-    if (getError) {
-        if (getError.code == Unauthorized) {
-            signonCompletion = ^{[self doDownloadTeam: cloudId];};
+    if ([cloudIdOrErrorCode isKindOfClass:[NSNumber class]]) {
+        if ([((NSNumber*)cloudIdOrErrorCode) intValue] == Unauthorized) {
+            signonCompletion = ^{[self startTeamDownload: cloudIdOrErrorCode];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -154,7 +160,6 @@ void (^signonCompletion)();
         [alert show];
     }
 }
-
 
 -(void)startBusyDialog {
     busyView = [[UIAlertView alloc] initWithTitle: @"Talking to cloud..."
@@ -254,7 +259,7 @@ void (^signonCompletion)();
         signonController = nil;
     } else if  (teamDownloadController && teamDownloadController.selectedTeam) {
         if (teamDownloadController.selectedTeam) {
-            [self downloadTeam: teamDownloadController.selectedTeam.cloudId];
+            [self startTeamDownload: teamDownloadController.selectedTeam.cloudId];
         }
         teamDownloadController = nil;
     } 

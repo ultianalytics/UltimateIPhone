@@ -37,6 +37,7 @@
 -(void)startBusyDialog;
 -(void)stopBusyDialog;
 -(void)downloadTeams;
+-(void)handleTeamsRetrieveCompletion: (id)response;
 -(void)downloadTeam: (NSString*) cloudId;
 
 @end

@@ -98,9 +98,16 @@ void (^signonCompletion)();
 -(void)doTeamsRetrieve {
     NSError* getError = nil;
     NSArray* teams = [CloudClient getTeams:&getError];
+    [self handleTeamsRetrieveCompletion: getError ? [NSNumber numberWithInt: getError.code] : teams];
+}
+
+-(void)handleTeamsRetrieveCompletion: (id)response {
     [self stopBusyDialog];
-    if (getError) {
-        if (getError.code == Unauthorized) {
+    if ([response isKindOfClass:[NSArray class]]) {
+        NSArray* teams = (NSArray*)response;
+        [self goTeamPickerView: teams];
+    } else {
+        if (((NSNumber*)response).intValue == Unauthorized) {
             signonCompletion = ^{[self doTeamsRetrieve];};
             [self goSignonView];
         } else {
@@ -112,9 +119,7 @@ void (^signonCompletion)();
                                   otherButtonTitles: nil];
             [alert show];
         }
-    } else {
-        [self goTeamPickerView: teams];
-    }
+    } 
 }
 
 -(void)downloadTeam: (NSString*) cloudId {

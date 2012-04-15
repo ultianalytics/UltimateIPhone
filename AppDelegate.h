@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GameViewSwitcherController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
--(void)switchGameView: (Class) viewClass transition: (UIViewAnimationTransition) transition;
--(GameViewSwitcherController*)getGameViewSwitchController;
+-(void)resetTeamTab;
+-(void)resetGameTab;
 
 @end

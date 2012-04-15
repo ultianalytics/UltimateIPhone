@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "TeamsViewController.h"
 #import "TeamViewController.h"
-#import "GameViewSwitcherController.h"
 #import "GameViewController.h"
 #import "GamesPlayedController.h"
 #import "PreferencesViewController.h"
@@ -20,17 +19,11 @@
 
 @implementation AppDelegate
 
+UINavigationController* teamNavController;
+UINavigationController* gameNavController;
+
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
-
--(void)switchGameView: (Class) viewClass transition: (UIViewAnimationTransition) transition{
-    //[[self getGameViewSwitchController] switchActiveContoller:viewClass];
-    [[self getGameViewSwitchController] switchActiveControllerAnimated:viewClass transition: transition];
-}
-
--(GameViewSwitcherController*)getGameViewSwitchController {
-    return [self.tabBarController.viewControllers objectAtIndex:1];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -40,13 +33,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Tab 1: team
-    TeamsViewController *teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-    UINavigationController* teamNavController = [[UINavigationController alloc] initWithRootViewController:teamController];
+    TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
+    teamNavController = [[UINavigationController alloc] initWithRootViewController:teamController];
     UIViewController *viewController1 = teamNavController;
 
     // Tab 2: game
     GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
-    UINavigationController* gameNavController = [[UINavigationController alloc] initWithRootViewController:gameController];
+    gameNavController = [[UINavigationController alloc] initWithRootViewController:gameController];
     UIViewController *viewController2 = gameNavController;
     
     // Tab 3: cloud
@@ -82,6 +75,15 @@
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+-(void)resetTeamTab {
+    [teamNavController popToRootViewControllerAnimated:NO];
+    [self resetGameTab];
+}
+
+-(void)resetGameTab {
+    [gameNavController popToRootViewControllerAnimated:NO];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

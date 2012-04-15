@@ -35,6 +35,7 @@
 		1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */; };
 		1AEE54A71529D2CA0067F539 /* TweetLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */; };
 		1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */; };
+		1AF1B76B153B0CE100E1A826 /* RequestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF1B76A153B0CE100E1A826 /* RequestContext.m */; };
 		1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -57,7 +58,6 @@
 		1AFFE7E915175E7B004B4590 /* 122-stats@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7BF15175E7B004B4590 /* 122-stats@2x.png */; };
 		1AFFE7EA15175E7B004B4590 /* 255-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C015175E7B004B4590 /* 255-box.png */; };
 		1AFFE7EB15175E7B004B4590 /* 255-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C115175E7B004B4590 /* 255-box@2x.png */; };
-		1AFFE7EC15175E7B004B4590 /* AbstractGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C315175E7B004B4590 /* AbstractGameViewController.m */; };
 		1AFFE7ED15175E7B004B4590 /* amazing.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C515175E7B004B4590 /* amazing.png */; };
 		1AFFE7EE15175E7B004B4590 /* anger.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C615175E7B004B4590 /* anger.png */; };
 		1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C815175E7B004B4590 /* AnonymousPlayer.m */; };
@@ -95,7 +95,6 @@
 		1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81615175EB0004B4590 /* GamesPlayedController.m */; };
 		1AFFE88915175EB0004B4590 /* GamesPlayedController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */; };
 		1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81915175EB0004B4590 /* GameViewController.m */; };
-		1AFFE88B15175EB0004B4590 /* GameViewSwitcherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81B15175EB0004B4590 /* GameViewSwitcherController.m */; };
 		1AFFE88C15175EB0004B4590 /* girl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81C15175EB0004B4590 /* girl.png */; };
 		1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81D15175EB0004B4590 /* goal_trans.gif */; };
 		1AFFE88E15175EB0004B4590 /* greedy.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81E15175EB0004B4590 /* greedy.png */; };
@@ -203,6 +202,8 @@
 		1AEE54A41529D2CA0067F539 /* TweetLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetLogViewController.h; sourceTree = "<group>"; };
 		1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetLogViewController.m; sourceTree = "<group>"; };
 		1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetLogViewController.xib; sourceTree = "<group>"; };
+		1AF1B769153B0CE100E1A826 /* RequestContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestContext.h; sourceTree = "<group>"; };
+		1AF1B76A153B0CE100E1A826 /* RequestContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestContext.m; sourceTree = "<group>"; };
 		1AFFE77715175D4A004B4590 /* UltimateIPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateIPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFFE77B15175D4A004B4590 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AFFE77D15175D4A004B4590 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -228,8 +229,6 @@
 		1AFFE7BF15175E7B004B4590 /* 122-stats@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "122-stats@2x.png"; sourceTree = "<group>"; };
 		1AFFE7C015175E7B004B4590 /* 255-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "255-box.png"; sourceTree = "<group>"; };
 		1AFFE7C115175E7B004B4590 /* 255-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "255-box@2x.png"; sourceTree = "<group>"; };
-		1AFFE7C215175E7B004B4590 /* AbstractGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractGameViewController.h; sourceTree = "<group>"; };
-		1AFFE7C315175E7B004B4590 /* AbstractGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractGameViewController.m; sourceTree = "<group>"; };
 		1AFFE7C415175E7B004B4590 /* ActionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionListener.h; sourceTree = "<group>"; };
 		1AFFE7C515175E7B004B4590 /* amazing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazing.png; sourceTree = "<group>"; };
 		1AFFE7C615175E7B004B4590 /* anger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anger.png; sourceTree = "<group>"; };
@@ -284,8 +283,6 @@
 		1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamesPlayedController.xib; sourceTree = "<group>"; };
 		1AFFE81815175EB0004B4590 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		1AFFE81915175EB0004B4590 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
-		1AFFE81A15175EB0004B4590 /* GameViewSwitcherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewSwitcherController.h; sourceTree = "<group>"; };
-		1AFFE81B15175EB0004B4590 /* GameViewSwitcherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewSwitcherController.m; sourceTree = "<group>"; };
 		1AFFE81C15175EB0004B4590 /* girl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = girl.png; sourceTree = "<group>"; };
 		1AFFE81D15175EB0004B4590 /* goal_trans.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = goal_trans.gif; sourceTree = "<group>"; };
 		1AFFE81E15175EB0004B4590 /* greedy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greedy.png; sourceTree = "<group>"; };
@@ -433,6 +430,8 @@
 				1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */,
 				1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */,
 				1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */,
+				1AF1B769153B0CE100E1A826 /* RequestContext.h */,
+				1AF1B76A153B0CE100E1A826 /* RequestContext.m */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -561,7 +560,6 @@
 				1AFFE8D815176481004B4590 /* Preferences */,
 				1AFFE8D71517647F004B4590 /* Team */,
 				1AFFE8D61517647C004B4590 /* Wind */,
-				1AFFE8D51517647A004B4590 /* Unused */,
 				1AFFE8D415176470004B4590 /* Common */,
 			);
 			name = UI;
@@ -637,17 +635,6 @@
 				1AFFE7DA15175E7B004B4590 /* Constants.m */,
 			);
 			name = Common;
-			sourceTree = "<group>";
-		};
-		1AFFE8D51517647A004B4590 /* Unused */ = {
-			isa = PBXGroup;
-			children = (
-				1AFFE7C215175E7B004B4590 /* AbstractGameViewController.h */,
-				1AFFE7C315175E7B004B4590 /* AbstractGameViewController.m */,
-				1AFFE81A15175EB0004B4590 /* GameViewSwitcherController.h */,
-				1AFFE81B15175EB0004B4590 /* GameViewSwitcherController.m */,
-			);
-			name = Unused;
 			sourceTree = "<group>";
 		};
 		1AFFE8D61517647C004B4590 /* Wind */ = {
@@ -979,7 +966,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AFFE78815175D4A004B4590 /* main.m in Sources */,
-				1AFFE7EC15175E7B004B4590 /* AbstractGameViewController.m in Sources */,
 				1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */,
 				1AFFE7F015175E7B004B4590 /* AppDelegate.m in Sources */,
 				1AFFE7F115175E7B004B4590 /* ArrowView.m in Sources */,
@@ -996,7 +982,6 @@
 				1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */,
 				1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */,
 				1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */,
-				1AFFE88B15175EB0004B4590 /* GameViewSwitcherController.m in Sources */,
 				1AFFE89315175EB0004B4590 /* IBView.m in Sources */,
 				1AFFE89415175EB0004B4590 /* ImageMaster.m in Sources */,
 				1AFFE89C15175EB0004B4590 /* OffenseEvent.m in Sources */,
@@ -1036,6 +1021,7 @@
 				1AEAE9EA152D1D80008574C2 /* TeamDescription.m in Sources */,
 				1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */,
 				1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */,
+				1AF1B76B153B0CE100E1A826 /* RequestContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

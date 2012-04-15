@@ -11,6 +11,7 @@
 #import "TeamDescription.h"
 #import "ColorMaster.h"
 #import "TeamViewController.h"
+#import "AppDelegate.h"
 
 NSArray* teamDescriptions;
 BOOL isAfterFirstView;
@@ -60,6 +61,7 @@ BOOL isAfterFirstView;
     TeamDescription* teamDescription = [teamDescriptions objectAtIndex:row];
     if (![teamDescription.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
         [Team setCurrentTeam:teamDescription.teamId];
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
     }
     [self goToTeamView: [Team getCurrentTeam] animated: YES];
 } 

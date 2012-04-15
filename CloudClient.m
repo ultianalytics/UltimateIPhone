@@ -75,7 +75,8 @@
     return teams;
 }
 
-+(void) downloadTeam: (NSString*) cloudId error: (NSError**) getError {
+// download team.  return teamId
++(NSString*) downloadTeam: (NSString*) cloudId error: (NSError**) getError {
     NSError* sendError = nil;
     NSData* responseJson = [CloudClient get: [NSString stringWithFormat: @"/rest/mobile/team/%@?players=true", cloudId ] error: &sendError];
     Team* team = nil;
@@ -90,13 +91,11 @@
     if(!unmarshallingError && !sendError) {
         [self saveDownloadedTeam: team];
     }
+    return team.teamId;
 }
 
 +(void) saveDownloadedTeam:(Team*)team {
     [team save];
-    if ([Team isCurrentTeam:team.teamId]) {
-        [Team setCurrentTeam:team.teamId];
-    }
 }
 
 +(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError {

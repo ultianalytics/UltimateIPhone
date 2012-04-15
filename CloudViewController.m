@@ -14,6 +14,8 @@
 #import "Team.h"
 #import "Game.h"
 #import "Constants.h"
+#import "AppDelegate.h"
+#import "RequestContext.h"
 
 @implementation CloudViewController
 @synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadCell,downloadButton;
@@ -98,17 +100,17 @@ void (^signonCompletion)();
 -(void)downloadTeamsFromServer {
     NSError* getError = nil;
     NSArray* teams = [CloudClient getTeams:&getError];
+    RequestContext* reqContext = getError ? 
+        [[RequestContext alloc] initWithRequestData:nil responseData:nil error: getError.code] :
+        [[RequestContext alloc] initWithRequestData:nil responseData:teams];
     [self performSelectorOnMainThread:@selector(handleTeamsDownloadCompletion:) 
-                           withObject:(getError ? [NSNumber numberWithInt: getError.code] : teams) waitUntilDone:YES];
+                           withObject:reqContext waitUntilDone:YES];
 }
 
--(void)handleTeamsDownloadCompletion: (id)response {
+-(void)handleTeamsDownloadCompletion: (RequestContext*) requestContext {
     [self stopBusyDialog];
-    if ([response isKindOfClass:[NSArray class]]) {
-        NSArray* teams = (NSArray*)response;
-        [self goTeamPickerView: teams];
-    } else {
-        if (((NSNumber*)response).intValue == Unauthorized) {
+    if ([requestContext hasError]) {
+        if ([requestContext getErrorCode] == Unauthorized) {
             signonCompletion = ^{[self downloadTeamsFromServer];};
             [self goSignonView];
         } else {
@@ -120,6 +122,9 @@ void (^signonCompletion)();
                                   otherButtonTitles: nil];
             [alert show];
         }
+    } else {
+        NSArray* teams = (NSArray*)requestContext.responseData;
+        [self goTeamPickerView: teams];
     } 
 }
 
@@ -130,16 +135,19 @@ void (^signonCompletion)();
 
 -(void)downloadTeamFromServer: (NSString*) cloudId {
     NSError* getError = nil;
-    [CloudClient downloadTeam: cloudId error:&getError];
-    [self performSelectorOnMainThread:@selector(handleTeamDownloadCompletion:) 
-                           withObject:(getError ? [NSNumber numberWithInt: getError.code] : cloudId) waitUntilDone:YES];
+    NSString* teamId = [CloudClient downloadTeam: cloudId error:&getError];
+    RequestContext* reqContext = getError ? 
+                   [[RequestContext alloc] initWithRequestData:cloudId responseData:nil error: getError.code] :
+                   [[RequestContext alloc] initWithRequestData:cloudId responseData:teamId];
+    [self performSelectorOnMainThread:@selector(handleTeamDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
 }
 
--(void)handleTeamDownloadCompletion: (NSString*) cloudIdOrErrorCode {
+-(void)handleTeamDownloadCompletion: (RequestContext*) requestContext {
     [self stopBusyDialog];
-    if ([cloudIdOrErrorCode isKindOfClass:[NSNumber class]]) {
-        if ([((NSNumber*)cloudIdOrErrorCode) intValue] == Unauthorized) {
-            signonCompletion = ^{[self startTeamDownload: cloudIdOrErrorCode];};
+    if ([requestContext hasError]) {
+        if ([requestContext getErrorCode] == Unauthorized) {
+            NSString* cloudId = (NSString*)requestContext.requestData;
+            signonCompletion = ^{[self startTeamDownload: cloudId];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -151,6 +159,11 @@ void (^signonCompletion)();
             [alert show];
         }
     } else {
+        NSString* teamId = (NSString*)requestContext.responseData;
+        if (![Team isCurrentTeam:teamId]) {
+            [Team setCurrentTeam:teamId];
+            [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+        }
         UIAlertView *alert = [[UIAlertView alloc] 
                               initWithTitle: NSLocalizedString(@"Download Complete",nil)
                               message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)

@@ -163,6 +163,7 @@ void (^signonCompletion)();
         if (![Team isCurrentTeam:teamId]) {
             [Team setCurrentTeam:teamId];
             [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+            [self populateViewFromModel];
         }
         UIAlertView *alert = [[UIAlertView alloc] 
                               initWithTitle: NSLocalizedString(@"Download Complete",nil)

@@ -43,4 +43,29 @@
     return self.mph != 0 && self.directionDegrees > -1;
 }
 
++(Wind*)fromDictionary:(NSDictionary*) dict {
+    Wind* wind = [[Wind alloc] init];
+    NSNumber* mph = [dict objectForKey:kMphKey];
+    if (mph) {
+        wind.mph = [mph intValue];
+    }
+    NSNumber* directionDegrees = [dict objectForKey:kDirectionDegreesKey];
+    if (directionDegrees) {
+        wind.directionDegrees = [directionDegrees intValue];
+    }
+    NSNumber* isFirstPullLeftToRight = [dict objectForKey:kIsFirstLeftToRightKey];
+    if (isFirstPullLeftToRight) {
+        wind.isFirstPullLeftToRight = [isFirstPullLeftToRight boolValue];
+    }    
+    return wind;
+}
+
+-(NSDictionary*) asDictionary {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue: [NSNumber numberWithInt:self.mph ] forKey:kMphKey];
+    [dict setValue: [NSNumber numberWithInt:self.directionDegrees ] forKey:kDirectionDegreesKey];
+    [dict setValue: [NSNumber numberWithBool:self.isFirstPullLeftToRight ] forKey:kIsFirstLeftToRightKey];
+    return dict;
+}
+
 @end

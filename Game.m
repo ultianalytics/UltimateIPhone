@@ -29,6 +29,7 @@
 #define kIsFirstPointOlineKey   @"isFirstPointOline"
 #define kWindKey                @"wind"
 #define kGamePointKey           @"gamePoint"
+#define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 
 static Game* currentGame = nil;
 
@@ -38,7 +39,83 @@ static Game* currentGame = nil;
 BOOL arePointSummariesValid;
 
 +(Game*) fromDictionary:(NSDictionary*) dict; {
-    return nil; // TODO COMPLETE THIS METHOD
+    Game* game = [[Game alloc] init];
+    game.gameId = [dict objectForKey:kGameIdKey];
+    game.opponentName = [dict objectForKey:kOpponentNameKey];
+    game.tournamentName = [dict objectForKey:kTournamentNameKey];
+    NSNumber* gamePoint = [dict objectForKey:kGamePointKey];
+    if (gamePoint) {
+        game.gamePoint = [gamePoint intValue];
+    }
+    NSNumber* isFirstPointOline = [dict objectForKey:kIsFirstPointOlineKey];
+    if (isFirstPointOline) {
+        game.isFirstPointOline = [isFirstPointOline boolValue];
+    }    
+    NSString* startDateAsString = [dict objectForKey:kStartDateTimeKey];
+    if (startDateAsString) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:kJsonDateFormat];
+        game.startDateTime = [dateFormat dateFromString:startDateAsString];
+    }
+    NSString* pointsArrayJson = [dict objectForKey:kPointsAsJsonKey];
+    if (pointsArrayJson) {
+        NSError* marshallError;
+        NSData* jsonData = [pointsArrayJson dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray* arrayOfPointDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error parsing points JSON");
+        } else {
+            NSMutableArray* points = [[NSMutableArray alloc] init];
+            for (NSDictionary* pointDict in arrayOfPointDict) {
+                [points addObject:[UPoint fromDictionary:pointDict]];
+            }
+            game.points = points;
+        }
+    }
+    NSDictionary* windDict = [dict objectForKey:kPointsAsJsonKey];
+    if (windDict) {
+        game.wind = [Wind fromDictionary:windDict];
+    }
+    return game;
+}
+
+
+-(NSMutableDictionary*) asDictionary {
+    [self updatePointSummaries];
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: self.gameId forKey:kGameIdKey];
+    [dict setValue: self.opponentName forKey:kOpponentNameKey];
+    [dict setValue: [NSNumber numberWithInt:self.gamePoint] forKey:kGamePointKey];
+    [dict setValue: [NSNumber numberWithBool:self.isFirstPointOline] forKey:kIsFirstPointOlineKey];
+    if (self.tournamentName) {
+        [dict setValue: self.tournamentName forKey:kTournamentNameKey];
+    }
+    if (self.startDateTime) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:kJsonDateFormat];
+        [dict setValue: [dateFormat stringFromDate:self.startDateTime] forKey:kStartDateTimeKey];
+    }
+    Score score;
+    if (self.points && [self.points count] > 0) {
+        NSMutableArray* pointDicts = [[NSMutableArray alloc] init];
+        for (UPoint* point in self.points) {
+            [pointDicts addObject:[point asDictionary]];
+            score = point.summary.score;
+        }
+        NSError* marshallError;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:pointDicts options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error creating JSON of points");
+        } else {
+            [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kPointsAsJsonKey];
+        }
+    } 
+    [dict setValue: [NSNumber numberWithInt:score.ours] forKey:kScoreOursProperty];
+    [dict setValue: [NSNumber numberWithInt:score.theirs] forKey:kScoreTheirsProperty];
+    [dict setValue: [wind asDictionary] forKey: kWindKey];
+    
+    return dict;
 }
 
 // return nil if no current game
@@ -485,41 +562,6 @@ BOOL arePointSummariesValid;
 -(void)setGamePoint:(int)newGamePoint {
     [self clearPointSummaries];
     gamePoint = newGamePoint;
-}
-
--(NSMutableDictionary*) asDictionary {
-    [self updatePointSummaries];
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    
-    [dict setValue: self.gameId forKey:kGameIdKey];
-    [dict setValue: self.opponentName forKey:kOpponentNameKey];
-    if (self.tournamentName) {
-        [dict setValue: self.tournamentName forKey:kTournamentNameKey];
-    }
-    if (self.startDateTime) {
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
-        [dict setValue: [dateFormat stringFromDate:self.startDateTime] forKey:kStartDateTimeKey];
-    }
-    Score score;
-    if (self.points && [self.points count] > 0) {
-        NSMutableArray* pointDicts = [[NSMutableArray alloc] init];
-        for (UPoint* point in self.points) {
-            [pointDicts addObject:[point asDictionary]];
-            score = point.summary.score;
-        }
-        NSError* marshallError;
-        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:pointDicts options:0 error:&marshallError];
-        if (marshallError) {
-            NSLog(@"Error creating JSON of points");
-        } else {
-            [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kPointsAsJsonKey];
-        }
-    } 
-    [dict setValue: [NSNumber numberWithInt:score.ours] forKey:kScoreOursProperty];
-    [dict setValue: [NSNumber numberWithInt:score.theirs] forKey:kScoreTheirsProperty];
-    
-    return dict;
 }
 
 -(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo {

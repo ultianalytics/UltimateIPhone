@@ -14,6 +14,9 @@
 @property (nonatomic) int directionDegrees;
 @property (nonatomic) BOOL isFirstPullLeftToRight;
 
++(Wind*)fromDictionary:(NSDictionary*) dict;
+
 -(BOOL)isSpecified;
+-(NSDictionary*) asDictionary;
 
 @end

@@ -35,9 +35,12 @@
 -(void)populateViewFromModel;
 -(void)goSignonView;
 -(void)goTeamPickerView: (NSArray*) teams;
+-(void)goGamePickerView: (NSArray*) games;
 -(void)startUpload;
 -(void)startTeamsDownload;
 -(void)startTeamDownload:(NSString*) cloudId;
+-(void)startGamesDownload;
+-(void)startGameDownload:(NSString*) gameId;
 
 -(void)startBusyDialog;
 -(void)stopBusyDialog;

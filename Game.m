@@ -26,7 +26,7 @@
 #define kCurrentLineKey         @"currentLine"
 #define kLastOLineKey           @"lastOLine"
 #define kLastDLineKey           @"lastDLine"
-#define kIsFirstPointOlineKey   @"isFirstPointOline"
+#define kIsFirstPointOlineKey   @"firstPointOline"
 #define kWindKey                @"wind"
 #define kGamePointKey           @"gamePoint"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
@@ -72,10 +72,10 @@ BOOL arePointSummariesValid;
             game.points = points;
         }
     }
-    NSDictionary* windDict = [dict objectForKey:kPointsAsJsonKey];
-    if (windDict) {
-        game.wind = [Wind fromDictionary:windDict];
-    }
+//    NSDictionary* windDict = [dict objectForKey:kPointsAsJsonKey];
+//    if (windDict) {
+//        game.wind = [Wind fromDictionary:windDict];
+//    }
     return game;
 }
 
@@ -131,6 +131,10 @@ BOOL arePointSummariesValid;
 
 +(NSString*)getCurrentGameId {
     return currentGame == nil ? nil : currentGame.gameId;
+}
+
++(BOOL)isCurrentGame: (NSString*) gameId {
+    return gameId == nil ? NO : [gameId isEqualToString:[self getCurrentGameId]];
 }
 
 +(BOOL)hasCurrentGame {

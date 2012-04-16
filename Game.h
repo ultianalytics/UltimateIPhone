@@ -28,6 +28,7 @@
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;
++(BOOL)isCurrentGame: (NSString*) gameId;
 +(BOOL)hasCurrentGame;
 +(void)setCurrentGame: (NSString*) gameId;
 +(void)startNewGame;

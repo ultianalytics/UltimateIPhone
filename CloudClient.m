@@ -15,8 +15,9 @@
 // send nslog output to testflight
 #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-#define kBaseUrl @"http://ultimate-team.appspot.com"
+//#define kBaseUrl @"http://ultimate-team.appspot.com"
 //#define kBaseUrl @"http://local.appspot.com:8888"
+#define kBaseUrl @"http://local.appspot.com:8890"
 
 @implementation CloudClient
 
@@ -89,13 +90,9 @@
     }
     *getError = sendError == nil ? unmarshallingError : sendError;
     if(!unmarshallingError && !sendError) {
-        [self saveDownloadedTeam: team];
+        [team save];
     }
     return team.teamId;
-}
-
-+(void) saveDownloadedTeam:(Team*)team {
-    [team save];
 }
 
 +(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError {
@@ -265,7 +262,7 @@
 
 +(NSArray*) getGames: (NSString*) teamCloudId error: (NSError**) getError {
     NSError* sendError = nil;
-    NSString* url = [NSString stringWithFormat:@"/rest/mobile/teams/%@/games", teamCloudId];
+    NSString* url = [NSString stringWithFormat:@"/rest/mobile/team/%@/games", teamCloudId];
     NSData* responseJson = [CloudClient get: url error: &sendError];
     NSMutableArray* games = [[NSMutableArray alloc] init];
     NSError* unmarshallingError = nil;
@@ -280,8 +277,21 @@
     return games;
 }
 
-+(NSString*) downloadGame: (NSString*) gameId error: (NSError**) error {
-    return nil; // TODO COMPLETE THIS METHOD
++(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId error: (NSError**) getError {
+    NSError* sendError = nil;
+    NSData* responseJson = [CloudClient get: [NSString stringWithFormat: @"/rest/mobile/team/%@/game/%@", teamCloudId, gameId ] error: &sendError];
+    Game* game = nil;
+    NSError* unmarshallingError = nil;
+    if (responseJson) {
+        NSDictionary* gameAsDictionary = [NSJSONSerialization JSONObjectWithData:responseJson options:0 error:&unmarshallingError];
+        if (!unmarshallingError) {
+            game = [Game fromDictionary:gameAsDictionary];
+        }
+    }
+    *getError = sendError == nil ? unmarshallingError : sendError;
+    if(!unmarshallingError && !sendError) {
+        [game save];
+    }
 }
 
 

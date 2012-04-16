@@ -11,6 +11,7 @@
 #import "CloudClient.h"
 #import "SignonViewController.h"
 #import "TeamDownloadPickerViewController.h"
+#import "GameDownloadPickerViewController.h"
 #import "Team.h"
 #import "Game.h"
 #import "Constants.h"
@@ -23,6 +24,7 @@
 NSArray* cloudCells;
 SignonViewController* signonController;
 TeamDownloadPickerViewController* teamDownloadController;
+GameDownloadPickerViewController* gameDownloadController;
 UIAlertView* busyView;
 void (^signonCompletion)();
 
@@ -31,7 +33,7 @@ void (^signonCompletion)();
 }
 
 -(IBAction)downloadGameButtonClicked: (id) sender {
-    
+    [self startGamesDownload];
 }
 
 -(void)goSignonView{
@@ -43,6 +45,12 @@ void (^signonCompletion)();
     teamDownloadController = [[TeamDownloadPickerViewController alloc] init];
     teamDownloadController.teams = teams;
     [self.navigationController pushViewController:teamDownloadController animated: YES];
+}
+
+-(void)goGamePickerView: (NSArray*) games {
+    gameDownloadController = [[GameDownloadPickerViewController alloc] init];
+    gameDownloadController.games = games;
+    [self.navigationController pushViewController:gameDownloadController animated: YES];
 }
 
 -(void)populateViewFromModel {
@@ -133,6 +141,89 @@ void (^signonCompletion)();
     } 
 }
 
+-(void)startGamesDownload {
+    [self startBusyDialog];
+    [self performSelectorInBackground:@selector(downloadGamesFromServer) withObject:nil];
+}
+
+-(void)downloadGamesFromServer {
+    NSError* getError = nil;
+    NSString* cloudId = [Team getCurrentTeam].cloudId;
+    NSArray* games = [CloudClient getGames:cloudId error:&getError];
+    RequestContext* reqContext = getError ? 
+    [[RequestContext alloc] initWithRequestData:nil responseData:nil error: getError.code] :
+    [[RequestContext alloc] initWithRequestData:nil responseData:games];
+    [self performSelectorOnMainThread:@selector(handleGamesDownloadCompletion:) 
+                           withObject:reqContext waitUntilDone:YES];
+}
+
+-(void)handleGamesDownloadCompletion: (RequestContext*) requestContext {
+    [self stopBusyDialog];
+    if ([requestContext hasError]) {
+        if ([requestContext getErrorCode] == Unauthorized) {
+            signonCompletion = ^{[self downloadGamesFromServer];};
+            [self goSignonView];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] 
+                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
+                                  message: NSLocalizedString(@"We were unable to download your games list from the cloud.  Try again later.",nil)
+                                  delegate: self
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+        }
+    } else {
+        NSArray* games = (NSArray*)requestContext.responseData;
+        [self goGamePickerView: games];
+    } 
+}
+
+-(void)startGameDownload:(NSString*) gameId {
+    [self startBusyDialog];
+    [self performSelectorInBackground:@selector(downloadGameFromServer:) withObject:gameId];
+}
+
+-(void)downloadGameFromServer: (NSString*) gameId {
+    NSError* getError = nil;
+    [CloudClient downloadGame:gameId forTeam: [Team getCurrentTeam].cloudId error:&getError];
+    RequestContext* reqContext = getError ? 
+    [[RequestContext alloc] initWithRequestData:gameId responseData:nil error: getError.code] :
+    [[RequestContext alloc] initWithRequestData:gameId responseData:nil];
+    [self performSelectorOnMainThread:@selector(handleGameDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
+}
+
+-(void)handleGameDownloadCompletion: (RequestContext*) requestContext {
+    [self stopBusyDialog];
+    if ([requestContext hasError]) {
+        if ([requestContext getErrorCode] == Unauthorized) {
+            NSString* gameId = (NSString*)requestContext.requestData;
+            signonCompletion = ^{[self startGameDownload: gameId];};
+            [self goSignonView];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] 
+                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
+                                  message: NSLocalizedString(@"We were unable to download your game from the cloud.  Try again later.",nil)
+                                  delegate: self
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+        }
+    } else {
+        NSString* gameId = (NSString*)requestContext.requestData;
+        if (![Game isCurrentGame:gameId]) {
+            [Game setCurrentGame:gameId];
+            [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+        }
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle: NSLocalizedString(@"Download Complete",nil)
+                              message: NSLocalizedString(@"The game was successfully downloaded to your iPhone.",nil)
+                              delegate: self
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
 -(void)startTeamDownload: (NSString*) cloudId {
     [self startBusyDialog];
     [self performSelectorInBackground:@selector(downloadTeamFromServer:) withObject:cloudId];
@@ -212,7 +303,7 @@ void (^signonCompletion)();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = [NSArray arrayWithObjects:uploadCell, downloadTeamCell, userCell, websiteCell, adminSiteCell, nil];
+    cloudCells = [NSArray arrayWithObjects:uploadCell, downloadTeamCell, downloadGameCell, userCell, websiteCell, adminSiteCell, nil];
     return [cloudCells count];
 }
 
@@ -281,6 +372,11 @@ void (^signonCompletion)();
             [self startTeamDownload: teamDownloadController.selectedTeam.cloudId];
         }
         teamDownloadController = nil;
+    } else if  (gameDownloadController && gameDownloadController.selectedGame) {
+        if (gameDownloadController.selectedGame) {
+            [self startGameDownload: gameDownloadController.selectedGame.gameId];
+        }
+        gameDownloadController = nil;
     } 
 }
 

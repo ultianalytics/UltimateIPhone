@@ -36,6 +36,16 @@ static Team* currentTeam = nil;
     return descriptions;
 }
 
++(NSString*) getTeamIdForCloudId: (NSString*)  cloudId {
+    NSArray* teamDescriptions = [Team retrieveTeamDescriptions];
+    for (TeamDescription* teamDescription in teamDescriptions) {
+        if ([teamDescription.cloudId isEqualToString:cloudId]) {
+            return teamDescription.teamId;
+        }
+    }
+    return nil;
+}
+
 +(Team*)getCurrentTeam {
     @synchronized(self) {
         if (currentTeam == nil) {
@@ -119,7 +129,10 @@ static Team* currentTeam = nil;
     NSArray* playerDictionaries = [dict valueForKey:kPlayersKey];
     if (playerDictionaries) {
         for (NSDictionary* playerDictionary in playerDictionaries) {
-            [team.players addObject:[Player fromDictionary:playerDictionary]];
+            Player* player = [Player fromDictionary:playerDictionary];
+            if (![player isAnonymous]) {
+                [team.players addObject:player];
+            }
         }
     }
     return team;

@@ -28,7 +28,8 @@
 +(NSArray*)getAllTeamFileNames;
 +(NSArray*)retrieveTeamDescriptions;
 +(Team*)fromDictionary:(NSDictionary*) dict;
-+ (Player*) getPlayerNamed: (NSString*) playerName;
++(Player*) getPlayerNamed: (NSString*) playerName;
++(NSString*) getTeamIdForCloudId: (NSString*)  cloudId;
 
 -(void)save;
 -(void)delete;

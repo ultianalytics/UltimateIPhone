@@ -89,7 +89,12 @@
     }
     *getError = sendError == nil ? unmarshallingError : sendError;
     if(!unmarshallingError && !sendError) {
+        NSString* existingTeamId = [Team getTeamIdForCloudId:cloudId];
+        if (existingTeamId) {
+            team.teamId = existingTeamId;
+        }
         [team save];
+        [Team setCurrentTeam: team.teamId];
     }
     return team.teamId;
 }

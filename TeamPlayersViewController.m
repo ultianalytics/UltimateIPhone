@@ -54,7 +54,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     NSUInteger row = [indexPath row]; 
-    Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
+    NSArray* players = [Team getCurrentTeam].players;
+    Player* player = [players objectAtIndex:row];
     
     PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
     playerController.player = player;

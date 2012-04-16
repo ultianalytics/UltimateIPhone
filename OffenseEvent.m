@@ -65,7 +65,7 @@
     return [[OffenseEvent alloc] 
         initPasser: [Team getPlayerNamed:[dict valueForKey:kPasserKey]]
         action: action 
-        receiver: [Team getPlayerNamed:[dict valueForKey:kPasserKey]]];
+        receiver: [Team getPlayerNamed:[dict valueForKey:kReceiverKey]]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 

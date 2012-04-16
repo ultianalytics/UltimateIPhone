@@ -13,6 +13,8 @@
 @implementation GameDownloadPickerViewController
 @synthesize gamesTableView,games,selectedGame;
 
+NSDateFormatter *dateFormat;
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -37,7 +39,8 @@
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
     cell.textLabel.text = game.opponentName;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"ID %@", game.tournamentName];
+    NSString* details = [NSString stringWithFormat:@"%@%@%@", game.tournamentName, game.startDateTime == nil ? @"" : @", ", game.startDateTime == nil ? @"" : [dateFormat stringFromDate:game.startDateTime]];
+    cell.detailTextLabel.text = details;
     return cell;
 }
 
@@ -68,6 +71,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MMM d h:mm"];
+    self.games = [self.games sortedArrayUsingComparator:^(id a, id b) {
+        NSDate *first = ((Game*)a).startDateTime;
+        NSDate *second = ((Game*)b).startDateTime;
+        return [second compare:first];
+    }];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)];
     headerLabel.numberOfLines = 2;

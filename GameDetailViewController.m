@@ -49,6 +49,7 @@ NSArray* cells;
     [self dismissKeyboard];
     if ([self verifyOpponentName]) {
         game.startDateTime = [NSDate date];
+        game.tournamentName = tournamentNameField.text;
         [game save];
         [Game setCurrentGame:game.gameId];
         [self upateViewTitle];

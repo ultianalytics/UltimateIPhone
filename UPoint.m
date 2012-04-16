@@ -8,6 +8,7 @@
 
 #import "UPoint.h"
 #import "Player.h"
+#import "Team.h"
 
 #define kSummaryProperty        @"summary"
 
@@ -98,6 +99,25 @@
     return [self.events count];
 }
 
++ (UPoint*) fromDictionary:(NSDictionary*) dict {
+    UPoint* upoint = [[UPoint alloc] init];
+    NSNumber* timeStart = [dict objectForKey:kStartTimeKey];
+    NSNumber* timeEnd = [dict objectForKey:kEndTimeKey];
+    upoint.timeStartedSeconds = timeStart ? [timeStart doubleValue] : 0;
+    upoint.timeEndedSeconds = timeEnd ? [timeEnd doubleValue] : 0;
+    NSArray* eventDicts = [dict objectForKey:kEventsKey];
+    for (NSDictionary* eventDict in eventDicts) {
+        [upoint addEvent:[Event fromDictionary:eventDict]];
+    }
+    NSArray* playerLineNames = [dict objectForKey:kLineKey];
+    NSMutableArray* line = [[NSMutableArray alloc] init];
+    for (NSString* playerName in playerLineNames) {
+        [line addObject: [Team getPlayerNamed:playerName]];
+    }
+    upoint.line = line;
+    return upoint;
+}
+
 -(NSDictionary*) asDictionary {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     if (self.events && [self.events count] > 0) {
@@ -117,6 +137,8 @@
     if (self.summary) {
         [dict setValue: [self.summary asDictionary] forKey:kSummaryProperty];
     }
+    [dict setValue:[NSNumber numberWithInt:timeStartedSeconds] forKey:kStartTimeKey];
+    [dict setValue:[NSNumber numberWithInt:timeEndedSeconds] forKey:kEndTimeKey];
     return dict;
 }
 

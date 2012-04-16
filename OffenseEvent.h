@@ -17,6 +17,8 @@
 @property (nonatomic, strong) Player* passer;
 @property (nonatomic, strong) Player* receiver;
 
++(OffenseEvent*)eventFromDictionary:(NSDictionary*) dict;
+
 -(id) initPasser: (Player*)aPasser action: (Action)anAction;
 -(id) initPasser: (Player*)aPasser action: (Action)anAction receiver: (Player*)aReceiver;
 

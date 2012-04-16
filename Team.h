@@ -28,12 +28,14 @@
 +(NSArray*)getAllTeamFileNames;
 +(NSArray*)retrieveTeamDescriptions;
 +(Team*)fromDictionary:(NSDictionary*) dict;
++ (Player*) getPlayerNamed: (NSString*) playerName;
 
 -(void)save;
 -(void)delete;
 -(BOOL)hasBeenSaved;
 -(NSArray*) getAllPlayers;
 -(void) addPlayer: (Player*) player;
+-(Player*) getPlayer: (NSString*) playerName;
 -(void) removePlayer: (Player*) player;
 -(NSMutableArray*)getInitialOLine;
 -(NSMutableArray*)getInitialDLine;

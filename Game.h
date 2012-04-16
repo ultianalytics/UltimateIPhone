@@ -36,6 +36,7 @@
 +(NSString*)getFilePath: (NSString*) gameId;
 +(NSString*)generateUniqueFileName;
 +(void)deleteAllGamesForTeam: (NSString*) teamId;
++(Game*) fromDictionary:(NSDictionary*) dict;
 
 -(void)save;
 -(BOOL)hasBeenSaved;

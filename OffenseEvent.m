@@ -7,6 +7,7 @@
 //
 
 #import "OffenseEvent.h"
+#import "Team.h"
 
 @implementation OffenseEvent
 @synthesize passer,receiver;
@@ -56,6 +57,15 @@
         [dict setValue: self.receiver.name forKey:kReceiverKey];
     }
     return dict;
+}
+
++(OffenseEvent*)eventFromDictionary:(NSDictionary*) dict {
+    NSString* dictAction = [dict valueForKey:kActionKey];
+    Action action = [dictAction isEqualToString: @"Catch"] ? Catch :  [dictAction isEqualToString: @"Drop"] ? Drop : [dictAction isEqualToString: @"Goal"] ? Goal : Throwaway;
+    return [[OffenseEvent alloc] 
+        initPasser: [Team getPlayerNamed:[dict valueForKey:kPasserKey]]
+        action: action 
+        receiver: [Team getPlayerNamed:[dict valueForKey:kPasserKey]]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 

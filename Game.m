@@ -37,6 +37,10 @@ static Game* currentGame = nil;
 
 BOOL arePointSummariesValid;
 
++(Game*) fromDictionary:(NSDictionary*) dict; {
+    return nil; // TODO COMPLETE THIS METHOD
+}
+
 // return nil if no current game
 +(Game*)getCurrentGame {
     @synchronized(self) {

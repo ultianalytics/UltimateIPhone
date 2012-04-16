@@ -14,6 +14,8 @@
 @interface DefenseEvent : Event
 @property (nonatomic, strong) Player* defender;
 
++(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict;
+
 -(id) initAction: (Action)anAction;
 -(id) initDefender: (Player*)aDefender action: (Action)anAction;
 

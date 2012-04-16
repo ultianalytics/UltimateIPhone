@@ -24,6 +24,8 @@
 @property (nonatomic) double timeEndedSeconds; // since epoch
 @property (nonatomic, strong) PointSummary* summary;  // transient! 
 
++ (UPoint*) fromDictionary:(NSDictionary*) dict;
+
 -(NSArray*)getEvents;
 -(void)addEvent: (Event*) event;
 -(Event*)getEventAtMostRecentIndex: (int) index;

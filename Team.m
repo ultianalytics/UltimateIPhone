@@ -125,6 +125,18 @@ static Team* currentTeam = nil;
     return team;
 }
 
++ (Player*) getPlayerNamed: (NSString*) playerName {
+    if (playerName == nil) {
+        return nil;
+    }
+    Player* player = [[Team getCurrentTeam] getPlayer:playerName];
+    if (!player) {
+        player = [[Player alloc] initName:playerName];
+        [[Team getCurrentTeam] addPlayer:player];
+    }
+    return player;
+}
+
 -(NSDictionary*) asDictionary {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setValue: self.teamId forKey:kTeamIdKey];
@@ -224,6 +236,12 @@ static Team* currentTeam = nil;
 
 -(NSArray*) getAllPlayers {
     return self.players;
+}
+
+-(Player*) getPlayer: (NSString*) playerName {
+    Player* lookupPlayer = [[Player alloc] initName:playerName];
+    int index = [self.players indexOfObject:lookupPlayer];
+    return index == NSNotFound ? nil : [self.players objectAtIndex:index];
 }
 
 -(void) addPlayer: (Player*) player {

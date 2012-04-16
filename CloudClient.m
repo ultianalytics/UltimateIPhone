@@ -263,4 +263,26 @@
     
 }
 
++(NSArray*) getGames: (NSString*) teamCloudId error: (NSError**) getError {
+    NSError* sendError = nil;
+    NSString* url = [NSString stringWithFormat:@"/rest/mobile/teams/%@/games", teamCloudId];
+    NSData* responseJson = [CloudClient get: url error: &sendError];
+    NSMutableArray* games = [[NSMutableArray alloc] init];
+    NSError* unmarshallingError = nil;
+    if (responseJson) {
+        NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:responseJson options:0 error:&unmarshallingError]; 
+        for (NSDictionary* teamAsDictionary in responseArray) {
+            Game* game = [Game fromDictionary:teamAsDictionary];
+            [games addObject:game];
+        }
+    }
+    *getError = sendError == nil ? unmarshallingError : sendError;
+    return games;
+}
+
++(NSString*) downloadGame: (NSString*) gameId error: (NSError**) error {
+    return nil; // TODO COMPLETE THIS METHOD
+}
+
+
 @end

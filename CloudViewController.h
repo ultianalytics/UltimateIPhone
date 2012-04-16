@@ -14,7 +14,8 @@
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* uploadCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* downloadCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* downloadTeamCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* downloadGameCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;
@@ -22,12 +23,14 @@
 @property (nonatomic, strong) IBOutlet UILabel* userLabel;
 @property (nonatomic, strong) IBOutlet UILabel* websiteLabel;
 @property (nonatomic, strong) IBOutlet UILabel* adminSiteLabel;
-@property (nonatomic, strong) IBOutlet UIButton* syncButton;
-@property (nonatomic, strong) IBOutlet UIButton* downloadButton;
+@property (nonatomic, strong) IBOutlet UIButton* uploadButton;
+@property (nonatomic, strong) IBOutlet UIButton* downloadTeamButton;
+@property (nonatomic, strong) IBOutlet UIButton* downloadGameButton;
 @property (nonatomic, strong) IBOutlet UIButton* signoffButton;
 
--(IBAction)syncButtonClicked: (id) sender;
--(IBAction)downloadButtonClicked: (id) sender;
+-(IBAction)uploadButtonClicked: (id) sender;
+-(IBAction)downloadTeamButtonClicked: (id) sender;
+-(IBAction)downloadGameButtonClicked: (id) sender;
 -(IBAction)signoffButtonClicked: (id) sender;
 -(void)populateViewFromModel;
 -(void)goSignonView;

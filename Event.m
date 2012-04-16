@@ -7,9 +7,21 @@
 //
 
 #import "Event.h"
+#import "OffenseEvent.h"
+#import "DefenseEvent.h"
+#import "Team.h"
 
 @implementation Event
 @synthesize action;
+
++(Event*)fromDictionary:(NSDictionary*) dict {
+    NSString* type = [dict objectForKey:kEventTypeProperty];
+    if ([type isEqualToString:@"Offense"]) {
+        return [OffenseEvent eventFromDictionary:dict];
+    } else {
+        return [DefenseEvent eventFromDictionary:dict];
+    }
+}
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 
     [encoder encodeInt: self.action forKey:kActionKey]; 

@@ -7,6 +7,7 @@
 //
 
 #import "DefenseEvent.h"
+#import "Team.h"
 
 @implementation DefenseEvent
 @synthesize defender;
@@ -42,6 +43,14 @@
     self.defender = [decoder decodeObjectForKey:kDefenderKey];
     return self; 
 } 
+
++(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict {
+    NSString* dictAction = [dict valueForKey:kActionKey];
+    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : Callahan;
+    return [[DefenseEvent alloc] 
+            initDefender: [Team getPlayerNamed:[dict valueForKey:kDefenderKey]]
+            action: action];
+}
 
 -(NSDictionary*) asDictionary {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];

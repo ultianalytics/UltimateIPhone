@@ -18,7 +18,7 @@
 #import "RequestContext.h"
 
 @implementation CloudViewController
-@synthesize syncButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadCell,downloadButton;
+@synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
 
 NSArray* cloudCells;
 SignonViewController* signonController;
@@ -26,8 +26,12 @@ TeamDownloadPickerViewController* teamDownloadController;
 UIAlertView* busyView;
 void (^signonCompletion)();
 
--(IBAction)downloadButtonClicked: (id) sender {
+-(IBAction)downloadTeamButtonClicked: (id) sender {
     [self startTeamsDownload];
+}
+
+-(IBAction)downloadGameButtonClicked: (id) sender {
+    
 }
 
 -(void)goSignonView{
@@ -48,11 +52,12 @@ void (^signonCompletion)();
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
     self.userLabel.text = userid == nil ? @"unknown (do upload)" : userid;
-    [self.syncButton setTitle:[NSString stringWithFormat:@"Upload %@",[Team getCurrentTeam].name] forState:UIControlStateNormal];
+    [self.uploadButton setTitle:[NSString stringWithFormat:@"Upload %@",[Team getCurrentTeam].name] forState:UIControlStateNormal];
+    [self.downloadGameButton setTitle:[NSString stringWithFormat:@"Download a %@ Game",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
     self.signoffButton.hidden = userid == nil;
 }
 
--(IBAction)syncButtonClicked: (id) sender {
+-(IBAction)uploadButtonClicked: (id) sender {
     [self startUpload];
 }
 
@@ -207,7 +212,7 @@ void (^signonCompletion)();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = [NSArray arrayWithObjects:uploadCell, downloadCell, userCell, websiteCell, adminSiteCell, nil];
+    cloudCells = [NSArray arrayWithObjects:uploadCell, downloadTeamCell, userCell, websiteCell, adminSiteCell, nil];
     return [cloudCells count];
 }
 

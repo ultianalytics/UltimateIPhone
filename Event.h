@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Player;
 typedef enum {
     Catch,
     Drop,
@@ -22,6 +23,8 @@ typedef enum {
 @interface Event : NSObject <NSCoding>
 @property Action action;
 
++ (Event*) fromDictionary:(NSDictionary*) dict;
+
 - (NSString*)getDescription;
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName;
 - (BOOL) isOffense;
@@ -35,5 +38,6 @@ typedef enum {
 - (NSArray*) getPlayers;
 - (void)useSharedPlayers;
 - (NSDictionary*) asDictionary;
+
 
 @end

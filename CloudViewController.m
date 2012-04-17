@@ -211,10 +211,10 @@ void (^signonCompletion)();
         }
     } else {
         NSString* gameId = (NSString*)requestContext.requestData;
-        if (![Game isCurrentGame:gameId]) {
+        if ([Game isCurrentGame:gameId]) {
             [Game setCurrentGame:gameId];
-            [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         }
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         UIAlertView *alert = [[UIAlertView alloc] 
                               initWithTitle: NSLocalizedString(@"Download Complete",nil)
                               message: NSLocalizedString(@"The game was successfully downloaded to your iPhone.",nil)

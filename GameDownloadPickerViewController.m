@@ -7,7 +7,7 @@
 //
 
 #import "GameDownloadPickerViewController.h"
-#import "Game.h"
+#import "GameDescription.h"
 #import "ColorMaster.h"
 
 @implementation GameDownloadPickerViewController
@@ -27,7 +27,7 @@ NSDateFormatter *dateFormat;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* STD_ROW_TYPE = @"stdRowType";
    
-    Game* game = [games objectAtIndex:[indexPath row]];
+    GameDescription* game = [games objectAtIndex:[indexPath row]];
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
@@ -38,8 +38,8 @@ NSDateFormatter *dateFormat;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
-    cell.textLabel.text = game.opponentName;
-    NSString* details = [NSString stringWithFormat:@"%@%@%@", game.tournamentName, game.startDateTime == nil ? @"" : @", ", game.startDateTime == nil ? @"" : [dateFormat stringFromDate:game.startDateTime]];
+    cell.textLabel.text = game.opponent;
+    NSString* details = [NSString stringWithFormat:@"%@%@%@", game.tournamentName, game.startDate == nil ? @"" : @", ", game.startDate == nil ? @"" : [dateFormat stringFromDate:game.startDate]];
     cell.detailTextLabel.text = details;
     return cell;
 }
@@ -74,8 +74,8 @@ NSDateFormatter *dateFormat;
     dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MMM d h:mm"];
     self.games = [self.games sortedArrayUsingComparator:^(id a, id b) {
-        NSDate *first = ((Game*)a).startDateTime;
-        NSDate *second = ((Game*)b).startDateTime;
+        NSDate *first = ((GameDescription*)a).startDate;
+        NSDate *second = ((GameDescription*)b).startDate;
         return [second compare:first];
     }];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];

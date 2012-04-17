@@ -9,6 +9,7 @@
 #import "CloudClient.h"
 #import "Team.h"
 #import "Game.h"
+#import "GameDescription.h"
 #import "Preferences.h"
 #import "TestFlight.h"
 
@@ -264,7 +265,7 @@
     
 }
 
-+(NSArray*) getGames: (NSString*) teamCloudId error: (NSError**) getError {
++(NSArray*) getGameDescriptions: (NSString*) teamCloudId error: (NSError**) getError {
     NSError* sendError = nil;
     NSString* url = [NSString stringWithFormat:@"/rest/mobile/team/%@/games", teamCloudId];
     NSData* responseJson = [CloudClient get: url error: &sendError];
@@ -272,8 +273,8 @@
     NSError* unmarshallingError = nil;
     if (responseJson) {
         NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:responseJson options:0 error:&unmarshallingError]; 
-        for (NSDictionary* teamAsDictionary in responseArray) {
-            Game* game = [Game fromDictionary:teamAsDictionary];
+        for (NSDictionary* gameAsDictionary in responseArray) {
+            GameDescription* game = [GameDescription fromDictionary:gameAsDictionary];
             [games addObject:game];
         }
     }

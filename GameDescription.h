@@ -18,4 +18,6 @@
 @property (nonatomic, strong) NSString* formattedScore;
 @property (nonatomic, strong) NSString* tournamentName;
 
++(GameDescription*) fromDictionary:(NSDictionary*) dict;
+
 @end

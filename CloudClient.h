@@ -27,7 +27,7 @@ typedef enum {
 +(NSString*) getWebsiteURL: (Team*) team;
 +(NSArray*) getTeams: (NSError**) error; 
 +(NSString*) downloadTeam: (NSString*) cloudId error: (NSError**) error; 
-+(NSArray*) getGames: (NSString*) teamcloudId error: (NSError**) error; 
++(NSArray*) getGameDescriptions: (NSString*) teamcloudId error: (NSError**) error; 
 +(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId error: (NSError**) error;
 
 // private

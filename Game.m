@@ -38,7 +38,7 @@ static Game* currentGame = nil;
 
 BOOL arePointSummariesValid;
 
-+(Game*) fromDictionary:(NSDictionary*) dict; {
++(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
     game.gameId = [dict objectForKey:kGameIdKey];
     game.opponentName = [dict objectForKey:kOpponentNameKey];

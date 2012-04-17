@@ -150,7 +150,7 @@ void (^signonCompletion)();
 -(void)downloadGamesFromServer {
     NSError* getError = nil;
     NSString* cloudId = [Team getCurrentTeam].cloudId;
-    NSArray* games = [CloudClient getGames:cloudId error:&getError];
+    NSArray* games = [CloudClient getGameDescriptions:cloudId error:&getError];
     RequestContext* reqContext = getError ? 
     [[RequestContext alloc] initWithRequestData:nil responseData:nil error: getError.code] :
     [[RequestContext alloc] initWithRequestData:nil responseData:games];

@@ -489,7 +489,6 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
-				1A796AEB1538DD3800E518F8 /* icon.png */,
 				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
 				1AFFE8D015176431004B4590 /* UI */,
@@ -769,6 +768,7 @@
 		1AFFE8DF151765B7004B4590 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1A796AEB1538DD3800E518F8 /* icon.png */,
 				1AEE549A15293DD30067F539 /* 210-twitterbird.png */,
 				1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */,
 				1AE66A091521EA9B000965B5 /* tweet-button.png */,

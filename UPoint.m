@@ -103,11 +103,11 @@
     UPoint* upoint = [[UPoint alloc] init];
     NSNumber* timeStart = [dict objectForKey:kStartTimeKey];
     NSNumber* timeEnd = [dict objectForKey:kEndTimeKey];
-    upoint.timeStartedSeconds = timeStart ? [timeStart doubleValue] : 0;
-    upoint.timeEndedSeconds = timeEnd ? [timeEnd doubleValue] : 0;
+    upoint.timeStartedSeconds = timeStart ? [timeStart intValue] : 0;
+    upoint.timeEndedSeconds = timeEnd ? [timeEnd intValue] : 0;
     NSArray* eventDicts = [dict objectForKey:kEventsKey];
     for (NSDictionary* eventDict in eventDicts) {
-        [upoint addEvent:[Event fromDictionary:eventDict]];
+        [upoint.events addObject:[Event fromDictionary:eventDict]];
     }
     NSArray* playerLineNames = [dict objectForKey:kLineKey];
     NSMutableArray* line = [[NSMutableArray alloc] init];

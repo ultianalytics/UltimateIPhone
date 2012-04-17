@@ -20,8 +20,8 @@
 }
 @property (nonatomic, strong) NSMutableArray* events;
 @property (nonatomic, strong) NSArray* line;
-@property (nonatomic) double timeStartedSeconds; // since epoch
-@property (nonatomic) double timeEndedSeconds; // since epoch
+@property (nonatomic) int timeStartedSeconds; // since epoch
+@property (nonatomic) int timeEndedSeconds; // since epoch
 @property (nonatomic, strong) PointSummary* summary;  // transient! 
 
 + (UPoint*) fromDictionary:(NSDictionary*) dict;

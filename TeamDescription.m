@@ -21,4 +21,8 @@
 }
 
 
+- (NSString* )description {
+    return [NSString stringWithFormat:@"TeamDescription %@ teamId=%@, cloudId=%@", self.name, self.teamId, self.cloudId];
+}
+
 @end

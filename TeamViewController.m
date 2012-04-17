@@ -14,6 +14,7 @@
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "TeamPlayersViewController.h"
+#import "AppDelegate.h"
 
 @implementation TeamViewController
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
@@ -166,6 +167,7 @@ NSArray* cells;
             case 1: 
             {
                 [self.team delete];
+                [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
                 [self.navigationController popViewControllerAnimated:YES];
             }
                 break;

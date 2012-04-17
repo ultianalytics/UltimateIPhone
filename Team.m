@@ -223,7 +223,7 @@ static Team* currentTeam = nil;
     if ([Team isCurrentTeam:self.teamId]) {
         // move "current" to another team
         for (TeamDescription* teamDesc in [Team retrieveTeamDescriptions]) {
-            if (teamDesc.teamId != self.teamId) {
+            if (![teamDesc.teamId isEqualToString:self.teamId]) {
                 [Team setCurrentTeam:teamDesc.teamId];
                 break;
             }

@@ -94,6 +94,7 @@
 {
     [super viewWillAppear:animated];
     self.title = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Players", @"Players"),[Team getCurrentTeam].name];
+    [[Team getCurrentTeam] sortPlayers];
     [self.playersTableView reloadData];
 }
 

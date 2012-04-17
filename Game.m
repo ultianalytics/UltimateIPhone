@@ -395,6 +395,7 @@ BOOL arePointSummariesValid;
 }
 
 -(NSString*)getPointNameAtMostRecentIndex: (int) index {
+    [self updatePointSummaries];
     Score score = [self getScoreAtMostRecentIndex:index];
     return [self getPointNameForScore: score isMostRecent: (index == 0)];
 } 

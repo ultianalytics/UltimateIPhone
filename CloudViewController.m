@@ -63,6 +63,7 @@ void (^signonCompletion)();
     [self.uploadButton setTitle:[NSString stringWithFormat:@"Upload %@",[Team getCurrentTeam].name] forState:UIControlStateNormal];
     [self.downloadGameButton setTitle:[NSString stringWithFormat:@"Download a %@ Game",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
     self.signoffButton.hidden = userid == nil;
+    [self.cloudTableView reloadData];
 }
 
 -(IBAction)uploadButtonClicked: (id) sender {
@@ -303,7 +304,9 @@ void (^signonCompletion)();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = [NSArray arrayWithObjects:uploadCell, downloadTeamCell, downloadGameCell, userCell, websiteCell, adminSiteCell, nil];
+    cloudCells = [Team getCurrentTeam].cloudId == nil ? 
+    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, userCell, websiteCell, adminSiteCell, nil] :
+    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, downloadGameCell, userCell, websiteCell, adminSiteCell, nil];
     return [cloudCells count];
 }
 

@@ -10,6 +10,13 @@
 
 @interface UltimateSegmentedControl : UISegmentedControl
 
+// public
 -(void)setSelection: (NSString*) title;
+-(NSString*)getSelection;
+
+// private
+-(void)setup;
+-(void)updateViewWithSelection: (NSString*) title;
+
 
 @end

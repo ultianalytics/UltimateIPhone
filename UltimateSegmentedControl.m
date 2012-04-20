@@ -15,7 +15,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.tintColor = [ColorMaster getSegmentControlLightTintColor];
+        [self setup];
     }
     return self;
 }
@@ -23,10 +23,11 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        self.tintColor = [ColorMaster getSegmentControlLightTintColor];
+        [self setup];
     }
     return self; 
 }
+
 
 -(void)setSelection: (NSString*) selectionTitle {
     // find the segment with this title and set it as the selection
@@ -37,6 +38,24 @@
             break;
         }
     }
+    [self updateViewWithSelection:selectionTitle];
+}
+
+-(NSString*)getSelection {
+    return [self titleForSegmentAtIndex:self.selectedSegmentIndex];
+}
+
+-(void)setup {
+    self.tintColor = [ColorMaster getSegmentControlLightTintColor]; 
+    [self addTarget:self action:@selector(selectionChanged) forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)selectionChanged {
+    NSString* selectionTitle = [self titleForSegmentAtIndex:self.selectedSegmentIndex];
+    [self updateViewWithSelection:selectionTitle];
+}
+
+-(void)updateViewWithSelection: (NSString*) selectionTitle {
     // find the selected subview button (expected to find a UIBarButtonItem) and set it's color
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     for (UIView* segment in self.subviews ) {
@@ -60,5 +79,6 @@
         }
     }
 }
+
 
 @end

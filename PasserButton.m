@@ -6,6 +6,7 @@
 //
 
 #import "PasserButton.h"
+#import <QuartzCore/QuartzCore.h>
 #import "ColorMaster.h"
 
 @implementation PasserButton

@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "IBView.h"
-#import "Event.h"
-#import "OffenseEvent.h"
-#import "DefenseEvent.h"
-
+@class Event;
 
 @interface EventView : IBView {
 }

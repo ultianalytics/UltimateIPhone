@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlayerView.h"
-#import "EventView.h"
 #import "ActionListener.h"
+
+@class EventView;
+@class PlayerView;
+@class Game;
 
 @interface GameViewController : UIViewController <ActionListener, UIAlertViewDelegate> {
     BOOL isOffense;

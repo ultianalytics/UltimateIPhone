@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "IBView.h"
-#import "Player.h"
-#import "PasserButton.h"
 #import "ActionListener.h"
-#import "Game.h"
+@class Player;
+@class PasserButton;
+@class Game;
 
 @interface PlayerView : IBView {
     BOOL isOffense;

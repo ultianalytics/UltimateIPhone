@@ -9,6 +9,9 @@
 #import "EventView.h"
 #import "AnonymousPlayer.h"
 #import "ImageMaster.h"
+#import "Event.h"
+#import "OffenseEvent.h"
+#import "DefenseEvent.h"
 
 @implementation EventView
 @synthesize event,eventDescriptionLabel,eventImage;

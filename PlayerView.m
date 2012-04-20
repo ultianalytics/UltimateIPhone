@@ -7,6 +7,9 @@
 //
 
 #import "PlayerView.h"
+#import "Player.h"
+#import "PasserButton.h"
+#import "Game.h"
 #import "AnonymousPlayer.h"
 
 @implementation PlayerView

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class Team;
+@class UltimateSegmentedControl;
 
 @interface TeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -18,8 +19,8 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* displayCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* playersCell;
 @property (nonatomic, strong) IBOutlet UITextField* teamNameField;
-@property (nonatomic, strong) IBOutlet UISegmentedControl* teamTypeSegmentedControl;
-@property (nonatomic, strong) IBOutlet UISegmentedControl* playerDisplayTypeSegmentedControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* teamTypeSegmentedControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playerDisplayTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
 @property (nonatomic) BOOL shouldSkipToPlayers;

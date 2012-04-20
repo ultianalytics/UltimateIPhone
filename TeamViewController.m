@@ -15,6 +15,7 @@
 #import "ColorMaster.h"
 #import "TeamPlayersViewController.h"
 #import "AppDelegate.h"
+#import "UltimateSegmentedControl.h"
 
 @implementation TeamViewController
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
@@ -23,17 +24,16 @@ NSArray* cells;
 
 -(void)populateViewFromModel {
     [self.teamNameField setText:(team.name == kNoName ? @"" : team.name)];
-    self.teamTypeSegmentedControl.selectedSegmentIndex = team.isMixed ? 1 : 0;
-    self.playerDisplayTypeSegmentedControl.selectedSegmentIndex = team.isDiplayingPlayerNumber ? 1 : 0;
+    [self.teamTypeSegmentedControl setSelection: team.isMixed ? @"Mixed" : @"Uni"];
+    [self.playerDisplayTypeSegmentedControl setSelection: team.isDiplayingPlayerNumber ? @"Number" : @"Name"];    
     self.deleteButton.hidden = ![team hasBeenSaved];
 }
 
 -(void)populateModelFromView {
     team.name = teamNameField.text;
-    team.isMixed =  self.teamTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
-    team.isDiplayingPlayerNumber = self.playerDisplayTypeSegmentedControl.selectedSegmentIndex == 0 ? NO : YES;
+    team.isMixed =  [[self.teamTypeSegmentedControl getSelection] isEqualToString: @"Mixed"] ? YES : NO;
+    team.isDiplayingPlayerNumber =  [[self.playerDisplayTypeSegmentedControl getSelection] isEqualToString: @"Number"] ? YES : NO;
 }
-
 
 -(void)saveAndReturn {
     if ([self saveChanges]) {
@@ -227,8 +227,6 @@ NSArray* cells;
     self.teamNameField.delegate = self; 
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.teamTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
-    self.playerDisplayTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndReturn)];
     self.navigationItem.rightBarButtonItem = saveBarItem;    
 

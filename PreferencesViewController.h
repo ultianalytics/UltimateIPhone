@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class GTMOAuthAuthentication;
 
-@interface PreferencesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PreferencesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    @private
+    NSArray* preferencesCells;
+}
 
 @property (nonatomic, strong) IBOutlet UITableView* preferencesTableView;
 

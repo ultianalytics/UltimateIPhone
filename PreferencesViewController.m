@@ -9,16 +9,9 @@
 #import "PreferencesViewController.h"
 #import "Preferences.h"
 #import "ColorMaster.h"
-#import "CloudClient.h"
-#import "SignonViewController.h"
-#import "Team.h"
-#import "Game.h"
-
-SignonViewController* signonController;
 
 @implementation PreferencesViewController
 @synthesize preferencesTableView;
-NSArray* preferencesCells;
 
 -(void)populateViewFromModel {
 

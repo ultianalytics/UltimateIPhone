@@ -12,6 +12,7 @@
 @interface UltimateSegmentedControl(Private) 
 
 -(void)setup;
+-(void)updateView;
 -(void)updateViewWithSelection: (NSString*) title;
     
 @end
@@ -52,16 +53,22 @@
     return [self titleForSegmentAtIndex:self.selectedSegmentIndex];
 }
 
+-(void)setSelectedSegmentIndex: (NSInteger) selectedSegmentIndex {
+    super.selectedSegmentIndex = selectedSegmentIndex;
+    [self updateView];
+}
+
 @end
 
 @implementation UltimateSegmentedControl (Private)
 
 -(void)setup {
     self.tintColor = [ColorMaster getSegmentControlLightTintColor]; 
-    [self addTarget:self action:@selector(selectionChanged) forControlEvents:UIControlEventValueChanged];
+    [self addTarget:self action:@selector(updateView) forControlEvents:UIControlEventValueChanged];
+    [self updateView];
 }
 
--(void)selectionChanged {
+-(void)updateView {
     NSString* selectionTitle = [self titleForSegmentAtIndex:self.selectedSegmentIndex];
     [self updateViewWithSelection:selectionTitle];
 }
@@ -84,6 +91,5 @@
         }
     }
 }
-
 
 @end

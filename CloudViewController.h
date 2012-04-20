@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 @class GTMOAuthAuthentication;
+@class SignonViewController;
+@class TeamDownloadPickerViewController;
+@class GameDownloadPickerViewController;
 
-@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+    @private
+    NSArray* cloudCells;
+    SignonViewController* signonController;
+    TeamDownloadPickerViewController* teamDownloadController;
+    GameDownloadPickerViewController* gameDownloadController;
+    UIAlertView* busyView;
+    void (^signonCompletion)();
+}
 
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
 

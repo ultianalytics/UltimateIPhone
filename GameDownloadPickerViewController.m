@@ -13,9 +13,6 @@
 @implementation GameDownloadPickerViewController
 @synthesize gamesTableView,games,selectedGame;
 
-NSDateFormatter *dateFormat;
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }

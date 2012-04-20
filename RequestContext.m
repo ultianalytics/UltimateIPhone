@@ -8,8 +8,6 @@
 
 #import "RequestContext.h"
 
-int error;
-
 @implementation RequestContext
 @synthesize requestData, responseData;
 

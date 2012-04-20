@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RequestContext : NSObject
+@interface RequestContext : NSObject {
+    @private
+    int error;
+}
 
 @property (nonatomic, strong) id requestData;
 @property (nonatomic, strong) id responseData;

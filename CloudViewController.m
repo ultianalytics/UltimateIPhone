@@ -21,13 +21,6 @@
 @implementation CloudViewController
 @synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
 
-NSArray* cloudCells;
-SignonViewController* signonController;
-TeamDownloadPickerViewController* teamDownloadController;
-GameDownloadPickerViewController* gameDownloadController;
-UIAlertView* busyView;
-void (^signonCompletion)();
-
 -(IBAction)downloadTeamButtonClicked: (id) sender {
     [self startTeamsDownload];
 }
@@ -84,7 +77,8 @@ void (^signonCompletion)();
 -(void)handleUploadCompletion: (NSNumber*) errorCode {
     [self stopBusyDialog];
     if (errorCode && [errorCode intValue] == Unauthorized) {
-        signonCompletion = ^{[self uploadToServer];};
+        __weak CloudViewController* slf = self;
+        signonCompletion = ^{[slf uploadToServer];};
         [self goSignonView];
     } else if (errorCode) {
         UIAlertView *alert = [[UIAlertView alloc] 
@@ -125,7 +119,8 @@ void (^signonCompletion)();
     [self stopBusyDialog];
     if ([requestContext hasError]) {
         if ([requestContext getErrorCode] == Unauthorized) {
-            signonCompletion = ^{[self downloadTeamsFromServer];};
+            __weak CloudViewController* slf = self;
+            signonCompletion = ^{[slf downloadTeamsFromServer];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -162,7 +157,8 @@ void (^signonCompletion)();
     [self stopBusyDialog];
     if ([requestContext hasError]) {
         if ([requestContext getErrorCode] == Unauthorized) {
-            signonCompletion = ^{[self downloadGamesFromServer];};
+            __weak CloudViewController* slf = self;          
+            signonCompletion = ^{[slf downloadGamesFromServer];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -198,7 +194,8 @@ void (^signonCompletion)();
     if ([requestContext hasError]) {
         if ([requestContext getErrorCode] == Unauthorized) {
             NSString* gameId = (NSString*)requestContext.requestData;
-            signonCompletion = ^{[self startGameDownload: gameId];};
+            __weak CloudViewController* slf = self;
+            signonCompletion = ^{[slf startGameDownload: gameId];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 
@@ -244,7 +241,8 @@ void (^signonCompletion)();
     if ([requestContext hasError]) {
         if ([requestContext getErrorCode] == Unauthorized) {
             NSString* cloudId = (NSString*)requestContext.requestData;
-            signonCompletion = ^{[self startTeamDownload: cloudId];};
+            __weak CloudViewController* slf = self;
+            signonCompletion = ^{[slf startTeamDownload: cloudId];};
             [self goSignonView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] 

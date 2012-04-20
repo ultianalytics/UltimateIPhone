@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 @class Game;
 
-@interface GameDownloadPickerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GameDownloadPickerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    @private
+    NSDateFormatter *dateFormat;
+}
 
 @property (nonatomic, strong) NSArray* games;
 @property (nonatomic, strong) Game* selectedGame;

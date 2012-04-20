@@ -9,6 +9,13 @@
 #import "UltimateSegmentedControl.h"
 #import "ColorMaster.h"
 
+@interface UltimateSegmentedControl(Private) 
+
+-(void)setup;
+-(void)updateViewWithSelection: (NSString*) title;
+    
+@end
+
 @implementation UltimateSegmentedControl
 
 - (id)initWithFrame:(CGRect)frame
@@ -45,6 +52,10 @@
     return [self titleForSegmentAtIndex:self.selectedSegmentIndex];
 }
 
+@end
+
+@implementation UltimateSegmentedControl (Private)
+
 -(void)setup {
     self.tintColor = [ColorMaster getSegmentControlLightTintColor]; 
     [self addTarget:self action:@selector(selectionChanged) forControlEvents:UIControlEventValueChanged];
@@ -56,7 +67,7 @@
 }
 
 -(void)updateViewWithSelection: (NSString*) selectionTitle {
-    // find the selected subview button (expected to find a UIBarButtonItem) and set it's color
+    // find the selected subview button (probably a UIBarButtonItem but we don't find to a particular class) and set it's color
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     for (UIView* segment in self.subviews ) {
         if ([segment respondsToSelector:@selector(setTintColor:)]) {
@@ -65,14 +76,8 @@
                     NSString* title = [labelSegment performSelector:@selector(text)];
                     if ([title isEqualToString:selectionTitle]) {
                         [segment performSelector:@selector(setTintColor:) withObject:[ColorMaster getSegmentControlDarkTintColor]];
-                        if ([labelSegment respondsToSelector:@selector(textColor)]) {
-                            [labelSegment performSelector:@selector(textColor) withObject:[UIColor whiteColor]];
-                        }
                     } else {
                         [segment performSelector:@selector(setTintColor:) withObject:[ColorMaster getSegmentControlLightTintColor]];
-                        if ([labelSegment respondsToSelector:@selector(textColor)]) {
-                            [labelSegment performSelector:@selector(textColor) withObject:[UIColor blackColor]];
-                        }                        
                     }
                 }
             }

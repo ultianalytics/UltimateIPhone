@@ -6,9 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import "ColorButton.h"
-
 
 @interface PlayerButtonActual : ColorButton {
 

@@ -13,6 +13,8 @@
 #import "SoundPlayer.h"
 #import "Statistics.h"
 #import "ColorMaster.h"
+#import "Player.h"
+#import "PlayerButton.h"
 
 @implementation PickPlayersController
 @synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game;

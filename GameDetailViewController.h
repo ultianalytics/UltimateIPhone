@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Game.h"
 
-@interface GameDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate>
+@interface GameDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate> {
+    
+    @private
+    NSArray* cells;
+}
+
 @property (nonatomic, strong) Game* game;
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;

@@ -9,6 +9,8 @@
 #import "PlayerButton.h"
 #import "ColorMaster.h"
 #import "Team.h"
+#import "PlayerButtonActual.h"
+#import "Player.h"
 
 @implementation PlayerButton
 @synthesize button, nameLabel, positionLabel, pointsLabel, genderImage;

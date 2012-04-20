@@ -19,8 +19,6 @@
 
 #define kLowestGamePoint 9
 
-NSArray* cells;
-
 @implementation GameDetailViewController
 @synthesize opposingTeamNameField,tournamentNameField,game,startTimeLabel,scoreLabel,startTimeCell,scoreCell,opponentCell,tournamentCell,windCell,statsCell,eventsCell,windLabel,tableView,initialLineCell,gamePointsCell,initialLine,gamePointsSegmentedControl,deleteButton, startButton;
 

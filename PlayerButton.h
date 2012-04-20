@@ -7,9 +7,9 @@
 //
 
 #import "IBView.h"
-#import "PlayerButtonActual.h"
-#import "Player.h"
 #import "PlayerButtonListener.h"
+@class PlayerButtonActual;
+@class Player;
 
 @interface PlayerButton : IBView {
     Player* __strong _player;

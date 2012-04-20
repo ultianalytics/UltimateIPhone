@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Event.h"
-#import "Game.h"
+@class Game;
 
 @interface GameHistoryController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) Game* game;

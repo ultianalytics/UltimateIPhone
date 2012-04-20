@@ -14,6 +14,8 @@
 #import "DefenseEvent.h"
 #import "ColorMaster.h"
 #import "ImageMaster.h"
+#import "Event.h"
+#import "Game.h"
 
 @implementation GameHistoryController
 @synthesize game,isCurlAnimation;

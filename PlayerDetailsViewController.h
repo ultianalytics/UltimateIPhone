@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 @class Player;
+@class UltimateSegmentedControl;
 
 @interface PlayerDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> 
 
 @property (nonatomic, strong) Player* player;
 @property (nonatomic, strong) IBOutlet UITextField* nickNameField;
 @property (nonatomic, strong) IBOutlet UITextField* numberField;
-@property (nonatomic, strong) IBOutlet UISegmentedControl* positionControl;
-@property (nonatomic, strong) IBOutlet UISegmentedControl* sexControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* positionControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* sexControl;
 @property (nonatomic, strong) IBOutlet UIButton* saveAndAddButton;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 

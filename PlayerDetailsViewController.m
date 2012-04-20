@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "ColorMaster.h"
 #import "Player.h"
+#import "UltimateSegmentedControl.h"
 
 NSArray* cells;
 
@@ -31,21 +32,22 @@ NSArray* cells;
     if (player) {
         self.nickNameField.text = self.player.name;
         self.numberField.text = self.player.number;
-        self.positionControl.selectedSegmentIndex = self.player.position == Any ? 2 : self.player.position == Handler ? 1 : 0;
-        self.sexControl.selectedSegmentIndex = self.player.isMale ? 0 : 1;
+        [self.positionControl setSelection: self.player.position == Any ? @"Any" : self.player.position == Handler ? @"Handler" : @"Cutter" ];
+        [self.sexControl setSelection: self.player.isMale ? @"Male" : @"Female"];        
     } else {
         self.nickNameField.text = nil;
         self.numberField.text = nil;
-        self.positionControl.selectedSegmentIndex = 0;
-        self.sexControl.selectedSegmentIndex = 0;
+        [self.positionControl setSelection: @"Cutter"];
+        [self.sexControl setSelection: @"Male"];
     }
 }
 
 -(void)populateModelFromView {
     self.player.name = [self getNickNameViewText];
     self.player.number = [self getNumberViewText];
-    self.player.position = self.positionControl.selectedSegmentIndex == 2 ? Any : self.positionControl.selectedSegmentIndex == 1 ? Handler : Cutter;
-    self.player.isMale = self.sexControl.selectedSegmentIndex == 0 ? YES : NO;
+    NSString* selectedPosition = [self.positionControl getSelection];
+    self.player.position = [selectedPosition isEqualToString:@"Any"] ? Any : [selectedPosition isEqualToString:@"Handler"] ? Handler : Cutter;
+    self.player.isMale = [[self.sexControl getSelection] isEqualToString:@"Male"] ? YES : NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -224,7 +226,6 @@ NSArray* cells;
     
     self.saveAndAddButton.hidden = player != nil;
     self.deleteButton.hidden = player == nil;
-    [self populateViewFromModel];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -233,8 +234,9 @@ NSArray* cells;
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.positionControl.tintColor = [ColorMaster getNavBarTintColor];
-    self.sexControl.tintColor = [ColorMaster getNavBarTintColor];   
+    //self.positionControl.tintColor = [ColorMaster getNavBarTintColor];
+    //self.sexControl.tintColor = [ColorMaster getNavBarTintColor]; 
+    [self populateViewFromModel];
 }
 
 - (void)viewDidUnload

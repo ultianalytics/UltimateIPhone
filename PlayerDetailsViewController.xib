@@ -766,7 +766,10 @@
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="40.CustomClassName">UltimateSegmentedControl</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<integer value="1" key="40.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<string key="41.CustomClassName">UltimateSegmentedControl</string>
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.CustomClassName">ColorButton</string>
@@ -812,10 +815,10 @@
 						<string key="nickNameField">UITextField</string>
 						<string key="numberField">UITextField</string>
 						<string key="numberTableCell">UITableViewCell</string>
-						<string key="positionControl">UISegmentedControl</string>
+						<string key="positionControl">UltimateSegmentedControl</string>
 						<string key="positionTableCell">UITableViewCell</string>
 						<string key="saveAndAddButton">UIButton</string>
-						<string key="sexControl">UISegmentedControl</string>
+						<string key="sexControl">UltimateSegmentedControl</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -845,7 +848,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="positionControl">
 							<string key="name">positionControl</string>
-							<string key="candidateClassName">UISegmentedControl</string>
+							<string key="candidateClassName">UltimateSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="positionTableCell">
 							<string key="name">positionTableCell</string>
@@ -857,7 +860,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="sexControl">
 							<string key="name">sexControl</string>
-							<string key="candidateClassName">UISegmentedControl</string>
+							<string key="candidateClassName">UltimateSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableView">
 							<string key="name">tableView</string>
@@ -875,6 +878,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/RedButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UltimateSegmentedControl</string>
+					<string key="superclassName">UISegmentedControl</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UltimateSegmentedControl.h</string>
 					</object>
 				</object>
 			</array>

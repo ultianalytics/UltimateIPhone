@@ -32,5 +32,7 @@
 +(UIColor*)getTableListSeparatorColor;
 +(UIColor*)getAlarmingButtonHighColor;
 +(UIColor*)getAlarmingButtonLowColor;
++(UIColor*)getSegmentControlLightTintColor;
++(UIColor*)getSegmentControlDarkTintColor;
 
 @end

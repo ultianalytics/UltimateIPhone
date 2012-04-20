@@ -13,6 +13,8 @@
 
 static UIColor* darkestColor = nil;
 static UIColor* darkerColor = nil;
+static UIColor* darklightColor = nil;
+static UIColor* darklightestColor = nil;
 static UIColor* lighterColor = nil;
 static UIColor* lighterishColor = nil;
 static UIColor* lightestColor = nil;
@@ -71,6 +73,8 @@ static UIColor* linePlayerButtonPointsColorDark = nil;
     
     darkestColor = RGB(102,102,51); // #666633
     darkerColor = RGB(153,153,102);  // #999966
+    darklightColor = RGB(173,173,132);  // ADAD84
+    darklightestColor = RGB(193,193,162);  // C1C1A2
     lighterColor = RGB(204,204,153);  // #CCCC99
     lighterishColor = RGB(232,228,196);  // #CCCC99
     lightestColor =  RGB(255,255,204);  // #FFFFCC
@@ -119,7 +123,6 @@ static UIColor* linePlayerButtonPointsColorDark = nil;
 +(UIColor*)getPasserButtonSelectedLowColor {
     return linePlayerButtonColor2;
 }
-
 
 +(UIColor*)getNavBarTintColor {
     return navBarTintColor;
@@ -177,5 +180,12 @@ static UIColor* linePlayerButtonPointsColorDark = nil;
     return alarmingButtonLowColor;
 }
 
++(UIColor*)getSegmentControlLightTintColor {
+    return darklightColor;
+}
+
++(UIColor*)getSegmentControlDarkTintColor {
+    return navBarTintColor;
+}
 
 @end

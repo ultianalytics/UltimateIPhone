@@ -12,7 +12,12 @@
 @class Tweet;
 @class ACAccount;
 
-@interface TweetQueue : NSObject
+@interface TweetQueue : NSObject {
+    @private
+    NSTimer* timer;
+    NSMutableArray* queue;  // queue of Tweets to post
+    NSMutableArray* recentTweets;  // log of recent Tweets sent
+}
 
 // public
 +(TweetQueue*)getCurrent;

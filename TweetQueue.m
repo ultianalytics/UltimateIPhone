@@ -16,10 +16,6 @@
 #define kRecentTweetExpireSeconds 1800
 #define kMaxRecentsTweetsAllowed 50
 
-NSTimer* timer;
-NSMutableArray* queue;  // queue of Tweets to post
-NSMutableArray* recentTweets;  // log of recent Tweets sent
-
 static TweetQueue* current = nil;
 
 @implementation TweetQueue

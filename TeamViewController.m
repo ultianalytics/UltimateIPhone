@@ -20,8 +20,6 @@
 @implementation TeamViewController
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
-NSArray* cells;
-
 -(void)populateViewFromModel {
     [self.teamNameField setText:(team.name == kNoName ? @"" : team.name)];
     [self.teamTypeSegmentedControl setSelection: team.isMixed ? @"Mixed" : @"Uni"];

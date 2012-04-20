@@ -14,8 +14,6 @@
 #import "Player.h"
 #import "UltimateSegmentedControl.h"
 
-NSArray* cells;
-
 @implementation PlayerDetailsViewController
 @synthesize player,nickNameField,numberField,positionControl,sexControl,saveAndAddButton,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
 

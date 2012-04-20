@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 @class Team;
 
-@interface TeamsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TeamsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    @private
+    NSArray* teamDescriptions;
+    BOOL isAfterFirstView;
+}
 
 @property (nonatomic, strong) IBOutlet UITableView* teamsTableView;
 

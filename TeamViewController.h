@@ -10,7 +10,9 @@
 @class Team;
 @class UltimateSegmentedControl;
 
-@interface TeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface TeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+    NSArray* cells;
+}
 
 @property (nonatomic, strong) Team* team;
 @property (nonatomic, strong) IBOutlet UITableView* teamTableView;

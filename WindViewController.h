@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Game.h"
-#import "ArrowView.h"
+@class Game;
+@class ArrowView;
 
 @interface WindViewController : UIViewController
 @property (nonatomic, strong) Game* game;

@@ -10,7 +10,9 @@
 @class Player;
 @class UltimateSegmentedControl;
 
-@interface PlayerDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> 
+@interface PlayerDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+    NSArray* cells;
+}
 
 @property (nonatomic, strong) Player* player;
 @property (nonatomic, strong) IBOutlet UITextField* nickNameField;

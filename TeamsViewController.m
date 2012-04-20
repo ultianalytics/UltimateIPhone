@@ -13,12 +13,8 @@
 #import "TeamViewController.h"
 #import "AppDelegate.h"
 
-NSArray* teamDescriptions;
-BOOL isAfterFirstView;
-
 @implementation TeamsViewController
 @synthesize teamsTableView;
-
 
 -(void)goToAddTeam {
     [self goToTeamView: [[Team alloc] init] animated: YES];

@@ -69,7 +69,7 @@ UINavigationController* gameNavController;
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
     tabBarItem.image = [UIImage imageNamed:@"210-twitterbird.png"];
-    tabBarItem.title = @"Twitter";  
+    tabBarItem.title = @"Tweeting";  
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

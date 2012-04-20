@@ -9,13 +9,16 @@
 #import "UltimateSegmentedControl.h"
 #import "ColorMaster.h"
 
-@interface UltimateSegmentedControl(Private) 
+// private methods definitiosn (using class extenstions)
+@interface UltimateSegmentedControl() 
 
 -(void)setup;
 -(void)updateView;
 -(void)updateViewWithSelection: (NSString*) title;
     
 @end
+
+
 
 @implementation UltimateSegmentedControl
 
@@ -58,9 +61,7 @@
     [self updateView];
 }
 
-@end
-
-@implementation UltimateSegmentedControl (Private)
+// private methods
 
 -(void)setup {
     self.tintColor = [ColorMaster getSegmentControlLightTintColor]; 

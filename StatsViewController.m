@@ -10,6 +10,8 @@
 #import "ColorMaster.h"
 #import "StandardButton.h"
 #import "Statistics.h"
+#import "PlayerStat.h"
+#import "Game.h"
 
 #define kTotalPoints @"Points Played"
 #define kOPoints @"O Points Played"

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlayerStat.h"
-#import "Game.h"
+@class Game;
 
 @interface StatsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 

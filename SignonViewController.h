@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignonViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface SignonViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+    @private
+    NSArray* cells;
+    UIAlertView* busyView;
+}
 
 @property (nonatomic) BOOL isSignedOn;
 

@@ -10,9 +10,6 @@
 #import "ColorMaster.h"
 #import "CloudClient.h"
 
-NSArray* cells;
-UIAlertView* busyView;
-
 @implementation SignonViewController
 @synthesize useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
 

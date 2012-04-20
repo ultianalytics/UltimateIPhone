@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UPoint.h" 
-#import "Wind.h"
 #import "PointSummary.h"
+@class Event;
+@class UPoint;
+@class Wind;
 
 #define kDefaultGamePoint 15
 
-@interface Game : NSObject
+@interface Game : NSObject {
+    BOOL arePointSummariesValid;
+}
 @property (nonatomic, strong) NSString* gameId;
 @property (nonatomic, strong) NSDate* startDateTime;
 @property (nonatomic, strong) NSString* opponentName;

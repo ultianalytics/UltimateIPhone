@@ -20,6 +20,8 @@
 #import "ColorMaster.h"
 #import "Preferences.h"
 #import "Tweeter.h"
+#import "Player.h"
+#import "Wind.h"
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,

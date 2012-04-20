@@ -9,6 +9,8 @@
 #import "UPoint.h"
 #import "Player.h"
 #import "Team.h"
+#import "Event.h"
+#import "PointSummary.h"
 
 #define kSummaryProperty        @"summary"
 

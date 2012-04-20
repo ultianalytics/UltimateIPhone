@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Event.h"
-#import "Player.h"
+@class Player;
 #define kDefenderKey        @"defender"
 
 @interface DefenseEvent : Event

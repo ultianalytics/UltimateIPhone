@@ -10,6 +10,7 @@
 #import "PlayerDetailsViewController.h"
 #import "Team.h"
 #import "ImageMaster.h"
+#import "Player.h"
 
 @implementation TeamPlayersViewController
 @synthesize playersTableView;

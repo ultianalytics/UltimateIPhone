@@ -11,6 +11,7 @@
 #import "ColorMaster.h"
 #import "Game.h"
 #import "ArrowView.h"
+#import "Wind.h"
 
 @implementation WindViewController
 @synthesize game,playStartSideSegmentedControl,directionView,directionSwipeView,directionArrowView,askWeatherServiceButton,speedSlider,speedLabel;

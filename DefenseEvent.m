@@ -8,6 +8,7 @@
 
 #import "DefenseEvent.h"
 #import "Team.h"
+#import "Player.h"
 
 @implementation DefenseEvent
 @synthesize defender;

@@ -7,7 +7,6 @@
 //
 #import "Game.h"
 
-
 @interface GameDescription : NSObject
 
 @property (nonatomic, strong) NSString* gameId;

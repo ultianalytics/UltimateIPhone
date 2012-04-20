@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Event.h"
-#import "Player.h"
+@class Player;
+
 #define kPasserKey        @"passer"
 #define kReceiverKey        @"receiver"
 

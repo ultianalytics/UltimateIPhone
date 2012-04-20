@@ -15,6 +15,9 @@
 #import "Team.h"
 #import "TweetQueue.h"
 #import "Tweet.h"
+#import "Wind.h"
+#import "Player.h"
+#import "UPoint.h"
 
 static Tweeter* current = nil;
 

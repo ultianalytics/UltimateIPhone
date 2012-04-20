@@ -14,6 +14,9 @@
 #import "Team.h"
 #import "Preferences.h"
 #import "Tweeter.h"
+#import "UPoint.h" 
+#import "Wind.h"
+#import "Player.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -35,8 +38,6 @@ static Game* currentGame = nil;
 
 @implementation Game
 @synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, opponentName, tournamentName, startDateTime,wind,gamePoint;
-
-BOOL arePointSummariesValid;
 
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];

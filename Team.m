@@ -10,6 +10,7 @@
 #import "Preferences.h"
 #import "TeamDescription.h"
 #import "Game.h"
+#import "Player.h"
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"

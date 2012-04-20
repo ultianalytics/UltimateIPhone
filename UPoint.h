@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Event.h"
-#import "PointSummary.h"
+@class Event;
+@class PointSummary;
 
 #define kEventsKey      @"events"
 #define kLineKey        @"line"

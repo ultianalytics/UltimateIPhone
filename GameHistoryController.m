@@ -15,7 +15,7 @@
 #import "ColorMaster.h"
 #import "ImageMaster.h"
 #import "Event.h"
-#import "Game.h"
+#import "UPoint.h"
 
 @implementation GameHistoryController
 @synthesize game,isCurlAnimation;

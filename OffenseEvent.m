@@ -8,6 +8,7 @@
 
 #import "OffenseEvent.h"
 #import "Team.h"
+#import "Player.h"
 
 @implementation OffenseEvent
 @synthesize passer,receiver;

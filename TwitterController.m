@@ -21,10 +21,6 @@
 @implementation TwitterController
 @synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, autoTweetSegmentedControl, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
 
-NSArray* twitterCells;
-
-UIAlertView* busyView;
-
 -(IBAction)autoTweetChanged: (id) sender {
     if (self.autoTweetSegmentedControl.selectedSegmentIndex != NoAutoTweet) {
         if ([[Tweeter getCurrent] getTwitterAccountName] == nil) {

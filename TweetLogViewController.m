@@ -16,9 +16,6 @@
 @implementation TweetLogViewController
 @synthesize tweetLogTableView;
 
-UIFont* tweetFont;
-NSArray* tweetLog;
-
 -(void)populateViewFromModel {
     tweetLog = [[Tweeter getCurrent] getRecentTweetActivity];
     [tweetLogTableView reloadData];

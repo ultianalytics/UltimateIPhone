@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 @class Tweet;
 
-@interface TweetLogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TweetLogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    @private
+    UIFont* tweetFont;
+    NSArray* tweetLog;
+}
 
 @property (nonatomic, strong) IBOutlet UITableView* tweetLogTableView;
 

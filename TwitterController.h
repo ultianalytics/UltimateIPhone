@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TwitterController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@interface TwitterController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+    @private
+    NSArray* twitterCells;
+    UIAlertView* busyView;
+}
 
 @property (nonatomic, strong) IBOutlet UITableView* twitterTableView;
 @property (nonatomic, strong) IBOutlet UITableView* tweetLogTableView;

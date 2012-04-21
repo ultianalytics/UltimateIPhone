@@ -16,7 +16,7 @@
 // send nslog output to testflight
 #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-#define kBaseUrl @"http://ultimate-team.appspot.com"
+#define kBaseUrl @"http://www.ultimate-numbers.com"
 //#define kBaseUrl @"http://local.appspot.com:8888"
 
 @implementation CloudClient

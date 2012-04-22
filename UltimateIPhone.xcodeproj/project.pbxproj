@@ -11,6 +11,51 @@
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
 		1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */; };
+		1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
+		1A59838A15445D5900E97F09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
+		1A59838B15445D5900E97F09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
+		1A59839115445D5900E97F09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A59838F15445D5900E97F09 /* InfoPlist.strings */; };
+		1A59839315445D5900E97F09 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A59839215445D5900E97F09 /* main.m */; };
+		1A5983A215445F9D00E97F09 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */; };
+		1A5983A8154464A500E97F09 /* GameTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5983A7154464A500E97F09 /* GameTest.m */; };
+		1A5983A915446CD800E97F09 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE80C15175EB0004B4590 /* Game.m */; };
+		1A5983AA15446CE400E97F09 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE83615175EB0004B4590 /* Player.m */; };
+		1A5983AB15446D0400E97F09 /* AnonymousPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7C815175E7B004B4590 /* AnonymousPlayer.m */; };
+		1A5983AC15446D0700E97F09 /* Wind.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE87415175EB0004B4590 /* Wind.m */; };
+		1A5983AD15446D0A00E97F09 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE80315175EB0004B4590 /* Event.m */; };
+		1A5983AE15446D1200E97F09 /* PointSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84615175EB0004B4590 /* PointSummary.m */; };
+		1A5983AF15446D1600E97F09 /* UPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE87015175EB0004B4590 /* UPoint.m */; };
+		1A5983B015446D1B00E97F09 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE86715175EB0004B4590 /* Team.m */; };
+		1A5983B115446D2000E97F09 /* OffenseEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE82F15175EB0004B4590 /* OffenseEvent.m */; };
+		1A5983B215446D2300E97F09 /* DefenseEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7DD15175E7B004B4590 /* DefenseEvent.m */; };
+		1A5983B315446D2800E97F09 /* GameDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE80E15175EB0004B4590 /* GameDescription.m */; };
+		1A5983B415446D2E00E97F09 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84815175EB0004B4590 /* Preferences.m */; };
+		1A5983B515446D3300E97F09 /* TeamDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAE9E9152D1D80008574C2 /* TeamDescription.m */; };
+		1A5983B615446D4900E97F09 /* Tweeter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A1015227490000965B5 /* Tweeter.m */; };
+		1A5983B715446D5400E97F09 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
+		1A5983B815446D5700E97F09 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
+		1A5983B915446D8300E97F09 /* TwitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEE548915293B350067F539 /* TwitterController.m */; };
+		1A5983BA15446D8A00E97F09 /* TweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A1A15233217000965B5 /* TweetViewController.m */; };
+		1A5983BB15446D8E00E97F09 /* TwitterAccountPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */; };
+		1A5983BC15446D9100E97F09 /* TweetLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */; };
+		1A5983BD15446D9400E97F09 /* CloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D415175E7B004B4590 /* CloudClient.m */; };
+		1A5983BE15446D9C00E97F09 /* SignonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE85615175EB0004B4590 /* SignonViewController.m */; };
+		1A5983BF15446DA500E97F09 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
+		1A5983C015446DA800E97F09 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
+		1A5983C115446DAB00E97F09 /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
+		1A5983C215446DAE00E97F09 /* RequestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF1B76A153B0CE100E1A826 /* RequestContext.m */; };
+		1A5983C315446DD400E97F09 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
+		1A5983C415446DEA00E97F09 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE66A131522769B000965B5 /* Accounts.framework */; };
+		1A5983C515446DFB00E97F09 /* ColorMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D815175E7B004B4590 /* ColorMaster.m */; };
+		1A5983C615446E1A00E97F09 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE82815175EB0004B4590 /* libTestFlight.a */; };
+		1A5983C715446E3D00E97F09 /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE85A15175EB0004B4590 /* SoundPlayer.m */; };
+		1A5983C815446E5100E97F09 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B415175DDC004B4590 /* QuartzCore.framework */; };
+		1A5983C915446E5400E97F09 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B015175DC6004B4590 /* AudioToolbox.framework */; };
+		1A5983CA15446E5700E97F09 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B115175DC6004B4590 /* AVFoundation.framework */; };
+		1A5983CB15446E5A00E97F09 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AA15175DB9004B4590 /* CoreLocation.framework */; };
+		1A5983CC15446E5E00E97F09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AB15175DB9004B4590 /* Security.framework */; };
+		1A5983CD15446E6000E97F09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AC15175DB9004B4590 /* SystemConfiguration.framework */; };
+		1A5983CE15446EAA00E97F09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B615175DF8004B4590 /* libz.dylib */; };
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
 		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
 		1A796AEC1538DD3800E518F8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A796AEB1538DD3800E518F8 /* icon.png */; };
@@ -171,6 +216,13 @@
 		1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamDownloadPickerViewController.xib; sourceTree = "<group>"; };
+		1A59838715445D5900E97F09 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A59838E15445D5900E97F09 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		1A59839015445D5900E97F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1A59839215445D5900E97F09 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1A59839415445D5900E97F09 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
+		1A5983A7154464A500E97F09 /* GameTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTest.m; sourceTree = "<group>"; };
 		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
 		1A6B265D15250E0D00C119A5 /* TweetQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetQueue.m; sourceTree = "<group>"; };
 		1A6B266015250FC400C119A5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
@@ -387,6 +439,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1A59838415445D5900E97F09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */,
+				1A59838A15445D5900E97F09 /* Foundation.framework in Frameworks */,
+				1A59838B15445D5900E97F09 /* CoreGraphics.framework in Frameworks */,
+				1A5983A215445F9D00E97F09 /* GHUnitIOS.framework in Frameworks */,
+				1A5983C315446DD400E97F09 /* Twitter.framework in Frameworks */,
+				1A5983C415446DEA00E97F09 /* Accounts.framework in Frameworks */,
+				1A5983C615446E1A00E97F09 /* libTestFlight.a in Frameworks */,
+				1A5983C815446E5100E97F09 /* QuartzCore.framework in Frameworks */,
+				1A5983C915446E5400E97F09 /* AudioToolbox.framework in Frameworks */,
+				1A5983CA15446E5700E97F09 /* AVFoundation.framework in Frameworks */,
+				1A5983CB15446E5A00E97F09 /* CoreLocation.framework in Frameworks */,
+				1A5983CC15446E5E00E97F09 /* Security.framework in Frameworks */,
+				1A5983CD15446E6000E97F09 /* SystemConfiguration.framework in Frameworks */,
+				1A5983CE15446EAA00E97F09 /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1AFFE77415175D4A004B4590 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -427,6 +500,26 @@
 				1AFFE85A15175EB0004B4590 /* SoundPlayer.m */,
 			);
 			name = "Sound Player";
+			sourceTree = "<group>";
+		};
+		1A59838C15445D5900E97F09 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1A59838D15445D5900E97F09 /* Supporting Files */,
+				1A5983A7154464A500E97F09 /* GameTest.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		1A59838D15445D5900E97F09 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1A59838E15445D5900E97F09 /* Tests-Info.plist */,
+				1A59838F15445D5900E97F09 /* InfoPlist.strings */,
+				1A59839215445D5900E97F09 /* main.m */,
+				1A59839415445D5900E97F09 /* Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {
@@ -504,6 +597,7 @@
 				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
 				1AFFE78115175D4A004B4590 /* UltimateIPhone */,
+				1A59838C15445D5900E97F09 /* Tests */,
 				1AFFE77A15175D4A004B4590 /* Frameworks */,
 				1AFFE77815175D4A004B4590 /* Products */,
 			);
@@ -513,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				1AFFE77715175D4A004B4590 /* UltimateIPhone.app */,
+				1A59838715445D5900E97F09 /* Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -521,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
+				1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */,
 				1AE66A131522769B000965B5 /* Accounts.framework */,
 				1AE669D21520012C000965B5 /* Twitter.framework */,
 				1AFFE7B415175DDC004B4590 /* QuartzCore.framework */,
@@ -838,6 +934,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1A59838615445D5900E97F09 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A59839B15445D5900E97F09 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				1A59838315445D5900E97F09 /* Sources */,
+				1A59838415445D5900E97F09 /* Frameworks */,
+				1A59838515445D5900E97F09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 1A59838715445D5900E97F09 /* Tests.app */;
+			productType = "com.apple.product-type.application";
+		};
 		1AFFE77615175D4A004B4590 /* UltimateIPhone */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1AFFE7A315175D4A004B4590 /* Build configuration list for PBXNativeTarget "UltimateIPhone" */;
@@ -877,11 +990,20 @@
 			projectRoot = "";
 			targets = (
 				1AFFE77615175D4A004B4590 /* UltimateIPhone */,
+				1A59838615445D5900E97F09 /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1A59838515445D5900E97F09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A59839115445D5900E97F09 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1AFFE77515175D4A004B4590 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -975,6 +1097,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1A59838315445D5900E97F09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A59839315445D5900E97F09 /* main.m in Sources */,
+				1A5983A8154464A500E97F09 /* GameTest.m in Sources */,
+				1A5983A915446CD800E97F09 /* Game.m in Sources */,
+				1A5983AA15446CE400E97F09 /* Player.m in Sources */,
+				1A5983AB15446D0400E97F09 /* AnonymousPlayer.m in Sources */,
+				1A5983AC15446D0700E97F09 /* Wind.m in Sources */,
+				1A5983AD15446D0A00E97F09 /* Event.m in Sources */,
+				1A5983AE15446D1200E97F09 /* PointSummary.m in Sources */,
+				1A5983AF15446D1600E97F09 /* UPoint.m in Sources */,
+				1A5983B015446D1B00E97F09 /* Team.m in Sources */,
+				1A5983B115446D2000E97F09 /* OffenseEvent.m in Sources */,
+				1A5983B215446D2300E97F09 /* DefenseEvent.m in Sources */,
+				1A5983B315446D2800E97F09 /* GameDescription.m in Sources */,
+				1A5983B415446D2E00E97F09 /* Preferences.m in Sources */,
+				1A5983B515446D3300E97F09 /* TeamDescription.m in Sources */,
+				1A5983B615446D4900E97F09 /* Tweeter.m in Sources */,
+				1A5983B715446D5400E97F09 /* TweetQueue.m in Sources */,
+				1A5983B815446D5700E97F09 /* Tweet.m in Sources */,
+				1A5983B915446D8300E97F09 /* TwitterController.m in Sources */,
+				1A5983BA15446D8A00E97F09 /* TweetViewController.m in Sources */,
+				1A5983BB15446D8E00E97F09 /* TwitterAccountPickViewController.m in Sources */,
+				1A5983BC15446D9100E97F09 /* TweetLogViewController.m in Sources */,
+				1A5983BD15446D9400E97F09 /* CloudClient.m in Sources */,
+				1A5983BE15446D9C00E97F09 /* SignonViewController.m in Sources */,
+				1A5983BF15446DA500E97F09 /* GameDownloadPickerViewController.m in Sources */,
+				1A5983C015446DA800E97F09 /* CloudViewController.m in Sources */,
+				1A5983C115446DAB00E97F09 /* TeamDownloadPickerViewController.m in Sources */,
+				1A5983C215446DAE00E97F09 /* RequestContext.m in Sources */,
+				1A5983C515446DFB00E97F09 /* ColorMaster.m in Sources */,
+				1A5983C715446E3D00E97F09 /* SoundPlayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1AFFE77315175D4A004B4590 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1044,6 +1203,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		1A59838F15445D5900E97F09 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A59839015445D5900E97F09 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		1AFFE78415175D4A004B4590 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1055,6 +1222,74 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1A59839815445D5900E97F09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1A59839915445D5900E97F09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1A59839A15445D5900E97F09 /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
 		1A66EDED15176F7D00BBD682 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1170,6 +1405,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1A59839B15445D5900E97F09 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A59839815445D5900E97F09 /* Debug */,
+				1A59839915445D5900E97F09 /* Release */,
+				1A59839A15445D5900E97F09 /* Ad Hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1AFFE77115175D49004B4590 /* Build configuration list for PBXProject "UltimateIPhone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -25,27 +25,39 @@
 @implementation GameTest
 
 - (void)setUp {
-//    game = [[Game alloc] init];
+    game = [[Game alloc] init];
     player1 = [[Player alloc] initName:@"Jim"];
-//    player2 = [[Player alloc] initName:@"Kyle"];
+    player2 = [[Player alloc] initName:@"Kyle"];
 }
 
 - (void)testAddEvent {       
-//    event = [[OffenseEvent alloc] initPasser:player1 action:Goal receiver:player2];
-//    [game addEvent:event];
-//    GHAssertTrue([game hasEvents], nil);
+    // add one
+    event = [[OffenseEvent alloc] initPasser:player1 action:Catch receiver:player2];
+    [game addEvent:event];
+    
+    // assert    
+    GHAssertTrue([game hasEvents], nil);
+    GHAssertEquals(event, [game getLastEvent], nil);
+    GHAssertTrue([game.points count] == 1, nil);
+    
+    // add another (should be in same point)
+    event = [[OffenseEvent alloc] initPasser:player1 action:Goal receiver:player2];
+    [game addEvent:event];
+    
+    // assert    
+    GHAssertTrue([game hasEvents], nil);
+    GHAssertEquals(event, [game getLastEvent], nil); 
+    GHAssertTrue([game.points count] == 1, nil);
+    
+    // add another (should be in new point)
+    event = [[OffenseEvent alloc] initPasser:player1 action:Catch receiver:player2];
+    [game addEvent:event];
+    
+    // assert    
+    GHAssertTrue([game hasEvents], nil);
+    GHAssertEquals(event, [game getLastEvent], nil);  
+    GHAssertTrue([game.points count] == 2, nil);
 }
 
-- (void)testString {       
-    NSString *string1 = @"a string";
-    GHTestLog(@"I can log to the GHUnit test console: %@", string1);
-    
-    // Assert string1 is not NULL, with no custom error description
-    GHAssertNotNil(string1, @"");
-    
-    // Assert equal objects, add custom error description
-    NSString *string2 = @"a string";
-    GHAssertEqualObjects(string1, string2, @"A custom error message. string1 should be equal to: %@.", string2);
-}
 
 @end

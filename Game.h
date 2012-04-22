@@ -50,7 +50,6 @@
 -(void)removeLastEvent;
 -(Event*)getLastEvent;
 -(NSArray*)getLastEvents: (int) numberToRetrieve;
--(void)addPoint: (UPoint*) point;
 -(UPoint*)getCurrentPoint;
 -(int)getNumberOfPoints;
 -(NSArray*)getPointNamesInMostRecentOrder;
@@ -66,8 +65,7 @@
 -(BOOL)isPointOline: (UPoint*) point;
 -(BOOL)isFirstPoint: (UPoint*) point;
 -(BOOL)isCurrentlyOline;
--(UPoint*)findPreviousPoint: (UPoint*) pointParam;
--(void)updateLastLine: (Event*) event;
+-(UPoint*)findPreviousPoint: (UPoint*) point;
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBePull;
 -(NSArray*)getPlayers;
@@ -78,6 +76,8 @@
 
 // private
 +(NSString*)getDirectoryPath: (NSString*) teamId;
+-(void)updateLastLine: (Event*) event;
+-(void)addPoint: (UPoint*) point;
 +(void)delete: (NSString*) aGameId;
 -(void)updatePointSummaries;
 -(void)clearPointSummaries;

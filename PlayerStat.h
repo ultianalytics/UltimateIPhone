@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Player.h"
+@class Player;
 typedef enum {
     FloatStat,
     IntStat

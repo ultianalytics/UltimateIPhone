@@ -12,6 +12,7 @@
 #import "Statistics.h"
 #import "PlayerStat.h"
 #import "Game.h"
+#import "Player.h"
 
 #define kTotalPoints @"Points Played"
 #define kOPoints @"O Points Played"

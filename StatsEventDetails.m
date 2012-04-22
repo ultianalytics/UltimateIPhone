@@ -7,6 +7,10 @@
 //
 
 #import "StatsEventDetails.h"
+#import "Game.h"
+#import "Event.h"
+#import "UPoint.h"
+#import "PlayerStat.h"
 
 @implementation StatsEventDetails
 @synthesize game,point,event,accumulatedStats;

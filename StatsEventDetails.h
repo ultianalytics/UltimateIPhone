@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Game.h"
-#import "Event.h"
-#import "UPoint.h"
-#import "PlayerStat.h"
+@class Game;
+@class Event;
+@class UPoint;
+@class PlayerStat;
 
 @interface StatsEventDetails : NSObject
 

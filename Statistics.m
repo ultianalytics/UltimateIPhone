@@ -6,14 +6,25 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "Game.h"
+#import "Team.h"
+#import "PlayerStat.h"
+#import "StatsEventDetails.h"
 #import "Statistics.h"
 #import "UPoint.h"
 #import "Player.h"
-#import "Game.h"
-#import "Team.h"
 #import "StatsEventDetails.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
+
+// private methods
+@interface Statistics() 
+    +(NSArray*)sortedPlayerStats: (NSDictionary*) statPerPlayer game: (Game*) game team: (Team*) team statType: (StatNumericType) type;
+    +(NSArray*)descendingSortedStats:(NSArray*) unsortedStatsArray;;
+    +(PlayerStat*)getStatForPlayer: (Player*) player fromStats: (NSDictionary*) statPerPlayer statType:(StatNumericType) type;
+    +(NSDictionary*)accumulateStatsPerPlayer: (Game*) game accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock;
+@end
+
 
 @implementation Statistics
 

@@ -7,6 +7,7 @@
 //
 
 #import "PlayerStat.h"
+#import "Player.h"
 
 @implementation PlayerStat
 @synthesize player,number,type;

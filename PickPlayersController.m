@@ -15,6 +15,7 @@
 #import "ColorMaster.h"
 #import "Player.h"
 #import "PlayerButton.h"
+#import "PlayerStat.h"
 
 @implementation PickPlayersController
 @synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game;

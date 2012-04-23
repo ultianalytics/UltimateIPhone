@@ -36,7 +36,7 @@
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
     cell.textLabel.text = game.opponent;
-    NSString* details = [NSString stringWithFormat:@"%@%@%@", game.tournamentName, game.startDate == nil ? @"" : @", ", game.startDate == nil ? @"" : [dateFormat stringFromDate:game.startDate]];
+    NSString* details = [NSString stringWithFormat:@"%@%@%@", (game.tournamentName ? game.tournamentName : @""), game.tournamentName == nil ? @"" : @", ", game.startDate == nil ? @"" : [dateFormat stringFromDate:game.startDate]];
     cell.detailTextLabel.text = details;
     return cell;
 }

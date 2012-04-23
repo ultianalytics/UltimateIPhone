@@ -12,7 +12,7 @@
 
 typedef enum {
     Unauthorized,
-    ConnectionFailure,
+    NotConnectedToInternet,
     Marshalling,
     Unknown
 } CloudError;
@@ -29,13 +29,5 @@ typedef enum {
 +(NSString*) downloadTeam: (NSString*) cloudId error: (NSError**) error; 
 +(NSArray*) getGameDescriptions: (NSString*) teamcloudId error: (NSError**) error; 
 +(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId error: (NSError**) error;
-
-// private
-
-+(NSData*) upload: (NSDictionary*) objectAsDictionary relativeUrl: (NSString*) relativeUrl error:(NSError**) uploadError;
-+(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError;
-+(CloudError) errorCodeFromResponse: (NSHTTPURLResponse*) httpResponse error: (NSError*) sendError;
-+(void) saveTeamCloudId:(NSData *)responseJSON;
-+(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError; 
 
 @end

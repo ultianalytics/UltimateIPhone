@@ -12,18 +12,42 @@
 #import "GameDescription.h"
 #import "Preferences.h"
 #import "TestFlight.h"
+#import "Reachability.h"
 
 // send nslog output to testflight
 #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-#define kBaseUrl @"http://www.ultimate-numbers.com"
-//#define kBaseUrl @"http://local.appspot.com:8888"
+#define kHostHame @"www.ultimate-numbers.com"
+//#define kHostHame @"local.appspot.com:8888"
+//#define [CloudClient getBaseUrl] @"http://www.ultimate-numbers.com"
+//#define [CloudClient getBaseUrl] @"http://local.appspot.com:8888"
+
+// private methods
+@interface CloudClient() 
+
++(NSData*) upload: (NSDictionary*) objectAsDictionary relativeUrl: (NSString*) relativeUrl error:(NSError**) uploadError;
++(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError;
++(CloudError) errorCodeFromResponse: (NSHTTPURLResponse*) httpResponse error: (NSError*) sendError;
++(void) saveTeamCloudId:(NSData *)responseJSON;
++(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError; 
++(void) verifyConnection: (NSError**) uploadError;
++(NSString*) getBaseUrl;
+
+@end
 
 @implementation CloudClient
 
++(void) verifyConnection: (NSError**) error {
+    Reachability* reachability = [Reachability reachabilityForInternetConnection]; 
+    if ([reachability currentReachabilityStatus] == NotReachable) {
+        *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: NotConnectedToInternet userInfo:nil];
+        NSLog(@"Internet connection not available");
+    }
+}
+
 +(NSString*) getWebsiteURL: (Team*) team {
     if (team.cloudId != nil && team.cloudId != @"") {
-        return [NSString stringWithFormat:@"%@/team/%@/main", kBaseUrl, team.cloudId];
+        return [NSString stringWithFormat:@"%@/team/%@/main", [CloudClient getBaseUrl], team.cloudId];
     }
     return nil;
 }
@@ -104,20 +128,23 @@
     NSData* responseJSON = nil;
     if ([Preferences getCurrentPreferences].userid == nil) {
         // don't bother making a request if we don't know the user
-        *getError = [NSError errorWithDomain:kBaseUrl code: Unauthorized userInfo:nil];
+        *getError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: Unauthorized userInfo:nil];
     } else {
         NSHTTPURLResponse* response = nil;
         NSError* sendError = nil;
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  kBaseUrl, relativeUrl]];
-        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-        [request setHTTPMethod:@"GET"];
-        
-        responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
-        if (sendError == nil && response != nil && [response statusCode] == 200) {
-            NSLog(@"http GET successful");
-        } else {
-            *getError = [NSError errorWithDomain:kBaseUrl code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-            NSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
+        [CloudClient verifyConnection:&sendError];
+        if (!sendError) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [CloudClient getBaseUrl], relativeUrl]];
+            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+            [request setHTTPMethod:@"GET"];
+            
+            responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
+            if (sendError == nil && response != nil && [response statusCode] == 200) {
+                NSLog(@"http GET successful");
+            } else {
+                *getError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
+                NSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
+            }
         }
     }
     return responseJSON;
@@ -128,30 +155,33 @@
      NSData* responseJSON = nil;
     if ([Preferences getCurrentPreferences].userid == nil) {
         // don't bother making a request if we don't know the user
-        *uploadError = [NSError errorWithDomain:kBaseUrl code: Unauthorized userInfo:nil];
+        *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: Unauthorized userInfo:nil];
     } else {
         NSHTTPURLResponse* response = nil;
         NSError* marshallError = nil;
         NSError* sendError = nil;
-        NSData* objectAsJson = [NSJSONSerialization dataWithJSONObject:objectAsDictionary options:0 error:&marshallError];
-        if (marshallError) {
-            NSLog(@"Unable to marshall to JSON: %@", marshallError);
-            *uploadError = [NSError errorWithDomain:kBaseUrl code: Marshalling userInfo:nil];
-        } else {
-            //NSLog(@"Object as JSON = %@",[[NSString alloc] initWithData:objectAsJson encoding:NSASCIIStringEncoding]);
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  kBaseUrl, relativeUrl]];
-            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-            [request setHTTPMethod:@"POST"];
-            [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [request setHTTPBody:objectAsJson];
-            
-            responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
-            if (sendError == nil && response != nil && [response statusCode] == 200) {
-                NSLog(@"Object upload successful");
+        [CloudClient verifyConnection:&sendError];
+        if (!sendError) {
+            NSData* objectAsJson = [NSJSONSerialization dataWithJSONObject:objectAsDictionary options:0 error:&marshallError];
+            if (marshallError) {
+                NSLog(@"Unable to marshall to JSON: %@", marshallError);
+                *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: Marshalling userInfo:nil];
             } else {
-                *uploadError = [NSError errorWithDomain:kBaseUrl code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                NSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
-            } 
+                //NSLog(@"Object as JSON = %@",[[NSString alloc] initWithData:objectAsJson encoding:NSASCIIStringEncoding]);
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [CloudClient getBaseUrl], relativeUrl]];
+                NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+                [request setHTTPMethod:@"POST"];
+                [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                [request setHTTPBody:objectAsJson];
+                
+                responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
+                if (sendError == nil && response != nil && [response statusCode] == 200) {
+                    NSLog(@"Object upload successful");
+                } else {
+                    *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
+                    NSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
+                } 
+            }
         }
     }
     return responseJSON;
@@ -167,7 +197,7 @@
 }
 
 +(BOOL) isSignedOn { 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  kBaseUrl, @"/rest/mobile/test"]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [CloudClient getBaseUrl], @"/rest/mobile/test"]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -193,7 +223,7 @@
 }
 
 +(void) signOff {
-    NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:kBaseUrl]];
+    NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:[CloudClient getBaseUrl]]];
     for (NSHTTPCookie* cookie in cookies) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie: cookie];
     }
@@ -238,7 +268,7 @@
     
     // do a get so that google will set the auth cookie (all subsequent calls will contain the cookie returned)
     
-    NSURL* cookieUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/_ah/login?continue=%@/&auth=%@", kBaseUrl, kBaseUrl, [token objectForKey:@"Auth"]]];
+    NSURL* cookieUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/_ah/login?continue=%@/&auth=%@", [CloudClient getBaseUrl], [CloudClient getBaseUrl], [token objectForKey:@"Auth"]]];
     // NSLog([cookieUrl description]);
     NSHTTPURLResponse* cookieResponse;
     NSError* cookieError;
@@ -299,5 +329,8 @@
     }
 }
 
++(NSString*) getBaseUrl {
+    return [NSString stringWithFormat:@"http://%@", kHostHame];
+}
 
 @end

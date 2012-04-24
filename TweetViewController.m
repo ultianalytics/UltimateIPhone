@@ -3,7 +3,7 @@
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 3/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "TweetViewController.h"
@@ -15,6 +15,15 @@
 #import "Constants.h"
 #import "Tweet.h"
 
+@interface TweetViewController()
+
+-(void)checkAccountAvailable;
+-(void)cancelSend;
+-(void)sendTweet;
+-(void)populateViewFromModel;
+-(void)updateCharCount: (int) count;
+
+@end
 
 @implementation TweetViewController
 @synthesize tableView,tweetTextCell,tweetAccountCell,accountNameLabel,tweetTextView,charCountLabel,initialText;
@@ -27,14 +36,11 @@
 +(void)alertNoAccount: (id<UIAlertViewDelegate>) delegate {
     UIAlertView *alert = [[UIAlertView alloc] 
                           initWithTitle: NSLocalizedString(@"No Twitter Accounts",nil)
-                          message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings (or you are not granting access to this app).",nil)
+                          message: NSLocalizedString(@"You have not created any Twitter account yet in your iPhone settings (or you are not granting access to this app).   Go to iPhone settings.",nil)
                           delegate: delegate
                           cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
-                          otherButtonTitles: NSLocalizedString(@"Open Settings",nil), nil];
+                          otherButtonTitles: nil];
     [alert show];
-}
-+(void)goToTwitterSettings {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
 }
 
 -(void)checkAccountAvailable {
@@ -44,12 +50,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [TweetViewController goToTwitterSettings];
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

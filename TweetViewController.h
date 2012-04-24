@@ -3,7 +3,7 @@
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 3/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -19,12 +19,5 @@
 @property (nonatomic, strong) NSString* initialText;
 
 +(void)alertNoAccount: (id<UIAlertViewDelegate>) delegate;
-+(void)goToTwitterSettings;
-
--(void)checkAccountAvailable;
--(void)cancelSend;
--(void)sendTweet;
--(void)populateViewFromModel;
--(void)updateCharCount: (int) count;
 
 @end

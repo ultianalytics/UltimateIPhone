@@ -3,12 +3,12 @@
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 3/31/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface TwitterController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+@interface TwitterController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSArray* twitterCells;
     UIAlertView* busyView;

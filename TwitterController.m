@@ -3,7 +3,7 @@
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 3/31/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "TwitterController.h"
@@ -25,7 +25,7 @@
     if (self.autoTweetSegmentedControl.selectedSegmentIndex != NoAutoTweet) {
         if ([[Tweeter getCurrent] getTwitterAccountName] == nil) {
             self.autoTweetSegmentedControl.selectedSegmentIndex = NoAutoTweet;
-            [TweetViewController alertNoAccount: self];
+            [TweetViewController alertNoAccount: nil];
         } 
     }
     [[Tweeter getCurrent] setAutoTweetLevel:self.autoTweetSegmentedControl.selectedSegmentIndex];
@@ -40,13 +40,6 @@
     
     // Show the controller
     [self.navigationController pushViewController:tweetController animated: YES];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    // if user wants to set thier twitter account...take them to iphone settings
-    if (buttonIndex == 1) {
-        [TweetViewController goToTwitterSettings];
-    } 
 }
 
 

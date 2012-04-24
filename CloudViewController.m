@@ -18,6 +18,14 @@
 #import "AppDelegate.h"
 #import "RequestContext.h"
 
+#define kNoInternetMessage @"We were unable to access the internet."
+
+@interface CloudViewController() 
+
+-(void)showCompleteAlert: (NSString*) title message: (NSString*) message;
+
+@end
+
 @implementation CloudViewController
 @synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
 
@@ -81,22 +89,10 @@
         signonCompletion = ^{[slf uploadToServer];};
         [self goSignonView];
     } else if (errorCode) {
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"Upload FAILED",nil)
-                              message: NSLocalizedString(@"We were unable to upload your data to the cloud.  Try again later.",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
+        [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: NSLocalizedString([errorCode intValue] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to upload your data to the cloud.  Try again later.", nil)];
     } else {
         [self populateViewFromModel];
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"Upload Complete",nil)
-                              message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
+        [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)];
     }
 }
 
@@ -123,13 +119,7 @@
             signonCompletion = ^{[slf downloadTeamsFromServer];};
             [self goSignonView];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
-                                  message: NSLocalizedString(@"We were unable to download your team list from the cloud.  Try again later.",nil)
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                  otherButtonTitles: nil];
-            [alert show];
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team list from the cloud.  Try again later.", nil)];            
         }
     } else {
         NSArray* teams = (NSArray*)requestContext.responseData;
@@ -161,13 +151,7 @@
             signonCompletion = ^{[slf downloadGamesFromServer];};
             [self goSignonView];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
-                                  message: NSLocalizedString(@"We were unable to download your games list from the cloud.  Try again later.",nil)
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                  otherButtonTitles: nil];
-            [alert show];
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your games list from the cloud.  Try again later.", nil)];                
         }
     } else {
         NSArray* games = (NSArray*)requestContext.responseData;
@@ -198,13 +182,7 @@
             signonCompletion = ^{[slf startGameDownload: gameId];};
             [self goSignonView];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
-                                  message: NSLocalizedString(@"We were unable to download your game from the cloud.  Try again later.",nil)
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                  otherButtonTitles: nil];
-            [alert show];
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your game from the cloud.  Try again later.", nil)];               
         }
     } else {
         NSString* gameId = (NSString*)requestContext.requestData;
@@ -212,13 +190,7 @@
             [Game setCurrentGame:gameId];
         }
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"Download Complete",nil)
-                              message: NSLocalizedString(@"The game was successfully downloaded to your iPhone.",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
+        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: NSLocalizedString(@"The game was successfully downloaded to your iPhone.",nil)];         
     }
 }
 
@@ -245,13 +217,7 @@
             signonCompletion = ^{[slf startTeamDownload: cloudId];};
             [self goSignonView];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle: NSLocalizedString(@"Download FAILED",nil)
-                                  message: NSLocalizedString(@"We were unable to download your team from the cloud.  Try again later.",nil)
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                  otherButtonTitles: nil];
-            [alert show];
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team from the cloud.  Try again later.", nil)];                   
         }
     } else {
         NSString* teamId = (NSString*)requestContext.responseData;
@@ -260,13 +226,7 @@
             [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         }
         [self populateViewFromModel];
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: NSLocalizedString(@"Download Complete",nil)
-                              message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
+        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)];            
     }
 }
 
@@ -329,6 +289,16 @@
         } 
     }
 } 
+
+-(void)showCompleteAlert: (NSString*) title message: (NSString*) message {
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: title
+                          message: message
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

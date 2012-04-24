@@ -145,6 +145,8 @@
                 *getError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
                 NSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
             }
+        } else {
+            *getError = sendError;
         }
     }
     return responseJSON;
@@ -182,6 +184,8 @@
                     NSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
                 } 
             }
+        } else {
+            *uploadError = sendError;
         }
     }
     return responseJSON;

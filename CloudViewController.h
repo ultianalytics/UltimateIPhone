@@ -12,7 +12,7 @@
 @class TeamDownloadPickerViewController;
 @class GameDownloadPickerViewController;
 
-@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSArray* cloudCells;
     SignonViewController* signonController;

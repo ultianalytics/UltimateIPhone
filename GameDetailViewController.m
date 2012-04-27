@@ -11,7 +11,6 @@
 #import "Preferences.h"
 #import "SoundPlayer.h"
 #import "ColorMaster.h"
-#import "Constants.h"
 #import "WindViewController.h"
 #import "StatsViewController.h"
 #import "GameHistoryController.h"

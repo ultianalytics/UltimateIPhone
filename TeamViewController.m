@@ -6,7 +6,6 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "Constants.h"
 #import "TeamViewController.h"
 #import "Team.h"
 #import "TeamDescription.h"

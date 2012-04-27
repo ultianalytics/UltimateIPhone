@@ -516,6 +516,13 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
+		1A2DC1FF154ACC3700C59C2A /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		1A59838C15445D5900E97F09 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +606,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
+				1A2DC1FF154ACC3700C59C2A /* New Group */,
 				1A2DA03815458AB800D59B29 /* Reachability */,
 				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,

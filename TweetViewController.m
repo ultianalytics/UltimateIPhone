@@ -12,7 +12,6 @@
 #import "Tweeter.h"
 #import "TweetQueue.h"
 #import "TwitterAccountPickViewController.h"
-#import "Constants.h"
 #import "Tweet.h"
 
 @interface TweetViewController()

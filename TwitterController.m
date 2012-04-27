@@ -15,7 +15,6 @@
 #import "Tweeter.h"
 #import "TweetViewController.h"
 #import "TwitterAccountPickViewController.h"
-#import "Constants.h"
 #import "TweetLogViewController.h"
 
 @implementation TwitterController

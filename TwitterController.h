@@ -25,9 +25,11 @@
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl* autoTweetSegmentedControl;
 
++(void)showNoConnectivityAlert;
+
 -(IBAction)autoTweetChanged: (id) sender;
 -(IBAction)tweetButtonClicked: (id) sender;
 -(void)populateViewFromModel;
--(void)showNoConnectivityAlert;
+
 
 @end

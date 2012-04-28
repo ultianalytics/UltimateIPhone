@@ -21,6 +21,16 @@
 @implementation TwitterController
 @synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, autoTweetSegmentedControl, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
 
++ (void)showNoConnectivityAlert {
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: @"No Internet Access"
+                          message: @"We are not able to connect to Twitter.  Please make sure you have Internet access."
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
+}
+
 -(IBAction)autoTweetChanged: (id) sender {
     if (self.autoTweetSegmentedControl.selectedSegmentIndex != NoAutoTweet) {
         if ([[Tweeter getCurrent] getTwitterAccountName] == nil) {
@@ -30,7 +40,7 @@
     }
     AutoTweetLevel level = self.autoTweetSegmentedControl.selectedSegmentIndex;
     if (level != NoAutoTweet && [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
-        [self showNoConnectivityAlert];
+        [TwitterController showNoConnectivityAlert];
         self.autoTweetSegmentedControl.selectedSegmentIndex = NoAutoTweet;
         return;
     } else {
@@ -40,7 +50,7 @@
 
 -(IBAction)tweetButtonClicked: (id) sender; {
     if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
-        [self showNoConnectivityAlert];
+        [TwitterController showNoConnectivityAlert];
     } else {
         // Create the view controller
         TweetViewController* tweetController = [[TweetViewController alloc] init];
@@ -91,17 +101,6 @@
         [self.navigationController pushViewController:logController animated:YES];                                
     }
 } 
-
-- (void)showNoConnectivityAlert {
-    UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle: @"No Internet Access"
-                          message: @"We are not able to connect to Twitter.  Please make sure you have Internet access."
-                          delegate: nil
-                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                          otherButtonTitles: nil];
-    [alert show];
-}
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

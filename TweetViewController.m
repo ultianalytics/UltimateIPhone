@@ -12,6 +12,8 @@
 #import "Tweeter.h"
 #import "TweetQueue.h"
 #import "TwitterAccountPickViewController.h"
+#import "TwitterController.h"
+#import "Reachability.h"
 #import "Tweet.h"
 
 @interface TweetViewController()
@@ -97,8 +99,12 @@
 }
 
 -(void)sendTweet {
-    [[Tweeter getCurrent] tweet:[[Tweet alloc] initMessage: tweetTextView.text type: kAdHocType]];
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        [TwitterController showNoConnectivityAlert];
+    } else {
+        [[Tweeter getCurrent] tweet:[[Tweet alloc] initMessage: tweetTextView.text type: kAdHocType]];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

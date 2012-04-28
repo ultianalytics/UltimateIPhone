@@ -43,27 +43,11 @@
 
 @property (nonatomic, strong) IBOutlet UILabel* tweetingLabel;
 
-
--(void) goToPlayersOnFieldView;
--(void) goToHistoryView: (BOOL) curl;
--(void) goToHistoryViewRight;
--(void) setOffense: (BOOL) isOffense;
 -(IBAction) throwAwayButtonClicked: (id) sender;
 -(IBAction) otherTeamScoreClicked: (id) sender;
 -(IBAction) switchSidesClicked: (id) sender;
 -(IBAction) removeEventClicked: (id) sender;
 -(IBAction) gameOverButtonClicked: (id) sender;
--(PlayerView*) findPlayerView: (Player*) player;
--(PlayerView*) findSelectedPlayerView;
--(void) populatePlayers;
--(void) addEvent: (Event*) event;
--(void) updateEventViews;
--(void) initializeSelected;
--(void) refreshTitle: (Event*) event;
--(void) updateNavBarTitle;
--(void) updateViewFromGame: (Game*) game;
--(void) halftimeWarning;
--(void) gameOverConfirm;
 
 
 @end

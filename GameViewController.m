@@ -22,6 +22,28 @@
 #import "Tweeter.h"
 #import "Player.h"
 #import "Wind.h"
+#import "Reachability.h"
+
+@interface GameViewController()
+
+-(void) goToPlayersOnFieldView;
+-(void) goToHistoryView: (BOOL) curl;
+-(void) goToHistoryViewRight;
+-(void) setOffense: (BOOL) isOffense;
+-(PlayerView*) findPlayerView: (Player*) player;
+-(PlayerView*) findSelectedPlayerView;
+-(void) populatePlayers;
+-(void) addEvent: (Event*) event;
+-(void) updateEventViews;
+-(void) initializeSelected;
+-(void) refreshTitle: (Event*) event;
+-(void) updateNavBarTitle;
+-(void) updateViewFromGame: (Game*) game;
+-(void) halftimeWarning;
+-(void) gameOverConfirm;
+-(void) updateAutoTweetingNotice;
+
+@end
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
@@ -238,6 +260,20 @@
     [self goToHistoryView: YES];
 }
 
+- (void) updateAutoTweetingNotice {
+    self.tweetingLabel.hidden = ![Tweeter getCurrent].isTweetingEvents;
+    if ([[Tweeter getCurrent] isTweetingEvents] && 
+        [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle: @"No Internet Access"
+                              message: @"Warning: You are auto-tweeting but we can't reach the internet to send the tweets."
+                              delegate: nil
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -278,15 +314,17 @@
     [self.otherTeamScoreButton setTitle:@"They Scored" forState: UIControlStateNormal];
     
     [self updateEventViews];
- 
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(updateAutoTweetingNotice)
+                                                 name: @"UIApplicationWillEnterForegroundNotification"
+                                               object: nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -303,11 +341,10 @@
         Game* game = [Game getCurrentGame];
         [self setOffense: [game arePlayingOffense]];
         [self updateEventViews];
-        
         [self updateNavBarTitle]; 
         [[Game getCurrentGame] save];
         [self updateViewFromGame:[Game getCurrentGame]];
-        self.tweetingLabel.hidden = ![Tweeter getCurrent].isTweetingEvents;
+        [self updateAutoTweetingNotice];
     }
 }
 

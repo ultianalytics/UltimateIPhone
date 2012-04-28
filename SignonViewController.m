@@ -9,6 +9,7 @@
 #import "SignonViewController.h"
 #import "ColorMaster.h"
 #import "CloudClient.h"
+#import "Reachability.h"
 
 @implementation SignonViewController
 @synthesize useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
@@ -20,7 +21,17 @@
     if ([password isEqualToString:@""] || [userid isEqualToString:@""]) {
         errorMessage.text = @"Userid and Password required";
     } else {
-        [self startSignon];
+        if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+            UIAlertView *alert = [[UIAlertView alloc] 
+                                  initWithTitle: @"No Internet Access"
+                                  message: @"We are not able to connect to Twitter.  Please make sure you have Internet access."
+                                  delegate: nil
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+        } else {
+            [self startSignon];
+        }
     }
 }
 

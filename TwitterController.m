@@ -16,6 +16,7 @@
 #import "TweetViewController.h"
 #import "TwitterAccountPickViewController.h"
 #import "TweetLogViewController.h"
+#import "Reachability.h"
 
 @implementation TwitterController
 @synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, autoTweetSegmentedControl, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
@@ -27,18 +28,29 @@
             [TweetViewController alertNoAccount: nil];
         } 
     }
-    [[Tweeter getCurrent] setAutoTweetLevel:self.autoTweetSegmentedControl.selectedSegmentIndex];
+    AutoTweetLevel level = self.autoTweetSegmentedControl.selectedSegmentIndex;
+    if (level != NoAutoTweet && [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        [self showNoConnectivityAlert];
+        self.autoTweetSegmentedControl.selectedSegmentIndex = NoAutoTweet;
+        return;
+    } else {
+        [[Tweeter getCurrent] setAutoTweetLevel:level];
+    }
 }
 
 -(IBAction)tweetButtonClicked: (id) sender; {
-    // Create the view controller
-    TweetViewController* tweetController = [[TweetViewController alloc] init];
-    if (![[Tweeter getCurrent] isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
-        [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [[Tweeter getCurrent] getGameScoreDescription: [Game getCurrentGame]]]];
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        [self showNoConnectivityAlert];
+    } else {
+        // Create the view controller
+        TweetViewController* tweetController = [[TweetViewController alloc] init];
+        if (![[Tweeter getCurrent] isTweetingEvents]) {  // don't add the score if we are tweeting events...they'll get it via other tweets
+            [tweetController setInitialText: [NSString stringWithFormat:@"%@.  ", [[Tweeter getCurrent] getGameScoreDescription: [Game getCurrentGame]]]];
+        }
+        
+        // Show the controller
+        [self.navigationController pushViewController:tweetController animated: YES];
     }
-    
-    // Show the controller
-    [self.navigationController pushViewController:tweetController animated: YES];
 }
 
 
@@ -79,6 +91,16 @@
         [self.navigationController pushViewController:logController animated:YES];                                
     }
 } 
+
+- (void)showNoConnectivityAlert {
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: @"No Internet Access"
+                          message: @"We are not able to connect to Twitter.  Please make sure you have Internet access."
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
+}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

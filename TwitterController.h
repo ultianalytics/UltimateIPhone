@@ -28,5 +28,6 @@
 -(IBAction)autoTweetChanged: (id) sender;
 -(IBAction)tweetButtonClicked: (id) sender;
 -(void)populateViewFromModel;
+-(void)showNoConnectivityAlert;
 
 @end

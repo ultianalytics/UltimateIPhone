@@ -10,6 +10,7 @@
 		1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */; };
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1A2DC207154B7A6B00C59C2A /* ASIHTTPRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
 		1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */; };
 		1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
@@ -217,6 +218,7 @@
 		1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A2DA03A15458AE200D59B29 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1A2DA03B15458AE200D59B29 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ASIHTTPRequest.framework; sourceTree = "<group>"; };
 		1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamDownloadPickerViewController.xib; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */,
 				1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */,
 				1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */,
+				1A2DC207154B7A6B00C59C2A /* ASIHTTPRequest.framework in Frameworks */,
 				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
 				1AFFE89615175EB0004B4590 /* libTestFlight.a in Frameworks */,
 			);
@@ -639,6 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
+				1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */,
 				1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */,
 				1AE66A131522769B000965B5 /* Accounts.framework */,
 				1AE669D21520012C000965B5 /* Twitter.framework */,
@@ -1339,7 +1343,13 @@
 		1A66EDEE15176F7D00BBD682 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
@@ -1348,6 +1358,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1400,6 +1411,10 @@
 		1AFFE7A415175D4A004B4590 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
@@ -1416,6 +1431,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";

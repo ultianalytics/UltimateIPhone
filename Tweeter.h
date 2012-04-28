@@ -13,7 +13,7 @@
 @class ACAccount;
 @class Tweet;
 typedef enum {
-    NoAutoTweet,
+    NoAutoTweet = 0,
     TweetGoals,
     TweetGoalsAndTurns
 } AutoTweetLevel;

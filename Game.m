@@ -37,7 +37,7 @@
 static Game* currentGame = nil;
 
 @implementation Game
-@synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, opponentName, tournamentName, startDateTime,wind,gamePoint;
+@synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, opponentName, tournamentName, startDateTime,wind,gamePoint,firstEventTweeted;
 
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
@@ -574,7 +574,7 @@ static Game* currentGame = nil;
     if ([[point getEvents] count] == 1) {
         [[Tweeter getCurrent] tweetFirstEventOfPoint:event forGame:self point:point isUndo:isUndo];
     } else {
-        [[Tweeter getCurrent] tweetEvent:event forGame:self isUndo:isUndo];
+        [[Tweeter getCurrent] tweetEvent:event forGame:self point:point isUndo:isUndo];
     }
 }
 

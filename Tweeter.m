@@ -19,6 +19,25 @@
 #import "Player.h"
 #import "UPoint.h"
 
+#pragma mark - Private Method Category
+
+@interface Tweeter() 
+
+-(void)tweetFirstEventOfGameIfNecessary:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
+-(void)updateGameTweeted:(Game*) game event: (Event*) event undo: (BOOL) isUndo;
+-(BOOL)hasGameBeenTweeted:(Game*) game;
+-(NSString*)gameBeginTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
+-(NSString*)pointBeginTweetMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
+-(NSString*)goalTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
+-(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
+-(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
+-(NSString*)gameOverTweetMessageForGame: (Game*) game;
+-(NSString*)getTime;
+
+@end
+
+#pragma mark - Implementation
+
 static Tweeter* current = nil;
 
 @implementation Tweeter
@@ -61,8 +80,9 @@ NSDateFormatter* timeFormatter;
             [Team getCurrentTeam].name : [Game getCurrentGame].opponentName];
 }
 
--(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo { 
+-(void)tweetEvent:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
     if ([self isTweetingEvents]) {
+        [self tweetFirstEventOfGameIfNecessary:event forGame:game point:point isUndo:isUndo];
         if ([event isGoal]) {
             NSString* message = [self goalTweetMessage:event forGame:game isUndo:isUndo]; 
             Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"Event"];
@@ -76,6 +96,7 @@ NSDateFormatter* timeFormatter;
                 tweet.associatedEvent = event;
                 [self tweet: tweet];
             }
+            [self updateGameTweeted:game event: event undo: isUndo];
         } else if ([event isTurnover] && [self getAutoTweetLevel] == TweetGoalsAndTurns) {
             NSString* message = [self turnoverTweetMessage:event forGame:game isUndo:isUndo]; 
             Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"Event"];
@@ -83,27 +104,23 @@ NSDateFormatter* timeFormatter;
             tweet.associatedEvent = event;
             tweet.isOptional = YES;
             [self tweet: tweet]; 
+            [self updateGameTweeted:game event: event undo: isUndo];
         }
     }
 }
 
 -(void)tweetFirstEventOfPoint:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
     if ([self isTweetingEvents]) {
-        if ([game isFirstPoint:point]) {
-            NSString* message = [self gameBeginTweetMessage:event forGame: game isUndo: isUndo];
-            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewGame"];
-            tweet.isUndo = isUndo;
-            tweet.associatedEvent = event;
-            [self tweet: tweet]; 
-        }
+        [self tweetFirstEventOfGameIfNecessary:event forGame:game point:point isUndo:isUndo];
         NSString* message = [self pointBeginTweetMessage:event forGame: game point: point isUndo: isUndo];
         Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewPoint"];
         tweet.isUndo = isUndo;
         tweet.associatedEvent = event;
         [self tweet: tweet]; 
         if ([event isGoal] || [event isTurnover]) {
-            [self tweetEvent:event forGame:game isUndo:isUndo];
+            [self tweetEvent:event forGame:game point:point isUndo:isUndo];
         }
+        [self updateGameTweeted:game event: event undo: isUndo];
     }
 }
 
@@ -112,6 +129,25 @@ NSDateFormatter* timeFormatter;
         NSString* message = [self gameOverTweetMessageForGame:game];
         Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"GameOver"];
         [self tweet: tweet]; 
+    }
+}
+
+-(void)tweetFirstEventOfGameIfNecessary:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
+    if (![self hasGameBeenTweeted:game] || (isUndo && [game.firstEventTweeted isEqual:event])) {
+        if ([game isFirstPoint:point]) {
+            NSString* message = [self gameBeginTweetMessage:event forGame: game isUndo: isUndo];
+            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewGame"];
+            tweet.isUndo = isUndo;
+            tweet.associatedEvent = event;
+            [self tweet: tweet]; 
+        } else {
+            NSString* message = [self gameBeginInProgressTweetMessage:event forGame: game isUndo: isUndo];
+            Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewInProgressGame"];
+            tweet.isUndo = isUndo;
+            tweet.associatedEvent = event;
+            [self tweet: tweet]; 
+        }
+        [self updateGameTweeted:game event: event undo: isUndo];
     }
 }
 
@@ -134,6 +170,21 @@ NSDateFormatter* timeFormatter;
                 [[TweetQueue getCurrent] addTweet: tweet];
             }
         }];
+    }
+}
+
+-(BOOL)hasGameBeenTweeted:(Game*) game {
+    return game.firstEventTweeted != nil;
+}
+
+-(void)updateGameTweeted:(Game*) game event: (Event*) event undo: (BOOL) isUndo {
+    if (isUndo) {
+        if ([event isEqual:game.firstEventTweeted]) {
+            game.firstEventTweeted = nil;
+        }
+    }
+    else if (!game.firstEventTweeted) {
+        game.firstEventTweeted = event;
     }
 }
 
@@ -207,6 +258,17 @@ NSDateFormatter* timeFormatter;
     } else {
         NSString* windDescription = game.wind && game.wind.mph ? [NSString stringWithFormat: @" Wind: %dmph.", game.wind.mph] : @"";
         message = [NSString stringWithFormat:@"New game vs. %@.  Game point: %d. %@", game.opponentName, game.gamePoint, windDescription];
+    }
+    return message;
+}
+
+-(NSString*)gameBeginInProgressTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
+    NSString* message = nil;
+    if (isUndo) {
+        message = [NSString stringWithFormat: @"New game in progress was a boo-boo...never mind."];
+    } else {
+        NSString* windDescription = game.wind && game.wind.mph ? [NSString stringWithFormat: @" Wind: %dmph.", game.wind.mph] : @"";
+        message = [NSString stringWithFormat:@"New game in progress vs. %@.  Game point: %d.%@ Current score: %@.", game.opponentName, game.gamePoint, windDescription, [self getGameScoreDescription:game]];
     }
     return message;
 }

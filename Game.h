@@ -28,6 +28,7 @@
 @property (nonatomic) BOOL isFirstPointOline;
 @property (nonatomic, strong) Wind* wind;
 @property (nonatomic) int gamePoint;
+@property (nonatomic, weak) Event* firstEventTweeted; // transient
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;

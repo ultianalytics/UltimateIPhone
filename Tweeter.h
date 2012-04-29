@@ -24,7 +24,7 @@ typedef enum {
 
 -(void)tweet:(Tweet*) tweet;    
 -(void)tweetFirstEventOfPoint:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
--(void)tweetEvent:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
+-(void)tweetEvent:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
 -(void)tweetGameOver:(Game*) game;
 -(NSArray*)getRecentTweetActivity;
 -(NSArray*)getTwitterAccounts;
@@ -35,15 +35,6 @@ typedef enum {
 -(BOOL)isTweetingEvents;
 -(AutoTweetLevel)getAutoTweetLevel;
 -(void)setAutoTweetLevel:(AutoTweetLevel) level;
-
-// private
 -(NSString*)getGameScoreDescription: (Game*) game;
--(NSString*)gameBeginTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
--(NSString*)pointBeginTweetMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
--(NSString*)goalTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
--(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
--(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
--(NSString*)gameOverTweetMessageForGame: (Game*) game;
--(NSString*)getTime;
 
 @end

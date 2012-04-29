@@ -259,10 +259,12 @@ static Team* currentTeam = nil;
 }
 
 -(void) addPlayer: (Player*) player {
-    if ([self.players containsObject:player]) {
-        [self removePlayer:player]; // don't allow dupes
+    if (![player isAnonymous]) {  // never add the anon player to the team
+        if ([self.players containsObject:player]) {
+            [self removePlayer:player]; // don't allow dupes
+        }
+        [self.players addObject:player];
     }
-    [self.players addObject:player];
     
 }
 -(void) removePlayer: (Player*) player {

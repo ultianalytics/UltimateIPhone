@@ -81,7 +81,7 @@ static AnonymousPlayer* singleAnonymous = nil;
 
 
 -(BOOL) isAnonymous {
-    return false;
+    return [self.name isEqualToString:[Player getAnonymous].name];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder { 

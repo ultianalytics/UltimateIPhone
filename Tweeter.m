@@ -116,6 +116,7 @@ NSDateFormatter* timeFormatter;
         Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", message, [self getTime]] type:@"NewPoint"];
         tweet.isUndo = isUndo;
         tweet.associatedEvent = event;
+        tweet.isOptional = YES;
         [self tweet: tweet]; 
         if ([event isGoal] || [event isTurnover]) {
             [self tweetEvent:event forGame:game point:point isUndo:isUndo];

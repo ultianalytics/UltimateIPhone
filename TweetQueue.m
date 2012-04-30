@@ -14,7 +14,7 @@
 #define kSendWaitSeconds 10.0
 #define kTimerIntervalSeconds 3.0
 #define kRecentTweetExpireSeconds 1800
-#define kMaxRecentsTweetsAllowed 50
+#define kMaxRecentsTweetsAllowed 20
 
 static TweetQueue* current = nil;
 

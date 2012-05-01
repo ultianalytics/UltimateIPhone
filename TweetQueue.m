@@ -33,6 +33,14 @@ static TweetQueue* current = nil;
     if (self) {
         queue = [[NSMutableArray alloc] init];
         recentTweets = [[NSMutableArray alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(stopTimer) 
+                                                     name: UIApplicationWillResignActiveNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(start) 
+                                                     name: UIApplicationDidBecomeActiveNotification
+                                                   object: nil];        
     }
     return self;
 }
@@ -40,6 +48,7 @@ static TweetQueue* current = nil;
 -(void)start {
     if (!timer) {
         timer = [NSTimer scheduledTimerWithTimeInterval:kTimerIntervalSeconds target:self selector:@selector(timePassed:) userInfo:nil repeats:YES];
+        NSLog(@"Tweet Queue Timer STARTED");
     }
 }
 
@@ -100,6 +109,7 @@ static TweetQueue* current = nil;
     if (timer) {
         [timer invalidate];
         timer = nil;
+        NSLog(@"Tweet Queue Timer STOPPED");
     }
 }
 

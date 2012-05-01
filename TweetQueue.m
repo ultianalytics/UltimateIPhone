@@ -170,14 +170,16 @@ static TweetQueue* current = nil;
         // Block handler to manage the response
         [postRequest  performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) 
          {
-             NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
              if ([urlResponse statusCode] == 200) {
                  tweet.status = TweetSent;
+                 DebugLog(@"Tweet successful: %@", tweet.message);
              } else if ([urlResponse statusCode] == 403) {
                  tweet.status = TweetIgnored;
+                 DebugLog(@"Tweet rejected by Twitter: %@", tweet.message);
              } else {
                  tweet.status = TweetFailed;
                  tweet.error = [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]];
+                 DebugLog(@"Tweet error %@ when sending to Twitter: %@", tweet.error, tweet.message);
              }
          }];
     }

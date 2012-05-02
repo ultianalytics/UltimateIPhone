@@ -137,7 +137,9 @@
     self.navigationItem.leftBarButtonItem = playersNavBarItem;
     
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleBordered target:self action:@selector(sendTweet)];
-    self.navigationItem.rightBarButtonItem = historyNavBarItem;    
+    self.navigationItem.rightBarButtonItem = historyNavBarItem;  
+    self.navigationItem.rightBarButtonItem.tag = 44;
+    historyNavBarItem.tag = 55;
 }
 
 - (void)viewWillAppear:(BOOL)animated

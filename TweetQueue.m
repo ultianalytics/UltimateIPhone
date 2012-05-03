@@ -18,6 +18,18 @@
 
 static TweetQueue* current = nil;
 
+@interface  TweetQueue()
+
+// private
+-(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
+-(void)sendTweetLimited: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
+-(void)sendTweet: (Tweet*) tweet;
+-(void)sendReadyTweets: (BOOL)onlyReady;
+-(void)logTweet: (Tweet*) tweet;
+-(void)expireRecentTweets;
+
+@end
+
 @implementation TweetQueue
 
 +(void)initialize {
@@ -33,35 +45,15 @@ static TweetQueue* current = nil;
     if (self) {
         queue = [[NSMutableArray alloc] init];
         recentTweets = [[NSMutableArray alloc] init];
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(stopTimer) 
-                                                     name: UIApplicationWillResignActiveNotification
-                                                   object: nil];
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(start) 
-                                                     name: UIApplicationDidBecomeActiveNotification
-                                                   object: nil];        
     }
     return self;
 }
 
--(void)start {
-    if (!timer) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:kTimerIntervalSeconds target:self selector:@selector(timePassed:) userInfo:nil repeats:YES];
-        NSLog(@"Tweet Queue Timer STARTED");
-    }
-}
 
 -(void)addTweet: (Tweet*) tweet {
-    @synchronized(queue) {
-        if (!(tweet.isUndo && [self attemptUndoTweet: tweet])) {
-            [queue addObject:tweet];
-            NSLog(@"Tweet %@ added to queue", tweet.message);
-            if (!timer) {
-                [self start];
-            }
-        }
-    }
+        [queue addObject:tweet];
+        NSLog(@"Tweet %@ added to queue", tweet.message);
+        [self sendReadyTweets: YES];
 }
 
 -(NSArray*)getRecents {
@@ -70,46 +62,12 @@ static TweetQueue* current = nil;
     }
 }
 
-- (void)timePassed:(NSTimer*)theTimer {
-    @synchronized(queue) {
-        [self sendReadyTweets];
-    }
-}
-
 // PRIVATE 
 
--(BOOL)attemptUndoTweet: (Tweet*) tweet {
-    Tweet* removedTweet = nil;
-    for (Tweet* previousTweet in queue) {
-        if (previousTweet.associatedEvent == tweet.associatedEvent && [previousTweet.type isEqualToString:tweet.type]) {
-            removedTweet = previousTweet;
-            break;
-        }
-    }
-    if (removedTweet) {
-        [queue removeObject:removedTweet];
-        NSLog(@"Tweet %@ removed (undo) from queue",removedTweet.message);
-    }
-    return removedTweet != nil;
-}
-
--(void)sendReadyTweets {
-    double now = [NSDate timeIntervalSinceReferenceDate];
+-(void)sendReadyTweets: (BOOL)onlyReady {
     NSArray* tweets = [queue copy];
     for (Tweet* tweet in tweets) {
-        if (tweet.isUndo || tweet.isAdHoc || tweet.time + kSendWaitSeconds < now) {
-            [self sendTweet: tweet];
-        } else {
-            break;                
-        } 
-    }
-}
-
--(void)stopTimer {
-    if (timer) {
-        [timer invalidate];
-        timer = nil;
-        NSLog(@"Tweet Queue Timer STOPPED");
+        [self sendTweet: tweet];
     }
 }
 

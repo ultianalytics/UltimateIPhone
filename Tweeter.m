@@ -153,9 +153,6 @@ NSDateFormatter* timeFormatter;
 }
 
 -(void)tweet:(Tweet*) tweet { 
-    // start tweet queue (if not already started)
-    [[TweetQueue getCurrent] start];
-    
     // before we add it to the queue...make sure we have access
     if ([TWTweetComposeViewController canSendTweet]) {
         // Create account store, followed by a twitter account identifier

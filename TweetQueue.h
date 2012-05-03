@@ -14,26 +14,15 @@
 
 @interface TweetQueue : NSObject {
     @private
-    NSTimer* timer;
     NSMutableArray* queue;  // queue of Tweets to post
     NSMutableArray* recentTweets;  // log of recent Tweets sent
 }
 
 // public
 +(TweetQueue*)getCurrent;
--(void)start;
 -(void)addTweet: (Tweet*) tweet;
 -(NSArray*)getRecents;
 
-// private
--(BOOL)attemptUndoTweet: (Tweet*) tweet;
--(void)timePassed:(NSTimer*)theTimer;
--(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
--(void)sendTweetLimited: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
--(void)sendTweet: (Tweet*) tweet;
--(void)sendReadyTweets;
--(void)stopTimer;
--(void)logTweet: (Tweet*) tweet;
--(void)expireRecentTweets;
+
 
 @end

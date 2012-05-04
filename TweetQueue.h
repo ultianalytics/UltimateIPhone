@@ -14,7 +14,6 @@
 
 @interface TweetQueue : NSObject {
     @private
-    NSMutableArray* queue;  // queue of Tweets to post
     NSMutableArray* recentTweets;  // log of recent Tweets sent
 }
 

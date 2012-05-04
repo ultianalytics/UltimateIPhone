@@ -13,8 +13,8 @@
 
 #define kSendWaitSeconds 10.0
 #define kTimerIntervalSeconds 3.0
-#define kRecentTweetExpireSeconds 1800
-#define kMaxRecentsTweetsAllowed 20
+#define kOneHour 3600
+#define kMaxRecentsTweetsAllowedPerHour 60
 
 static TweetQueue* current = nil;
 
@@ -24,9 +24,9 @@ static TweetQueue* current = nil;
 -(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
 -(void)sendTweetLimited: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount;
 -(void)sendTweet: (Tweet*) tweet;
--(void)sendReadyTweets: (BOOL)onlyReady;
 -(void)logTweet: (Tweet*) tweet;
 -(void)expireRecentTweets;
+-(int)currentTweetRatePerHour;
 
 @end
 
@@ -43,7 +43,6 @@ static TweetQueue* current = nil;
 -(id) init  {
     self = [super init];
     if (self) {
-        queue = [[NSMutableArray alloc] init];
         recentTweets = [[NSMutableArray alloc] init];
     }
     return self;
@@ -51,25 +50,19 @@ static TweetQueue* current = nil;
 
 
 -(void)addTweet: (Tweet*) tweet {
-        [queue addObject:tweet];
+    @synchronized(recentTweets) {
         NSLog(@"Tweet %@ added to queue", tweet.message);
-        [self sendReadyTweets: YES];
+        [self sendTweet: tweet];
+    }
 }
 
 -(NSArray*)getRecents {
-    @synchronized(queue) {
-        return [[[queue reverseObjectEnumerator] allObjects] arrayByAddingObjectsFromArray: [[recentTweets reverseObjectEnumerator] allObjects]];
+    @synchronized(recentTweets) {
+        return [[recentTweets reverseObjectEnumerator] allObjects];
     }
 }
 
 // PRIVATE 
-
--(void)sendReadyTweets: (BOOL)onlyReady {
-    NSArray* tweets = [queue copy];
-    for (Tweet* tweet in tweets) {
-        [self sendTweet: tweet];
-    }
-}
 
 -(void)sendTweet: (Tweet*) tweet {
     if ([TWTweetComposeViewController canSendTweet]) {
@@ -106,13 +99,22 @@ static TweetQueue* current = nil;
 
 -(void)sendTweetLimited: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount {
     [self expireRecentTweets];
-    if (tweet.isOptional && [recentTweets count] >= kMaxRecentsTweetsAllowed) {  // too many tweets per hour
+    if (tweet.isOptional && [self currentTweetRatePerHour] > kMaxRecentsTweetsAllowedPerHour) { 
         tweet.status = TweetSkipped;
-        [self logTweet:tweet];
-        [queue removeObject:tweet];
     } else {
         [self sendTweet: tweet toAccount: twitterAccount];
     }
+    [self logTweet: tweet];
+}
+
+-(int)currentTweetRatePerHour {
+    if ([recentTweets count] < 5) {
+        return 0;
+    }
+    int newestTweetTime = ((Tweet*)[recentTweets objectAtIndex:[recentTweets count] - 1]).time;
+    int oldestTweetTime = ((Tweet*)[recentTweets objectAtIndex:0]).time;                                                  
+    int perHour = (3600 / (newestTweetTime - oldestTweetTime)) * [recentTweets count];
+    return perHour;
 }
 
 -(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount {
@@ -147,8 +149,6 @@ static TweetQueue* current = nil;
         tweet.status = TweetFailed;
         tweet.error = exceptionCaught;
     }
-    [self logTweet: tweet];
-    [queue removeObject:tweet];
 }
 
 -(void)logTweet: (Tweet*) tweet {
@@ -156,7 +156,7 @@ static TweetQueue* current = nil;
 }
 
 -(void)expireRecentTweets {
-    double expiredTime = [NSDate timeIntervalSinceReferenceDate] - kRecentTweetExpireSeconds;
+    double expiredTime = [NSDate timeIntervalSinceReferenceDate] - kOneHour;
     NSMutableIndexSet* indicesToRemove = [[NSMutableIndexSet alloc] init];
     for (int i=0; i < [recentTweets count]; i++) {
         Tweet* tweet = [recentTweets objectAtIndex:i];

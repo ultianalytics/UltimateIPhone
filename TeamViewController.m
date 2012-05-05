@@ -242,6 +242,9 @@
 {
     [super viewWillAppear:animated];
     [self populateViewFromModel];
+    if (![team.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 
 }
 

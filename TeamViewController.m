@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "Constants.h"
 #import "TeamViewController.h"
 #import "Team.h"
 #import "TeamDescription.h"
@@ -20,7 +21,7 @@
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
 -(void)populateViewFromModel {
-    [self.teamNameField setText:(team.name == kNoName ? @"" : team.name)];
+    [self.teamNameField setText:([team.name isEqualToString: kAnonymousTeam] ? @"" : team.name)];
     [self.teamTypeSegmentedControl setSelection: team.isMixed ? @"Mixed" : @"Uni"];
     [self.playerDisplayTypeSegmentedControl setSelection: team.isDiplayingPlayerNumber ? @"Number" : @"Name"];    
     self.deleteButton.hidden = ![team hasBeenSaved];

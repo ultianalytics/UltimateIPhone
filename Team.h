@@ -10,7 +10,6 @@
 @class Player;
 #define kTeamIdKey          @"teamId"
 #define kCloudIdKey         @"cloudId"
-#define kNoName             @"ANONYMOUS TEAM"
 
 @interface Team : NSObject 
 

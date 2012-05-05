@@ -12,6 +12,7 @@
 #define kMaxNicknameLength 8
 #define kMaxTeamNameLength 18
 #define kNoAccountText @"NO TWITTER ACCOUNT"
+#define kAnonymousTeam @"Anonymous Team"
 
 @interface Constants : NSObject
 

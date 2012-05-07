@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */; };
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
+		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A2DC207154B7A6B00C59C2A /* ASIHTTPRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
@@ -216,6 +217,7 @@
 		1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDownloadPickerViewController.xib; sourceTree = "<group>"; };
 		1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDownloadPickerViewController.h; sourceTree = "<group>"; };
+		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
 		1A2DA03A15458AE200D59B29 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1A2DA03B15458AE200D59B29 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ASIHTTPRequest.framework; sourceTree = "<group>"; };
@@ -888,6 +890,7 @@
 		1AFFE8DF151765B7004B4590 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1A0A6C4F1556B5740041C962 /* icon-AppStore.png */,
 				1AB332011544F1B500219FFD /* icon.png */,
 				1AB332021544F1B500219FFD /* icon@2.png */,
 				1AEE549A15293DD30067F539 /* 210-twitterbird.png */,
@@ -1112,6 +1115,7 @@
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
 				1AB332031544F1B500219FFD /* icon.png in Resources */,
 				1AB332041544F1B500219FFD /* icon@2.png in Resources */,
+				1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -50,7 +50,7 @@
 }
 
 -(NSDictionary*) asDictionary {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* dict = [super asDictionary];
     [dict setValue: @"Offense" forKey:kEventTypeProperty];
     [dict setValue: self.action == Catch ? @"Catch" :  self.action == Drop ? @"Drop" : self.action == Goal ? @"Goal" : @"Throwaway" forKey:kActionKey];
     [dict setValue: self.passer.name forKey:kPasserKey];

@@ -36,6 +36,19 @@
 
 static Game* currentGame = nil;
 
+@interface Game() 
+
++(NSString*)getDirectoryPath: (NSString*) teamId;
++(void)delete: (NSString*) aGameId;
+-(void)updateLastLine: (Event*) event;
+-(void)addPoint: (UPoint*) point;
+-(void)updatePointSummaries;
+-(Score)createScoreForOurs: (int) ours theirs: (int) theirs;
+-(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo;
+-(int)getHalftimePoint;
+
+@end
+
 @implementation Game
 @synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, opponentName, tournamentName, startDateTime,wind,gamePoint,firstEventTweeted;
 
@@ -549,6 +562,11 @@ static Game* currentGame = nil;
     return false;
 }
 
+-(BOOL)isAfterHalftime {
+    [self updatePointSummaries];
+    return ([self getCurrentPoint] != nil && ([self getCurrentPoint].summary.isAfterHalftime));
+}
+
 -(int)getHalftimePoint {
     return ((self.gamePoint == 0 ? kDefaultGamePoint : self.gamePoint) + 1) / 2;
 }
@@ -596,7 +614,11 @@ static Game* currentGame = nil;
                 }
             } 
             point.summary.score = [self createScoreForOurs:score.ours theirs:score.theirs];
-            point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint]<= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
+            if (self.isTimeBasedEnd) {
+                point.summary.isAfterHalftime = lastPoint && (lastPoint.summary.isAfterHalftime || [[lastPoint getLastEvent] isHalftimeCause]);
+            } else {
+                point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint]<= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
+            }
             BOOL isFirstPointAfterHalftime = lastPoint != nil && point.summary.isAfterHalftime && !lastPoint.summary.isAfterHalftime;
             point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
             point.summary.elapsedSeconds = point.timeEndedSeconds - point.timeStartedSeconds;
@@ -612,5 +634,8 @@ static Game* currentGame = nil;
     arePointSummariesValid = NO;
 }
 
+-(BOOL)isTimeBasedEnd {
+    return gamePoint == kTimeBasedGame;
+}
 
 @end

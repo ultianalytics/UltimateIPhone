@@ -13,6 +13,7 @@
 @class Wind;
 
 #define kDefaultGamePoint 15
+#define kTimeBasedGame    1000
 
 @interface Game : NSObject {
     BOOL arePointSummariesValid;
@@ -70,20 +71,11 @@
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBePull;
 -(NSArray*)getPlayers;
+-(BOOL)isAfterHalftime;
 -(BOOL)isNextEventImmediatelyAfterHalftime;
--(int)getHalftimePoint;
 -(int)getLeadingScore;
 -(NSMutableDictionary*) asDictionary;
-
-// private
-+(NSString*)getDirectoryPath: (NSString*) teamId;
--(void)updateLastLine: (Event*) event;
--(void)addPoint: (UPoint*) point;
-+(void)delete: (NSString*) aGameId;
--(void)updatePointSummaries;
+-(BOOL)isTimeBasedEnd;
 -(void)clearPointSummaries;
--(Score)createScoreForOurs: (int) ours theirs: (int) theirs;
--(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo;
-
 
 @end

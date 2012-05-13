@@ -39,7 +39,6 @@
 -(void) refreshTitle: (Event*) event;
 -(void) updateNavBarTitle;
 -(void) updateViewFromGame: (Game*) game;
--(void) halftimeWarning;
 -(void) gameOverConfirm;
 -(void) updateAutoTweetingNotice;
 
@@ -82,9 +81,6 @@
     [self refreshTitle: event];
     [[Game getCurrentGame] save]; 
     if ([event causesDirectionChange]) {
-        if ([[Game getCurrentGame] isNextEventImmediatelyAfterHalftime]) {
-            [self halftimeWarning];
-        }
         [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
         if ([event causesLineChange]) {
             [self goToPlayersOnFieldView];
@@ -368,18 +364,6 @@
     for (PlayerView* playerView in playerViews) {
         [playerView update:game];
     }
-}
-
--(void)halftimeWarning {
-    NSString* message = [[Game getCurrentGame] isCurrentlyOline] ? @"Our team will RECEIVE on the next point" : @"Our team will DEFEND on the next point";
-    NSString* windReminder = [[Game getCurrentGame].wind isSpecified] ? @"\n\nREMINDER: check wind speed" : @"";        
-    UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle:@"Half Time!" 
-                          message: [NSString stringWithFormat:@"%@%@", message, windReminder]
-                          delegate:self 
-                          cancelButtonTitle:@"OK" 
-                          otherButtonTitles:nil]; 
-    [alert show];
 }
 
 -(void)gameOverConfirm {

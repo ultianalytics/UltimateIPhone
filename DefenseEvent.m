@@ -54,7 +54,7 @@
 }
 
 -(NSDictionary*) asDictionary {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* dict = [super asDictionary];
     [dict setValue: @"Defense" forKey:kEventTypeProperty];
     [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : @"Calahan" forKey:kActionKey];
     [dict setValue: self.defender.name forKey:kDefenderKey];

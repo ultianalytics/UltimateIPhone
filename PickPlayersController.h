@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray* benchTableCells;
 @property (nonatomic, strong) IBOutlet UIView* fieldView;
 @property (nonatomic, strong) IBOutlet UIButton* lastLineButton;
+@property (strong, nonatomic) IBOutlet UIButton *halftimeButton;
 @property (nonatomic, strong) IBOutlet UILabel* errorMessageLabel;
 @property (nonatomic, strong) NSMutableArray* fieldButtons;
 @property (nonatomic, strong) NSMutableArray* benchButtons;
@@ -29,9 +30,10 @@
 
 - (NSMutableArray*) initializePlayersViewCount: (int)numberOfButtons players: (NSArray*) players isField: (BOOL)isField;
 - (void) clearFieldView;
-- (IBAction)lastLineClicked:(id)button;
-- (IBAction)clearClicked:(id)button;
-- (void) intializeForLineType;
+- (IBAction) lastLineClicked:(id)button;
+- (IBAction) clearClicked:(id)button;
+- (void) setupLineTypeButton;
+- (void) setupHalftimeButton;
 - (void) benchPlayerClicked:(id)playerButton;
 - (void) fieldPlayerClicked:(id)playerButton;
 - (void) updateBenchView;
@@ -44,6 +46,8 @@
 - (void) updateGameCurrentLineFromView;
 - (BOOL) willGenderBeUnbalanced: (Player*) newPlayer;
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance;
+- (IBAction) halftimeButtonClicked:(id)sender;
+- (void) populateUI;
 
 
 - (void) dumpBenchView; // debug help

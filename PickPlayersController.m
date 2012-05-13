@@ -16,8 +16,19 @@
 #import "Player.h"
 #import "PlayerButton.h"
 #import "PlayerStat.h"
+#import "Event.h"
+#import "Wind.h"
+
+#define kSetHalfimeText @"Halftime"
+#define kUndoHalfimeText @"Undo Half"
+@interface PickPlayersController()
+
+-(void)halftimeWarning;
+
+@end
 
 @implementation PickPlayersController
+@synthesize halftimeButton;
 @synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,16 +47,30 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void) intializeForLineType {
+- (void)populateUI {
+    [self loadPlayerButtons];
+    [self updateBenchView];
+    [self setupLineTypeButton];
+    [self setupHalftimeButton];
+}
+
+
+- (void) setupLineTypeButton {
     NSString* title = [self shouldDisplayOline] ? @"Last O-Line" :  @"Last D-Line";
     [self.lastLineButton setTitle:title forState:UIControlStateNormal];
+}
+
+- (void) setupHalftimeButton; {
+    self.halftimeButton.hidden = [game isAfterHalftime]  || ![[game getLastEvent] isGoal];
+    if (!self.halftimeButton.hidden) {
+        [self.halftimeButton setTitle:[[game getLastEvent] isHalftimeCause] ? kUndoHalfimeText : kSetHalfimeText forState:UIControlStateNormal];
+    }
 }
 
 -(void) loadPlayerButtons {
     self.fieldButtons = [self initializePlayersViewCount: 7 players: 
                          [[Game getCurrentGame] getCurrentLineSorted] isField: true];
     self.benchButtons = [self initializePlayersViewCount: [[Team getCurrentTeam].players count] players: [self getCurrentTeamPlayers] isField: false];
-    
 }
 
 -(void)updateBenchView {
@@ -244,7 +269,6 @@
         NSNumber* pointFactor = [pointFactorPerPlayer objectForKey: [player getId]];
         [button setPlayer:player points:(playerPoints == nil ? 0 : playerPoints.number.intValue) pointFactor:(pointFactor == nil ? 0 : pointFactor.floatValue)];
     }
-    
 }
 
 - (void) loadPlayerStats {
@@ -276,6 +300,7 @@
 
 - (void)viewDidUnload
 {
+    [self setHalftimeButton:nil];
     [super viewDidUnload];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     // Release any retained subviews of the main view.
@@ -292,10 +317,10 @@
 {
     if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
         [super viewWillAppear:animated];
-        [self loadPlayerStats];
-        [self loadPlayerButtons];
-        [self updateBenchView];
-        [self intializeForLineType];
+        [self populateUI];
+        if ([game isNextEventImmediatelyAfterHalftime] && ![game isTimeBasedEnd]) {
+            [self halftimeWarning];
+        }
     } else {
         [self.navigationController popViewControllerAnimated:NO];
     }
@@ -308,6 +333,28 @@
     [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
 }
 
+- (IBAction)halftimeButtonClicked:(UIButton*)button {
+    Event* lastEvent = [game getLastEvent];
+    if ([lastEvent isGoal]) {
+        [game getLastEvent].isHalftimeCause = [button.titleLabel.text isEqualToString:kSetHalfimeText];
+        [self populateUI];
+        if ([game getLastEvent].isHalftimeCause) {
+            [self halftimeWarning];
+        }
+    }
+}
+
+-(void)halftimeWarning {
+    NSString* message = [[Game getCurrentGame] isCurrentlyOline] ? @"Our team will RECEIVE on the next point" : @"Our team will DEFEND on the next point";
+    NSString* windReminder = [[Game getCurrentGame].wind isSpecified] ? @"\n\nREMINDER: check wind speed" : @"";        
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle:@"Half Time!" 
+                          message: [NSString stringWithFormat:@"%@%@", message, windReminder]
+                          delegate:self 
+                          cancelButtonTitle:@"OK" 
+                          otherButtonTitles:nil]; 
+    [alert show];
+}
 
 @end
 

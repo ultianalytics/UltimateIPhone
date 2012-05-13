@@ -91,7 +91,9 @@
             game.gamePoint = kDefaultGamePoint;
         }
     } 
-    int segmentIndex = (game.gamePoint - kLowestGamePoint) / 2;
+    
+    // kTimeBasedGame is last segment in UI 
+    int segmentIndex = game.gamePoint == kTimeBasedGame ? self.gamePointsSegmentedControl.numberOfSegments - 1 : (game.gamePoint - kLowestGamePoint) / 2;      
     if (segmentIndex < 0) {
         segmentIndex = 0;
     }
@@ -178,11 +180,12 @@
 
 -(IBAction)gamePointChanged: (id) sender {
     [self dismissKeyboard];
-    int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint; 
-    [Preferences getCurrentPreferences].gamePoint =gamePoint;
+    // "time" is last segment in UI but is 0 in game
+    int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex == (self.gamePointsSegmentedControl.numberOfSegments - 1)) ? kTimeBasedGame : (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint; 
+    [Preferences getCurrentPreferences].gamePoint = gamePoint;
     [[Preferences getCurrentPreferences] save];
     game.gamePoint = gamePoint;
-     [self saveChanges];
+    [self saveChanges];
 }
 
 -(NSString*) getText: (UITextField*) textField {

@@ -20,8 +20,10 @@ typedef enum {
 #define kActionKey              @"action"
 #define kEventTypeProperty      @"type"
 
+
 @interface Event : NSObject <NSCoding>
 @property Action action;
+@property BOOL isHalftimeCause;
 
 + (Event*) fromDictionary:(NSDictionary*) dict;
 
@@ -37,7 +39,7 @@ typedef enum {
 - (BOOL) isNextEventOffense;
 - (NSArray*) getPlayers;
 - (void)useSharedPlayers;
-- (NSDictionary*) asDictionary;
+- (NSMutableDictionary*) asDictionary;
 
 
 @end

@@ -330,8 +330,9 @@
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
     [errorMessageLabel setTextColor: isMaleImbalance ? [UIColor blueColor] : [UIColor redColor]];
-    errorMessageLabel.text = isMaleImbalance ? @"too many guys" : @"too many gals";
+    errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
     errorMessageLabel.alpha = 1;
+    errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
     [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
 }
 

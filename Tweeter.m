@@ -30,7 +30,7 @@
 -(NSString*)pointBeginTweetMessage:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo;
 -(NSString*)goalTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
 -(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
--(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo;
+-(NSString*)halftimeTweetMessageIsUndo: (BOOL) isUndo;
 -(NSString*)gameOverTweetMessageForGame: (Game*) game;
 -(NSString*)getTime;
 
@@ -90,7 +90,7 @@ NSDateFormatter* timeFormatter;
             tweet.associatedEvent = event;
             [self tweet: tweet];
             if ([game isNextEventImmediatelyAfterHalftime]) {
-                NSString* halftimeMessage = [self halftimeTweetMessage:event forGame:game isUndo:isUndo]; 
+                NSString* halftimeMessage = [self halftimeTweetMessageIsUndo: isUndo]; 
                 Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", halftimeMessage, [self getTime]] type:@"Halftime"];
                 tweet.isUndo = isUndo;
                 tweet.associatedEvent = event;
@@ -107,6 +107,13 @@ NSDateFormatter* timeFormatter;
             [self updateGameTweeted:game event: event undo: isUndo];
         }
     }
+}
+
+-(void)tweetHalftimeWithoutEvent {
+    NSString* halftimeMessage = [self halftimeTweetMessageIsUndo:NO]; 
+    Tweet* tweet = [[Tweet alloc] initMessage:[NSString stringWithFormat:@"%@  %@", halftimeMessage, [self getTime]] type:@"Halftime"];
+    tweet.isUndo = NO;
+    [self tweet: tweet];
 }
 
 -(void)tweetFirstEventOfPoint:(Event*) event forGame: (Game*) game point: (UPoint*) point isUndo: (BOOL) isUndo {
@@ -310,7 +317,7 @@ NSDateFormatter* timeFormatter;
     return message;
 }
 
--(NSString*)halftimeTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
+-(NSString*)halftimeTweetMessageIsUndo: (BOOL) isUndo {
     return isUndo ? @"\"Halftime\" was a boo-boo...never mind." : @"Halftime.";
 }
 

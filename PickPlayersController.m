@@ -18,6 +18,7 @@
 #import "PlayerStat.h"
 #import "Event.h"
 #import "Wind.h"
+#import "Tweeter.h"
 
 #define kSetHalfimeText @"Halftime"
 #define kUndoHalfimeText @"Undo Half"
@@ -355,6 +356,9 @@
                           cancelButtonTitle:@"OK" 
                           otherButtonTitles:nil]; 
     [alert show];
+    if ([[Tweeter getCurrent] isTweetingEvents]) {
+        [[Tweeter getCurrent] tweetHalftimeWithoutEvent];
+    }
 }
 
 @end

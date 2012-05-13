@@ -35,8 +35,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        NSString* title = [self shouldDisplayOline] ? @"O-Line" :  @"D-Line";
-        self.title = NSLocalizedString(title, title);
     }
     return self;
 }
@@ -50,14 +48,16 @@
 - (void)populateUI {
     [self loadPlayerButtons];
     [self updateBenchView];
-    [self setupLineTypeButton];
+    [self populateLineType];
     [self setupHalftimeButton];
 }
 
 
-- (void) setupLineTypeButton {
+- (void) populateLineType {
     NSString* title = [self shouldDisplayOline] ? @"Last O-Line" :  @"Last D-Line";
     [self.lastLineButton setTitle:title forState:UIControlStateNormal];
+    NSString* viewTitle = [self shouldDisplayOline] ? @"O-Line" :  @"D-Line";
+    self.title = viewTitle;
 }
 
 - (void) setupHalftimeButton; {
@@ -315,8 +315,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
-        [super viewWillAppear:animated];
+        [self loadPlayerStats];
         [self populateUI];
         if ([game isNextEventImmediatelyAfterHalftime] && ![game isTimeBasedEnd]) {
             [self halftimeWarning];

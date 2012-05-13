@@ -555,11 +555,15 @@ static Game* currentGame = nil;
 }
 
 -(BOOL)isNextEventImmediatelyAfterHalftime {
-    [self updatePointSummaries];
-    if ([self getCurrentPoint] != nil && [[self getCurrentPoint] isFinished] && (![self getCurrentPoint].summary.isAfterHalftime)) {
-        return [self getLeadingScore] == [self getHalftimePoint];
+    if (self.isTimeBasedEnd) {
+        return [self hasEvents] && [[self getLastEvent] isHalftimeCause];
+    } else {
+        [self updatePointSummaries];
+        if ([self getCurrentPoint] != nil && [[self getCurrentPoint] isFinished] && (![self getCurrentPoint].summary.isAfterHalftime)) {
+            return [self getLeadingScore] == [self getHalftimePoint];
+        }
+        return false;
     }
-    return false;
 }
 
 -(BOOL)isAfterHalftime {

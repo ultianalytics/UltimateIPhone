@@ -32,7 +32,7 @@
 - (void) clearFieldView;
 - (IBAction) lastLineClicked:(id)button;
 - (IBAction) clearClicked:(id)button;
-- (void) setupLineTypeButton;
+- (void) populateLineType;
 - (void) setupHalftimeButton;
 - (void) benchPlayerClicked:(id)playerButton;
 - (void) fieldPlayerClicked:(id)playerButton;

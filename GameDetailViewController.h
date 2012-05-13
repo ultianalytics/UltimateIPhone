@@ -44,7 +44,6 @@
 -(IBAction)firstLineChanged: (id) sender; 
 -(IBAction)gamePointChanged: (id) sender; 
 -(NSString*)getText: (UITextField*) textField;
--(IBAction) makeCurrentClicked: (id) sender;
 -(IBAction) deleteClicked: (id) sender;
 -(BOOL)verifyOpponentName;
 -(void)populateUIFromModel;

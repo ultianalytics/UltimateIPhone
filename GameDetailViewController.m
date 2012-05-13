@@ -27,11 +27,6 @@
     [self.navigationController pushViewController:gameController animated:YES]; 
 }
 
--(IBAction) makeCurrentClicked: (id) sender {
-    [Game setCurrentGame:game.gameId];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 -(IBAction) deleteClicked: (id) sender {
     // Show the confirmation.
     UIAlertView *alert = [[UIAlertView alloc] 
@@ -50,6 +45,7 @@
         game.tournamentName = tournamentNameField.text;
         [game save];
         [Game setCurrentGame:game.gameId];
+        self.game = [Game getCurrentGame];  
         [self upateViewTitle];
         [self goToActionView];
     }

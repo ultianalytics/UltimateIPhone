@@ -18,6 +18,12 @@
 #import "TweetLogViewController.h"
 #import "Reachability.h"
 
+@interface TwitterController()
+
+-(void)populateAccountCell;
+
+@end
+
 @implementation TwitterController
 @synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, autoTweetSegmentedControl, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
 
@@ -66,10 +72,13 @@
 
 -(void)populateViewFromModel {;
     self.autoTweetSegmentedControl.selectedSegmentIndex = [[Tweeter getCurrent] getAutoTweetLevel];
+    [twitterTableView reloadData];
+}
+
+-(void)populateAccountCell {
     NSString* currentAccount = [[Tweeter getCurrent] getTwitterAccountName];
     self.twitterAccountNameLabel.text = currentAccount == nil ? kNoAccountText : currentAccount;
     self.twitterAccountCell.accessoryType = currentAccount == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    [twitterTableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -87,6 +96,9 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell* cell = [twitterCells objectAtIndex:[indexPath row]];
+    if (cell == self.twitterAccountCell) {
+        [self populateAccountCell];
+    }
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }

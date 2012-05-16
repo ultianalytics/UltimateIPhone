@@ -105,7 +105,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-         self.title = NSLocalizedString(@"Cloud Signon", @"Cloud Signon");
+
     }
     return self;
 }
@@ -124,8 +124,8 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
+    self.title = NSLocalizedString(@"Cloud Signon", @"Cloud Signon");    
     self.passwordField.secureTextEntry = YES;
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {

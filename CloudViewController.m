@@ -319,7 +319,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Cloud", @"Cloud");
     }
     return self;
 }
@@ -347,6 +346,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.title = NSLocalizedString(@"Cloud", @"Cloud");
     [self populateViewFromModel];
     if (signonController) {
         if (signonController.isSignedOn) {

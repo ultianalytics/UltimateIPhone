@@ -86,6 +86,17 @@ UINavigationController* gameNavController;
     [gameNavController popToRootViewControllerAnimated:NO];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if (!url) {  
+        return NO; 
+    }
+    
+    NSString *urlString = [url absoluteString];
+    NSLog(@"app opening via registered URL %@", urlString);
+
+    return YES;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*

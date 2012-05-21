@@ -101,6 +101,7 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getBenchRowColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         UIView* contentView = cell.contentView;
         // remove the normal views

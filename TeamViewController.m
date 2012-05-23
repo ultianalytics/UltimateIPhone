@@ -16,9 +16,16 @@
 #import "TeamPlayersViewController.h"
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
+#import "Scrubber.h"
+
+@interface TeamViewController()
+
+-(void)createScrubButton;
+
+@end
 
 @implementation TeamViewController
-@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
+@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers,createScrubbedVersionButton;
 
 -(void)populateViewFromModel {
     [self.teamNameField setText:([team.name isEqualToString: kAnonymousTeam] ? @"" : team.name)];
@@ -187,9 +194,16 @@
     return NO;
 }
 
+
+
 -(void)goToPlayersView: (BOOL) animated {
     TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
     [self.navigationController pushViewController:playersController animated:animated];
+}
+
+- (IBAction)createScrubbedVersionClicked:(id)sender {
+    Scrubber* scrubber = [[Scrubber alloc] init];
+    [scrubber createScrubbedVersionOfActiveTeam];
 }
 
 -(void)goToBestView {
@@ -200,6 +214,17 @@
             [self goToPlayersView: NO];
         }
     }
+}
+
+-(void)createScrubButton {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"Create Scrubbed Version" forState:UIControlStateNormal];
+    CGRect f = CGRectInset(self.view.bounds, 10, 10);
+    f.origin.y = CGRectGetMaxY(f) - 35;
+    f.size.height = 35;
+    button.frame = f;
+    self.createScrubbedVersionButton = button;
+    [self.view addSubview:button];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -228,11 +253,15 @@
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndReturn)];
     self.navigationItem.rightBarButtonItem = saveBarItem;    
 
-	// Do any additional setup after loading the view, typically from a nib.
+#ifdef DEBUG
+    [self createScrubButton];
+#endif
+   
 }
 
 - (void)viewDidUnload
 {
+    [self setCreateScrubbedVersionButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

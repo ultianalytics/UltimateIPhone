@@ -19,4 +19,6 @@
     #define DebugLog( s, ... ) 
 #endif
 
+#define LOG_RECT(title, rect) NSLog(@"rect %@: x=%f,y=%f,width=%f,height=%f", title, rect.origin.x,rect.origin.y, rect.size.width,rect.size.height);
+
 #import "Constants.h"

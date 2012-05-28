@@ -204,6 +204,13 @@
 - (IBAction)createScrubbedVersionClicked:(id)sender {
     Scrubber* scrubber = [[Scrubber alloc] init];
     [scrubber createScrubbedVersionOfActiveTeam];
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: @"Scrub Done"
+                          message: @"Stop the app right now (don't do anything else or scrub data will be corrupt). Then load some games to populate team."
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
 }
 
 -(void)goToBestView {
@@ -225,6 +232,7 @@
     button.frame = f;
     self.createScrubbedVersionButton = button;
     [self.view addSubview:button];
+    [button addTarget:self action:@selector(createScrubbedVersionClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

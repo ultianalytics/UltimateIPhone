@@ -164,10 +164,14 @@ static Game* currentGame = nil;
 }
 
 +(Game*)readGame: (NSString*) gameId {
+    return [self readGame:gameId forTeam:[Team getCurrentTeam].teamId];
+}
+
++(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId {
     if (gameId == nil) {
         return nil;
     }
-    NSString* filePath = [Game getFilePath: gameId]; 
+    NSString* filePath = [Game getFilePath: gameId team:teamId]; 
     
     NSData* data = [[NSData alloc] initWithContentsOfFile: filePath]; 
     if (data == nil) {
@@ -208,8 +212,8 @@ static Game* currentGame = nil;
     return [NSString stringWithFormat:@"%@%@", kGameFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
 }
 
-+ (NSString*)getFilePath: (NSString*) gameId { 
-    NSString* filePath = [NSString stringWithFormat:@"%@/%@", [Game getDirectoryPath: [Team getCurrentTeam].teamId], gameId];
++ (NSString*)getFilePath: (NSString*) gameId team: (NSString *) teamId { 
+    NSString* filePath = [NSString stringWithFormat:@"%@/%@", [Game getDirectoryPath: teamId], gameId];
     return filePath;
 }
 
@@ -241,7 +245,7 @@ static Game* currentGame = nil;
         [[Preferences getCurrentPreferences] save];
         [Game setCurrentGame:nil];
     }
-    NSString *path = [Game getFilePath:aGameId];
+    NSString *path = [Game getFilePath:aGameId team:[Team getCurrentTeam].teamId];
 	NSError *error;
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path])		//Does file exist?
 	{
@@ -325,14 +329,14 @@ static Game* currentGame = nil;
                                  initForWritingWithMutableData:data]; 
     [archiver encodeObject: self forKey:kGameKey]; 
     [archiver finishEncoding]; 
-    BOOL success = [data writeToFile:[Game getFilePath:self.gameId]atomically:YES]; 
+    BOOL success = [data writeToFile:[Game getFilePath:self.gameId team: [Team getCurrentTeam].teamId]atomically:YES]; 
     if (!success) {
         [NSException raise:@"Failed trying to save game" format:@"failed saving game"];
     }
 }
 
 -(BOOL)hasBeenSaved {
-    NSString* filePath = [Game getFilePath: gameId]; 
+    NSString* filePath = [Game getFilePath: gameId team:[Team getCurrentTeam].teamId]; 
 	return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 

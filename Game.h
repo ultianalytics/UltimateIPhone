@@ -38,8 +38,9 @@
 +(void)setCurrentGame: (NSString*) gameId;
 +(void)startNewGame;
 +(Game*)readGame: (NSString*) gameId;
++(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId;
 +(NSArray*)getAllGameFileNames: (NSString*) teamId;
-+(NSString*)getFilePath: (NSString*) gameId;
++(NSString*)getFilePath: (NSString*) gameId team: (NSString *) teamId;
 +(NSString*)generateUniqueFileName;
 +(void)deleteAllGamesForTeam: (NSString*) teamId;
 +(Game*) fromDictionary:(NSDictionary*) dict;

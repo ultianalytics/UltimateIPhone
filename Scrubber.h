@@ -8,8 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Scrubber : NSObject
+@interface Scrubber : NSObject {
+    NSMutableArray *maleTeamNames;
+    NSMutableArray *femaleTeamNames;
+    NSMutableArray *oppponentNames;
+    NSMutableArray *tournamentNames;
+    NSMutableDictionary *playerNameLookup;
+    NSMutableSet *usedPlayerNames;
+    NSMutableDictionary *tournamenLookup;
+}
 
 -(void)createScrubbedVersionOfActiveTeam;
+
 
 @end

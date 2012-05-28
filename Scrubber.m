@@ -132,7 +132,7 @@
     
     tournamentNames = [NSMutableArray arrayWithObjects:@"Trouble in Tupelo", @"Minnetourney", @"Disc Fest", @"Fast Times", @"Hammer Bowl", nil];
     
-    oppponentNames = [NSMutableArray arrayWithObjects:@"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters" ,@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters" ,@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", nil];
+    oppponentNames = [NSMutableArray arrayWithObjects:@"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters",@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Tramway", @"Gavel", @"Crash Dummies", @"Rockstars", @"Northern Lights", @"City Boys", @"Bay Boys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Sifters" ,@"Trappers",@"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters",@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Tramway", @"Gavel", @"Crash Dummies", @"Rockstars", @"Northern Lights", @"City Boys", @"Bay Boys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Sifters" ,@"Trappers", nil];
 
     tournamenLookup = [[NSMutableDictionary alloc] init];
     playerNameLookup = [[NSMutableDictionary alloc] init];

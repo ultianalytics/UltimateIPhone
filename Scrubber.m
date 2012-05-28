@@ -110,11 +110,11 @@
 }
 
 -(NSString*)substituteTournament: (NSString*) originalName {
-    NSString *subName = [tournamenLookup objectForKey:originalName];
+    NSString *subName = [tournamenLookup objectForKey:[originalName lowercaseString]];
     if (subName == nil) {
         subName = [tournamentNames lastObject];
         [tournamentNames removeLastObject]; 
-        [tournamenLookup setValue:subName forKey:originalName];
+        [tournamenLookup setValue:subName forKey:[originalName lowercaseString]];
     }
     return subName;
 }
@@ -126,13 +126,13 @@
 }
 
 -(void)setup {
-    maleTeamNames = [NSMutableArray arrayWithObjects:@"Tom", @"Gonzo", @"Al", @"Tobias", @"Cal", @"Rooster", @"Catman", @"Sleepy",@"Tupe" ,@"Gasman", @"Phinny",@"Shark", @"Robbie", @"Danny", @"Giga", @"Phil", @"Bikerman", @"Dolt", @"Priest",@"Famer" ,@"Steve" @"Jim",@"Flipper", @"Uki", @"Wadupp", @"Flatfoot", @"Archer", @"Lame", @"Gripper", @"Hondo",@"Bird" ,@"Trippy", @"Master",@"Gordy", @"Placard", @"Skyman", @"DDer", @"Sam", @"Collin", @"Pete", @"Fish",@"Walker" ,@"Aman", @"Yve",@"Norten", @"Tippy", @"Bubba", @"Fasta", @"Kip", @"Tim", @"Fryman", @"Ortho",@"Doc" ,@"Bret", @"Loren",nil];
+    maleTeamNames = [NSMutableArray arrayWithObjects:@"Tom", @"Gonzo", @"Albert", @"Tobias", @"Cal", @"Rooster", @"Catman", @"Sleepy",@"Tupe" ,@"Gasman", @"Phinny",@"Shark", @"Robbie", @"Danny", @"Giga", @"Phil", @"Bikerman", @"Dolt", @"Priest",@"Famer" ,@"Steve", @"Jim",@"Flipper", @"Uki", @"Wadupp", @"Flatfoot", @"Archer", @"Lame", @"Gripper", @"Hondo",@"Bird" ,@"Trippy", @"Master",@"Gordy", @"Placard", @"Skyman", @"DDer", @"Sam", @"Collin", @"Pete", @"Fish",@"Walker" ,@"Axman", @"Yve",@"Norten", @"Tippy", @"Bubba", @"Fasta", @"Kip", @"Tim", @"Fryman", @"Ortho",@"Doc" ,@"Bret", @"Loren",nil];
     
     femaleTeamNames = [NSMutableArray arrayWithObjects:@"Sue", @"Bambi", @"Tabatha", @"Samantha", @"Anne", @"Powergrrl", @"Cindy", @"Lori",@"Bitty" ,@"Ginger" @"MsTrouble",@"GadGirl", @"Michelle", @"Sara", @"Breaker", @"Huckgirl", @"Uma", @"Tami", @"Sally",nil];
     
     tournamentNames = [NSMutableArray arrayWithObjects:@"Trouble in Tupelo", @"Minnetourney", @"Disc Fest", @"Fast Times", @"Hammer Bowl", nil];
     
-    oppponentNames = [NSMutableArray arrayWithObjects:@"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters" ,@"Busta" @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters" ,@"Busta" @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters", nil];
+    oppponentNames = [NSMutableArray arrayWithObjects:@"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters" ,@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters" ,@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", nil];
 
     tournamenLookup = [[NSMutableDictionary alloc] init];
     playerNameLookup = [[NSMutableDictionary alloc] init];

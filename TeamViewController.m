@@ -279,7 +279,10 @@
 {
     [super viewWillAppear:animated];
     [self populateViewFromModel];
-    if (![team.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
+    // special case: app is starting and we are pre-loading the stack of views for efficiency (we want user
+    // to land on the players view if they've already been working with a team).  If they arrive on this view
+    // with an existing team that is not the current team then we want to push them back to teams view.
+    if (![team.teamId isEqualToString:[Team getCurrentTeam].teamId] && [team hasBeenSaved]) {
         [self.navigationController popViewControllerAnimated:NO];
     }
 

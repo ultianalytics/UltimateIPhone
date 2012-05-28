@@ -237,6 +237,15 @@ static Game* currentGame = nil;
     for (NSString* fileName in fileNames) {
         [Game delete: fileName];
     }
+    
+    // delete the folder
+    NSString *gamesFolder =  [Game getDirectoryPath: teamId];
+    NSError *error;	
+	if ([[NSFileManager defaultManager] fileExistsAtPath:gamesFolder]) {
+		if (![[NSFileManager defaultManager] removeItemAtPath:gamesFolder error:&error]) {
+			NSLog(@"Delete directory error: %@", error);
+		}
+	}
 }
 
 +(void)delete: (NSString*) aGameId {

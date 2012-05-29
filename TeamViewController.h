@@ -37,7 +37,6 @@
 -(void)verifyAndDelete;
 -(NSString*) getText: (UITextField*) textField;
 -(BOOL) isDuplicateTeamName: (NSString*) newTeamName;
--(void)saveAndReturn;
 -(void)populateViewFromModel;
 -(void)populateModelFromView;
 -(void)goToBestView;

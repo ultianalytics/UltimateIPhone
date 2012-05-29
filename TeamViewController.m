@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by james on 12/24/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Softare, Inc. All rights reserved.
 //
 
 #import "Constants.h"
@@ -20,6 +20,7 @@
 
 @interface TeamViewController()
 
+-(void)saveAndContinue;
 -(void)createScrubButton;
 
 @end
@@ -40,9 +41,9 @@
     team.isDiplayingPlayerNumber =  [[self.playerDisplayTypeSegmentedControl getSelection] isEqualToString: @"Number"] ? YES : NO;
 }
 
--(void)saveAndReturn {
+-(void)saveAndContinue {
     if ([self saveChanges]) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self goToPlayersView:YES];
     }
 }
 
@@ -258,7 +259,7 @@
     self.teamNameField.delegate = self; 
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndReturn)];
+    UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;    
 
 #ifdef DEBUG

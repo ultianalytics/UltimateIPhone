@@ -42,7 +42,7 @@
     [self dismissKeyboard];
     if ([self verifyOpponentName]) {
         game.startDateTime = [NSDate date];
-        game.tournamentName = tournamentNameField.text;
+        game.tournamentName = [tournamentNameField.text trim];
         [game save];
         [Game setCurrentGame:game.gameId];
         self.game = [Game getCurrentGame];  
@@ -157,13 +157,13 @@
 }
 
 -(IBAction)opponentNameChanged: (id) sender {
-    game.opponentName = opposingTeamNameField.text;
+    game.opponentName = [opposingTeamNameField.text trim];
     [self saveChanges];
 }
 
 -(IBAction)tournamendNameChanged: (id) sender {
-    game.tournamentName = tournamentNameField.text;
-    [Preferences getCurrentPreferences].tournamentName = tournamentNameField.text;
+    game.tournamentName = [tournamentNameField.text trim];
+    [Preferences getCurrentPreferences].tournamentName = game.tournamentName;
     [[Preferences getCurrentPreferences] save];
     [self saveChanges];
 }
@@ -185,7 +185,7 @@
 }
 
 -(NSString*) getText: (UITextField*) textField {
-    return textField.text == nil ? @"" : [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return textField.text == nil ? @"" : [textField.text trim];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

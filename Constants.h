@@ -3,10 +3,11 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/15/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#define kProductName @"iUltimate"
 #define kMaxTournamentNameLength 20
 #define kMaxOpponentNameLength 20
 #define kMaxNicknameLength 8

@@ -11,7 +11,6 @@
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1A2DC207154B7A6B00C59C2A /* ASIHTTPRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
 		1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */; };
 		1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A40B1C6156D10B700EFD6C2 /* Scrubber.m */; };
@@ -69,6 +68,7 @@
 		1A80C97315612192007F03C2 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97115612192007F03C2 /* woman@2x.png */; };
 		1A80C97415612192007F03C2 /* woman.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97215612192007F03C2 /* woman.png */; };
 		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
+		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
@@ -225,7 +225,6 @@
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
 		1A2DA03A15458AE200D59B29 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1A2DA03B15458AE200D59B29 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ASIHTTPRequest.framework; sourceTree = "<group>"; };
 		1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamDownloadPickerViewController.xib; sourceTree = "<group>"; };
@@ -250,6 +249,8 @@
 		1A80C97115612192007F03C2 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
 		1A80C97215612192007F03C2 /* woman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman.png; sourceTree = "<group>"; };
 		1A80C9751561223C007F03C2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		1AAFDE381574F199005EA598 /* NSString+manipulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+manipulations.h"; sourceTree = "<group>"; };
+		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
@@ -495,7 +496,6 @@
 				1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */,
 				1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */,
 				1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */,
-				1A2DC207154B7A6B00C59C2A /* ASIHTTPRequest.framework in Frameworks */,
 				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
 				1AFFE89615175EB0004B4590 /* libTestFlight.a in Frameworks */,
 			);
@@ -561,6 +561,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1AAFDE3B1574F1A1005EA598 /* Base Categories */ = {
+			isa = PBXGroup;
+			children = (
+				1AAFDE381574F199005EA598 /* NSString+manipulations.h */,
+				1AAFDE391574F199005EA598 /* NSString+manipulations.m */,
+			);
+			name = "Base Categories";
+			sourceTree = "<group>";
+		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +633,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
+				1AAFDE3B1574F1A1005EA598 /* Base Categories */,
 				1A40B1C4156D108C00EFD6C2 /* Scrubbing */,
 				1A2DA03815458AB800D59B29 /* Reachability */,
 				1AEE549E152944190067F539 /* Twitter */,
@@ -657,7 +667,6 @@
 			isa = PBXGroup;
 			children = (
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
-				1A2DC206154B7A6B00C59C2A /* ASIHTTPRequest.framework */,
 				1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */,
 				1AE66A131522769B000965B5 /* Accounts.framework */,
 				1AE669D21520012C000965B5 /* Twitter.framework */,
@@ -1253,6 +1262,7 @@
 				1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */,
 				1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
+				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

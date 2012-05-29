@@ -152,11 +152,11 @@
 }
 
 -(NSString*) getNickNameViewText {
-     return self.nickNameField.text == nil ? @"" : [self.nickNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+     return self.nickNameField.text == nil ? @"" : [self.nickNameField.text trim];
 }
 
 -(NSString*) getNumberViewText {
-    return self.numberField.text == nil ? @"" : [self.numberField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return self.numberField.text == nil ? @"" : [self.numberField.text trim];
 }
 
 -(void)addPlayer {

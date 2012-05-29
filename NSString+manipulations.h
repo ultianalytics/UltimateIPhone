@@ -10,4 +10,6 @@
 
 @interface NSString (manipulations)
 
+-(NSString*)trim;
+
 @end

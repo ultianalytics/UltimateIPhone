@@ -19,6 +19,7 @@
 #import "RequestContext.h"
 
 #define kNoInternetMessage @"We were unable to access the internet."
+#define kButtonFont [UIFont boldSystemFontOfSize: 15]
 
 @interface CloudViewController() 
 
@@ -38,6 +39,8 @@
 -(void)stopBusyDialog;
 
 -(void)showCompleteAlert: (NSString*) title message: (NSString*) message;
+
+-(void)styleButtons;
 
 @end
 
@@ -75,9 +78,9 @@
     self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
-    self.userLabel.text = userid == nil ? @"unknown (do upload)" : userid;
-    [self.uploadButton setTitle:[NSString stringWithFormat:@"Upload %@",[Team getCurrentTeam].name] forState:UIControlStateNormal];
-    [self.downloadGameButton setTitle:[NSString stringWithFormat:@"Download a %@ Game",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
+    self.userLabel.text = userid == nil ? @"unknown (do upload or download)" : userid;
+    [self.uploadButton setTitle:[NSString stringWithFormat:@" Upload %@ Games ",[Team getCurrentTeam].name] forState:UIControlStateNormal];
+    [self.downloadGameButton setTitle:[NSString stringWithFormat:@" Download a %@ Game ",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
     self.signoffButton.hidden = userid == nil;
     [self.cloudTableView reloadData];
 }
@@ -315,6 +318,13 @@
     [alert show];
 }
 
+-(void)styleButtons {
+    self.uploadButton.titleLabel.font = kButtonFont;  
+    self.downloadGameButton.titleLabel.font = kButtonFont;    
+    self.downloadTeamButton.titleLabel.font = kButtonFont;    
+    self.signoffButton.titleLabel.font = kButtonFont;    
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -333,14 +343,14 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    [self styleButtons];
+    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
                                                object: nil];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated

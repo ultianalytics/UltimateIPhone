@@ -35,7 +35,7 @@
 }
 
 -(void)populateModelFromView {
-    team.name = teamNameField.text;
+    team.name = [teamNameField.text trim];
     team.isMixed =  [[self.teamTypeSegmentedControl getSelection] isEqualToString: @"Mixed"] ? YES : NO;
     team.isDiplayingPlayerNumber =  [[self.playerDisplayTypeSegmentedControl getSelection] isEqualToString: @"Number"] ? YES : NO;
 }

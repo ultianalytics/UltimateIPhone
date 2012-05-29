@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* useridCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* passwordCell;
+@property (strong, nonatomic) IBOutlet UILabel *instructionsLabel;
 @property (nonatomic, strong) IBOutlet UITextField* useridField;
 @property (nonatomic, strong) IBOutlet UITextField* passwordField;
 @property (nonatomic, strong) IBOutlet UILabel* errorMessage;

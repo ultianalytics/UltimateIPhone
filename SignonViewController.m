@@ -12,6 +12,7 @@
 #import "Reachability.h"
 
 @implementation SignonViewController
+@synthesize instructionsLabel;
 @synthesize useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
 
 -(IBAction) signonButtonClicked: (id) sender {
@@ -120,11 +121,11 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    self.title = NSLocalizedString(@"Cloud Signon", @"Cloud Signon");    
+    self.title = NSLocalizedString(@"Cloud Signon", @"Cloud Signon"); 
+    self.instructionsLabel.text = [NSString stringWithFormat:@"Please sign on on to the %@ cloud using your Google Account.", kProductName];
     self.passwordField.secureTextEntry = YES;
 }
 
@@ -135,6 +136,7 @@
 
 - (void)viewDidUnload
 {
+    [self setInstructionsLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

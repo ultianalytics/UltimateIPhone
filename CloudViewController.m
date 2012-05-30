@@ -120,10 +120,10 @@
 }
 
 -(void)downloadTeamsFromServer {
-    NSError* getError = nil;
-    NSArray* teams = [CloudClient getTeams:&getError];
-    RequestContext* reqContext = getError ? 
-        [[RequestContext alloc] initWithRequestData:nil responseData:nil error: getError.code] :
+    NSError* requestError = nil;
+    NSArray* teams = [CloudClient getTeams:&requestError];
+    RequestContext* reqContext = requestError ? 
+        [[RequestContext alloc] initWithRequestData:nil responseData:nil error: requestError.code] :
         [[RequestContext alloc] initWithRequestData:nil responseData:teams];
     [self performSelectorOnMainThread:@selector(handleTeamsDownloadCompletion:) 
                            withObject:reqContext waitUntilDone:YES];
@@ -151,11 +151,11 @@
 }
 
 -(void)downloadGamesFromServer {
-    NSError* getError = nil;
+    NSError* requestError = nil;
     NSString* cloudId = [Team getCurrentTeam].cloudId;
-    NSArray* games = [CloudClient getGameDescriptions:cloudId error:&getError];
-    RequestContext* reqContext = getError ? 
-    [[RequestContext alloc] initWithRequestData:nil responseData:nil error: getError.code] :
+    NSArray* games = [CloudClient getGameDescriptions:cloudId error:&requestError];
+    RequestContext* reqContext = requestError ? 
+    [[RequestContext alloc] initWithRequestData:nil responseData:nil error: requestError.code] :
     [[RequestContext alloc] initWithRequestData:nil responseData:games];
     [self performSelectorOnMainThread:@selector(handleGamesDownloadCompletion:) 
                            withObject:reqContext waitUntilDone:YES];
@@ -183,10 +183,10 @@
 }
 
 -(void)downloadGameFromServer: (NSString*) gameId {
-    NSError* getError = nil;
-    [CloudClient downloadGame:gameId forTeam: [Team getCurrentTeam].cloudId error:&getError];
-    RequestContext* reqContext = getError ? 
-    [[RequestContext alloc] initWithRequestData:gameId responseData:nil error: getError.code] :
+    NSError* requestError = nil;
+    [CloudClient downloadGame:gameId forTeam: [Team getCurrentTeam].cloudId error:&requestError];
+    RequestContext* reqContext = requestError ? 
+    [[RequestContext alloc] initWithRequestData:gameId responseData:nil error: requestError.code] :
     [[RequestContext alloc] initWithRequestData:gameId responseData:nil];
     [self performSelectorOnMainThread:@selector(handleGameDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
 }
@@ -218,10 +218,10 @@
 }
 
 -(void)downloadTeamFromServer: (NSString*) cloudId {
-    NSError* getError = nil;
-    NSString* teamId = [CloudClient downloadTeam: cloudId error:&getError];
-    RequestContext* reqContext = getError ? 
-                   [[RequestContext alloc] initWithRequestData:cloudId responseData:nil error: getError.code] :
+    NSError* requestError = nil;
+    NSString* teamId = [CloudClient downloadTeam: cloudId error:&requestError];
+    RequestContext* reqContext = requestError ? 
+                   [[RequestContext alloc] initWithRequestData:cloudId responseData:nil error: requestError.code] :
                    [[RequestContext alloc] initWithRequestData:cloudId responseData:teamId];
     [self performSelectorOnMainThread:@selector(handleTeamDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
 }

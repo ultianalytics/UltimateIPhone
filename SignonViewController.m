@@ -10,10 +10,19 @@
 #import "ColorMaster.h"
 #import "CloudClient.h"
 #import "Reachability.h"
+#import "SignonCredentials.h"
+
+@interface SignonViewController()
+
+-(void)startSignon;
+-(void)startBusyDialog;
+-(void)stopBusyDialog;
+-(SignonCredentials*)getCredentials;
+
+@end
 
 @implementation SignonViewController
-@synthesize instructionsLabel;
-@synthesize useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
+@synthesize instructionsLabel,useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
 
 -(IBAction) signonButtonClicked: (id) sender {
     errorMessage.text = @"";
@@ -25,7 +34,7 @@
         if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
             UIAlertView *alert = [[UIAlertView alloc] 
                                   initWithTitle: @"No Internet Access"
-                                  message: @"We are not able to connect to Twitter.  Please make sure you have Internet access."
+                                  message: @"We are not able to connect to cloud.  Please make sure you have Internet access."
                                   delegate: nil
                                   cancelButtonTitle: NSLocalizedString(@"OK",nil)
                                   otherButtonTitles: nil];
@@ -38,13 +47,11 @@
 
 -(void)startSignon {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(signon) withObject:nil];
+    [self performSelectorInBackground:@selector(signon:) withObject:[self getCredentials]];
 }
 
--(void)signon {
-    NSString* userid = [self.useridField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString* password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    BOOL ok = [CloudClient signOnWithID:userid password:password];
+-(void)signon: (SignonCredentials*) credentials {
+    BOOL ok = [CloudClient signOnWithID:credentials.userid password:credentials.password];
     [self performSelectorOnMainThread:@selector(handleSignonCompletion:) withObject: [NSNumber numberWithBool: ok]waitUntilDone:NO];
 }
 
@@ -100,6 +107,13 @@
         [busyView dismissWithClickedButtonIndex:0 animated:NO];
         [busyView removeFromSuperview];
     }
+}
+
+-(SignonCredentials*)getCredentials {
+    SignonCredentials *credentials = [[SignonCredentials alloc] init];
+    credentials.userid = [self.useridField.text trim];
+    credentials.password = [self.passwordField.text trim];
+    return credentials;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

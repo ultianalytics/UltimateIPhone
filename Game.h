@@ -78,5 +78,6 @@
 -(NSMutableDictionary*) asDictionary;
 -(BOOL)isTimeBasedEnd;
 -(void)clearPointSummaries;
+-(BOOL)doesGameAppearDone;
 
 @end

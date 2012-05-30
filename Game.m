@@ -655,4 +655,18 @@ static Game* currentGame = nil;
     return gamePoint == kTimeBasedGame;
 }
 
+-(BOOL)doesGameAppearDone {
+    // don't know if time based
+    if (self.isTimeBasedEnd) {
+        return NO;
+    // have we reached the end point and leader has >= 2 lead?        
+    } else {
+        [self updatePointSummaries];
+        Score score = [self getScore];
+        int highScore = MAX(score.ours, score.theirs);
+        int lowScore = MIN(score.ours, score.theirs);
+        return (highScore >= self.gamePoint) && (highScore >= lowScore + 2);
+    }
+}
+
 @end

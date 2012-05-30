@@ -24,6 +24,10 @@
 #import "Wind.h"
 #import "Reachability.h"
 
+#define kConfirmNewGameAlertTitle @"Confirm Game Over"
+#define kNotifyNewGameAlertTitle @"Game Over?"
+#define kNoInternetAlertTitle @"No Internet Access"
+
 @interface GameViewController()
 
 -(void) goToPlayersOnFieldView;
@@ -40,6 +44,7 @@
 -(void) updateNavBarTitle;
 -(void) updateViewFromGame: (Game*) game;
 -(void) gameOverConfirm;
+-(void) gameOverChallenge;
 -(void) updateAutoTweetingNotice;
 
 @end
@@ -82,7 +87,9 @@
     [[Game getCurrentGame] save]; 
     if ([event causesDirectionChange]) {
         [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
-        if ([event causesLineChange]) {
+        if ([[Game getCurrentGame] doesGameAppearDone]) {
+            [self gameOverChallenge];
+        } else if ([event causesLineChange]) {
             [self goToPlayersOnFieldView];
         }
     }
@@ -251,8 +258,7 @@
 }
 
 
-- (void)moreEventsSwipe:(UISwipeGestureRecognizer *)recognizer 
-{ 
+- (void)moreEventsSwipe:(UISwipeGestureRecognizer *)recognizer { 
     [self goToHistoryView: YES];
 }
 
@@ -261,7 +267,7 @@
     if ([[Tweeter getCurrent] isTweetingEvents] && 
         [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
         UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle: @"No Internet Access"
+                              initWithTitle: kNoInternetAlertTitle
                               message: @"Warning: You are auto-tweeting but we can't reach the internet to send the tweets."
                               delegate: nil
                               cancelButtonTitle: NSLocalizedString(@"OK",nil)
@@ -369,7 +375,7 @@
 -(void)gameOverConfirm {
     // Show the confirmation.
     UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle: NSLocalizedString(@"Confirm Game Over",nil)
+                          initWithTitle: NSLocalizedString(kConfirmNewGameAlertTitle,nil)
                           message: NSLocalizedString(@"You clicked Game Over.  Please confirm.",nil)
                           delegate: self
                           cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
@@ -377,17 +383,31 @@
     [alert show];
 }
 
+-(void)gameOverChallenge {
+    // Ask if complete
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: NSLocalizedString(kNotifyNewGameAlertTitle,nil)
+                          message: NSLocalizedString(@"This game appears to be over.  Please confirm.",nil)
+                          delegate: self
+                          cancelButtonTitle: NSLocalizedString(@"No, not yet",nil)
+                          otherButtonTitles: NSLocalizedString(@"Yes, done",nil), nil];
+    [alert show];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) { // confirm
-        [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
-        [self.navigationController popViewControllerAnimated:YES];
+    if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
+        if (buttonIndex == 1) { // confirm game over
+            [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
+            [self goToPlayersOnFieldView];
+        }
     } 
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.title = NSLocalizedString(@"Game", @"Game");
-	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

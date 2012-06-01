@@ -105,7 +105,7 @@
     [self stopBusyDialog];
     if (errorCode && [errorCode intValue] == Unauthorized) {
         __weak CloudViewController* slf = self;
-        signonCompletion = ^{[slf uploadToServer];};
+        signonCompletion = ^{[slf startUpload];};
         [self goSignonView];
     } else if (errorCode) {
         [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: NSLocalizedString([errorCode intValue] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to upload your data to the cloud.  Try again later.", nil)];

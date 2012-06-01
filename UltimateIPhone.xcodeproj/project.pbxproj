@@ -59,6 +59,7 @@
 		1A5983CC15446E5E00E97F09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AB15175DB9004B4590 /* Security.framework */; };
 		1A5983CD15446E6000E97F09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AC15175DB9004B4590 /* SystemConfiguration.framework */; };
 		1A5983CE15446EAA00E97F09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B615175DF8004B4590 /* libz.dylib */; };
+		1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A68891E1578E9C0004A3CDB /* Settings.bundle */; };
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
 		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
 		1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */; };
@@ -238,6 +239,7 @@
 		1A59839415445D5900E97F09 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		1A5983A7154464A500E97F09 /* GameTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTest.m; sourceTree = "<group>"; };
+		1A68891E1578E9C0004A3CDB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
 		1A6B265D15250E0D00C119A5 /* TweetQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetQueue.m; sourceTree = "<group>"; };
 		1A6B266015250FC400C119A5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 				1AFFE78415175D4A004B4590 /* InfoPlist.strings */,
 				1AFFE78715175D4A004B4590 /* main.m */,
 				1AFFE78915175D4A004B4590 /* UltimateIPhone-Prefix.pch */,
+				1A68891E1578E9C0004A3CDB /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1159,6 +1162,7 @@
 				1A80C97315612192007F03C2 /* woman@2x.png in Resources */,
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
 				1A80C9761561223C007F03C2 /* icon@2x.png in Resources */,
+				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

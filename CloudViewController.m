@@ -56,8 +56,9 @@
 }
 
 -(void)goSignonView{
-    signonController = [[SignonViewController alloc] init];
-    [self.navigationController pushViewController:signonController animated: YES];
+    SignonViewController *signonController = [[SignonViewController alloc] init];
+    signonController.delegate = self;
+    [self presentViewController:signonController animated:YES completion:nil];
 }
 
 -(void)goTeamPickerView: (NSArray*) teams {
@@ -270,6 +271,11 @@
     }
 }
 
+-(void)dismissSignonController:(BOOL) isSignedOn {
+    void (^completionBlock)() = isSignedOn ? signonCompletion : nil;
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:completionBlock];
+}
+
 -(IBAction)signoffButtonClicked: (id) sender {
     [CloudClient signOff];
     [self populateViewFromModel];
@@ -358,12 +364,7 @@
     [super viewWillAppear:animated];
     self.title = NSLocalizedString(@"Cloud", @"Cloud");
     [self populateViewFromModel];
-    if (signonController) {
-        if (signonController.isSignedOn) {
-            signonCompletion();
-        }
-        signonController = nil;
-    } else if  (teamDownloadController && teamDownloadController.selectedTeam) {
+    if  (teamDownloadController && teamDownloadController.selectedTeam) {
         if (teamDownloadController.selectedTeam) {
             [self startTeamDownload: teamDownloadController.selectedTeam.cloudId];
         }

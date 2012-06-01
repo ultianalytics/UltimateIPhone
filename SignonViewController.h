@@ -8,13 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SignonViewControllerDelegate <NSObject>
+
+-(void)dismissSignonController:(BOOL) isSignedOn;
+
+@end
+
+
 @interface SignonViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
     @private
     NSArray* cells;
     UIAlertView* busyView;
 }
 
-@property (nonatomic) BOOL isSignedOn;
+@property (nonatomic, weak) id<SignonViewControllerDelegate> delegate;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* useridCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* passwordCell;

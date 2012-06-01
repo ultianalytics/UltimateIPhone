@@ -22,7 +22,7 @@
 @end
 
 @implementation SignonViewController
-@synthesize instructionsLabel,useridField,passwordField,useridCell,passwordCell,isSignedOn,errorMessage;
+@synthesize delegate,instructionsLabel,useridField,passwordField,useridCell,passwordCell,errorMessage;
 
 -(IBAction) signonButtonClicked: (id) sender {
     errorMessage.text = @"";
@@ -59,8 +59,7 @@
     [self stopBusyDialog];
     BOOL ok = [isOk boolValue];
     if (ok) {
-        self.isSignedOn = YES;
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.delegate dismissSignonController:YES];
     } else {
         self.passwordField.text = @"";
         errorMessage.text = @"Signon failed";
@@ -68,8 +67,7 @@
 }
 
 -(IBAction) cancelButtonClicked: (id) sender {
-    self.isSignedOn = NO; 
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate dismissSignonController:NO];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -135,7 +135,7 @@
     if ([requestContext hasError]) {
         if ([requestContext getErrorCode] == Unauthorized) {
             __weak CloudViewController* slf = self;
-            signonCompletion = ^{[slf downloadTeamsFromServer];};
+            signonCompletion = ^{[slf startTeamsDownload];};
             [self goSignonView];
         } else {
             [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team list from the cloud.  Try again later.", nil)];            
@@ -167,7 +167,7 @@
     if ([requestContext hasError]) {
         if ([requestContext getErrorCode] == Unauthorized) {
             __weak CloudViewController* slf = self;          
-            signonCompletion = ^{[slf downloadGamesFromServer];};
+            signonCompletion = ^{[slf startGamesDownload];};
             [self goSignonView];
         } else {
             [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your games list from the cloud.  Try again later.", nil)];                
@@ -273,7 +273,7 @@
 
 -(void)dismissSignonController:(BOOL) isSignedOn {
     void (^completionBlock)() = isSignedOn ? signonCompletion : nil;
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:completionBlock];
+    [self.presentedViewController dismissViewControllerAnimated:NO completion:completionBlock];
 }
 
 -(IBAction)signoffButtonClicked: (id) sender {

@@ -5,17 +5,19 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>Version</string>
+			<key>DefaultValue</key>
+			<string>1.0.37</string>
 			<key>Key</key>
 			<string>app_version</string>
-			<key>DefaultValue</key>
-			<string>1</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>Titles</key>
+			<array>
+				<string></string>
+			</array>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
 		</dict>
 	</array>
-	<key>StringsTable</key>
-	<string>Root</string>
 </dict>
 </plist>

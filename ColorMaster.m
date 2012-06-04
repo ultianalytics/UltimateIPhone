@@ -48,6 +48,9 @@ static UIColor* linePlayerButtonPositionColorDark = nil;
 static UIColor* linePlayerButtonPointsColorLight = nil;
 static UIColor* linePlayerButtonPointsColorDark = nil;
 
+static UIColor* linePlayerImbalanceWarningGirls;
+static UIColor* linePlayerImbalanceWarningBoys;
+
 + (void) initialize {
     scoreWinColor = RGB(25,102,25);  // shade of green
     scoreLoseColor = RGB(178,5,0);  // shade of red
@@ -91,6 +94,10 @@ static UIColor* linePlayerButtonPointsColorDark = nil;
     benchRowColor = lighterColor;
     
     navBarTintColor = darkestColor;
+    
+    linePlayerImbalanceWarningBoys = RGB(153, 242, 255);  // #99F2FF 
+    linePlayerImbalanceWarningGirls = RGB(255, 178, 242);  // #FFB2F2  
+
 }
 
 +(UIColor*)getNormalButtonHighColor {
@@ -186,6 +193,10 @@ static UIColor* linePlayerButtonPointsColorDark = nil;
 
 +(UIColor*)getSegmentControlDarkTintColor {
     return navBarTintColor;
+}
+
++(UIColor*)getPlayerImbalanceColor: (BOOL)isBoy {
+    return isBoy ? linePlayerImbalanceWarningBoys : linePlayerImbalanceWarningGirls;
 }
 
 @end

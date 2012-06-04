@@ -539,13 +539,13 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
-		1A40B1C4156D108C00EFD6C2 /* Scrubbing */ = {
+		1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */ = {
 			isa = PBXGroup;
 			children = (
 				1A40B1C5156D10B700EFD6C2 /* Scrubber.h */,
 				1A40B1C6156D10B700EFD6C2 /* Scrubber.m */,
 			);
-			name = Scrubbing;
+			name = "Test Data Scrubbing";
 			sourceTree = "<group>";
 		};
 		1A59838C15445D5900E97F09 /* Tests */ = {
@@ -568,13 +568,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1AAFDE3B1574F1A1005EA598 /* Base Categories */ = {
+		1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */ = {
 			isa = PBXGroup;
 			children = (
 				1AAFDE381574F199005EA598 /* NSString+manipulations.h */,
 				1AAFDE391574F199005EA598 /* NSString+manipulations.m */,
 			);
-			name = "Base Categories";
+			name = "Categories on Apple Classes";
 			sourceTree = "<group>";
 		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {
@@ -640,8 +640,8 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
-				1AAFDE3B1574F1A1005EA598 /* Base Categories */,
-				1A40B1C4156D108C00EFD6C2 /* Scrubbing */,
+				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
+				1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */,
 				1A2DA03815458AB800D59B29 /* Reachability */,
 				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,

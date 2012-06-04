@@ -34,5 +34,6 @@
 +(UIColor*)getAlarmingButtonLowColor;
 +(UIColor*)getSegmentControlLightTintColor;
 +(UIColor*)getSegmentControlDarkTintColor;
++(UIColor*)getPlayerImbalanceColor: (BOOL)isMaleImbalance;
 
 @end

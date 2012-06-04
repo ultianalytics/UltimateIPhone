@@ -329,7 +329,7 @@
 }
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
-    [errorMessageLabel setTextColor: isMaleImbalance ? [UIColor blueColor] : [UIColor redColor]];
+    [errorMessageLabel setTextColor: [ColorMaster getPlayerImbalanceColor: isMaleImbalance]];
     errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
     errorMessageLabel.alpha = 1;
     errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];

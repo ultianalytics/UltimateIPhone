@@ -32,6 +32,7 @@ typedef enum {
 -(ACAccount*)getTwitterAccount;
 -(NSString*)getTwitterAccountName;
 -(NSArray*)getTwitterAccountsNames;
+-(BOOL)doesTwitterAccountExist;
 -(void)setPreferredTwitterAccount: (NSString*) accountName;
 -(BOOL)isTweetingEvents;
 -(AutoTweetLevel)getAutoTweetLevel;

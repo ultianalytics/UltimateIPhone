@@ -251,6 +251,10 @@ NSDateFormatter* timeFormatter;
     return accountNames;
 }
 
+-(BOOL)doesTwitterAccountExist {
+    return [[self getTwitterAccounts] count] > 0;
+}
+
 -(void)setPreferredTwitterAccount: (NSString*) accountName { 
     [Preferences getCurrentPreferences].twitterAccountDescription = accountName;
     [[Preferences getCurrentPreferences] save];

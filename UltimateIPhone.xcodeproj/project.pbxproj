@@ -14,6 +14,8 @@
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
 		1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */; };
 		1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A40B1C6156D10B700EFD6C2 /* Scrubber.m */; };
+		1A43F7511588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A43F74F1588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.m */; };
+		1A43F7521588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A43F7501588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.xib */; };
 		1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1A59838A15445D5900E97F09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1A59838B15445D5900E97F09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -232,6 +234,9 @@
 		1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamDownloadPickerViewController.xib; sourceTree = "<group>"; };
 		1A40B1C5156D10B700EFD6C2 /* Scrubber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scrubber.h; sourceTree = "<group>"; };
 		1A40B1C6156D10B700EFD6C2 /* Scrubber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scrubber.m; sourceTree = "<group>"; };
+		1A43F74E1588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterNotDefinedViewControllerViewController.h; sourceTree = "<group>"; };
+		1A43F74F1588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterNotDefinedViewControllerViewController.m; sourceTree = "<group>"; };
+		1A43F7501588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterNotDefinedViewControllerViewController.xib; sourceTree = "<group>"; };
 		1A59838715445D5900E97F09 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A59838E15445D5900E97F09 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		1A59839015445D5900E97F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -623,6 +628,9 @@
 				1AEE54A41529D2CA0067F539 /* TweetLogViewController.h */,
 				1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */,
 				1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */,
+				1A43F74E1588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.h */,
+				1A43F74F1588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.m */,
+				1A43F7501588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.xib */,
 			);
 			name = Twitter;
 			sourceTree = "<group>";
@@ -1164,6 +1172,7 @@
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
 				1A80C9761561223C007F03C2 /* icon@2x.png in Resources */,
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
+				1A43F7521588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1291,6 +1300,7 @@
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 				1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */,
+				1A43F7511588A43C0005CE79 /* TwitterNotDefinedViewControllerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1408,7 +1418,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1422,7 +1431,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1494,6 +1502,7 @@
 		1AFFE7A515175D4A004B4590 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Summit Hill Software, Inc.";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1507,6 +1516,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CC56D71-9218-4AC5-8D66-F82E8C6BCFF9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -136,25 +136,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(populateViewFromModel)
-                                                 name: @"UIApplicationWillEnterForegroundNotification"
-                                               object: nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(displayView)
+                                                 name: @"UIApplicationWillEnterForegroundNotification"
+                                               object: nil];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.autoTweetSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
-    [self populateViewFromModel];
-    
+    [self displayView];
+}
+
+-(void)displayView {
+    if ([[Tweeter getCurrent] doesTwitterAccountExist]) {
+        [self populateViewFromModel];
+    } else {
+        TwitterNotDefinedViewControllerViewController *vc = [[TwitterNotDefinedViewControllerViewController alloc] init];
+        [self.navigationController pushViewController:vc animated: NO];
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+   [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

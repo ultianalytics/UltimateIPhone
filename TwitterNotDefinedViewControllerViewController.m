@@ -9,7 +9,7 @@
 #import "TwitterNotDefinedViewControllerViewController.h"
 #import "Tweeter.h"
 
-#define kMaxWaitSeconds 5
+#define kMaxWaitSeconds 3
 
 @interface TwitterNotDefinedViewControllerViewController ()
 
@@ -20,13 +20,13 @@
 
 @implementation TwitterNotDefinedViewControllerViewController
 @synthesize messageLabel;
-@synthesize busyView, delegate;
+@synthesize busyView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -51,6 +51,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.title = NSLocalizedString(@"Twitter Verification", @"Twitter Verification");
+    [self.navigationItem setHidesBackButton:YES];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(verifyAccount)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
@@ -78,7 +80,7 @@
     } else {
         [self stopBusyDialog];
         if (isVerified) {
-            [self.delegate accountVerified: self];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             self.messageLabel.hidden = NO;
         }

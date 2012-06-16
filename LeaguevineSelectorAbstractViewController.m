@@ -43,6 +43,7 @@
     [super viewDidLoad];
     self.searchBar.tintColor = [ColorMaster getSearchBarTintColor];
     [self showWaitingView];
+    [self refresh];
 }
 
 - (void)viewDidUnload {
@@ -53,7 +54,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self refresh];
+
 }
 
 #pragma mark TableView delegate
@@ -201,8 +202,13 @@
         [self hideWaitingView];
         if ([self.items count] < 1) {
             [self showNoResults];
+        } else {
+            int bestRow = [self getBestRowPositionAfterRefresh];
+            if (bestRow != 0) {
+                NSIndexPath* indexPath = [NSIndexPath indexPathForRow: bestRow inSection: 0];
+                [self.mainTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            }
         }
-        // TODO position to current league selection
     } else {
         self.items = [NSArray array];
         [self.activityIndicator stopAnimating];
@@ -223,6 +229,10 @@
 
 -(NSString*)getItemDescription: (LeaguevineItem*) item {
     return [item listDescription];
+}
+
+-(int)getBestRowPositionAfterRefresh {
+    return 0;
 }
 
 @end

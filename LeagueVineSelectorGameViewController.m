@@ -73,6 +73,7 @@
     LeagueVineSelectorGameTableViewCell*  cell = (LeagueVineSelectorGameTableViewCell *)[nib objectAtIndex:0];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.selectionStyle= UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -93,12 +94,8 @@
         return @"Not sure";
     } else if ([date isToday]) {
         return [self.timeFormatter stringFromDate:date];
-    } else if ([date isYesterday]) {
-        return [NSString stringWithFormat:@"Yesterday at %@", [self.timeFormatter stringFromDate:date]];
-    } else if ([date isTomorrow]) {
-        return [NSString stringWithFormat:@"Tomorrow at %@", [self.timeFormatter stringFromDate:date]];
-        // if we are within 5 days(future)...use short date form
-    } else if ([date laterDate:[NSDate date]] == date && [date earlierDate:[NSDate dateWithDaysFromNow:5]] == date) {
+        // if yesterday or we are within 5 days(future)...use short date form
+    } else if ([date isYesterday] || ([date laterDate:[NSDate date]] == date && [date earlierDate:[NSDate dateWithDaysFromNow:5]] == date)) {
         return [NSString stringWithFormat:@"%@, %@", [self.nearDateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
     } else {
         return [NSString stringWithFormat:@"%@, %@", [self.farDateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
@@ -110,6 +107,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.mainTableView.rowHeight = [self createCell:nil].bounds.size.height;
+}
+
+#pragma mark Overrides 
+
+-(int)getBestRowPositionAfterRefresh {
+    NSDate* now = [NSDate date];
+    for (int i = 0; i < [self.filteredItems count]; i++) {
+        LeaguevineGame* game = [self.filteredItems objectAtIndex:i];
+        if ([game.startTime isEqualToDate:now] || [game.startTime earlierDate:now] == game.startTime) {
+            return i < 1 ? 0 : i - 1;
+        }
+    }
+    return 0;
 }
 
 @end

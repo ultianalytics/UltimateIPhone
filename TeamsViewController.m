@@ -88,7 +88,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Teams", @"Teams");
+        self.title = NSLocalizedString(@"My Teams", @"My Teams");
         isAfterFirstView = NO;
     }
     return self;

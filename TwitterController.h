@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TwitterNotDefinedViewControllerViewController.h"
 
 @interface TwitterController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     @private

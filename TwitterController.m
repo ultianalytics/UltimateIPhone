@@ -18,6 +18,8 @@
 #import "TweetLogViewController.h"
 #import "Reachability.h"
 
+#define kMaxRetryForAccoutSeconds 5
+
 @interface TwitterController()
 
 -(void)populateAccountCell;
@@ -142,25 +144,40 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(displayView)
+                                             selector: @selector(populateView)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
                                                object: nil];
     self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.autoTweetSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
-    [self displayView];
-}
-
--(void)displayView {
-    if ([[Tweeter getCurrent] doesTwitterAccountExist]) {
-        [self populateViewFromModel];
-    } else {
-        TwitterNotDefinedViewControllerViewController *vc = [[TwitterNotDefinedViewControllerViewController alloc] init];
-        [self.navigationController pushViewController:vc animated: NO];
-    }
+    [self populateView];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-   [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+-(void)populateView {
+    [self populateViewFromModel];
+    if (![[Tweeter getCurrent] doesTwitterAccountExist]) {
+        [self verifyAccount];
+    } 
+}
+
+-(void)verifyAccount {
+    [self verifyAccount:[NSDate date]];
+}
+
+-(void)verifyAccount: (NSDate *) beginVerifyTime {
+    NSLog(@"Verifying Twitter Account Existence");
+    BOOL isVerified = [[Tweeter getCurrent] doesTwitterAccountExist];
+    NSTimeInterval elapsedTimeSeconds = [beginVerifyTime timeIntervalSinceNow] * -1;
+    if (!isVerified && (elapsedTimeSeconds < kMaxRetryForAccoutSeconds)) {
+        NSLog(@"No Twitter Account...trying again");
+        [self performSelector:@selector(verifyAccount:) withObject:beginVerifyTime afterDelay:1];
+    } else {
+        NSLog(@"Twitter Account Verify quitting...account found or exceeded verify time");
+        [self populateViewFromModel];
+    }
 }
 
 - (void)viewDidUnload

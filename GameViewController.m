@@ -348,6 +348,7 @@
         [self updateViewFromGame:[Game getCurrentGame]];
         [self updateAutoTweetingNotice];
     }
+        [self addInfoButtton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -426,6 +427,19 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+-(void) addInfoButtton {
+    UIView *navBar = self.navigationController.navigationBar;
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, navBar.frame.size.height)];
+    button.center = [navBar convertPoint:navBar.center fromView:navBar.superview];
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [navBar addSubview:button];
+}
+
+-(void)infoButtonTapped {
+    NSLog(@"info button tapped");
 }
 
 @end

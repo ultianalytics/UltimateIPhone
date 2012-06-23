@@ -23,6 +23,8 @@
 #import "Player.h"
 #import "Wind.h"
 #import "Reachability.h"
+#import "GameViewCalloutsView.h"
+#import "CalloutView.h"
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
@@ -438,9 +440,23 @@
     [navBar addSubview:button];
 }
 
--
-(void)infoButtonTapped {
-    NSLog(@"info button tapped");
+- (void)infoButtonTapped {
+    [self showInfoCallouts];
+}
+
+-(void)showInfoCallouts {
+    GameViewCalloutsView *calloutsView = [[GameViewCalloutsView alloc] initWithFrame:self.view.bounds];
+    
+    // undo button
+    [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80];
+    // recents list
+    [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 80];
+    // line button
+    CGPoint anchor = CGPointTopRight(self.view.bounds);
+    anchor.x = anchor.x - 40;
+    [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80];    
+    
+    [self.view addSubview:calloutsView];
 }
 
 @end

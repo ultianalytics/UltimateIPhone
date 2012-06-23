@@ -9,10 +9,11 @@
 
 #define radians(x) ((x) * M_PI/180 )
 
-#define kTextPadding 2.f
+#define kPaddingHorizontal 0.f
+#define kPaddingVertical 2.f
 #define kBorderWidth 4.f
 #define kRoundedCornerRadius 4.f  
-#define kConnectorLineBaseWidthDefault 40.f
+#define kConnectorLineBaseWidthDefault 30.f
 #define kShadowOffset 4.f
 
 @interface CalloutView()
@@ -67,8 +68,8 @@
     }
     self.textView.editable = NO;
     // set constraints and then find size
-    CGFloat textViewInset = kTextPadding + kBorderWidth;
-    CGFloat textViewWidth = self.widthConstraint - (textViewInset * 2);
+    CGFloat textViewHorizontalInset = kPaddingHorizontal + kBorderWidth;
+    CGFloat textViewWidth = self.widthConstraint - (textViewHorizontalInset * 2);
     self.textView.frame = CGRectMake(0,0, textViewWidth, 10);
     CGFloat textViewHeight = self.textView.contentSize.height;
     CGSize textViewSize = CGSizeMake(textViewWidth, textViewHeight);
@@ -94,8 +95,9 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGFloat textViewInset = [self textViewInset];
-    CGRect bubbleRect = CGRectInset(self.textView.frame, -1 * textViewInset, -1 * textViewInset);
+    CGFloat verticalInset = kPaddingVertical  + kBorderWidth / 2;
+    CGFloat horizontalInset = kPaddingHorizontal  + kBorderWidth / 2;
+    CGRect bubbleRect = CGRectInset(self.textView.frame, -1 * horizontalInset, -1 * verticalInset);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
@@ -144,10 +146,5 @@
     
     CGContextRestoreGState(context);
 }
-
--(CGFloat) textViewInset {
-    return kTextPadding  + kBorderWidth / 2;
-}
-
 
 @end

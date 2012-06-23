@@ -74,6 +74,7 @@
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8B711157636A0002C04F9 /* SignonCredentials.m */; };
+		1AE6005E1596098C007144B1 /* GameViewCalloutsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE6005D1596098C007144B1 /* GameViewCalloutsView.m */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AE669F815215485000965B5 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
 		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
@@ -262,6 +263,8 @@
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
 		1AD8B710157636A0002C04F9 /* SignonCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonCredentials.h; sourceTree = "<group>"; };
 		1AD8B711157636A0002C04F9 /* SignonCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonCredentials.m; sourceTree = "<group>"; };
+		1AE6005C1596098C007144B1 /* GameViewCalloutsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewCalloutsView.h; sourceTree = "<group>"; };
+		1AE6005D1596098C007144B1 /* GameViewCalloutsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewCalloutsView.m; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AE669F515215485000965B5 /* CloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudViewController.h; sourceTree = "<group>"; };
 		1AE669F615215485000965B5 /* CloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudViewController.m; sourceTree = "<group>"; };
@@ -913,6 +916,8 @@
 				1AFFE84315175EB0004B4590 /* PlayerView.m */,
 				1AFFE84415175EB0004B4590 /* PlayerView.xib */,
 				1AFFE7C415175E7B004B4590 /* ActionListener.h */,
+				1AE6005C1596098C007144B1 /* GameViewCalloutsView.h */,
+				1AE6005D1596098C007144B1 /* GameViewCalloutsView.m */,
 			);
 			name = "Active Game";
 			sourceTree = "<group>";
@@ -1297,6 +1302,7 @@
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 				1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */,
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
+				1AE6005E1596098C007144B1 /* GameViewCalloutsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

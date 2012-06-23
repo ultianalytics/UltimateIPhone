@@ -438,7 +438,8 @@
     [navBar addSubview:button];
 }
 
--(void)infoButtonTapped {
+-
+(void)infoButtonTapped {
     NSLog(@"info button tapped");
 }
 

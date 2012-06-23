@@ -25,17 +25,21 @@
     [self removeFromSuperview];
 }
 
+-(void)addCallout:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length font: (UIFont *) font {
+    CalloutView *callout = [[CalloutView alloc] initWithFrame: self.bounds text:textToDisplay anchor: anchorPoint width: width degrees: degreesFromAnchor connectorLength:length];
+    if (font) {
+        callout.fontOverride = font;
+    }
+    [self addSubview: callout];
+}
+
 -(void)addCallout:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length {
-    [self addSubview: [[CalloutView alloc] initWithFrame: self.bounds text:textToDisplay anchor: anchorPoint width: width degrees: degreesFromAnchor connectorLength:length]];
+    [self addCallout:textToDisplay anchor:anchorPoint width:width degrees:degreesFromAnchor connectorLength:length font:nil];
 }
 
 -(void)addNavControllerHelpAvailableCallout {
-    CalloutView *calloutView = [[CalloutView alloc] initWithFrame: self.bounds text:nil anchor: CGPointTop(self.bounds) width: 150 degrees: 180 connectorLength:80];
-    UITextView *textView = [[UITextView alloc] init];
-    textView.backgroundColor = [UIColor whiteColor];
-    textView.font = [UIFont systemFontOfSize:22];
-    textView.text = @"Tap here at any time to get help on this view.";
-    calloutView.textView = textView;
+    CalloutView *calloutView = [[CalloutView alloc] initWithFrame: self.bounds text:@"Tap here at any time to get help on this view." anchor: CGPointTop(self.bounds) width: 150 degrees: 180 connectorLength:80];
+    calloutView.fontOverride = [UIFont systemFontOfSize:22];
     [self addSubview: calloutView];
 }
 

@@ -28,7 +28,7 @@
 @end
 
 @implementation CalloutView
-@synthesize textView, text, widthConstraint, degreesFromNorth, anchor, connectorLength, connectorLineBaseWidth, borderColor, useShadow;
+@synthesize textView, text, widthConstraint, degreesFromNorth, anchor, connectorLength, connectorLineBaseWidth, borderColor, useShadow, fontOverride;
 
 - (id)initWithFrame:(CGRect)frame text:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length {
     self = [super initWithFrame:frame];
@@ -60,6 +60,9 @@
     if (self.textView == nil) {
         self.textView = [[UITextView alloc] init];
         self.textView.backgroundColor = [UIColor whiteColor];
+        if (fontOverride) {
+            self.textView.font = fontOverride;
+        }
         self.textView.text = self.text;
     } else {
         if (![self.textView.text length]) {

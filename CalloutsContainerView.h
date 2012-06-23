@@ -12,6 +12,7 @@
 @interface CalloutsContainerView : UIView
 
 -(void)addCallout:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length;
+-(void)addCallout:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length font: (UIFont *) font;
 -(void)addNavControllerHelpAvailableCallout;
 
 @end

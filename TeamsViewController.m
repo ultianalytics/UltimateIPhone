@@ -12,9 +12,27 @@
 #import "ColorMaster.h"
 #import "TeamViewController.h"
 #import "AppDelegate.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
+
+#define kIsNotFirstTeamsViewUsage @"IsNotFirstTeamsViewUsage"
+
+@interface TeamsViewController()
+
+@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
+
+@end
 
 @implementation TeamsViewController
-@synthesize teamsTableView;
+@synthesize teamsTableView,firstTimeUsageCallouts;
+
+    
+
+-(void)addTeamClicked {
+    if (![self showFirstTimeUsageCallouts]) {
+        [self goToTeamView: [[Team alloc] init] animated: YES];
+    }
+}
 
 -(void)goToAddTeam {
     [self goToTeamView: [[Team alloc] init] animated: YES];
@@ -102,12 +120,31 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(BOOL)showFirstTimeUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstTeamsViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstTeamsViewUsage];
+        
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = CGPointTopRight(self.view.bounds);
+        anchor.x = anchor.x - 40;
+        [calloutsView addCallout:@"FYI: You do NOT need to add your opponent teams here. Only add teams for whom you are gathering statistics.\n\nClick on the + again if you are really adding a team for gathering stats." anchor: anchor width: 200 degrees: 225 connectorLength: 160 font: [UIFont systemFontOfSize:16]];    
+
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+        return YES;
+    } else {
+        return NO;
+    }
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddTeam)];
+    UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;  
 }
 
@@ -120,6 +157,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self goToBestView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.firstTimeUsageCallouts removeFromSuperview];
 }
 
 - (void)viewDidUnload

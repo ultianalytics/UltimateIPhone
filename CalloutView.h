@@ -36,6 +36,7 @@
 @property (nonatomic, strong) UIColor *borderColor;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic) BOOL useShadow;
+@property (nonatomic, strong) UIFont *fontOverride;
 
 
 // init the callout.  The frame is generarlly the bounds of the view that contains the view with the anchor point.  Position at degrees (0-360) relative to the anchor at length from the anchor (length is calculated from the middle of the callout to the connector). 

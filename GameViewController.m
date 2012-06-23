@@ -23,14 +23,18 @@
 #import "Player.h"
 #import "Wind.h"
 #import "Reachability.h"
-#import "GameViewCalloutsView.h"
+#import "CalloutsContainerView.h"
 #import "CalloutView.h"
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
 #define kNoInternetAlertTitle @"No Internet Access"
 
+#define kIsNotFirstGameViewUsage @"IsNotFirstGameViewUsage"
+
 @interface GameViewController()
+
+@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
 -(void) goToPlayersOnFieldView;
 -(void) goToHistoryView: (BOOL) curl;
@@ -53,7 +57,7 @@
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
-    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel;
+    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel, firstTimeUsageCallouts;
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
     if (isOffense) {
@@ -356,6 +360,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self showFirstTimeUsageCallouts];
 
 }
 
@@ -445,7 +450,10 @@
 }
 
 -(void)showInfoCallouts {
-    GameViewCalloutsView *calloutsView = [[GameViewCalloutsView alloc] initWithFrame:self.view.bounds];
+    if (self.firstTimeUsageCallouts) {
+        [self.firstTimeUsageCallouts removeFromSuperview];
+    }
+    CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
     
     // undo button
     [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80];
@@ -457,6 +465,18 @@
     [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80];    
     
     [self.view addSubview:calloutsView];
+}
+
+-(void)showFirstTimeUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
+        
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        [calloutsView addNavControllerHelpAvailableCallout];  
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+    }
+
 }
 
 @end

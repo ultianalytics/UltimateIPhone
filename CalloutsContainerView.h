@@ -1,5 +1,5 @@
 //
-//  GameViewCalloutsView.h
+//  CalloutsContainerView.h
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 6/23/12.
@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CalloutView;
 
-@interface GameViewCalloutsView : UIView
+@interface CalloutsContainerView : UIView
 
 -(void)addCallout:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length;
+-(void)addNavControllerHelpAvailableCallout;
 
 @end

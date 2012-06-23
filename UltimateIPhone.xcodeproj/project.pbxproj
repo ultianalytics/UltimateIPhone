@@ -70,11 +70,11 @@
 		1A80C97315612192007F03C2 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97115612192007F03C2 /* woman@2x.png */; };
 		1A80C97415612192007F03C2 /* woman.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97215612192007F03C2 /* woman.png */; };
 		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
+		1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE077159627B9004C03A1 /* CalloutsContainerView.m */; };
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8B711157636A0002C04F9 /* SignonCredentials.m */; };
-		1AE6005E1596098C007144B1 /* GameViewCalloutsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE6005D1596098C007144B1 /* GameViewCalloutsView.m */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AE669F815215485000965B5 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
 		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
@@ -256,6 +256,8 @@
 		1A80C97115612192007F03C2 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
 		1A80C97215612192007F03C2 /* woman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman.png; sourceTree = "<group>"; };
 		1A80C9751561223C007F03C2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		1AACE076159627B9004C03A1 /* CalloutsContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutsContainerView.h; sourceTree = "<group>"; };
+		1AACE077159627B9004C03A1 /* CalloutsContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutsContainerView.m; sourceTree = "<group>"; };
 		1AAFDE381574F199005EA598 /* NSString+manipulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+manipulations.h"; sourceTree = "<group>"; };
 		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -263,8 +265,6 @@
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
 		1AD8B710157636A0002C04F9 /* SignonCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonCredentials.h; sourceTree = "<group>"; };
 		1AD8B711157636A0002C04F9 /* SignonCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonCredentials.m; sourceTree = "<group>"; };
-		1AE6005C1596098C007144B1 /* GameViewCalloutsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewCalloutsView.h; sourceTree = "<group>"; };
-		1AE6005D1596098C007144B1 /* GameViewCalloutsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewCalloutsView.m; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AE669F515215485000965B5 /* CloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudViewController.h; sourceTree = "<group>"; };
 		1AE669F615215485000965B5 /* CloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudViewController.m; sourceTree = "<group>"; };
@@ -792,6 +792,8 @@
 			children = (
 				1A78D9C215949DC300115BE5 /* CalloutView.h */,
 				1A78D9C315949DC300115BE5 /* CalloutView.m */,
+				1AACE076159627B9004C03A1 /* CalloutsContainerView.h */,
+				1AACE077159627B9004C03A1 /* CalloutsContainerView.m */,
 				1AFFE85C15175EB0004B4590 /* StandardButton.h */,
 				1AFFE85D15175EB0004B4590 /* StandardButton.m */,
 				1AFFE84E15175EB0004B4590 /* RedButton.h */,
@@ -916,8 +918,6 @@
 				1AFFE84315175EB0004B4590 /* PlayerView.m */,
 				1AFFE84415175EB0004B4590 /* PlayerView.xib */,
 				1AFFE7C415175E7B004B4590 /* ActionListener.h */,
-				1AE6005C1596098C007144B1 /* GameViewCalloutsView.h */,
-				1AE6005D1596098C007144B1 /* GameViewCalloutsView.m */,
 			);
 			name = "Active Game";
 			sourceTree = "<group>";
@@ -1302,7 +1302,7 @@
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 				1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */,
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
-				1AE6005E1596098C007144B1 /* GameViewCalloutsView.m in Sources */,
+				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

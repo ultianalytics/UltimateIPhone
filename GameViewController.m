@@ -35,6 +35,7 @@
 @interface GameViewController()
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
+@property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 
 -(void) goToPlayersOnFieldView;
 -(void) goToHistoryView: (BOOL) curl;
@@ -57,7 +58,7 @@
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
-    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel, firstTimeUsageCallouts;
+    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel, firstTimeUsageCallouts,infoCalloutsView;
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
     if (isOffense) {
@@ -360,8 +361,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self showFirstTimeUsageCallouts];
-
+    [self toggleFirstTimeUsageCallouts];
 }
 
 - (void)updateNavBarTitle {
@@ -446,29 +446,37 @@
 }
 
 - (void)infoButtonTapped {
-    [self showInfoCallouts];
+    [self toggleInfoCallouts];
 }
 
--(void)showInfoCallouts {
-    if (self.firstTimeUsageCallouts) {
-        [self.firstTimeUsageCallouts removeFromSuperview];
+-(void)toggleInfoCallouts {
+    [self toggleFirstTimeUsageCallouts];
+    
+    if (self.infoCalloutsView) {
+        [self.infoCalloutsView removeFromSuperview];
+        self.infoCalloutsView = nil;
+    } else {
+       CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        // undo button
+        [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80];
+        // recents list
+        [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 80];
+        // line button
+        CGPoint anchor = CGPointTopRight(self.view.bounds);
+        anchor.x = anchor.x - 40;
+        [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80];    
+        
+        self.infoCalloutsView = calloutsView;
+        [self.view addSubview:calloutsView];
     }
-    CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
-    
-    // undo button
-    [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80];
-    // recents list
-    [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 80];
-    // line button
-    CGPoint anchor = CGPointTopRight(self.view.bounds);
-    anchor.x = anchor.x - 40;
-    [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80];    
-    
-    [self.view addSubview:calloutsView];
 }
 
--(void)showFirstTimeUsageCallouts {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage]) {
+-(void)toggleFirstTimeUsageCallouts {
+    if (self.firstTimeUsageCallouts) {  
+        [self.firstTimeUsageCallouts removeFromSuperview];
+        self.firstTimeUsageCallouts = nil;
+    } else if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
         
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
@@ -476,7 +484,6 @@
         self.firstTimeUsageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
     }
-
 }
 
 @end

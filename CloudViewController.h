@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/17/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

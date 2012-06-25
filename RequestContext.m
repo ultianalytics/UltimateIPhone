@@ -7,32 +7,53 @@
 //
 
 #import "RequestContext.h"
+#import "CloudMetaInfo.h"
+#import "CloudClient.h"
+
+@interface RequestContext() 
+
+@property (nonatomic) int error;
+
+@end
 
 @implementation RequestContext
+@synthesize error, errorExplanation;
+
 @synthesize requestData, responseData;
 
 
-- (id)initWithRequestData:(id) aRequestData responseData: (id)aResponseData error: (int) errorCode { 
+- (id)initWithReqData:(id) aRequestData responseData: (id)aResponseData errorCode: (int) errorCode { 
     self = [super init];
     if (self) {
-        requestData = aRequestData;
-        responseData = aResponseData;
-        error = errorCode;
+        self.requestData = aRequestData;
+        self.responseData = aResponseData;
+        self.error = errorCode;
     }
     return self;
 }
 
-- (id)initWithRequestData:(id) aRequestData responseData: (id)aResponseData { 
+- (id)initWithReqData:(id) aRequestData responseData: (id)aResponseData error: (NSError *) requestError { 
     self = [super init];
     if (self) {
-        requestData = aRequestData;
-        responseData = aResponseData;
-        error = -1;
+        self.requestData = aRequestData;
+        self.responseData = aResponseData;
+        self.error = requestError.code;
+        self.errorExplanation = [requestError.userInfo objectForKey:kCloudErrorExplanationKey];
     }
     return self;
 }
 
-- (id)initWithRequestError: (int) errorCode { 
+- (id)initWithReqData:(id) aRequestData responseData: (id)aResponseData { 
+    self = [super init];
+    if (self) {
+        self.requestData = aRequestData;
+        self.responseData = aResponseData;
+        self.error = -1;
+    }
+    return self;
+}
+
+- (id)initWithReqErrorCode: (int) errorCode { 
     self = [super init];
     if (self) {
         [self setErrorCode:errorCode];
@@ -40,16 +61,27 @@
     return self;
 }
 
+
+- (id)initWithReqError: (NSError *) requestError {
+    self = [self initWithReqErrorCode: requestError.code];
+    if (self) {
+        self.errorExplanation = [requestError.userInfo objectForKey:kCloudErrorExplanationKey];
+    }
+    return self;
+}
+
+
+
 -(void)setErrorCode: (int) code {
-    error = code;
+    self.error = code;
 }
 
 -(int)getErrorCode {
-    return [self hasError] ? error : -1;
+    return [self hasError] ? self.error : -1;
 }
 
 -(BOOL)hasError {
-    return error != -1;
+    return self.error != -1;
 }
 
 - (NSString* )description {

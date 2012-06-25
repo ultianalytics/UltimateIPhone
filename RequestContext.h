@@ -9,19 +9,20 @@
 #import <Foundation/Foundation.h>
 
 @interface RequestContext : NSObject {
-    @private
-    int error;
 }
 
 @property (nonatomic, strong) id requestData;
 @property (nonatomic, strong) id responseData;
+@property (nonatomic, strong) NSString *errorExplanation;
 
 -(void)setErrorCode: (int) code;
 -(int)getErrorCode;
 -(BOOL)hasError;
 
-- (id)initWithRequestData:(id) aRequestData responseData: (id)aResponseData error: (int) errorCode;
-- (id)initWithRequestData:(id) aRequestData responseData: (id)aResponseData;
-- (id)initWithRequestError: (int) errorCode;
+- (id)initWithReqData:(id) aRequestData responseData: (id)aResponseData errorCode: (int) errorCode;
+- (id)initWithReqData:(id) aRequestData responseData: (id)aResponseData error: (NSError *) requestError;
+- (id)initWithReqData:(id) aRequestData responseData: (id)aResponseData;
+- (id)initWithReqErrorCode: (int) errorCode;
+- (id)initWithReqError: (NSError *) error;
 
 @end

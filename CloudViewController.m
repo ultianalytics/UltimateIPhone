@@ -1,9 +1,8 @@
 //
 //  CloudViewController.m
-//  Ultimate
 //
 //  Created by Jim Geppert on 2/17/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 #import "CloudViewController.h"
 #import "Preferences.h"
@@ -47,6 +46,17 @@
 @implementation CloudViewController
 @synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
 
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+    }
+    return self;
+}
+
+#pragma mark - Event handling
+
 -(IBAction)downloadTeamButtonClicked: (id) sender {
     [self startTeamsDownload];
 }
@@ -54,6 +64,12 @@
 -(IBAction)downloadGameButtonClicked: (id) sender {
     [self startGamesDownload];
 }
+
+-(IBAction)uploadButtonClicked: (id) sender {
+    [self startUpload];
+}
+
+#pragma mark - Navigation
 
 -(void)goSignonView{
     SignonViewController *signonController = [[SignonViewController alloc] init];
@@ -73,22 +89,7 @@
     [self.navigationController pushViewController:gameDownloadController animated: YES];
 }
 
--(void)populateViewFromModel {
-    NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
-    self.websiteLabel.text = websiteURL == nil ?  @"unknown (do upload)" : websiteURL;
-    self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
-    NSString* userid = [Preferences getCurrentPreferences].userid;
-    self.userLabel.text = userid == nil ? @"unknown (do upload or download)" : userid;
-    [self.uploadButton setTitle:[NSString stringWithFormat:@" Upload %@ Games ",[Team getCurrentTeam].name] forState:UIControlStateNormal];
-    [self.downloadGameButton setTitle:[NSString stringWithFormat:@" Download a %@ Game ",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
-    self.signoffButton.hidden = userid == nil;
-    [self.cloudTableView reloadData];
-}
-
--(IBAction)uploadButtonClicked: (id) sender {
-    [self startUpload];
-}
+#pragma mark - Upload Team/Games
 
 -(void)startUpload {
     [self startBusyDialog];
@@ -98,22 +99,26 @@
 -(void)uploadToServer {
     NSError* uploadError = nil;
     [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames:[Team getCurrentTeam].teamId] error: &uploadError];
-    [self performSelectorOnMainThread:@selector(handleUploadCompletion:) withObject: uploadError ? [NSNumber numberWithInt: uploadError.code] : nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(handleUploadCompletion:) withObject: uploadError waitUntilDone:NO];
 }
 
--(void)handleUploadCompletion: (NSNumber*) errorCode {
+-(void)handleUploadCompletion: (NSError*) error {
     [self stopBusyDialog];
-    if (errorCode && [errorCode intValue] == Unauthorized) {
+    if (error && error.code == Unauthorized) {
         __weak CloudViewController* slf = self;
         signonCompletion = ^{[slf startUpload];};
         [self goSignonView];
-    } else if (errorCode) {
-        [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: NSLocalizedString([errorCode intValue] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to upload your data to the cloud.  Try again later.", nil)];
+    } else if (error && error.code == UnacceptableAppVersion) {
+        [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: [error.userInfo objectForKey:kCloudErrorExplanationKey]]; 
+    } else if (error) {
+        [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: NSLocalizedString(error.code == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to upload your data to the cloud.  Try again later.", nil)];
     } else {
         [self populateViewFromModel];
         [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)];
     }
 }
+
+#pragma mark - Download Team descriptions (for picking one to download)
 
 -(void)startTeamsDownload {
     [self startBusyDialog];
@@ -124,8 +129,8 @@
     NSError* requestError = nil;
     NSArray* teams = [CloudClient getTeams:&requestError];
     RequestContext* reqContext = requestError ? 
-        [[RequestContext alloc] initWithRequestData:nil responseData:nil error: requestError.code] :
-        [[RequestContext alloc] initWithRequestData:nil responseData:teams];
+        [[RequestContext alloc] initWithReqData:nil responseData:nil error: requestError] :
+        [[RequestContext alloc] initWithReqData:nil responseData:teams];
     [self performSelectorOnMainThread:@selector(handleTeamsDownloadCompletion:) 
                            withObject:reqContext waitUntilDone:YES];
 }
@@ -137,6 +142,8 @@
             __weak CloudViewController* slf = self;
             signonCompletion = ^{[slf startTeamsDownload];};
             [self goSignonView];
+        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
         } else {
             [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team list from the cloud.  Try again later.", nil)];            
         }
@@ -145,6 +152,8 @@
         [self goTeamPickerView: teams];
     } 
 }
+
+#pragma mark - Download Games info (for picking one to download)
 
 -(void)startGamesDownload {
     [self startBusyDialog];
@@ -156,8 +165,8 @@
     NSString* cloudId = [Team getCurrentTeam].cloudId;
     NSArray* games = [CloudClient getGameDescriptions:cloudId error:&requestError];
     RequestContext* reqContext = requestError ? 
-    [[RequestContext alloc] initWithRequestData:nil responseData:nil error: requestError.code] :
-    [[RequestContext alloc] initWithRequestData:nil responseData:games];
+    [[RequestContext alloc] initWithReqData:nil responseData:nil error: requestError] :
+    [[RequestContext alloc] initWithReqData:nil responseData:games];
     [self performSelectorOnMainThread:@selector(handleGamesDownloadCompletion:) 
                            withObject:reqContext waitUntilDone:YES];
 }
@@ -169,6 +178,8 @@
             __weak CloudViewController* slf = self;          
             signonCompletion = ^{[slf startGamesDownload];};
             [self goSignonView];
+        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
         } else {
             [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your games list from the cloud.  Try again later.", nil)];                
         }
@@ -177,6 +188,8 @@
         [self goGamePickerView: games];
     } 
 }
+
+#pragma mark - Download Game
 
 -(void)startGameDownload:(NSString*) gameId {
     [self startBusyDialog];
@@ -187,8 +200,8 @@
     NSError* requestError = nil;
     [CloudClient downloadGame:gameId forTeam: [Team getCurrentTeam].cloudId error:&requestError];
     RequestContext* reqContext = requestError ? 
-    [[RequestContext alloc] initWithRequestData:gameId responseData:nil error: requestError.code] :
-    [[RequestContext alloc] initWithRequestData:gameId responseData:nil];
+    [[RequestContext alloc] initWithReqData:gameId responseData:nil error: requestError] :
+    [[RequestContext alloc] initWithReqData:gameId responseData:nil];
     [self performSelectorOnMainThread:@selector(handleGameDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
 }
 
@@ -200,6 +213,8 @@
             __weak CloudViewController* slf = self;
             signonCompletion = ^{[slf startGameDownload: gameId];};
             [self goSignonView];
+        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
         } else {
             [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your game from the cloud.  Try again later.", nil)];               
         }
@@ -213,6 +228,8 @@
     }
 }
 
+#pragma mark - Download Team
+
 -(void)startTeamDownload: (NSString*) cloudId {
     [self startBusyDialog];
     [self performSelectorInBackground:@selector(downloadTeamFromServer:) withObject:cloudId];
@@ -222,8 +239,8 @@
     NSError* requestError = nil;
     NSString* teamId = [CloudClient downloadTeam: cloudId error:&requestError];
     RequestContext* reqContext = requestError ? 
-                   [[RequestContext alloc] initWithRequestData:cloudId responseData:nil error: requestError.code] :
-                   [[RequestContext alloc] initWithRequestData:cloudId responseData:teamId];
+                   [[RequestContext alloc] initWithReqData:cloudId responseData:nil error: requestError] :
+                   [[RequestContext alloc] initWithReqData:cloudId responseData:teamId];
     [self performSelectorOnMainThread:@selector(handleTeamDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
 }
 
@@ -235,6 +252,8 @@
             __weak CloudViewController* slf = self;
             signonCompletion = ^{[slf startTeamDownload: cloudId];};
             [self goSignonView];
+        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
+            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
         } else {
             [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team from the cloud.  Try again later.", nil)];                   
         }
@@ -248,6 +267,8 @@
         [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)];            
     }
 }
+
+#pragma mark - Busy Dialog
 
 -(void)startBusyDialog {
     busyView = [[UIAlertView alloc] initWithTitle: @"Talking to cloud..."
@@ -271,6 +292,8 @@
     }
 }
 
+#pragma mark - Miscellaneous
+
 -(void)dismissSignonController:(BOOL) isSignedOn {
     void (^completionBlock)() = isSignedOn ? signonCompletion : nil;
     [self.presentedViewController dismissViewControllerAnimated:NO completion:completionBlock];
@@ -280,6 +303,38 @@
     [CloudClient signOff];
     [self populateViewFromModel];
 }
+
+-(void)showCompleteAlert: (NSString*) title message: (NSString*) message {
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle: title
+                          message: message
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
+}
+
+-(void)styleButtons {
+    self.uploadButton.titleLabel.font = kButtonFont;  
+    self.downloadGameButton.titleLabel.font = kButtonFont;    
+    self.downloadTeamButton.titleLabel.font = kButtonFont;    
+    self.signoffButton.titleLabel.font = kButtonFont;    
+}
+
+-(void)populateViewFromModel {
+    NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
+    self.websiteLabel.text = websiteURL == nil ?  @"unknown (do upload)" : websiteURL;
+    self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
+    NSString* userid = [Preferences getCurrentPreferences].userid;
+    self.userLabel.text = userid == nil ? @"unknown (do upload or download)" : userid;
+    [self.uploadButton setTitle:[NSString stringWithFormat:@" Upload %@ Games ",[Team getCurrentTeam].name] forState:UIControlStateNormal];
+    [self.downloadGameButton setTitle:[NSString stringWithFormat:@" Download a %@ Game ",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
+    self.signoffButton.hidden = userid == nil;
+    [self.cloudTableView reloadData];
+}
+
+#pragma mark - Table handling
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -313,39 +368,6 @@
         } 
     }
 } 
-
--(void)showCompleteAlert: (NSString*) title message: (NSString*) message {
-    UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle: title
-                          message: message
-                          delegate: nil
-                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                          otherButtonTitles: nil];
-    [alert show];
-}
-
--(void)styleButtons {
-    self.uploadButton.titleLabel.font = kButtonFont;  
-    self.downloadGameButton.titleLabel.font = kButtonFont;    
-    self.downloadTeamButton.titleLabel.font = kButtonFont;    
-    self.signoffButton.titleLabel.font = kButtonFont;    
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
 
@@ -387,6 +409,14 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
 }
 
 @end

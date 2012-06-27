@@ -722,6 +722,7 @@
 		1AFFE8D015176431004B4590 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1AFFE8D415176470004B4590 /* Common */,
 				1AEE549F1529442E0067F539 /* Twitter */,
 				1AE669EF1521534B000965B5 /* Cloud */,
 				1AF34E7915176A260065A16D /* Stats */,
@@ -734,7 +735,6 @@
 				1AFFE8D815176481004B4590 /* Preferences */,
 				1AFFE8D71517647F004B4590 /* Team */,
 				1AFFE8D61517647C004B4590 /* Wind */,
-				1AFFE8D415176470004B4590 /* Common */,
 			);
 			name = UI;
 			sourceTree = "<group>";

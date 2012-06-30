@@ -47,7 +47,7 @@
 
 +(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict {
     NSString* dictAction = [dict valueForKey:kActionKey];
-    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : Callahan;
+    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : [dictAction isEqualToString: @"Throwaway"] ? Throwaway : Callahan;
     return [[DefenseEvent alloc] 
             initDefender: [Team getPlayerNamed:[dict valueForKey:kDefenderKey]]
             action: action];
@@ -56,7 +56,7 @@
 -(NSDictionary*) asDictionary {
     NSMutableDictionary* dict = [super asDictionary];
     [dict setValue: @"Defense" forKey:kEventTypeProperty];
-    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : @"Calahan" forKey:kActionKey];
+    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : @"Calahan" forKey:kActionKey];
     [dict setValue: self.defender.name forKey:kDefenderKey];
     return dict;
 }

@@ -82,6 +82,8 @@
         return [NSString stringWithFormat:@"Pull from %@", self.defender.name];
     } else if (self.action == Goal) {
         return opponentName == nil ? @"Opponent Goal" : [NSString stringWithFormat:@"%@ Goal", opponentName];
+    } else if (self.action == Throwaway) {
+        return @"Opponent Throwaway";
     } else if (self.action == De) {
         return [self.defender isAnonymous] ? @"Team D" :[NSString stringWithFormat:@"D by %@", self.defender.name];
     } else {
@@ -90,7 +92,7 @@
 }
 
 - (BOOL) isNextEventOffense {
-    return self.action == Goal || self.action == De;
+    return self.action != Pull;
 }
 
 - (NSArray*) getPlayers {

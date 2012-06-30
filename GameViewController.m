@@ -60,6 +60,7 @@
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
     eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel, firstTimeUsageCallouts,infoCalloutsView;
 
+
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
     if (isOffense) {
         PlayerView* oldSelected = [self findSelectedPlayerView];
@@ -193,7 +194,6 @@
 -(void) setOffense: (BOOL) shouldBeOnOffense {
     isOffense = shouldBeOnOffense;
     self.receiverLabel.hidden = !isOffense;
-    self.throwAwayButton.hidden = !isOffense;
     self.otherTeamScoreButton.hidden = isOffense;
     self.hideReceiverView.hidden = YES;
     [self.playerLabel setText: isOffense ? @"Passer" : @"Defender"];
@@ -205,9 +205,16 @@
     [self.playerView6 setIsOffense:isOffense];
     [self.playerView7 setIsOffense:isOffense];
     [self.playerViewTeam setIsOffense:isOffense];
+    self.throwAwayButton.hidden = NO;
+    [self setThrowAwayButtonPosition];
     [self populatePlayers];
     [self initializeSelected];
      
+}
+
+-(void)setThrowAwayButtonPosition {
+    CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(-100.0, 0.0);
+    self.throwAwayButton.transform = transform;
 }
 
 - (void) populatePlayers {
@@ -254,14 +261,19 @@
 }
 
 -(IBAction)throwAwayButtonClicked: (id) sender {
-    PlayerView* oldSelected = [self findSelectedPlayerView];
-    if (oldSelected) {
-        [oldSelected makeSelected:NO];
+    if (isOffense) {
+        PlayerView* oldSelected = [self findSelectedPlayerView];
+        if (oldSelected) {
+            [oldSelected makeSelected:NO];
+        }
+        [playerViewTeam makeSelected:YES];
+        Player* passer = oldSelected.player;
+        OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
+        [self addEvent: event];    
+    } else {
+        DefenseEvent* event = [[DefenseEvent alloc] initAction:Throwaway];
+        [self addEvent: event];  
     }
-    [playerViewTeam makeSelected:YES];
-    Player* passer = oldSelected.player;
-    OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
-    [self addEvent: event];    
 }
 
 
@@ -373,7 +385,8 @@
 
 -(void) updateViewFromGame: (Game*) game {
     if (!isOffense) {
-         self.otherTeamScoreButton.hidden = [game canNextPointBePull] ? YES : NO;
+        self.otherTeamScoreButton.hidden = [game canNextPointBePull] ? YES : NO;
+        self.throwAwayButton.hidden = [game canNextPointBePull] ? YES : NO;
     }
     for (PlayerView* playerView in playerViews) {
         [playerView update:game];

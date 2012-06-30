@@ -15,7 +15,8 @@ static UIImage* catchImage = nil;
 static UIImage* dropImage = nil;
 static UIImage* ourGoalImage = nil;
 static UIImage* theirGoalImage = nil;
-static UIImage* throwawayImage = nil;
+static UIImage* offenseThrowawayImage = nil;
+static UIImage* defenseThrowawayImage = nil;
 static UIImage* pullImage = nil;
 static UIImage* deImage = nil;
 static UIImage* maleImage = nil;
@@ -28,7 +29,8 @@ static UIImage* unknownImage = nil;
     dropImage = [UIImage imageNamed:@"eyes_droped.png"];
     ourGoalImage = [UIImage imageNamed:@"super_man.png"];
     theirGoalImage = [UIImage imageNamed:@"cry.png"];
-    throwawayImage = [UIImage imageNamed:@"shame.png"];
+    offenseThrowawayImage = [UIImage imageNamed:@"shame.png"];
+    defenseThrowawayImage = [UIImage imageNamed:@"exciting.png"];
     pullImage = [UIImage imageNamed:@"nothing.png"];
     deImage = [UIImage imageNamed:@"electric_shock.png"];
     unknownImage = [UIImage imageNamed:@"hearts.png"];
@@ -39,6 +41,8 @@ static UIImage* unknownImage = nil;
 + (UIImage*) getImageForEvent: (Event*) event {
     if ((![event isOffense]) && event.action == Goal) {
         return [ImageMaster getTheirGoalImage];  
+    } else if ((![event isOffense]) && event.action == Throwaway) {
+        return [ImageMaster getOpponentThrowawayImage];  
     }
     switch(event.action) {
         case Catch:
@@ -76,7 +80,11 @@ static UIImage* unknownImage = nil;
 }
 
 +(UIImage*)getThrowawayImage {
-    return throwawayImage;
+    return offenseThrowawayImage;
+}
+
++(UIImage*)getOpponentThrowawayImage {
+    return defenseThrowawayImage;
 }
 
 +(UIImage*)getPullImage {

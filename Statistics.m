@@ -96,7 +96,7 @@
 
 +(NSArray*)throwawaysPerPlayer: (Game*) game team: (Team*) team {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Throwaway) {
+        if ([eventDetails.event isOffense] && eventDetails.event.action == Throwaway) {
             OffenseEvent* event = (OffenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];            
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];

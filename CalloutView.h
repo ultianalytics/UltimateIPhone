@@ -42,4 +42,6 @@
 // init the callout.  The frame is generarlly the bounds of the view that contains the view with the anchor point.  Position at degrees (0-360) relative to the anchor at length from the anchor (length is calculated from the middle of the callout to the connector). 
 - (id)initWithFrame:(CGRect)frame text:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length;
 
+-(void)slide: (BOOL) slideOut animated: (BOOL) animated;
+
 @end

@@ -9,6 +9,10 @@
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
 
+@interface CalloutsContainerView()
+
+@end
+
 @implementation CalloutsContainerView
 
 - (id)initWithFrame:(CGRect)frame
@@ -42,5 +46,14 @@
     calloutView.fontOverride = [UIFont systemFontOfSize:22];
     [self addSubview: calloutView];
 }
+
+-(void)slide: (BOOL) slideOut animated: (BOOL) animated {
+    for (UIView *subView in self.subviews) {
+        if ([subView isKindOfClass: [CalloutView class]]) {
+            [((CalloutView *)subView) slide:slideOut animated: YES];
+        }
+    }
+}
+
 
 @end

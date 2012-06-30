@@ -458,17 +458,21 @@
     } else {
        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
+        UIFont *textFont = [UIFont systemFontOfSize:14];
         // undo button
-        [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80];
+        [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
         // recents list
-        [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 80];
+        [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 100 font: textFont];
         // line button
         CGPoint anchor = CGPointTopRight(self.view.bounds);
         anchor.x = anchor.x - 40;
-        [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80];    
+        [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80 font: textFont];    
         
         self.infoCalloutsView = calloutsView;
         [self.view addSubview:calloutsView];
+        // move the callouts off the screen and then animate their return.
+        [self.infoCalloutsView slide: YES animated: NO];
+        [self.infoCalloutsView slide: NO animated: YES];
     }
 }
 

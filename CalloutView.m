@@ -6,6 +6,7 @@
 //
 
 #import "CalloutView.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define radians(x) ((x) * M_PI/180 )
 
@@ -20,7 +21,7 @@
 
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic) CGFloat widthConstraint;
-@property (nonatomic) CGFloat degreesFromNorth;
+@property (nonatomic) int degreesFromNorth;
 @property (nonatomic) CGPoint anchor;
 @property (nonatomic) int connectorLength;
 @property (nonatomic) int connectorLineBaseWidth;
@@ -36,7 +37,7 @@
         self.text = textToDisplay;
         self.anchor = anchorPoint;
         self.widthConstraint = width;
-        self.degreesFromNorth = degreesFromAnchor;
+        self.degreesFromNorth = degreesFromAnchor < 0 ? 360 - ((degreesFromAnchor * -1) % 360) : degreesFromAnchor;
         self.connectorLength = length;
         self.borderColor = [UIColor blackColor];
         self.useShadow = YES;
@@ -148,6 +149,44 @@
     CGContextAddLineToPoint(context, p3.x, p3.y);
     
     CGContextRestoreGState(context);
+}
+
+-(void)slide: (BOOL) slideOut animated: (BOOL) animated {
+    CATransform3D beginTransform = self.layer.transform;
+    
+    CATransform3D endTransform = CATransform3DIdentity;
+    if (slideOut) {
+        CGPoint offsceenOrigin = [self offscreenPoint];
+        endTransform = CATransform3DTranslate(endTransform, offsceenOrigin.x, offsceenOrigin.y, 0.0); 
+    } else {
+        endTransform = CATransform3DTranslate(endTransform, 0.0, 0.0, 0.0);
+    }
+    
+    // change the layer, without implicit animation
+    [CATransaction setDisableActions:YES]; // don't really have to do this line because it is the view's layer
+    self.layer.transform = endTransform;
+    
+    if (animated) {
+        // construct the explicit animation
+        CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+        anim.duration = 0.8;
+        CAMediaTimingFunction* clunk = [CAMediaTimingFunction functionWithControlPoints:.9 :.1 :.7 :.9];
+        anim.timingFunction = clunk;
+        anim.fromValue = [NSValue valueWithCATransform3D:beginTransform];
+        anim.toValue = [NSValue valueWithCATransform3D:endTransform];
+        
+        // ask for the explicit animation
+        [self.layer addAnimation:anim forKey:nil];
+    }     
+}
+
+-(CGPoint)offscreenPoint {
+    // slide from left or right?
+    BOOL slideFromRight = (self.degreesFromNorth % 360) < 180;
+    CGFloat offScreenOriginX = slideFromRight ? 
+        -1 * (CGRectGetMinX(self.frame) + CGRectGetWidth(self.bounds)) :
+        (CGRectGetMinX(self.frame) + CGRectGetWidth(self.bounds));
+    return CGPointMake(offScreenOriginX, 0.0); 
 }
 
 @end

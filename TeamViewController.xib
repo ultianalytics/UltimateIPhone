@@ -129,7 +129,7 @@
 							<object class="IBUILabel" id="208748973">
 								<reference key="NSNextResponder" ref="304527963"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{19, 13}, {49, 21}}</string>
+								<string key="NSFrame">{{10, 11}, {49, 21}}</string>
 								<reference key="NSSuperview" ref="304527963"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="568992475"/>
@@ -160,7 +160,7 @@
 							<object class="IBUITextField" id="568992475">
 								<reference key="NSNextResponder" ref="304527963"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{138, 9}, {143, 31}}</string>
+								<string key="NSFrame">{{138, 7}, {143, 31}}</string>
 								<reference key="NSSuperview" ref="304527963"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:304</string>
@@ -233,7 +233,7 @@
 							<object class="IBUISegmentedControl" id="314569491">
 								<reference key="NSNextResponder" ref="835629198"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{137, 5}, {140, 30}}</string>
+								<string key="NSFrame">{{138, 7}, {143, 30}}</string>
 								<reference key="NSSuperview" ref="835629198"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:273</string>
@@ -266,7 +266,7 @@
 							<object class="IBUILabel" id="194839409">
 								<reference key="NSNextResponder" ref="835629198"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{19, 9}, {47, 21}}</string>
+								<string key="NSFrame">{{10, 11}, {47, 21}}</string>
 								<reference key="NSSuperview" ref="835629198"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="314569491"/>
@@ -319,7 +319,7 @@
 							<object class="IBUILabel" id="155427854">
 								<reference key="NSNextResponder" ref="196667763"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 11}, {109, 21}}</string>
+								<string key="NSFrame">{{10, 11}, {126, 21}}</string>
 								<reference key="NSSuperview" ref="196667763"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="658877533"/>
@@ -340,7 +340,7 @@
 							<object class="IBUISegmentedControl" id="658877533">
 								<reference key="NSNextResponder" ref="196667763"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{137, 7}, {141, 30}}</string>
+								<string key="NSFrame">{{138, 7}, {143, 30}}</string>
 								<reference key="NSSuperview" ref="196667763"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:273</string>
@@ -404,7 +404,7 @@
 							<object class="IBUILabel" id="147863390">
 								<reference key="NSNextResponder" ref="628823641"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 11}, {57, 21}}</string>
+								<string key="NSFrame">{{10, 11}, {57, 21}}</string>
 								<reference key="NSSuperview" ref="628823641"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
@@ -639,8 +639,8 @@
 						<int key="objectID">26</int>
 						<reference key="object" ref="482891553"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="155427854"/>
 							<reference ref="658877533"/>
+							<reference ref="155427854"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -775,7 +775,7 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="createScrubbedVersion">UIButton</string>
+						<string key="createScrubbedVersionButton">UIButton</string>
 						<string key="deleteAlertView">UIAlertView</string>
 						<string key="deleteButton">UIButton</string>
 						<string key="displayCell">UITableViewCell</string>
@@ -788,8 +788,8 @@
 						<string key="typeCell">UITableViewCell</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="createScrubbedVersion">
-							<string key="name">createScrubbedVersion</string>
+						<object class="IBToOneOutletInfo" key="createScrubbedVersionButton">
+							<string key="name">createScrubbedVersionButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="deleteAlertView">

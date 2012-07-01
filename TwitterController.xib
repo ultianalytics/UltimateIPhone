@@ -45,7 +45,6 @@
 						<string key="NSFrameSize">{320, 372}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:418</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -94,7 +93,6 @@
 								<string key="NSFrame">{{90, 3}, {107, 37}}</string>
 								<reference key="NSSuperview" ref="746060604"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">1</int>
@@ -164,7 +162,7 @@
 							<object class="IBUILabel" id="800328235">
 								<reference key="NSNextResponder" ref="72014422"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 11}, {143, 21}}</string>
+								<string key="NSFrame">{{14, 11}, {96, 21}}</string>
 								<reference key="NSSuperview" ref="72014422"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="487094499"/>
@@ -198,7 +196,6 @@
 								<string key="NSFrame">{{113, 7}, {162, 30}}</string>
 								<reference key="NSSuperview" ref="72014422"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:273</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">2</int>
@@ -266,7 +263,7 @@
 							<object class="IBUILabel" id="315278522">
 								<reference key="NSNextResponder" ref="634547349"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 7}, {74, 21}}</string>
+								<string key="NSFrame">{{14, 11}, {74, 21}}</string>
 								<reference key="NSSuperview" ref="634547349"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="173240596"/>
@@ -287,10 +284,9 @@
 							<object class="IBUILabel" id="173240596">
 								<reference key="NSNextResponder" ref="634547349"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{96, 7}, {194, 21}}</string>
+								<string key="NSFrame">{{96, 11}, {194, 21}}</string>
 								<reference key="NSSuperview" ref="634547349"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -351,10 +347,9 @@
 							<object class="IBUILabel" id="467344517">
 								<reference key="NSNextResponder" ref="1043202110"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{17, 11}, {122, 21}}</string>
+								<string key="NSFrame">{{14, 11}, {134, 21}}</string>
 								<reference key="NSSuperview" ref="1043202110"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>

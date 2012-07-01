@@ -79,7 +79,7 @@
 
 - (void) passerSelected: (Player*) player view: (PlayerView*) view {
     if (isOffense) {
-        self.hideReceiverView.hidden = YES;
+        [self setNeedToSelectPasser: NO];
     }
     PlayerView* oldSelected = [self findSelectedPlayerView];
     if (oldSelected) {
@@ -153,6 +153,13 @@
     return nil;
 }
 
+- (void) setNeedToSelectPasser: (BOOL) needToSelectPasser {
+    for (PlayerView* playerView in self.playerViews) {
+        [playerView setNeedToSelectPasser: needToSelectPasser];
+    }
+    self.hideReceiverView.hidden = !needToSelectPasser;
+}
+
 -(void) goToPlayersOnFieldView {
     PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
     pickPlayersController.game = [Game getCurrentGame];
@@ -195,7 +202,7 @@
     isOffense = shouldBeOnOffense;
     self.receiverLabel.hidden = !isOffense;
     self.otherTeamScoreButton.hidden = isOffense;
-    self.hideReceiverView.hidden = YES;
+    [self setNeedToSelectPasser: NO];
     [self.playerLabel setText: isOffense ? @"Passer" : @"Defender"];
     [self.playerView1 setIsOffense:isOffense];
     [self.playerView2 setIsOffense:isOffense];
@@ -255,7 +262,7 @@
                 [playerViewTeam makeSelected:YES];
             }
         } else {
-            self.hideReceiverView.hidden = NO;
+            [self setNeedToSelectPasser: YES];
         }
     }
 }

@@ -69,6 +69,10 @@
     [self setNeedsDisplay];
 }
 
+- (void) setNeedToSelectPasser: (BOOL) needToSelectPasser {
+    self.passerButton.isLabelStyle = !needToSelectPasser;
+}
+
 - (BOOL)isSelected {
     return isSelected;
 }

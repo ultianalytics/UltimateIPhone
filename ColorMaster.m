@@ -131,15 +131,6 @@ static UIColor* linePlayerImbalanceWarningBoys;
     return linePlayerButtonColor2;
 }
 
-+(UIColor*)getPasserButtonLabelStyleNormalColor {
-    return [UIColor whiteColor];
-}
-
-+(UIColor*)getPasserButtonLabelStyleDisabledColor {
-    return [UIColor grayColor];
-}
-
-
 +(UIColor*)getNavBarTintColor {
     return navBarTintColor;
 }

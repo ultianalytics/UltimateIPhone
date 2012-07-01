@@ -54,8 +54,8 @@
     self.borderDisabledColor = self.lowDisabledColor;
     self.buttonStyleNormalTextColor = [UIColor whiteColor];
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
-    self.labelStyleNormalTextColor = [ColorMaster getPasserButtonLabelStyleNormalColor];
-    self.labelStyleDisabledTextColor = [ColorMaster getPasserButtonLabelStyleDisabledColor];  
+    self.labelStyleNormalTextColor = [UIColor blackColor];
+    self.labelStyleDisabledTextColor = [UIColor grayColor];  
 
 }
 

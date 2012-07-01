@@ -40,6 +40,7 @@
 - (void)makeSelected: (BOOL) shouldBeSelected;
 - (BOOL)isSelected;
 - (void)update: (Game*) game;
+- (void) setNeedToSelectPasser: (BOOL) needToSelectPasser;
 
 
 @end

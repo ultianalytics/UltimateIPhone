@@ -19,7 +19,9 @@
 }
 
 - (void) setSelected: (BOOL) shouldBeSelected {
-    if (!self.isLabelStyle) {
+    if (self.isLabelStyle) {
+
+    } else {
         if (shouldBeSelected) {
             self.highColor = [ColorMaster getPasserButtonSelectedHighColor];  
             self.lowColor = [ColorMaster getPasserButtonSelectedLowColor];

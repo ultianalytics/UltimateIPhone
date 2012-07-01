@@ -34,8 +34,10 @@ static UIImage* unknownImage = nil;
     pullImage = [UIImage imageNamed:@"nothing.png"];
     deImage = [UIImage imageNamed:@"electric_shock.png"];
     unknownImage = [UIImage imageNamed:@"hearts.png"];
-    maleImage = [UIImage imageNamed:@"man.png"];
-    femaleImage = [UIImage imageNamed:@"woman.png"];
+//    maleImage = [UIImage imageNamed:@"man.png"];
+//    femaleImage = [UIImage imageNamed:@"woman.png"];
+    maleImage = [UIImage imageNamed:@"big_smile.png"];
+    femaleImage = [UIImage imageNamed:@"girl.png"];
 }
 
 + (UIImage*) getImageForEvent: (Event*) event {

@@ -28,8 +28,6 @@
 +(UIColor*)getPasserButtonLowColor;
 +(UIColor*)getPasserButtonSelectedHighColor;
 +(UIColor*)getPasserButtonSelectedLowColor;
-+(UIColor*)getPasserButtonLabelStyleNormalColor;
-+(UIColor*)getPasserButtonLabelStyleDisabledColor;
 +(UIColor*)getFormTableCellColor;
 +(UIColor*)getTableListSeparatorColor;
 +(UIColor*)getAlarmingButtonHighColor;

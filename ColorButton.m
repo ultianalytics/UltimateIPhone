@@ -56,6 +56,7 @@
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
     self.labelStyleNormalTextColor = [ColorMaster getPasserButtonLabelStyleNormalColor];
     self.labelStyleDisabledTextColor = [ColorMaster getPasserButtonLabelStyleDisabledColor];  
+
 }
 
 -(void)setIsLabelStyle:(BOOL)shouldBeLabelStyle {
@@ -63,7 +64,7 @@
     if (shouldBeLabelStyle) {
         [self setTitleColor:self.labelStyleNormalTextColor forState:UIControlStateNormal];
         [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateHighlighted];
-        [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateDisabled];
+        [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateSelected];
         [[self layer] setBorderWidth:0.0f];
         [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [self.gradientLayer removeFromSuperlayer];
@@ -71,7 +72,7 @@
         [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateNormal];
         [self setTitleColor:self.buttonStyleHighlightTextColor forState:UIControlStateHighlighted];
-        [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateDisabled];
+        [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateSelected];
         // Insert the layer at position zero to make sure the 
         // text of the button is not obscured
         [[self layer] insertSublayer:gradientLayer atIndex:0];
@@ -87,23 +88,26 @@
 
 - (void)drawRect:(CGRect)rect;
 {
-    // set the gradient colors according to state: normal vs. pressed
-    NSArray* gradientColors;
-    if (self.enabled) {  
-        gradientColors = [NSArray arrayWithObjects: (id)[highColor CGColor], (id)[lowColor CGColor], nil];
-        [[self layer] setBorderColor: [self.borderColor CGColor]];
+    if (self.isLabelStyle) {
+            [super drawRect:rect];
     } else {
-        gradientColors = [NSArray arrayWithObjects: (id)[lowDisabledColor CGColor], (id)[highDisabledColor CGColor], nil];
-        [[self layer] setBorderColor: [self.borderDisabledColor CGColor]];
+        // set the gradient colors according to state: normal vs. pressed
+        NSArray* gradientColors;
+        if (self.enabled) {  
+            gradientColors = [NSArray arrayWithObjects: (id)[highColor CGColor], (id)[lowColor CGColor], nil];
+            [[self layer] setBorderColor: [self.borderColor CGColor]];
+        } else {
+            gradientColors = [NSArray arrayWithObjects: (id)[lowDisabledColor CGColor], (id)[highDisabledColor CGColor], nil];
+            [[self layer] setBorderColor: [self.borderDisabledColor CGColor]];
+        }
+        [gradientLayer setColors: gradientColors];
+        
+        // set locations of gradient changes
+        gradientLayer.locations = [NSArray arrayWithObjects: [NSNumber numberWithFloat: .4], [NSNumber numberWithFloat: 1], nil];
+        
+        // draw
+        [super drawRect:rect];
     }
-    [gradientLayer setColors: gradientColors];
-    
-    // set locations of gradient changes
-    gradientLayer.locations =
-    [NSArray arrayWithObjects: [NSNumber numberWithFloat: .4], [NSNumber numberWithFloat: 1], nil];
-    
-    // draw
-    [super drawRect:rect];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

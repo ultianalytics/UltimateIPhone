@@ -13,20 +13,23 @@
 
 - (void)initCharacteristics {
     [super initCharacteristics];
-    //   self.isLabelStyle = YES;  // uncomment to force style
+    //self.isLabelStyle = YES;  // uncomment to force style
     [self setSelected: YES];
     self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
 }
 
 - (void) setSelected: (BOOL) shouldBeSelected {
-    if (shouldBeSelected) {
-        self.highColor = [ColorMaster getPasserButtonSelectedHighColor];  
-        self.lowColor = [ColorMaster getPasserButtonSelectedLowColor];
-    } else {
-        self.highColor = [ColorMaster getPasserButtonHighColor];
-        self.lowColor = [ColorMaster getPasserButtonLowColor];
+    if (!self.isLabelStyle) {
+        if (shouldBeSelected) {
+            self.highColor = [ColorMaster getPasserButtonSelectedHighColor];  
+            self.lowColor = [ColorMaster getPasserButtonSelectedLowColor];
+        } else {
+            self.highColor = [ColorMaster getPasserButtonHighColor];
+            self.lowColor = [ColorMaster getPasserButtonLowColor];
+        }
+        self.borderColor = self.highColor;
     }
-    self.borderColor = self.highColor;
+    [super setSelected:shouldBeSelected];
     [self setNeedsDisplay];
 }
 

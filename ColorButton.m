@@ -9,18 +9,25 @@
 #import "ColorButton.h"
 #import "ColorMaster.h"
 
+@interface ColorButton()
+
+@property (nonatomic, strong) CAGradientLayer* gradientLayer;
+
+@end
 
 @implementation ColorButton
 
-@synthesize highColor, highDisabledColor, lowColor, lowDisabledColor, gradientLayer, borderColor, borderDisabledColor; 
+@synthesize highColor, highDisabledColor, lowColor, lowDisabledColor, gradientLayer, borderColor, borderDisabledColor, isLabelStyle, buttonStyleNormalTextColor,buttonStyleHighlightTextColor,labelStyleNormalTextColor,labelStyleDisabledTextColor; 
 
 - (void)awakeFromNib {
     [self initializeGradient];
+    [self setIsLabelStyle: self.isLabelStyle];
 }
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initializeGradient];
+        [self setIsLabelStyle: self.isLabelStyle];
     }
     return self;
 }
@@ -33,32 +40,49 @@
     // Set its bounds to be the same of its parent
     [gradientLayer setBounds:[self bounds]];
     // Center the layer inside the parent layer
-    [gradientLayer setPosition:
-     CGPointMake([self bounds].size.width/2,
-                 [self bounds].size.height/2)];
+    [gradientLayer setPosition: CGPointMake([self bounds].size.width/2, [self bounds].size.height/2)];
     
-    // Insert the layer at position zero to make sure the 
-    // text of the button is not obscured
-    [[self layer] insertSublayer:gradientLayer atIndex:0];
-    
-    // Set the layer's corner radius
-    [[self layer] setCornerRadius:8.0f];
-    // Turn on masking
-    [[self layer] setMasksToBounds:YES];
-    // Display a border around the button 
-    // with a 1.0 pixel width
-    [[self layer] setBorderWidth:1.0f];
 }
 
 - (void)initCharacteristics {
+    self.isLabelStyle = NO;
     self.highColor = [ColorMaster getNormalButtonHighColor];  
     self.lowColor = [ColorMaster getNormalButtonLowColor];  
     self.highDisabledColor = [ColorMaster getNormalButtonSelectedHighColor];
     self.lowDisabledColor = [ColorMaster getNormalButtonSelectedLowColor]; 
     self.borderColor = self.highColor;
     self.borderDisabledColor = self.lowDisabledColor;
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    self.buttonStyleNormalTextColor = [UIColor whiteColor];
+    self.buttonStyleHighlightTextColor = [UIColor blackColor];
+    self.labelStyleNormalTextColor = [ColorMaster getPasserButtonLabelStyleNormalColor];
+    self.labelStyleDisabledTextColor = [ColorMaster getPasserButtonLabelStyleDisabledColor];  
+}
+
+-(void)setIsLabelStyle:(BOOL)shouldBeLabelStyle {
+    isLabelStyle = shouldBeLabelStyle;
+    if (shouldBeLabelStyle) {
+        [self setTitleColor:self.labelStyleNormalTextColor forState:UIControlStateNormal];
+        [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateHighlighted];
+        [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateDisabled];
+        [[self layer] setBorderWidth:0.0f];
+        [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [self.gradientLayer removeFromSuperlayer];
+    } else {
+        [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateNormal];
+        [self setTitleColor:self.buttonStyleHighlightTextColor forState:UIControlStateHighlighted];
+        [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateDisabled];
+        // Insert the layer at position zero to make sure the 
+        // text of the button is not obscured
+        [[self layer] insertSublayer:gradientLayer atIndex:0];
+        // Set the layer's corner radius
+        [[self layer] setCornerRadius:8.0f];
+        // Turn on masking
+        [[self layer] setMasksToBounds:YES];
+        // Display a border around the button 
+        // with a 1.0 pixel width
+        [[self layer] setBorderWidth:1.0f];
+    }
 }
 
 - (void)drawRect:(CGRect)rect;

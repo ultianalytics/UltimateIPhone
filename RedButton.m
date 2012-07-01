@@ -17,8 +17,8 @@
     self.lowColor = [ColorMaster getAlarmingButtonLowColor];
     self.borderColor = self.highColor;
     self.borderDisabledColor = self.lowDisabledColor;
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    self.buttonStyleNormalTextColor = [UIColor whiteColor];
+    self.buttonStyleHighlightTextColor = [UIColor blackColor];
     self.titleLabel.font = [UIFont boldSystemFontOfSize: 20];
 }
 

@@ -12,9 +12,9 @@
 @implementation PasserButton
 
 - (void)initCharacteristics {
+    [super initCharacteristics];
+    //   self.isLabelStyle = YES;  // uncomment to force style
     [self setSelected: YES];
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
 }
 

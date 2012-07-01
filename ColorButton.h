@@ -9,22 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface ColorButton : UIButton {
-    CAGradientLayer* gradientLayer;
-    UIColor* highColor;
-    UIColor* lowColor;
-    UIColor* highDisabledColor;
-    UIColor* lowDisabledColor;
-    UIColor* borderColor;
-    UIColor* borderDisabledColor;
-}
-@property (nonatomic, retain) CAGradientLayer* gradientLayer;
-@property (nonatomic, retain) UIColor* highColor;
-@property (nonatomic, retain) UIColor* lowColor;
-@property (nonatomic, retain) UIColor* highDisabledColor;
-@property (nonatomic, retain) UIColor* lowDisabledColor; 
-@property (nonatomic, retain) UIColor* borderColor;
-@property (nonatomic, retain) UIColor* borderDisabledColor; 
+@interface ColorButton : UIButton {}
+
+@property (nonatomic, strong) UIColor* highColor;
+@property (nonatomic, strong) UIColor* lowColor;
+@property (nonatomic, strong) UIColor* highDisabledColor;
+@property (nonatomic, strong) UIColor* lowDisabledColor; 
+@property (nonatomic, strong) UIColor* borderColor;
+@property (nonatomic, strong) UIColor* borderDisabledColor; 
+@property (nonatomic, strong) UIColor* buttonStyleNormalTextColor; 
+@property (nonatomic, strong) UIColor* buttonStyleHighlightTextColor; 
+@property (nonatomic, strong) UIColor* labelStyleNormalTextColor; 
+@property (nonatomic, strong) UIColor* labelStyleDisabledTextColor; 
+@property (nonatomic) BOOL isLabelStyle;
 
 - (void)initCharacteristics;
 - (void)initializeGradient;

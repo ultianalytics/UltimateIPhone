@@ -78,16 +78,25 @@
 }
 
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
-    if (self.action == Pull) {
-        return [NSString stringWithFormat:@"Pull from %@", self.defender.name];
-    } else if (self.action == Goal) {
-        return opponentName == nil ? @"Opponent Goal" : [NSString stringWithFormat:@"%@ Goal", opponentName];
-    } else if (self.action == Throwaway) {
-        return @"Opponent Throwaway";
-    } else if (self.action == De) {
-        return [self.defender isAnonymous] ? @"Team D" :[NSString stringWithFormat:@"D by %@", self.defender.name];
-    } else {
-        return [NSString stringWithFormat:@"Callahan by %@", self.defender.name];
+    switch(self.action) {
+        case Pull: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ pull", (teamName == nil ? @"Our" : teamName)];
+            } else {
+                return [NSString stringWithFormat:@"Pull from %@", self.defender.name];
+            }
+        }
+        case Goal: {
+            return opponentName == nil ? @"Opponent goal" : [NSString stringWithFormat:@"%@ Goal", opponentName];
+        }
+        case Throwaway:{
+            return opponentName == nil ? @"Opponent throwaway" : [NSString stringWithFormat:@"%@ throwaway", opponentName];
+        }
+        case De: {
+            return self.isAnonymous ? [NSString stringWithFormat:@"%@ D", (teamName == nil ? @"Our" : teamName)] :[NSString stringWithFormat:@"D by %@", self.defender.name];    
+        }
+        default:
+            return @"";
     }
 }
 
@@ -97,6 +106,10 @@
 
 - (NSArray*) getPlayers {
     return [[NSMutableArray alloc] initWithObjects: self.defender, nil];
+}
+
+- (BOOL)isAnonymous {
+    return (defender == nil || defender.isAnonymous);
 }
 
 @end

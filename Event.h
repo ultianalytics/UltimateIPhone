@@ -22,6 +22,7 @@ typedef enum {
 
 
 @interface Event : NSObject <NSCoding>
+
 @property Action action;
 @property BOOL isHalftimeCause;
 
@@ -40,6 +41,6 @@ typedef enum {
 - (NSArray*) getPlayers;
 - (void)useSharedPlayers;
 - (NSMutableDictionary*) asDictionary;
-
+- (BOOL)isAnonymous;
 
 @end

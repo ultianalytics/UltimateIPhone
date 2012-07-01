@@ -84,14 +84,42 @@
 
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     switch(self.action) {
-        case Catch:
-            return [NSString stringWithFormat:@"%@ to %@", self.passer.name, self.receiver.name];
-        case Drop:
-            return [NSString stringWithFormat:@"%@ dropped from %@", self.receiver.name, self.passer.name];
-        case Throwaway:
-            return [NSString stringWithFormat:@"%@ throwaway", self.passer.name];            
-        case Goal:
-            return [NSString stringWithFormat:@"%@ Goal (%@ to %@)", (teamName == nil ? @"Our" : teamName), self.passer.name, self.receiver.name];
+        case Catch: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ pass", (teamName == nil ? @"Our" : teamName)];
+            } else if (self.isReceiverAnonymous) {
+                return [NSString stringWithFormat:@"%@ pass", self.passer.name];
+            } else if (self.isPasserAnonymous) {
+                return [NSString stringWithFormat:@"Pass to %@", self.receiver.name];
+            } else {
+                return [NSString stringWithFormat:@"%@ to %@", self.passer.name, self.receiver.name];
+            }
+        }
+        case Drop: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ drop", (teamName == nil ? @"Our" : teamName)];
+            } else if (self.isReceiverAnonymous) {
+                return [NSString stringWithFormat:@"%@ pass dropped", self.passer.name];
+            } else if (self.isPasserAnonymous) {
+                return [NSString stringWithFormat:@"%@ dropped pass", self.receiver.name];
+            } else {
+               return [NSString stringWithFormat:@"%@ dropped from %@", self.receiver.name, self.passer.name];            
+            }
+        }
+        case Throwaway:{
+            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ throwaway", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ throwaway", self.passer.name];     
+        }
+        case Goal: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ goal", (teamName == nil ? @"Our" : teamName)]; 
+            } else if (self.isReceiverAnonymous) {
+                return [NSString stringWithFormat:@"%@ pass for goal", self.passer.name];
+            } else if (self.isPasserAnonymous) {
+                return [NSString stringWithFormat:@"%@ goal", self.receiver.name];
+            } else {
+                return [NSString stringWithFormat:@"%@ goal (%@ to %@)", (teamName == nil ? @"Our" : teamName), self.passer.name, self.receiver.name];            
+            }
+        }
         default:
             return @"";
     }
@@ -117,5 +145,16 @@
     return players;
 }
 
+- (BOOL)isAnonymous {
+    return (passer == nil || passer.isAnonymous) && (receiver ==  nil || receiver.isAnonymous);
+}
+
+- (BOOL)isPasserAnonymous {
+    return (passer == nil || passer.isAnonymous);
+}
+
+- (BOOL)isReceiverAnonymous {
+    return (receiver ==  nil || receiver.isAnonymous);
+}
 
 @end

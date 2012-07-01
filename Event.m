@@ -87,7 +87,7 @@
 }
 
 - (NSString*)getDescription {
-    return [self getDescription:nil opponent:nil];
+    return [self getDescription:[Team getCurrentTeam].name opponent:[Game getCurrentGame].opponentName];
 }
 
 - (BOOL) isOffense {
@@ -121,6 +121,10 @@
 
 -(BOOL)isHalftimeCause {
     return isHalftimeCause;
+}
+
+- (BOOL)isAnonymous {
+    return NO;
 }
 
 @end

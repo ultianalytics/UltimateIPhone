@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by james on 12/24/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "PlayerView.h"

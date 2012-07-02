@@ -3,7 +3,7 @@
 //  Numbers
 //
 //  Created by james on 8/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "ColorButton.h"
@@ -50,8 +50,6 @@
     self.lowColor = [ColorMaster getNormalButtonLowColor];  
     self.highDisabledColor = [ColorMaster getNormalButtonSelectedHighColor];
     self.lowDisabledColor = [ColorMaster getNormalButtonSelectedLowColor]; 
-    self.borderColor = self.highColor;
-    self.borderDisabledColor = self.lowDisabledColor;
     self.buttonStyleNormalTextColor = [UIColor whiteColor];
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
     self.labelStyleNormalTextColor = [UIColor blackColor];
@@ -69,6 +67,8 @@
         [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [self.gradientLayer removeFromSuperlayer];
     } else {
+        self.borderColor = self.highColor;
+        self.borderDisabledColor = self.lowDisabledColor;
         [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateNormal];
         [self setTitleColor:self.buttonStyleHighlightTextColor forState:UIControlStateHighlighted];

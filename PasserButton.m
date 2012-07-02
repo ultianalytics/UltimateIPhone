@@ -2,7 +2,7 @@
 //  PasserButton.m
 //
 //  Created by james on 8/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "PasserButton.h"
@@ -13,15 +13,12 @@
 
 - (void)initCharacteristics {
     [super initCharacteristics];
-    //self.isLabelStyle = YES;  // uncomment to force style
     [self setSelected: YES];
     self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
 }
 
 - (void) setSelected: (BOOL) shouldBeSelected {
-    if (self.isLabelStyle) {
-
-    } else {
+    if (!self.isLabelStyle) {
         if (shouldBeSelected) {
             self.highColor = [ColorMaster getPasserButtonSelectedHighColor];  
             self.lowColor = [ColorMaster getPasserButtonSelectedLowColor];

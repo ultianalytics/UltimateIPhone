@@ -20,7 +20,7 @@
 @property (nonatomic, strong) Player* player;
 @property (nonatomic, strong) id<ActionListener> actionListener;
 @property (nonatomic, strong) IBOutlet PasserButton* passerButton;
-@property (nonatomic, strong) IBOutlet UILabel* passPointerLabel;
+@property (nonatomic, strong) IBOutlet UIView* passPointer;
 @property (nonatomic, strong) IBOutlet UILabel* defensePlayerNameLabel;
 @property (nonatomic, strong) IBOutlet UIButton* firstButton;
 @property (nonatomic, strong) IBOutlet UIButton* secondButton;

@@ -13,7 +13,7 @@
 #import "AnonymousPlayer.h"
 
 @implementation PlayerView
-@synthesize player,actionListener,passerButton,passPointerLabel,defensePlayerNameLabel,firstButton,secondButton,thirdButton;
+@synthesize player,actionListener,passerButton,passPointer,defensePlayerNameLabel,firstButton,secondButton,thirdButton;
 
 -(void)initUI {
     self.player = [Player getAnonymous];
@@ -22,7 +22,7 @@
 }
 
 - (void) setIsOffense: (BOOL) shouldSwitchToOffense {
-    self.passPointerLabel.hidden = NO;
+    self.passPointer.hidden = NO;
     self.firstButton.hidden = NO;
     self.secondButton.hidden = NO;
     self.thirdButton.hidden = NO;
@@ -30,7 +30,7 @@
     self.thirdButton.hidden = isSelected;
     isOffense = shouldSwitchToOffense;
     self.passerButton.hidden = !isOffense;
-    self.passPointerLabel.hidden = !isOffense;
+    self.passPointer.hidden = !isOffense;
     self.defensePlayerNameLabel.hidden = isOffense;
     self.thirdButton.hidden = !isOffense;
     self.secondButton.hidden = [player isAnonymous] && !isOffense;
@@ -61,7 +61,7 @@
     [self.passerButton setSelected:isSelected];
     if (isOffense) {
         BOOL hide = isSelected && !player.isAnonymous;
-        self.passPointerLabel.hidden = hide;
+        self.passPointer.hidden = hide;
         self.firstButton.hidden = hide;
         self.secondButton.hidden = hide;
         self.thirdButton.hidden = hide;

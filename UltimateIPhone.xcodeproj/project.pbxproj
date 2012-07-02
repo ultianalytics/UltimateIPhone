@@ -76,6 +76,8 @@
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8B711157636A0002C04F9 /* SignonCredentials.m */; };
+		1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */; };
+		1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AE669F815215485000965B5 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
 		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
@@ -268,6 +270,8 @@
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
 		1AD8B710157636A0002C04F9 /* SignonCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonCredentials.h; sourceTree = "<group>"; };
 		1AD8B711157636A0002C04F9 /* SignonCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonCredentials.m; sourceTree = "<group>"; };
+		1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow.png"; sourceTree = "<group>"; };
+		1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow@2x.png"; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AE669F515215485000965B5 /* CloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudViewController.h; sourceTree = "<group>"; };
 		1AE669F615215485000965B5 /* CloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudViewController.m; sourceTree = "<group>"; };
@@ -943,6 +947,8 @@
 		1AFFE8DF151765B7004B4590 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */,
+				1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */,
 				1A80C97115612192007F03C2 /* woman@2x.png */,
 				1A80C97215612192007F03C2 /* woman.png */,
 				1A80C96C15612067007F03C2 /* man@2x.png */,
@@ -1179,6 +1185,8 @@
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
 				1A80C9761561223C007F03C2 /* icon@2x.png in Resources */,
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
+				1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */,
+				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,28 +20,16 @@
 @synthesize highColor, highDisabledColor, lowColor, lowDisabledColor, gradientLayer, borderColor, borderDisabledColor, isLabelStyle, buttonStyleNormalTextColor,buttonStyleHighlightTextColor,labelStyleNormalTextColor,labelStyleDisabledTextColor; 
 
 - (void)awakeFromNib {
-    [self initializeGradient];
-    [self setIsLabelStyle: self.isLabelStyle];
+    [self initCharacteristics];
+    [self initStyle];
 }
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self initializeGradient];
-        [self setIsLabelStyle: self.isLabelStyle];
+        [self initCharacteristics];
+        [self initStyle];
     }
     return self;
-}
-
-- (void)initializeGradient {
-    [self initCharacteristics];
-    
-    // Initialize the gradient layer
-    gradientLayer = [[CAGradientLayer alloc] init];
-    // Set its bounds to be the same of its parent
-    [gradientLayer setBounds:[self bounds]];
-    // Center the layer inside the parent layer
-    [gradientLayer setPosition: CGPointMake([self bounds].size.width/2, [self bounds].size.height/2)];
-    
 }
 
 - (void)initCharacteristics {
@@ -57,9 +45,23 @@
 
 }
 
+- (void)initializeGradient {
+    // Initialize the gradient layer
+    self.gradientLayer = [[CAGradientLayer alloc] init];
+    // Set its bounds to be the same of its parent
+    [self.gradientLayer setBounds:[self bounds]];
+    // Center the layer inside the parent layer
+    [self.gradientLayer setPosition: CGPointMake([self bounds].size.width/2, [self bounds].size.height/2)];
+    
+}
+
 -(void)setIsLabelStyle:(BOOL)shouldBeLabelStyle {
     isLabelStyle = shouldBeLabelStyle;
-    if (shouldBeLabelStyle) {
+    [self initStyle];
+}
+
+-(void)initStyle {
+    if (isLabelStyle) {
         [self setTitleColor:self.labelStyleNormalTextColor forState:UIControlStateNormal];
         [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateHighlighted];
         [self setTitleColor:self.labelStyleDisabledTextColor forState:UIControlStateSelected];
@@ -73,9 +75,12 @@
         [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateNormal];
         [self setTitleColor:self.buttonStyleHighlightTextColor forState:UIControlStateHighlighted];
         [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateSelected];
-        // Insert the layer at position zero to make sure the 
-        // text of the button is not obscured
+        
+        // Insert the gradient layer (at position zero to make sure the text of the button is not obscured)
+        [self initializeGradient];
         [[self layer] insertSublayer:gradientLayer atIndex:0];
+        
+        // Adjust the primary layer
         // Set the layer's corner radius
         [[self layer] setCornerRadius:8.0f];
         // Turn on masking
@@ -84,6 +89,7 @@
         // with a 1.0 pixel width
         [[self layer] setBorderWidth:1.0f];
     }
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect;

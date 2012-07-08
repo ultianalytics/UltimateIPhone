@@ -51,6 +51,9 @@
     if ([self verifyTeamName]) {
         [self populateModelFromView];
         [self.team save];  
+        if (![Team isCurrentTeam:team.teamId]) {
+            [Team setCurrentTeam:team.teamId];
+        }
         return YES;
     }
     return NO;
@@ -263,7 +266,8 @@
     self.navigationItem.rightBarButtonItem = saveBarItem;    
 
 #ifdef DEBUG
-    [self createScrubButton];
+    // UNCOMMENT TO SHOW THS SCUB BUTTON
+    //[self createScrubButton];
 #endif
    
 }

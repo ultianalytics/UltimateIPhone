@@ -30,6 +30,7 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;
 
+@property (strong, nonatomic) IBOutlet UILabel *userUnknownLabel;
 @property (nonatomic, strong) IBOutlet UILabel* userLabel;
 @property (nonatomic, strong) IBOutlet UILabel* websiteLabel;
 @property (nonatomic, strong) IBOutlet UILabel* adminSiteLabel;

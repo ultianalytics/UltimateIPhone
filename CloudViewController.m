@@ -44,6 +44,7 @@
 @end
 
 @implementation CloudViewController
+@synthesize userUnknownLabel;
 @synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
 
 
@@ -323,11 +324,13 @@
 
 -(void)populateViewFromModel {
     NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
-    self.websiteLabel.text = websiteURL == nil ?  @"unknown (do upload)" : websiteURL;
+    self.websiteLabel.text = websiteURL == nil ?  @"Unknown...do upload" : websiteURL;
     self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
-    self.userLabel.text = userid == nil ? @"unknown (do upload or download)" : userid;
+    self.userUnknownLabel.hidden = userid != nil;
+    self.userLabel.hidden = userid == nil;
+    self.userLabel.text = userid;
     [self.uploadButton setTitle:[NSString stringWithFormat:@" Upload %@ Games ",[Team getCurrentTeam].name] forState:UIControlStateNormal];
     [self.downloadGameButton setTitle:[NSString stringWithFormat:@" Download a %@ Game ",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
     self.signoffButton.hidden = userid == nil;
@@ -401,6 +404,7 @@
 
 - (void)viewDidUnload
 {
+    [self setUserUnknownLabel:nil];
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }

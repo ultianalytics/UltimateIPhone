@@ -122,7 +122,7 @@
 
 -(BOOL)showFirstTimeUsageCallouts {
     if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstSignonViewUsage]) {
-        //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstSignonViewUsage];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstSignonViewUsage];
         
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         

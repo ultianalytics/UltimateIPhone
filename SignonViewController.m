@@ -11,8 +11,14 @@
 #import "CloudClient.h"
 #import "Reachability.h"
 #import "SignonCredentials.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
+
+#define kIsNotFirstSignonViewUsage @"IsNotFirstSignonViewUsage"
 
 @interface SignonViewController()
+
+@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
 -(void)startSignon;
 -(void)startBusyDialog;
@@ -22,7 +28,7 @@
 @end
 
 @implementation SignonViewController
-@synthesize delegate,instructionsLabel,useridField,passwordField,useridCell,passwordCell,errorMessage;
+@synthesize delegate,instructionsLabel,useridField,passwordField,useridCell,passwordCell,errorMessage,firstTimeUsageCallouts;
 
 -(IBAction) signonButtonClicked: (id) sender {
     errorMessage.text = @"";
@@ -114,6 +120,24 @@
     return credentials;
 }
 
+-(BOOL)showFirstTimeUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstSignonViewUsage]) {
+        //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstSignonViewUsage];
+        
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = [self.useridField convertPoint:CGPointBottom(self.useridField.bounds) toView:self.view];
+        
+        [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to Google (e.g., Gmail™ account) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account." anchor: anchor width: 270 degrees: 200 connectorLength: 160 font: [UIFont systemFontOfSize:16]];    
+        
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -143,6 +167,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     errorMessage.text = @"";
+    [self showFirstTimeUsageCallouts];
 }
 
 

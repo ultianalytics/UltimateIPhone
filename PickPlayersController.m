@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by james on 12/26/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "PickPlayersController.h"
@@ -19,10 +19,16 @@
 #import "Event.h"
 #import "Wind.h"
 #import "Tweeter.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
 
+#define kIsNotFirstPickPlayerViewUsage @"IsNotFirstPickPlayerViewUsage"
 #define kSetHalfimeText @"Halftime"
 #define kUndoHalfimeText @"Undo Half"
 @interface PickPlayersController()
+
+@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
+@property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 
 -(void)halftimeWarning;
 
@@ -30,7 +36,7 @@
 
 @implementation PickPlayersController
 @synthesize halftimeButton;
-@synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game;
+@synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game,firstTimeUsageCallouts,infoCalloutsView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -326,6 +332,11 @@
     } else {
         [self.navigationController popViewControllerAnimated:NO];
     }
+    [self addInfoButtton];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self toggleFirstTimeUsageCallouts];
 }
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
@@ -359,6 +370,56 @@
     [alert show];
     if ([[Tweeter getCurrent] isTweetingEvents]) {
         [[Tweeter getCurrent] tweetHalftimeWithoutEvent];
+    }
+}
+
+-(void) addInfoButtton {
+    UIView *navBar = self.navigationController.navigationBar;
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, navBar.frame.size.height)];
+    button.center = [navBar convertPoint:navBar.center fromView:navBar.superview];
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [navBar addSubview:button];
+}
+
+- (void)infoButtonTapped {
+    [self toggleInfoCallouts];
+}
+
+-(void)toggleInfoCallouts {
+    [self toggleFirstTimeUsageCallouts];
+    
+    if (self.infoCalloutsView) {
+        [self.infoCalloutsView removeFromSuperview];
+        self.infoCalloutsView = nil;
+    } else {
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        UIFont *textFont = [UIFont systemFontOfSize:14];
+        // Button color variations
+        [calloutsView addCallout:@"Buttons become darker as players have more points on field." anchor: CGPointMake(100, 40) width: 110 degrees: 190 connectorLength: 150 font: textFont];
+        // Prevent unbalanced teams
+        [calloutsView addCallout:@"App will not allow unbalanced sexes on field if team is mixed." anchor: CGPointBottom(self.fieldView.bounds) width: 150 degrees: 150 connectorLength: 120 font: textFont];
+        
+        self.infoCalloutsView = calloutsView;
+        [self.view addSubview:calloutsView];
+        // move the callouts off the screen and then animate their return.
+        [self.infoCalloutsView slide: YES animated: NO];
+        [self.infoCalloutsView slide: NO animated: YES];
+    }
+}
+
+-(void)toggleFirstTimeUsageCallouts {
+    if (self.firstTimeUsageCallouts) {  
+        [self.firstTimeUsageCallouts removeFromSuperview];
+        self.firstTimeUsageCallouts = nil;
+    } else if (![[NSUserDefaults standardUserDefaults] boolForKey:kIsNotFirstPickPlayerViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstPickPlayerViewUsage];
+        
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        [calloutsView addNavControllerHelpAvailableCallout];  
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
     }
 }
 

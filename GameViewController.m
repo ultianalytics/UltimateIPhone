@@ -374,7 +374,7 @@
         [self updateViewFromGame:[Game getCurrentGame]];
         [self updateAutoTweetingNotice];
     }
-        [self addInfoButtton];
+    [self addInfoButtton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -479,10 +479,12 @@
        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
         UIFont *textFont = [UIFont systemFontOfSize:14];
-        // undo button
-        [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
-        // recents list
-        [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 100 font: textFont];
+        if ([[Game getCurrentGame] hasEvents]) {
+            // undo button
+            [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
+            // recents list
+            [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 45 connectorLength: 100 font: textFont];
+        }
         // line button
         CGPoint anchor = CGPointTopRight(self.view.bounds);
         anchor.x = anchor.x - 40;

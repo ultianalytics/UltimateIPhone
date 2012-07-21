@@ -9,6 +9,7 @@
 #import "ColorMaster.h"
 #import "CloudClient.h"
 #import "SignonViewController.h"
+#import "WebViewSignonController.h"
 #import "TeamDownloadPickerViewController.h"
 #import "GameDownloadPickerViewController.h"
 #import "Team.h"
@@ -73,7 +74,7 @@
 #pragma mark - Navigation
 
 -(void)goSignonView{
-    SignonViewController *signonController = [[SignonViewController alloc] init];
+    WebViewSignonController *signonController = [[WebViewSignonController alloc] init];
     signonController.delegate = self;
     [self presentViewController:signonController animated:YES completion:nil];
 }
@@ -295,7 +296,9 @@
 
 #pragma mark - Miscellaneous
 
--(void)dismissSignonController:(BOOL) isSignedOn {
+-(void)dismissSignonController:(BOOL) isSignedOn email: (NSString*) userEmail {
+    [Preferences getCurrentPreferences].userid = userEmail;
+    [[Preferences getCurrentPreferences] save];
     void (^completionBlock)() = isSignedOn ? signonCompletion : nil;
     [self.presentedViewController dismissViewControllerAnimated:NO completion:completionBlock];
 }

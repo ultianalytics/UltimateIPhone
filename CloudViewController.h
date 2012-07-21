@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SignonViewController.h"
+#import "WebViewSignonController.h"
 @class GTMOAuthAuthentication;
 @class TeamDownloadPickerViewController;
 @class GameDownloadPickerViewController;
 
-@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SignonViewControllerDelegate> {
+@interface CloudViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, WebViewSignonControllerDelegate> {
     @private
     NSArray* cloudCells;
     TeamDownloadPickerViewController* teamDownloadController;

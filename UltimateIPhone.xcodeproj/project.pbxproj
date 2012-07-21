@@ -75,6 +75,8 @@
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
+		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
+		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
 		1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8B711157636A0002C04F9 /* SignonCredentials.m */; };
 		1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */; };
 		1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */; };
@@ -268,6 +270,9 @@
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
+		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
+		1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewSignonController.m; sourceTree = "<group>"; };
+		1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewSignonController.xib; sourceTree = "<group>"; };
 		1AD8B710157636A0002C04F9 /* SignonCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonCredentials.h; sourceTree = "<group>"; };
 		1AD8B711157636A0002C04F9 /* SignonCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonCredentials.m; sourceTree = "<group>"; };
 		1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow.png"; sourceTree = "<group>"; };
@@ -530,6 +535,9 @@
 				1AFFE85715175EB0004B4590 /* SignonViewController.xib */,
 				1AD8B710157636A0002C04F9 /* SignonCredentials.h */,
 				1AD8B711157636A0002C04F9 /* SignonCredentials.m */,
+				1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */,
+				1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */,
+				1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */,
 			);
 			name = Signon;
 			sourceTree = "<group>";
@@ -1187,6 +1195,7 @@
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
 				1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */,
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
+				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,6 +1326,7 @@
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 				1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */,
+				1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1434,7 +1444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1449,6 +1459,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1501,6 +1512,7 @@
 		1AFFE7A415175D4A004B4590 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1514,6 +1526,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

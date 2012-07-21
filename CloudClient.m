@@ -33,7 +33,6 @@
 +(void) saveTeamCloudId:(NSData *)responseJSON;
 +(NSData*) get: (NSString*) relativeUrl error: (NSError**) getError; 
 +(void) verifyConnection: (NSError**) uploadError;
-+(NSString*) getBaseUrl;
 
 @end
 
@@ -183,7 +182,7 @@
 
 
 +(void) signOff {
-    NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:[CloudClient getBaseUrl]]];
+    NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     for (NSHTTPCookie* cookie in cookies) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie: cookie];
     }

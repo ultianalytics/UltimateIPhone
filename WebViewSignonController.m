@@ -22,10 +22,15 @@
 @end
 
 @implementation WebViewSignonController
+@synthesize delegate;
+@synthesize containerView;
 @synthesize webView;
+@synthesize coverView;
 @synthesize navigationBar;
 @synthesize cancelButton;
-@synthesize delegate,firstTimeUsageCallouts;
+@synthesize busyLabel;
+
+@synthesize firstTimeUsageCallouts;
 
 #pragma mark - Signon
 
@@ -50,6 +55,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView {
     NSURLRequest* finishedRequest = webView.request;
     NSLog(@"finished loading URL %@", finishedRequest.URL);
+    [self showWebView]; 
     if([finishedRequest.URL.lastPathComponent isEqualToString:[self accessCheckPageUrl]]) {
         [self accessPageLoaded];
     }
@@ -61,7 +67,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        busyLabel.textColor = [UIColor whiteColor];
+        busyLabel.shadowColor = [UIColor blackColor];
+        busyLabel.shadowOffset = CGSizeMake(0, 1);
     }
     return self;
 }
@@ -97,6 +105,20 @@
     }
 }
 
+#pragma mark - Miscellaneous 
+
+-(void)showWebView {
+    
+    [UIView transitionWithView:self.containerView
+                      duration:0.6
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{ 
+                        [self.coverView removeFromSuperview]; 
+                        [self.containerView addSubview:self.webView]; 
+                    }
+                    completion:NULL];
+}
+
 #pragma mark - Lifecycle 
 
 - (void)viewDidLoad
@@ -117,6 +139,8 @@
     [self setWebView:nil];
     [self setCancelButton:nil];
     [self setNavigationBar:nil];
+    [self setCoverView:nil];
+    [self setBusyLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

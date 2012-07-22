@@ -17,8 +17,11 @@
 @interface WebViewSignonController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, weak) id<WebViewSignonControllerDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet UIView *coverView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (strong, nonatomic) IBOutlet UILabel *busyLabel;
 
 @end

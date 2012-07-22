@@ -33,6 +33,7 @@
 
 @interface CalloutView : UIView
 
+@property (nonatomic, strong) UIColor *calloutColor;
 @property (nonatomic, strong) UIColor *borderColor;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic) BOOL useShadow;

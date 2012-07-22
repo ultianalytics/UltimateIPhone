@@ -13,5 +13,8 @@
 -(NSString*)trim {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
+-(BOOL)isNotEmpty {
+    return ![[self trim] isEqualToString:@""];
+}
 
 @end

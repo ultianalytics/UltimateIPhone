@@ -12,8 +12,8 @@
 #import "Reachability.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
-
-#define kIsNotFirstSignonViewUsage @"IsNotFirstSignonViewUsage"
+#import "Preferences.h"
+#import "NSString+manipulations.h"
 
 @interface WebViewSignonController ()
 
@@ -92,15 +92,15 @@
 #pragma mark - Help Callouts
    
 
--(BOOL)showFirstTimeUsageCallouts {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstSignonViewUsage]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstSignonViewUsage];
-        
+-(BOOL)showNewLogonUsageCallouts {
+    if (![[Preferences getCurrentPreferences].userid isNotEmpty]) {
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
         CGPoint anchor = [self.webView convertPoint:CGPointTop(self.webView.bounds) toView:self.view];
         
-        [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to Google (e.g., Gmail™ account) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account." anchor: anchor width: 270 degrees: 200 connectorLength: 160 font: [UIFont systemFontOfSize:16]];    
+        CalloutView* callout = [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to Google (e.g., Gmail™ account) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account.\n\n            - Tap to dismiss -" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:16]];  
+        
+        callout.calloutColor = [ColorMaster getFormTableCellColor];
         
         self.firstTimeUsageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
@@ -122,6 +122,7 @@
                         [self.containerView addSubview:self.webView]; 
                     }
                     completion:NULL];
+    [self showNewLogonUsageCallouts];
 }
 
 -(BOOL)isNetworkAvailable {
@@ -152,7 +153,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if ([self isNetworkAvailable]) {
-        [self showFirstTimeUsageCallouts];
         [self loadAccessCheckPage];
     }
 }

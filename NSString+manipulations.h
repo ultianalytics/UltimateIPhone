@@ -11,5 +11,6 @@
 @interface NSString (manipulations)
 
 -(NSString*)trim;
+-(BOOL)isNotEmpty;
 
 @end

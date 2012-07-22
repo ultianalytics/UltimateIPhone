@@ -29,7 +29,7 @@
 @end
 
 @implementation CalloutView
-@synthesize textView, text, widthConstraint, degreesFromNorth, anchor, connectorLength, connectorLineBaseWidth, borderColor, useShadow, fontOverride;
+@synthesize textView, text, widthConstraint, degreesFromNorth, anchor, connectorLength, connectorLineBaseWidth, borderColor, useShadow, fontOverride,calloutColor;
 
 - (id)initWithFrame:(CGRect)frame text:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length {
     self = [super initWithFrame:frame];
@@ -39,6 +39,7 @@
         self.widthConstraint = width;
         self.degreesFromNorth = degreesFromAnchor < 0 ? 360 - ((degreesFromAnchor * -1) % 360) : degreesFromAnchor;
         self.connectorLength = length;
+        self.calloutColor = [UIColor whiteColor];
         self.borderColor = [UIColor blackColor];
         self.useShadow = YES;
         self.connectorLineBaseWidth = kConnectorLineBaseWidthDefault;
@@ -60,7 +61,7 @@
 -(CGSize)addTextView {
     if (self.textView == nil) {
         self.textView = [[UITextView alloc] init];
-        self.textView.backgroundColor = [UIColor whiteColor];
+        self.textView.backgroundColor = self.calloutColor;
         if (fontOverride) {
             self.textView.font = fontOverride;
         }
@@ -105,7 +106,7 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
-    CGContextSetFillColorWithColor(context, self.textView ? self.textView.backgroundColor.CGColor : [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(context, self.textView ? self.textView.backgroundColor.CGColor : self.calloutColor.CGColor);
     CGContextSetStrokeColorWithColor(context, borderColor.CGColor);
     CGContextSetLineWidth(context, kBorderWidth);
     CGContextSetLineJoin(context, kCGLineJoinRound);

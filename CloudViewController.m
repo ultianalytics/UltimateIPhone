@@ -8,7 +8,6 @@
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "CloudClient.h"
-#import "SignonViewController.h"
 #import "WebViewSignonController.h"
 #import "TeamDownloadPickerViewController.h"
 #import "GameDownloadPickerViewController.h"

@@ -190,69 +190,6 @@
     [[Preferences getCurrentPreferences] save];
 }
 
-+(BOOL) signOnWithID: userid password: password {
-    
-    // see http://stackoverflow.com/questions/471898/google-app-engine-with-clientlogin-interface-for-objective-c
-    
-    //create request
-    NSString* content = [NSString stringWithFormat:@"accountType=HOSTED_OR_GOOGLE&Email=%@&Passwd=%@&service=ah&source=ultimate-team", userid, password];
-    NSURL* authUrl = [NSURL URLWithString:@"https://www.google.com/accounts/ClientLogin"];
-    NSMutableURLRequest* authRequest = [[NSMutableURLRequest alloc] initWithURL:authUrl];
-    [authRequest setHTTPMethod:@"POST"];
-    [authRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
-    [authRequest setHTTPBody:[content dataUsingEncoding:NSASCIIStringEncoding]];
-    
-    NSHTTPURLResponse* authResponse;
-    NSError* authError;
-    NSData * authData = [NSURLConnection sendSynchronousRequest:authRequest returningResponse:&authResponse error:&authError];      
-    NSString *authResponseBody = [[NSString alloc] initWithData:authData encoding:NSASCIIStringEncoding];
-    
-    //loop through response body which is key=value pairs, seperated by \n. The code below is not optimal and certainly error prone. 
-    NSArray *lines = [authResponseBody componentsSeparatedByString:@"\n"];
-    NSMutableDictionary* token = [NSMutableDictionary dictionary];
-    for (NSString* s in lines) {
-        NSArray* kvpair = [s componentsSeparatedByString:@"="];
-        if ([kvpair count]>1) {
-            [token setObject:[kvpair objectAtIndex:1] forKey:[kvpair objectAtIndex:0]];
-        }
-    }
-    //if google returned an error in the body [google returns Error=Bad Authentication in the body. which is weird, not sure if they use status codes]
-    if (authError || [token objectForKey:@"Error"]) {
-        //handle error
-        NSLog(@"Error while authenticating");
-        return NO;
-    } else {
-        NSLog(@"Auth Successful");
-    }
-    
-    // do a get so that google will set the auth cookie (all subsequent calls will contain the cookie returned)
-    
-    NSURL* cookieUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/_ah/login?continue=%@/&auth=%@", [CloudClient getBaseUrl], [CloudClient getBaseUrl], [token objectForKey:@"Auth"]]];
-    // NSLog([cookieUrl description]);
-    NSHTTPURLResponse* cookieResponse;
-    NSError* cookieError;
-    NSMutableURLRequest *cookieRequest = [[NSMutableURLRequest alloc] initWithURL:cookieUrl];
-    
-    [cookieRequest setHTTPMethod:@"GET"];
-    
-    NSData* cookieData = [NSURLConnection sendSynchronousRequest:cookieRequest returningResponse:&cookieResponse error:&cookieError];
-    // NSLog([cookieData description]);
-    if (cookieError) {
-        //handle error
-        NSLog(@"Error getting cookie: %@ %@", [cookieError description], [cookieData description]);
-        return NO;
-    } 
-    
-    BOOL isSignedOn = [CloudClient isSignedOn];
-    if(isSignedOn) {
-        [Preferences getCurrentPreferences].userid = userid;
-        [[Preferences getCurrentPreferences] save];
-    }
-    return isSignedOn;
-
-    
-}
-
 #pragma mark - Get Cloud Meta Information
 
 +(CloudMetaInfo*) getCloudMetaInfo: (NSError**) getError {

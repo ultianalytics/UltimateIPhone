@@ -42,7 +42,6 @@
 		1A5983BB15446D8E00E97F09 /* TwitterAccountPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66A2015235314000965B5 /* TwitterAccountPickViewController.m */; };
 		1A5983BC15446D9100E97F09 /* TweetLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */; };
 		1A5983BD15446D9400E97F09 /* CloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D415175E7B004B4590 /* CloudClient.m */; };
-		1A5983BE15446D9C00E97F09 /* SignonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE85615175EB0004B4590 /* SignonViewController.m */; };
 		1A5983BF15446DA500E97F09 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A5983C015446DA800E97F09 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
 		1A5983C115446DAB00E97F09 /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
@@ -77,7 +76,6 @@
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
-		1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8B711157636A0002C04F9 /* SignonCredentials.m */; };
 		1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */; };
 		1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
@@ -201,8 +199,6 @@
 		1AFFE8B215175EB0004B4590 /* secret_smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE85215175EB0004B4590 /* secret_smile.png */; };
 		1AFFE8B315175EB0004B4590 /* shame.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE85315175EB0004B4590 /* shame.png */; };
 		1AFFE8B415175EB0004B4590 /* shocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE85415175EB0004B4590 /* shocked.png */; };
-		1AFFE8B515175EB0004B4590 /* SignonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE85615175EB0004B4590 /* SignonViewController.m */; };
-		1AFFE8B615175EB0004B4590 /* SignonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE85715175EB0004B4590 /* SignonViewController.xib */; };
 		1AFFE8B715175EB0004B4590 /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE85A15175EB0004B4590 /* SoundPlayer.m */; };
 		1AFFE8B815175EB0004B4590 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE85B15175EB0004B4590 /* sounds */; };
 		1AFFE8B915175EB0004B4590 /* StandardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE85D15175EB0004B4590 /* StandardButton.m */; };
@@ -273,8 +269,6 @@
 		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
 		1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewSignonController.m; sourceTree = "<group>"; };
 		1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewSignonController.xib; sourceTree = "<group>"; };
-		1AD8B710157636A0002C04F9 /* SignonCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonCredentials.h; sourceTree = "<group>"; };
-		1AD8B711157636A0002C04F9 /* SignonCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonCredentials.m; sourceTree = "<group>"; };
 		1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow.png"; sourceTree = "<group>"; };
 		1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow@2x.png"; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -443,9 +437,6 @@
 		1AFFE85215175EB0004B4590 /* secret_smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = secret_smile.png; sourceTree = "<group>"; };
 		1AFFE85315175EB0004B4590 /* shame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shame.png; sourceTree = "<group>"; };
 		1AFFE85415175EB0004B4590 /* shocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shocked.png; sourceTree = "<group>"; };
-		1AFFE85515175EB0004B4590 /* SignonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignonViewController.h; sourceTree = "<group>"; };
-		1AFFE85615175EB0004B4590 /* SignonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignonViewController.m; sourceTree = "<group>"; };
-		1AFFE85715175EB0004B4590 /* SignonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignonViewController.xib; sourceTree = "<group>"; };
 		1AFFE85915175EB0004B4590 /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
 		1AFFE85A15175EB0004B4590 /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
 		1AFFE85B15175EB0004B4590 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
@@ -530,11 +521,6 @@
 		1A00013A1517697500600916 /* Signon */ = {
 			isa = PBXGroup;
 			children = (
-				1AFFE85515175EB0004B4590 /* SignonViewController.h */,
-				1AFFE85615175EB0004B4590 /* SignonViewController.m */,
-				1AFFE85715175EB0004B4590 /* SignonViewController.xib */,
-				1AD8B710157636A0002C04F9 /* SignonCredentials.h */,
-				1AD8B711157636A0002C04F9 /* SignonCredentials.m */,
 				1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */,
 				1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */,
 				1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */,
@@ -1159,7 +1145,6 @@
 				1AFFE8B215175EB0004B4590 /* secret_smile.png in Resources */,
 				1AFFE8B315175EB0004B4590 /* shame.png in Resources */,
 				1AFFE8B415175EB0004B4590 /* shocked.png in Resources */,
-				1AFFE8B615175EB0004B4590 /* SignonViewController.xib in Resources */,
 				1AFFE8B815175EB0004B4590 /* sounds in Resources */,
 				1AFFE8BD15175EB0004B4590 /* StatsViewController.xib in Resources */,
 				1AFFE8BE15175EB0004B4590 /* super_man.png in Resources */,
@@ -1246,7 +1231,6 @@
 				1A5983BB15446D8E00E97F09 /* TwitterAccountPickViewController.m in Sources */,
 				1A5983BC15446D9100E97F09 /* TweetLogViewController.m in Sources */,
 				1A5983BD15446D9400E97F09 /* CloudClient.m in Sources */,
-				1A5983BE15446D9C00E97F09 /* SignonViewController.m in Sources */,
 				1A5983BF15446DA500E97F09 /* GameDownloadPickerViewController.m in Sources */,
 				1A5983C015446DA800E97F09 /* CloudViewController.m in Sources */,
 				1A5983C115446DAB00E97F09 /* TeamDownloadPickerViewController.m in Sources */,
@@ -1292,7 +1276,6 @@
 				1AFFE8AA15175EB0004B4590 /* Preferences.m in Sources */,
 				1AFFE8AB15175EB0004B4590 /* PreferencesViewController.m in Sources */,
 				1AFFE8AF15175EB0004B4590 /* RedButton.m in Sources */,
-				1AFFE8B515175EB0004B4590 /* SignonViewController.m in Sources */,
 				1AFFE8B715175EB0004B4590 /* SoundPlayer.m in Sources */,
 				1AFFE8B915175EB0004B4590 /* StandardButton.m in Sources */,
 				1AFFE8BA15175EB0004B4590 /* Statistics.m in Sources */,
@@ -1322,7 +1305,6 @@
 				1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
-				1AD8B712157636A0002C04F9 /* SignonCredentials.m in Sources */,
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 				1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */,

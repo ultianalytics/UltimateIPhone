@@ -24,7 +24,6 @@ typedef enum {
 
 +(BOOL) isSignedOn;
 +(void) signOff;
-+(BOOL) signOnWithID: userid password: password;
 +(void) uploadTeam: (Team*) team error:(NSError**) error;
 +(void) uploadTeam: (Team*) team withGames: (NSArray*) gameIds error:(NSError**) error;
 +(NSString*) getWebsiteURL: (Team*) team;

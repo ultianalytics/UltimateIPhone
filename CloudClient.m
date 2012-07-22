@@ -351,9 +351,13 @@
     return [NSString stringWithFormat:@"http://%@", kHostHame];
 }
 
-+(void) verifyConnection: (NSError**) error {
++(BOOL)isConnected {
     Reachability* reachability = [Reachability reachabilityForInternetConnection]; 
-    if ([reachability currentReachabilityStatus] == NotReachable) {
+    return ![reachability currentReachabilityStatus] == NotReachable;
+}
+
++(void) verifyConnection: (NSError**) error {
+    if (![self isConnected]) {
         *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: NotConnectedToInternet userInfo:nil];
         NSLog(@"Internet connection not available");
     } else {

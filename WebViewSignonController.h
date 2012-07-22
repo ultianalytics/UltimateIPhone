@@ -14,7 +14,7 @@
 
 @end
 
-@interface WebViewSignonController : UIViewController <UIWebViewDelegate>
+@interface WebViewSignonController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) id<WebViewSignonControllerDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIView *containerView;

@@ -85,7 +85,12 @@
     [self.delegate dismissSignonController:NO email: nil];
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self.delegate dismissSignonController:NO email:nil];
+}
+
 #pragma mark - Help Callouts
+   
 
 -(BOOL)showFirstTimeUsageCallouts {
     if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstSignonViewUsage]) {
@@ -119,6 +124,22 @@
                     completion:NULL];
 }
 
+-(BOOL)isNetworkAvailable {
+    if (![CloudClient isConnected]) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle: @"No Internet Access"
+                              message: @"We are not able to connect to Google.  Please make sure you have Internet access."
+                              delegate: self
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+  
+       
 #pragma mark - Lifecycle 
 
 - (void)viewDidLoad
@@ -130,8 +151,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self showFirstTimeUsageCallouts];
-    [self loadAccessCheckPage];
+    if ([self isNetworkAvailable]) {
+        [self showFirstTimeUsageCallouts];
+        [self loadAccessCheckPage];
+    }
 }
 
 - (void)viewDidUnload

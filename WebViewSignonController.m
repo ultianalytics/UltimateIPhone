@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "WebViewSignonController.h"
 #import "ColorMaster.h"
 #import "CloudClient.h"
@@ -98,9 +99,14 @@
         
         CGPoint anchor = [self.webView convertPoint:CGPointTop(self.webView.bounds) toView:self.view];
         
-        CalloutView* callout = [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to Google (e.g., Gmail™ account) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account.\n\n            - Tap to dismiss -" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:16]];  
+        CalloutView* callout = [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to a Google account (Gmail™) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account for this app.\n\n              - Tap to dismiss -" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:16]];  
         
-        callout.calloutColor = [ColorMaster getFormTableCellColor];
+        // customize callout...
+        UITextView *calloutTextView = [[UITextView alloc] init];
+        calloutTextView.textColor = [UIColor whiteColor];
+        calloutTextView.font = [UIFont systemFontOfSize:16]; 
+        calloutTextView.backgroundColor = [ColorMaster getNavBarTintColor];
+        callout.textView = calloutTextView;
         
         self.firstTimeUsageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

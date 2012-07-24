@@ -18,7 +18,8 @@
 
 @interface WebViewSignonController ()
 
-@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
+@property (nonatomic, strong) CalloutsContainerView *usageCallouts;
+@property (nonatomic) BOOL hasDisplayedUsageCallouts;
 
 @end
 
@@ -31,7 +32,8 @@
 @synthesize cancelButton;
 @synthesize busyLabel;
 
-@synthesize firstTimeUsageCallouts;
+@synthesize usageCallouts;
+@synthesize hasDisplayedUsageCallouts;
 
 #pragma mark - Signon
 
@@ -94,7 +96,8 @@
    
 
 -(BOOL)showNewLogonUsageCallouts {
-    if (![[Preferences getCurrentPreferences].userid isNotEmpty]) {
+    if (!self.hasDisplayedUsageCallouts && ![[Preferences getCurrentPreferences].userid isNotEmpty]) {
+        self.hasDisplayedUsageCallouts = YES;
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
         CGPoint anchor = [self.webView convertPoint:CGPointTop(self.webView.bounds) toView:self.view];
@@ -108,7 +111,7 @@
         calloutTextView.backgroundColor = [ColorMaster getNavBarTintColor];
         callout.textView = calloutTextView;
         
-        self.firstTimeUsageCallouts = calloutsView;
+        self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
         return YES;
     } else {

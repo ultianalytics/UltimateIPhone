@@ -2,8 +2,7 @@
 //  ViewController.m
 //  MultiViewControllerTest
 //
-//  Created by Jim Geppert on 5/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert on 7/26/12.
 //
 
 #import "ViewController.h"
@@ -20,9 +19,6 @@
 @property (nonatomic, strong) UIViewController *leftViewController;
 @property (nonatomic, strong) UIViewController *toolbarViewController;
 
--(void)setupRightViewController;
--(void)setupLeftViewController;
-
 @end
 
 @implementation ViewController 
@@ -30,81 +26,19 @@
 @synthesize leftView,rightView,toolbarView;
 @synthesize rightViewController,leftViewController,toolbarViewController;
 
+#pragma mark - Initialization
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        // tab bar stuff...
         self.title = NSLocalizedString(@"First", @"First");
         self.tabBarItem.image = [UIImage imageNamed:@"first"];
     }
     return self;
 }
 
--(void)setupLeftViewController {
-  
-    /*
-        put the left view controller into the left subview...     
-     */
-    
-    self.leftViewController = [[MySampleLeftViewController alloc] init];
-    // adjust the frame to fit in the container view
-	self.leftViewController.view.frame = self.leftView.bounds;
-	// make sure that it resizes on rotation automatically
-	self.leftViewController.view.autoresizingMask = self.leftView.autoresizingMask;
-	// Step 1: add the ViewController as a child to this view controller
-	[self addChildViewController:self.leftViewController];
-  	// Step 2: add the child view controller's view as a child to this view controller's view that contains that controller 
-    // (calls willMoveToParentViewController for us BTW)
-	[self.leftView addSubview:self.leftViewController.view];
-	// notify the child that it has been moved in
-	[self.leftViewController didMoveToParentViewController:self];
-    
-}
-
--(void)setupRightViewController {
-    
-    /*
-        put the right view controller into the right subview...     
-     */
-    
-    self.rightViewController = [[MySampleRightViewController alloc] init];
-    // adjust the frame to fit in the container view
-	self.rightViewController.view.frame = self.rightView.bounds;
-	// make sure that it resizes on rotation automatically
-	self.rightViewController.view.autoresizingMask = self.rightView.autoresizingMask;
-	// Step 1: add the ViewController as a child to this view controller
-	[self addChildViewController:self.rightViewController];
-  	// Step 2: add the child view controller's view as a child to this view controller's view that contains that controller 
-    // (calls willMoveToParentViewController for us BTW)
-	[self.rightView addSubview:self.rightViewController.view];
-	// notify the child that it has been moved in
-	[self.rightViewController didMoveToParentViewController:self];
-    
-}
-
--(void)setupToolbarViewController {
-    
-    /*
-        put the toolbar view controller into the toolbar subview...     
-     */
-    
-    self.toolbarViewController = [[MySampleToolbarViewController alloc] init];
-    // adjust the frame to fit in the container view
-	self.toolbarViewController.view.frame = self.toolbarView.bounds;
-	// make sure that it resizes on rotation automatically
-	self.toolbarViewController.view.autoresizingMask = self.rightView.autoresizingMask;
-	// Step 1: add the ViewController as a child to this view controller
-	[self addChildViewController:self.toolbarViewController];
-  	// Step 2: add the child view controller's view as a child to this view controller's view that contains that controller 
-    // (calls willMoveToParentViewController for us BTW)
-	[self.toolbarView addSubview:self.toolbarViewController.view];
-	// notify the child that it has been moved in
-	[self.toolbarViewController didMoveToParentViewController:self];
-    
-}
-
-#pragma mark
-#pragma Lifecycle
+#pragma mark - Lifecycle
 
 - (void) viewWillLayoutSubviews {
 
@@ -116,9 +50,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupLeftViewController];
-    [self setupRightViewController];
-    [self setupToolbarViewController];
+    [self setupChildViewController:[[MySampleLeftViewController alloc] init] inSubView:self.leftView];
+    [self setupChildViewController:[[MySampleRightViewController alloc] init] inSubView:self.rightView];
+    [self setupChildViewController:[[MySampleToolbarViewController alloc] init] inSubView:self.toolbarView];
 }
 
 - (void)viewDidUnload {
@@ -128,6 +62,28 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
+}
+
+
+#pragma mark - Child View setup
+
+-(void)setupChildViewController: (UIViewController *)childViewController inSubView: (UIView *)subView {
+    /*
+     put the child view controller into the subview of this view controller...     
+     */
+    
+    // adjust the frame to fit in the container view
+	childViewController.view.frame = subView.bounds;
+	// make sure that it resizes on rotation automatically
+	childViewController.view.autoresizingMask = subView.autoresizingMask;
+	// Step 1: add the ViewController as a child to this view controller
+	[self addChildViewController:childViewController];
+  	// Step 2: add the child view controller's view as a child to this view controller's subview that contains that controller 
+    // (calls willMoveToParentViewController for us BTW)
+	[subView addSubview:childViewController.view];
+	// notify the child that it has been moved in
+	[childViewController didMoveToParentViewController:self];
+    
 }
 
 @end

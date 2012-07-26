@@ -2,8 +2,7 @@
 //  ViewController.h
 //  MultiViewControllerTest
 //
-//  Created by Jim Geppert on 5/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert on 7/26/12.
 //
 
 #import <UIKit/UIKit.h>

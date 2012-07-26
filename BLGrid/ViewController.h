@@ -7,16 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyTabWithButtonsViewController.h"
-@class MyPageViewController;
-@class MyTabWithButtonsViewController;
 
 @interface ViewController : UIViewController {
-
-    // for the container view 
-    NSMutableArray *_pageViewControllers;
-    MyPageViewController *_selectedPageViewController;
-    MyTabWithButtonsViewController *_barViewController;
 }
 
 // 2 view panes on window

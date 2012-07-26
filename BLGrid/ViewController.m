@@ -24,6 +24,18 @@
 
 @synthesize barView,pageView;
 
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"First", @"First");
+        self.tabBarItem.image = [UIImage imageNamed:@"first"];
+    }
+    return self;
+}
+
+
 -(void)previousButtonSelected {
     [self switchSelectedPage:NO];
 }
@@ -119,8 +131,7 @@
 #pragma Lifecycle
 
 - (void) viewWillLayoutSubviews {
-    //LOG_RECT(@"topview frame", self.view.frame);
-    //LOG_RECT(@"pageView bound", self.pageView.bounds);
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,13 +144,13 @@
     [super viewDidLoad];
     [self setupTabSubView];
     [self setupPageSubView];
-	// Do any additional setup after loading the view, typically from a nib.
+
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

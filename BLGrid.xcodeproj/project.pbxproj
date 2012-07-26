@@ -13,14 +13,7 @@
 		1ABBA7A615C0C0B800216E95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7A415C0C0B800216E95 /* InfoPlist.strings */; };
 		1ABBA7A815C0C0B800216E95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7A715C0C0B800216E95 /* main.m */; };
 		1ABBA7AC15C0C0B800216E95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */; };
-		1ABBA7AF15C0C0B800216E95 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7AE15C0C0B800216E95 /* FirstViewController.m */; };
 		1ABBA7B115C0C0B800216E95 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7B015C0C0B800216E95 /* first.png */; };
-		1ABBA7B315C0C0B800216E95 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7B215C0C0B800216E95 /* first@2x.png */; };
-		1ABBA7B615C0C0B800216E95 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7B515C0C0B800216E95 /* SecondViewController.m */; };
-		1ABBA7B815C0C0B800216E95 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7B715C0C0B800216E95 /* second.png */; };
-		1ABBA7BA15C0C0B800216E95 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7B915C0C0B800216E95 /* second@2x.png */; };
-		1ABBA7BD15C0C0B800216E95 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7BB15C0C0B800216E95 /* FirstViewController.xib */; };
-		1ABBA7C015C0C0B800216E95 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7BE15C0C0B800216E95 /* SecondViewController.xib */; };
 		1ABBA7CE15C0DB8300216E95 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7C715C0DB8300216E95 /* ViewController.m */; };
 		1ABBA7CF15C0DB8300216E95 /* MyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7C915C0DB8300216E95 /* MyPageViewController.m */; };
 		1ABBA7D015C0DB8300216E95 /* MyPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7CA15C0DB8300216E95 /* MyPageViewController.xib */; };
@@ -40,16 +33,7 @@
 		1ABBA7A915C0C0B800216E95 /* BLGrid-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLGrid-Prefix.pch"; sourceTree = "<group>"; };
 		1ABBA7AA15C0C0B800216E95 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1ABBA7AD15C0C0B800216E95 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		1ABBA7AE15C0C0B800216E95 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		1ABBA7B015C0C0B800216E95 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		1ABBA7B215C0C0B800216E95 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		1ABBA7B415C0C0B800216E95 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		1ABBA7B515C0C0B800216E95 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		1ABBA7B715C0C0B800216E95 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		1ABBA7B915C0C0B800216E95 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		1ABBA7BC15C0C0B800216E95 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
-		1ABBA7BF15C0C0B800216E95 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
 		1ABBA7C615C0DB8300216E95 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1ABBA7C715C0DB8300216E95 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1ABBA7C815C0DB8300216E95 /* MyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageViewController.h; sourceTree = "<group>"; };
@@ -116,16 +100,7 @@
 				1ABBA7CD15C0DB8300216E95 /* MyTabWithButtonsViewController.xib */,
 				1ABBA7AA15C0C0B800216E95 /* AppDelegate.h */,
 				1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */,
-				1ABBA7AD15C0C0B800216E95 /* FirstViewController.h */,
-				1ABBA7AE15C0C0B800216E95 /* FirstViewController.m */,
 				1ABBA7B015C0C0B800216E95 /* first.png */,
-				1ABBA7B215C0C0B800216E95 /* first@2x.png */,
-				1ABBA7B415C0C0B800216E95 /* SecondViewController.h */,
-				1ABBA7B515C0C0B800216E95 /* SecondViewController.m */,
-				1ABBA7B715C0C0B800216E95 /* second.png */,
-				1ABBA7B915C0C0B800216E95 /* second@2x.png */,
-				1ABBA7BB15C0C0B800216E95 /* FirstViewController.xib */,
-				1ABBA7BE15C0C0B800216E95 /* SecondViewController.xib */,
 				1ABBA7A215C0C0B800216E95 /* Supporting Files */,
 			);
 			path = BLGrid;
@@ -194,11 +169,6 @@
 			files = (
 				1ABBA7A615C0C0B800216E95 /* InfoPlist.strings in Resources */,
 				1ABBA7B115C0C0B800216E95 /* first.png in Resources */,
-				1ABBA7B315C0C0B800216E95 /* first@2x.png in Resources */,
-				1ABBA7B815C0C0B800216E95 /* second.png in Resources */,
-				1ABBA7BA15C0C0B800216E95 /* second@2x.png in Resources */,
-				1ABBA7BD15C0C0B800216E95 /* FirstViewController.xib in Resources */,
-				1ABBA7C015C0C0B800216E95 /* SecondViewController.xib in Resources */,
 				1ABBA7D015C0DB8300216E95 /* MyPageViewController.xib in Resources */,
 				1ABBA7D215C0DB8300216E95 /* MyTabWithButtonsViewController.xib in Resources */,
 				1ABBA7D815C0DBD000216E95 /* ViewController.xib in Resources */,
@@ -214,8 +184,6 @@
 			files = (
 				1ABBA7A815C0C0B800216E95 /* main.m in Sources */,
 				1ABBA7AC15C0C0B800216E95 /* AppDelegate.m in Sources */,
-				1ABBA7AF15C0C0B800216E95 /* FirstViewController.m in Sources */,
-				1ABBA7B615C0C0B800216E95 /* SecondViewController.m in Sources */,
 				1ABBA7CE15C0DB8300216E95 /* ViewController.m in Sources */,
 				1ABBA7CF15C0DB8300216E95 /* MyPageViewController.m in Sources */,
 				1ABBA7D115C0DB8300216E95 /* MyTabWithButtonsViewController.m in Sources */,
@@ -231,22 +199,6 @@
 				1ABBA7A515C0C0B800216E95 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		1ABBA7BB15C0C0B800216E95 /* FirstViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1ABBA7BC15C0C0B800216E95 /* en */,
-			);
-			name = FirstViewController.xib;
-			sourceTree = "<group>";
-		};
-		1ABBA7BE15C0C0B800216E95 /* SecondViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1ABBA7BF15C0C0B800216E95 /* en */,
-			);
-			name = SecondViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

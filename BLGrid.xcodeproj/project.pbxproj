@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A12EBD315C1650600B88AD3 /* MySampleLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A12EBD115C1650600B88AD3 /* MySampleLeftViewController.m */; };
+		1A12EBD415C1650600B88AD3 /* MySampleLeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A12EBD215C1650600B88AD3 /* MySampleLeftViewController.xib */; };
+		1A12EBD915C1651600B88AD3 /* MySampleRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A12EBD715C1651600B88AD3 /* MySampleRightViewController.m */; };
+		1A12EBDA15C1651600B88AD3 /* MySampleRightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A12EBD815C1651600B88AD3 /* MySampleRightViewController.xib */; };
 		1ABBA79C15C0C0B800216E95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABBA79B15C0C0B800216E95 /* UIKit.framework */; };
 		1ABBA79E15C0C0B800216E95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABBA79D15C0C0B800216E95 /* Foundation.framework */; };
 		1ABBA7A015C0C0B800216E95 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABBA79F15C0C0B800216E95 /* CoreGraphics.framework */; };
@@ -23,6 +27,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A12EBD015C1650600B88AD3 /* MySampleLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySampleLeftViewController.h; sourceTree = "<group>"; };
+		1A12EBD115C1650600B88AD3 /* MySampleLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySampleLeftViewController.m; sourceTree = "<group>"; };
+		1A12EBD215C1650600B88AD3 /* MySampleLeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySampleLeftViewController.xib; sourceTree = "<group>"; };
+		1A12EBD615C1651600B88AD3 /* MySampleRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySampleRightViewController.h; sourceTree = "<group>"; };
+		1A12EBD715C1651600B88AD3 /* MySampleRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySampleRightViewController.m; sourceTree = "<group>"; };
+		1A12EBD815C1651600B88AD3 /* MySampleRightViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySampleRightViewController.xib; sourceTree = "<group>"; };
 		1ABBA79715C0C0B800216E95 /* BLGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ABBA79B15C0C0B800216E95 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1ABBA79D15C0C0B800216E95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -102,6 +112,12 @@
 				1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */,
 				1ABBA7B015C0C0B800216E95 /* first.png */,
 				1ABBA7A215C0C0B800216E95 /* Supporting Files */,
+				1A12EBD015C1650600B88AD3 /* MySampleLeftViewController.h */,
+				1A12EBD115C1650600B88AD3 /* MySampleLeftViewController.m */,
+				1A12EBD215C1650600B88AD3 /* MySampleLeftViewController.xib */,
+				1A12EBD615C1651600B88AD3 /* MySampleRightViewController.h */,
+				1A12EBD715C1651600B88AD3 /* MySampleRightViewController.m */,
+				1A12EBD815C1651600B88AD3 /* MySampleRightViewController.xib */,
 			);
 			path = BLGrid;
 			sourceTree = "<group>";
@@ -172,6 +188,8 @@
 				1ABBA7D015C0DB8300216E95 /* MyPageViewController.xib in Resources */,
 				1ABBA7D215C0DB8300216E95 /* MyTabWithButtonsViewController.xib in Resources */,
 				1ABBA7D815C0DBD000216E95 /* ViewController.xib in Resources */,
+				1A12EBD415C1650600B88AD3 /* MySampleLeftViewController.xib in Resources */,
+				1A12EBDA15C1651600B88AD3 /* MySampleRightViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +205,8 @@
 				1ABBA7CE15C0DB8300216E95 /* ViewController.m in Sources */,
 				1ABBA7CF15C0DB8300216E95 /* MyPageViewController.m in Sources */,
 				1ABBA7D115C0DB8300216E95 /* MyTabWithButtonsViewController.m in Sources */,
+				1A12EBD315C1650600B88AD3 /* MySampleLeftViewController.m in Sources */,
+				1A12EBD915C1651600B88AD3 /* MySampleRightViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +312,7 @@
 				1ABBA7C515C0C0B800216E95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

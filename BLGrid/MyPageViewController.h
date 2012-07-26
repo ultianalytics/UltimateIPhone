@@ -10,10 +10,7 @@
 
 @interface MyPageViewController : UIViewController
 
-@property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
-@property (strong, nonatomic) IBOutlet UIButton *doitButton;
-@property (strong, nonatomic) UIPopoverController *popover;
-- (IBAction)popupPressed:(id)sender;
+
 
 @end

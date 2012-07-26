@@ -11,7 +11,7 @@
 @class MyPageViewController;
 @class MyTabWithButtonsViewController;
 
-@interface ViewController : UIViewController <MyTabButtonsDelegate> {
+@interface ViewController : UIViewController {
 
     // for the container view 
     NSMutableArray *_pageViewControllers;

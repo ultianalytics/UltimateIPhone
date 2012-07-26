@@ -8,20 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MyTabButtonsDelegate <NSObject>
-
--(void)previousButtonSelected;
--(void)nextButtonSelected;
-
-@end
 
 @interface MyTabWithButtonsViewController : UIViewController
 
-@property (nonatomic, weak) id<MyTabButtonsDelegate> delegate;
-@property (nonatomic, retain) UIButton *previousButton;
-@property (nonatomic, retain) UIButton *nextButton;
-
--(IBAction)previousButtonSelected:(id)sender;
--(IBAction)nextButtonSelected:(id)sender;
 
 @end

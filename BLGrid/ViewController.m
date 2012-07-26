@@ -59,7 +59,6 @@
      */
     
     _barViewController = [[MyTabWithButtonsViewController alloc] init];
-    _barViewController.delegate = self;
     // adjust the frame to fit in the container view
 	_barViewController.view.frame = self.barView.bounds;
 	// make sure that it resizes on rotation automatically
@@ -82,7 +81,6 @@
     _pageViewControllers = [NSMutableArray array];
     for (int i=0; i<5; i++) {
         MyPageViewController *page = [[MyPageViewController alloc] init];
-        page.name = [NSString stringWithFormat:@"Page %d", i + 1];
         [_pageViewControllers addObject:page];
     }
     [self setPageViewSelected: [_pageViewControllers objectAtIndex:0] isAdvancing:NO];

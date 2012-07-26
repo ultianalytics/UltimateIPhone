@@ -13,20 +13,11 @@
 @end
 
 @implementation MyTabWithButtonsViewController
-@synthesize delegate, previousButton, nextButton;
-
 
 #pragma mark
 #pragma Lifecycle
 
 
--(IBAction)previousButtonSelected:(id)sender {
-    [delegate previousButtonSelected];
-}
-
--(IBAction)nextButtonSelected:(id)sender {
-    [delegate nextButtonSelected];    
-}
 
 #pragma mark
 #pragma Inits

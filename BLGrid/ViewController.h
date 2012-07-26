@@ -14,5 +14,6 @@
 // 2 view panes on window
 @property (nonatomic, strong) IBOutlet UIView *rightView;
 @property (nonatomic, strong) IBOutlet UIView *leftView;
+@property (nonatomic, strong) IBOutlet UIView *toolbarView;
 
 @end

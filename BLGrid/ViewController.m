@@ -25,7 +25,7 @@
 
 @implementation ViewController 
 
-@synthesize barView,pageView;
+@synthesize leftView,rightView;
 @synthesize rightViewController,leftViewController;
 
 
@@ -41,19 +41,19 @@
 -(void)setupLeftViewController {
   
     /*
-        put a master view controller into the bar subview...     
+        put the left view controller into the left subview...     
      */
     
     self.leftViewController = [[MySampleLeftViewController alloc] init];
     // adjust the frame to fit in the container view
-	self.leftViewController.view.frame = self.barView.bounds;
+	self.leftViewController.view.frame = self.leftView.bounds;
 	// make sure that it resizes on rotation automatically
-	self.leftViewController.view.autoresizingMask = self.barView.autoresizingMask;
+	self.leftViewController.view.autoresizingMask = self.leftView.autoresizingMask;
 	// Step 1: add the ViewController as a child to this view controller
 	[self addChildViewController:self.leftViewController];
   	// Step 2: add the child view controller's view as a child to this view controller's view that contains that controller 
     // (calls willMoveToParentViewController for us BTW)
-	[self.barView addSubview:self.leftViewController.view];
+	[self.leftView addSubview:self.leftViewController.view];
 	// notify the child that it has been moved in
 	[self.leftViewController didMoveToParentViewController:self];
     
@@ -62,19 +62,19 @@
 -(void)setupRightViewController {
     
     /*
-     put a new detail view controller into the bar subview...     
+     put the right view controller into the right subview...     
      */
     
     self.rightViewController = [[MySampleRightViewController alloc] init];
     // adjust the frame to fit in the container view
-	self.rightViewController.view.frame = self.pageView.bounds;
+	self.rightViewController.view.frame = self.rightView.bounds;
 	// make sure that it resizes on rotation automatically
-	self.rightViewController.view.autoresizingMask = self.pageView.autoresizingMask;
+	self.rightViewController.view.autoresizingMask = self.rightView.autoresizingMask;
 	// Step 1: add the ViewController as a child to this view controller
 	[self addChildViewController:self.rightViewController];
   	// Step 2: add the child view controller's view as a child to this view controller's view that contains that controller 
     // (calls willMoveToParentViewController for us BTW)
-	[self.pageView addSubview:self.rightViewController.view];
+	[self.rightView addSubview:self.rightViewController.view];
 	// notify the child that it has been moved in
 	[self.rightViewController didMoveToParentViewController:self];
     

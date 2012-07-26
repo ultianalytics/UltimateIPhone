@@ -12,7 +12,7 @@
 }
 
 // 2 view panes on window
-@property (nonatomic, strong) IBOutlet UIView *pageView;
-@property (nonatomic, strong) IBOutlet UIView *barView;
+@property (nonatomic, strong) IBOutlet UIView *rightView;
+@property (nonatomic, strong) IBOutlet UIView *leftView;
 
 @end

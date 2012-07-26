@@ -19,10 +19,6 @@
 		1ABBA7AC15C0C0B800216E95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */; };
 		1ABBA7B115C0C0B800216E95 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7B015C0C0B800216E95 /* first.png */; };
 		1ABBA7CE15C0DB8300216E95 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7C715C0DB8300216E95 /* ViewController.m */; };
-		1ABBA7CF15C0DB8300216E95 /* MyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7C915C0DB8300216E95 /* MyPageViewController.m */; };
-		1ABBA7D015C0DB8300216E95 /* MyPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7CA15C0DB8300216E95 /* MyPageViewController.xib */; };
-		1ABBA7D115C0DB8300216E95 /* MyTabWithButtonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA7CC15C0DB8300216E95 /* MyTabWithButtonsViewController.m */; };
-		1ABBA7D215C0DB8300216E95 /* MyTabWithButtonsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7CD15C0DB8300216E95 /* MyTabWithButtonsViewController.xib */; };
 		1ABBA7D815C0DBD000216E95 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA7D715C0DBD000216E95 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -46,12 +42,6 @@
 		1ABBA7B015C0C0B800216E95 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		1ABBA7C615C0DB8300216E95 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1ABBA7C715C0DB8300216E95 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		1ABBA7C815C0DB8300216E95 /* MyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageViewController.h; sourceTree = "<group>"; };
-		1ABBA7C915C0DB8300216E95 /* MyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageViewController.m; sourceTree = "<group>"; };
-		1ABBA7CA15C0DB8300216E95 /* MyPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPageViewController.xib; sourceTree = "<group>"; };
-		1ABBA7CB15C0DB8300216E95 /* MyTabWithButtonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabWithButtonsViewController.h; sourceTree = "<group>"; };
-		1ABBA7CC15C0DB8300216E95 /* MyTabWithButtonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabWithButtonsViewController.m; sourceTree = "<group>"; };
-		1ABBA7CD15C0DB8300216E95 /* MyTabWithButtonsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyTabWithButtonsViewController.xib; sourceTree = "<group>"; };
 		1ABBA7D715C0DBD000216E95 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,25 +89,19 @@
 		1ABBA7A115C0C0B800216E95 /* BLGrid */ = {
 			isa = PBXGroup;
 			children = (
+				1ABBA7AA15C0C0B800216E95 /* AppDelegate.h */,
+				1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */,
 				1ABBA7C615C0DB8300216E95 /* ViewController.h */,
 				1ABBA7C715C0DB8300216E95 /* ViewController.m */,
 				1ABBA7D715C0DBD000216E95 /* ViewController.xib */,
-				1ABBA7C815C0DB8300216E95 /* MyPageViewController.h */,
-				1ABBA7C915C0DB8300216E95 /* MyPageViewController.m */,
-				1ABBA7CA15C0DB8300216E95 /* MyPageViewController.xib */,
-				1ABBA7CB15C0DB8300216E95 /* MyTabWithButtonsViewController.h */,
-				1ABBA7CC15C0DB8300216E95 /* MyTabWithButtonsViewController.m */,
-				1ABBA7CD15C0DB8300216E95 /* MyTabWithButtonsViewController.xib */,
-				1ABBA7AA15C0C0B800216E95 /* AppDelegate.h */,
-				1ABBA7AB15C0C0B800216E95 /* AppDelegate.m */,
-				1ABBA7B015C0C0B800216E95 /* first.png */,
-				1ABBA7A215C0C0B800216E95 /* Supporting Files */,
 				1A12EBD015C1650600B88AD3 /* MySampleLeftViewController.h */,
 				1A12EBD115C1650600B88AD3 /* MySampleLeftViewController.m */,
 				1A12EBD215C1650600B88AD3 /* MySampleLeftViewController.xib */,
 				1A12EBD615C1651600B88AD3 /* MySampleRightViewController.h */,
 				1A12EBD715C1651600B88AD3 /* MySampleRightViewController.m */,
 				1A12EBD815C1651600B88AD3 /* MySampleRightViewController.xib */,
+				1ABBA7B015C0C0B800216E95 /* first.png */,
+				1ABBA7A215C0C0B800216E95 /* Supporting Files */,
 			);
 			path = BLGrid;
 			sourceTree = "<group>";
@@ -185,8 +169,6 @@
 			files = (
 				1ABBA7A615C0C0B800216E95 /* InfoPlist.strings in Resources */,
 				1ABBA7B115C0C0B800216E95 /* first.png in Resources */,
-				1ABBA7D015C0DB8300216E95 /* MyPageViewController.xib in Resources */,
-				1ABBA7D215C0DB8300216E95 /* MyTabWithButtonsViewController.xib in Resources */,
 				1ABBA7D815C0DBD000216E95 /* ViewController.xib in Resources */,
 				1A12EBD415C1650600B88AD3 /* MySampleLeftViewController.xib in Resources */,
 				1A12EBDA15C1651600B88AD3 /* MySampleRightViewController.xib in Resources */,
@@ -203,8 +185,6 @@
 				1ABBA7A815C0C0B800216E95 /* main.m in Sources */,
 				1ABBA7AC15C0C0B800216E95 /* AppDelegate.m in Sources */,
 				1ABBA7CE15C0DB8300216E95 /* ViewController.m in Sources */,
-				1ABBA7CF15C0DB8300216E95 /* MyPageViewController.m in Sources */,
-				1ABBA7D115C0DB8300216E95 /* MyTabWithButtonsViewController.m in Sources */,
 				1A12EBD315C1650600B88AD3 /* MySampleLeftViewController.m in Sources */,
 				1A12EBD915C1651600B88AD3 /* MySampleRightViewController.m in Sources */,
 			);

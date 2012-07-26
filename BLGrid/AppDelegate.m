@@ -8,9 +8,8 @@
 
 #import "AppDelegate.h"
 
-#import "FirstViewController.h"
+#import "ViewController.h"
 
-#import "SecondViewController.h"
 
 @implementation AppDelegate
 
@@ -21,10 +20,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    UIViewController *viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
-    UIViewController *viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
+    UIViewController *viewController1 = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

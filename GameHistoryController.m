@@ -16,6 +16,7 @@
 #import "ImageMaster.h"
 #import "Event.h"
 #import "UPoint.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation GameHistoryController
 @synthesize game,isCurlAnimation;
@@ -58,8 +59,8 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:rowType];
         UIColor* color = [event isOffense] ? [ColorMaster getOffenseEventColor] : [ColorMaster getDefenseEventColor];
-        cell.textLabel.backgroundColor = color;
-        cell.contentView.backgroundColor = color;
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = color;
     }
     cell.imageView.image = [ImageMaster getImageForEvent: event];
     cell.textLabel.text = [event getDescription];

@@ -10,6 +10,7 @@
 
 @interface ColorMaster : NSObject
 
++(UIColor*)getTabBarSelectedImageColor;
 +(UIColor*)getOffenseEventColor;
 +(UIColor*)getDefenseEventColor;
 +(UIColor*)getWinScoreColor;

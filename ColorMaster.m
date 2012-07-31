@@ -100,6 +100,10 @@ static UIColor* linePlayerImbalanceWarningBoys;
 
 }
 
++(UIColor*)getTabBarSelectedImageColor {
+    return lightestColor;
+}
+
 +(UIColor*)getNormalButtonHighColor {
     return linePlayerButtonColor4;
 }

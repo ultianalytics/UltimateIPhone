@@ -31,7 +31,7 @@ UINavigationController* gameNavController;
     // start up test flight SDK
     [TestFlight takeOff:@"01dff7f7ad89edec89a36930e359a707_NjE1NDUyMDEyLTAyLTEyIDEzOjM5OjU0Ljc5NDg1OQ"];
     
-    [self setupAppearance];
+    [self setupGlobalAppearance];
      
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -100,8 +100,9 @@ UINavigationController* gameNavController;
     return YES;
 }
 
--(void)setupAppearance {
+-(void)setupGlobalAppearance {
     [[UINavigationBar appearance] setTintColor: [ColorMaster getNavBarTintColor]];
+    [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

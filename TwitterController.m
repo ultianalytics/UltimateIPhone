@@ -147,7 +147,6 @@
                                              selector: @selector(populateView)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
                                                object: nil];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.autoTweetSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     [self populateView];
 }

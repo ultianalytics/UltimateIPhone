@@ -379,7 +379,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self styleButtons];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)
                                                  name: @"UIApplicationWillEnterForegroundNotification"

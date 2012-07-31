@@ -358,8 +358,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    [super viewWillAppear:animated];
     if (![Game hasCurrentGame]) {
         GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
         gameStartController.game = [[Game alloc] init];

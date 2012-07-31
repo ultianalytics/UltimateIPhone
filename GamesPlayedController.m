@@ -153,7 +153,6 @@
     self.navigationItem.rightBarButtonItem = navBarAddButton; 
     
     self.gamesTableView.separatorColor = [ColorMaster getTableListSeparatorColor];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
     // Do any additional setup after loading the view from its nib.
 }

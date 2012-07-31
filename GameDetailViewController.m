@@ -265,7 +265,6 @@
 {
     [super viewDidLoad];
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     
     self.gamePointsSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.initialLine.tintColor = [ColorMaster getNavBarTintColor];    

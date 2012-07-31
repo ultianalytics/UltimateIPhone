@@ -38,7 +38,7 @@
 #pragma mark - Signon
 
 -(void)loadAccessCheckPage {
-    NSString* relativeUrl = [NSString stringWithFormat:@"%@?redirect=true&cache-buster=%d", [self accessCheckPageUrl], [NSDate timeIntervalSinceReferenceDate]];
+    NSString* relativeUrl = [NSString stringWithFormat:@"%@?redirect=true&cache-buster=%ld", [self accessCheckPageUrl], (long)[NSDate timeIntervalSinceReferenceDate]];
     NSURL* url = [NSURL URLWithString:relativeUrl relativeToURL:[NSURL URLWithString:[CloudClient getBaseUrl]]];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
@@ -156,7 +156,6 @@
 {
     [super viewDidLoad];
     [self initializeCancelButton];
-    self.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     self.title = NSLocalizedString(@"Cloud Signon", @"Cloud Signon"); 
 }
 

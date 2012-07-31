@@ -92,7 +92,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     if (self.isCurlAnimation) {
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(popWithCurl)];
         self.navigationItem.leftBarButtonItem = settingsButton;

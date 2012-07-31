@@ -230,9 +230,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
-    //self.positionControl.tintColor = [ColorMaster getNavBarTintColor];
-    //self.sexControl.tintColor = [ColorMaster getNavBarTintColor]; 
     [self populateViewFromModel];
 }
 

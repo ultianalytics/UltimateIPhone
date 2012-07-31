@@ -309,7 +309,6 @@
 {
     [self setHalftimeButton:nil];
     [super viewDidUnload];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

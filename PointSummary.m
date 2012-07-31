@@ -27,7 +27,7 @@
 
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"score: ours=%d, theirs=%d isOline=%@ isFinished=%@ isAfterHalftime=%@, elapsedSeconds=%d",
+    return [NSString stringWithFormat:@"score: ours=%d, theirs=%d isOline=%@ isFinished=%@ isAfterHalftime=%@, elapsedSeconds=%ld",
         score.ours, score.theirs, (isOline ? @"YES" : @"NO"), (isFinished ? @"YES" : @"NO"), (isAfterHalftime ? @"YES" : @"NO"), elapsedSeconds];
 }
 

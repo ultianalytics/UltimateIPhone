@@ -261,7 +261,6 @@
     [super viewDidLoad];
     self.teamNameField.delegate = self; 
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
-    self.navigationController.navigationBar.tintColor = [ColorMaster getNavBarTintColor];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;    
 

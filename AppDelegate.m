@@ -15,6 +15,7 @@
 #import "TestFlight.h"
 #import "CloudViewController.h"
 #import "TwitterController.h"
+#import "ColorMaster.h"
 
 
 @implementation AppDelegate
@@ -29,6 +30,8 @@ UINavigationController* gameNavController;
 {
     // start up test flight SDK
     [TestFlight takeOff:@"01dff7f7ad89edec89a36930e359a707_NjE1NDUyMDEyLTAyLTEyIDEzOjM5OjU0Ljc5NDg1OQ"];
+    
+    [self setupAppearance];
      
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -97,6 +100,10 @@ UINavigationController* gameNavController;
     return YES;
 }
 
+-(void)setupAppearance {
+    [[UINavigationBar appearance] setTintColor: [ColorMaster getNavBarTintColor]];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -136,18 +143,5 @@ UINavigationController* gameNavController;
      */
 }
 
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-*/
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
-}
-*/
 
 @end

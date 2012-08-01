@@ -103,6 +103,8 @@ UINavigationController* gameNavController;
 -(void)setupGlobalAppearance {
     [[UINavigationBar appearance] setTintColor: [ColorMaster getNavBarTintColor]];
     [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
+    [[UITableView appearance] setSeparatorColor:[ColorMaster getTableListSeparatorColor]];
+    [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

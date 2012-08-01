@@ -180,7 +180,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getTableListSeparatorColor {
-    return lightestColor;
+    return lighterColor;
 }
 
 +(UIColor*)getAlarmingButtonHighColor {

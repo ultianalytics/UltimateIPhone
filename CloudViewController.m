@@ -13,6 +13,7 @@
 #import "GameDownloadPickerViewController.h"
 #import "Team.h"
 #import "Game.h"
+#import "Scrubber.h"
 
 #import "AppDelegate.h"
 #import "RequestContext.h"
@@ -44,6 +45,8 @@
 @end
 
 @implementation CloudViewController
+@synthesize scrubberView;
+@synthesize scrubberSwitch;
 @synthesize userUnknownLabel;
 @synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
 
@@ -64,6 +67,10 @@
 
 -(IBAction)downloadGameButtonClicked: (id) sender {
     [self startGamesDownload];
+}
+
+- (IBAction)scrubSwitchChanged:(id)sender {
+    [Scrubber currentScrubber].isOn = self.scrubberSwitch.isOn;
 }
 
 -(IBAction)uploadButtonClicked: (id) sender {
@@ -337,6 +344,11 @@
     [self.downloadGameButton setTitle:[NSString stringWithFormat:@" Download a %@ Game ",[Team getCurrentTeam].name] forState:UIControlStateNormal];    
     self.signoffButton.hidden = userid == nil;
     [self.cloudTableView reloadData];
+    [self.scrubberSwitch setOn:[Scrubber currentScrubber].isOn];
+#ifdef DEBUG
+    self.scrubberView.hidden = NO;
+#endif
+    
 }
 
 #pragma mark - Table handling
@@ -406,6 +418,8 @@
 - (void)viewDidUnload
 {
     [self setUserUnknownLabel:nil];
+    [self setScrubberView:nil];
+    [self setScrubberSwitch:nil];
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }

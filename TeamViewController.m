@@ -16,17 +16,15 @@
 #import "TeamPlayersViewController.h"
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
-#import "Scrubber.h"
 
 @interface TeamViewController()
 
 -(void)saveAndContinue;
--(void)createScrubButton;
 
 @end
 
 @implementation TeamViewController
-@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers,createScrubbedVersionButton;
+@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
 -(void)populateViewFromModel {
     [self.teamNameField setText:([team.name isEqualToString: kAnonymousTeam] ? @"" : team.name)];
@@ -205,18 +203,6 @@
     [self.navigationController pushViewController:playersController animated:animated];
 }
 
-- (IBAction)createScrubbedVersionClicked:(id)sender {
-    Scrubber* scrubber = [[Scrubber alloc] init];
-    [scrubber createScrubbedVersionOfActiveTeam];
-    UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle: @"Scrub Done"
-                          message: @"Stop the app right now (don't do anything else or scrub data will be corrupt). Then load some games to populate team."
-                          delegate: nil
-                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                          otherButtonTitles: nil];
-    [alert show];
-}
-
 -(void)goToBestView {
     // if we've already started adding players..go back there on app start
     if (shouldSkipToPlayers) {
@@ -225,18 +211,6 @@
             [self goToPlayersView: NO];
         }
     }
-}
-
--(void)createScrubButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"Create Scrubbed Version" forState:UIControlStateNormal];
-    CGRect f = CGRectInset(self.view.bounds, 10, 10);
-    f.origin.y = CGRectGetMaxY(f) - 35;
-    f.size.height = 35;
-    button.frame = f;
-    self.createScrubbedVersionButton = button;
-    [self.view addSubview:button];
-    [button addTarget:self action:@selector(createScrubbedVersionClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -273,7 +247,6 @@
 
 - (void)viewDidUnload
 {
-    [self setCreateScrubbedVersionButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

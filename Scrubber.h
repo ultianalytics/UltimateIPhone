@@ -9,16 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface Scrubber : NSObject {
-    NSMutableArray *maleTeamNames;
-    NSMutableArray *femaleTeamNames;
-    NSMutableArray *oppponentNames;
-    NSMutableArray *tournamentNames;
-    NSMutableDictionary *playerNameLookup;
-    NSMutableSet *usedPlayerNames;
-    NSMutableDictionary *tournamenLookup;
+
 }
 
--(void)createScrubbedVersionOfActiveTeam;
+@property (nonatomic) BOOL isOn;
 
++(Scrubber*)currentScrubber;
+-(NSString*)substitutePlayerName: (NSString*) originalName isMale: (BOOL) isMale;
+-(NSString*)substituteTournamentName: (NSString*) originalName;
+-(NSString*)substituteOpponentName: (NSString*) originalName;
 
 @end

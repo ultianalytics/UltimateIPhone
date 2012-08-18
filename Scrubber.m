@@ -15,128 +15,120 @@
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
 
-@interface Scrubber() 
+@interface Scrubber()
 
--(void)setup;
--(NSString*)substituteName: (NSString*) originalName isMale: (BOOL) isMale;
--(void)scrubGame:(Game *)game;
--(NSString*)substituteTournament: (NSString*) originalName;
--(NSString*)substituteOpponentName;
+
+
+@property (nonatomic, strong) NSMutableArray *maleTeamNames;
+@property (nonatomic, strong) NSMutableArray *femaleTeamNames;
+@property (nonatomic, strong) NSMutableArray *opponentNames;
+@property (nonatomic, strong) NSMutableArray *tournamentNames;
+
+@property (nonatomic, strong) NSMutableDictionary *playerNameLookup;
+@property (nonatomic, strong) NSMutableSet *usedPlayerNames;
+
+@property (nonatomic, strong) NSMutableDictionary *tournamentNameLookup;
+@property (nonatomic, strong) NSMutableSet *usedTournamentNames;
+
+@property (nonatomic, strong) NSMutableDictionary *opponentNameLookup;
+@property (nonatomic, strong) NSMutableSet *usedOpponentNames;
 
 @end
 
-
 @implementation Scrubber
 
--(void)createScrubbedVersionOfActiveTeam {
-    [self setup];
-    Team *team = [Team getCurrentTeam];
-    NSString* oldTeamId = team.teamId;
-    NSMutableArray *gameIds = [NSMutableArray arrayWithArray: [Game getAllGameFileNames:team.teamId]];
-    NSString* newTeamId = [Team generateUniqueFileName];
-    team.teamId = newTeamId;
-    team.name = @"SCRUBBED";
-    team.cloudId = nil;
-    [team.players removeAllObjects];
-    [team save];
-    [Team setCurrentTeam:team.teamId];
-    Game *lastGame = nil;
-    for (NSString *gameId in gameIds) {
-        Game *game = [Game readGame:gameId forTeam:oldTeamId];
-        [self scrubGame:game];
-        [game save];
-        lastGame = game;
-    }
-    // clear the players and read a game to populate the team players
-    [team.players removeAllObjects];
-    //[Game readGame:lastGame.gameId forTeam:oldTeamId];
-    [team save];
-    
-    Team *scrubbedTeam = [Team readTeam:newTeamId];
-    NSLog(@"Scrubbing Complete.  New team has ID %@", scrubbedTeam.teamId);
-    
++ (Scrubber*)currentScrubber {
+    static dispatch_once_t once;
+    static Scrubber *sharedScrubber;
+    dispatch_once(&once, ^ { sharedScrubber = [[self alloc] init]; });
+    return sharedScrubber;
 }
 
-- (void)scrubGame:(Game *)game {
-    game.gameId = [Game generateUniqueFileName];
-    game.opponentName = [self substituteOpponentName];
-    game.tournamentName = [self substituteTournament:game.tournamentName];
-    game.startDateTime = [game.startDateTime dateByAddingTimeInterval:  -1 * (356 * 24 * 60 * 60)];  // last yearish
-    for (UPoint *point in game.points) {
-        for (Event *event in point.events) {
-            if ([event isOffense]) {
-                OffenseEvent *oEvent = (OffenseEvent *)event;
-                oEvent.passer.name = [self substituteName:oEvent.passer.name isMale: YES];
-                if (oEvent.receiver) {
-                    oEvent.receiver.name = [self substituteName:oEvent.receiver.name isMale: YES];     
-                }
-            } else {
-                DefenseEvent *dEvent = (DefenseEvent *)event;
-                if (dEvent.defender) {
-                    dEvent.defender.name = [self substituteName:dEvent.defender.name isMale: YES];
-                }
-            }
-        }
-        for (Player *player in game.currentLine) {
-            player.name = [self substituteName:player.name isMale: YES];    
-        }
-        for (Player *player in game.lastOLine) {
-            player.name = [self substituteName:player.name isMale: YES];    
-        }
-        for (Player *player in game.lastDLine) {
-            player.name = [self substituteName:player.name isMale: YES];    
-        }
+-(void)setIsOn:(BOOL)shouldBeOn {
+    _isOn = shouldBeOn;
+    if (_isOn) {
+        [self setup];
+    } else {
+        self.maleTeamNames = nil;
+        self.femaleTeamNames = nil;
+        self.tournamentNames = nil;
+        self.opponentNames = nil;
+        self.tournamentNameLookup = nil;
+        self.usedTournamentNames = nil;
+        self.playerNameLookup = nil;
+        self.usedPlayerNames = nil;
+        self.opponentNameLookup = nil;
+        self.usedOpponentNames = nil;
     }
 }
 
--(NSString*)substituteName: (NSString*) originalName isMale: (BOOL) isMale {
-    if ([usedPlayerNames containsObject:originalName]) {
+-(NSString*)substitutePlayerName: (NSString*) originalName isMale: (BOOL) isMale {
+    if ([self.usedPlayerNames containsObject:originalName]) {
         return originalName;
     }
-    NSString *subName = [playerNameLookup objectForKey:originalName];
+    NSString *subName = [self.playerNameLookup objectForKey:originalName];
     if (subName == nil) {
         if (isMale) {
-            subName = [maleTeamNames lastObject];
-            [maleTeamNames removeLastObject];
+            subName = [ self.maleTeamNames lastObject];
+            [ self.maleTeamNames removeLastObject];
         } else {
-            subName = [femaleTeamNames lastObject];
-            [femaleTeamNames removeLastObject]; 
+            subName = [ self.femaleTeamNames lastObject];
+            [ self.femaleTeamNames removeLastObject]; 
         }
-        [playerNameLookup setValue:subName forKey:originalName];
-        [usedPlayerNames addObject:subName];
+        [self.playerNameLookup setValue:subName forKey:originalName];
+        [self.usedPlayerNames addObject:subName];
     }
     NSLog(@"Player name substitution.  old=%@, new=%@",originalName, subName);
     return subName;
 }
 
--(NSString*)substituteTournament: (NSString*) originalName {
-    NSString *subName = [tournamenLookup objectForKey:[originalName lowercaseString]];
-    if (subName == nil) {
-        subName = [tournamentNames lastObject];
-        [tournamentNames removeLastObject]; 
-        [tournamenLookup setValue:subName forKey:[originalName lowercaseString]];
+-(NSString*)substituteTournamentName: (NSString*) originalName {
+    if ([self.usedTournamentNames containsObject:originalName]) {
+        return originalName;
     }
+    NSString *subName = [self.tournamentNameLookup objectForKey:originalName];
+    if (subName == nil) {
+        subName = [ self.tournamentNames lastObject];
+        [self.tournamentNames removeLastObject];
+        [self.tournamentNameLookup setValue:subName forKey:originalName];
+        [self.usedTournamentNames addObject:subName];
+    }
+    NSLog(@"Tournament name substitution.  old=%@, new=%@",originalName, subName);
     return subName;
 }
 
--(NSString*)substituteOpponentName {
-    NSString *subName = [oppponentNames lastObject];
-    [oppponentNames removeLastObject]; 
+-(NSString*)substituteOpponentName: (NSString*) originalName {
+    if ([self.usedOpponentNames containsObject:originalName]) {
+        return originalName;
+    }
+    NSString *subName = [self.opponentNameLookup objectForKey:originalName];
+    if (subName == nil) {
+        subName = [ self.opponentNames lastObject];
+        [self.opponentNames removeLastObject];
+        [self.opponentNameLookup setValue:subName forKey:originalName];
+        [self.usedOpponentNames addObject:subName];
+    }
+    NSLog(@"Opponent name substitution.  old=%@, new=%@",originalName, subName);
     return subName;
 }
 
 -(void)setup {
-    maleTeamNames = [NSMutableArray arrayWithObjects:@"Tom", @"Gonzo", @"Albert", @"Tobias", @"Cal", @"Rooster", @"Catman", @"Sleepy",@"Tupe" ,@"Gasman", @"Phinny",@"Shark", @"Robbie", @"Danny", @"Giga", @"Phil", @"Bikerman", @"Dolt", @"Priest",@"Famer" ,@"Steve", @"Jim",@"Flipper", @"Uki", @"Wadupp", @"Flatfoot", @"Archer", @"Lame", @"Gripper", @"Hondo",@"Bird" ,@"Trippy", @"Master",@"Gordy", @"Placard", @"Skyman", @"DDer", @"Sam", @"Collin", @"Pete", @"Fish",@"Walker" ,@"Axman", @"Yve",@"Norten", @"Tippy", @"Bubba", @"Fasta", @"Kip", @"Tim", @"Fryman", @"Ortho",@"Doc" ,@"Bret", @"Loren",nil];
+    self.maleTeamNames = [NSMutableArray arrayWithObjects:@"Tom", @"Gonzo", @"Albert", @"Tobias", @"Cal", @"Rooster", @"Catman", @"Sleepy",@"Tupe" ,@"Gasman", @"Phinny",@"Shark", @"Robbie", @"Danny", @"Giga", @"Phil", @"Bikerman", @"Dolt", @"Priest",@"Famer" ,@"Steve", @"Jim",@"Flipper", @"Uki", @"Wadupp", @"Flatfoot", @"Archer", @"Lame", @"Gripper", @"Hondo",@"Bird" ,@"Trippy", @"Master",@"Gordy", @"Placard", @"Skyman", @"DDer", @"Sam", @"Collin", @"Pete", @"Fish",@"Walker" ,@"Axman", @"Yve",@"Norten", @"Tippy", @"Bubba", @"Fasta", @"Kip", @"Tim", @"Fryman", @"Ortho",@"Doc" ,@"Bret", @"Loren",@"Arty", @"Finster", @"Mr D", @"Slim", @"Rockstar", @"Jack", @"Spidy",@"Alex",@"Gordon", @"Chatterbox",@"Lowslinger", @"Jester", @"Amby", @"Greg", @"Forest", @"Trippy", @"Goliath", @"Tracker",@"Xman" ,@"Laser", @"Phineas",nil];
     
-    femaleTeamNames = [NSMutableArray arrayWithObjects:@"Sue", @"Bambi", @"Tabatha", @"Samantha", @"Anne", @"Powergrrl", @"Cindy", @"Lori",@"Bitty" ,@"Ginger" @"MsTrouble",@"GadGirl", @"Michelle", @"Sara", @"Breaker", @"Huckgirl", @"Uma", @"Tami", @"Sally",nil];
+    self.femaleTeamNames = [NSMutableArray arrayWithObjects:@"Sue", @"Bambi", @"Tabatha", @"Samantha", @"Anne", @"Powergrrl", @"Cindy", @"Lori",@"Bitty" ,@"Ginger" @"MsTrouble",@"GadGirl", @"Michelle", @"Sara", @"Breaker", @"Huckgirl", @"Uma", @"Tami", @"Sally",nil];
     
-    tournamentNames = [NSMutableArray arrayWithObjects:@"Trouble in Tupelo", @"Minnetourney", @"Disc Fest", @"Fast Times", @"Hammer Bowl", nil];
+    self.tournamentNames = [NSMutableArray arrayWithObjects:@"Trouble in Tupelo", @"Minnetourney", @"Disc Fest", @"Fast Times", @"Hammer Bowl", nil];
     
-    oppponentNames = [NSMutableArray arrayWithObjects:@"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters",@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Tramway", @"Gavel", @"Crash Dummies", @"Rockstars", @"Northern Lights", @"City Boys", @"Bay Boys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Sifters" ,@"Trappers",@"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters",@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Tramway", @"Gavel", @"Crash Dummies", @"Rockstars", @"Northern Lights", @"City Boys", @"Bay Boys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Sifters" ,@"Trappers", nil];
+    self.opponentNames = [NSMutableArray arrayWithObjects:@"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters",@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Tramway", @"Gavel", @"Crash Dummies", @"Rockstars", @"Northern Lights", @"City Boys", @"Bay Boys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Sifters" ,@"Trappers",@"Fastidians", @"Fire Hose", @"Top Flight", @"Glam",@"Hucksters",@"Busta", @"Darwinians",@"Spark", @"Aliens", @"Gamma Rays", @"Hot House", @"Rooters",@"Ultimites", @"Fab7", @"Hammers", @"Red Hots", @"Skyboys", @"Tramway", @"Gavel", @"Crash Dummies", @"Rockstars", @"Northern Lights", @"City Boys", @"Bay Boys", @"Discites", @"Johnny Quest", @"Bad Boys", @"Beaux Bros", @"Sifters" ,@"Trappers", nil];
 
-    tournamenLookup = [[NSMutableDictionary alloc] init];
-    playerNameLookup = [[NSMutableDictionary alloc] init];
-    usedPlayerNames = [[NSMutableSet alloc] init];
+    self.tournamentNameLookup = [[NSMutableDictionary alloc] init];
+    self.usedTournamentNames = [[NSMutableSet alloc] init];
+    
+    self.playerNameLookup = [[NSMutableDictionary alloc] init];
+    self.usedPlayerNames = [[NSMutableSet alloc] init];
+    
+    self.opponentNameLookup = [[NSMutableDictionary alloc] init];
+    self.usedOpponentNames = [[NSMutableSet alloc] init];
 }
 
 

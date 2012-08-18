@@ -38,11 +38,13 @@
 @property (nonatomic, strong) IBOutlet UIButton* downloadTeamButton;
 @property (nonatomic, strong) IBOutlet UIButton* downloadGameButton;
 @property (nonatomic, strong) IBOutlet UIButton* signoffButton;
+@property (strong, nonatomic) IBOutlet UIView *scrubberView;
+@property (strong, nonatomic) IBOutlet UISwitch *scrubberSwitch;
 
 -(IBAction)uploadButtonClicked: (id) sender;
 -(IBAction)downloadTeamButtonClicked: (id) sender;
 -(IBAction)downloadGameButtonClicked: (id) sender;
 -(IBAction)signoffButtonClicked: (id) sender;
-
+-(IBAction)scrubSwitchChanged:(id)sender;
 
 @end

@@ -25,7 +25,6 @@
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playerDisplayTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
-@property (strong, nonatomic) IBOutlet UIButton *createScrubbedVersionButton;
 @property (nonatomic) BOOL shouldSkipToPlayers;
 
 -(IBAction)teamTypeChanged: (id) sender;
@@ -41,7 +40,6 @@
 -(void)populateModelFromView;
 -(void)goToBestView;
 -(void)goToPlayersView: (BOOL) animated;
--(IBAction)createScrubbedVersionClicked:(id)sender;
 
 
 @end

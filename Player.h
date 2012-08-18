@@ -29,6 +29,6 @@ typedef enum {
 -(BOOL) isAnonymous;
 -(id)getId;
 -(NSString*)getDisplayName;
--(NSDictionary*) asDictionary;
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 
 @end

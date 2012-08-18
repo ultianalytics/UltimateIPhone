@@ -24,6 +24,7 @@
 @end
 
 @implementation TeamViewController
+@synthesize clearCloudIdButton;
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
 -(void)populateViewFromModel {
@@ -31,6 +32,9 @@
     [self.teamTypeSegmentedControl setSelection: team.isMixed ? @"Mixed" : @"Uni"];
     [self.playerDisplayTypeSegmentedControl setSelection: team.isDiplayingPlayerNumber ? @"Number" : @"Name"];    
     self.deleteButton.hidden = ![team hasBeenSaved];
+#ifdef DEBUG
+    self.clearCloudIdButton.hidden = NO;
+#endif
 }
 
 -(void)populateModelFromView {
@@ -63,6 +67,10 @@
 
 -(IBAction)deleteClicked: (id) sender {
     [self verifyAndDelete];
+}
+
+- (IBAction)clearCloudIdClicked:(id)sender {
+    self.team.cloudId = nil;
 }
 
 -(IBAction)teamTypeChanged: (id) sender {
@@ -247,6 +255,7 @@
 
 - (void)viewDidUnload
 {
+    [self setClearCloudIdButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

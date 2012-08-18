@@ -33,7 +33,7 @@
     return event;
 }
 
--(NSDictionary*) asDictionary {
+- (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     if (self.isHalftimeCause) {
         [dict setValue: [NSNumber numberWithBool:self.isHalftimeCause] forKey:kIsHalftimeCauseKey];

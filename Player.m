@@ -10,6 +10,7 @@
 #import "AnonymousPlayer.h"
 #import "Preferences.h"
 #import "Team.h"
+#import "Scrubber.h"
 
 #define kNameKey        @"name"
 #define kPositionKey    @"position"
@@ -101,9 +102,10 @@ static AnonymousPlayer* singleAnonymous = nil;
     [encoder encodeObject:self.number forKey:kNumberKey];
 } 
 
--(NSDictionary*) asDictionary {
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setValue: self.name forKey:kNameKey];
+    NSString *playerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.name isMale:self.isMale] : self.name;
+    [dict setValue: playerName forKey:kNameKey];
     [dict setValue: (self.position == Any ? @"Any" : self.position == Cutter ? @"Cutter" : @"Handler") forKey:kPositionKey];
     [dict setValue: [NSNumber numberWithBool:self.isMale ] forKey:kIsMaleKey];
     [dict setValue: self.number forKey:kNumberKey];

@@ -12,6 +12,7 @@
 #import "GameDescription.h"
 #import "Preferences.h"
 #import "CloudMetaInfo.h"
+#import "Scrubber.h"
 #import "TestFlight.h"
 #import "Reachability.h"
 
@@ -42,7 +43,7 @@
 
 +(void) uploadTeam: (Team*) team error:(NSError**) uploadError {
     NSError* error = nil;
-    NSData* responseJSON = [CloudClient upload: [team asDictionary] relativeUrl: @"/rest/mobile/team" error: &error];
+    NSData* responseJSON = [CloudClient upload: [team asDictionaryWithScrubbing: [Scrubber currentScrubber].isOn] relativeUrl: @"/rest/mobile/team" error: &error];
     if (responseJSON) {
         [self saveTeamCloudId:responseJSON];
     }
@@ -66,7 +67,7 @@
 
 +(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError {
     NSError* error = nil;
-    NSMutableDictionary* gameAsDict = [game asDictionary];
+    NSMutableDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
     [gameAsDict setValue:team.cloudId forKey:kTeamIdKey];
     [CloudClient upload: gameAsDict relativeUrl: @"/rest/mobile/game" error: &error];
     *uploadError = error;

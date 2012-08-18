@@ -9,6 +9,7 @@
 #import "OffenseEvent.h"
 #import "Team.h"
 #import "Player.h"
+#import "Scrubber.h"
 
 @implementation OffenseEvent
 @synthesize passer,receiver;
@@ -49,13 +50,15 @@
     return self.action == Goal;
 }
 
--(NSDictionary*) asDictionary {
-    NSMutableDictionary* dict = [super asDictionary];
+- (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
+    NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Offense" forKey:kEventTypeProperty];
     [dict setValue: self.action == Catch ? @"Catch" :  self.action == Drop ? @"Drop" : self.action == Goal ? @"Goal" : @"Throwaway" forKey:kActionKey];
-    [dict setValue: self.passer.name forKey:kPasserKey];
+    NSString *passerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.passer.name isMale:self.passer.isMale] : self.passer.name;
+    [dict setValue: passerName forKey:kPasserKey];
     if (self.receiver) {
-        [dict setValue: self.receiver.name forKey:kReceiverKey];
+        NSString *receiverName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.receiver.name isMale:self.receiver.isMale] : self.receiver.name;
+        [dict setValue: receiverName forKey:kReceiverKey];
     }
     return dict;
 }

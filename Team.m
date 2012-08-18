@@ -151,7 +151,7 @@ static Team* currentTeam = nil;
     return player;
 }
 
--(NSDictionary*) asDictionary {
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setValue: self.teamId forKey:kTeamIdKey];
     [dict setValue: self.name forKey:kNameKey];
@@ -160,7 +160,7 @@ static Team* currentTeam = nil;
     [dict setValue: [NSNumber numberWithBool:self.isDiplayingPlayerNumber ] forKey:kDisplayPlayerNumberKey];
     NSMutableArray* arrayOfPlayers = [[NSMutableArray alloc] init];
     for (Player* player in self.players) {
-        [arrayOfPlayers addObject:[player asDictionary]];
+        [arrayOfPlayers addObject:[player asDictionaryWithScrubbing: shouldScrub]];
     }
     [dict setValue: arrayOfPlayers forKey:kPlayersKey];
     return dict;

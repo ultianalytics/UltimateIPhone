@@ -26,10 +26,12 @@
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
 @property (nonatomic) BOOL shouldSkipToPlayers;
+@property (strong, nonatomic) IBOutlet UIButton *clearCloudIdButton;
 
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;
 -(IBAction)deleteClicked: (id) sender;
+- (IBAction)clearCloudIdClicked:(id)sender;
 -(void)dismissKeyboard;
 -(BOOL)saveChanges;
 -(BOOL)verifyTeamName;

@@ -18,5 +18,6 @@
 -(NSString*)substitutePlayerName: (NSString*) originalName isMale: (BOOL) isMale;
 -(NSString*)substituteTournamentName: (NSString*) originalName;
 -(NSString*)substituteOpponentName: (NSString*) originalName;
+-(NSDate*)scrubGameDate: (NSDate*) gameDate;
 
 @end

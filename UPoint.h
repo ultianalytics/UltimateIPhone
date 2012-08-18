@@ -35,6 +35,6 @@
 -(BOOL)isFinished;
 -(BOOL)isOurPoint;
 -(int)getNumberOfEvents;
--(NSDictionary*) asDictionary;
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 
 @end

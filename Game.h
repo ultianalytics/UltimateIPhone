@@ -75,7 +75,7 @@
 -(BOOL)isAfterHalftime;
 -(BOOL)isNextEventImmediatelyAfterHalftime;
 -(int)getLeadingScore;
--(NSMutableDictionary*) asDictionary;
+-(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(BOOL)isTimeBasedEnd;
 -(void)clearPointSummaries;
 -(BOOL)doesGameAppearDone;

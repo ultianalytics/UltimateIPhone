@@ -40,7 +40,7 @@ typedef enum {
 - (BOOL) isNextEventOffense;
 - (NSArray*) getPlayers;
 - (void)useSharedPlayers;
-- (NSMutableDictionary*) asDictionary;
+- (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 - (BOOL)isAnonymous;
 
 @end

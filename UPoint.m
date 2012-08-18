@@ -11,6 +11,7 @@
 #import "Team.h"
 #import "Event.h"
 #import "PointSummary.h"
+#import "Scrubber.h"
 
 #define kSummaryProperty        @"summary"
 
@@ -120,19 +121,20 @@
     return upoint;
 }
 
--(NSDictionary*) asDictionary {
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     if (self.events && [self.events count] > 0) {
         NSMutableArray* eventDicts = [[NSMutableArray alloc] init];
         for (Event* event in self.events) {
-            [eventDicts addObject:[event asDictionary]];
+            [eventDicts addObject:[event asDictionaryWithScrubbing: shouldScrub]];
         }
         [dict setValue: eventDicts forKey:kEventsKey];
     }
     if (self.line && [self.line count] > 0) {
         NSMutableArray* playerNames = [[NSMutableArray alloc] init];
         for (Player* player in self.line) {
-            [playerNames addObject:player.name];
+            NSString *playerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:player.name isMale:player.isMale] : player.name;
+            [playerNames addObject:playerName];
         }
         [dict setValue: playerNames forKey:kLineKey];
     }

@@ -17,6 +17,7 @@
 #import "UPoint.h" 
 #import "Wind.h"
 #import "Player.h"
+#import "Scrubber.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -94,27 +95,30 @@ static Game* currentGame = nil;
 }
 
 
--(NSMutableDictionary*) asDictionary {
+-(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     [self updatePointSummaries];
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: self.gameId forKey:kGameIdKey];
-    [dict setValue: self.opponentName forKey:kOpponentNameKey];
+    NSString *oppName = shouldScrub ? [[Scrubber currentScrubber] substituteOpponentName:self.opponentName] : self.opponentName;
+    [dict setValue: oppName forKey:kOpponentNameKey];
     [dict setValue: [NSNumber numberWithInt:self.gamePoint] forKey:kGamePointKey];
     [dict setValue: [NSNumber numberWithBool:self.isFirstPointOline] forKey:kIsFirstPointOlineKey];
     if (self.tournamentName) {
-        [dict setValue: self.tournamentName forKey:kTournamentNameKey];
+        NSString *tourneyName = shouldScrub ? [[Scrubber currentScrubber] substituteTournamentName:self.tournamentName] : self.tournamentName;
+        [dict setValue: tourneyName forKey:kTournamentNameKey];
     }
     if (self.startDateTime) {
+        NSDate *startDate = shouldScrub ? [[Scrubber currentScrubber] scrubGameDate:self.startDateTime] : self.startDateTime;
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:kJsonDateFormat];
-        [dict setValue: [dateFormat stringFromDate:self.startDateTime] forKey:kStartDateTimeKey];
+        [dict setValue: [dateFormat stringFromDate:startDate] forKey:kStartDateTimeKey];
     }
     Score score;
     if (self.points && [self.points count] > 0) {
         NSMutableArray* pointDicts = [[NSMutableArray alloc] init];
         for (UPoint* point in self.points) {
-            [pointDicts addObject:[point asDictionary]];
+            [pointDicts addObject:[point asDictionaryWithScrubbing:shouldScrub]];
             score = point.summary.score;
         }
         NSError* marshallError;

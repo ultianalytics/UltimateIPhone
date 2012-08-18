@@ -60,15 +60,15 @@
 						<float key="IBUISectionHeaderHeight">10</float>
 						<float key="IBUISectionFooterHeight">10</float>
 					</object>
-					<object class="IBUIView" id="372849472">
+					<object class="IBUIView" id="543191966">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUILabel" id="946262531">
-								<reference key="NSNextResponder" ref="372849472"/>
+							<object class="IBUILabel" id="35936241">
+								<reference key="NSNextResponder" ref="543191966"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{13, 15}, {114, 21}}</string>
-								<reference key="NSSuperview" ref="372849472"/>
+								<reference key="NSSuperview" ref="543191966"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -83,21 +83,21 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="676539146">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="383930606">
 									<int key="type">1</int>
 									<double key="pointSize">17</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="819232501">
+								<object class="NSFont" key="IBUIFont" id="1032167370">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUISwitch" id="905640189">
-								<reference key="NSNextResponder" ref="372849472"/>
+							<object class="IBUISwitch" id="221579527">
+								<reference key="NSNextResponder" ref="543191966"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{206, 12}, {94, 27}}</string>
-								<reference key="NSSuperview" ref="372849472"/>
+								<reference key="NSSuperview" ref="543191966"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -302,8 +302,8 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<reference key="IBUIFontDescription" ref="676539146"/>
-								<reference key="IBUIFont" ref="819232501"/>
+								<reference key="IBUIFontDescription" ref="383930606"/>
+								<reference key="IBUIFont" ref="1032167370"/>
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 40}</string>
@@ -711,7 +711,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">scrubberView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="372849472"/>
+						<reference key="destination" ref="543191966"/>
 					</object>
 					<int key="connectionID">104</int>
 				</object>
@@ -719,7 +719,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">scrubberSwitch</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="905640189"/>
+						<reference key="destination" ref="221579527"/>
 					</object>
 					<int key="connectionID">106</int>
 				</object>
@@ -778,7 +778,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">scrubSwitchChanged:</string>
-						<reference key="source" ref="905640189"/>
+						<reference key="source" ref="221579527"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">13</int>
 					</object>
@@ -798,7 +798,7 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="204451863"/>
-							<reference ref="372849472"/>
+							<reference ref="543191966"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -932,22 +932,22 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">101</int>
-						<reference key="object" ref="372849472"/>
+						<reference key="object" ref="543191966"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="946262531"/>
-							<reference ref="905640189"/>
+							<reference ref="35936241"/>
+							<reference ref="221579527"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">102</int>
-						<reference key="object" ref="946262531"/>
-						<reference key="parent" ref="372849472"/>
+						<reference key="object" ref="35936241"/>
+						<reference key="parent" ref="543191966"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">103</int>
-						<reference key="object" ref="905640189"/>
-						<reference key="parent" ref="372849472"/>
+						<reference key="object" ref="221579527"/>
+						<reference key="parent" ref="543191966"/>
 					</object>
 				</array>
 			</object>

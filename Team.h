@@ -40,7 +40,7 @@
 -(NSMutableArray*)getInitialOLine;
 -(NSMutableArray*)getInitialDLine;
 -(void)sortPlayers;
--(NSDictionary*) asDictionary;
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 
 // private
 +(NSString*)getFilePath: (NSString*) teamdId;

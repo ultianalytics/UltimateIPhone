@@ -9,6 +9,7 @@
 #import "DefenseEvent.h"
 #import "Team.h"
 #import "Player.h"
+#import "Scrubber.h"
 
 @implementation DefenseEvent
 @synthesize defender;
@@ -53,11 +54,12 @@
             action: action];
 }
 
--(NSDictionary*) asDictionary {
-    NSMutableDictionary* dict = [super asDictionary];
+- (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub  {
+    NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Defense" forKey:kEventTypeProperty];
     [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : @"Calahan" forKey:kActionKey];
-    [dict setValue: self.defender.name forKey:kDefenderKey];
+    NSString *defenderName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.defender.name isMale:self.defender.isMale] : self.defender.name;
+    [dict setValue: defenderName forKey:kDefenderKey];
     return dict;
 }
 

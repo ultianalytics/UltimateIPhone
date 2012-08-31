@@ -64,6 +64,22 @@
     return NO;
 }
 
+- (BOOL) isD {
+    return self.action == De;
+}
+
+- (BOOL) isDrop {
+    return self.action == Drop;
+}
+
+- (BOOL) isThrowaway {
+    return self.action == Throwaway;
+}
+
+- (BOOL) isOffenseThrowaway {
+    return self.action == Throwaway && [self isOffense];
+}
+
 - (BOOL) isOurGoal {
     return NO;
 }

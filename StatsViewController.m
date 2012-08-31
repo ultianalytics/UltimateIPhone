@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/25/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "StatsViewController.h"
@@ -14,6 +14,7 @@
 #import "Game.h"
 #import "Player.h"
 
+#define kPlusMinusCount @"+/- Count"
 #define kTotalPoints @"Points Played"
 #define kOPoints @"O Points Played"
 #define kDPoints @"D Points Played"
@@ -45,12 +46,14 @@
 }
 
 -(void)initalizeStatTypes {
-    self.statTypes = [[NSArray alloc] initWithObjects: kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kThrows,kDrops,kThrowaways,kDs,kPulls,nil];
-    self.currentStat = kTotalPoints;
+    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kThrows,kDrops,kThrowaways,kDs,kPulls,nil];
+    self.currentStat = kPlusMinusCount;
 }
 
 -(void)updatePlayerStats {
-    if ([self.currentStat isEqualToString:kTotalPoints]) {
+    if ([self.currentStat isEqualToString:kPlusMinusCount]) {
+        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: NO];
+    } else if ([self.currentStat isEqualToString:kTotalPoints]) {
         self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: YES];
     } else if ([self.currentStat isEqualToString:kOPoints]) {
         self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: NO];

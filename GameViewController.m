@@ -341,6 +341,8 @@
     self.otherTeamScoreButton.titleLabel.textAlignment = UITextAlignmentCenter;
     [self.otherTeamScoreButton setTitle:@"They Scored" forState: UIControlStateNormal];
     
+    self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    
     [self updateEventViews];
     
     [[NSNotificationCenter defaultCenter] addObserver: self

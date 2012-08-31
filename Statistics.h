@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 @class Game;
@@ -23,5 +23,6 @@
 +(NSArray*)pullsPerPlayer: (Game*) game team: (Team*) team;
 +(NSArray*)dsPerPlayer: (Game*) game team: (Team*) team;
 +(NSDictionary*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD;
++(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team;
 
 @end

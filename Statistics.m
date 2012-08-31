@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "Game.h"
@@ -124,6 +124,30 @@
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];            
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
+    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
+}
+
++(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team {
+    /*
+        +/- counters/stats for individual players over the course of a game and a 
+        tournament (assists and goals count as +1, drops and throwaways count as -1).
+    */
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if ([eventDetails.event isOffense]) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            if ([event isDrop] || [event isThrowaway]) {
+                Player *player = [event isDrop] ? event.receiver : event.passer;
+                PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:IntStat];
+                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] - 1];
+            } else if ([event isGoal]) {
+                PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+                playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
+                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+            }
         }
     };
     NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];

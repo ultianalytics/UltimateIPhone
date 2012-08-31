@@ -34,6 +34,9 @@ typedef enum {
 - (BOOL) isGoal;
 - (BOOL) isOurGoal;
 - (BOOL) isTurnover;
+- (BOOL) isDrop;
+- (BOOL) isThrowaway;
+- (BOOL) isOffenseThrowaway;
 - (BOOL) isFinalEventOfPoint;
 - (BOOL) causesDirectionChange;
 - (BOOL) causesLineChange;

@@ -148,6 +148,10 @@
                 playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
                 playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
             }
+        } else if ([eventDetails.event isD]) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
         }
     };
     NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];

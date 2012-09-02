@@ -133,7 +133,8 @@
 +(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team {
     /*
         +/- counters/stats for individual players over the course of a game and a 
-        tournament (assists and goals count as +1, drops and throwaways count as -1).
+        tournament (assists and goals count as +1, drops and throwaways count as -1).  
+        D's are a +1.
     */
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
         if ([eventDetails.event isOffense]) {

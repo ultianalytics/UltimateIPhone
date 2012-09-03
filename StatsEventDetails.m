@@ -13,6 +13,6 @@
 #import "PlayerStat.h"
 
 @implementation StatsEventDetails
-@synthesize game,point,event,accumulatedStats;
+
 
 @end

@@ -18,11 +18,8 @@
 #import "DefenseEvent.h"
 
 // private methods
-@interface Statistics() 
-    +(NSArray*)sortedPlayerStats: (NSDictionary*) statPerPlayer game: (Game*) game team: (Team*) team statType: (StatNumericType) type;
-    +(NSArray*)descendingSortedStats:(NSArray*) unsortedStatsArray;;
-    +(PlayerStat*)getStatForPlayer: (Player*) player fromStats: (NSDictionary*) statPerPlayer statType:(StatNumericType) type;
-    +(NSDictionary*)accumulateStatsPerPlayer: (Game*) game accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock;
+@interface Statistics()
+
 @end
 
 
@@ -46,147 +43,6 @@
     return pointFactorPerPlayer;
 }
 
-+(NSArray*)throwsPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Catch || eventDetails.event.action == Drop) {
-            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)goalsPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Goal &&  [eventDetails.event isOffense]) {
-            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)assistsPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Goal &&  [eventDetails.event isOffense]) {
-            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)dropsPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Drop) {
-            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)throwawaysPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if ([eventDetails.event isOffense] && eventDetails.event.action == Throwaway) {
-            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)pullsPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Pull) {
-            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)dsPerPlayer: (Game*) game team: (Team*) team {
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == De) {
-            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];            
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-+(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team {
-    /*
-        +/- counters/stats for individual players over the course of a game and a 
-        tournament (assists and goals count as +1, drops and throwaways count as -1).  
-        D's are a +1.
-    */
-    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if ([eventDetails.event isOffense]) {
-            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            if ([event isDrop] || [event isThrowaway]) {
-                Player *player = [event isDrop] ? event.receiver : event.passer;
-                PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:IntStat];
-                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] - 1];
-            } else if ([event isGoal]) {
-                PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
-                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-                playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
-                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-            }
-        } else if ([eventDetails.event isD]) {
-            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
-            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        }
-    };
-    NSDictionary* statPerPlayer = [Statistics accumulateStatsPerPlayer: game accumulator: statsAccumulator];
-    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
-}
-
-/*** PRIVATE METHODS ***/
-    
-+(NSArray*)sortedPlayerStats: (NSDictionary*) statPerPlayer game: (Game*) game team: (Team*) team statType: (StatNumericType) type {
-    NSArray* players = [game getPlayers];
-    NSMutableArray* playerStats = [[NSMutableArray alloc] init];
-    
-    for (Player* player in players) {
-        PlayerStat* playerStat = [statPerPlayer valueForKey:player.getId];
-        if (playerStat == nil) {
-            NSNumber* number = type == IntStat ? [[NSNumber alloc] initWithInt:0] : [[NSNumber alloc] initWithFloat: 0];
-            playerStat = [[PlayerStat alloc] initPlayer: player stat: number type: type];
-        }
-        [playerStats addObject: playerStat];
-    }
-    return [self descendingSortedStats:playerStats];
-}
-
-+(PlayerStat*)getStatForPlayer: (Player*) player fromStats: (NSDictionary*) statPerPlayer statType:(StatNumericType) type {
-    PlayerStat* playerStat = [statPerPlayer objectForKey:[player getId]];
-    if (playerStat == nil) {
-        NSNumber* number = type == IntStat ? [[NSNumber alloc] initWithInt:0] : [[NSNumber alloc] initWithFloat: 0];
-        playerStat = [[PlayerStat alloc] initPlayer:player stat:number type:IntStat]; 
-        [statPerPlayer setValue:playerStat forKey:[player getId]];
-    }
-    return playerStat;
-}
-
-
 // Answer a dictionary (key=player id, value=NSNumber with int) of all of the players' points in the game
 +(NSDictionary*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD {
     NSMutableDictionary* pointsPerPlayer = [[NSMutableDictionary alloc] init];
@@ -208,6 +64,175 @@
     return pointsPerPlayer;
 }
 
+#pragma mark - Stats Accumulator methods
+
++(NSArray*)pointsPerPlayer: (Game*) game team: (Team*) team includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.isFirstEventOfPoint) {
+            if ((eventDetails.isOlinePoint && includeO)  || (! eventDetails.isOlinePoint && includeD)) {
+                for (Player* player in eventDetails.line) {
+                    PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:IntStat];
+                    playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+                }
+            }
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)throwsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == Catch || eventDetails.event.action == Drop) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)goalsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == Goal &&  [eventDetails.event isOffense]) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)assistsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == Goal &&  [eventDetails.event isOffense]) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)dropsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == Drop) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)throwawaysPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if ([eventDetails.event isOffense] && eventDetails.event.action == Throwaway) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)pullsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == Pull) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)dsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == De) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
+    /*
+     +/- counters/stats for individual players over the course of a game and a
+     tournament (assists and goals count as +1, drops and throwaways count as -1).
+     D's are a +1.
+     */
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if ([eventDetails.event isOffense]) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            if ([event isDrop] || [event isThrowaway]) {
+                Player *player = [event isDrop] ? event.receiver : event.passer;
+                PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:IntStat];
+                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] - 1];
+            } else if ([event isGoal]) {
+                PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+                playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
+                playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+            }
+        } else if ([eventDetails.event isD]) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    
+    return [self accumulateStatsPerPlayer: game team: team includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
+#pragma mark - PRIVATE
+
++(NSArray*)accumulateStatsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament statsAccumulator: (void (^)(StatsEventDetails* statsEventDetails))statsAccumulator {
+    NSMutableDictionary* statPerPlayer = [[NSMutableDictionary alloc] init];
+    NSString* currentTeamId = [Team getCurrentTeam].teamId;
+    NSArray* gameFilesForCurrentTeam = [Game getAllGameFileNames:currentTeamId];
+    if (includeTournament && [game.tournamentName isNotEmpty]) {
+        NSString* tournamentName = game.tournamentName;
+        for (NSString* gameFileId in gameFilesForCurrentTeam) {
+            Game* aGame = [Game readGame: gameFileId forTeam: currentTeamId];
+            if ([aGame.tournamentName isEqualToString:tournamentName]) {
+                [Statistics accumulateStatsPerPlayer: aGame inDictionary:statPerPlayer accumulator: statsAccumulator];
+            }
+        }
+
+    } else {
+        [Statistics accumulateStatsPerPlayer: game inDictionary:statPerPlayer accumulator: statsAccumulator];
+    }
+    return [Statistics sortedPlayerStats: statPerPlayer game: game team: team statType: IntStat];
+}
+
+
++(NSArray*)sortedPlayerStats: (NSDictionary*) statPerPlayer game: (Game*) game team: (Team*) team statType: (StatNumericType) type {
+    NSArray* players = [game getPlayers];
+    NSMutableArray* playerStats = [[NSMutableArray alloc] init];
+    
+    for (Player* player in players) {
+        PlayerStat* playerStat = [statPerPlayer valueForKey:player.getId];
+        if (playerStat == nil) {
+            NSNumber* number = type == IntStat ? [[NSNumber alloc] initWithInt:0] : [[NSNumber alloc] initWithFloat: 0];
+            playerStat = [[PlayerStat alloc] initPlayer: player stat: number type: type];
+        }
+        [playerStats addObject: playerStat];
+    }
+    return [self descendingSortedStats:playerStats];
+}
+
++(PlayerStat*)getStatForPlayer: (Player*) player fromStats: (NSDictionary*) statPerPlayer statType:(StatNumericType) type {
+    PlayerStat* playerStat = [statPerPlayer objectForKey:[player getId]];
+    if (playerStat == nil) {
+        NSNumber* number = type == IntStat ? [[NSNumber alloc] initWithInt:0] : [[NSNumber alloc] initWithFloat: 0];
+        playerStat = [[PlayerStat alloc] initPlayer:player stat:number type:IntStat];
+        [statPerPlayer setValue:playerStat forKey:[player getId]];
+    }
+    return playerStat;
+}
+
 
 +(NSArray*)descendingSortedStats:(NSArray*) unsortedStatsArray {
     NSArray* sortedPlayerStats = [unsortedStatsArray sortedArrayUsingComparator:^(id a, id b) {
@@ -223,23 +248,31 @@
 // Answer a dictionary (key = player id, value = PlayerStat.  The accumulatorBlock is called for each event.
 +(NSDictionary*)accumulateStatsPerPlayer: (Game*) game accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock {
     NSMutableDictionary* statsPerPlayer = [[NSMutableDictionary alloc] init];
+    [self accumulateStatsPerPlayer:game inDictionary:statsPerPlayer accumulator:accumulatorBlock];
+    return statsPerPlayer;
+}
+
+// Accumulate stats in a dictionary (key = player id, value = PlayerStat).  The accumulatorBlock is called for each event.
++(void)accumulateStatsPerPlayer: (Game*) game inDictionary: (NSMutableDictionary*) statsPerPlayer accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock {
     StatsEventDetails* eventDetails = [[StatsEventDetails alloc] init];  // reuse this instance to avoid object creations
     for (UPoint* point in [game points]) {
+        BOOL firstEvent = YES;
+        BOOL isOLine = [game isPointOline:point];
         for (Event* event in point.getEvents) {
             eventDetails.accumulatedStats = statsPerPlayer;
             eventDetails.game = game;
             eventDetails.point = point;
             eventDetails.event = event;
+            eventDetails.isFirstEventOfPoint = firstEvent;
+            eventDetails.isOlinePoint = isOLine;
+            eventDetails.line = point.line;
             accumulatorBlock(eventDetails);
+            firstEvent = NO;
         }
     }
-    return statsPerPlayer;
 }
 
-+(NSArray*)pointsPerPlayer: (Game*) game team: (Team*) team includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD {
-    NSDictionary* pointsPerPlayer = [Statistics pointsPerPlayer:game includeOffense: includeO includeDefense: (BOOL) includeD];
-    return [Statistics sortedPlayerStats: pointsPerPlayer game: game team: team statType: IntStat];
-}
+
 
 @end
 

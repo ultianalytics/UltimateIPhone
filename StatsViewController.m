@@ -13,6 +13,7 @@
 #import "PlayerStat.h"
 #import "Game.h"
 #import "Player.h"
+#import "UltimateSegmentedControl.h"
 
 #define kPlusMinusCount @"+/- Count"
 #define kTotalPoints @"Points Played"
@@ -31,6 +32,7 @@
 #define kButtonMargin 2
 
 @implementation StatsViewController
+@synthesize statsScopeSegmentedControl;
 @synthesize statTypeTableView,playerStatsTableView,statTypes,playerStats,game,currentStat;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,6 +47,10 @@
     return self;
 }
 
+- (IBAction)statsScopeChanged:(id)sender {
+    [self updatePlayerStats];
+}
+
 -(void)initalizeStatTypes {
     self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kThrows,kDrops,kThrowaways,kDs,kPulls,nil];
     self.currentStat = kPlusMinusCount;
@@ -52,27 +58,27 @@
 
 -(void)updatePlayerStats {
     if ([self.currentStat isEqualToString:kPlusMinusCount]) {
-        self.playerStats = [Statistics plusMinusCountPerPlayer: self.game team: nil];
+        self.playerStats = [Statistics plusMinusCountPerPlayer: self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kTotalPoints]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: YES];
+        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: YES includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kOPoints]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: NO];
+        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: NO includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDPoints]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: NO includeDefense: YES];
+        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: NO includeDefense: YES includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kGoals]) {
-        self.playerStats = [Statistics goalsPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics goalsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kAssists]) {
-        self.playerStats = [Statistics assistsPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics assistsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrows]) {
-        self.playerStats = [Statistics throwsPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics throwsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDrops]) {
-        self.playerStats = [Statistics dropsPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics dropsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrowaways]) {
-        self.playerStats = [Statistics throwawaysPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics throwawaysPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDs]) {
-        self.playerStats = [Statistics dsPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics dsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kPulls]) {
-        self.playerStats = [Statistics pullsPerPlayer:self.game team: nil];
+        self.playerStats = [Statistics pullsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
     } else {
         self.playerStats = [[NSArray alloc] init];
     }
@@ -161,6 +167,10 @@
     [statTypeTableView reloadData];
     [statTypeButton setSelected:YES];
     [self updatePlayerStats];
+}
+
+-(BOOL)isTournamentLevel {
+     return self.statsScopeSegmentedControl.selectedSegmentIndex == 1;
 }
 
 - (void)didReceiveMemoryWarning

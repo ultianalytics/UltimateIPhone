@@ -14,15 +14,17 @@
 
 
 +(NSDictionary*)pointsPlayedFactorPerPlayer: (Game*) game team: (Team*) team;
-+(NSArray*)pointsPerPlayer: (Game*) game team: (Team*) team includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD;
-+(NSArray*)throwsPerPlayer: (Game*) game team: (Team*) team;
-+(NSArray*)goalsPerPlayer: (Game*) game team: (Team*) team; 
-+(NSArray*)assistsPerPlayer: (Game*) game team: (Team*) team;
-+(NSArray*)dropsPerPlayer: (Game*) game team: (Team*) team;
-+(NSArray*)throwawaysPerPlayer: (Game*) game team: (Team*) team;
-+(NSArray*)pullsPerPlayer: (Game*) game team: (Team*) team;
-+(NSArray*)dsPerPlayer: (Game*) game team: (Team*) team;
 +(NSDictionary*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD;
-+(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team;
+
+
++(NSArray*)pointsPerPlayer: (Game*) game team: (Team*) team includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD includeTournament: (BOOL) includeTournament;
++(NSArray*)throwsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)goalsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament; 
++(NSArray*)assistsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)dropsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)throwawaysPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)pullsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)dsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
 
 @end

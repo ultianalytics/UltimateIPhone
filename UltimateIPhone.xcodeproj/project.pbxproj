@@ -11,6 +11,7 @@
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F9E0115F4E51400037C70 /* NSArray+Utilities.m */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
 		1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */; };
 		1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A40B1C6156D10B700EFD6C2 /* Scrubber.m */; };
@@ -231,6 +232,8 @@
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
 		1A2DA03A15458AE200D59B29 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1A2DA03B15458AE200D59B29 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1A2F9E0015F4E51400037C70 /* NSArray+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utilities.h"; sourceTree = "<group>"; };
+		1A2F9E0115F4E51400037C70 /* NSArray+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utilities.m"; sourceTree = "<group>"; };
 		1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamDownloadPickerViewController.xib; sourceTree = "<group>"; };
@@ -580,6 +583,8 @@
 		1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1A2F9E0015F4E51400037C70 /* NSArray+Utilities.h */,
+				1A2F9E0115F4E51400037C70 /* NSArray+Utilities.m */,
 				1AAFDE381574F199005EA598 /* NSString+manipulations.h */,
 				1AAFDE391574F199005EA598 /* NSString+manipulations.m */,
 			);
@@ -1313,6 +1318,7 @@
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 				1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */,
 				1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */,
+				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

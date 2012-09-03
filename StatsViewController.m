@@ -52,7 +52,7 @@
 
 -(void)updatePlayerStats {
     if ([self.currentStat isEqualToString:kPlusMinusCount]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: NO];
+        self.playerStats = [Statistics plusMinusCountPerPlayer: self.game team: nil];
     } else if ([self.currentStat isEqualToString:kTotalPoints]) {
         self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: YES];
     } else if ([self.currentStat isEqualToString:kOPoints]) {

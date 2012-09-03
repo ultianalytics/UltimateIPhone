@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by james on 12/26/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "GameHistoryController.h"
@@ -60,6 +60,7 @@
                 reuseIdentifier:rowType];
         UIColor* color = [event isOffense] ? [ColorMaster getOffenseEventColor] : [ColorMaster getDefenseEventColor];
         cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
         cell.backgroundColor = color;
     }
     cell.imageView.image = [ImageMaster getImageForEvent: event];

@@ -39,7 +39,6 @@
 @interface StatsViewController ()
 
 @property (nonatomic, strong) CalloutsContainerView *usageCallouts;
-@property (nonatomic) BOOL hasDisplayedUsageCallouts;
 
 @end
 

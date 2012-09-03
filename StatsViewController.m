@@ -13,7 +13,10 @@
 #import "PlayerStat.h"
 #import "Game.h"
 #import "Player.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
 #import "UltimateSegmentedControl.h"
+#import "Preferences.h"
 
 #define kPlusMinusCount @"+/- Count"
 #define kTotalPoints @"Points Played"
@@ -30,6 +33,15 @@
 #define kStatRowHieght 30
 #define kStatTypeRowHieght 43
 #define kButtonMargin 2
+
+#define kIsNotFirstStatsViewUsage @"IsNotFirstStatsViewUsage"
+
+@interface StatsViewController ()
+
+@property (nonatomic, strong) CalloutsContainerView *usageCallouts;
+@property (nonatomic) BOOL hasDisplayedUsageCallouts;
+
+@end
 
 @implementation StatsViewController
 @synthesize statsScopeSegmentedControl;
@@ -204,10 +216,34 @@
     // e.g. self.myOutlet = nil;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self showNewLogonUsageCallouts];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Help Callouts
+
+
+-(BOOL)showNewLogonUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kIsNotFirstStatsViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstStatsViewUsage];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = CGPointMake(CGRectGetMaxX(self.statTypeTableView.frame), CGRectGetMinY(self.statTypeTableView.frame) + 80);
+        
+        [calloutsView addCallout:@"Not all stats are viewable on the iPhone.  To see the full stats for your team, upload the team to your website (Cloud tab)."  anchor: anchor width: 150 degrees: 90 connectorLength: 100 font:[UIFont systemFontOfSize:14]];
+        
+        self.usageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end

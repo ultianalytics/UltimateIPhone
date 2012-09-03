@@ -170,7 +170,7 @@
 }
 
 -(BOOL)isTournamentLevel {
-     return self.statsScopeSegmentedControl.selectedSegmentIndex == 1;
+     return self.statsScopeSegmentedControl.selectedSegmentIndex == 0;
 }
 
 - (void)didReceiveMemoryWarning

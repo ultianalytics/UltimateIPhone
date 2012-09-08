@@ -108,7 +108,7 @@
         UITextView *calloutTextView = [[UITextView alloc] init];
         calloutTextView.textColor = [UIColor whiteColor];
         calloutTextView.font = [UIFont systemFontOfSize:16]; 
-        calloutTextView.backgroundColor = [ColorMaster getNavBarTintColor];
+        calloutTextView.backgroundColor = [ColorMaster getSegmentControlLightTintColor];
         callout.textView = calloutTextView;
         
         self.usageCallouts = calloutsView;

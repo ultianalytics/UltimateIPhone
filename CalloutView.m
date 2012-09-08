@@ -14,7 +14,7 @@
 #define kPaddingVertical 2.f
 #define kBorderWidth 4.f
 #define kRoundedCornerRadius 4.f  
-#define kConnectorLineBaseWidthDefault 30.f
+#define kConnectorLineBaseWidthDefault 60.f
 #define kShadowOffset 4.f
 
 @interface CalloutView()

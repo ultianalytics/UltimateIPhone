@@ -128,7 +128,7 @@
         
         CGPoint anchor = CGPointTopRight(self.view.bounds);
         anchor.x = anchor.x - 40;
-        [calloutsView addCallout:@"FYI: You do NOT need to add your opponent teams here. Only add teams for whom you are gathering statistics.\n\nClick on the + again if you are really adding a team for gathering stats." anchor: anchor width: 200 degrees: 225 connectorLength: 160 font: [UIFont systemFontOfSize:16]];    
+        [calloutsView addCallout:@"FYI: You do NOT need to add your opponent teams here. Only add teams for whom you are gathering statistics.\n\nClick on the + again if you are really adding a team for gathering stats." anchor: anchor width: 200 degrees: 223 connectorLength: 180 font: [UIFont systemFontOfSize:16]];
 
         self.firstTimeUsageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

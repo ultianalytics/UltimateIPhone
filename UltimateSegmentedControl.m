@@ -39,6 +39,10 @@
     return self; 
 }
 
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    [self updateView];
+}
 
 -(void)setSelection: (NSString*) selectionTitle {
     // find the segment with this title and set it as the selection

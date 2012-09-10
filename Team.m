@@ -20,6 +20,9 @@
 #define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kTeamFileNamePrefixKey  @"team-"
 
+#define kTeamCopySuffix @" COPY"
+#define kTeamCopyEllipsedSuffix @"...COPY"  
+
 static Team* currentTeam = nil;
 
 @implementation Team
@@ -119,7 +122,7 @@ static Team* currentTeam = nil;
     Team* team = [[Team alloc] init];
     team.teamId = [dict valueForKey:kTeamIdKey];
     if (team.teamId == nil) {
-        team.teamId = [Team generateUniqueFileName];  // just for handling Kyle's data.  
+        team.teamId = [Team generateUniqueFileName];  
     }
     team.cloudId = [dict valueForKey:kCloudIdKey];
     team.name = [dict valueForKey:kNameKey];
@@ -149,6 +152,26 @@ static Team* currentTeam = nil;
         [[Team getCurrentTeam] addPlayer:player];
     }
     return player;
+}
+
++(BOOL) isDuplicateTeamName: (NSString*) newTeamName notIncluding: (Team*) team {
+    NSArray* teamDescriptions = [Team retrieveTeamDescriptions];
+    for (TeamDescription* desc in teamDescriptions) {
+        if (team == nil || ![desc.teamId isEqualToString: team.teamId]) {
+            if (![desc.teamId isEqualToString: team.teamId] && [desc.name caseInsensitiveCompare:newTeamName] == NSOrderedSame) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+-(Team*)copy {
+    Team* newTeam = [Team fromDictionary:[self asDictionaryWithScrubbing:NO]];
+    newTeam.teamId = [Team generateUniqueFileName];
+    newTeam.name = [self generateNameForCopy];
+    newTeam.cloudId = nil;
+    return newTeam;
 }
 
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
@@ -289,6 +312,19 @@ static Team* currentTeam = nil;
 
 - (NSString* )description {
     return [NSString stringWithFormat:@"Team %@ teamId=%@, cloudId=%@", self.name, self.teamId, self.cloudId];
+}
+
+-(NSString*)generateNameForCopy {
+    NSString* initialCopyName = ([self.name length] > (kMaxTeamNameLength - 1 - [kTeamCopySuffix length])) ?
+        [NSString stringWithFormat:@"%@%@", [self.name substringToIndex:(kMaxTeamNameLength - 1 - [kTeamCopyEllipsedSuffix length])] , kTeamCopyEllipsedSuffix]:
+        [NSString stringWithFormat:@"%@%@", self.name, kTeamCopySuffix ];
+    int copyNumber = 2;
+    NSString* finalCopyName = initialCopyName;
+    while ([Team isDuplicateTeamName:finalCopyName notIncluding:nil] && copyNumber < 10) {
+        finalCopyName = [NSString stringWithFormat:@"%@%d", initialCopyName, copyNumber];
+        copyNumber++;
+    }
+    return finalCopyName;
 }
 
 @end

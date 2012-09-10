@@ -29,6 +29,7 @@
 +(Team*)fromDictionary:(NSDictionary*) dict;
 +(Player*) getPlayerNamed: (NSString*) playerName;
 +(NSString*) getTeamIdForCloudId: (NSString*)  cloudId;
++(BOOL) isDuplicateTeamName: (NSString*) newTeamName notIncluding: (Team*) team;
 
 -(void)save;
 -(void)delete;

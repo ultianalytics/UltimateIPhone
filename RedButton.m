@@ -19,7 +19,7 @@
     self.borderDisabledColor = self.lowDisabledColor;
     self.buttonStyleNormalTextColor = [UIColor whiteColor];
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize: 20];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
 }
 
 @end

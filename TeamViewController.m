@@ -24,6 +24,7 @@
 @end
 
 @implementation TeamViewController
+@synthesize teamCopyButton;
 @synthesize clearCloudIdButton;
 @synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
@@ -67,6 +68,21 @@
 
 -(IBAction)deleteClicked: (id) sender {
     [self verifyAndDelete];
+}
+
+- (IBAction)copyClicked:(id)sender {
+    Team* teamCopy = [self.team copy];
+    [teamCopy save];
+    [Team setCurrentTeam:teamCopy.teamId];
+    self.team = teamCopy;
+    [self populateViewFromModel];
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Team Copied"
+                          message:@"The team (and all players) have been copied and saved.  Consider entering a better team name before leaving this view."
+                          delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (IBAction)clearCloudIdClicked:(id)sender {
@@ -195,16 +211,8 @@
 }
 
 -(BOOL) isDuplicateTeamName: (NSString*) newTeamName {
-    NSArray* teamDescriptions = [Team retrieveTeamDescriptions];
-    for (TeamDescription* desc in teamDescriptions) {
-        if (![desc.teamId isEqualToString: self.team.teamId] && [desc.name caseInsensitiveCompare:newTeamName] == NSOrderedSame) {
-            return YES;
-        }
-    }
-    return NO;
+    return [Team isDuplicateTeamName: newTeamName notIncluding: self.team];
 }
-
-
 
 -(void)goToPlayersView: (BOOL) animated {
     TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
@@ -245,17 +253,13 @@
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;    
-
-#ifdef DEBUG
-    // UNCOMMENT TO SHOW THS SCUB BUTTON
-    //[self createScrubButton];
-#endif
-   
+ 
 }
 
 - (void)viewDidUnload
 {
-    [self setClearCloudIdButton:nil];
+    self.clearCloudIdButton = nil;
+    self.teamCopyButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class Team;
 @class UltimateSegmentedControl;
+@class StandardButton;
 
 @interface TeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
     NSArray* cells;
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* teamTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playerDisplayTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
+@property (strong, nonatomic) IBOutlet UIButton* teamCopyButton;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
 @property (nonatomic) BOOL shouldSkipToPlayers;
 @property (strong, nonatomic) IBOutlet UIButton *clearCloudIdButton;
@@ -31,6 +33,7 @@
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;
 -(IBAction)deleteClicked: (id) sender;
+- (IBAction)copyClicked:(id)sender;
 - (IBAction)clearCloudIdClicked:(id)sender;
 -(void)dismissKeyboard;
 -(BOOL)saveChanges;

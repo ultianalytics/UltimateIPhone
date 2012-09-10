@@ -591,6 +591,15 @@
 			name = "Categories on Apple Classes";
 			sourceTree = "<group>";
 		};
+		1AC8579815FE2A150070BA24 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1AFFE7D915175E7B004B4590 /* Constants.h */,
+				1AFFE7DA15175E7B004B4590 /* Constants.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +663,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
+				1AC8579815FE2A150070BA24 /* Common */,
 				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
 				1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */,
 				1A2DA03815458AB800D59B29 /* Reachability */,
@@ -816,8 +826,6 @@
 				1AFFE7D615175E7B004B4590 /* ColorButton.m */,
 				1AFFE7D715175E7B004B4590 /* ColorMaster.h */,
 				1AFFE7D815175E7B004B4590 /* ColorMaster.m */,
-				1AFFE7D915175E7B004B4590 /* Constants.h */,
-				1AFFE7DA15175E7B004B4590 /* Constants.m */,
 				1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */,
 				1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */,
 			);

@@ -54,9 +54,8 @@
     if ([self verifyTeamName]) {
         [self populateModelFromView];
         [self.team save];  
-        if (![Team isCurrentTeam:team.teamId]) {
-            [Team setCurrentTeam:team.teamId];
-        }
+        [Team setCurrentTeam:team.teamId];
+        self.team = [Team getCurrentTeam];
         return YES;
     }
     return NO;

@@ -58,6 +58,7 @@
     // Display a border around the button
     // with a 1.0 pixel width
     [[self layer] setBorderWidth:1.0f];
+    [self setNeedsDisplay];
 }
 
 - (void)initializeGradient {

@@ -322,7 +322,11 @@
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
     for (PlayerView* playerView in self.playerViews) {
         playerView.actionListener = self;
-    }   
+    }
+    
+    if ([UIScreen mainScreen].bounds.size.height > 480) {
+        [self resizeForLongDisplay];
+    }
     
     UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moreEventsSwipe:)];
     [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
@@ -509,6 +513,18 @@
         [calloutsView addNavControllerHelpAvailableCallout];  
         self.firstTimeUsageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
+    }
+}
+
+-(void)resizeForLongDisplay {
+    CGFloat extraHeight = (568 - 480) / 8; // iphone 5 length - iphone 4 length / number of player views
+    CGFloat addedHeight = 0;
+    for (PlayerView* playerView in self.playerViews) {
+        CGRect pvRect = playerView.frame;
+        pvRect.size.height = pvRect.size.height + extraHeight;
+        pvRect.origin.y = pvRect.origin.y + addedHeight;
+        playerView.frame = pvRect;
+        addedHeight += extraHeight;
     }
 }
 

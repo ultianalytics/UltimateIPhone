@@ -17,7 +17,7 @@
 
 @implementation ColorButton
 
-@synthesize highColor, highDisabledColor, lowColor, lowDisabledColor, gradientLayer, borderColor, borderDisabledColor, isLabelStyle, buttonStyleNormalTextColor,buttonStyleHighlightTextColor,labelStyleNormalTextColor,labelStyleDisabledTextColor; 
+@synthesize highColor, highDisabledColor, lowColor, lowDisabledColor, gradientLayer, borderColor, borderDisabledColor, isLabelStyle, buttonStyleNormalTextColor,buttonStyleHighlightTextColor,labelStyleNormalTextColor,labelStyleDisabledTextColor;
 
 - (void)awakeFromNib {
     [self initCharacteristics];
@@ -34,15 +34,30 @@
 
 - (void)initCharacteristics {
     self.isLabelStyle = NO;
-    self.highColor = [ColorMaster getNormalButtonHighColor];  
-    self.lowColor = [ColorMaster getNormalButtonLowColor];  
+    self.highColor = [ColorMaster getNormalButtonHighColor];
+    self.lowColor = [ColorMaster getNormalButtonLowColor];
     self.highDisabledColor = [ColorMaster getNormalButtonSelectedHighColor];
-    self.lowDisabledColor = [ColorMaster getNormalButtonSelectedLowColor]; 
+    self.lowDisabledColor = [ColorMaster getNormalButtonSelectedLowColor];
     self.buttonStyleNormalTextColor = [UIColor whiteColor];
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
     self.labelStyleNormalTextColor = [UIColor blackColor];
-    self.labelStyleDisabledTextColor = [UIColor grayColor];  
+    self.labelStyleDisabledTextColor = [UIColor grayColor];
+    
+}
 
+-(void)initializeLayerForButtonStyle {
+    [self.gradientLayer removeFromSuperlayer];
+    [self initializeGradient];
+    [[self layer] insertSublayer:gradientLayer atIndex:0];
+    
+    // Adjust the primary layer
+    // Set the layer's corner radius
+    [[self layer] setCornerRadius:8.0f];
+    // Turn on masking
+    [[self layer] setMasksToBounds:YES];
+    // Display a border around the button
+    // with a 1.0 pixel width
+    [[self layer] setBorderWidth:1.0f];
 }
 
 - (void)initializeGradient {
@@ -75,31 +90,20 @@
         [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateNormal];
         [self setTitleColor:self.buttonStyleHighlightTextColor forState:UIControlStateHighlighted];
         [self setTitleColor:self.buttonStyleNormalTextColor forState:UIControlStateSelected];
-        
-        // Insert the gradient layer (at position zero to make sure the text of the button is not obscured)
-        [self initializeGradient];
-        [[self layer] insertSublayer:gradientLayer atIndex:0];
-        
-        // Adjust the primary layer
-        // Set the layer's corner radius
-        [[self layer] setCornerRadius:8.0f];
-        // Turn on masking
-        [[self layer] setMasksToBounds:YES];
-        // Display a border around the button 
-        // with a 1.0 pixel width
-        [[self layer] setBorderWidth:1.0f];
+        [self initializeLayerForButtonStyle];
     }
     [self setNeedsDisplay];
 }
 
+
 - (void)drawRect:(CGRect)rect;
 {
     if (self.isLabelStyle) {
-            [super drawRect:rect];
+        [super drawRect:rect];
     } else {
         // set the gradient colors according to state: normal vs. pressed
         NSArray* gradientColors;
-        if (self.enabled) {  
+        if (self.enabled) {
             gradientColors = [NSArray arrayWithObjects: (id)[highColor CGColor], (id)[lowColor CGColor], nil];
             [[self layer] setBorderColor: [self.borderColor CGColor]];
         } else {
@@ -114,6 +118,13 @@
         // draw
         [super drawRect:rect];
     }
+}
+
+-(void)layoutSubviews {
+    if (!isLabelStyle) {
+        [self initializeLayerForButtonStyle];
+    }
+    [super layoutSubviews];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

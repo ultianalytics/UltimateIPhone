@@ -517,15 +517,25 @@
 }
 
 -(void)resizeForLongDisplay {
+    // resize and repositon the player views to take advantage of the extra space
     CGFloat extraHeight = (568 - 480) / 8; // iphone 5 length - iphone 4 length / number of player views
     CGFloat addedHeight = 0;
     for (PlayerView* playerView in self.playerViews) {
         CGRect pvRect = playerView.frame;
-        pvRect.size.height = pvRect.size.height + extraHeight;
+        CGFloat idealViewHeight = pvRect.size.height + extraHeight;
+        idealViewHeight = MIN(idealViewHeight, 40.0f);
+        pvRect.size.height = idealViewHeight;
         pvRect.origin.y = pvRect.origin.y + addedHeight;
         playerView.frame = pvRect;
         addedHeight += extraHeight;
     }
+    
+    // resize the throwaway button to match the margins of the first and last buttons
+    CGRect buttonRect = self.throwAwayButton.frame;
+    LOG_RECT(@"playerViewTeam.frame", self.playerViewTeam.frame);
+    LOG_RECT(@"playerView1.frame", self.playerView1.frame);
+    buttonRect.size.height = CGRectGetMaxY(self.playerViewTeam.frame) - CGRectGetMinY(self.playerView1.frame);
+    self.throwAwayButton.frame = buttonRect;
 }
 
 @end

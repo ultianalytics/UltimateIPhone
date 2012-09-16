@@ -1,9 +1,9 @@
 //
-//  FirstViewController.m
+//  TeamViewController.m
 //  Ultimate
 //
-//  Created by james on 12/24/11.
-//  Copyright (c) 2012 Summit Hill Softare, Inc. All rights reserved.
+//  Created by Jim Geppert on 2/25/12.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "Constants.h"
@@ -16,32 +16,29 @@
 #import "TeamPlayersViewController.h"
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
+#import "NSString+manipulations.h"
+#import "LeagueVineTeamViewController.h"
 
 @interface TeamViewController()
-
--(void)saveAndContinue;
 
 @end
 
 @implementation TeamViewController
-@synthesize teamCopyButton;
-@synthesize clearCloudIdButton;
-@synthesize team,teamTableView, teamNameField,teamTypeSegmentedControl,playerDisplayTypeSegmentedControl,nameCell,typeCell,displayCell,playersCell,deleteButton,deleteAlertView,shouldSkipToPlayers;
 
 -(void)populateViewFromModel {
-    [self.teamNameField setText:([team.name isEqualToString: kAnonymousTeam] ? @"" : team.name)];
-    [self.teamTypeSegmentedControl setSelection: team.isMixed ? @"Mixed" : @"Uni"];
-    [self.playerDisplayTypeSegmentedControl setSelection: team.isDiplayingPlayerNumber ? @"Number" : @"Name"];    
-    self.deleteButton.hidden = ![team hasBeenSaved];
+    [self.teamNameField setText:([self.team.name isEqualToString: kAnonymousTeam] ? @"" : self.team.name)];
+    [self.teamTypeSegmentedControl setSelection: self.team.isMixed ? @"Mixed" : @"Uni"];
+    [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];    
+    self.deleteButton.hidden = ![self.team hasBeenSaved];
 #ifdef DEBUG
     self.clearCloudIdButton.hidden = NO;
 #endif
 }
 
 -(void)populateModelFromView {
-    team.name = [teamNameField.text trim];
-    team.isMixed =  [[self.teamTypeSegmentedControl getSelection] isEqualToString: @"Mixed"] ? YES : NO;
-    team.isDiplayingPlayerNumber =  [[self.playerDisplayTypeSegmentedControl getSelection] isEqualToString: @"Number"] ? YES : NO;
+    self.team.name = [self.teamNameField.text trim];
+    self.team.isMixed =  [[self.teamTypeSegmentedControl getSelection] isEqualToString: @"Mixed"] ? YES : NO;
+    self.team.isDiplayingPlayerNumber =  [[self.playerDisplayTypeSegmentedControl getSelection] isEqualToString: @"Number"] ? YES : NO;
 }
 
 -(void)saveAndContinue {
@@ -54,7 +51,7 @@
     if ([self verifyTeamName]) {
         [self populateModelFromView];
         [self.team save];  
-        [Team setCurrentTeam:team.teamId];
+        [Team setCurrentTeam:self.team.teamId];
         self.team = [Team getCurrentTeam];
         return YES;
     }
@@ -110,34 +107,44 @@
     return !isTooLong;
 }
 
+#pragma mark TableView delegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cells = [[NSArray alloc] initWithObjects:nameCell, typeCell, displayCell, playersCell, nil];
-    return [cells count];
+    if (!self.cells) {
+        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.playersCell, self.leagueVineCell, nil];
+    }
+    return [self.cells count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [cells objectAtIndex: [indexPath row]];
+    UITableViewCell* cell = [self.cells objectAtIndex: [indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
     [self dismissKeyboard];
-    //if ([cells objectAtIndex:[indexPath row] == playersCell) {
-    if ([indexPath row] == 3) { // ARG!!!! Can't get the code above to work consistently so doing this rudimentary approach
+    if ([self.cells objectAtIndex:[indexPath row]] == self.playersCell) {
         if ([self saveChanges]) {
-            [Team setCurrentTeam: team.teamId];
+            [Team setCurrentTeam: self.team.teamId];
             [self goToPlayersView: YES];
         }
-    };
+    } else if ([self.cells objectAtIndex:[indexPath row]] == self.leagueVineCell) {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+        LeagueVineTeamViewController* lvController = [[LeagueVineTeamViewController alloc] init];
+        [self.navigationController pushViewController:lvController animated:YES];
+    }
 } 
 
+#pragma mark
+
 -(void)dismissKeyboard {
-    [teamNameField resignFirstResponder];
+    [self.teamNameField resignFirstResponder];
 }
 
 -(BOOL)verifyTeamName {
@@ -175,18 +182,18 @@
                               otherButtonTitles:nil]; 
         [alert show];
     } else {
-        deleteAlertView = [[UIAlertView alloc] 
+        self.deleteAlertView = [[UIAlertView alloc]
                               initWithTitle: NSLocalizedString(@"Delete Team",nil)
                               message: NSLocalizedString(@"Are you sure you want to delete this team?",nil)
                               delegate: self
                               cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
                               otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
-        [deleteAlertView show];
+        [self.deleteAlertView show];
     } 
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView == deleteAlertView) {
+    if (alertView == self.deleteAlertView) {
         switch (buttonIndex) {
             case 0: 
             {       
@@ -220,9 +227,9 @@
 
 -(void)goToBestView {
     // if we've already started adding players..go back there on app start
-    if (shouldSkipToPlayers) {
-        shouldSkipToPlayers = NO;
-        if ([team.players count] > 0) {
+    if (self.shouldSkipToPlayers) {
+        self.shouldSkipToPlayers = NO;
+        if ([self.team.players count] > 0) {
             [self goToPlayersView: NO];
         }
     }
@@ -248,17 +255,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.teamNameField.delegate = self; 
+    self.clearCloudIdButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.clearCloudIdButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.teamNameField.delegate = self;
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
-    self.navigationItem.rightBarButtonItem = saveBarItem;    
- 
+    self.navigationItem.rightBarButtonItem = saveBarItem;
+
 }
 
 - (void)viewDidUnload
 {
     self.clearCloudIdButton = nil;
     self.teamCopyButton = nil;
+    [self setLeagueVineCell:nil];
+    [self setLeagueVineDescriptionLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -271,7 +282,7 @@
     // special case: app is starting and we are pre-loading the stack of views for efficiency (we want user
     // to land on the players view if they've already been working with a team).  If they arrive on this view
     // with an existing team that is not the current team then we want to push them back to teams view.
-    if (![team.teamId isEqualToString:[Team getCurrentTeam].teamId] && [team hasBeenSaved]) {
+    if (![self.team.teamId isEqualToString:[Team getCurrentTeam].teamId] && [self.team hasBeenSaved]) {
         [self.navigationController popViewControllerAnimated:NO];
     }
 

@@ -15,6 +15,7 @@
 #define kGamePointKey           @"gamePoint"
 #define kAutoTweetLevelKey      @"autoTweetLevel"
 #define kUseridKey              @"userid"
+#define kLeaguevineTokenKey              @"leagevineToken"
 #define kDefaultGamePoint       13
 #define kMinGamePoint           9
 #define kMaxGamePoint           17
@@ -44,6 +45,7 @@ static Preferences* currentPreferences= nil;
         }
         self.userid = [decoder decodeObjectForKey:kUseridKey];
         self.autoTweetLevel = [decoder decodeIntForKey:kAutoTweetLevelKey];
+        self.leaguevineToken = [decoder decodeObjectForKey:kLeaguevineTokenKey];
     } 
     return self; 
 } 
@@ -55,6 +57,7 @@ static Preferences* currentPreferences= nil;
     [encoder encodeBool:self.gamePoint forKey:kGamePointKey];
     [encoder encodeObject:self.userid forKey:kUseridKey];
     [encoder encodeInt:self.autoTweetLevel forKey:kAutoTweetLevelKey];
+    [encoder encodeObject:self.leaguevineToken forKey:kLeaguevineTokenKey];
 } 
 
 +(Preferences*)getCurrentPreferences {

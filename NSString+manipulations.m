@@ -17,4 +17,26 @@
     return ![[self trim] isEqualToString:@""];
 }
 
+-(NSDictionary*)toQueryStringParamaters {
+    NSString* paramsToParse = [self trim];
+    if ([self hasPrefix:@"?" ] || [self hasPrefix:@"#"]) {
+        paramsToParse = [paramsToParse substringFromIndex:1];
+    }
+    NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
+    NSArray *keyValueList = [paramsToParse componentsSeparatedByString:@"&"];
+
+    for (NSString *keyValuePair in keyValueList) {
+        NSArray *keyAndValueArray = [keyValuePair componentsSeparatedByString:@"="];
+        if ([keyAndValueArray count] == 2) {
+            [paramsDict setObject:[keyAndValueArray objectAtIndex:1] forKey:[keyAndValueArray objectAtIndex:0]];
+        } else {
+            NSLog(@"Warning...malformed query string: %@", self);
+            return nil;
+        }
+    }
+    
+    return paramsDict;
+}
+
+
 @end

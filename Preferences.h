@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString* userid;
 @property (nonatomic) AutoTweetLevel autoTweetLevel;
 @property (nonatomic, strong) NSString* twitterAccountDescription;
+@property (nonatomic, strong) NSString* leaguevineToken;
 
 +(Preferences*)getCurrentPreferences;
 +(NSString*)getFilePath;

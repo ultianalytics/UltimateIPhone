@@ -12,5 +12,6 @@
 
 -(NSString*)trim;
 -(BOOL)isNotEmpty;
+-(NSDictionary*)toQueryStringParamaters;
 
 @end

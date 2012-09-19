@@ -17,7 +17,8 @@
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
 #import "NSString+manipulations.h"
-#import "LeagueVineTeamViewController.h"
+#import "LeagueVineSignonViewController.h"
+
 
 @interface TeamViewController()
 
@@ -136,8 +137,11 @@
     } else if ([self.cells objectAtIndex:[indexPath row]] == self.leagueVineCell) {
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
         [[self navigationItem] setBackBarButtonItem:backButton];
-        LeagueVineTeamViewController* lvController = [[LeagueVineTeamViewController alloc] init];
-        [self.navigationController pushViewController:lvController animated:YES];
+        LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+        lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
+            [signonController dismissViewControllerAnimated:YES completion:nil];
+        };
+        [self presentViewController:lvController animated:YES completion:nil];
     }
 } 
 

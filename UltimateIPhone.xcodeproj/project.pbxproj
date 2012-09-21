@@ -18,7 +18,7 @@
 		1A4C42B71609DA4F0067BB96 /* LeaguevineClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42B61609DA4F0067BB96 /* LeaguevineClient.m */; };
 		1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42D3160C7C550067BB96 /* LeaguevineResponseParser.m */; };
 		1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */; };
-		1A4C42DB160C89DB0067BB96 /* NSDictionary+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42D9160C89DB0067BB96 /* NSDictionary+JSON.m */; };
+		1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42E7160C97650067BB96 /* NSDictionary+JSON.m */; };
 		1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1A59838A15445D5900E97F09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1A59838B15445D5900E97F09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -255,8 +255,8 @@
 		1A4C42D3160C7C550067BB96 /* LeaguevineResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineResponseParser.m; sourceTree = "<group>"; };
 		1A4C42D6160C87C70067BB96 /* LeaguevineResponseMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineResponseMeta.h; sourceTree = "<group>"; };
 		1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineResponseMeta.m; sourceTree = "<group>"; };
-		1A4C42D9160C89DB0067BB96 /* NSDictionary+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+JSON.m"; path = "../thomson/Boardlink/Classes/NSDictionary+JSON.m"; sourceTree = "<group>"; };
-		1A4C42DA160C89DB0067BB96 /* NSDictionary+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+JSON.h"; path = "../thomson/Boardlink/Classes/NSDictionary+JSON.h"; sourceTree = "<group>"; };
+		1A4C42E7160C97650067BB96 /* NSDictionary+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSON.m"; sourceTree = "<group>"; };
+		1A4C42E8160C97650067BB96 /* NSDictionary+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSON.h"; sourceTree = "<group>"; };
 		1A59838715445D5900E97F09 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A59838E15445D5900E97F09 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		1A59839015445D5900E97F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -635,8 +635,8 @@
 		1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1A4C42D9160C89DB0067BB96 /* NSDictionary+JSON.m */,
-				1A4C42DA160C89DB0067BB96 /* NSDictionary+JSON.h */,
+				1A4C42E7160C97650067BB96 /* NSDictionary+JSON.m */,
+				1A4C42E8160C97650067BB96 /* NSDictionary+JSON.h */,
 				1A2F9E0015F4E51400037C70 /* NSArray+Utilities.h */,
 				1A2F9E0115F4E51400037C70 /* NSArray+Utilities.m */,
 				1AAFDE381574F199005EA598 /* NSString+manipulations.h */,
@@ -1394,7 +1394,7 @@
 				1A4C42B71609DA4F0067BB96 /* LeaguevineClient.m in Sources */,
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,
-				1A4C42DB160C89DB0067BB96 /* NSDictionary+JSON.m in Sources */,
+				1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,5 +38,12 @@
     return paramsDict;
 }
 
+-(NSString*)urlEncoded {
+    return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
++(NSString*)stringFromData: (NSData*)data {
+    return data ? [NSString stringWithUTF8String:[data bytes]] : nil;
+}
 
 @end

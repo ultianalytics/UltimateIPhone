@@ -13,5 +13,7 @@
 -(NSString*)trim;
 -(BOOL)isNotEmpty;
 -(NSDictionary*)toQueryStringParamaters;
+-(NSString*)urlEncoded;
++(NSString*)stringFromData: (NSData*)data;
 
 @end

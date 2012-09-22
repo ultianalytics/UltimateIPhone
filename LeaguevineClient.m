@@ -12,7 +12,7 @@
 #import "NSString+manipulations.h"
 #import "LeaguevineResponseMeta.h"
 
-#define BASE_API_URL @"https://api.leaguevine.com/"
+#define BASE_API_URL @"https://api.leaguevine.com/v1/"
 
 @interface LeaguevineClient()
 
@@ -25,11 +25,18 @@
 @implementation LeaguevineClient
 
 -(id) init: (NSString*) authToken  {
+    self = [self init];
+    if (self) {
+        self.token = authToken;
+    }
+    return self;
+}
+
+-(id) init  {
     self = [super init];
     if (self) {
         self.queue = [[NSOperationQueue alloc] init];
         self.responseParser = [[LeaguevineResponseParser alloc] init];
-        self.token = authToken;
     }
     return self;
 }
@@ -37,17 +44,17 @@
 #pragma mark Public methods
 
 -(void)retrieveLeagues: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"leagues?sport=ultimate&order_by=%@", [@"[name]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"leagues/?sport=ultimate&order_by=%@", [@"[name]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeLeagues url:url results:nil];
 }
 
 -(void)retrieveSeasons: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock leagueId: (int) leagueId {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"seasons?league_id=%d&order_by=%@", leagueId, [@"[name]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"seasons/?league_id=%d&order_by=%@", leagueId, [@"[name]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeSeasons url:url results:nil];
 }
 
 -(void)retrieveTeams: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock seasonId: (int) seasonId {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"teams?season_id=%d&order_by=%@", seasonId, [@"[name]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"teams/?season_id=%d&order_by=%@", seasonId, [@"[name]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeTeams url:url results:nil];
 }
 
@@ -71,7 +78,9 @@
     
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* sendError) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (sendError == nil && httpResponse.statusCode == 200 && data) {
+        if (sendError != nil || httpResponse.statusCode < 200) {
+            [self invokeFailedTo:url withNetworkError:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
+        } else if (sendError == nil && httpResponse.statusCode == 200 && data) {
             NSError* unmarshallingError = nil;
             NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&unmarshallingError];
             if (unmarshallingError) {
@@ -94,6 +103,11 @@
 -(void)invokeFailedTo: (NSString*) url withUnMarshallingError: (NSError*) error finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
     NSLog(@"Request to %@ failed with unmarshalling error %@", url, error);
     finishedBlock(LeaguevineInvokeInvalidResponse, nil);
+}
+
+-(void)invokeFailedTo: (NSString*) url withNetworkError: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
+    NSLog(@"Request to %@ failed with http response %d error %@", url, httpResponse.statusCode, error);
+    finishedBlock(LeaguevineInvokeNetworkError, nil);
 }
 
 -(void)invokeFailedTo: (NSString*) url withHttpFailure: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {

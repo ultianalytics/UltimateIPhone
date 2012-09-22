@@ -1,28 +1,29 @@
 //
-//  LeagueVineTeamViewController.m
+//  LeagueVineLeagueViewController.m
 //  UltimateIPhone
 //
 //  Created by james on 9/16/12.
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
-#import "LeagueVineTeamViewController.h"
+#import "LeagueVineLeagueViewController.h"
 #import "ColorMaster.h"
-#import "LeaguevineTeam.h"
+#import "LeaguevineLeague.h"
+#import "LeaguevineClient.h"
 
-@interface LeagueVineTeamViewController ()
+@interface LeagueVineLeagueViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@implementation LeagueVineTeamViewController
+@implementation LeagueVineLeagueViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title =  @"Leaguevine Team";
+        self.title =  @"Leaguevine League";
     }
     return self;
 }
@@ -44,6 +45,9 @@
 
     [super viewDidUnload];
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [self refresh];
+}
 
 #pragma mark TableView delegate
 
@@ -52,13 +56,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.teams count];
+    return [self.leagues count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* STD_ROW_TYPE = @"stdRowType";
     
-    LeaguevineTeam* team = [self.teams objectAtIndex:indexPath.row];
+    LeaguevineLeague* league = [self.leagues objectAtIndex:indexPath.row];
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
@@ -66,10 +70,10 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
+        //cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
         
-    cell.textLabel.text = team.name;
+    cell.textLabel.text = league.name;
     return cell;
 }
 
@@ -77,5 +81,27 @@
     
     
 }
+
+#pragma mark Client interaction
+
+-(void)refresh {
+    [self startBusyDialog];
+    [self.leaguevineClient retrieveLeagues:^(LeaguevineInvokeStatus status, id result) {
+
+        if (status == LeaguevineInvokeOK) {
+            self.leagues = result;
+            [self.tableView reloadData];
+        NSLog(@"reloading table");
+            [self stopBusyDialog];
+            // TODO position to current league selection
+        } else {
+            self.leagues = [NSArray array];
+            [self stopBusyDialog];
+            [self alertFailure:status];
+            // pop back to previous controller or all the way back?
+        }
+    }];
+}
+
 
 @end

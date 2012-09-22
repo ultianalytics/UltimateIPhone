@@ -18,6 +18,8 @@
 #import "UltimateSegmentedControl.h"
 #import "NSString+manipulations.h"
 #import "LeagueVineSignonViewController.h"
+#import "LeagueVineLeagueViewController.h"
+#import "LeaguevineClient.h"
 
 
 @interface TeamViewController()
@@ -135,13 +137,7 @@
             [self goToPlayersView: YES];
         }
     } else if ([self.cells objectAtIndex:[indexPath row]] == self.leagueVineCell) {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        [[self navigationItem] setBackBarButtonItem:backButton];
-        LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
-        lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
-            [signonController dismissViewControllerAnimated:YES completion:nil];
-        };
-        [self presentViewController:lvController animated:YES completion:nil];
+        [self handleLeaguevineTeamSelection];
     }
 } 
 
@@ -306,5 +302,26 @@
     // Return YES for supported orientations
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
+
+#pragma mark Leaguevine 
+
+-(void)handleLeaguevineTeamSelection {
+    LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
+    LeagueVineLeagueViewController* leagueController = [[LeagueVineLeagueViewController alloc] init];
+    leagueController.leaguevineClient = lvClient;
+    [self.navigationController pushViewController:leagueController animated:YES];
+}
+
+// TODO...probably don't need this method here...just sample code for how to interact with signon
+-(void)presentLeaguevineSignon {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+    lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
+        [signonController dismissViewControllerAnimated:YES completion:nil];
+    };
+    [self presentViewController:lvController animated:YES completion:nil];
+}
+
 
 @end

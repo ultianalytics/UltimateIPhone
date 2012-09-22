@@ -27,4 +27,8 @@
     }
 }
 
+-(NSString*)description {
+    return [NSString stringWithFormat:@"LeaguevineLeague: %d %@", self.leagueId, self.name];
+}
+
 @end

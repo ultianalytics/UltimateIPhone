@@ -10,7 +10,6 @@
 
 typedef enum {
     LeaguevineInvokeOK,
-    LeaguevineTooManyResults,
     LeaguevineInvokeCredentialsRejected,
     LeaguevineInvokeNetworkError,
     LeaguevineInvokeInvalidResponse,

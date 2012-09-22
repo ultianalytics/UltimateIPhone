@@ -32,15 +32,15 @@
     switch(type) {
         case LeaguevineResultTypeLeagues:
             return [self parseResponseObjects: responseDict parse:(id)^(NSDictionary* objectDict){
-                return [LeaguevineLeague fromJson:responseDict];
+                return [LeaguevineLeague fromJson:objectDict];
             }];
         case LeaguevineResultTypeSeasons:
             return [self parseResponseObjects: responseDict parse:(id)^(NSDictionary* objectDict){
-                return [LeaguevineSeason fromJson:responseDict];
+                return [LeaguevineSeason fromJson:objectDict];
             }];
         case LeaguevineResultTypeTeams:
             return [self parseResponseObjects: responseDict parse:(id)^(NSDictionary* objectDict){
-                return [LeaguevineTeam fromJson:responseDict];
+                return [LeaguevineTeam fromJson:objectDict];
             }];
         default:
             return [NSMutableArray array];

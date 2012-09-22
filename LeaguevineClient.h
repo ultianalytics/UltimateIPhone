@@ -18,6 +18,6 @@ typedef enum {
 
 @interface LeaguevineClient : NSObject
 
--(void)retrieveLeagues:(void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock;
+-(void)retrieveLeagues:(void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
 
 @end

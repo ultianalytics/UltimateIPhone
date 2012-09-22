@@ -10,6 +10,7 @@
 #import "NSString+manipulations.h"
 #import "LeaguevineResponseParser.h"
 #import "NSString+manipulations.h"
+#import "LeaguevineResponseMeta.h"
 
 #define BASE_API_URL @"https://api.leaguevine.com/"
 
@@ -35,16 +36,37 @@
 
 #pragma mark Public methods
 
--(void)retrieveLeagues: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"leagues?access_token=%@&order_by=%@", self.token, [@"[name]" urlEncoded]]];
+-(void)retrieveLeagues: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"leagues?sport=ultimate&order_by=%@", [@"[name]" urlEncoded]]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeLeagues url:url results:nil];
+}
+
+-(void)retrieveSeasons: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock leagueId: (int) leagueId {
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"seasons?league_id=%d&order_by=%@", leagueId, [@"[name]" urlEncoded]]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeSeasons url:url results:nil];
+}
+
+-(void)retrieveTeams: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock seasonId: (int) seasonId {
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"teams?season_id=%d&order_by=%@", seasonId, [@"[name]" urlEncoded]]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeTeams url:url results:nil];
+}
+
+#pragma mark Retrieve methods
+
+-(void)retrieveObjects: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock type: (LeaguevineResultType) type url: url results: (NSMutableArray*) previousResults {
+    NSMutableArray* results = previousResults == nil ? [[NSMutableArray alloc] init] : previousResults;
     [self doGet:url errorBlock:finishedBlock okBlock:^(NSDictionary* responseDict){
-        
+        LeaguevineResponseMeta* meta = [self.responseParser parseMeta:responseDict];
+        [results addObjectsFromArray:[self.responseParser parseResults:responseDict type:type]];
+        if ([meta hasMoreResults]) {
+            [self retrieveObjects:finishedBlock type: type url:meta.nextUrl results:results];
+        } else {
+            finishedBlock(LeaguevineInvokeOK, results);
+        }
     }];
 }
 
-#pragma mark Generalized invokers
-
--(void)doGet: (NSString*) url errorBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock okBlock: (void (^)(NSDictionary* responseDict)) responseOKBlock  {
+-(void)doGet: (NSString*) url errorBlock: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock okBlock: (void (^)(NSDictionary* responseDict)) responseOKBlock  {
     NSMutableURLRequest* request = [self createUrlRequest:url httpMethod:@"GET"];
     
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* sendError) {

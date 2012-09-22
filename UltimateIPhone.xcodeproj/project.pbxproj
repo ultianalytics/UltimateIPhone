@@ -19,6 +19,9 @@
 		1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42D3160C7C550067BB96 /* LeaguevineResponseParser.m */; };
 		1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */; };
 		1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42E7160C97650067BB96 /* NSDictionary+JSON.m */; };
+		1A4C42FB160D5FA90067BB96 /* LeaguevineLeague.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42FA160D5FA90067BB96 /* LeaguevineLeague.m */; };
+		1A4C42FF160D5FC20067BB96 /* LeaguevineTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C42FE160D5FC20067BB96 /* LeaguevineTeam.m */; };
+		1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C4301160D66A50067BB96 /* LeaguevineSeason.m */; };
 		1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1A59838A15445D5900E97F09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1A59838B15445D5900E97F09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -257,6 +260,12 @@
 		1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineResponseMeta.m; sourceTree = "<group>"; };
 		1A4C42E7160C97650067BB96 /* NSDictionary+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSON.m"; sourceTree = "<group>"; };
 		1A4C42E8160C97650067BB96 /* NSDictionary+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSON.h"; sourceTree = "<group>"; };
+		1A4C42F9160D5FA90067BB96 /* LeaguevineLeague.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineLeague.h; sourceTree = "<group>"; };
+		1A4C42FA160D5FA90067BB96 /* LeaguevineLeague.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineLeague.m; sourceTree = "<group>"; };
+		1A4C42FD160D5FC20067BB96 /* LeaguevineTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineTeam.h; sourceTree = "<group>"; };
+		1A4C42FE160D5FC20067BB96 /* LeaguevineTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineTeam.m; sourceTree = "<group>"; };
+		1A4C4300160D66A50067BB96 /* LeaguevineSeason.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineSeason.h; sourceTree = "<group>"; };
+		1A4C4301160D66A50067BB96 /* LeaguevineSeason.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineSeason.m; sourceTree = "<group>"; };
 		1A59838715445D5900E97F09 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A59838E15445D5900E97F09 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		1A59839015445D5900E97F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -595,6 +604,12 @@
 				1A4C42D3160C7C550067BB96 /* LeaguevineResponseParser.m */,
 				1A4C42D6160C87C70067BB96 /* LeaguevineResponseMeta.h */,
 				1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */,
+				1A4C42F9160D5FA90067BB96 /* LeaguevineLeague.h */,
+				1A4C42FA160D5FA90067BB96 /* LeaguevineLeague.m */,
+				1A4C4300160D66A50067BB96 /* LeaguevineSeason.h */,
+				1A4C4301160D66A50067BB96 /* LeaguevineSeason.m */,
+				1A4C42FD160D5FC20067BB96 /* LeaguevineTeam.h */,
+				1A4C42FE160D5FC20067BB96 /* LeaguevineTeam.m */,
 			);
 			name = Leaguevine;
 			sourceTree = "<group>";
@@ -1395,6 +1410,9 @@
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,
 				1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */,
+				1A4C42FB160D5FA90067BB96 /* LeaguevineLeague.m in Sources */,
+				1A4C42FF160D5FC20067BB96 /* LeaguevineTeam.m in Sources */,
+				1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

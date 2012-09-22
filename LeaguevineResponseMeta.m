@@ -8,6 +8,7 @@
 
 #import "LeaguevineResponseMeta.h"
 #import "NSDictionary+JSON.h"
+#import "NSString+manipulations.h"
 
 @implementation LeaguevineResponseMeta
 
@@ -29,6 +30,10 @@
     } else {
         return nil;
     }
+}
+
+-(BOOL)hasMoreResults {
+    return [self.nextUrl isNotEmpty];
 }
 
 @end

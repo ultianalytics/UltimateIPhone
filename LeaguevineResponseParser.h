@@ -9,12 +9,19 @@
 #import <Foundation/Foundation.h>
 @class LeaguevineResponseMeta;
 
+typedef enum {
+    LeaguevineResultTypeLeagues,
+    LeaguevineResultTypeSeasons,
+    LeaguevineResultTypeTeams,
+} LeaguevineResultType;
 
 
 @interface LeaguevineResponseParser : NSObject
 
 -(BOOL)hasMeta: (NSDictionary*) responseDict;
 -(LeaguevineResponseMeta*)parseMeta: (NSDictionary*) responseDict;
--(NSArray*)parseLeagues: (NSDictionary*) responseDict;
+
+-(NSMutableArray*)parseResults: (NSDictionary*) responseDict type: (LeaguevineResultType) type;
+
 
 @end

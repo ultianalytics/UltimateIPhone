@@ -19,4 +19,6 @@
 
 +(LeaguevineResponseMeta*)fromJson:(NSDictionary*) dict;
 
+-(BOOL)hasMoreResults;
+
 @end

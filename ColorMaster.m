@@ -12,6 +12,7 @@
 @implementation ColorMaster
 
 static UIColor* darkestColor = nil;
+static UIColor* darkestAlmostColor = nil;
 static UIColor* darkerColor = nil;
 static UIColor* darklightColor = nil;
 static UIColor* darklightestColor = nil;
@@ -75,6 +76,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
     linePlayerButtonPointsColorDark = RGB(102,94,51);
     
     darkestColor = RGB(102,102,51); // #666633
+    darkestAlmostColor = RGB(127,127,76); // #7F7F4C
     darkerColor = RGB(153,153,102);  // #999966
     darklightColor = RGB(173,173,132);  // ADAD84
     darklightestColor = RGB(193,193,162);  // C1C1A2
@@ -102,6 +104,10 @@ static UIColor* linePlayerImbalanceWarningBoys;
 
 +(UIColor*)getTabBarSelectedImageColor {
     return lightestColor;
+}
+
++(UIColor*)getSearchBarTintColor {
+    return darkestAlmostColor;
 }
 
 +(UIColor*)getNormalButtonHighColor {

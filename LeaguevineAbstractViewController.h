@@ -9,9 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "LeaguevineClient.h"
 
-@interface LeaguevineAbstractViewController : UIViewController
+@interface LeaguevineAbstractViewController : UIViewController <UISearchBarDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (nonatomic, strong) LeaguevineClient* leaguevineClient;
+@property (nonatomic, strong) NSArray* items;
+@property (nonatomic, strong) NSArray* filteredItems;
 
 -(void)startBusyDialog;
 -(void)stopBusyDialog;

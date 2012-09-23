@@ -12,6 +12,4 @@
 
 @interface LeagueVineLeagueViewController : LeaguevineAbstractViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSArray* leagues;
-
 @end

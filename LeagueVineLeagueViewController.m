@@ -13,8 +13,6 @@
 
 @interface LeagueVineLeagueViewController ()
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @end
 
 @implementation LeagueVineLeagueViewController
@@ -56,13 +54,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.leagues count];
+    return [self.filteredItems count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* STD_ROW_TYPE = @"stdRowType";
     
-    LeaguevineLeague* league = [self.leagues objectAtIndex:indexPath.row];
+    LeaguevineLeague* league = [self.filteredItems objectAtIndex:indexPath.row];
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
@@ -89,13 +87,12 @@
     [self.leaguevineClient retrieveLeagues:^(LeaguevineInvokeStatus status, id result) {
 
         if (status == LeaguevineInvokeOK) {
-            self.leagues = result;
+            self.items = result;
             [self.tableView reloadData];
-        NSLog(@"reloading table");
             [self stopBusyDialog];
             // TODO position to current league selection
         } else {
-            self.leagues = [NSArray array];
+            self.items = [NSArray array];
             [self stopBusyDialog];
             [self alertFailure:status];
             // pop back to previous controller or all the way back?

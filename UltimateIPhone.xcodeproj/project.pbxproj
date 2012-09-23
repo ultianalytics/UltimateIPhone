@@ -645,9 +645,9 @@
 		1A999EF816062E990015B891 /* LeagueVine */ = {
 			isa = PBXGroup;
 			children = (
-				1A4C4317160F4A5E0067BB96 /* LeagueVineSignonViewController.xib */,
-				1A4C4318160F4A5E0067BB96 /* LeagueVineSignonViewController.m */,
 				1A4C4319160F4A5E0067BB96 /* LeagueVineSignonViewController.h */,
+				1A4C4318160F4A5E0067BB96 /* LeagueVineSignonViewController.m */,
+				1A4C4317160F4A5E0067BB96 /* LeagueVineSignonViewController.xib */,
 				1A4C430E160E1C710067BB96 /* LeaguevineAbstractViewController.h */,
 				1A4C430F160E1C720067BB96 /* LeaguevineAbstractViewController.m */,
 				1A4C430A160E09D40067BB96 /* LeagueVineLeagueViewController.h */,

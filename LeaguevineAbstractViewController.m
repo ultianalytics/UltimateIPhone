@@ -8,6 +8,9 @@
 
 #import "LeaguevineAbstractViewController.h"
 #import "LeaguevineClient.h"
+#import "ColorMaster.h"
+#import "NSArray+Utilities.h"
+#import "NSString+manipulations.h"
 
 @interface LeaguevineAbstractViewController()
 
@@ -16,6 +19,20 @@
 @end
 
 @implementation LeaguevineAbstractViewController
+
+#pragma mark - Custom accessors
+
+-(void)setItems:(NSArray *)items {
+    _items = items;
+    self.filteredItems = items;
+}
+
+#pragma mark - Lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.searchBar.tintColor = [ColorMaster getSearchBarTintColor];
+}
 
 #pragma mark - Busy Dialog
 
@@ -79,6 +96,29 @@
     [self errorAlertDismissed];
 }
 
+#pragma mark - Search delegate
 
-                              
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self applySearchFilter];
+}
+
+-(void)applySearchFilter {
+    NSString* searchString = [self getSearchString];
+    if ([searchString isNotEmpty]) {
+        self.filteredItems = [self.items filter:^(id item) {
+            NSString* itemString = [item name];
+            BOOL matchesFilter = [itemString rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound;
+            return matchesFilter;
+        }];
+    } else {
+        self.filteredItems = self.items;
+    }
+    [self.tableView reloadData];
+}
+
+-(NSString*)getSearchString {
+    return self.searchBar.text;
+}
+
+
 @end

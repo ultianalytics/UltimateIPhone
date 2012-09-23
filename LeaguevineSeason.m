@@ -17,7 +17,7 @@
 +(LeaguevineSeason*)fromJson:(NSDictionary*) dict {
     if (dict) {
         LeaguevineSeason* season = [[LeaguevineSeason alloc] init];
-        season.seasonId = [dict intForJsonProperty:kLeaguevineResponseSeasonId defaultValue:0];
+        season.itemId = [dict intForJsonProperty:kLeaguevineResponseSeasonId defaultValue:0];
         season.name = [dict stringForJsonProperty:kLeaguevineResponseSeasonName];
         return season;
     } else {
@@ -26,7 +26,7 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"LeaguevineSeason: %d %@", self.seasonId, self.name];
+    return [NSString stringWithFormat:@"LeaguevineSeason: %d %@", self.itemId, self.name];
 }
 
 @end

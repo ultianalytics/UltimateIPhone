@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LeaguevineItem.h"
 
-@interface LeaguevineLeague : NSObject
+@interface LeaguevineLeague : LeaguevineItem
 
-@property (nonatomic) int leagueId;
-@property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSString* gender;
 
 +(LeaguevineLeague*)fromJson:(NSDictionary*) dict;

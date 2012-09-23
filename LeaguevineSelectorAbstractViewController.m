@@ -1,24 +1,25 @@
 //
-//  LeaguevineAbstractViewController.m
+//  LeaguevineSelectorAbstractViewController.m
 //  UltimateIPhone
 //
 //  Created by james on 9/22/12.
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
-#import "LeaguevineAbstractViewController.h"
+#import "LeaguevineSelectorAbstractViewController.h"
 #import "LeaguevineClient.h"
 #import "ColorMaster.h"
 #import "NSArray+Utilities.h"
 #import "NSString+manipulations.h"
 
-@interface LeaguevineAbstractViewController()
+@interface LeaguevineSelectorAbstractViewController()
 
 @property (nonatomic, strong) UIAlertView* busyView;
 
+
 @end
 
-@implementation LeaguevineAbstractViewController
+@implementation LeaguevineSelectorAbstractViewController
 
 #pragma mark - Custom accessors
 
@@ -102,6 +103,12 @@
     [self applySearchFilter];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar resignFirstResponder];
+}
+
+#pragma mark - Search filtering
+
 -(void)applySearchFilter {
     NSString* searchString = [self getSearchString];
     if ([searchString isNotEmpty]) {
@@ -113,12 +120,21 @@
     } else {
         self.filteredItems = self.items;
     }
-    [self.tableView reloadData];
+    [self.mainTableView reloadData];
 }
 
 -(NSString*)getSearchString {
     return self.searchBar.text;
 }
+
+#pragma mark - Selection 
+
+-(void)itemSelected: (LeaguevineItem*) item {
+    if (self.selectedBlock) {
+        self.selectedBlock(item);
+    }
+}
+
 
 
 @end

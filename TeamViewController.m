@@ -18,8 +18,7 @@
 #import "UltimateSegmentedControl.h"
 #import "NSString+manipulations.h"
 #import "LeagueVineSignonViewController.h"
-#import "LeagueVineLeagueViewController.h"
-#import "LeaguevineClient.h"
+#import "LeagueVineTeamViewController.h"
 
 
 @interface TeamViewController()
@@ -306,9 +305,7 @@
 #pragma mark Leaguevine 
 
 -(void)handleLeaguevineTeamSelection {
-    LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
-    LeagueVineLeagueViewController* leagueController = [[LeagueVineLeagueViewController alloc] init];
-    leagueController.leaguevineClient = lvClient;
+    LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
     [self.navigationController pushViewController:leagueController animated:YES];
 }
 

@@ -8,11 +8,19 @@
 
 #import "LeagueVineTeamViewController.h"
 #import "ColorMaster.h"
-#import "LeaguevineTeam.h"
+#import "LeaguevineItem.h"
+#import "LeaguevineClient.h"
+#import "LeagueVineSelectorLeagueViewController.h"
+
+#define kHeaderHeight 50
 
 @interface LeagueVineTeamViewController ()
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *mainTableView;
+@property (strong, nonatomic) LeaguevineClient* client;
+
+@property (nonatomic, strong) LeaguevineLeague* league;
+@property (nonatomic, strong) LeaguevineSeason* season;
 
 @end
 
@@ -27,6 +35,15 @@
     return self;
 }
 
+#pragma mark - Custom accessors
+
+-(void)setTeam:(LeaguevineTeam *)team {
+    _team = team;
+    self.season = team.season;
+    self.league = team.league;
+}
+
+
 #pragma mark Lifecycle
 
 - (void)viewDidLoad
@@ -40,7 +57,6 @@
 }
 
 - (void)viewDidUnload {
-    [self setTableView:nil];
 
     [super viewDidUnload];
 }
@@ -48,17 +64,17 @@
 #pragma mark TableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.league ? (self.season ? 3 : 2) : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.teams count];
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* STD_ROW_TYPE = @"stdRowType";
     
-    LeaguevineTeam* team = [self.teams objectAtIndex:indexPath.row];
+    LeaguevineItem* item = indexPath.section == 0 ? self.league : (indexPath.section == 1 ? self.season : self.team);
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
@@ -66,16 +82,86 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
-        
-    cell.textLabel.text = team.name;
+
+    cell.textLabel.text = item ? item.name : [NSString stringWithFormat: @"%@ not selected", [self sectionName:indexPath.section]];
+    cell.textLabel.textColor = item ? [UIColor blackColor] : [UIColor grayColor];
+    
     return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView* headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, kHeaderHeight)];
+    headerView.backgroundColor = [UIColor clearColor];
+    UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, kHeaderHeight)];
+    headerLabel.font = [UIFont boldSystemFontOfSize:18];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.shadowColor = [UIColor blackColor];
+    headerLabel.shadowOffset = CGSizeMake(0, 1);
+    headerLabel.text = [NSString stringWithFormat:@"%@:", [self sectionName:section]];
+    [headerView addSubview:headerLabel];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kHeaderHeight;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+    switch(indexPath.section) {
+        case 2:
+            [self handleLeaguevineTeamSelection];
+            break;
+        case 1:
+            [self handleLeaguevineSeasonSelection];
+            break;
+        default:
+            [self handleLeaguevineLeagueSelection];
+    }
+}
+
+#pragma mark Open selector views
+
+-(void)handleLeaguevineLeagueSelection {
+    LeagueVineSelectorLeagueViewController* leagueController = [[LeagueVineSelectorLeagueViewController alloc] init];
+    leagueController.leaguevineClient = [self getClient];
+    leagueController.selectedBlock = ^(LeaguevineItem* item){
+        [self.navigationController popViewControllerAnimated:YES];
+        BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
+        if (itemChanged) {
+            _team = nil;
+            _season = nil;
+            self.league = (LeaguevineLeague*)item;
+            [self.mainTableView reloadData];
+        }
+    };
+    [self.navigationController pushViewController:leagueController animated:YES];
+}
+
+-(void)handleLeaguevineSeasonSelection {
+
+}
+
+-(void)handleLeaguevineTeamSelection {
+
+}
+
+#pragma mark Miscellaneous
+
+-(LeaguevineClient*)getClient {
+    if (!self.client) {
+        self.client = [[LeaguevineClient alloc] init];
+    }
+    return self.client;
+}
+
+-(NSString*)sectionName: (int) section {
+    return section == 0 ? @"League" : (section == 1 ? @"Season" : @"Team");
 }
 
 @end

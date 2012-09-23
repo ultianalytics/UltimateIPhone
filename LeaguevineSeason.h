@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LeaguevineItem.h"
+@class LeaguevineLeague;
 
-@interface LeaguevineSeason : NSObject
+@interface LeaguevineSeason : LeaguevineItem
 
-@property (nonatomic) int seasonId;
-@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) LeaguevineLeague* league;
 
 +(LeaguevineSeason*)fromJson:(NSDictionary*) dict;
 

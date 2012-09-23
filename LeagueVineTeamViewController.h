@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LeaguevineAbstractViewController.h"
+#import "LeaguevineTeam.h"
+#import "LeaguevineSeason.h"
+#import "LeaguevineLeague.h"
 
-@interface LeagueVineTeamViewController : LeaguevineAbstractViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LeagueVineTeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray* teams;
+@property (nonatomic, strong) LeaguevineTeam* team;
 
 @end

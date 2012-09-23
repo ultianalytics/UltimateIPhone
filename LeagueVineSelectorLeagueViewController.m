@@ -1,21 +1,21 @@
 //
-//  LeagueVineLeagueViewController.m
+//  LeagueVineSelectorLeagueViewController.m
 //  UltimateIPhone
 //
 //  Created by james on 9/16/12.
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
-#import "LeagueVineLeagueViewController.h"
+#import "LeagueVineSelectorLeagueViewController.h"
 #import "ColorMaster.h"
 #import "LeaguevineLeague.h"
 #import "LeaguevineClient.h"
 
-@interface LeagueVineLeagueViewController ()
+@interface LeagueVineSelectorLeagueViewController ()
 
 @end
 
-@implementation LeagueVineLeagueViewController
+@implementation LeagueVineSelectorLeagueViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,8 +39,6 @@
 }
 
 - (void)viewDidUnload {
-    [self setTableView:nil];
-
     [super viewDidUnload];
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,7 +66,7 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        //cell.textLabel.adjustsFontSizeToFitWidth = YES;
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
         
     cell.textLabel.text = league.name;
@@ -76,8 +74,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+    LeaguevineItem* item = [self.filteredItems objectAtIndex:indexPath.row];
+    [self itemSelected: item];
 }
 
 #pragma mark Client interaction
@@ -88,7 +86,7 @@
 
         if (status == LeaguevineInvokeOK) {
             self.items = result;
-            [self.tableView reloadData];
+            [self.mainTableView reloadData];
             [self stopBusyDialog];
             // TODO position to current league selection
         } else {

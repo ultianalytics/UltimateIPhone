@@ -69,6 +69,7 @@
             [self retrieveObjects:finishedBlock type: type url:meta.nextUrl results:results];
         } else {
             finishedBlock(LeaguevineInvokeOK, results);
+            [self returnSuccessResponse:results finishedBlock:finishedBlock];
         }
     }];
 }
@@ -79,43 +80,49 @@
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* sendError) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (sendError != nil || httpResponse.statusCode < 200) {
-            [self invokeFailedTo:url withNetworkError:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
+            [self returnFailedResponse:url withNetworkError:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
         } else if (sendError == nil && httpResponse.statusCode == 200 && data) {
             NSError* unmarshallingError = nil;
             NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&unmarshallingError];
             if (unmarshallingError) {
-                [self invokeFailedTo:url withUnMarshallingError:unmarshallingError finishedBlock:finishedBlock];
+                [self returnFailedResponse:url withUnMarshallingError:unmarshallingError finishedBlock:finishedBlock];
             } else {
                 if ([self.responseParser hasMeta:responseDict]) {
                     responseOKBlock(responseDict);
                 } else {
-                    [self invokeFailedTo:url withMissingMetaPropertyInResponse:data finishedBlock:finishedBlock];
+                    [self returnFailedResponse:url withMissingMetaPropertyInResponse:data finishedBlock:finishedBlock];
                 }
             }
         } else {
-            [self invokeFailedTo:url withHttpFailure:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
+            [self returnFailedResponse:url withHttpFailure:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
         }
     }];
 }
 
-#pragma mark Error handler methods
+#pragma mark Return handler methods
 
--(void)invokeFailedTo: (NSString*) url withUnMarshallingError: (NSError*) error finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
+-(void)returnSuccessResponse: (id) results finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        finishedBlock(LeaguevineInvokeInvalidResponse, results);
+    });
+}
+
+-(void)returnFailedResponse: (NSString*) url withUnMarshallingError: (NSError*) error finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
     NSLog(@"Request to %@ failed with unmarshalling error %@", url, error);
     finishedBlock(LeaguevineInvokeInvalidResponse, nil);
 }
 
--(void)invokeFailedTo: (NSString*) url withNetworkError: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
+-(void)returnFailedResponse: (NSString*) url withNetworkError: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
     NSLog(@"Request to %@ failed with http response %d error %@", url, httpResponse.statusCode, error);
     finishedBlock(LeaguevineInvokeNetworkError, nil);
 }
 
--(void)invokeFailedTo: (NSString*) url withHttpFailure: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
+-(void)returnFailedResponse: (NSString*) url withHttpFailure: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
     NSLog(@"Request to %@ failed with http response %d error %@", url, httpResponse.statusCode, error);
     finishedBlock(LeaguevineInvokeInvalidResponse, nil);
 }
 
--(void)invokeFailedTo: (NSString*) url withMissingMetaPropertyInResponse: (NSData*) responseData finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
+-(void)returnFailedResponse: (NSString*) url withMissingMetaPropertyInResponse: (NSData*) responseData finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
     NSLog(@"Request to %@ failed. Response is missing meta property.  Response: %@", url, [NSString stringFromData: responseData]);
     finishedBlock(LeaguevineInvokeInvalidResponse, nil);
 }

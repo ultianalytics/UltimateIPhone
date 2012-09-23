@@ -25,6 +25,8 @@
 		1A4C430B160E09D40067BB96 /* LeagueVineLeagueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C4308160E09D40067BB96 /* LeagueVineLeagueViewController.xib */; };
 		1A4C430C160E09D40067BB96 /* LeagueVineLeagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C4309160E09D40067BB96 /* LeagueVineLeagueViewController.m */; };
 		1A4C4310160E1C720067BB96 /* LeaguevineAbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C430F160E1C720067BB96 /* LeaguevineAbstractViewController.m */; };
+		1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C4317160F4A5E0067BB96 /* LeagueVineSignonViewController.xib */; };
+		1A4C431B160F4A5E0067BB96 /* LeagueVineSignonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C4318160F4A5E0067BB96 /* LeagueVineSignonViewController.m */; };
 		1A59838915445D5900E97F09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77B15175D4A004B4590 /* UIKit.framework */; };
 		1A59838A15445D5900E97F09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77D15175D4A004B4590 /* Foundation.framework */; };
 		1A59838B15445D5900E97F09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE77F15175D4A004B4590 /* CoreGraphics.framework */; };
@@ -92,8 +94,6 @@
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
-		1AD1D77E1608A40700F321DE /* LeagueVineSignonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AD1D77B1608A40700F321DE /* LeagueVineSignonViewController.xib */; };
-		1AD1D77F1608A40700F321DE /* LeagueVineSignonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1D77C1608A40700F321DE /* LeagueVineSignonViewController.m */; };
 		1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */; };
 		1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
@@ -274,6 +274,9 @@
 		1A4C430A160E09D40067BB96 /* LeagueVineLeagueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineLeagueViewController.h; sourceTree = "<group>"; };
 		1A4C430E160E1C710067BB96 /* LeaguevineAbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineAbstractViewController.h; sourceTree = "<group>"; };
 		1A4C430F160E1C720067BB96 /* LeaguevineAbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineAbstractViewController.m; sourceTree = "<group>"; };
+		1A4C4317160F4A5E0067BB96 /* LeagueVineSignonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueVineSignonViewController.xib; sourceTree = "<group>"; };
+		1A4C4318160F4A5E0067BB96 /* LeagueVineSignonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSignonViewController.m; sourceTree = "<group>"; };
+		1A4C4319160F4A5E0067BB96 /* LeagueVineSignonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineSignonViewController.h; sourceTree = "<group>"; };
 		1A59838715445D5900E97F09 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A59838E15445D5900E97F09 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		1A59839015445D5900E97F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -314,9 +317,6 @@
 		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
 		1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewSignonController.m; sourceTree = "<group>"; };
 		1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewSignonController.xib; sourceTree = "<group>"; };
-		1AD1D77B1608A40700F321DE /* LeagueVineSignonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeagueVineSignonViewController.xib; path = ../../Users/james/Temp/LeagueVineSignonViewController.xib; sourceTree = "<group>"; };
-		1AD1D77C1608A40700F321DE /* LeagueVineSignonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeagueVineSignonViewController.m; path = ../../Users/james/Temp/LeagueVineSignonViewController.m; sourceTree = "<group>"; };
-		1AD1D77D1608A40700F321DE /* LeagueVineSignonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeagueVineSignonViewController.h; path = ../../Users/james/Temp/LeagueVineSignonViewController.h; sourceTree = "<group>"; };
 		1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow.png"; sourceTree = "<group>"; };
 		1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow@2x.png"; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -645,6 +645,9 @@
 		1A999EF816062E990015B891 /* LeagueVine */ = {
 			isa = PBXGroup;
 			children = (
+				1A4C4317160F4A5E0067BB96 /* LeagueVineSignonViewController.xib */,
+				1A4C4318160F4A5E0067BB96 /* LeagueVineSignonViewController.m */,
+				1A4C4319160F4A5E0067BB96 /* LeagueVineSignonViewController.h */,
 				1A4C430E160E1C710067BB96 /* LeaguevineAbstractViewController.h */,
 				1A4C430F160E1C720067BB96 /* LeaguevineAbstractViewController.m */,
 				1A4C430A160E09D40067BB96 /* LeagueVineLeagueViewController.h */,
@@ -653,9 +656,6 @@
 				1A999F0916063CDC0015B891 /* LeagueVineTeamViewController.h */,
 				1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */,
 				1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */,
-				1AD1D77B1608A40700F321DE /* LeagueVineSignonViewController.xib */,
-				1AD1D77C1608A40700F321DE /* LeagueVineSignonViewController.m */,
-				1AD1D77D1608A40700F321DE /* LeagueVineSignonViewController.h */,
 			);
 			name = LeagueVine;
 			sourceTree = "<group>";
@@ -1287,8 +1287,8 @@
 				1A999EEA1604D5960015B891 /* Default-568h@2x.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
-				1AD1D77E1608A40700F321DE /* LeagueVineSignonViewController.xib in Resources */,
 				1A4C430B160E09D40067BB96 /* LeagueVineLeagueViewController.xib in Resources */,
+				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1419,7 +1419,6 @@
 				1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */,
 				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 				1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */,
-				1AD1D77F1608A40700F321DE /* LeagueVineSignonViewController.m in Sources */,
 				1A4C42B71609DA4F0067BB96 /* LeaguevineClient.m in Sources */,
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,
@@ -1429,6 +1428,7 @@
 				1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */,
 				1A4C430C160E09D40067BB96 /* LeagueVineLeagueViewController.m in Sources */,
 				1A4C4310160E1C720067BB96 /* LeaguevineAbstractViewController.m in Sources */,
+				1A4C431B160F4A5E0067BB96 /* LeagueVineSignonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *waitingView;
 @property (strong, nonatomic) IBOutlet UIView *itemListView;
+@property (strong, nonatomic) IBOutlet UILabel *noResultsLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
@@ -188,6 +189,9 @@
         self.items = result;
         [self.mainTableView reloadData];
         [self hideWaitingView];
+        if ([self.items count] < 1) {
+            [self showNoResults];
+        }
         // TODO position to current league selection
     } else {
         self.items = [NSArray array];
@@ -196,6 +200,15 @@
     }
 }
 
+-(void)showNoResults {
+    self.searchBar.hidden = YES;
+    self.noResultsLabel.hidden = NO;
+    self.noResultsLabel.text = [self getNoResultsText];
+}
 
+-(NSString*)getNoResultsText {
+    [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
+    return nil;
+}
 
 @end

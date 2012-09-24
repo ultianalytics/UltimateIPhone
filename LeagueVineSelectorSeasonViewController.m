@@ -34,6 +34,8 @@
     }];
 }
 
-
+-(NSString*)getNoResultsText {
+    return @"No seasons found for this league";
+}
 
 @end

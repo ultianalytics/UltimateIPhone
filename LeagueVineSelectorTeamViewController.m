@@ -34,4 +34,8 @@
     }];
 }
 
+-(NSString*)getNoResultsText {
+    return @"No teams found for this league/season";
+}
+
 @end

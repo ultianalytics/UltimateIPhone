@@ -33,4 +33,8 @@
     }];
 }
 
+-(NSString*)getNoResultsText {
+    return @"No leagues found";
+}
+
 @end

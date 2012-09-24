@@ -11,6 +11,7 @@
 #import "ColorMaster.h"
 #import "NSArray+Utilities.h"
 #import "NSString+manipulations.h"
+#import "LeaguevineItem.h"
 
 @interface LeaguevineSelectorAbstractViewController()
 
@@ -33,6 +34,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.searchBar.tintColor = [ColorMaster getSearchBarTintColor];
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self refresh];
+}
+
+#pragma mark TableView delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.filteredItems count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString* STD_ROW_TYPE = @"stdRowType";
+    
+    LeaguevineItem* item = [self.filteredItems objectAtIndex:indexPath.row];
+    
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier:STD_ROW_TYPE];
+        cell.backgroundColor = [ColorMaster getFormTableCellColor];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    
+    cell.textLabel.text = item.name;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    LeaguevineItem* item = [self.filteredItems objectAtIndex:indexPath.row];
+    [self itemSelected: item];
 }
 
 #pragma mark - Busy Dialog
@@ -132,6 +174,31 @@
 -(void)itemSelected: (LeaguevineItem*) item {
     if (self.selectedBlock) {
         self.selectedBlock(item);
+    }
+}
+
+#pragma mark - Refresh
+
+-(void)refresh {
+    [self startBusyDialog];
+    [self refreshItems];
+}
+
+-(void)refreshItems {
+    [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
+}
+
+- (void)refreshItems:(LeaguevineInvokeStatus)status result:(id)result {
+    if (status == LeaguevineInvokeOK) {
+        self.items = result;
+        [self.mainTableView reloadData];
+        [self stopBusyDialog];
+        // TODO position to current league selection
+    } else {
+        self.items = [NSArray array];
+        [self stopBusyDialog];
+        [self alertFailure:status];
+        // pop back to previous controller or all the way back?
     }
 }
 

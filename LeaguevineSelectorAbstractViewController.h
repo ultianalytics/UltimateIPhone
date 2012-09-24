@@ -27,5 +27,6 @@
 -(void)alertFailure: (LeaguevineInvokeStatus) type;
 -(void)alertError:(NSString*) title message: (NSString*) message;
 -(void)itemSelected: (LeaguevineItem*) item;
+-(void)refreshItems:(LeaguevineInvokeStatus)status result:(id)result;
 
 @end

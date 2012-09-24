@@ -48,12 +48,12 @@
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeLeagues url:url results:nil];
 }
 
--(void)retrieveSeasons: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock leagueId: (int) leagueId {
+-(void)retrieveSeasonsForLeague: (int) leagueId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
     NSString* url = [self fullUrl:[NSString stringWithFormat:@"seasons/?league_id=%d&order_by=%@", leagueId, [@"[name]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeSeasons url:url results:nil];
 }
 
--(void)retrieveTeams: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock seasonId: (int) seasonId {
+-(void)retrieveTeamsForSeason: (int) seasonId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
     NSString* url = [self fullUrl:[NSString stringWithFormat:@"teams/?season_id=%d&order_by=%@", seasonId, [@"[name]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeTeams url:url results:nil];
 }

@@ -11,6 +11,8 @@
 #import "LeaguevineItem.h"
 #import "LeaguevineClient.h"
 #import "LeagueVineSelectorLeagueViewController.h"
+#import "LeagueVineSelectorSeasonViewController.h"
+#import "LeagueVineSelectorTeamViewController.h"
 
 #define kHeaderHeight 50
 
@@ -144,11 +146,32 @@
 }
 
 -(void)handleLeaguevineSeasonSelection {
-
+    LeagueVineSelectorSeasonViewController* leagueController = [[LeagueVineSelectorSeasonViewController alloc] init];
+    leagueController.leaguevineClient = [self getClient];
+    leagueController.selectedBlock = ^(LeaguevineItem* item){
+        [self.navigationController popViewControllerAnimated:YES];
+        BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
+        if (itemChanged) {
+            _team = nil;
+            self.season = (LeaguevineSeason*)item;
+            [self.mainTableView reloadData];
+        }
+    };
+    [self.navigationController pushViewController:leagueController animated:YES];
 }
 
 -(void)handleLeaguevineTeamSelection {
-
+    LeagueVineSelectorTeamViewController* leagueController = [[LeagueVineSelectorTeamViewController alloc] init];
+    leagueController.leaguevineClient = [self getClient];
+    leagueController.selectedBlock = ^(LeaguevineItem* item){
+        [self.navigationController popViewControllerAnimated:YES];
+        BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
+        if (itemChanged) {
+            self.team = (LeaguevineTeam*)item;
+            [self.mainTableView reloadData];
+        }
+    };
+    [self.navigationController pushViewController:leagueController animated:YES];
 }
 
 #pragma mark Miscellaneous

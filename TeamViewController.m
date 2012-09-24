@@ -323,6 +323,8 @@
             [self saveChanges];
             [self.navigationController popViewControllerAnimated:YES];
         };
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
         [self.navigationController pushViewController:leagueController animated:YES];
     }
 }

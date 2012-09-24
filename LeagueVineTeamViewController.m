@@ -13,6 +13,7 @@
 #import "LeagueVineSelectorLeagueViewController.h"
 #import "LeagueVineSelectorSeasonViewController.h"
 #import "LeagueVineSelectorTeamViewController.h"
+#import "LeaguevineSelectorAbstractViewController.h"
 
 #define kHeaderHeight 50
 
@@ -140,9 +141,9 @@
 #pragma mark Open selector views
 
 -(void)handleLeaguevineLeagueNeedsSelection {
-    LeagueVineSelectorLeagueViewController* leagueController = [[LeagueVineSelectorLeagueViewController alloc] init];
-    leagueController.leaguevineClient = [self getClient];
-    leagueController.selectedBlock = ^(LeaguevineItem* item){
+    LeagueVineSelectorLeagueViewController* selectionController = [[LeagueVineSelectorLeagueViewController alloc] init];
+    selectionController.leaguevineClient = [self getClient];
+    selectionController.selectedBlock = ^(LeaguevineItem* item){
         [self.navigationController popViewControllerAnimated:YES];
         BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
         if (itemChanged) {
@@ -152,14 +153,14 @@
             [self refresh];
         }
     };
-    [self.navigationController pushViewController:leagueController animated:YES];
+    [self pushSelectorController:selectionController];
 }
 
 -(void)handleLeaguevineSeasonNeedsSelection {
-    LeagueVineSelectorSeasonViewController* leagueController = [[LeagueVineSelectorSeasonViewController alloc] init];
-    leagueController.leaguevineClient = [self getClient];
-    leagueController.league = self.league;
-    leagueController.selectedBlock = ^(LeaguevineItem* item){
+    LeagueVineSelectorSeasonViewController* selectionController = [[LeagueVineSelectorSeasonViewController alloc] init];
+    selectionController.leaguevineClient = [self getClient];
+    selectionController.league = self.league;
+    selectionController.selectedBlock = ^(LeaguevineItem* item){
         [self.navigationController popViewControllerAnimated:YES];
         BOOL itemChanged = self.season == nil || self.season.itemId != item.itemId;
         if (itemChanged) {
@@ -168,14 +169,14 @@
             [self refresh];
         }
     };
-    [self.navigationController pushViewController:leagueController animated:YES];
+    [self pushSelectorController:selectionController];
 }
 
 -(void)handleLeaguevineTeamNeedsSelection {
-    LeagueVineSelectorTeamViewController* leagueController = [[LeagueVineSelectorTeamViewController alloc] init];
-    leagueController.leaguevineClient = [self getClient];
-    leagueController.season = self.season;
-    leagueController.selectedBlock = ^(LeaguevineItem* item){
+    LeagueVineSelectorTeamViewController* selectionController = [[LeagueVineSelectorTeamViewController alloc] init];
+    selectionController.leaguevineClient = [self getClient];
+    selectionController.season = self.season;
+    selectionController.selectedBlock = ^(LeaguevineItem* item){
         [self.navigationController popViewControllerAnimated:YES];
         BOOL itemChanged = self.team == nil || self.team.itemId != item.itemId;
         if (itemChanged) {
@@ -183,7 +184,14 @@
             [self refresh];
         }
     };
-    [self.navigationController pushViewController:leagueController animated:YES];
+    [self pushSelectorController:selectionController];
+}
+
+
+-(void)pushSelectorController: (UIViewController*) selectorController {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    [self.navigationController pushViewController:selectorController animated:YES];
 }
 
 #pragma mark Miscellaneous
@@ -201,7 +209,7 @@
 
 -(void)addDoneButton {
     UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
-    currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
+    currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
 }
 
 -(void)removeDoneButton {

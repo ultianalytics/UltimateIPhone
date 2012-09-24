@@ -598,6 +598,24 @@
 			name = "Sound Player";
 			sourceTree = "<group>";
 		};
+		1A0F82C31610572700DF7C39 /* Selector View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C4320160F625A0067BB96 /* LeaguevineSelectorAbstractViewController.h */,
+				1A4C431F160F62590067BB96 /* LeaguevineSelectorAbstractViewController.m */,
+				1A4C4329160FDDC70067BB96 /* LeagueVineSelectorTeamViewController.h */,
+				1A4C432B160FDDC90067BB96 /* LeagueVineSelectorTeamViewController.m */,
+				1A4C4328160FDDC60067BB96 /* LeagueVineSelectorTeamViewController.xib */,
+				1A4C432C160FDDCB0067BB96 /* LeagueVineSelectorSeasonViewController.h */,
+				1A4C432A160FDDC80067BB96 /* LeagueVineSelectorSeasonViewController.m */,
+				1A4C4327160FDDC50067BB96 /* LeagueVineSelectorSeasonViewController.xib */,
+				1A4C431E160F62580067BB96 /* LeagueVineSelectorLeagueViewController.h */,
+				1A4C431D160F62580067BB96 /* LeagueVineSelectorLeagueViewController.m */,
+				1A4C431C160F62570067BB96 /* LeagueVineSelectorLeagueViewController.xib */,
+			);
+			name = "Selector View Controllers";
+			sourceTree = "<group>";
+		};
 		1A2DA03815458AB800D59B29 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,17 +678,7 @@
 		1A999EF816062E990015B891 /* LeagueVine */ = {
 			isa = PBXGroup;
 			children = (
-				1A4C4320160F625A0067BB96 /* LeaguevineSelectorAbstractViewController.h */,
-				1A4C431F160F62590067BB96 /* LeaguevineSelectorAbstractViewController.m */,
-				1A4C4329160FDDC70067BB96 /* LeagueVineSelectorTeamViewController.h */,
-				1A4C432B160FDDC90067BB96 /* LeagueVineSelectorTeamViewController.m */,
-				1A4C4328160FDDC60067BB96 /* LeagueVineSelectorTeamViewController.xib */,
-				1A4C432C160FDDCB0067BB96 /* LeagueVineSelectorSeasonViewController.h */,
-				1A4C432A160FDDC80067BB96 /* LeagueVineSelectorSeasonViewController.m */,
-				1A4C4327160FDDC50067BB96 /* LeagueVineSelectorSeasonViewController.xib */,
-				1A4C431E160F62580067BB96 /* LeagueVineSelectorLeagueViewController.h */,
-				1A4C431D160F62580067BB96 /* LeagueVineSelectorLeagueViewController.m */,
-				1A4C431C160F62570067BB96 /* LeagueVineSelectorLeagueViewController.xib */,
+				1A0F82C31610572700DF7C39 /* Selector View Controllers */,
 				1A4C4319160F4A5E0067BB96 /* LeagueVineSignonViewController.h */,
 				1A4C4318160F4A5E0067BB96 /* LeagueVineSignonViewController.m */,
 				1A4C4317160F4A5E0067BB96 /* LeagueVineSignonViewController.xib */,

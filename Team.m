@@ -14,6 +14,7 @@
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"
+#define kLeaguevineTeamKey      @"leaguevineTeam"
 #define kPlayersKey             @"players"
 #define kNameKey                @"name"
 #define kIsMixedKey             @"mixed"
@@ -213,6 +214,7 @@ static Team* currentTeam = nil;
         self.isMixed = [decoder decodeBoolForKey:kIsMixedKey];
         self.isDiplayingPlayerNumber = [decoder decodeBoolForKey:kDisplayPlayerNumberKey];
         self.cloudId = [decoder decodeObjectForKey:kCloudIdKey];
+        self.leaguevineTeam = [decoder decodeObjectForKey:kLeaguevineTeamKey];
     } 
     return self; 
 } 
@@ -223,7 +225,8 @@ static Team* currentTeam = nil;
     [encoder encodeObject:self.name forKey:kNameKey]; 
     [encoder encodeBool:self.isMixed forKey:kIsMixedKey];
     [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey];     
-    [encoder encodeObject:self.cloudId forKey:kCloudIdKey]; 
+    [encoder encodeObject:self.cloudId forKey:kCloudIdKey];
+    [encoder encodeObject:self.leaguevineTeam forKey:kLeaguevineTeamKey];
 } 
 
 -(void)save {

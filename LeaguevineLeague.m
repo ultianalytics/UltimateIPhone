@@ -9,8 +9,6 @@
 #import "LeaguevineLeague.h"
 #import "NSDictionary+JSON.h"
 
-#define kLeaguevineResponseLeagueId @"id"
-#define kLeaguevineResponseLeagueName @"name"
 #define kLeaguevineResponseLeagueGender @"gender"
 
 @implementation LeaguevineLeague
@@ -18,13 +16,24 @@
 +(LeaguevineLeague*)fromJson:(NSDictionary*) dict {
     if (dict) {
         LeaguevineLeague* league = [[LeaguevineLeague alloc] init];
-        league.itemId = [dict intForJsonProperty:kLeaguevineResponseLeagueId defaultValue:0];
-        league.name = [dict stringForJsonProperty:kLeaguevineResponseLeagueName];
+        [league populateFromJson:dict];
         league.gender = [dict stringForJsonProperty:kLeaguevineResponseLeagueGender];
         return league;
     } else {
         return nil;
     }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super initWithCoder:decoder]) {
+        self.gender = [decoder decodeObjectForKey:kLeaguevineResponseLeagueGender];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:self.gender forKey:kLeaguevineResponseLeagueGender];
 }
 
 -(NSString*)description {

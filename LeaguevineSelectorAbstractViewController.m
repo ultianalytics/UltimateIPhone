@@ -98,7 +98,6 @@
     if (self.busyView) {
         [self.busyView dismissWithClickedButtonIndex:0 animated:NO];
         [self.busyView removeFromSuperview];
-        NSLog(@"stopping busy dialog");
     }
 }
 

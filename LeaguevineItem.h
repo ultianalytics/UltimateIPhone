@@ -13,4 +13,8 @@
 @property (nonatomic) int itemId;
 @property (nonatomic, strong) NSString* name;
 
+-(void)populateFromJson:(NSDictionary*) dict;
+-(id)initWithCoder:(NSCoder *)decoder;
+-(void)encodeWithCoder:(NSCoder *)encoder;
+
 @end

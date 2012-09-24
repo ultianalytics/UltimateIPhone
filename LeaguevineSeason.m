@@ -7,18 +7,15 @@
 //
 
 #import "LeaguevineSeason.h"
-#import "NSDictionary+JSON.h"
 
-#define kLeaguevineResponseSeasonId @"id"
-#define kLeaguevineResponseSeasonName @"name"
+#define kLeaguevineSeasonLeague @"league"
 
 @implementation LeaguevineSeason
 
 +(LeaguevineSeason*)fromJson:(NSDictionary*) dict {
     if (dict) {
         LeaguevineSeason* season = [[LeaguevineSeason alloc] init];
-        season.itemId = [dict intForJsonProperty:kLeaguevineResponseSeasonId defaultValue:0];
-        season.name = [dict stringForJsonProperty:kLeaguevineResponseSeasonName];
+        [season populateFromJson:dict];
         return season;
     } else {
         return nil;
@@ -27,6 +24,18 @@
 
 -(NSString*)description {
     return [NSString stringWithFormat:@"LeaguevineSeason: %d %@", self.itemId, self.name];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super initWithCoder:decoder]) {
+        self.league = [decoder decodeObjectForKey:kLeaguevineSeasonLeague];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:self.league forKey:kLeaguevineSeasonLeague];
 }
 
 @end

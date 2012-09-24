@@ -27,10 +27,20 @@
 
 @implementation TeamViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"Team", @"Team");
+    }
+    return self;
+}
+
 -(void)populateViewFromModel {
     [self.teamNameField setText:([self.team.name isEqualToString: kAnonymousTeam] ? @"" : self.team.name)];
     [self.teamTypeSegmentedControl setSelection: self.team.isMixed ? @"Mixed" : @"Uni"];
-    [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];    
+    [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];
+    [self populateLeagueVineTeamCell];
     self.deleteButton.hidden = ![self.team hasBeenSaved];
 #ifdef DEBUG
     self.clearCloudIdButton.hidden = NO;
@@ -60,8 +70,85 @@
     return NO;
 }
 
+-(BOOL)verifyTeamName {
+    NSString* teamName = [self getText: self.teamNameField];
+    if ([teamName isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Invalid Team Name"
+                              message:@"Team name is required"
+                              delegate:self
+                              cancelButtonTitle:@"Try Again"
+                              otherButtonTitles:nil];
+        [alert show];
+        return NO;
+    } else if ([self isDuplicateTeamName:teamName]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Duplicate Team Name"
+                              message:@"Each team must have a unique name"
+                              delegate:self
+                              cancelButtonTitle:@"Try Again"
+                              otherButtonTitles:nil];
+        [alert show];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void)verifyAndDelete {
+    if ([[Team retrieveTeamDescriptions] count] < 2) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Delete not allowed"
+                              message:@"You cannot delete this team because it is the only team remaining."
+                              delegate:self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        self.deleteAlertView = [[UIAlertView alloc]
+                                initWithTitle: NSLocalizedString(@"Delete Team",nil)
+                                message: NSLocalizedString(@"Are you sure you want to delete this team?",nil)
+                                delegate: self
+                                cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
+                                otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
+        [self.deleteAlertView show];
+    } 
+}
+
+-(NSString*) getText: (UITextField*) textField {
+    return textField.text == nil ? @"" : [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+-(BOOL) isDuplicateTeamName: (NSString*) newTeamName {
+    return [Team isDuplicateTeamName: newTeamName notIncluding: self.team];
+}
+
+-(void)goToPlayersView: (BOOL) animated {
+    TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
+    [self.navigationController pushViewController:playersController animated:animated];
+}
+
+-(void)goToBestView {
+    // if we've already started adding players..go back there on app start
+    if (self.shouldSkipToPlayers) {
+        self.shouldSkipToPlayers = NO;
+        if ([self.team.players count] > 0) {
+            [self goToPlayersView: NO];
+        }
+    }
+}
+
+- (void)handlePlayersCellSelected {
+    if ([self saveChanges]) {
+        [Team setCurrentTeam: self.team.teamId];
+        [self goToPlayersView: YES];
+    }
+}
+
+#pragma mark Event handlers
+
 -(IBAction)nameChanged: (id) sender {
-   
+    
 }
 
 -(IBAction)deleteClicked: (id) sender {
@@ -95,6 +182,9 @@
     [self dismissKeyboard];
 }
 
+
+#pragma mark Keyboard
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
@@ -109,87 +199,11 @@
     return !isTooLong;
 }
 
-#pragma mark TableView delegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!self.cells) {
-        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.playersCell, self.leagueVineCell, nil];
-    }
-    return [self.cells count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [self.cells objectAtIndex: [indexPath row]];
-    cell.backgroundColor = [ColorMaster getFormTableCellColor];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
-    [self dismissKeyboard];
-    if ([self.cells objectAtIndex:[indexPath row]] == self.playersCell) {
-        if ([self saveChanges]) {
-            [Team setCurrentTeam: self.team.teamId];
-            [self goToPlayersView: YES];
-        }
-    } else if ([self.cells objectAtIndex:[indexPath row]] == self.leagueVineCell) {
-        [self handleLeaguevineTeamSelection];
-    }
-} 
-
-#pragma mark
-
 -(void)dismissKeyboard {
     [self.teamNameField resignFirstResponder];
 }
 
--(BOOL)verifyTeamName {
-    NSString* teamName = [self getText: self.teamNameField];
-    if ([teamName isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Invalid Team Name" 
-                              message:@"Team name is required"
-                              delegate:self 
-                              cancelButtonTitle:@"Try Again" 
-                              otherButtonTitles:nil]; 
-        [alert show];
-        return NO;
-    } else if ([self isDuplicateTeamName:teamName]) {
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Duplicate Team Name" 
-                              message:@"Each team must have a unique name"
-                              delegate:self 
-                              cancelButtonTitle:@"Try Again" 
-                              otherButtonTitles:nil]; 
-        [alert show];
-        return NO;  
-    } else {
-        return YES;
-    } 
-}
-
--(void)verifyAndDelete {
-    if ([[Team retrieveTeamDescriptions] count] < 2) {
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Delete not allowed" 
-                              message:@"You cannot delete this team because it is the only team remaining."
-                              delegate:self 
-                              cancelButtonTitle:@"OK" 
-                              otherButtonTitles:nil]; 
-        [alert show];
-    } else {
-        self.deleteAlertView = [[UIAlertView alloc]
-                              initWithTitle: NSLocalizedString(@"Delete Team",nil)
-                              message: NSLocalizedString(@"Are you sure you want to delete this team?",nil)
-                              delegate: self
-                              cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
-                              otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
-        [self.deleteAlertView show];
-    } 
-}
+#pragma AlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView == self.deleteAlertView) {
@@ -211,45 +225,7 @@
     }
 }
 
--(NSString*) getText: (UITextField*) textField {
-    return textField.text == nil ? @"" : [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-
--(BOOL) isDuplicateTeamName: (NSString*) newTeamName {
-    return [Team isDuplicateTeamName: newTeamName notIncluding: self.team];
-}
-
--(void)goToPlayersView: (BOOL) animated {
-    TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
-    [self.navigationController pushViewController:playersController animated:animated];
-}
-
--(void)goToBestView {
-    // if we've already started adding players..go back there on app start
-    if (self.shouldSkipToPlayers) {
-        self.shouldSkipToPlayers = NO;
-        if ([self.team.players count] > 0) {
-            [self goToPlayersView: NO];
-        }
-    }
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Team", @"Team");
-    }
-    return self;
-}
-							
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
+#pragma mark View lifecycle
 
 - (void)viewDidLoad
 {
@@ -302,16 +278,58 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-#pragma mark Leaguevine 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
+}
 
--(void)handleLeaguevineTeamSelection {
-    LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
-    leagueController.team = self.team.leaguevineTeam;
-    leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {
-        self.team.leaguevineTeam = leaguevineTeam;
-        [self.navigationController popViewControllerAnimated:YES];
-    };
-    [self.navigationController pushViewController:leagueController animated:YES];
+#pragma mark TableView delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (!self.cells) {
+        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.playersCell, self.leagueVineCell, nil];
+    }
+    return [self.cells count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* cell = [self.cells objectAtIndex: [indexPath row]];
+    cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self dismissKeyboard];
+    if ([self.cells objectAtIndex:[indexPath row]] == self.playersCell) {
+        [self handlePlayersCellSelected];
+    } else if ([self.cells objectAtIndex:[indexPath row]] == self.leagueVineCell) {
+        [self handleLeaguevineTeamNeedsSelection];
+    }
+}
+
+#pragma mark Leaguevine
+
+-(void)handleLeaguevineTeamNeedsSelection {
+    if ([self saveChanges]) {
+        LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
+        leagueController.team = self.team.leaguevineTeam;
+        leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {
+            self.team.leaguevineTeam = leaguevineTeam;
+            [self saveChanges];
+            [self.navigationController popViewControllerAnimated:YES];
+        };
+        [self.navigationController pushViewController:leagueController animated:YES];
+    }
+}
+
+-(void)populateLeagueVineTeamCell {
+    self.leagueVineDescriptionLabel.text = self.team.leaguevineTeam == nil ? @"No associated leaguevine team" : self.team.leaguevineTeam.name;
+    self.leagueVineDescriptionLabel.textColor = self.team.leaguevineTeam == nil ? [UIColor grayColor] : [UIColor blackColor];
 }
 
 // TODO...probably don't need this method here...just sample code for how to interact with signon

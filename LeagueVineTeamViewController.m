@@ -67,6 +67,8 @@
 
 -(void)doneButtonPressed {
     if (self.selectedBlock) {
+        self.season.league = self.league;
+        self.team.season = self.season;
         self.selectedBlock(self.team);
     }
 }

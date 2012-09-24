@@ -117,19 +117,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch(indexPath.section) {
         case 2:
-            [self handleLeaguevineTeamSelection];
+            [self handleLeaguevineTeamNeedsSelection];
             break;
         case 1:
-            [self handleLeaguevineSeasonSelection];
+            [self handleLeaguevineSeasonNeedsSelection];
             break;
         default:
-            [self handleLeaguevineLeagueSelection];
+            [self handleLeaguevineLeagueNeedsSelection];
     }
 }
 
 #pragma mark Open selector views
 
--(void)handleLeaguevineLeagueSelection {
+-(void)handleLeaguevineLeagueNeedsSelection {
     LeagueVineSelectorLeagueViewController* leagueController = [[LeagueVineSelectorLeagueViewController alloc] init];
     leagueController.leaguevineClient = [self getClient];
     leagueController.selectedBlock = ^(LeaguevineItem* item){
@@ -145,12 +145,13 @@
     [self.navigationController pushViewController:leagueController animated:YES];
 }
 
--(void)handleLeaguevineSeasonSelection {
+-(void)handleLeaguevineSeasonNeedsSelection {
     LeagueVineSelectorSeasonViewController* leagueController = [[LeagueVineSelectorSeasonViewController alloc] init];
     leagueController.leaguevineClient = [self getClient];
+    leagueController.league = self.league;
     leagueController.selectedBlock = ^(LeaguevineItem* item){
         [self.navigationController popViewControllerAnimated:YES];
-        BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
+        BOOL itemChanged = self.season == nil || self.season.itemId != item.itemId;
         if (itemChanged) {
             _team = nil;
             self.season = (LeaguevineSeason*)item;
@@ -160,14 +161,15 @@
     [self.navigationController pushViewController:leagueController animated:YES];
 }
 
--(void)handleLeaguevineTeamSelection {
+-(void)handleLeaguevineTeamNeedsSelection {
     LeagueVineSelectorTeamViewController* leagueController = [[LeagueVineSelectorTeamViewController alloc] init];
     leagueController.leaguevineClient = [self getClient];
+    leagueController.season = self.season;
     leagueController.selectedBlock = ^(LeaguevineItem* item){
         [self.navigationController popViewControllerAnimated:YES];
-        BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
+        BOOL itemChanged = self.team == nil || self.team.itemId != item.itemId;
         if (itemChanged) {
-            self.team = (LeaguevineTeam*)item;
+            _team = (LeaguevineTeam*)item;
             [self.mainTableView reloadData];
         }
     };

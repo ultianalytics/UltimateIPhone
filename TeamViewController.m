@@ -330,8 +330,7 @@
 }
 
 -(void)populateLeagueVineTeamCell {
-    self.leagueVineDescriptionLabel.text = self.team.leaguevineTeam == nil ? @"No associated leaguevine team" : self.team.leaguevineTeam.name;
-    self.leagueVineDescriptionLabel.textColor = self.team.leaguevineTeam == nil ? [UIColor grayColor] : [UIColor blackColor];
+    self.leagueVineDescriptionLabel.text = self.team.leaguevineTeam == nil ? @"NO TEAM PICKED" : self.team.leaguevineTeam.name;
 }
 
 // TODO...probably don't need this method here...just sample code for how to interact with signon

@@ -63,6 +63,14 @@
     [super viewDidUnload];
 }
 
+#pragma mark Event handling
+
+-(void)doneButtonPressed {
+    if (self.selectedBlock) {
+        self.selectedBlock(self.team);
+    }
+}
+
 #pragma mark TableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -139,7 +147,7 @@
             _team = nil;
             _season = nil;
             self.league = (LeaguevineLeague*)item;
-            [self.mainTableView reloadData];
+            [self refresh];
         }
     };
     [self.navigationController pushViewController:leagueController animated:YES];
@@ -155,7 +163,7 @@
         if (itemChanged) {
             _team = nil;
             self.season = (LeaguevineSeason*)item;
-            [self.mainTableView reloadData];
+            [self refresh];
         }
     };
     [self.navigationController pushViewController:leagueController animated:YES];
@@ -170,7 +178,7 @@
         BOOL itemChanged = self.team == nil || self.team.itemId != item.itemId;
         if (itemChanged) {
             _team = (LeaguevineTeam*)item;
-            [self.mainTableView reloadData];
+            [self refresh];
         }
     };
     [self.navigationController pushViewController:leagueController animated:YES];
@@ -187,6 +195,25 @@
 
 -(NSString*)sectionName: (int) section {
     return section == 0 ? @"League" : (section == 1 ? @"Season" : @"Team");
+}
+
+-(void)addDoneButton {
+    UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
+    currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
+}
+
+-(void)removeDoneButton {
+    UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
+    currentNavItem.rightBarButtonItem = nil;
+}
+
+-(void)refresh {
+    [self.mainTableView reloadData];
+    if (self.team) {
+        [self addDoneButton];
+    } else {
+        [self removeDoneButton];
+    }
 }
 
 @end

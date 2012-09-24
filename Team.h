@@ -2,12 +2,14 @@
 //  Team.h
 //  Ultimate
 //
-//  Created by james on 12/31/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 @class Player;
+@class LeaguevineTeam;
+
 #define kTeamIdKey          @"teamId"
 #define kCloudIdKey         @"cloudId"
 
@@ -19,6 +21,7 @@
 @property (nonatomic) BOOL isMixed;
 @property (nonatomic) BOOL isDiplayingPlayerNumber;
 @property (nonatomic, strong) NSString* cloudId;
+@property (nonatomic, strong) LeaguevineTeam* leaguevineTeam;
 
 +(Team*)getCurrentTeam;
 +(Team*)readTeam: (NSString*) teamId;

@@ -15,5 +15,6 @@
 
 @property (nonatomic, strong) NSArray* teams;
 @property (nonatomic, strong) LeaguevineTeam* team;
+@property (strong, nonatomic) void (^selectedBlock)(LeaguevineTeam* item);
 
 @end

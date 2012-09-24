@@ -2,8 +2,8 @@
 //  Team.m
 //  Ultimate
 //
-//  Created by james on 12/31/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "Team.h"

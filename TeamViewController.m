@@ -306,6 +306,11 @@
 
 -(void)handleLeaguevineTeamSelection {
     LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
+    leagueController.team = self.team.leaguevineTeam;
+    leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {
+        self.team.leaguevineTeam = leaguevineTeam;
+        [self.navigationController popViewControllerAnimated:YES];
+    };
     [self.navigationController pushViewController:leagueController animated:YES];
 }
 

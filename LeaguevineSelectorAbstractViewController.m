@@ -15,12 +15,19 @@
 
 @interface LeaguevineSelectorAbstractViewController()
 
-@property (nonatomic, strong) UIAlertView* busyView;
+@property (strong, nonatomic) IBOutlet UIView *waitingView;
+@property (strong, nonatomic) IBOutlet UIView *itemListView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 @end
 
 @implementation LeaguevineSelectorAbstractViewController
+
+
+- (id)init {
+    return [self initWithNibName:@"LeaguevineSelectorAbstractViewController" bundle:nil];
+}
 
 #pragma mark - Custom accessors
 
@@ -37,6 +44,9 @@
 }
 
 - (void)viewDidUnload {
+    [self setWaitingView:nil];
+    [self setItemListView:nil];
+    [self setActivityIndicator:nil];
     [super viewDidUnload];
 }
 
@@ -77,28 +87,14 @@
     [self itemSelected: item];
 }
 
-#pragma mark - Busy Dialog
+#pragma mark - Waiting View
 
--(void)startBusyDialog {
-    self.busyView = [[UIAlertView alloc] initWithTitle: @"Talking to Leaguevine..."
-                                          message: nil
-                                         delegate: self
-                                cancelButtonTitle: nil
-                                otherButtonTitles: nil];
-    // Add a spinner
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinner.frame = CGRectMake(50,50, 200, 50);
-    [self.busyView addSubview:spinner];
-    [spinner startAnimating];
-    
-    [self.busyView show];
+-(void)showWaitingView {
+    self.waitingView.hidden = NO;
 }
 
--(void)stopBusyDialog {
-    if (self.busyView) {
-        [self.busyView dismissWithClickedButtonIndex:0 animated:NO];
-        [self.busyView removeFromSuperview];
-    }
+-(void)hideWaitingView {
+    [UIView  transitionFromView:self.waitingView toView:self.itemListView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:nil];
 }
 
 #pragma mark - Error alerting
@@ -179,7 +175,7 @@
 #pragma mark - Refresh
 
 -(void)refresh {
-    [self startBusyDialog];
+    [self showWaitingView];
     [self refreshItems];
 }
 
@@ -191,13 +187,12 @@
     if (status == LeaguevineInvokeOK) {
         self.items = result;
         [self.mainTableView reloadData];
-        [self stopBusyDialog];
+        [self hideWaitingView];
         // TODO position to current league selection
     } else {
         self.items = [NSArray array];
-        [self stopBusyDialog];
+        [self.activityIndicator stopAnimating];
         [self alertFailure:status];
-        // pop back to previous controller or all the way back?
     }
 }
 

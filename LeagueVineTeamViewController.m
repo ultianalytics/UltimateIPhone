@@ -14,6 +14,7 @@
 #import "LeagueVineSelectorSeasonViewController.h"
 #import "LeagueVineSelectorTeamViewController.h"
 #import "LeaguevineSelectorAbstractViewController.h"
+#import "CloudClient.h"
 
 #define kHeaderHeight 50
 
@@ -141,50 +142,56 @@
 #pragma mark Open selector views
 
 -(void)handleLeaguevineLeagueNeedsSelection {
-    LeagueVineSelectorLeagueViewController* selectionController = [[LeagueVineSelectorLeagueViewController alloc] init];
-    selectionController.leaguevineClient = [self getClient];
-    selectionController.selectedBlock = ^(LeaguevineItem* item){
-        [self.navigationController popViewControllerAnimated:YES];
-        BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
-        if (itemChanged) {
-            _team = nil;
-            _season = nil;
-            self.league = (LeaguevineLeague*)item;
-            [self refresh];
-        }
-    };
-    [self pushSelectorController:selectionController];
+    if ([self verifyConnected]) {
+        LeagueVineSelectorLeagueViewController* selectionController = [[LeagueVineSelectorLeagueViewController alloc] init];
+        selectionController.leaguevineClient = [self getClient];
+        selectionController.selectedBlock = ^(LeaguevineItem* item){
+            [self.navigationController popViewControllerAnimated:YES];
+            BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
+            if (itemChanged) {
+                _team = nil;
+                _season = nil;
+                self.league = (LeaguevineLeague*)item;
+                [self refresh];
+            }
+        };
+        [self pushSelectorController:selectionController];
+    }
 }
 
 -(void)handleLeaguevineSeasonNeedsSelection {
-    LeagueVineSelectorSeasonViewController* selectionController = [[LeagueVineSelectorSeasonViewController alloc] init];
-    selectionController.leaguevineClient = [self getClient];
-    selectionController.league = self.league;
-    selectionController.selectedBlock = ^(LeaguevineItem* item){
-        [self.navigationController popViewControllerAnimated:YES];
-        BOOL itemChanged = self.season == nil || self.season.itemId != item.itemId;
-        if (itemChanged) {
-            _team = nil;
-            self.season = (LeaguevineSeason*)item;
-            [self refresh];
-        }
-    };
-    [self pushSelectorController:selectionController];
+    if ([self verifyConnected]) {
+        LeagueVineSelectorSeasonViewController* selectionController = [[LeagueVineSelectorSeasonViewController alloc] init];
+        selectionController.leaguevineClient = [self getClient];
+        selectionController.league = self.league;
+        selectionController.selectedBlock = ^(LeaguevineItem* item){
+            [self.navigationController popViewControllerAnimated:YES];
+            BOOL itemChanged = self.season == nil || self.season.itemId != item.itemId;
+            if (itemChanged) {
+                _team = nil;
+                self.season = (LeaguevineSeason*)item;
+                [self refresh];
+            }
+        };
+        [self pushSelectorController:selectionController];
+    }
 }
 
 -(void)handleLeaguevineTeamNeedsSelection {
-    LeagueVineSelectorTeamViewController* selectionController = [[LeagueVineSelectorTeamViewController alloc] init];
-    selectionController.leaguevineClient = [self getClient];
-    selectionController.season = self.season;
-    selectionController.selectedBlock = ^(LeaguevineItem* item){
-        [self.navigationController popViewControllerAnimated:YES];
-        BOOL itemChanged = self.team == nil || self.team.itemId != item.itemId;
-        if (itemChanged) {
-            _team = (LeaguevineTeam*)item;
-            [self refresh];
-        }
-    };
-    [self pushSelectorController:selectionController];
+    if ([self verifyConnected]) {
+        LeagueVineSelectorTeamViewController* selectionController = [[LeagueVineSelectorTeamViewController alloc] init];
+        selectionController.leaguevineClient = [self getClient];
+        selectionController.season = self.season;
+        selectionController.selectedBlock = ^(LeaguevineItem* item){
+            [self.navigationController popViewControllerAnimated:YES];
+            BOOL itemChanged = self.team == nil || self.team.itemId != item.itemId;
+            if (itemChanged) {
+                _team = (LeaguevineTeam*)item;
+                [self refresh];
+            }
+        };
+        [self pushSelectorController:selectionController];
+    }
 }
 
 
@@ -192,6 +199,22 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     [self.navigationController pushViewController:selectorController animated:YES];
+}
+
+#pragma mark - Error alerting
+
+-(BOOL)verifyConnected {
+    if ([CloudClient isConnected]) {
+        return YES;
+    } else {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Error talking to Leaguevine"
+                                                            message: @"Network error detected...are you connected to the internet?"
+                                                           delegate: nil
+                                                  cancelButtonTitle: @"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+        return NO;
+    }
 }
 
 #pragma mark Miscellaneous

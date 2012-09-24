@@ -10,7 +10,7 @@
 #import "LeaguevineClient.h"
 @class LeaguevineItem;
 
-@interface LeaguevineSelectorAbstractViewController : UIViewController <UISearchBarDelegate>
+@interface LeaguevineSelectorAbstractViewController : UIViewController <UISearchBarDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) LeaguevineClient* leaguevineClient;
 @property (nonatomic, strong) NSArray* items;
@@ -22,8 +22,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
--(void)startBusyDialog;
--(void)stopBusyDialog;
 -(void)alertFailure: (LeaguevineInvokeStatus) type;
 -(void)alertError:(NSString*) title message: (NSString*) message;
 -(void)itemSelected: (LeaguevineItem*) item;

@@ -42,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.searchBar.tintColor = [ColorMaster getSearchBarTintColor];
+    [self showWaitingView];
 }
 
 - (void)viewDidUnload {
@@ -176,7 +177,6 @@
 #pragma mark - Refresh
 
 -(void)refresh {
-    [self showWaitingView];
     [self refreshItems];
 }
 

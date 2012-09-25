@@ -16,15 +16,18 @@
 #import "LeaguevineSelectorAbstractViewController.h"
 #import "CloudClient.h"
 
-#define kHeaderHeight 50
+#define kHeaderHeight 30
 
 @interface LeagueVineTeamViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
+@property (strong, nonatomic) IBOutlet UIButton *clearLeaguevineButton;
 @property (strong, nonatomic) LeaguevineClient* client;
 
 @property (nonatomic, strong) LeaguevineLeague* league;
 @property (nonatomic, strong) LeaguevineSeason* season;
+
+- (IBAction)clearLeaguevinePressed:(id)sender;
 
 @end
 
@@ -62,6 +65,7 @@
 
 - (void)viewDidUnload {
 
+    [self setClearLeaguevineButton:nil];
     [super viewDidUnload];
 }
 
@@ -72,6 +76,12 @@
         self.season.league = self.league;
         self.team.season = self.season;
         self.selectedBlock(self.team);
+    }
+}
+
+- (IBAction)clearLeaguevinePressed:(id)sender {
+    if (self.selectedBlock) {
+        self.selectedBlock(nil);
     }
 }
 
@@ -244,9 +254,12 @@
     [self.mainTableView reloadData];
     if (self.team) {
         [self addDoneButton];
+        self.clearLeaguevineButton.hidden = NO;
     } else {
         [self removeDoneButton];
+        self.clearLeaguevineButton.hidden = YES;
     }
 }
+
 
 @end

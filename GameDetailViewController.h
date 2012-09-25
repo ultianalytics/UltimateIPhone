@@ -28,16 +28,22 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* windCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* statsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineTournamentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineGameCell;
 
 @property (nonatomic, strong) IBOutlet UILabel* startTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel* scoreLabel;
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
+@property (nonatomic, strong) IBOutlet UILabel* leaguevineTournamentLabel;
+@property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
 @property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 @property (nonatomic, strong) IBOutlet UIButton* startButton;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* initialLine;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gamePointsSegmentedControl;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
 
 -(IBAction)opponentNameChanged: (id) sender;
 -(IBAction)tournamendNameChanged: (id) sender;

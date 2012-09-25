@@ -16,6 +16,8 @@
 #import "GameHistoryController.h"
 #import "GameViewController.h"
 #import "Wind.h"
+#import "NSString+manipulations.h"
+#import "Constants.h"
 
 #define kLowestGamePoint 9
 

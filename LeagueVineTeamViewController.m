@@ -15,6 +15,10 @@
 #import "LeagueVineSelectorTeamViewController.h"
 #import "LeaguevineSelectorAbstractViewController.h"
 #import "CloudClient.h"
+#import "Team.h"
+#import "LeaguevineTeam.h"
+#import "LeaguevineSeason.h"
+#import "LeaguevineLeague.h"
 
 #define kHeaderHeight 30
 
@@ -22,10 +26,11 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UIButton *clearLeaguevineButton;
-@property (strong, nonatomic) LeaguevineClient* client;
 
+@property (strong, nonatomic) LeaguevineClient* client;
 @property (nonatomic, strong) LeaguevineLeague* league;
 @property (nonatomic, strong) LeaguevineSeason* season;
+@property (nonatomic, strong) LeaguevineTeam* leaguevineTeam;
 
 - (IBAction)clearLeaguevinePressed:(id)sender;
 
@@ -44,18 +49,19 @@
 
 #pragma mark - Custom accessors
 
--(void)setTeam:(LeaguevineTeam *)team {
+-(void)setTeam:(Team *)team {
     _team = team;
-    self.season = team.season;
-    self.league = team.league;
+    self.leaguevineTeam = team.leaguevineTeam;
+    self.season = self.leaguevineTeam.season;
+    self.league = self.leaguevineTeam.league;
 }
-
 
 #pragma mark Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.clearLeaguevineButton.hidden = !self.team.leaguevineTeam;
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,8 +80,8 @@
 -(void)doneButtonPressed {
     if (self.selectedBlock) {
         self.season.league = self.league;
-        self.team.season = self.season;
-        self.selectedBlock(self.team);
+        self.leaguevineTeam.season = self.season;
+        self.selectedBlock(self.leaguevineTeam);
     }
 }
 
@@ -98,7 +104,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* STD_ROW_TYPE = @"stdRowType";
     
-    LeaguevineItem* item = indexPath.section == 0 ? self.league : (indexPath.section == 1 ? self.season : self.team);
+    LeaguevineItem* item = indexPath.section == 0 ? self.league : (indexPath.section == 1 ? self.season : self.leaguevineTeam);
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
@@ -159,8 +165,8 @@
             [self.navigationController popViewControllerAnimated:YES];
             BOOL itemChanged = self.league == nil || self.league.itemId != item.itemId;
             if (itemChanged) {
-                _team = nil;
-                _season = nil;
+                self.leaguevineTeam = nil;
+                self.season = nil;
                 self.league = (LeaguevineLeague*)item;
                 [self refresh];
             }
@@ -178,7 +184,7 @@
             [self.navigationController popViewControllerAnimated:YES];
             BOOL itemChanged = self.season == nil || self.season.itemId != item.itemId;
             if (itemChanged) {
-                _team = nil;
+                self.leaguevineTeam = nil;
                 self.season = (LeaguevineSeason*)item;
                 [self refresh];
             }
@@ -194,9 +200,9 @@
         selectionController.season = self.season;
         selectionController.selectedBlock = ^(LeaguevineItem* item){
             [self.navigationController popViewControllerAnimated:YES];
-            BOOL itemChanged = self.team == nil || self.team.itemId != item.itemId;
+            BOOL itemChanged = self.leaguevineTeam == nil || self.leaguevineTeam.itemId != item.itemId;
             if (itemChanged) {
-                _team = (LeaguevineTeam*)item;
+                self.leaguevineTeam = (LeaguevineTeam*)item;
                 [self refresh];
             }
         };
@@ -252,12 +258,10 @@
 
 -(void)refresh {
     [self.mainTableView reloadData];
-    if (self.team) {
+    if (self.leaguevineTeam) {
         [self addDoneButton];
-        self.clearLeaguevineButton.hidden = NO;
     } else {
         [self removeDoneButton];
-        self.clearLeaguevineButton.hidden = YES;
     }
 }
 

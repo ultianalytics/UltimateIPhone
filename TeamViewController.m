@@ -19,7 +19,7 @@
 #import "NSString+manipulations.h"
 #import "LeagueVineSignonViewController.h"
 #import "LeagueVineTeamViewController.h"
-
+#import "LeaguevineTeam.h"
 
 @interface TeamViewController()
 
@@ -317,7 +317,7 @@
 -(void)handleLeaguevineTeamNeedsSelection {
     if ([self saveChanges]) {
         LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
-        leagueController.team = self.team.leaguevineTeam;
+        leagueController.team = self.team;
         leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {
             self.team.leaguevineTeam = leaguevineTeam;
             [self saveChanges];

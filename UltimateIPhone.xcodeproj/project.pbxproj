@@ -1180,7 +1180,7 @@
 		1AFFE76E15175D49004B4590 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Summit Hill Software";
 			};
 			buildConfigurationList = 1AFFE77115175D49004B4590 /* Build configuration list for PBXProject "UltimateIPhone" */;

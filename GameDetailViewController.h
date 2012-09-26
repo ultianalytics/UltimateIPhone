@@ -19,8 +19,6 @@
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
 
-@property (nonatomic, strong) IBOutlet UITableViewCell* startTimeCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* scoreCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* initialLineCell;
@@ -31,8 +29,6 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineGameCell;
 
-@property (nonatomic, strong) IBOutlet UILabel* startTimeLabel;
-@property (nonatomic, strong) IBOutlet UILabel* scoreLabel;
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;

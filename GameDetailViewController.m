@@ -20,6 +20,13 @@
 #import "Constants.h"
 
 #define kLowestGamePoint 9
+#define kHeaderHeight 40
+
+@interface GameDetailViewController()
+
+@property (nonatomic, strong) NSDateFormatter* dateFormat;
+
+@end
 
 @implementation GameDetailViewController
 
@@ -67,17 +74,7 @@
 
 -(void)populateUIFromModel {
    [self upateViewTitle];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
-    self.startTimeLabel.text = [dateFormat stringFromDate:self.game.startDateTime];
-    
-    Score score = [self.game getScore];
-    NSString* scoreSuffix = score.ours == score.theirs ? @"tied" : 
-    (score.ours > score.theirs ? @"us" :  @"them");
-    self.scoreLabel.text = [NSString stringWithFormat:@"%d-%d (%@)", score.ours, score.theirs, scoreSuffix];
-    self.scoreLabel.textColor = score.ours == score.theirs ? [UIColor blackColor] : 
-    (score.ours > score.theirs ? [ColorMaster getWinScoreColor] :  [ColorMaster getLoseScoreColor]);
-    
+ 
     self.opposingTeamNameField.text = self.game.opponentName;
     self.tournamentNameField.text = [self.game hasBeenSaved] ? self.game.tournamentName : [Preferences getCurrentPreferences].tournamentName;
     
@@ -190,6 +187,39 @@
     return textField.text == nil ? @"" : [textField.text trim];
 }
 
+-(void)addFooterButton {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
+    UIButton* footerButton = [self.game hasBeenSaved] ? self.deleteButton : self.startButton;
+    footerButton.frame = CGRectMake(95, 0, footerButton.frame.size.width, footerButton.frame.size.height);
+    [headerView addSubview: footerButton];
+    self.tableView.tableFooterView = headerView;
+}
+
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.dateFormat = [[NSDateFormatter alloc] init];
+        [self.dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    }
+    return self;
+}
+
+-(void)upateViewTitle {
+        self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
+}
+
+-(void)initilizeCells {
+    if ([self.game hasBeenSaved]) {
+        cells = [NSArray arrayWithObjects:self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.self.windCell, self.statsCell, self.eventsCell, nil];
+    } else {
+        cells = [NSArray arrayWithObjects:self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.windCell, nil];
+    }
+}
+
+#pragma mark - Table delegate
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -205,9 +235,9 @@
     return cell;
 }
 
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self dismissKeyboard];
-    NSUInteger row = [indexPath row]; 
+    NSUInteger row = [indexPath row];
     UITableViewCell* cell = [cells objectAtIndex:row];
     if (cell == self.windCell) {
         WindViewController* windController = [[WindViewController alloc] init];
@@ -222,39 +252,46 @@
         eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
     }
-} 
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 34;
 }
 
--(void)addFooterButton {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
-    UIButton* footerButton = [self.game hasBeenSaved] ? self.deleteButton : self.startButton;
-    footerButton.frame = CGRectMake(95, 0, footerButton.frame.size.width, footerButton.frame.size.height);
-    [headerView addSubview: footerButton];
-    self.tableView.tableFooterView = headerView;
-}
-
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-
-    }
-    return self;
-}
-
--(void)upateViewTitle {
-        self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
-}
-
--(void)initilizeCells {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([self.game hasBeenSaved]) {
-        cells = [NSArray arrayWithObjects:self.startTimeCell, self.scoreCell, self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.self.windCell, self.statsCell, self.eventsCell, nil];
+        UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, kHeaderHeight)];
+        headerView.backgroundColor = [UIColor clearColor];
+        
+        // start time
+        UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 190, kHeaderHeight)];
+        dateLabel.backgroundColor = [UIColor clearColor];
+        dateLabel.font = [UIFont boldSystemFontOfSize:16];
+        dateLabel.textColor = [UIColor whiteColor];
+        dateLabel.shadowColor = [UIColor blackColor];
+        dateLabel.shadowOffset = CGSizeMake(0, 1);
+        dateLabel.text = [self.dateFormat stringFromDate:self.game.startDateTime];
+        [headerView addSubview:dateLabel];
+        
+        // score
+        UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 110, kHeaderHeight)];
+        scoreLabel.textAlignment = NSTextAlignmentRight;
+        scoreLabel.backgroundColor = [UIColor clearColor];
+        scoreLabel.font = [UIFont boldSystemFontOfSize:16];
+        Score score = [self.game getScore];
+        NSString* scoreSuffix = score.ours == score.theirs ? @"tied" : (score.ours > score.theirs ? @"us" :  @"them");
+        scoreLabel.text = [NSString stringWithFormat:@"%d-%d (%@)", score.ours, score.theirs, scoreSuffix];
+        scoreLabel.textColor = score.ours == score.theirs ? [UIColor blackColor] : (score.ours > score.theirs ? [UIColor blackColor] : [ColorMaster getLoseScoreColor]);
+        [headerView addSubview:scoreLabel];
+        
+        return headerView;
     } else {
-        cells = [NSArray arrayWithObjects:self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.windCell, nil];
+        return nil;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return [self.game hasBeenSaved] ? kHeaderHeight : 0;
 }
 
 #pragma mark - View lifecycle

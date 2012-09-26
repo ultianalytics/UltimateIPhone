@@ -1,13 +1,13 @@
 //
-//  LeaugvineGame.h
+//  LeaguevineGame.h
 //  UltimateIPhone
 //
-//  Created by james on 9/25/12.
+//  Created by james on 9/26/12.
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "LeaguevineItem.h"
 
-@interface LeaugvineGame : LeaguevineItem
+@interface LeaguevineGame : LeaguevineItem
 
 @end

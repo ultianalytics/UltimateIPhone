@@ -11,6 +11,7 @@
 @class Event;
 @class UPoint;
 @class Wind;
+@class LeaguevineGame;
 
 #define kDefaultGamePoint 15
 #define kTimeBasedGame    1000
@@ -29,6 +30,7 @@
 @property (nonatomic) BOOL isFirstPointOline;
 @property (nonatomic, strong) Wind* wind;
 @property (nonatomic) int gamePoint;
+@property (nonatomic, strong) LeaguevineGame* leaguevineGame;
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
 
 +(Game*)getCurrentGame;
@@ -79,5 +81,6 @@
 -(BOOL)isTimeBasedEnd;
 -(void)clearPointSummaries;
 -(BOOL)doesGameAppearDone;
+-(BOOL)isLeaguevineGame;
 
 @end

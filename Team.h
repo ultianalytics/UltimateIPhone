@@ -44,6 +44,7 @@
 -(NSMutableArray*)getInitialOLine;
 -(NSMutableArray*)getInitialDLine;
 -(void)sortPlayers;
+-(BOOL)isLeaguevineTeam;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 
 // private

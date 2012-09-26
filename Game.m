@@ -673,4 +673,8 @@ static Game* currentGame = nil;
     }
 }
 
+-(BOOL)isLeaguevineGame {
+    return self.leaguevineGame != nil;
+}
+
 @end

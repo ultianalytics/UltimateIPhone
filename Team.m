@@ -274,6 +274,10 @@ static Team* currentTeam = nil;
 	}
 }
 
+-(BOOL) isLeaguevineTeam {
+    return self.leaguevineTeam != nil;
+}
+
 -(NSArray*) getAllPlayers {
     return self.players;
 }

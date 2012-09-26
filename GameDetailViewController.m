@@ -18,6 +18,7 @@
 #import "Wind.h"
 #import "NSString+manipulations.h"
 #import "Constants.h"
+#import "Team.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
@@ -25,6 +26,7 @@
 @interface GameDetailViewController()
 
 @property (nonatomic, strong) NSDateFormatter* dateFormat;
+@property (nonatomic, strong) NSMutableArray* cells;
 
 @end
 
@@ -210,15 +212,23 @@
 }
 
 -(void)initilizeCells {
-    if ([self.game hasBeenSaved]) {
-        cells = [NSArray arrayWithObjects:self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.self.windCell, self.statsCell, self.eventsCell, nil];
+    self.cells = [NSMutableArray array];
+    
+    if ([[Team getCurrentTeam] isLeaguevineTeam]) {
+        [self.cells addObject:self.gameTypeCell];
+    }
+    if ([self.game isLeaguevineGame]) {
+        [self.cells addObject:self.leaguevineGameCell];
     } else {
-        cells = [NSArray arrayWithObjects:self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.windCell, nil];
+        [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentCell]];
+    }
+    [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.windCell]];
+    if ([self.game hasBeenSaved]) {
+        [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell]];
     }
 }
 
 #pragma mark - Table delegate
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -226,11 +236,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     [self initilizeCells];
-    return [cells count];
+    return [self.cells count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
+    UITableViewCell* cell = [self.cells objectAtIndex:[indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }
@@ -238,7 +248,7 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self dismissKeyboard];
     NSUInteger row = [indexPath row];
-    UITableViewCell* cell = [cells objectAtIndex:row];
+    UITableViewCell* cell = [self.cells objectAtIndex:row];
     if (cell == self.windCell) {
         WindViewController* windController = [[WindViewController alloc] init];
         windController.game = self.game;
@@ -301,6 +311,7 @@
     [super viewDidLoad];
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     
+    self.gameTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.gamePointsSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.initialLine.tintColor = [ColorMaster getNavBarTintColor];    
     

@@ -10,9 +10,7 @@
 #import "Game.h"
 
 @interface GameDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate> {
-    
-    @private
-    NSArray* cells;
+
 }
 
 @property (nonatomic, strong) Game* game;

@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/18/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "GameDetailViewController.h"
@@ -22,7 +22,7 @@
 #define kLowestGamePoint 9
 
 @implementation GameDetailViewController
-@synthesize opposingTeamNameField,tournamentNameField,game,startTimeLabel,scoreLabel,startTimeCell,scoreCell,opponentCell,tournamentCell,windCell,statsCell,eventsCell,windLabel,tableView,initialLineCell,gamePointsCell,initialLine,gamePointsSegmentedControl,deleteButton, startButton;
+
 
 -(void)goToActionView {
     GameViewController* gameController = [[GameViewController alloc] init];
@@ -43,10 +43,10 @@
 -(IBAction)startClicked: (id) sender {
     [self dismissKeyboard];
     if ([self verifyOpponentName]) {
-        game.startDateTime = [NSDate date];
-        game.tournamentName = [tournamentNameField.text trim];
-        [game save];
-        [Game setCurrentGame:game.gameId];
+        self.game.startDateTime = [NSDate date];
+        self.game.tournamentName = [self.tournamentNameField.text trim];
+        [self.game save];
+        [Game setCurrentGame:self.game.gameId];
         self.game = [Game getCurrentGame];  
         [self upateViewTitle];
         [self goToActionView];
@@ -61,17 +61,17 @@
 }
 
 -(void)dismissKeyboard {
-    [opposingTeamNameField resignFirstResponder];
-    [tournamentNameField resignFirstResponder];
+    [self.opposingTeamNameField resignFirstResponder];
+    [self.tournamentNameField resignFirstResponder];
 }
 
 -(void)populateUIFromModel {
    [self upateViewTitle];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
-    self.startTimeLabel.text = [dateFormat stringFromDate:game.startDateTime];
+    self.startTimeLabel.text = [dateFormat stringFromDate:self.game.startDateTime];
     
-    Score score = [game getScore];
+    Score score = [self.game getScore];
     NSString* scoreSuffix = score.ours == score.theirs ? @"tied" : 
     (score.ours > score.theirs ? @"us" :  @"them");
     self.scoreLabel.text = [NSString stringWithFormat:@"%d-%d (%@)", score.ours, score.theirs, scoreSuffix];
@@ -81,17 +81,17 @@
     self.opposingTeamNameField.text = self.game.opponentName;
     self.tournamentNameField.text = [self.game hasBeenSaved] ? self.game.tournamentName : [Preferences getCurrentPreferences].tournamentName;
     
-    self.initialLine.selectedSegmentIndex = game.isFirstPointOline ? 0 : 1;
+    self.initialLine.selectedSegmentIndex = self.game.isFirstPointOline ? 0 : 1;
     
-    if (game.gamePoint == 0) {
-        game.gamePoint = [Preferences getCurrentPreferences].gamePoint;
-        if (game.gamePoint == 0) {
-            game.gamePoint = kDefaultGamePoint;
+    if (self.game.gamePoint == 0) {
+        self.game.gamePoint = [Preferences getCurrentPreferences].gamePoint;
+        if (self.game.gamePoint == 0) {
+            self.game.gamePoint = kDefaultGamePoint;
         }
     } 
     
     // kTimeBasedGame is last segment in UI 
-    int segmentIndex = game.gamePoint == kTimeBasedGame ? self.gamePointsSegmentedControl.numberOfSegments - 1 : (game.gamePoint - kLowestGamePoint) / 2;      
+    int segmentIndex = self.game.gamePoint == kTimeBasedGame ? self.gamePointsSegmentedControl.numberOfSegments - 1 : (self.game.gamePoint - kLowestGamePoint) / 2;      
     if (segmentIndex < 0) {
         segmentIndex = 0;
     }
@@ -99,7 +99,7 @@
     
     self.deleteButton.hidden = ![self.game hasBeenSaved];
     self.startButton.hidden = [self.game hasBeenSaved];
-    if ([game hasBeenSaved]) {
+    if ([self.game hasBeenSaved]) {
         UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(goToActionView)];
         self.navigationItem.rightBarButtonItem = navBarActionButton;    
     }
@@ -135,7 +135,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    BOOL isTooLong = newLength > (textField == tournamentNameField ? kMaxTournamentNameLength : kMaxOpponentNameLength );
+    BOOL isTooLong = newLength > (textField == self.tournamentNameField ? kMaxTournamentNameLength : kMaxOpponentNameLength );
     if (isTooLong) {
         [SoundPlayer playKeyIgnored];
     }
@@ -159,20 +159,20 @@
 }
 
 -(IBAction)opponentNameChanged: (id) sender {
-    game.opponentName = [opposingTeamNameField.text trim];
+    self.game.opponentName = [self.opposingTeamNameField.text trim];
     [self saveChanges];
 }
 
 -(IBAction)tournamendNameChanged: (id) sender {
-    game.tournamentName = [tournamentNameField.text trim];
-    [Preferences getCurrentPreferences].tournamentName = game.tournamentName;
+    self.game.tournamentName = [self.tournamentNameField.text trim];
+    [Preferences getCurrentPreferences].tournamentName = self.game.tournamentName;
     [[Preferences getCurrentPreferences] save];
     [self saveChanges];
 }
 
 -(IBAction)firstLineChanged: (id) sender {
     [self dismissKeyboard];
-    game.isFirstPointOline = self.initialLine.selectedSegmentIndex == 0;   
+    self.game.isFirstPointOline = self.initialLine.selectedSegmentIndex == 0;   
     [self saveChanges];
 }
 
@@ -182,7 +182,7 @@
     int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex == (self.gamePointsSegmentedControl.numberOfSegments - 1)) ? kTimeBasedGame : (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint; 
     [Preferences getCurrentPreferences].gamePoint = gamePoint;
     [[Preferences getCurrentPreferences] save];
-    game.gamePoint = gamePoint;
+    self.game.gamePoint = gamePoint;
     [self saveChanges];
 }
 
@@ -195,11 +195,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([game hasBeenSaved]) {
-        cells = [NSArray arrayWithObjects:startTimeCell, scoreCell, opponentCell, tournamentCell, initialLineCell, gamePointsCell,  windCell, statsCell, eventsCell, nil];
-    } else {
-         cells = [NSArray arrayWithObjects:opponentCell, tournamentCell, initialLineCell, gamePointsCell,  windCell, nil];
-    }
+    [self initilizeCells];
     return [cells count];
 }
 
@@ -213,17 +209,17 @@
     [self dismissKeyboard];
     NSUInteger row = [indexPath row]; 
     UITableViewCell* cell = [cells objectAtIndex:row];
-    if (cell == windCell) {
+    if (cell == self.windCell) {
         WindViewController* windController = [[WindViewController alloc] init];
-        windController.game = game;
+        windController.game = self.game;
         [self.navigationController pushViewController:windController animated:YES];
-    } else if (cell == statsCell) {
+    } else if (cell == self.statsCell) {
         StatsViewController* statsController = [[StatsViewController alloc] init];
-        statsController.game = game;
+        statsController.game = self.game;
         [self.navigationController pushViewController:statsController animated:YES];
-    } else if (cell == eventsCell) {
+    } else if (cell == self.eventsCell) {
         GameHistoryController* eventsController = [[GameHistoryController alloc] init];
-        eventsController.game = game;
+        eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
     }
 } 
@@ -234,10 +230,10 @@
 
 -(void)addFooterButton {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
-    UIButton* footerButton = [game hasBeenSaved] ? deleteButton : startButton;
+    UIButton* footerButton = [self.game hasBeenSaved] ? self.deleteButton : self.startButton;
     footerButton.frame = CGRectMake(95, 0, footerButton.frame.size.width, footerButton.frame.size.height);
     [headerView addSubview: footerButton];
-    tableView.tableFooterView = headerView;
+    self.tableView.tableFooterView = headerView;
 }
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
@@ -250,15 +246,15 @@
 }
 
 -(void)upateViewTitle {
-        self.title = [game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
+        self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+-(void)initilizeCells {
+    if ([self.game hasBeenSaved]) {
+        cells = [NSArray arrayWithObjects:self.startTimeCell, self.scoreCell, self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.self.windCell, self.statsCell, self.eventsCell, nil];
+    } else {
+        cells = [NSArray arrayWithObjects:self.opponentCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.windCell, nil];
+    }
 }
 
 #pragma mark - View lifecycle
@@ -282,7 +278,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];  
     [self dismissKeyboard];
-    self.windLabel.text = [game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", game.wind.mph] : @"NOT SPECIFIED YET"; 
+    self.windLabel.text = [self.game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", self.game.wind.mph] : @"NOT SPECIFIED YET"; 
     [self populateUIFromModel]; 
 }
 
@@ -297,6 +293,14 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
 }
 
 @end

@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/18/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -29,13 +29,11 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* statsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineTournamentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineGameCell;
 
 @property (nonatomic, strong) IBOutlet UILabel* startTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel* scoreLabel;
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
-@property (nonatomic, strong) IBOutlet UILabel* leaguevineTournamentLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
 @property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;

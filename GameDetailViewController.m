@@ -28,6 +28,27 @@
 @property (nonatomic, strong) NSDateFormatter* dateFormat;
 @property (nonatomic, strong) NSMutableArray* cells;
 
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* initialLineCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* gamePointsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* windCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* statsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineGameCell;
+
+@property (nonatomic, strong) IBOutlet UILabel* windLabel;
+@property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
+@property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
+@property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;
+@property (nonatomic, strong) IBOutlet UIButton* deleteButton;
+@property (nonatomic, strong) IBOutlet UIButton* startButton;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* initialLine;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* gamePointsSegmentedControl;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
+
 @end
 
 @implementation GameDetailViewController
@@ -37,31 +58,6 @@
     GameViewController* gameController = [[GameViewController alloc] init];
     [self.navigationController pushViewController:gameController animated:YES]; 
 }
-
--(IBAction) deleteClicked: (id) sender {
-    // Show the confirmation.
-    UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle: NSLocalizedString(@"Delete Game",nil)
-                          message: NSLocalizedString(@"Are you sure you want to delete this game?",nil)
-                          delegate: self
-                          cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
-                          otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
-    [alert show];
-}
-
--(IBAction)startClicked: (id) sender {
-    [self dismissKeyboard];
-    if ([self verifyOpponentName]) {
-        self.game.startDateTime = [NSDate date];
-        self.game.tournamentName = [self.tournamentNameField.text trim];
-        [self.game save];
-        [Game setCurrentGame:self.game.gameId];
-        self.game = [Game getCurrentGame];  
-        [self upateViewTitle];
-        [self goToActionView];
-    }
-}
-
 
 -(void)saveChanges {
     if ([self.game hasBeenSaved]) {
@@ -104,41 +100,8 @@
     }
     [self.tableView reloadData];
     [self addFooterButton];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    switch (buttonIndex) {
-        case 0: 
-        {       
-            //NSLog(@"Delete was cancelled by the user");
-        }
-            break;
-            
-        case 1: 
-        {
-            [self.game delete];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-            break;
-    }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    BOOL ok = [self verifyOpponentName];
-    if (ok) {
-        [textField resignFirstResponder];
-    }
-    return ok;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    BOOL isTooLong = newLength > (textField == self.tournamentNameField ? kMaxTournamentNameLength : kMaxOpponentNameLength );
-    if (isTooLong) {
-        [SoundPlayer playKeyIgnored];
-    }
-    return !isTooLong;
+    self.gameTypeSegmentedControl.selectedSegmentIndex = [self.game isLeaguevineGame] ? 1 : 0;
 }
 
 -(BOOL)verifyOpponentName {
@@ -157,33 +120,6 @@
     } 
 }
 
--(IBAction)opponentNameChanged: (id) sender {
-    self.game.opponentName = [self.opposingTeamNameField.text trim];
-    [self saveChanges];
-}
-
--(IBAction)tournamendNameChanged: (id) sender {
-    self.game.tournamentName = [self.tournamentNameField.text trim];
-    [Preferences getCurrentPreferences].tournamentName = self.game.tournamentName;
-    [[Preferences getCurrentPreferences] save];
-    [self saveChanges];
-}
-
--(IBAction)firstLineChanged: (id) sender {
-    [self dismissKeyboard];
-    self.game.isFirstPointOline = self.initialLine.selectedSegmentIndex == 0;   
-    [self saveChanges];
-}
-
--(IBAction)gamePointChanged: (id) sender {
-    [self dismissKeyboard];
-    // "time" is last segment in UI but is 0 in game
-    int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex == (self.gamePointsSegmentedControl.numberOfSegments - 1)) ? kTimeBasedGame : (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint; 
-    [Preferences getCurrentPreferences].gamePoint = gamePoint;
-    [[Preferences getCurrentPreferences] save];
-    self.game.gamePoint = gamePoint;
-    [self saveChanges];
-}
 
 -(NSString*) getText: (UITextField*) textField {
     return textField.text == nil ? @"" : [textField.text trim];
@@ -211,13 +147,13 @@
         self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
 }
 
--(void)initilizeCells {
+-(void)configureCells {
     self.cells = [NSMutableArray array];
     
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         [self.cells addObject:self.gameTypeCell];
     }
-    if ([self.game isLeaguevineGame]) {
+    if ([self.game isLeaguevineGame] || self.gameTypeSegmentedControl.selectedSegmentIndex == 1) {
         [self.cells addObject:self.leaguevineGameCell];
     } else {
         [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentCell]];
@@ -228,6 +164,101 @@
     }
 }
 
+#pragma mark - Event Handlers
+
+-(IBAction)opponentNameChanged: (id) sender {
+    self.game.opponentName = [self.opposingTeamNameField.text trim];
+    [self saveChanges];
+}
+
+-(IBAction)tournamendNameChanged: (id) sender {
+    self.game.tournamentName = [self.tournamentNameField.text trim];
+    [Preferences getCurrentPreferences].tournamentName = self.game.tournamentName;
+    [[Preferences getCurrentPreferences] save];
+    [self saveChanges];
+}
+
+-(IBAction)firstLineChanged: (id) sender {
+    [self dismissKeyboard];
+    self.game.isFirstPointOline = self.initialLine.selectedSegmentIndex == 0;
+    [self saveChanges];
+}
+
+-(IBAction)gamePointChanged: (id) sender {
+    [self dismissKeyboard];
+    // "time" is last segment in UI but is 0 in game
+    int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex == (self.gamePointsSegmentedControl.numberOfSegments - 1)) ? kTimeBasedGame : (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint;
+    [Preferences getCurrentPreferences].gamePoint = gamePoint;
+    [[Preferences getCurrentPreferences] save];
+    self.game.gamePoint = gamePoint;
+    [self saveChanges];
+}
+
+- (IBAction)gameTypeChanged:(id)sender {
+    [self configureCells];
+    [self.tableView reloadData];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+        {
+            //NSLog(@"Delete was cancelled by the user");
+        }
+            break;
+            
+        case 1:
+        {
+            [self.game delete];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    BOOL ok = [self verifyOpponentName];
+    if (ok) {
+        [textField resignFirstResponder];
+    }
+    return ok;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    BOOL isTooLong = newLength > (textField == self.tournamentNameField ? kMaxTournamentNameLength : kMaxOpponentNameLength );
+    if (isTooLong) {
+        [SoundPlayer playKeyIgnored];
+    }
+    return !isTooLong;
+}
+
+
+-(IBAction) deleteClicked: (id) sender {
+    // Show the confirmation.
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: NSLocalizedString(@"Delete Game",nil)
+                          message: NSLocalizedString(@"Are you sure you want to delete this game?",nil)
+                          delegate: self
+                          cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
+                          otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
+    [alert show];
+}
+
+-(IBAction)startClicked: (id) sender {
+    [self dismissKeyboard];
+    if ([self verifyOpponentName]) {
+        self.game.startDateTime = [NSDate date];
+        self.game.tournamentName = [self.tournamentNameField.text trim];
+        [self.game save];
+        [Game setCurrentGame:self.game.gameId];
+        self.game = [Game getCurrentGame];
+        [self upateViewTitle];
+        [self goToActionView];
+    }
+}
+
 #pragma mark - Table delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -235,7 +266,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [self initilizeCells];
+    [self configureCells];
     return [self.cells count];
 }
 
@@ -312,6 +343,7 @@
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     
     self.gameTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    self.gameTypeSegmentedControl.selectedSegmentIndex = 0;
     self.gamePointsSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.initialLine.tintColor = [ColorMaster getNavBarTintColor];    
     
@@ -319,8 +351,7 @@
     [self.tournamentNameField addTarget:self action:@selector(tournamendNameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.opposingTeamNameField.delegate = self; 
     self.tournamentNameField.delegate = self; 
-    
-    // Do any additional setup after loading the view from its nib.
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

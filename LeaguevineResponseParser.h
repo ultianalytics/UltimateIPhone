@@ -13,6 +13,8 @@ typedef enum {
     LeaguevineResultTypeLeagues,
     LeaguevineResultTypeSeasons,
     LeaguevineResultTypeTeams,
+    LeaguevineResultTypeTournaments,
+    LeaguevineResultTypeGames,
 } LeaguevineResultType;
 
 

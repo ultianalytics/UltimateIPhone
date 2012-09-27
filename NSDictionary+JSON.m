@@ -35,8 +35,12 @@
     return obj == nil ? nil : [obj isKindOfClass:[NSNumber class]] ? [NSString stringWithFormat:@"%d", ((NSNumber*)obj).intValue] : obj;
 }
 
-
-
-
+- (NSDate *)dateForJsonProperty:(NSString *)propertyName usingFormatter: (NSDateFormatter*) dateFormatter defaultDate: (NSDate*) defaultDate {
+    NSString* dateAsString = [self stringForJsonProperty:propertyName];
+    if (!dateAsString) {
+        return defaultDate;
+    }
+    return [dateFormatter dateFromString:dateAsString];
+}
 
 @end

@@ -58,6 +58,21 @@
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeTeams url:url results:nil];
 }
 
+-(void)retrieveTouramentsForSeason: (int) seasonId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"tournaments/?season_id=%d&order_by=%@", seasonId, [@"[start_date,name]" urlEncoded]]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeTournaments url:url results:nil];
+}
+
+-(void)retrieveGamesForSeason: (int) seasonId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?season_id=%d&order_by=%@", seasonId, [@"[name]" urlEncoded]]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
+}
+
+-(void)retrieveGamesForTournament: (int) tournamentId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?tournament_id=%d&order_by=%@", tournamentId, [@"[name]" urlEncoded]]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
+}
+
 #pragma mark Retrieve methods
 
 -(void)retrieveObjects: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock type: (LeaguevineResultType) type url: url results: (NSMutableArray*) previousResults {

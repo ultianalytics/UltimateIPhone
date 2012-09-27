@@ -12,5 +12,6 @@
 -(BOOL)boolForJsonProperty:(NSString *)propertyName defaultValue: (BOOL) defaultBool;
 -(int)intForJsonProperty:(NSString *)propertyName defaultValue: (int) defaultInt;
 -(NSString*)stringForJsonProperty:(NSString *)propertyName;
+-(NSDate *)dateForJsonProperty:(NSString *)propertyName usingFormatter: (NSDateFormatter*) dateFormatter defaultDate: (NSDate*) defaultDate;
 
 @end

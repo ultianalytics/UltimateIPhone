@@ -10,4 +10,9 @@
 
 @interface LeaguevineTournament : LeaguevineItem
 
+@property (nonatomic, strong) NSDate* startDate;
+@property (nonatomic, strong) NSDate* endDate;
+
++(LeaguevineTournament*)fromJson:(NSDictionary*) dict;
+
 @end

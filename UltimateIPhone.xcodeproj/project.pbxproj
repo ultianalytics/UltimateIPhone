@@ -101,6 +101,8 @@
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
 		1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DDC1614643600605947 /* LeagueVineSelectorGameViewController.m */; };
 		1AD50DE11614643600605947 /* LeagueVineSelectorTournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DDD1614643600605947 /* LeagueVineSelectorTournamentViewController.m */; };
+		1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DF81615C9A600605947 /* LeagueVineGameViewController.m */; };
+		1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AD50DF91615C9A600605947 /* LeagueVineGameViewController.xib */; };
 		1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */; };
 		1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
@@ -338,6 +340,9 @@
 		1AD50DDD1614643600605947 /* LeagueVineSelectorTournamentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSelectorTournamentViewController.m; sourceTree = "<group>"; };
 		1AD50DDE1614643600605947 /* LeagueVineSelectorGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineSelectorGameViewController.h; sourceTree = "<group>"; };
 		1AD50DDF1614643600605947 /* LeagueVineSelectorTournamentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineSelectorTournamentViewController.h; sourceTree = "<group>"; };
+		1AD50DF71615C9A600605947 /* LeagueVineGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineGameViewController.h; sourceTree = "<group>"; };
+		1AD50DF81615C9A600605947 /* LeagueVineGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineGameViewController.m; sourceTree = "<group>"; };
+		1AD50DF91615C9A600605947 /* LeagueVineGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueVineGameViewController.xib; sourceTree = "<group>"; };
 		1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow.png"; sourceTree = "<group>"; };
 		1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow@2x.png"; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -699,6 +704,9 @@
 				1A999F0916063CDC0015B891 /* LeagueVineTeamViewController.h */,
 				1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */,
 				1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */,
+				1AD50DF71615C9A600605947 /* LeagueVineGameViewController.h */,
+				1AD50DF81615C9A600605947 /* LeagueVineGameViewController.m */,
+				1AD50DF91615C9A600605947 /* LeagueVineGameViewController.xib */,
 			);
 			name = LeagueVine;
 			sourceTree = "<group>";
@@ -1332,6 +1340,7 @@
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
+				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1479,6 +1488,7 @@
 				1A7A893A1613233300CAB5EF /* LeaguevineGame.m in Sources */,
 				1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */,
 				1AD50DE11614643600605947 /* LeagueVineSelectorTournamentViewController.m in Sources */,
+				1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

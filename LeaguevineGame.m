@@ -10,6 +10,11 @@
 #import "NSDictionary+JSON.h"
 
 #define kLeaguevineGameStartTime @"start_date"
+#define kLeaguevineGameTeam1Id @"team_1_id"
+#define kLeaguevineGameTeam2Id @"team_2_id"
+#define kLeaguevineGameTeam1 @"team_1"
+#define kLeaguevineGameTeam2 @"team_2"
+#define kLeaguevineGameTeamName @"name"
 
 @implementation LeaguevineGame
 
@@ -29,8 +34,17 @@
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-ddEHH:mm:ssZ"];
         self.startTime = [dict dateForJsonProperty:kLeaguevineGameStartTime usingFormatter: dateFormatter defaultDate: nil];
+        self.team1Id = [dict intForJsonProperty:kLeaguevineGameTeam1Id defaultValue:-1];
+        self.team2Id = [dict intForJsonProperty:kLeaguevineGameTeam2Id defaultValue:-1];
+        NSDictionary* team1 = [dict objectForJsonProperty:kLeaguevineGameTeam1];
+        if (team1) {
+            self.team1Name = [dict stringForJsonProperty:kLeaguevineGameTeamName];
+        }
+        NSDictionary* team2 = [dict objectForJsonProperty:kLeaguevineGameTeam2];
+        if (team2) {
+            self.team2Name = [dict stringForJsonProperty:kLeaguevineGameTeamName];
+        }
     }
 }
 
 @end
-

@@ -10,10 +10,12 @@
 #import "LeaguevineSelectorAbstractViewController.h"
 @class LeaguevineSeason;
 @class LeaguevineTournament;
+@class LeaguevineTeam;
 
 @interface LeagueVineSelectorGameViewController : LeaguevineSelectorAbstractViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) LeaguevineSeason* season; // required
+@property (nonatomic, strong) LeaguevineTeam* myTeam; // required
 @property (nonatomic, strong) LeaguevineTournament* tournament; // optional
-
 @end
+

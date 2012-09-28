@@ -10,6 +10,7 @@
 #import "ColorMaster.h"
 #import "LeaguevineSeason.h"
 #import "LeaguevineTournament.h"
+#import "LeaguevineTeam.h"
 #import "LeaguevineClient.h"
 
 @interface LeagueVineSelectorGameViewController ()
@@ -30,11 +31,11 @@
 
 -(void)refreshItems {
     if (self.tournament) {
-        [self.leaguevineClient retrieveGamesForTournament:self.tournament.itemId completion:^(LeaguevineInvokeStatus status, id result) {
+        [self.leaguevineClient retrieveGamesForTeam:self.myTeam.itemId andTournament:self.tournament.itemId completion:^(LeaguevineInvokeStatus status, id result) {
             [self refreshItems:status result:result];
         }];
     } else {
-        [self.leaguevineClient retrieveGamesForSeason:self.season.itemId completion:^(LeaguevineInvokeStatus status, id result) {
+        [self.leaguevineClient retrieveGamesForTeam:self.myTeam.itemId completion:^(LeaguevineInvokeStatus status, id result) {
             [self refreshItems:status result:result];
         }];
     }

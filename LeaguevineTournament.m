@@ -34,4 +34,18 @@
     }
 }
 
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super initWithCoder:decoder]) {
+        self.startDate = [decoder decodeObjectForKey:kLeaguevineTournamentStartDate];
+        self.endDate = [decoder decodeObjectForKey:kLeaguevineTournamentEndDate];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:self.startDate forKey:kLeaguevineTournamentStartDate];
+    [encoder encodeObject:self.endDate forKey:kLeaguevineTournamentEndDate];
+}
+
 @end

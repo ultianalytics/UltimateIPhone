@@ -17,6 +17,9 @@
 #define kLeaguevineGameTeam1 @"team_1"
 #define kLeaguevineGameTeam2 @"team_2"
 #define kLeaguevineGameTeamName @"name"
+#define kLeaguevineGameTeam1Name @"team1Name"
+#define kLeaguevineGameTeam2Name @"team2Name"
+#define kLeaguevineGameTournament @"tournament"
 
 @implementation LeaguevineGame
 
@@ -52,6 +55,32 @@
 -(NSString*)listDescription {
     NSString* teamName = self.itemId == [Team getCurrentTeam].leaguevineTeam.itemId ? self.team2Name : self.team1Name;
     return [NSString stringWithFormat: @"v. %@", teamName];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super initWithCoder:decoder]) {
+        self.tournament = [decoder decodeObjectForKey:kLeaguevineGameTournament];
+        self.startTime = [decoder decodeObjectForKey:kLeaguevineGameStartTime];
+        self.team1Id = [decoder decodeIntForKey:kLeaguevineGameTeam1Id];
+        self.team2Id = [decoder decodeIntForKey:kLeaguevineGameTeam2Id];
+        self.team1Name = [decoder decodeObjectForKey:kLeaguevineGameTeam1Name];
+        self.team2Name = [decoder decodeObjectForKey:kLeaguevineGameTeam2Name];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:self.tournament forKey:kLeaguevineGameTournament];
+        [encoder encodeObject:self.startTime forKey:kLeaguevineGameStartTime];
+        [encoder encodeInt:self.team1Id forKey:kLeaguevineGameTeam1Id];
+        [encoder encodeInt:self.team2Id forKey:kLeaguevineGameTeam2Id];
+        [encoder encodeObject:self.team1Name forKey:kLeaguevineGameTeam1Name];
+        [encoder encodeObject:self.team2Name forKey:kLeaguevineGameTeam2Name];
+}
+
+-(NSString*)description {
+    return [NSString stringWithFormat:@"LeaguevineTeam: %d %@", self.itemId, self.name];
 }
 
 @end

@@ -143,7 +143,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath == 0) {
+    if (indexPath.section == 0) {
         [self handleLeaguevineTournamentNeedsSelection];
     } else {
         [self handleLeaguevineGameNeedsSelection];
@@ -156,6 +156,7 @@
     if ([self verifyConnected]) {
         LeagueVineSelectorTournamentViewController* selectionController = [[LeagueVineSelectorTournamentViewController alloc] init];
         selectionController.leaguevineClient = [self getClient];
+        selectionController.season = self.team.leaguevineTeam.season;
         selectionController.selectedBlock = ^(LeaguevineItem* item){
             [self.navigationController popViewControllerAnimated:YES];
             BOOL itemChanged = self.leaguevineTournament == nil || self.leaguevineTournament.itemId != item.itemId;

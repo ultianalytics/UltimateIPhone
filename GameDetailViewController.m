@@ -19,6 +19,7 @@
 #import "NSString+manipulations.h"
 #import "Constants.h"
 #import "Team.h"
+#import "LeagueVineGameViewController.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
@@ -292,6 +293,18 @@
         GameHistoryController* eventsController = [[GameHistoryController alloc] init];
         eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
+    } else if (cell == self.leaguevineGameCell) {
+        LeagueVineGameViewController* leaguevineController = [[LeagueVineGameViewController alloc] init];
+        leaguevineController.team = [Team getCurrentTeam];
+        leaguevineController.game = self.game;
+        leaguevineController.selectedBlock = ^(LeaguevineGame* leaguevineGame) {
+            self.game.leaguevineGame = leaguevineGame;
+            [self saveChanges];
+            [self.navigationController popViewControllerAnimated:YES];
+        };
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+        [self.navigationController pushViewController:leaguevineController animated:YES];
     }
 }
 

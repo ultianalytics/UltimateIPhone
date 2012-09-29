@@ -34,6 +34,10 @@
     [encoder encodeObject:self.name forKey:kLeaguevineResponseItemName];
 }
 
+-(NSString*)listDescription {
+    return self.name;
+}
+
 @end
 
 

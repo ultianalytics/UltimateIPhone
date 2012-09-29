@@ -11,7 +11,10 @@
 #import "LeaguevineSeason.h"
 #import "LeaguevineTournament.h"
 #import "LeaguevineTeam.h"
+#import "LeaguevineGame.h"
 #import "LeaguevineClient.h"
+#import "Team.h"
+
 
 @interface LeagueVineSelectorGameViewController ()
 

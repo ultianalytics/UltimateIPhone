@@ -16,5 +16,6 @@
 -(void)populateFromJson:(NSDictionary*) dict;
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
+-(NSString*)listDescription;
 
 @end

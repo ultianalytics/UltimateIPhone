@@ -8,6 +8,8 @@
 
 #import "LeaguevineGame.h"
 #import "NSDictionary+JSON.h"
+#import "Team.h"
+#import "LeaguevineTeam.h"
 
 #define kLeaguevineGameStartTime @"start_date"
 #define kLeaguevineGameTeam1Id @"team_1_id"
@@ -38,13 +40,18 @@
         self.team2Id = [dict intForJsonProperty:kLeaguevineGameTeam2Id defaultValue:-1];
         NSDictionary* team1 = [dict objectForJsonProperty:kLeaguevineGameTeam1];
         if (team1) {
-            self.team1Name = [dict stringForJsonProperty:kLeaguevineGameTeamName];
+            self.team1Name = [team1 stringForJsonProperty:kLeaguevineGameTeamName];
         }
         NSDictionary* team2 = [dict objectForJsonProperty:kLeaguevineGameTeam2];
         if (team2) {
             self.team2Name = [dict stringForJsonProperty:kLeaguevineGameTeamName];
         }
     }
+}
+
+-(NSString*)listDescription {
+    NSString* teamName = self.itemId == [Team getCurrentTeam].leaguevineTeam.itemId ? self.team2Name : self.team1Name;
+    return [NSString stringWithFormat: @"v. %@", teamName];
 }
 
 @end

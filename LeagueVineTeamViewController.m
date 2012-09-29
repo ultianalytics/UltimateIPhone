@@ -118,7 +118,7 @@
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
 
-    cell.textLabel.text = item ? item.name : [NSString stringWithFormat: @"%@ not selected", [self sectionName:indexPath.section]];
+    cell.textLabel.text = item ? [item listDescription] : [NSString stringWithFormat: @"%@ not selected", [self sectionName:indexPath.section]];
     cell.textLabel.textColor = item ? [UIColor blackColor] : [UIColor grayColor];
     
     return cell;

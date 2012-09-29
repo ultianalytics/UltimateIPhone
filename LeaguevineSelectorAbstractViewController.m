@@ -80,7 +80,7 @@
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
     
-    cell.textLabel.text = item.name;
+    cell.textLabel.text = [self getItemDescription: item];
     return cell;
 }
 
@@ -209,6 +209,10 @@
 -(NSString*)getNoResultsText {
     [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];
     return nil;
+}
+
+-(NSString*)getItemDescription: (LeaguevineItem*) item {
+    return [item listDescription];
 }
 
 @end

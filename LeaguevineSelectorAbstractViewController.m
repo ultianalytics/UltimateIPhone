@@ -73,20 +73,30 @@
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+        cell = [self createCell:STD_ROW_TYPE];
     }
     
-    cell.textLabel.text = [self getItemDescription: item];
+    [self populateCell:cell withItem:item];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LeaguevineItem* item = [self.filteredItems objectAtIndex:indexPath.row];
     [self itemSelected: item];
+}
+
+-(UITableViewCell*)createCell: (NSString*) rowType {
+    UITableViewCell* cell = [[UITableViewCell alloc]
+            initWithStyle:UITableViewCellStyleDefault
+            reuseIdentifier:rowType];
+    cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    return cell;
+}
+
+-(void)populateCell: (UITableViewCell*) cell withItem: (LeaguevineItem*) item {
+    cell.textLabel.text = [self getItemDescription: item];
 }
 
 #pragma mark - Waiting View

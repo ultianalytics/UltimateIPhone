@@ -19,6 +19,7 @@
 @property (nonatomic, strong) LeaguevineTournament* tournament;
 
 +(LeaguevineGame*)fromJson:(NSDictionary*) dict;
+-(NSString*)opponentDescription;
 
 @end
 

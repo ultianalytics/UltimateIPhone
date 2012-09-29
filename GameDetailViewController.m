@@ -20,6 +20,7 @@
 #import "Constants.h"
 #import "Team.h"
 #import "LeagueVineGameViewController.h"
+#import "LeaguevineGame.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
@@ -99,10 +100,17 @@
         UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(goToActionView)];
         self.navigationItem.rightBarButtonItem = navBarActionButton;    
     }
-    [self.tableView reloadData];
-    [self addFooterButton];
     
     self.gameTypeSegmentedControl.selectedSegmentIndex = [self.game isLeaguevineGame] ? 1 : 0;
+    
+    [self populateLeaguevineCell];
+    
+    [self.tableView reloadData];
+    [self addFooterButton];
+}
+
+-(void)populateLeaguevineCell {
+    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame listDescription] : @"NOT SET";
 }
 
 -(BOOL)verifyOpponentName {
@@ -260,6 +268,13 @@
     }
 }
 
+-(void)handleLeaguevineGameSelected: (LeaguevineGame*) leaguevineGame {
+    self.game.leaguevineGame = leaguevineGame;
+    [self saveChanges];
+    [self populateLeaguevineCell];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - Table delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -298,9 +313,7 @@
         leaguevineController.team = [Team getCurrentTeam];
         leaguevineController.game = self.game;
         leaguevineController.selectedBlock = ^(LeaguevineGame* leaguevineGame) {
-            self.game.leaguevineGame = leaguevineGame;
-            [self saveChanges];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self handleLeaguevineGameSelected: leaguevineGame];
         };
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
         [[self navigationItem] setBackBarButtonItem:backButton];

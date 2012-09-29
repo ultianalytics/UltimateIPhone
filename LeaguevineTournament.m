@@ -48,4 +48,8 @@
     [encoder encodeObject:self.endDate forKey:kLeaguevineTournamentEndDate];
 }
 
+-(NSString*)description {
+    return [NSString stringWithFormat:@"LeaguevineTournament: %d %@", self.itemId, self.name];
+}
+
 @end

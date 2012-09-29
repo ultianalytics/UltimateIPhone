@@ -11,7 +11,7 @@
 #import "Team.h"
 #import "LeaguevineTeam.h"
 
-#define kLeaguevineGameStartTime @"start_date"
+#define kLeaguevineGameStartTime @"start_time"
 #define kLeaguevineGameTeam1Id @"team_1_id"
 #define kLeaguevineGameTeam2Id @"team_2_id"
 #define kLeaguevineGameTeam1 @"team_1"
@@ -53,8 +53,11 @@
 }
 
 -(NSString*)listDescription {
-    NSString* teamName = self.itemId == [Team getCurrentTeam].leaguevineTeam.itemId ? self.team2Name : self.team1Name;
-    return [NSString stringWithFormat: @"v. %@", teamName];
+    return [NSString stringWithFormat: @"v. %@", [self opponentDescription]];
+}
+
+-(NSString*)opponentDescription {
+    return self.team1Id == [Team getCurrentTeam].leaguevineTeam.itemId ? self.team2Name : self.team1Name;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -80,7 +83,7 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"LeaguevineTeam: %d %@", self.itemId, self.name];
+    return [NSString stringWithFormat:@"LeaguevineGame: %d at %@ vs. %@", self.itemId, self.startTime, [self opponentDescription]];
 }
 
 @end

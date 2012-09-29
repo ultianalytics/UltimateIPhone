@@ -14,9 +14,14 @@
 #import "LeaguevineGame.h"
 #import "LeaguevineClient.h"
 #import "Team.h"
+#import "LeagueVineSelectorGameTableViewCell.h"
+#import "NSDate+Utilities.h"
 
 
 @interface LeagueVineSelectorGameViewController ()
+
+@property (nonatomic, strong) NSDateFormatter* timeFormatter;
+@property (nonatomic, strong) NSDateFormatter* dateFormatter;
 
 @end
 
@@ -26,6 +31,14 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title =  @"Leaguevine Game";
+        
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        [self.dateFormatter setLocale:[NSLocale currentLocale]];
+        [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        self.timeFormatter  = [[NSDateFormatter alloc] init];
+        [self.timeFormatter setLocale:[NSLocale currentLocale]];
+        [self.timeFormatter setDateStyle:NSDateFormatterLongStyle];
+        
     }
     return self;
 }
@@ -46,6 +59,45 @@
 
 -(NSString*)getNoResultsText {
     return @"No games found";
+}
+
+#pragma mark TableView delegate
+
+-(UITableViewCell*)createCell: (NSString*) rowType {
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([LeagueVineSelectorGameTableViewCell class]) owner:nil options:nil];
+    LeagueVineSelectorGameTableViewCell*  cell = (LeagueVineSelectorGameTableViewCell *)[nib objectAtIndex:0];
+    cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    return cell;
+}
+
+-(void)populateCell: (UITableViewCell*) cell withItem: (LeaguevineItem*) item {
+    LeagueVineSelectorGameTableViewCell* gameCell = (LeagueVineSelectorGameTableViewCell*)cell;
+    LeaguevineGame* leaguevineGame = (LeaguevineGame*)item;
+    gameCell.startTimeLabel.text = [self formatGameDate:leaguevineGame.startTime];
+    gameCell.opponentLabel.text = [leaguevineGame opponentDescription];
+}
+
+-(NSString*)formatGameDate: (NSDate*) date {
+    if (!date) {
+        return @"Not sure";
+    } else if ([date isToday]) {
+        return [self.timeFormatter stringFromDate:date];
+    } else if ([date isYesterday]) {
+        return [NSString stringWithFormat:@"Yesterday at %@", [self.timeFormatter stringFromDate:date]];
+    } else if ([date isTomorrow]) {
+        return [NSString stringWithFormat:@"Tomorrow at %@", [self.timeFormatter stringFromDate:date]];
+    } else {
+        return [NSString stringWithFormat:@"%@ %@", [self.dateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
+    }
+}
+
+#pragma mark Lifecycle 
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.mainTableView.rowHeight = [self createCell:nil].bounds.size.height;
 }
 
 @end

@@ -18,6 +18,8 @@
 #import "Wind.h"
 #import "Player.h"
 #import "Scrubber.h"
+#import "LeaguevineGame.h"
+#import "LeaguevineTournament.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -33,6 +35,7 @@
 #define kIsFirstPointOlineKey   @"firstPointOline"
 #define kWindKey                @"wind"
 #define kGamePointKey           @"gamePoint"
+#define kLeagueVineGameKey      @"leaguevineGame"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 
 static Game* currentGame = nil;
@@ -51,7 +54,7 @@ static Game* currentGame = nil;
 @end
 
 @implementation Game
-@synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, opponentName, tournamentName, startDateTime,wind,gamePoint,firstEventTweeted;
+@synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, startDateTime,wind,gamePoint,firstEventTweeted;
 
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
@@ -94,6 +97,19 @@ static Game* currentGame = nil;
     return game;
 }
 
+-(NSString*)opponentName {
+    if (self.leaguevineGame) {
+        return [self.leaguevineGame opponentDescription];
+    }
+    return _opponentName;
+}
+
+-(NSString*)tournamentName {
+    if (self.leaguevineGame) {
+        return self.leaguevineGame.tournament.name;
+    }
+    return _tournamentName;
+}
 
 -(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     [self updatePointSummaries];
@@ -305,6 +321,7 @@ static Game* currentGame = nil;
             self.wind = [[Wind alloc] init];
         }
         arePointSummariesValid = NO;
+        self.leaguevineGame = [decoder decodeObjectForKey:kLeagueVineGameKey];
     } 
     return self; 
 } 
@@ -320,7 +337,8 @@ static Game* currentGame = nil;
     [encoder encodeObject:self.lastDLine forKey:kLastDLineKey]; 
     [encoder encodeBool:self.isFirstPointOline forKey:kIsFirstPointOlineKey]; 
     [encoder encodeInt:self.gamePoint forKey:kGamePointKey]; 
-    [encoder encodeObject:self.wind forKey:kWindKey]; 
+    [encoder encodeObject:self.wind forKey:kWindKey];
+    [encoder encodeObject:self.leaguevineGame forKey: kLeagueVineGameKey];
 } 
 
 

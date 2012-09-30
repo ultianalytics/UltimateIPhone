@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString* team1Name;
 @property (nonatomic, strong) NSString* team2Name;
 @property (nonatomic, strong) LeaguevineTournament* tournament;
+@property (nonatomic, strong) NSString* timezone;
 
 +(LeaguevineGame*)fromJson:(NSDictionary*) dict;
 -(NSString*)opponentDescription;

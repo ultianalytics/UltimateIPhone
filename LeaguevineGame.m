@@ -10,6 +10,7 @@
 #import "NSDictionary+JSON.h"
 #import "Team.h"
 #import "LeaguevineTeam.h"
+#import "LeaguevineTournament.h"
 
 #define kLeaguevineGameStartTime @"start_time"
 #define kLeaguevineGameTeam1Id @"team_1_id"
@@ -20,6 +21,7 @@
 #define kLeaguevineGameTeam1Name @"team1Name"
 #define kLeaguevineGameTeam2Name @"team2Name"
 #define kLeaguevineGameTournament @"tournament"
+#define kLeaguevineGameTimezone @"timezone"
 
 @interface LeaguevineGame()
 
@@ -42,6 +44,10 @@
 -(void)populateFromJson:(NSDictionary*) dict {
     if (dict) {
         [super populateFromJson:dict];
+        NSDictionary* tournmantDict = [dict objectForJsonProperty:kLeaguevineGameTournament];
+        if (tournmantDict) {
+            self.tournament = [LeaguevineTournament fromJson:tournmantDict];
+        }
         NSString* startTimeAsISO8601String = [dict stringForJsonProperty:kLeaguevineGameStartTime];
         if (startTimeAsISO8601String) {
             self.startTime = [self startTimeFromString:startTimeAsISO8601String];
@@ -56,6 +62,7 @@
         if (team2Dict) {
             self.team2Name = [team2Dict stringForJsonProperty:kLeaguevineGameTeamName];
         }
+        self.timezone = [team1Dict stringForJsonProperty:kLeaguevineGameTimezone];
     }
 }
 
@@ -101,6 +108,7 @@
         self.team2Id = [decoder decodeIntForKey:kLeaguevineGameTeam2Id];
         self.team1Name = [decoder decodeObjectForKey:kLeaguevineGameTeam1Name];
         self.team2Name = [decoder decodeObjectForKey:kLeaguevineGameTeam2Name];
+        self.timezone = [decoder decodeObjectForKey:kLeaguevineGameTimezone];
     }
     return self;
 }
@@ -108,11 +116,12 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:self.tournament forKey:kLeaguevineGameTournament];
-        [encoder encodeObject:self.startTime forKey:kLeaguevineGameStartTime];
-        [encoder encodeInt:self.team1Id forKey:kLeaguevineGameTeam1Id];
-        [encoder encodeInt:self.team2Id forKey:kLeaguevineGameTeam2Id];
-        [encoder encodeObject:self.team1Name forKey:kLeaguevineGameTeam1Name];
-        [encoder encodeObject:self.team2Name forKey:kLeaguevineGameTeam2Name];
+    [encoder encodeObject:self.startTime forKey:kLeaguevineGameStartTime];
+    [encoder encodeInt:self.team1Id forKey:kLeaguevineGameTeam1Id];
+    [encoder encodeInt:self.team2Id forKey:kLeaguevineGameTeam2Id];
+    [encoder encodeObject:self.team1Name forKey:kLeaguevineGameTeam1Name];
+    [encoder encodeObject:self.team2Name forKey:kLeaguevineGameTeam2Name];
+    [encoder encodeObject:self.timezone forKey:kLeaguevineGameTimezone];
 }
 
 -(NSString*)description {

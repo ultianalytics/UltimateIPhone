@@ -114,6 +114,9 @@
 }
 
 -(BOOL)verifyOpponentName {
+    if (self.game.leaguevineGame) {
+        return YES;
+    }
     NSString* opponentName = [self getText: self.opposingTeamNameField];
     if ([opponentName isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] 

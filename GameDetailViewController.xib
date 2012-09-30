@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">12B19</string>
+		<string key="IBDocument.SystemVersion">12C54</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
-		<string key="IBDocument.AppKitVersion">1187</string>
-		<string key="IBDocument.HIToolboxVersion">624.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1926</string>
@@ -779,7 +779,7 @@
 							<object class="IBUILabel" id="614712135">
 								<reference key="NSNextResponder" ref="714164842"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 7}, {150, 21}}</string>
+								<string key="NSFrame">{{10, 7}, {30, 21}}</string>
 								<reference key="NSSuperview" ref="714164842"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -788,7 +788,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Leaguevine Game</string>
+								<string key="IBUIText">Vs.</string>
 								<reference key="IBUITextColor" ref="908483221"/>
 								<reference key="IBUIHighlightedColor" ref="755285768"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -799,7 +799,7 @@
 							<object class="IBUILabel" id="568668054">
 								<reference key="NSNextResponder" ref="714164842"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{172, 7}, {100, 21}}</string>
+								<string key="NSFrame">{{48, 7}, {224, 21}}</string>
 								<reference key="NSSuperview" ref="714164842"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>

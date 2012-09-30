@@ -110,7 +110,7 @@
 }
 
 -(void)populateLeaguevineCell {
-    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame listDescription] : @"NOT SET";
+    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame opponentDescription] : @"NOT SET";
 }
 
 -(BOOL)verifyOpponentName {

@@ -21,7 +21,8 @@
 @interface LeagueVineSelectorGameViewController ()
 
 @property (nonatomic, strong) NSDateFormatter* timeFormatter;
-@property (nonatomic, strong) NSDateFormatter* dateFormatter;
+@property (nonatomic, strong) NSDateFormatter* farDateFormatter;
+@property (nonatomic, strong) NSDateFormatter* nearDateFormatter;
 
 @end
 
@@ -32,12 +33,15 @@
     if (self) {
         self.title =  @"Leaguevine Game";
         
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        [self.dateFormatter setLocale:[NSLocale currentLocale]];
-        [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        self.farDateFormatter = [[NSDateFormatter alloc] init];
+        [self.farDateFormatter setLocale:[NSLocale currentLocale]];
+        [self.farDateFormatter setDateFormat:@"EEE, MMM d, ''yy"];
+        self.nearDateFormatter = [[NSDateFormatter alloc] init];
+        [self.nearDateFormatter setLocale:[NSLocale currentLocale]];
+        [self.nearDateFormatter setDateFormat:@"EEEE"];
         self.timeFormatter  = [[NSDateFormatter alloc] init];
         [self.timeFormatter setLocale:[NSLocale currentLocale]];
-        [self.timeFormatter setDateStyle:NSDateFormatterLongStyle];
+        [self.timeFormatter setDateFormat:@"h:mm a"];
         
     }
     return self;
@@ -88,8 +92,11 @@
         return [NSString stringWithFormat:@"Yesterday at %@", [self.timeFormatter stringFromDate:date]];
     } else if ([date isTomorrow]) {
         return [NSString stringWithFormat:@"Tomorrow at %@", [self.timeFormatter stringFromDate:date]];
+        // if we are within 5 days(future)...use short date form
+    } else if ([date laterDate:[NSDate date]] == date && [date earlierDate:[NSDate dateWithDaysFromNow:5]] == date) {
+        return [NSString stringWithFormat:@"%@, %@", [self.nearDateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
     } else {
-        return [NSString stringWithFormat:@"%@ %@", [self.dateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
+        return [NSString stringWithFormat:@"%@, %@", [self.farDateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
     }
 }
 

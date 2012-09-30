@@ -21,6 +21,12 @@
 #define kLeaguevineGameTeam2Name @"team2Name"
 #define kLeaguevineGameTournament @"tournament"
 
+@interface LeaguevineGame()
+
+@property (nonatomic, strong) NSDateFormatter* dateFormatterISO8601;
+
+@end
+
 @implementation LeaguevineGame
 
 +(LeaguevineGame*)fromJson:(NSDictionary*) dict {
@@ -36,20 +42,47 @@
 -(void)populateFromJson:(NSDictionary*) dict {
     if (dict) {
         [super populateFromJson:dict];
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-ddEHH:mm:ssZ"];
-        self.startTime = [dict dateForJsonProperty:kLeaguevineGameStartTime usingFormatter: dateFormatter defaultDate: nil];
+        NSString* startTimeAsISO8601String = [dict stringForJsonProperty:kLeaguevineGameStartTime];
+        if (startTimeAsISO8601String) {
+            self.startTime = [self startTimeFromString:startTimeAsISO8601String];
+        }
         self.team1Id = [dict intForJsonProperty:kLeaguevineGameTeam1Id defaultValue:-1];
         self.team2Id = [dict intForJsonProperty:kLeaguevineGameTeam2Id defaultValue:-1];
-        NSDictionary* team1 = [dict objectForJsonProperty:kLeaguevineGameTeam1];
-        if (team1) {
-            self.team1Name = [team1 stringForJsonProperty:kLeaguevineGameTeamName];
+        NSDictionary* team1Dict = [dict objectForJsonProperty:kLeaguevineGameTeam1];
+        if (team1Dict) {
+            self.team1Name = [team1Dict stringForJsonProperty:kLeaguevineGameTeamName];
         }
-        NSDictionary* team2 = [dict objectForJsonProperty:kLeaguevineGameTeam2];
-        if (team2) {
-            self.team2Name = [dict stringForJsonProperty:kLeaguevineGameTeamName];
+        NSDictionary* team2Dict = [dict objectForJsonProperty:kLeaguevineGameTeam2];
+        if (team2Dict) {
+            self.team2Name = [team2Dict stringForJsonProperty:kLeaguevineGameTeamName];
         }
     }
+}
+
+-(NSDate*)startTimeFromString: (NSString*) dateAsISO8601String {
+    /*
+     Leaguevine Doc:
+     
+     Our API reads ISO 8601 formatted times. This format looks like YYYY-MM-DDTHH:MM:SS-hh:mm where each part is defined as follows:
+     
+     YYYY-MM-DD - The date, denoted by the year, month, and day. For example, 2012-02-08
+     T - The letter 'T' is a separator that is placed between the date and the time. 
+     HH:MM:SS - The time using the 24-hour notation including seconds. For example, 14:12:00 represents 2:12pm.
+     ±hh:mm - The timezone offset from UTC. This can start with a + or a -. For example, -06:00 represents Central Standard Time
+   */
+    
+    // Add "GMT" before timezone offset to make NSDateFormatter happy
+    NSString* withGMTInserted = [NSString stringWithFormat: @"%@GMT%@",
+                                 [dateAsISO8601String substringToIndex:19], [dateAsISO8601String substringFromIndex:19]];
+    return [self.dateFormatterISO8601 dateFromString:withGMTInserted];
+}
+
+-(NSDateFormatter*)dateFormatterISO8601 {
+    if (!_dateFormatterISO8601) {
+        _dateFormatterISO8601 = [[NSDateFormatter alloc] init];
+        [_dateFormatterISO8601 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"];
+    }
+    return _dateFormatterISO8601;
 }
 
 -(NSString*)listDescription {
@@ -83,7 +116,7 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"LeaguevineGame: %d at %@ vs. %@", self.itemId, self.startTime, [self opponentDescription]];
+    return [NSString stringWithFormat:@"LeaguevineGame: %d at %@.  %@ vs. %@", self.itemId, self.startTime, self.team1Name, self.team2Name];
 }
 
 @end

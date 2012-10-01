@@ -118,10 +118,11 @@
         return YES;
     }
     NSString* opponentName = [self getText: self.opposingTeamNameField];
+    NSString* message = [self isLeaguevineType] ? @"Leaguevine game selection required" : @"Opponent required";
     if ([opponentName isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Invalid Opponent Name" 
-                              message:@"Opponent team name is required"
+                              initWithTitle:@"Invalid Opponent" 
+                              message:message
                               delegate:self 
                               cancelButtonTitle:@"Try Again" 
                               otherButtonTitles:nil]; 
@@ -176,6 +177,10 @@
     }
 }
 
+-(BOOL)isLeaguevineType {
+    return self.gameTypeSegmentedControl.selectedSegmentIndex == 1;
+}
+
 #pragma mark - Event Handlers
 
 -(IBAction)opponentNameChanged: (id) sender {
@@ -207,6 +212,11 @@
 }
 
 - (IBAction)gameTypeChanged:(id)sender {
+    if (self.gameTypeSegmentedControl.selectedSegmentIndex == 0) {
+        self.game.leaguevineGame = nil;
+        [self populateLeaguevineCell];
+        [self saveChanges];
+    }
     [self configureCells];
     [self.tableView reloadData];
 }

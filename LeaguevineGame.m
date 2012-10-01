@@ -22,6 +22,7 @@
 #define kLeaguevineGameTeam2Name @"team2Name"
 #define kLeaguevineGameTournament @"tournament"
 #define kLeaguevineGameTimezone @"timezone"
+#define kLeaguevineGameTimezoneOffsetMinutes @"timezoneOffset"
 
 @interface LeaguevineGame()
 
@@ -52,6 +53,8 @@
         if (startTimeAsISO8601String) {
             self.startTime = [self startTimeFromString:startTimeAsISO8601String];
         }
+        self.timezoneOffsetMinutes = [self calcTimezoneOffsetMinutes:startTimeAsISO8601String];
+        self.timezone = [dict stringForJsonProperty:kLeaguevineGameTimezone];
         self.team1Id = [dict intForJsonProperty:kLeaguevineGameTeam1Id defaultValue:-1];
         self.team2Id = [dict intForJsonProperty:kLeaguevineGameTeam2Id defaultValue:-1];
         NSDictionary* team1Dict = [dict objectForJsonProperty:kLeaguevineGameTeam1];
@@ -62,7 +65,7 @@
         if (team2Dict) {
             self.team2Name = [team2Dict stringForJsonProperty:kLeaguevineGameTeamName];
         }
-        self.timezone = [team1Dict stringForJsonProperty:kLeaguevineGameTimezone];
+
     }
 }
 
@@ -92,6 +95,18 @@
     return _dateFormatterISO8601;
 }
 
+-(int)calcTimezoneOffsetMinutes: (NSString*) dateAsISO8601String {
+    NSString* offsetSign = [dateAsISO8601String substringWithRange: NSMakeRange(19, 1)];
+    NSString* offsetHoursString = [dateAsISO8601String substringWithRange: NSMakeRange(20, 2)];
+    NSString* offsetMinutesString = [dateAsISO8601String substringWithRange: NSMakeRange(23, 2)];
+    int offsetMinutes = ([offsetHoursString intValue] * 60) + [offsetMinutesString intValue];
+    return [offsetSign isEqualToString: @"-"] ? offsetMinutes * -1 : offsetMinutes;
+}
+
+-(NSTimeZone*)getStartTimezone {
+    return [NSTimeZone timeZoneForSecondsFromGMT: self.timezoneOffsetMinutes * 60];
+}
+
 -(NSString*)listDescription {
     return [NSString stringWithFormat: @"v. %@", [self opponentDescription]];
 }
@@ -104,11 +119,12 @@
     if (self = [super initWithCoder:decoder]) {
         self.tournament = [decoder decodeObjectForKey:kLeaguevineGameTournament];
         self.startTime = [decoder decodeObjectForKey:kLeaguevineGameStartTime];
+        self.timezoneOffsetMinutes = [decoder decodeIntForKey:kLeaguevineGameTimezoneOffsetMinutes];
+        self.timezone = [decoder decodeObjectForKey:kLeaguevineGameTimezone];
         self.team1Id = [decoder decodeIntForKey:kLeaguevineGameTeam1Id];
         self.team2Id = [decoder decodeIntForKey:kLeaguevineGameTeam2Id];
         self.team1Name = [decoder decodeObjectForKey:kLeaguevineGameTeam1Name];
         self.team2Name = [decoder decodeObjectForKey:kLeaguevineGameTeam2Name];
-        self.timezone = [decoder decodeObjectForKey:kLeaguevineGameTimezone];
     }
     return self;
 }
@@ -117,11 +133,12 @@
     [super encodeWithCoder:encoder];
     [encoder encodeObject:self.tournament forKey:kLeaguevineGameTournament];
     [encoder encodeObject:self.startTime forKey:kLeaguevineGameStartTime];
+    [encoder encodeInt:self.timezoneOffsetMinutes forKey:kLeaguevineGameTimezoneOffsetMinutes];
+    [encoder encodeObject:self.timezone forKey:kLeaguevineGameTimezone];
     [encoder encodeInt:self.team1Id forKey:kLeaguevineGameTeam1Id];
     [encoder encodeInt:self.team2Id forKey:kLeaguevineGameTeam2Id];
     [encoder encodeObject:self.team1Name forKey:kLeaguevineGameTeam1Name];
     [encoder encodeObject:self.team2Name forKey:kLeaguevineGameTeam2Name];
-    [encoder encodeObject:self.timezone forKey:kLeaguevineGameTimezone];
 }
 
 -(NSString*)description {

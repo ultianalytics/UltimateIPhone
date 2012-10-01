@@ -59,29 +59,29 @@
 }
 
 -(void)retrieveTouramentsForSeason: (int) seasonId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"tournaments/?season_id=%d&order_by=%@", seasonId, [@"[start_date,name]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"tournaments/?season_id=%d&order_by=%@", seasonId, [@"[-start_date,name]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeTournaments url:url results:nil];
 }
 
 -(void)retrieveGamesForSeason: (int) seasonId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?season_id=%d&order_by=%@", seasonId, [@"[start_time]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?season_id=%d&order_by=%@", seasonId, [@"[-start_time]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
 }
 
 -(void)retrieveGamesForTournament: (int) tournamentId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?tournament_id=%d&order_by=%@", tournamentId, [@"[start_time]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?tournament_id=%d&order_by=%@", tournamentId, [@"[-start_time]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
 }
 
 -(void)retrieveGamesForTeam: (int) teamId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
     NSString* teams = [[NSString stringWithFormat: @"[%d]", teamId] urlEncoded];
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?team_ids=%@&order_by=%@", teams, [@"[start_time]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?team_ids=%@&order_by=%@", teams, [@"[-start_time]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
 }
 
 -(void)retrieveGamesForTeam: (int) teamId andTournament: (int) tournamentId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
     NSString* teams = [[NSString stringWithFormat: @"[%d]", teamId] urlEncoded];
-    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?team_ids=%@&tournament_id=%d&order_by=%@", teams, tournamentId, [@"[start_time]" urlEncoded]]];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"games/?team_ids=%@&tournament_id=%d&order_by=%@", teams, tournamentId, [@"[-start_time]" urlEncoded]]];
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
 }
 

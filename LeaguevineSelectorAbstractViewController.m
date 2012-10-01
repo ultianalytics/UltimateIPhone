@@ -162,7 +162,7 @@
     NSString* searchString = [self getSearchString];
     if ([searchString isNotEmpty]) {
         self.filteredItems = [self.items filter:^(id item) {
-            NSString* itemString = [item name];
+            NSString* itemString = [item listDescription];
             BOOL matchesFilter = [itemString rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound;
             return matchesFilter;
         }];

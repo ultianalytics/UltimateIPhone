@@ -79,11 +79,16 @@
 -(void)populateCell: (UITableViewCell*) cell withItem: (LeaguevineItem*) item {
     LeagueVineSelectorGameTableViewCell* gameCell = (LeagueVineSelectorGameTableViewCell*)cell;
     LeaguevineGame* leaguevineGame = (LeaguevineGame*)item;
-    gameCell.startTimeLabel.text = [self formatGameDate:leaguevineGame.startTime];
+    gameCell.startTimeLabel.text = [self formatGameDate:leaguevineGame];
     gameCell.opponentLabel.text = [leaguevineGame opponentDescription];
 }
 
--(NSString*)formatGameDate: (NSDate*) date {
+-(NSString*)formatGameDate: (LeaguevineGame*) game {
+    // use game's local timezone
+    [self.timeFormatter setTimeZone:[game getStartTimezone]];
+    [self.timeFormatter setTimeZone:[game getStartTimezone]];
+    
+    NSDate* date = game.startTime;
     if (!date) {
         return @"Not sure";
     } else if ([date isToday]) {

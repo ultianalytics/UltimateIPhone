@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@class LeaguevineGame;
 
 typedef enum {
     LeaguevineInvokeOK,
     LeaguevineInvokeCredentialsRejected,
     LeaguevineInvokeNetworkError,
     LeaguevineInvokeInvalidResponse,
+    LeaguevineInvokeInvalidGame,
 } LeaguevineInvokeStatus;
 
 @interface LeaguevineClient : NSObject
@@ -25,4 +27,5 @@ typedef enum {
 -(void)retrieveGamesForTournament: (int) tournamentId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
 -(void)retrieveGamesForTeam: (int) teamId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
 -(void)retrieveGamesForTeam: (int) teamId andTournament: (int) tournamentId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
+-(void)postGameScore: (LeaguevineGame*) leaguevineGame score: (Score)score isFinal: (BOOL) final completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
 @end

@@ -16,11 +16,6 @@
 #define kIsFinishedProperty     @"finished"
 #define kElapsedTimeProperty    @"elapsedTime"
 
-typedef struct {
-    int ours;
-    int theirs;
-} Score;
-
 @interface PointSummary : NSObject
 
 @property (nonatomic) Score score;

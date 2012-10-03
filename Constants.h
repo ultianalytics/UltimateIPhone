@@ -15,6 +15,11 @@
 #define kNoAccountText @"NO TWITTER ACCOUNT"
 #define kAnonymousTeam @"Anonymous Team"
 
+typedef struct {
+    int ours;
+    int theirs;
+} Score;
+
 @interface Constants : NSObject
 
 @end

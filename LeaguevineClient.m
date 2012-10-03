@@ -11,6 +11,10 @@
 #import "LeaguevineResponseParser.h"
 #import "NSString+manipulations.h"
 #import "LeaguevineResponseMeta.h"
+#import "LeaguevineTeam.h"
+#import "LeaguevineGame.h"
+#import "Team.h"
+#import "Preferences.h"
 
 #define BASE_API_URL @"https://api.leaguevine.com/v1/"
 
@@ -85,6 +89,70 @@
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
 }
 
+-(void)postGameScore: (LeaguevineGame*) leaguevineGame score: (Score)score isFinal: (BOOL) final completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    LeaguevineTeam* lvTeam = [Team getCurrentTeam].leaguevineTeam;
+    if (!lvTeam) {
+        NSLog(@"Error posting LV game score: our team isn't a LV team anymore");
+        finishedBlock(LeaguevineInvokeInvalidGame, nil);
+        return;
+    }
+    
+    int team1Score, team2Score;
+    if (leaguevineGame.team1Id == lvTeam.itemId) {
+        team1Score = score.ours;
+        team2Score = score.theirs;
+    } else if (leaguevineGame.team2Id == lvTeam.itemId) {
+        team2Score = score.ours;
+        team1Score = score.theirs;
+    } else {
+        NSLog(@"Error posting LV game score: our team isn't one of the teams on the LV game");
+        finishedBlock(LeaguevineInvokeInvalidGame, nil);
+        return;
+    }
+   
+    [self postGameScore:leaguevineGame.itemId team1Score:team1Score team2Score:team2Score isFinal:final completion:finishedBlock];
+}
+
+#pragma mark Post methods
+
+-(void)postGameScore: (int) gameId team1Score: (int) team1Score team2Score: (int)team2Score isFinal: (BOOL) final completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    
+    NSString* leaguevineToken = [Preferences getCurrentPreferences].leaguevineToken;
+    if (![leaguevineToken isNotEmpty]) {
+        finishedBlock(LeaguevineInvokeCredentialsRejected, nil);
+        return;
+    }
+    
+    NSString* url = [self fullUrl:@"game_scores/"];
+    
+    NSString* requestBody = [NSString stringWithFormat: @"{\"game_id\": \"%d\",\"team_1_score\": \"%d\",\"team_2_score\": \"%d\",\"is_final\":\"%@\"}",
+                             gameId, team1Score, team2Score, final ? @"True" : @"False"];
+    
+    NSMutableURLRequest* request = [self createUrlRequest:url httpMethod:@"POST"];
+    request.HTTPBody = [requestBody dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
+
+    [self postGameScore:request completion:finishedBlock];
+    
+}
+
+-(void)postGameScore: (NSMutableURLRequest*) request completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* sendError) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (sendError != nil || httpResponse.statusCode < 200) {
+            [self returnFailedResponse:request.URL.absoluteString withNetworkError:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
+        } else if (sendError == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) && data) {
+            [self returnSuccessResponse:nil finishedBlock:finishedBlock];
+        } else {
+            [self returnFailedResponse:request.URL.absoluteString withHttpFailure:sendError httpResponse: httpResponse finishedBlock:finishedBlock];
+        }
+    }];
+}
+
 #pragma mark Retrieve methods
 
 -(void)retrieveObjects: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock type: (LeaguevineResultType) type url: url results: (NSMutableArray*) previousResults {
@@ -149,8 +217,9 @@
 
 -(void)returnFailedResponse: (NSString*) url withHttpFailure: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
     NSLog(@"Request to %@ failed with http response %d error %@", url, httpResponse.statusCode, error);
+    LeaguevineInvokeStatus invokeErrorStatus = httpResponse.statusCode == 401 ? LeaguevineInvokeCredentialsRejected : LeaguevineInvokeInvalidResponse;
     dispatch_async(dispatch_get_main_queue(), ^{
-        finishedBlock(LeaguevineInvokeInvalidResponse, nil);
+        finishedBlock(invokeErrorStatus, nil);
     });
 }
 

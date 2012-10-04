@@ -91,6 +91,7 @@
 		1A80C97315612192007F03C2 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97115612192007F03C2 /* woman@2x.png */; };
 		1A80C97415612192007F03C2 /* woman.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97215612192007F03C2 /* woman.png */; };
 		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
+		1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */; };
 		1A999EEA1604D5960015B891 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A999EE91604D5960015B891 /* Default-568h@2x.png */; };
 		1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A999EF516062B8F0015B891 /* leaguevine_logo.png */; };
 		1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */; };
@@ -327,6 +328,8 @@
 		1A80C97115612192007F03C2 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
 		1A80C97215612192007F03C2 /* woman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman.png; sourceTree = "<group>"; };
 		1A80C9751561223C007F03C2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		1A8D1310161D9C7A001CFD9C /* UltimateSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSwitch.h; sourceTree = "<group>"; };
+		1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSwitch.m; sourceTree = "<group>"; };
 		1A999EE91604D5960015B891 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Users/james/Temp/Default-568h@2x.png"; sourceTree = "<group>"; };
 		1A999EF516062B8F0015B891 /* leaguevine_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leaguevine_logo.png; sourceTree = "<group>"; };
 		1A999F0916063CDC0015B891 /* LeagueVineTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineTeamViewController.h; sourceTree = "<group>"; };
@@ -976,6 +979,8 @@
 				1AFFE7D815175E7B004B4590 /* ColorMaster.m */,
 				1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */,
 				1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */,
+				1A8D1310161D9C7A001CFD9C /* UltimateSwitch.h */,
+				1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1505,6 +1510,7 @@
 				1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */,
 				1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */,
 				1A7994E4161736CD00E77FC5 /* NSDate+Utilities.m in Sources */,
+				1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

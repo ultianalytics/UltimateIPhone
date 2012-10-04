@@ -36,6 +36,7 @@
 #define kWindKey                @"wind"
 #define kGamePointKey           @"gamePoint"
 #define kLeagueVineGameKey      @"leaguevineGame"
+#define kLeagueVinePublishKey   @"pubToLeaguevine"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 
 static Game* currentGame = nil;
@@ -322,6 +323,7 @@ static Game* currentGame = nil;
         }
         arePointSummariesValid = NO;
         self.leaguevineGame = [decoder decodeObjectForKey:kLeagueVineGameKey];
+        self.publishScoreToLeaguevine = [decoder decodeBoolForKey:kLeagueVinePublishKey];
     } 
     return self; 
 } 
@@ -339,6 +341,7 @@ static Game* currentGame = nil;
     [encoder encodeInt:self.gamePoint forKey:kGamePointKey]; 
     [encoder encodeObject:self.wind forKey:kWindKey];
     [encoder encodeObject:self.leaguevineGame forKey: kLeagueVineGameKey];
+    [encoder encodeBool:self.publishScoreToLeaguevine forKey:kLeagueVinePublishKey]; 
 } 
 
 
@@ -695,4 +698,9 @@ static Game* currentGame = nil;
     return self.leaguevineGame != nil;
 }
 
+
+-(void)setLeaguevineGame:(LeaguevineGame *)leaguevineGame {
+    _leaguevineGame = leaguevineGame;
+    self.publishScoreToLeaguevine = NO;  // reset publish
+}
 @end

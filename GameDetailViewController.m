@@ -21,6 +21,7 @@
 #import "Team.h"
 #import "LeagueVineGameViewController.h"
 #import "LeaguevineGame.h"
+#import "LeagueVineSignonViewController.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
@@ -40,6 +41,7 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineGameCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePublishCell;
 
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
@@ -50,6 +52,7 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl* initialLine;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gamePointsSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* pubToLeaguevineSegmentedControl;
 
 @end
 
@@ -103,15 +106,18 @@
     
     self.gameTypeSegmentedControl.selectedSegmentIndex = [self.game isLeaguevineGame] ? 1 : 0;
     
-    [self populateLeaguevineCell];
+    [self populateLeaguevineCells];
     
     [self.tableView reloadData];
     [self addFooterButton];
 }
 
--(void)populateLeaguevineCell {
+-(void)populateLeaguevineCells {
     self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame opponentDescription] : @"NOT SET";
+    self.pubToLeaguevineSegmentedControl.enabled = self.game.leaguevineGame != nil;
+    self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = !self.game.publishScoreToLeaguevine;
 }
+
 
 -(BOOL)verifyOpponentName {
     if (self.game.leaguevineGame) {
@@ -167,7 +173,7 @@
         [self.cells addObject:self.gameTypeCell];
     }
     if ([self.game isLeaguevineGame] || self.gameTypeSegmentedControl.selectedSegmentIndex == 1) {
-        [self.cells addObject:self.leaguevineGameCell];
+        [self.cells addObjectsFromArray:@[self.leaguevineGameCell, self.leaguevinePublishCell]];
     } else {
         [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentCell]];
     }
@@ -179,6 +185,18 @@
 
 -(BOOL)isLeaguevineType {
     return self.gameTypeSegmentedControl.selectedSegmentIndex == 1;
+}
+
+-(void)askUserForLeauguevineCredentials: (void (^)(BOOL hasLeaguevineCredentials)) completion {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+    lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
+        [signonController dismissViewControllerAnimated:YES completion:^{
+            completion(isSignedOn);
+        }];
+    };
+    [self presentViewController:lvController animated:YES completion:nil];
 }
 
 #pragma mark - Event Handlers
@@ -214,11 +232,25 @@
 - (IBAction)gameTypeChanged:(id)sender {
     if (self.gameTypeSegmentedControl.selectedSegmentIndex == 0) {
         self.game.leaguevineGame = nil;
-        [self populateLeaguevineCell];
+        [self populateLeaguevineCells];
         [self saveChanges];
     }
     [self configureCells];
     [self.tableView reloadData];
+}
+
+- (IBAction)pubToLeaguevineChanged:(id)sender {
+    BOOL shouldPublishScores = !self.pubToLeaguevineSegmentedControl.selectedSegmentIndex;
+    if (shouldPublishScores && ![[Preferences getCurrentPreferences].leaguevineToken isNotEmpty]) {
+        [self askUserForLeauguevineCredentials:^(BOOL hasLeaguevineCredentials) {
+            self.game.publishScoreToLeaguevine = hasLeaguevineCredentials;
+            [self populateLeaguevineCells];
+            [self saveChanges];
+        }];
+    } else {
+        self.game.publishScoreToLeaguevine = shouldPublishScores;
+        [self saveChanges];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -284,7 +316,7 @@
 -(void)handleLeaguevineGameSelected: (LeaguevineGame*) leaguevineGame {
     self.game.leaguevineGame = leaguevineGame;
     [self saveChanges];
-    [self populateLeaguevineCell];
+    [self populateLeaguevineCells];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

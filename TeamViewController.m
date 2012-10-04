@@ -333,16 +333,5 @@
     self.leagueVineDescriptionLabel.text = self.team.leaguevineTeam == nil ? @"NO TEAM PICKED" : self.team.leaguevineTeam.name;
 }
 
-// TODO...probably don't need this method here...just sample code for how to interact with signon
--(void)presentLeaguevineSignon {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];
-    LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
-    lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
-        [signonController dismissViewControllerAnimated:YES completion:nil];
-    };
-    [self presentViewController:lvController animated:YES completion:nil];
-}
-
 
 @end

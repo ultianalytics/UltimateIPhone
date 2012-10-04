@@ -31,6 +31,7 @@
 @property (nonatomic, strong) Wind* wind;
 @property (nonatomic) int gamePoint;
 @property (nonatomic, strong) LeaguevineGame* leaguevineGame;
+@property (nonatomic) BOOL publishScoreToLeaguevine;
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
 
 +(Game*)getCurrentGame;

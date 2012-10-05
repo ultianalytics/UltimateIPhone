@@ -116,7 +116,6 @@
     }
     
     NSString* url = [self fullUrl:@"game_scores/"];
-    //NSString* url = [self fullUrl:[NSString stringWithFormat:@"game_scores/?access_token=%@", leaguevineToken]];
     
     NSString* requestBody = [NSString stringWithFormat: @"{\"game_id\": \"%d\",\"team_1_score\": \"%d\",\"team_2_score\": \"%d\",\"is_final\":\"%@\"}",
                              gameId, team1Score, team2Score, final ? @"True" : @"False"];
@@ -124,10 +123,8 @@
     NSMutableURLRequest* request = [self createUrlRequest:url httpMethod:@"POST"];
     request.HTTPBody = [requestBody dataUsingEncoding:NSUTF8StringEncoding];
     
-    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    //[request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
-    [request addValue: @"bearer 1bc95a9227" forHTTPHeaderField:@"Authorization"];
+    [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
 
     [self postGameScore:request completion:finishedBlock];
     

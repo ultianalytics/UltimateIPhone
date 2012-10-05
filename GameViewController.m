@@ -25,6 +25,7 @@
 #import "Reachability.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
+#import "LeaguevineClient.h"
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
@@ -36,23 +37,7 @@
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
-
--(void) goToPlayersOnFieldView;
--(void) goToHistoryView: (BOOL) curl;
--(void) goToHistoryViewRight;
--(void) setOffense: (BOOL) isOffense;
--(PlayerView*) findPlayerView: (Player*) player;
--(PlayerView*) findSelectedPlayerView;
--(void) populatePlayers;
--(void) addEvent: (Event*) event;
--(void) updateEventViews;
--(void) initializeSelected;
--(void) refreshTitle: (Event*) event;
--(void) updateNavBarTitle;
--(void) updateViewFromGame: (Game*) game;
--(void) gameOverConfirm;
--(void) gameOverChallenge;
--(void) updateAutoTweetingNotice;
+@property (nonatomic, strong) LeaguevineClient *leaguevineClient;
 
 @end
 
@@ -95,6 +80,9 @@
     [[Game getCurrentGame] save]; 
     if ([event causesDirectionChange]) {
         [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
+        if ([event isGoal]) {
+            [self notifyLeaguevine:NO];
+        }
         if ([[Game getCurrentGame] doesGameAppearDone]) {
             [self gameOverChallenge];
         } else if ([event causesLineChange]) {
@@ -387,6 +375,32 @@
     [self toggleFirstTimeUsageCallouts];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.title = NSLocalizedString(@"Game", @"Game");
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
+}
+
+
+#pragma mark 
+
 - (void)updateNavBarTitle {
     Score score = [[Game getCurrentGame] getScore];
     NSString* leaderDescription = score.ours == score.theirs ? @"" : score.ours > score.theirs    ? @", us" :  @", them";
@@ -426,10 +440,13 @@
     [alert show];
 }
 
+#pragma mark AlertView delegate 
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
         if (buttonIndex == 1) { // confirm game over
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
+            [self notifyLeaguevine:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
             [self goToPlayersOnFieldView];
@@ -437,28 +454,7 @@
     } 
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.title = NSLocalizedString(@"Game", @"Game");
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
+#pragma mark 
 
 -(void) addInfoButtton {
     UIView *navBar = self.navigationController.navigationBar;
@@ -538,4 +534,23 @@
     self.throwAwayButton.frame = buttonRect;
 }
 
+-(void)notifyLeaguevine: (BOOL)isFinal {
+    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
+        [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
+            if (status != LeaguevineInvokeOK) {
+                // to do
+            }
+        }];
+    }
+}
+
+-(LeaguevineClient*)leaguevineClient {
+    if (!_leaguevineClient) {
+        _leaguevineClient = [[LeaguevineClient alloc] init];
+    }
+    return _leaguevineClient;
+}
+
+
 @end
+    

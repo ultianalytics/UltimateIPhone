@@ -36,6 +36,24 @@
     [encoder encodeObject:self.gender forKey:kLeaguevineResponseLeagueGender];
 }
 
+-(NSMutableDictionary*)asDictionary {
+    NSMutableDictionary* dict = [super asDictionary];
+    [dict setValue: self.gender forKey:kLeaguevineResponseLeagueGender];
+    return dict;
+}
+
++(LeaguevineLeague*)fromDictionary:(NSDictionary*) dict {
+    LeaguevineLeague* league = [[LeaguevineLeague alloc] init];
+    [league populateFromDictionary:dict];
+    return league;
+}
+
+-(void)populateFromDictionary:(NSDictionary*) dict {
+    [super populateFromDictionary:dict];
+    self.gender = [dict objectForKey:kLeaguevineResponseLeagueGender];
+}
+
+
 -(NSString*)description {
     return [NSString stringWithFormat:@"LeaguevineLeague: %d %@", self.itemId, self.name];
 }

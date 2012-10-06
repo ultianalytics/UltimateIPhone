@@ -12,6 +12,9 @@
 #define kLeaguevineResponseItemId @"id"
 #define kLeaguevineResponseItemName @"name"
 
+#define kLeaguevineItemId @"id"
+#define kLeaguevineItemName @"name"
+
 @implementation LeaguevineItem
 
 -(void)populateFromJson:(NSDictionary*) dict {
@@ -33,6 +36,22 @@
     [encoder encodeInt:self.itemId forKey:kLeaguevineResponseItemId];
     [encoder encodeObject:self.name forKey:kLeaguevineResponseItemName];
 }
+
+-(NSMutableDictionary*)asDictionary {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue: self.name forKey:kLeaguevineItemName];
+    [dict setValue: [NSNumber numberWithInt:self.itemId ] forKey:kLeaguevineItemId];
+    return dict;
+}
+
+-(void)populateFromDictionary:(NSDictionary*) dict {
+    self.name = [dict objectForKey:kLeaguevineItemName];
+    NSNumber* itemIdAsNSNumber = [dict objectForKey:kLeaguevineItemId];
+    if (itemIdAsNSNumber) {
+        self.itemId = [itemIdAsNSNumber intValue];
+    }
+}
+
 
 -(NSString*)listDescription {
     return self.name;

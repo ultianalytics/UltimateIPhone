@@ -11,14 +11,14 @@
 
 @interface LeaguevineGame : LeaguevineItem
 
-@property (nonatomic, strong) NSDate* startTime;  // GMT
-@property (nonatomic) int timezoneOffsetMinutes;    // local timezone offset for game
-@property (nonatomic, strong) NSString* timezone;  // for display (e.g., US/Central)...not reliable enough for use as offset?
-@property (nonatomic) int team1Id;
-@property (nonatomic) int team2Id;
-@property (nonatomic, strong) NSString* team1Name;
-@property (nonatomic, strong) NSString* team2Name;
-@property (nonatomic, strong) LeaguevineTournament* tournament;
+@property (nonatomic, strong) NSDate* startTime;  // GMT...transient
+@property (nonatomic) int timezoneOffsetMinutes;    // local timezone offset for game...persistent
+@property (nonatomic, strong) NSString* timezone;  // for display (e.g., US/Central)...not reliable enough for use as offset?  ...persistent
+@property (nonatomic) int team1Id;  // persistent
+@property (nonatomic) int team2Id;  // persistent
+@property (nonatomic, strong) NSString* team1Name; // persistent
+@property (nonatomic, strong) NSString* team2Name; // persistent
+@property (nonatomic, strong) LeaguevineTournament* tournament;  // persistent
 
 +(LeaguevineGame*)fromJson:(NSDictionary*) dict;
 -(NSString*)opponentDescription;

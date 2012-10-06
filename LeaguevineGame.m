@@ -26,7 +26,8 @@
 
 @interface LeaguevineGame()
 
-@property (nonatomic, strong) NSDateFormatter* dateFormatterISO8601;
+@property (nonatomic, strong) NSDateFormatter* dateFormatterISO8601;  // transient
+@property (nonatomic, strong) NSString* startTimeString;  // persistent
 
 @end
 
@@ -49,11 +50,8 @@
         if (tournmantDict) {
             self.tournament = [LeaguevineTournament fromJson:tournmantDict];
         }
-        NSString* startTimeAsISO8601String = [dict stringForJsonProperty:kLeaguevineGameStartTime];
-        if (startTimeAsISO8601String) {
-            self.startTime = [self startTimeFromString:startTimeAsISO8601String];
-        }
-        self.timezoneOffsetMinutes = [self calcTimezoneOffsetMinutes:startTimeAsISO8601String];
+        self.startTimeString = [dict stringForJsonProperty:kLeaguevineGameStartTime];
+        self.timezoneOffsetMinutes = [self calcTimezoneOffsetMinutes:self.startTimeString];
         self.timezone = [dict stringForJsonProperty:kLeaguevineGameTimezone];
         self.team1Id = [dict intForJsonProperty:kLeaguevineGameTeam1Id defaultValue:-1];
         self.team2Id = [dict intForJsonProperty:kLeaguevineGameTeam2Id defaultValue:-1];
@@ -139,6 +137,44 @@
     [encoder encodeInt:self.team2Id forKey:kLeaguevineGameTeam2Id];
     [encoder encodeObject:self.team1Name forKey:kLeaguevineGameTeam1Name];
     [encoder encodeObject:self.team2Name forKey:kLeaguevineGameTeam2Name];
+}
+
+-(NSMutableDictionary*)asDictionary {
+    NSMutableDictionary* dict = [super asDictionary];
+    [dict setValue: self.startTimeString forKey:kLeaguevineGameStartTime];
+    [dict setValue: [NSNumber numberWithInt:self.timezoneOffsetMinutes ] forKey:kLeaguevineGameTimezoneOffsetMinutes];
+    [dict setValue: self.timezone forKey:kLeaguevineGameTimezone];
+    [dict setValue: [NSNumber numberWithInt:self.team1Id ] forKey:kLeaguevineGameTeam1Id];
+    [dict setValue: [NSNumber numberWithInt:self.team2Id ] forKey:kLeaguevineGameTeam2Id];
+    [dict setValue: self.team1Name forKey:kLeaguevineGameTeam1Name];
+    [dict setValue: self.team2Name forKey:kLeaguevineGameTeam2Name];
+    [dict setValue: [self.tournament asDictionary] forKey:kLeaguevineGameTournament];
+    return dict;
+}
+
++(LeaguevineGame*)fromDictionary:(NSDictionary*) dict {
+    LeaguevineGame* game = [[LeaguevineGame alloc] init];
+    [game populateFromDictionary:dict];
+    return game;
+}
+
+-(void)populateFromDictionary:(NSDictionary*) dict {
+    [super populateFromDictionary:dict];
+    self.startTimeString = [dict objectForKey:kLeaguevineGameStartTime];
+    self.timezoneOffsetMinutes = [dict intForJsonProperty:kLeaguevineGameTimezoneOffsetMinutes defaultValue:0];
+    self.timezone = [dict objectForKey:kLeaguevineGameTimezone];
+    self.team1Id = [dict intForJsonProperty:kLeaguevineGameTeam1Id defaultValue:-1];
+    self.team2Id = [dict intForJsonProperty:kLeaguevineGameTeam2Id defaultValue:-1];
+    self.team1Name = [dict objectForKey:kLeaguevineGameTeam1Name];
+    self.team2Name = [dict objectForKey:kLeaguevineGameTeam2Name];
+    self.tournament = [LeaguevineTournament fromDictionary: [dict objectForKey:kLeaguevineGameTournament]];
+}
+
+-(NSDate*)startTime {
+    if (!_startTime && [self.startTimeString isNotEmpty]) {
+        _startTime = [self startTimeFromString:self.startTimeString];
+    }
+    return _startTime;
 }
 
 -(NSString*)description {

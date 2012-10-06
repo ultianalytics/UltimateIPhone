@@ -7,6 +7,7 @@
 //
 
 #import "LeaguevineSeason.h"
+#import "LeaguevineLeague.h"
 
 #define kLeaguevineSeasonLeague @"league"
 
@@ -36,6 +37,23 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:self.league forKey:kLeaguevineSeasonLeague];
+}
+
+-(NSMutableDictionary*)asDictionary {
+    NSMutableDictionary* dict = [super asDictionary];
+    [dict setValue: self.league forKey:kLeaguevineSeasonLeague];
+    return dict;
+}
+
++(LeaguevineSeason*)fromDictionary:(NSDictionary*) dict {
+    LeaguevineSeason* season = [[LeaguevineSeason alloc] init];
+    [season populateFromDictionary:dict];
+    return season;
+}
+
+-(void)populateFromDictionary:(NSDictionary*) dict {
+    [super populateFromDictionary:dict];
+    self.league = [LeaguevineLeague fromDictionary:[dict objectForKey:kLeaguevineSeasonLeague]];
 }
 
 @end

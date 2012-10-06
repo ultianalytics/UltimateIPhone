@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString* gender;
 
 +(LeaguevineLeague*)fromJson:(NSDictionary*) dict;
++(LeaguevineLeague*)fromDictionary:(NSDictionary*) dict;
 
 @end

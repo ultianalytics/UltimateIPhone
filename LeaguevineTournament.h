@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSDate* endDate;
 
 +(LeaguevineTournament*)fromJson:(NSDictionary*) dict;
++(LeaguevineTournament*)fromDictionary:(NSDictionary*) dict;
 
 @end

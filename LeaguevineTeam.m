@@ -40,6 +40,23 @@
     [encoder encodeObject:self.season forKey:kLeaguevineTeamSeason];
 }
 
+-(NSMutableDictionary*)asDictionary {
+    NSMutableDictionary* dict = [super asDictionary];
+    [dict setValue: self.season forKey:kLeaguevineTeamSeason];
+    return dict;
+}
+
++(LeaguevineTeam*)fromDictionary:(NSDictionary*) dict {
+    LeaguevineTeam* team = [[LeaguevineTeam alloc] init];
+    [team populateFromDictionary:dict];
+    return team;
+}
+
+-(void)populateFromDictionary:(NSDictionary*) dict {
+    [super populateFromDictionary:dict];
+    self.season = [LeaguevineSeason fromDictionary:[dict objectForKey:kLeaguevineTeamSeason]];
+}
+
 -(NSString*)description {
     return [NSString stringWithFormat:@"LeaguevineTeam: %d %@", self.itemId, self.name];
 }

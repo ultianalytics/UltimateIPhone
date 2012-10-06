@@ -32,6 +32,8 @@
 #define kNotifyNewGameAlertTitle @"Game Over?"
 #define kNoInternetAlertTitle @"No Internet Access"
 #define kLeaguevineCredentialsRejected @"Leaguevine Signon Needed"
+#define kLeaguevineGameInvalid @"Leaguevine Game Not Valid"
+#define kLeaguevineError @"Error Posting To Leaguevine"
 
 #define kIsNotFirstGameViewUsage @"IsNotFirstGameViewUsage"
 
@@ -549,15 +551,26 @@
     if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
         [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
             if (status != LeaguevineInvokeOK) {
+                [Game getCurrentGame].publishScoreToLeaguevine = NO;
+                [[Game getCurrentGame] save];
+                NSString *message, *title;
                 if (status == LeaguevineInvokeCredentialsRejected) {
-                    UIAlertView *alert = [[UIAlertView alloc]
-                                          initWithTitle: kLeaguevineCredentialsRejected
-                                          message: @"You have asked to post game scores to Leaguevine but you are not signed on.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again."
-                                          delegate: nil
-                                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                          otherButtonTitles: nil];
-                    [alert show];
+                    title = kLeaguevineCredentialsRejected;
+                    message = @"You have asked to post game scores to Leaguevine but you are not signed on.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again.";
+                } else if (status == LeaguevineInvokeInvalidGame) {
+                    title = kLeaguevineGameInvalid;
+                    message = @"You have asked to post game scores to Leaguevine but your team is not associated with this game.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on choose another Leaguevine game.";
+                } else {
+                    title = kLeaguevineError;
+                    message = @"We receieved an error while trying to post to Leaguevine. \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again.";
                 }
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle: title
+                                      message: message
+                                      delegate: nil
+                                      cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                      otherButtonTitles: nil];
+                [alert show];
             }
         }];
     }

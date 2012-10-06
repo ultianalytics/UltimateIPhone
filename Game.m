@@ -36,6 +36,7 @@
 #define kWindKey                @"wind"
 #define kGamePointKey           @"gamePoint"
 #define kLeagueVineGameKey      @"leaguevineGame"
+#define kLeagueVineGameAsJsonKey      @"leaguevineJson"
 #define kLeagueVinePublishKey   @"pubToLeaguevine"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 
@@ -89,6 +90,17 @@ static Game* currentGame = nil;
                 [points addObject:[UPoint fromDictionary:pointDict]];
             }
             game.points = points;
+        }
+    }
+    NSString* leaguevineJson = [dict objectForKey:kLeagueVineGameAsJsonKey];
+    if (leaguevineJson) {
+        NSError* marshallError;
+        NSData* jsonData = [leaguevineJson dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary* leaguevineGameDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error parsing leaguevine JSON");
+        } else {
+            game.leaguevineGame = [LeaguevineGame fromDictionary: leaguevineGameDict];
         }
     }
 //    NSDictionary* windDict = [dict objectForKey:kPointsAsJsonKey];
@@ -145,7 +157,17 @@ static Game* currentGame = nil;
         } else {
             [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kPointsAsJsonKey];
         }
-    } 
+    }
+    if (self.leaguevineGame) {
+        NSDictionary* leaguevineGameDict = [self.leaguevineGame asDictionary];
+        NSError* marshallError;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:leaguevineGameDict options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error creating JSON of leaguevine");
+        } else {
+            [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kLeagueVineGameAsJsonKey];
+        }
+    }
     [dict setValue: [NSNumber numberWithInt:score.ours] forKey:kScoreOursProperty];
     [dict setValue: [NSNumber numberWithInt:score.theirs] forKey:kScoreTheirsProperty];
     [dict setValue: [wind asDictionary] forKey: kWindKey];

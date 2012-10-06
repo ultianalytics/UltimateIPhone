@@ -21,6 +21,7 @@
 @property (nonatomic, strong) LeaguevineTournament* tournament;  // persistent
 
 +(LeaguevineGame*)fromJson:(NSDictionary*) dict;
++(LeaguevineGame*)fromDictionary:(NSDictionary*) dict;
 -(NSString*)opponentDescription;
 -(NSTimeZone*)getStartTimezone;
 

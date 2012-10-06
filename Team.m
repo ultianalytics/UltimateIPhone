@@ -19,6 +19,7 @@
 #define kPlayersKey             @"players"
 #define kNameKey                @"name"
 #define kIsMixedKey             @"mixed"
+#define kLeagueVineTeamAsJsonKey      @"leaguevineJson"
 #define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kTeamFileNamePrefixKey  @"team-"
 
@@ -140,6 +141,17 @@ static Team* currentTeam = nil;
             }
         }
     }
+    NSString* leaguevineJson = [dict objectForKey:kLeagueVineTeamAsJsonKey];
+    if (leaguevineJson) {
+        NSError* marshallError;
+        NSData* jsonData = [leaguevineJson dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary* leaguevineTeamDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error parsing leaguevine JSON");
+        } else {
+            team.leaguevineTeam = [LeaguevineTeam fromDictionary: leaguevineTeamDict];
+        }
+    }
     return team;
 }
 
@@ -187,6 +199,16 @@ static Team* currentTeam = nil;
         [arrayOfPlayers addObject:[player asDictionaryWithScrubbing: shouldScrub]];
     }
     [dict setValue: arrayOfPlayers forKey:kPlayersKey];
+    if (self.leaguevineTeam) {
+        NSDictionary* leaguevineTeamDict = [self.leaguevineTeam asDictionary];
+        NSError* marshallError;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:leaguevineTeamDict options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error creating JSON of leaguevine");
+        } else {
+            [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kLeagueVineTeamAsJsonKey];
+        }
+    }
     return dict;
 }
 

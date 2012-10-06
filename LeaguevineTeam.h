@@ -16,6 +16,7 @@
 @property (nonatomic, strong) LeaguevineSeason* season;
 
 +(LeaguevineTeam*)fromJson:(NSDictionary*) dict;
++(LeaguevineTeam*)fromDictionary:(NSDictionary*) dict;
 -(LeaguevineLeague*)league;
 
 @end

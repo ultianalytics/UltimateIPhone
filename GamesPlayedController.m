@@ -101,7 +101,7 @@
         label.textColor = [ColorMaster getWinScoreColor];
         
         // (2.) add the tournament/time label
-        rect = CGRectMake(5, 2, 200, 8);
+        rect = CGRectMake(5, 2, 240, 8);
         label = [[UILabel alloc] initWithFrame:rect];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont systemFontOfSize:10];
@@ -118,7 +118,7 @@
     scoreLabel.text = game.formattedScore;
     scoreLabel.textColor = game.score.ours == game.score.theirs ? [UIColor blackColor] : 
         (game.score.ours > game.score.theirs ? [ColorMaster getWinScoreColor] :  [ColorMaster getLoseScoreColor]);
-    tournamentAndTimeLabel.text = game.tournamentName == nil? game.formattedStartDate : [NSString stringWithFormat:@"%@, %@", game.tournamentName, game.formattedStartDate];
+    tournamentAndTimeLabel.text = game.tournamentName == nil? game.formattedStartDate : [NSString stringWithFormat:@"%@, %@", game.formattedStartDate, game.tournamentName];
     
     return cell;
 }

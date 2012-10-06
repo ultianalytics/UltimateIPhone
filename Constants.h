@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #define kProductName @"iUltimate"
-#define kMaxTournamentNameLength 20
-#define kMaxOpponentNameLength 20
+#define kMaxTournamentNameLength 50
+#define kMaxOpponentNameLength 50
 #define kMaxNicknameLength 8
-#define kMaxTeamNameLength 18
+#define kMaxTeamNameLength 50
 #define kNoAccountText @"NO TWITTER ACCOUNT"
 #define kAnonymousTeam @"Anonymous Team"
 

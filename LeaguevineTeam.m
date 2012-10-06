@@ -42,7 +42,7 @@
 
 -(NSMutableDictionary*)asDictionary {
     NSMutableDictionary* dict = [super asDictionary];
-    [dict setValue: self.season forKey:kLeaguevineTeamSeason];
+    [dict setValue: [self.season asDictionary] forKey:kLeaguevineTeamSeason];
     return dict;
 }
 

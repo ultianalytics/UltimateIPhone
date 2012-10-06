@@ -292,7 +292,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!self.cells) {
-        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.playersCell, self.leagueVineCell, nil];
+        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.leagueVineCell, self.playersCell, nil];
     }
     return [self.cells count];
 }
@@ -315,18 +315,19 @@
 #pragma mark Leaguevine
 
 -(void)handleLeaguevineTeamNeedsSelection {
-    if ([self saveChanges]) {
-        LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
-        leagueController.team = self.team;
-        leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {
-            self.team.leaguevineTeam = leaguevineTeam;
-            [self saveChanges];
-            [self.navigationController popViewControllerAnimated:YES];
-        };
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        [[self navigationItem] setBackBarButtonItem:backButton];
-        [self.navigationController pushViewController:leagueController animated:YES];
-    }
+    LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
+    leagueController.team = self.team;
+    leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {
+        self.team.leaguevineTeam = leaguevineTeam;
+        if (![self.teamNameField.text isNotEmpty]) {
+            self.teamNameField.text = leaguevineTeam.name;
+        }
+        [self saveChanges];
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    [self.navigationController pushViewController:leagueController animated:YES];
 }
 
 -(void)populateLeagueVineTeamCell {

@@ -11,6 +11,7 @@
 #import "TeamDescription.h"
 #import "Game.h"
 #import "Player.h"
+#import "LeaguevineTeam.h"
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"
@@ -27,7 +28,6 @@
 static Team* currentTeam = nil;
 
 @implementation Team
-@synthesize teamId, players, name, isMixed, isDiplayingPlayerNumber, cloudId;
 
 +(NSArray*)retrieveTeamDescriptions {
     NSMutableArray* descriptions = [[NSMutableArray alloc] init];
@@ -242,7 +242,7 @@ static Team* currentTeam = nil;
 }
 
 -(BOOL)hasBeenSaved {
-    NSString* filePath = [Team getFilePath: teamId]; 
+    NSString* filePath = [Team getFilePath: self.teamId];
 	return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
@@ -332,6 +332,13 @@ static Team* currentTeam = nil;
         copyNumber++;
     }
     return finalCopyName;
+}
+
+-(NSString*)name {
+    if (self.leaguevineTeam && _name == nil) {
+        return self.leaguevineTeam.name;
+    }
+    return _name;
 }
 
 @end

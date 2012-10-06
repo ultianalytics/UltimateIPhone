@@ -26,10 +26,12 @@
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
 #import "LeaguevineClient.h"
+#import "LeagueVineSignonViewController.h"
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
 #define kNoInternetAlertTitle @"No Internet Access"
+#define kLeaguevineCredentialsRejected @"Leaguevine Signon Needed"
 
 #define kIsNotFirstGameViewUsage @"IsNotFirstGameViewUsage"
 
@@ -43,7 +45,7 @@
 
 @implementation GameViewController
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
-    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, tweetingLabel, firstTimeUsageCallouts,infoCalloutsView;
+    eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, firstTimeUsageCallouts,infoCalloutsView;
 
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
@@ -277,12 +279,19 @@
 }
 
 - (void) updateAutoTweetingNotice {
-    self.tweetingLabel.hidden = ![Tweeter getCurrent].isTweetingEvents;
-    if ([[Tweeter getCurrent] isTweetingEvents] && 
+    BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
+    BOOL isLeaguevinePosting = [Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine;
+    self.broadcast1Label.hidden = !isAutoTweeting;
+    self.broadcast2Label.hidden = !isLeaguevinePosting;
+
+    if ((isAutoTweeting || isLeaguevinePosting) &&
         [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        NSString* broadcastTarget = isAutoTweeting ?
+            isLeaguevinePosting ? @"auto-tweeting and posting scores to Leaguevine" : @"auto-tweeting" :
+            @"posting scores to Leaguevine";
         UIAlertView *alert = [[UIAlertView alloc] 
                               initWithTitle: kNoInternetAlertTitle
-                              message: @"Warning: You are auto-tweeting but we can't reach the internet to send the tweets."
+                              message: [NSString stringWithFormat: @"Warning: You are %@ but we can't reach the internet.", broadcastTarget]
                               delegate: nil
                               cancelButtonTitle: NSLocalizedString(@"OK",nil)
                               otherButtonTitles: nil];
@@ -451,10 +460,10 @@
         } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
             [self goToPlayersOnFieldView];
         }
-    } 
+    }
 }
 
-#pragma mark 
+#pragma mark
 
 -(void) addInfoButtton {
     UIView *navBar = self.navigationController.navigationBar;
@@ -534,11 +543,21 @@
     self.throwAwayButton.frame = buttonRect;
 }
 
+#pragma mark Leaguevine 
+
 -(void)notifyLeaguevine: (BOOL)isFinal {
     if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
         [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
             if (status != LeaguevineInvokeOK) {
-                // to do
+                if (status == LeaguevineInvokeCredentialsRejected) {
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle: kLeaguevineCredentialsRejected
+                                          message: @"You have asked to post game scores to Leaguevine but you are not signed on.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again."
+                                          delegate: nil
+                                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                          otherButtonTitles: nil];
+                    [alert show];
+                }
             }
         }];
     }
@@ -549,6 +568,18 @@
         _leaguevineClient = [[LeaguevineClient alloc] init];
     }
     return _leaguevineClient;
+}
+
+-(void)askUserForLeauguevineCredentials: (void (^)(BOOL hasLeaguevineCredentials)) completion {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+    lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
+        [signonController dismissViewControllerAnimated:YES completion:^{
+            completion(isSignedOn);
+        }];
+    };
+    [self presentViewController:lvController animated:YES completion:nil];
 }
 
 

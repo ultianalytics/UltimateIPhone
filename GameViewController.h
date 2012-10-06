@@ -41,7 +41,8 @@
 @property (nonatomic, strong) IBOutlet UIView* swipeEventsView;
 @property (nonatomic, strong) IBOutlet UIView* hideReceiverView;
 
-@property (nonatomic, strong) IBOutlet UILabel* tweetingLabel;
+@property (nonatomic, strong) IBOutlet UILabel* broadcast1Label;
+@property (nonatomic, strong) IBOutlet UILabel* broadcast2Label;
 
 -(IBAction) throwAwayButtonClicked: (id) sender;
 -(IBAction) otherTeamScoreClicked: (id) sender;

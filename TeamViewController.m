@@ -20,8 +20,14 @@
 #import "LeagueVineSignonViewController.h"
 #import "LeagueVineTeamViewController.h"
 #import "LeaguevineTeam.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
+
+#define kIsNotFirstGameDetailViewUsage @"IsNotFirstGameDetailViewUsage"
 
 @interface TeamViewController()
+
+@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
 @end
 
@@ -134,7 +140,7 @@
         self.shouldSkipToPlayers = NO;
         if ([self.team.players count] > 0) {
             [self goToPlayersView: NO];
-        }
+        } 
     }
 }
 
@@ -264,7 +270,10 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self goToBestView];
+    BOOL showedFirstTimeCallouts = [self showFirstTimeUsageCallouts];
+    if (!showedFirstTimeCallouts) {
+        [self goToBestView];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -334,5 +343,34 @@
     self.leagueVineDescriptionLabel.text = self.team.leaguevineTeam == nil ? @"NO TEAM PICKED" : self.team.leaguevineTeam.name;
 }
 
+#pragma mark - Callouts
+
+
+-(BOOL)showFirstTimeUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameDetailViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameDetailViewUsage];
+        
+        [self performSelector:@selector(displayFirstTimeCallouts) withObject:nil afterDelay:.1];
+
+        return YES;
+    } else {
+        return NO;
+    }
+    
+}
+
+-(void)displayFirstTimeCallouts {
+    CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+    
+    CGPoint anchor = CGPointBottom([self.leagueVineCell convertRect:self.leagueVineCell.bounds toView:self.view]);
+    [calloutsView addCallout:@"Connect your team to Leaguevine if you would like scores posted there as games progress." anchor: anchor width: 200 degrees: 180 connectorLength: 100 font: [UIFont systemFontOfSize:14]];
+    
+    self.firstTimeUsageCallouts = calloutsView;
+    [self.view addSubview:calloutsView];
+    
+    // move the callouts off the screen and then animate their return.
+    [self.firstTimeUsageCallouts slide: YES animated: NO];
+    [self.firstTimeUsageCallouts slide: NO animated: YES];
+}
 
 @end

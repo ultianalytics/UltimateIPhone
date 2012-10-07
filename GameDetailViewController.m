@@ -396,8 +396,16 @@
 }
 
 -(void)transitionCell: (UITableViewCell*) cell fromSubview: (UIView*)fromView toView: (UIView*)toView {
-    [fromView removeFromSuperview];
     [cell addSubview:toView];
+    [UIView animateWithDuration:.3 delay:0 options:0 animations:^{
+        fromView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.4 delay:0 options:0 animations:^{
+            toView.alpha = 1;
+        } completion:^(BOOL finished) {
+            [fromView removeFromSuperview];
+        }];
+    }];
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {

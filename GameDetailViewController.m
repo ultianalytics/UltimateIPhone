@@ -33,16 +33,20 @@
 @property (nonatomic, strong) NSMutableArray* cells;
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
-@property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
+
 @property (nonatomic, strong) IBOutlet UITableViewCell* initialLineCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gamePointsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* windCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* statsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevineGameCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePublishCell;
+
+@property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentOrPubCell;
+@property (strong, nonatomic) IBOutlet UIView *opponentView;
+@property (strong, nonatomic) IBOutlet UIView *tournamentView;
+@property (strong, nonatomic) IBOutlet UIView *leaguevineOpponentView;
+@property (strong, nonatomic) IBOutlet UIView *leaguevinePublishView;
 
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
@@ -173,11 +177,7 @@
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         [self.cells addObject:self.gameTypeCell];
     }
-    if ([self.game isLeaguevineGame] || self.gameTypeSegmentedControl.selectedSegmentIndex == 1) {
-        [self.cells addObjectsFromArray:@[self.leaguevineGameCell, self.leaguevinePublishCell]];
-    } else {
-        [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentCell]];
-    }
+    [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell]];
     [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.windCell]];
     if ([self.game hasBeenSaved]) {
         [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell]];
@@ -377,8 +377,27 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell* cell = [self.cells objectAtIndex:[indexPath row]];
+    if (cell == self.opponentCell) {
+        if ([self.game isLeaguevineGame] || [self isLeaguevineType]) {
+            [self transitionCell:cell fromSubview:self.opponentView toView:self.leaguevineOpponentView];
+        } else {
+            [self transitionCell:cell fromSubview:self.leaguevineOpponentView toView:self.opponentView];
+        }
+    } else if (cell == self.tournamentOrPubCell) {
+        if ([self.game isLeaguevineGame] || [self isLeaguevineType]) {
+            [self transitionCell:cell fromSubview:self.tournamentView toView:self.leaguevinePublishView];
+        } else {
+            [self transitionCell:cell fromSubview:self.leaguevinePublishView toView:self.tournamentView];
+        }
+    }
+
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
+}
+
+-(void)transitionCell: (UITableViewCell*) cell fromSubview: (UIView*)fromView toView: (UIView*)toView {
+    [fromView removeFromSuperview];
+    [cell addSubview:toView];
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -397,7 +416,7 @@
         GameHistoryController* eventsController = [[GameHistoryController alloc] init];
         eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
-    } else if (cell == self.leaguevineGameCell) {
+    } else if (cell == self.opponentCell && [self isLeaguevineType]) {
         LeagueVineGameViewController* leaguevineController = [[LeagueVineGameViewController alloc] init];
         leaguevineController.team = [Team getCurrentTeam];
         leaguevineController.game = self.game;
@@ -408,10 +427,6 @@
         [[self navigationItem] setBackBarButtonItem:backButton];
         [self.navigationController pushViewController:leaguevineController animated:YES];
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 34;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -456,6 +471,7 @@
 {
     [super viewDidLoad];
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
+    self.tableView.rowHeight = 34;
     
     self.gameTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     self.gameTypeSegmentedControl.selectedSegmentIndex = 0;
@@ -478,6 +494,10 @@
 
 - (void)viewDidUnload
 {
+    [self setOpponentView:nil];
+    [self setTournamentView:nil];
+    [self setLeaguevineOpponentView:nil];
+    [self setLeaguevinePublishView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

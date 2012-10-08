@@ -82,7 +82,7 @@
 
 +(NSArray*)throwsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Catch || eventDetails.event.action == Drop) {
+        if ([eventDetails.event isOffense] && (eventDetails.event.action == Catch || eventDetails.event.action == Drop || eventDetails.event.action == Throwaway)) {
             OffenseEvent* event = (OffenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];

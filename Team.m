@@ -323,14 +323,6 @@ static Team* currentTeam = nil;
     [self.players removeObject:player];
 }
 
--(NSArray*)getInitialOLine {
-    return [self.players subarrayWithRange:NSMakeRange(0, MIN([self.players count], 7))];
-}
-
--(NSArray*)getInitialDLine {
-    return [self.players subarrayWithRange:NSMakeRange(0, MIN([self.players count], 7))];
-}
-
 -(void)sortPlayers {
     [self.players sortUsingComparator:^(id a, id b) {
         NSString* playerNameA = ((Player*)a).name;
@@ -361,6 +353,31 @@ static Team* currentTeam = nil;
         return self.leaguevineTeam.name;
     }
     return _name;
+}
+
+-(NSMutableArray*)defaultLine {
+    [self sortPlayers];
+    NSMutableArray* line = [[NSMutableArray alloc] init];
+    int maleCount = 0;
+    int femaleCount = 0;
+    for (Player* player in  self.players) {
+        if (self.isMixed) {
+            if (player.isMale && maleCount < 4) {
+                [line addObject:player];
+                maleCount++;
+            } else if (!player.isMale && femaleCount < 4) {
+                [line addObject:player];
+                femaleCount++;
+            }
+        } else {
+            [line addObject:player];
+        }
+        
+        if ([line count] >= 7) {
+            break;
+        }
+    }
+    return line;
 }
 
 @end

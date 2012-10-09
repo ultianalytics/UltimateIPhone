@@ -320,9 +320,7 @@ static Game* currentGame = nil;
         self.wind = [[Wind alloc] init];
         self.gamePoint = [Preferences getCurrentPreferences].gamePoint;
         arePointSummariesValid = NO;
-        int max = MIN(7, [[Team getCurrentTeam].players count]);
-        self.currentLine = [[NSMutableArray alloc] initWithArray:
-                       [[Team getCurrentTeam].players subarrayWithRange: NSMakeRange(0, max)]]; 
+        self.currentLine = [[Team getCurrentTeam] defaultLine];
     }
     return self;
 }

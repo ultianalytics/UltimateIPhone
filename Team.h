@@ -41,8 +41,7 @@
 -(void) addPlayer: (Player*) player;
 -(Player*) getPlayer: (NSString*) playerName;
 -(void) removePlayer: (Player*) player;
--(NSMutableArray*)getInitialOLine;
--(NSMutableArray*)getInitialDLine;
+-(NSMutableArray*)defaultLine;
 -(void)sortPlayers;
 -(BOOL)isLeaguevineTeam;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;

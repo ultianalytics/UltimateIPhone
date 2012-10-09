@@ -65,8 +65,6 @@
 
 
 -(void)goToActionView {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(popWithCurl)];
-    self.navigationItem.leftBarButtonItem = backButton;
     GameViewController* gameController = [[GameViewController alloc] init];
     [self.navigationController pushViewController:gameController animated:YES]; 
 }

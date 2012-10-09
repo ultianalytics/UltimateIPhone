@@ -388,7 +388,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.title = NSLocalizedString(@"Game", @"Game");
+    self.title = NSLocalizedString(@"Action", @"Action");
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -415,7 +415,7 @@
 - (void)updateNavBarTitle {
     Score score = [[Game getCurrentGame] getScore];
     NSString* leaderDescription = score.ours == score.theirs ? @"" : score.ours > score.theirs    ? @", us" :  @", them";
-    NSString* navBarTitle = [NSString stringWithFormat:@"%@ (%d-%d%@)", NSLocalizedString(@"Game", @"Game"), score.ours, score.theirs, leaderDescription];
+    NSString* navBarTitle = [NSString stringWithFormat:@"%@ (%d-%d%@)", NSLocalizedString(@"Action", @"Action"), score.ours, score.theirs, leaderDescription];
     self.navigationItem.title = navBarTitle;
 }
 

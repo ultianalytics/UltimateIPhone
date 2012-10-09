@@ -117,13 +117,6 @@
     [self addFooterButton];
 }
 
--(void)populateLeaguevineCells {
-    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame opponentDescription] : @"NOT SET";
-    self.pubToLeaguevineSegmentedControl.enabled = self.game.leaguevineGame != nil;
-    self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = !self.game.publishScoreToLeaguevine;
-}
-
-
 -(BOOL)verifyOpponentName {
     if (self.game.leaguevineGame) {
         return YES;
@@ -184,22 +177,6 @@
     }
 }
 
--(BOOL)isLeaguevineType {
-    return self.gameTypeSegmentedControl.selectedSegmentIndex == 1;
-}
-
--(void)askUserForLeauguevineCredentials: (void (^)(BOOL hasLeaguevineCredentials)) completion {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];
-    LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
-    lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
-        [signonController dismissViewControllerAnimated:YES completion:^{
-            completion(isSignedOn);
-        }];
-    };
-    [self presentViewController:lvController animated:YES completion:nil];
-}
-
 #pragma mark - Event Handlers
 
 -(IBAction)opponentNameChanged: (id) sender {
@@ -241,60 +218,7 @@
 }
 
 - (IBAction)pubToLeaguevineChanged:(id)sender {
-    BOOL shouldPublishScores = !self.pubToLeaguevineSegmentedControl.selectedSegmentIndex;
-    if (shouldPublishScores) {
-        if (![[Preferences getCurrentPreferences].leaguevineToken isNotEmpty]) {
-            [self askUserForLeauguevineCredentials:^(BOOL hasLeaguevineCredentials) {
-                self.game.publishScoreToLeaguevine = hasLeaguevineCredentials;
-                [self populateLeaguevineCells];
-                [self saveChanges];
-                if (hasLeaguevineCredentials) {
-                    [self updateLeaguevine];
-                }
-            }];
-        } else {
-            [self updateLeaguevine];
-        }
-    } else {
-        self.game.publishScoreToLeaguevine = shouldPublishScores;
-        [self saveChanges];
-    }
-}
-
--(void)updateLeaguevine {
-    Score score = [self.game getScore];
-    if (score.ours > 0 || score.theirs > 0) {
-        LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
-        [lvClient postGameScore: self.game.leaguevineGame score: score isFinal: [self.game doesGameAppearDone] completion: ^(LeaguevineInvokeStatus status, id result) {
-            if (status == LeaguevineInvokeOK) {
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Leaguevine Updated"
-                                      message:@"Leaguvine was updated with the current score. Further updates will be sent after each goal."
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                [alert show];
-            } else if (status == LeaguevineInvokeCredentialsRejected) {
-                self.game.publishScoreToLeaguevine = NO;
-                [self populateLeaguevineCells];
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Leaguevine Signon Invalid"
-                                      message:@"Leaguevine signon is no longer valid.  Try again by turning on publishing to Leaguevine."
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                [alert show];
-            }
-        }];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Leaguevine Publishing Ready"
-                              message:@"Automatic publishing to Leaguevine is active.  Updates will be sent after each goal."
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-    }
+    [self leaguevinePublishChanged];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -357,12 +281,95 @@
     }
 }
 
+#pragma mark - Leaguevine
+
+
+-(BOOL)isLeaguevineType {
+    return self.gameTypeSegmentedControl.selectedSegmentIndex == 1;
+}
+
+-(void)populateLeaguevineCells {
+    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame opponentDescription] : @"NOT SET";
+    self.pubToLeaguevineSegmentedControl.enabled = self.game.leaguevineGame != nil;
+    self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = !self.game.publishScoreToLeaguevine;
+}
+
 -(void)handleLeaguevineGameSelected: (LeaguevineGame*) leaguevineGame {
     self.game.leaguevineGame = leaguevineGame;
     [self saveChanges];
     [self populateLeaguevineCells];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)askUserForLeauguevineCredentials: (void (^)(BOOL hasLeaguevineCredentials)) completion {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+    lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
+        [signonController dismissViewControllerAnimated:YES completion:^{
+            completion(isSignedOn);
+        }];
+    };
+    [self presentViewController:lvController animated:YES completion:nil];
+}
+
+- (void)leaguevinePublishChanged {
+    BOOL shouldPublishScores = !self.pubToLeaguevineSegmentedControl.selectedSegmentIndex;
+    self.game.publishScoreToLeaguevine = shouldPublishScores;
+    if (shouldPublishScores) {
+        if (![[Preferences getCurrentPreferences].leaguevineToken isNotEmpty]) {
+            [self askUserForLeauguevineCredentials:^(BOOL hasLeaguevineCredentials) {
+                self.game.publishScoreToLeaguevine = hasLeaguevineCredentials;
+                [self populateLeaguevineCells];
+                [self saveChanges];
+                if (hasLeaguevineCredentials) {
+                    [self updateLeaguevine];
+                }
+            }];
+        } else {
+            [self updateLeaguevine];
+        }
+    } else {
+        [self saveChanges];
+    }
+}
+
+-(void)updateLeaguevine {
+    Score score = [self.game getScore];
+    if (score.ours > 0 || score.theirs > 0) {
+        LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
+        [lvClient postGameScore: self.game.leaguevineGame score: score isFinal: [self.game doesGameAppearDone] completion: ^(LeaguevineInvokeStatus status, id result) {
+            if (status == LeaguevineInvokeOK) {
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Leaguevine Updated"
+                                      message:@"Leaguvine was updated with the current score. Further updates will be sent after each goal."
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                [alert show];
+            } else if (status == LeaguevineInvokeCredentialsRejected) {
+                self.game.publishScoreToLeaguevine = NO;
+                [self populateLeaguevineCells];
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Leaguevine Signon Invalid"
+                                      message:@"Leaguevine signon is no longer valid.  Try again by turning on publishing to Leaguevine."
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Leaguevine Publishing Ready"
+                              message:@"Automatic publishing to Leaguevine is active.  Updates will be sent after each goal."
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 
 #pragma mark - Table delegate
 

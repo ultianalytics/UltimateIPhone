@@ -41,7 +41,7 @@
         if (isOffense) {
             [self.passerButton setTitle: @"UNKNOWN" forState:UIControlStateNormal];
         } else {
-            self.defensePlayerNameLabel.text = @"TEAM";
+            self.defensePlayerNameLabel.text = @"UNKNOWN";
         }
     } 
 }

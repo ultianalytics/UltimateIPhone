@@ -10,6 +10,8 @@
 		1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */; };
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
+		1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B8291625900C00EC9D92 /* EventChangeViewController.m */; };
+		1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F9E0115F4E51400037C70 /* NSArray+Utilities.m */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
@@ -261,6 +263,9 @@
 		1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
+		1A23B8281625900C00EC9D92 /* EventChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventChangeViewController.h; sourceTree = "<group>"; };
+		1A23B8291625900C00EC9D92 /* EventChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventChangeViewController.m; sourceTree = "<group>"; };
+		1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventChangeViewController.xib; sourceTree = "<group>"; };
 		1A2DA03A15458AE200D59B29 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1A2DA03B15458AE200D59B29 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1A2F9E0015F4E51400037C70 /* NSArray+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utilities.h"; sourceTree = "<group>"; };
@@ -1054,6 +1059,9 @@
 				1AFFE81215175EB0004B4590 /* GameHistoryController.h */,
 				1AFFE81315175EB0004B4590 /* GameHistoryController.m */,
 				1AFFE81415175EB0004B4590 /* GameHistoryController.xib */,
+				1A23B8281625900C00EC9D92 /* EventChangeViewController.h */,
+				1A23B8291625900C00EC9D92 /* EventChangeViewController.m */,
+				1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */,
 			);
 			name = "Event History";
 			sourceTree = "<group>";
@@ -1368,6 +1376,7 @@
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
 				1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */,
+				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1519,6 +1528,7 @@
 				1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */,
 				1A7994E4161736CD00E77FC5 /* NSDate+Utilities.m in Sources */,
 				1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */,
+				1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

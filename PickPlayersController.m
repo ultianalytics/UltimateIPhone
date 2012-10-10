@@ -46,12 +46,6 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
 - (void)populateUI {
     [self loadPlayerButtons];
     [self updateBenchView];
@@ -297,6 +291,32 @@
     }
 }
 
+#pragma mark Lifecycle 
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.benchTableView.rowHeight = 41;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
+        [self loadPlayerStats];
+        [self populateUI];
+        if ([game isNextEventImmediatelyAfterHalftime] && ![game isTimeBasedEnd]) {
+            [self halftimeWarning];
+        }
+    } else {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+    [self addInfoButtton];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self toggleFirstTimeUsageCallouts];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -319,24 +339,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
-        [self loadPlayerStats];
-        [self populateUI];
-        if ([game isNextEventImmediatelyAfterHalftime] && ![game isTimeBasedEnd]) {
-            [self halftimeWarning];
-        }
-    } else {
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-    [self addInfoButtton];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self toggleFirstTimeUsageCallouts];
-}
+#pragma mark
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
     [errorMessageLabel setTextColor: [ColorMaster getPlayerImbalanceColor: isMaleImbalance]];

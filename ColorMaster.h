@@ -38,4 +38,6 @@
 +(UIColor*)getSegmentControlDarkTintColor;
 +(UIColor*)getPlayerImbalanceColor: (BOOL)isMaleImbalance;
 
++(void)styleAsWhiteLabel: (UILabel*) label size: (CGFloat) size;
+
 @end

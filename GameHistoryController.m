@@ -17,9 +17,13 @@
 #import "Event.h"
 #import "UPoint.h"
 #import <QuartzCore/QuartzCore.h>
+#import "EventChangeViewController.h"
 
 @implementation GameHistoryController
 @synthesize game,isCurlAnimation;
+
+
+#pragma mark Table delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self.game getNumberOfPoints];
@@ -31,15 +35,6 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [self.game getPointNameAtMostRecentIndex:section];
-}
-
-- (void)popWithCurl {
-        //Curl up
-        [UIView beginAnimations:@"animation" context:nil];
-        [UIView setAnimationDuration:1];
-        [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.navigationController.view cache:NO]; 
-        [self.navigationController popViewControllerAnimated:NO];
-        [UIView commitAnimations];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,15 +57,26 @@
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
         cell.backgroundColor = color;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.imageView.image = [ImageMaster getImageForEvent: event];
     cell.textLabel.text = [event getDescription];
     return cell;
 }
 
-//- (NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView {
-//    return [self.game getPointNamesInMostRecentOrder];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UPoint* point = [self.game getPointAtMostRecentIndex:[indexPath section]];
+    Event* event = [point getEventAtMostRecentIndex:[indexPath row]];
+    
+    EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
+    changeController.event = event;
+    changeController.pointDescription = [self.game getPointNameAtMostRecentIndex:[indexPath section]];
+    changeController.playersInPoint = point.line;
+    
+    [self.navigationController pushViewController:changeController animated:YES];
+}
+
+#pragma mark Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -88,8 +94,6 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-
-#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -121,4 +125,14 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Miscellaneous
+
+- (void)popWithCurl {
+    //Curl up
+    [UIView beginAnimations:@"animation" context:nil];
+    [UIView setAnimationDuration:1];
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.navigationController.view cache:NO];
+    [self.navigationController popViewControllerAnimated:NO];
+    [UIView commitAnimations];
+}
 @end

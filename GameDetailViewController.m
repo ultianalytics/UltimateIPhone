@@ -452,10 +452,7 @@
         // start time
         UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 190, kHeaderHeight)];
         dateLabel.backgroundColor = [UIColor clearColor];
-        dateLabel.font = [UIFont boldSystemFontOfSize:16];
-        dateLabel.textColor = [UIColor whiteColor];
-        dateLabel.shadowColor = [UIColor blackColor];
-        dateLabel.shadowOffset = CGSizeMake(0, 1);
+        [ColorMaster styleAsWhiteLabel:dateLabel size:16];
         dateLabel.text = [self.dateFormat stringFromDate:self.game.startDateTime];
         [headerView addSubview:dateLabel];
         

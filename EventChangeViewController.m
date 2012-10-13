@@ -261,12 +261,14 @@
             case Drop: {
                 self.eventTypeDescriptionLabel.text = @"Our Turnover:";
                 [self show: self.player2TableView shouldShow: YES animate: !initial];
+                [self show: self.passedToLabel shouldShow: YES animate: !initial];
                 [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Drop" : nil];
                 break;                
             }
             case Throwaway: {
                 self.eventTypeDescriptionLabel.text = @"Our Turnover:";
                 [self show: self.player2TableView shouldShow: NO animate: !initial];
+                [self show: self.passedToLabel shouldShow: NO animate: !initial];
                 [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
                 break;                
             }

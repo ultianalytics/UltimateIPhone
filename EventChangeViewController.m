@@ -171,7 +171,7 @@
 -(void)addSaveButton {
     UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
     if (!currentNavItem.rightBarButtonItem) {
-        currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save Change" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
+        [currentNavItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Save Change" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)]animated: YES];
     }
 }
 

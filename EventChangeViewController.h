@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class Event;
+#import "UltimateSegmentedControl.h"
 
 @interface EventChangeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 

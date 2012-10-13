@@ -14,14 +14,16 @@
 #import "Player.h"
 #import "PlayerSelectionTableViewCell.h"
 #import "Constants.h"
+#import "UltimateSegmentedControl.h"
 
 @interface EventChangeViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *pointDescriptionLabel;
-@property (strong, nonatomic) IBOutlet UILabel *player1Label;
-@property (strong, nonatomic) IBOutlet UILabel *player2Label;
 @property (strong, nonatomic) IBOutlet UITableView *player1TableView;
 @property (strong, nonatomic) IBOutlet UITableView *player2TableView;
+@property (strong, nonatomic) IBOutlet UILabel *eventTypeDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *eventActionSegmentedControl;
+@property (strong, nonatomic) IBOutlet UILabel *passedToLabel;
 
 @property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) OffenseEvent* offenseEvent;
@@ -128,12 +130,27 @@
     }
 }
 
+- (IBAction)eventActionChanged:(id)sender {
+    self.eventTypeDescriptionLabel.text = @"Foo";
+    
+    if ([self.event isOffense]) {
+        // drop/throway
+        self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? Drop : Throwaway;
+    } else {
+        // d/throway
+        if (self.event.action == De || self.event.action == Throwaway) {
+            self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? De : Throwaway;
+        }
+    }
+    [self configureForEventType];
+}
+
 #pragma mark Miscellaneous
 
 -(void)addSaveButton {
     UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
     if (!currentNavItem.rightBarButtonItem) {
-        currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
+        currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save Change" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
     }
 }
 
@@ -144,8 +161,7 @@
 
 -(void)stylize {
     [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:16];
-    [ColorMaster styleAsWhiteLabel:self.player1Label size:16];
-    [ColorMaster styleAsWhiteLabel:self.player2Label size:16];
+    [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:25];
     self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
@@ -164,6 +180,7 @@
     [super viewDidLoad];
     [self stylize];
     self.pointDescriptionLabel.text = self.pointDescription;
+    [self configureForEventType];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -172,12 +189,14 @@
 }
 
 - (void)viewDidUnload {
-    [self setPlayer1Label:nil];
-    [self setPlayer2Label:nil];
     [self setPlayer1TableView:nil];
     [self setPlayer2TableView:nil];
     [self setPointDescriptionLabel:nil];
     [self setPointDescriptionLabel:nil];
+    [self setEventTypeDescriptionLabel:nil];
+    [self setPassedToLabel:nil];
+    [self setEventActionSegmentedControl:nil];
+    [self setPassedToLabel:nil];
     [super viewDidUnload];
 }
 
@@ -194,6 +213,73 @@
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.selectionStyle= UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+-(void)configureForEventType {
+    self.passedToLabel.hidden = YES;
+    self.player1TableView.hidden = NO;
+    self.player2TableView.hidden = YES;
+    self.eventActionSegmentedControl.hidden = NO;
+
+    if ([self.event isOffense]) {
+        switch (self.event.action) {
+            case Catch: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Catch";
+                self.passedToLabel.hidden = NO;
+                self.player2TableView.hidden = NO;
+            }
+            case Goal: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Our Goal";
+                self.passedToLabel.hidden = NO;
+                self.player2TableView.hidden = NO;                
+            }
+            case Drop: {
+                self.eventTypeDescriptionLabel.text = @"Our Turnover";
+                self.player2TableView.hidden = NO;
+                [self.eventActionSegmentedControl setTitle:@"Drop" forSegmentAtIndex:0];
+                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
+                self.eventActionSegmentedControl.selectedSegmentIndex = 0;
+            }
+            case Throwaway: {
+                self.eventTypeDescriptionLabel.text = @"Our Turnover";
+                [self.eventActionSegmentedControl setTitle:@"Drop" forSegmentAtIndex:0];
+                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
+                self.eventActionSegmentedControl.selectedSegmentIndex = 1;
+            }
+            default: {
+            }
+        }
+    } else {
+        switch (self.event.action) {
+            case Pull: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Pull";
+            }
+            case Goal: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Their Goal";
+                self.player1TableView.hidden = YES;
+            }
+            case De: {
+                self.eventTypeDescriptionLabel.text = @"Their Turnover";
+                [self.eventActionSegmentedControl setTitle:@"D" forSegmentAtIndex:0];
+                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
+                self.eventActionSegmentedControl.selectedSegmentIndex = 0;
+            }
+            case Throwaway:{
+                self.player1TableView.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Their Turnover";
+                [self.eventActionSegmentedControl setTitle:@"D" forSegmentAtIndex:0];
+                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
+                self.eventActionSegmentedControl.selectedSegmentIndex = 1;
+            }
+            default: {
+            }
+        }
+    }
+    [self.view setNeedsDisplay];
 }
 
 

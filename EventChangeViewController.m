@@ -12,6 +12,8 @@
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
 #import "Player.h"
+#import "PlayerSelectionTableViewCell.h"
+#import "Constants.h"
 
 @interface EventChangeViewController ()
 
@@ -19,7 +21,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *player1Label;
 @property (strong, nonatomic) IBOutlet UILabel *player2Label;
 @property (strong, nonatomic) IBOutlet UITableView *player1TableView;
-@property (strong, nonatomic) IBOutlet UITableView *actionTableView;
 @property (strong, nonatomic) IBOutlet UITableView *player2TableView;
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -55,54 +56,44 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return tableView == self.player1TableView || tableView == self.player2TableView  ? [self.players count] : [[self eligibleActions] count];
+    return [self.players count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* STD_ROW_TYPE = @"stdRowType";
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    PlayerSelectionTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.adjustsFontSizeToFitWidth = YES;
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+        cell = [self createCell];
     }
     
     if (tableView == self.player1TableView || tableView == self.player2TableView) {
-        cell.textLabel.text = [[self.players objectAtIndex:[indexPath row]] name];
+        cell.player = [self.players objectAtIndex:[indexPath row]];
+        
         NSString* selectedPlayerForThisTable;
-        NSString* selectedPlayerForOtherTable;
         if (tableView == self.player1TableView) {
             selectedPlayerForThisTable = [self.event isOffense] ? self.offenseEvent.passer.name : self.defenseEvent.defender.name;
-            selectedPlayerForOtherTable = [self.event isOffense] ? self.offenseEvent.receiver.name : nil;
         } else {
             selectedPlayerForThisTable = [self.event isOffense] ? self.offenseEvent.receiver.name : nil;
-            selectedPlayerForOtherTable = [self.event isOffense] ? self.offenseEvent.passer.name : self.defenseEvent.defender.name;
         }
-        BOOL isSelected = [selectedPlayerForThisTable isEqualToString:cell.textLabel.text];
-        cell.highlighted = isSelected;
-        BOOL isEligible = [selectedPlayerForOtherTable isEqualToString:cell.textLabel.text];
-//        cell.textLabel.textColor = isEligible ? [UIColor blackColor] : [UIColor grayColor];
-        cell.textLabel.enabled = isEligible;
-
-    } else {
-        NSString* eligibleAction = [[self eligibleActions] objectAtIndex:[indexPath row]];
-        cell.textLabel.text = eligibleAction;
-    }
-    
-
-    
+        BOOL isChoice = [selectedPlayerForThisTable isEqualToString:cell.player.name];
+        cell.chosen = isChoice;
+    } 
+   
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    Player* player = [self.players objectAtIndex:[indexPath row]];
+    if (tableView == self.player1TableView) {
+        if ([self.event isOffense])  {
+            self.offenseEvent.passer = player;
+        } else {
+            self.defenseEvent.defender = player;
+        }
+    } else if (tableView == self.player2TableView) {
+        self.offenseEvent.receiver = player;
+    }
+    [self refresh];
 }
 
 #pragma mark Event Handling
@@ -128,6 +119,8 @@
     [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:16];
     [ColorMaster styleAsWhiteLabel:self.player1Label size:16];
     [ColorMaster styleAsWhiteLabel:self.player2Label size:16];
+    self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark Lifecycle
@@ -156,7 +149,6 @@
     [self setPlayer1Label:nil];
     [self setPlayer2Label:nil];
     [self setPlayer1TableView:nil];
-    [self setActionTableView:nil];
     [self setPlayer2TableView:nil];
     [self setPointDescriptionLabel:nil];
     [self setPointDescriptionLabel:nil];
@@ -168,5 +160,15 @@
 -(NSArray*)eligibleActions {
     return @[@"Catch"];
 }
+
+-(PlayerSelectionTableViewCell*)createCell {
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([PlayerSelectionTableViewCell class]) owner:nil options:nil];
+    PlayerSelectionTableViewCell*  cell = (PlayerSelectionTableViewCell *)[nib objectAtIndex:0];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.selectionStyle= UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
 
 @end

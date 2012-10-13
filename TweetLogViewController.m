@@ -30,7 +30,6 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* STD_ROW_TYPE = @"stdRowType";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]

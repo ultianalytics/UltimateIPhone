@@ -107,6 +107,8 @@
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
 		1AC9BA131621DF0A00390D3F /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC9BA111621DF0A00390D3F /* chevron.png */; };
 		1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC9BA121621DF0A00390D3F /* chevron@2x.png */; };
+		1ACC07991627A9EB0038F934 /* PlayerSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */; };
+		1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */; };
 		1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DDC1614643600605947 /* LeagueVineSelectorGameViewController.m */; };
 		1AD50DE11614643600605947 /* LeagueVineSelectorTournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DDD1614643600605947 /* LeagueVineSelectorTournamentViewController.m */; };
 		1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DF81615C9A600605947 /* LeagueVineGameViewController.m */; };
@@ -356,6 +358,9 @@
 		1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewSignonController.xib; sourceTree = "<group>"; };
 		1AC9BA111621DF0A00390D3F /* chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevron.png; sourceTree = "<group>"; };
 		1AC9BA121621DF0A00390D3F /* chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron@2x.png"; sourceTree = "<group>"; };
+		1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSelectionTableViewCell.h; sourceTree = "<group>"; };
+		1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSelectionTableViewCell.m; sourceTree = "<group>"; };
+		1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerSelectionTableViewCell.xib; sourceTree = "<group>"; };
 		1AD50DDC1614643600605947 /* LeagueVineSelectorGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSelectorGameViewController.m; sourceTree = "<group>"; };
 		1AD50DDD1614643600605947 /* LeagueVineSelectorTournamentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSelectorTournamentViewController.m; sourceTree = "<group>"; };
 		1AD50DDE1614643600605947 /* LeagueVineSelectorGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineSelectorGameViewController.h; sourceTree = "<group>"; };
@@ -1062,6 +1067,9 @@
 				1A23B8281625900C00EC9D92 /* EventChangeViewController.h */,
 				1A23B8291625900C00EC9D92 /* EventChangeViewController.m */,
 				1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */,
+				1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */,
+				1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */,
+				1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */,
 			);
 			name = "Event History";
 			sourceTree = "<group>";
@@ -1377,6 +1385,7 @@
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
 				1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */,
 				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
+				1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1529,6 +1538,7 @@
 				1A7994E4161736CD00E77FC5 /* NSDate+Utilities.m in Sources */,
 				1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */,
 				1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */,
+				1ACC07991627A9EB0038F934 /* PlayerSelectionTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

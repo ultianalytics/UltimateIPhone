@@ -14,6 +14,7 @@
 #define kMaxTeamNameLength 50
 #define kNoAccountText @"NO TWITTER ACCOUNT"
 #define kAnonymousTeam @"Anonymous Team"
+#define STD_ROW_TYPE @"stdRowType"
 
 typedef struct {
     int ours;

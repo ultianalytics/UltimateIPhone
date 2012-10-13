@@ -68,7 +68,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* STD_ROW_TYPE = @"stdRowType";
     
     LeaguevineItem* item = [self.filteredItems objectAtIndex:indexPath.row];
     

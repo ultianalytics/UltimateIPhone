@@ -51,8 +51,6 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row = [indexPath row];
     
-    static NSString* STD_ROW_TYPE = @"stdRowType";
-    
     TeamDescription* team = [teamDescriptions objectAtIndex:row];
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];

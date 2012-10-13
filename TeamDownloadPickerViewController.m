@@ -23,8 +23,7 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* STD_ROW_TYPE = @"stdRowType";
-   
+  
     Team* team = [teams objectAtIndex:[indexPath row]];
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];

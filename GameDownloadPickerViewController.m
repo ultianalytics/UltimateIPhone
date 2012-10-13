@@ -22,7 +22,6 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* STD_ROW_TYPE = @"stdRowType";
    
     GameDescription* game = [games objectAtIndex:[indexPath row]];
     

@@ -163,6 +163,7 @@
         }
     }
     [self configureForEventType: NO];
+    [self addSaveButton];
 }
 
 #pragma mark Miscellaneous
@@ -238,6 +239,7 @@
 -(void)configureForEventType: (BOOL)initial {
     self.passedToLabel.hidden = YES;
     self.player1TableView.hidden = NO;
+    self.player2TableView.hidden = YES;
     self.eventActionSegmentedControl.hidden = NO;
 
     if ([self.event isOffense]) {
@@ -287,12 +289,13 @@
             case De: {
                 self.eventTypeDescriptionLabel.text = @"Their Turnover:";
                 [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"D" :nil];
+                [self show: self.player1TableView shouldShow: YES animate: !initial];
                 break;                
             }
             case Throwaway:{
-                self.player1TableView.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Their Turnover:";
                 [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
+                [self show: self.player1TableView shouldShow: NO animate: !initial];
                 break;
             }
             default: {
@@ -336,9 +339,11 @@
 -(void)show: (UIView*) view shouldShow: (BOOL)show animate: (BOOL) animate {
     if (animate) {
         view.alpha = show ? 0.0 : 1.0;
-        view.hidden = !show;
+        view.hidden = NO;
         [UIView animateWithDuration:.5 animations:^{
             view.alpha = show ? 1.0 : 0.0;
+        } completion:^(BOOL finished) {
+            view.hidden = !show;
         }];
     } else {
         view.hidden = !show;

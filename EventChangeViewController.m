@@ -218,6 +218,7 @@
 -(void)stylize {
     [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
     [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
+    [ColorMaster styleAsWhiteLabel:self.passedToLabel size:18];
     self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }

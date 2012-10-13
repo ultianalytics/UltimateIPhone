@@ -28,6 +28,8 @@
 @property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) OffenseEvent* offenseEvent;
 @property (strong, nonatomic) DefenseEvent* defenseEvent;
+@property (strong, nonatomic) OffenseEvent* originalOffenseEvent;
+@property (strong, nonatomic) DefenseEvent* originalDefenseEvent;
 @property (strong, nonatomic) Event *originalEvent;
 
 @end
@@ -35,18 +37,22 @@
 @implementation EventChangeViewController
 @dynamic offenseEvent;
 @dynamic defenseEvent;
+@dynamic originalOffenseEvent;
+@dynamic originalDefenseEvent;
 
 #pragma mark Custom accessors
 
 -(void)setPlayersInPoint:(NSArray *)playerList {
     _playersInPoint = playerList;
     self.players = [NSMutableArray arrayWithArray:self.playersInPoint];
+    [self ensureEventPlayersInPlayersList];
     [self.players addObject:[Player getAnonymous]];
 }
 
 -(void)setEvent:(Event *)event {
-    _event = event;
-    self.originalEvent = [event copy];
+    _event = [event copy];
+    self.originalEvent = event;
+    [self ensureEventPlayersInPlayersList];
 }
 
 -(OffenseEvent*)offenseEvent {
@@ -55,6 +61,14 @@
 
 -(DefenseEvent*)defenseEvent {
     return (DefenseEvent*)self.event;
+}
+
+-(OffenseEvent*)originalOffenseEvent {
+    return (OffenseEvent*)self.originalEvent;
+}
+
+-(DefenseEvent*)originalDefenseEvent {
+    return (DefenseEvent*)self.originalEvent;
 }
 
 #pragma mark TableView delegate
@@ -120,10 +134,10 @@
 -(void)doneButtonPressed {
     self.originalEvent.action = self.event.action;
     if ([self.event isOffense]) {
-        ((OffenseEvent*)self.originalEvent).passer = self.offenseEvent.passer;
-        ((OffenseEvent*)self.originalEvent).receiver = self.offenseEvent.receiver;
+        self.originalOffenseEvent.passer = self.offenseEvent.passer;
+        self.originalOffenseEvent.receiver = self.offenseEvent.receiver;
     } else {
-        ((DefenseEvent*)self.originalEvent).defender = self.defenseEvent.defender;
+        self.originalDefenseEvent.defender = self.defenseEvent.defender;
     }
     if (self.completion) {
         self.completion();
@@ -136,13 +150,19 @@
     if ([self.event isOffense]) {
         // drop/throway
         self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? Drop : Throwaway;
+        if (self.event.action == Drop) {
+            self.offenseEvent.receiver = self.originalOffenseEvent.receiver ? self.originalOffenseEvent.receiver : [Player getAnonymous];
+        }
     } else {
         // d/throway
         if (self.event.action == De || self.event.action == Throwaway) {
             self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? De : Throwaway;
+            if (self.event.action == De) {
+                self.defenseEvent.defender = self.originalDefenseEvent.defender ? self.originalDefenseEvent.defender : [Player getAnonymous];
+            }
         }
     }
-    [self configureForEventType];
+    [self configureForEventType: NO];
 }
 
 #pragma mark Miscellaneous
@@ -160,8 +180,8 @@
 }
 
 -(void)stylize {
-    [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:16];
-    [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:25];
+    [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
+    [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
     self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
@@ -179,8 +199,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self stylize];
-    self.pointDescriptionLabel.text = self.pointDescription;
-    [self configureForEventType];
+    self.pointDescriptionLabel.text = [NSString stringWithFormat: @"Point: %@",[self.pointDescription lowercaseString]];
+    [self configureForEventType: YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -215,10 +235,9 @@
     return cell;
 }
 
--(void)configureForEventType {
+-(void)configureForEventType: (BOOL)initial {
     self.passedToLabel.hidden = YES;
     self.player1TableView.hidden = NO;
-    self.player2TableView.hidden = YES;
     self.eventActionSegmentedControl.hidden = NO;
 
     if ([self.event isOffense]) {
@@ -228,25 +247,26 @@
                 self.eventTypeDescriptionLabel.text = @"Catch";
                 self.passedToLabel.hidden = NO;
                 self.player2TableView.hidden = NO;
+                break;
             }
             case Goal: {
                 self.eventActionSegmentedControl.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Our Goal";
                 self.passedToLabel.hidden = NO;
-                self.player2TableView.hidden = NO;                
+                self.player2TableView.hidden = NO;
+                break;
             }
             case Drop: {
-                self.eventTypeDescriptionLabel.text = @"Our Turnover";
-                self.player2TableView.hidden = NO;
-                [self.eventActionSegmentedControl setTitle:@"Drop" forSegmentAtIndex:0];
-                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
-                self.eventActionSegmentedControl.selectedSegmentIndex = 0;
+                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                [self show: self.player2TableView shouldShow: YES animate: !initial];
+                [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Drop" : nil];
+                break;                
             }
             case Throwaway: {
-                self.eventTypeDescriptionLabel.text = @"Our Turnover";
-                [self.eventActionSegmentedControl setTitle:@"Drop" forSegmentAtIndex:0];
-                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
-                self.eventActionSegmentedControl.selectedSegmentIndex = 1;
+                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                [self show: self.player2TableView shouldShow: NO animate: !initial];
+                [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
+                break;                
             }
             default: {
             }
@@ -256,31 +276,73 @@
             case Pull: {
                 self.eventActionSegmentedControl.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Pull";
+                break;                
             }
             case Goal: {
                 self.eventActionSegmentedControl.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Their Goal";
                 self.player1TableView.hidden = YES;
+                break;                
             }
             case De: {
-                self.eventTypeDescriptionLabel.text = @"Their Turnover";
-                [self.eventActionSegmentedControl setTitle:@"D" forSegmentAtIndex:0];
-                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
-                self.eventActionSegmentedControl.selectedSegmentIndex = 0;
+                self.eventTypeDescriptionLabel.text = @"Their Turnover:";
+                [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"D" :nil];
+                break;                
             }
             case Throwaway:{
                 self.player1TableView.hidden = YES;
-                self.eventTypeDescriptionLabel.text = @"Their Turnover";
-                [self.eventActionSegmentedControl setTitle:@"D" forSegmentAtIndex:0];
-                [self.eventActionSegmentedControl setTitle:@"Throwaway" forSegmentAtIndex:1];
-                self.eventActionSegmentedControl.selectedSegmentIndex = 1;
+                self.eventTypeDescriptionLabel.text = @"Their Turnover:";
+                [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
+                break;
             }
             default: {
             }
         }
     }
-    [self.view setNeedsDisplay];
 }
 
+-(void)configureActionControlFor: (NSString*)action1 and: (NSString*)action2 initial: (NSString*)initial {
+    [self.eventActionSegmentedControl setTitle:action1 forSegmentAtIndex:0];
+    [self.eventActionSegmentedControl setTitle:action2 forSegmentAtIndex:1];
+    if (initial) {
+        self.eventActionSegmentedControl.selectedSegmentIndex = [action1 isEqualToString:initial ] ? 0 : 1;
+    }
+}
+
+-(void)ensureEventPlayersInPlayersList {
+    if ([self.event isOffense]) {
+        [self ensureEventPlayerInPlayersList:self.offenseEvent.passer];
+        [self ensureEventPlayerInPlayersList:self.offenseEvent.receiver];
+    } else {
+        [self ensureEventPlayerInPlayersList:self.defenseEvent.defender];
+    }
+}
+
+-(void)ensureEventPlayerInPlayersList: (Player*) eventPlayer {
+    if (eventPlayer == nil || [eventPlayer isAnonymous] ) {
+        return;
+    }
+    if (self.event && self.players) {
+        NSArray* playersCopy = [self.players copy];
+        for (Player* listPlayer in playersCopy) {
+            if ([eventPlayer.name isEqualToString:listPlayer.name]) {
+                return;
+            }
+        }
+        [self.players addObject:eventPlayer];
+    }
+}
+
+-(void)show: (UIView*) view shouldShow: (BOOL)show animate: (BOOL) animate {
+    if (animate) {
+        view.alpha = show ? 0.0 : 1.0;
+        view.hidden = !show;
+        [UIView animateWithDuration:.5 animations:^{
+            view.alpha = show ? 1.0 : 0.0;
+        }];
+    } else {
+        view.hidden = !show;
+    }
+}
 
 @end

@@ -40,7 +40,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self.game getPointNameAtMostRecentIndex:section];
+    NSString* pointName = [self.game getPointNameAtMostRecentIndex:section];
+    return [pointName isEqualToString:@"Current"] ? @"Current Point" : pointName;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

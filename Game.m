@@ -474,7 +474,7 @@ static Game* currentGame = nil;
 
 -(NSString*)getPointNameForScore: (Score) score isMostRecent: (BOOL) isMostRecent {
     if (isMostRecent && !([(UPoint*)[self.points lastObject] isFinished])) {
-        return @"Current Point";
+        return @"Current";
     } else {
         return [NSString stringWithFormat:@"%d-%d", score.ours, score.theirs];
     }

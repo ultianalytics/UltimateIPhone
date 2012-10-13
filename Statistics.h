@@ -16,15 +16,14 @@
 +(NSDictionary*)pointsPlayedFactorPerPlayer: (Game*) game team: (Team*) team;
 +(NSDictionary*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD;
 
-
-+(NSArray*)pointsPerPlayer: (Game*) game team: (Team*) team includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD includeTournament: (BOOL) includeTournament;
-+(NSArray*)throwsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
-+(NSArray*)goalsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament; 
-+(NSArray*)assistsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
-+(NSArray*)dropsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
-+(NSArray*)throwawaysPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
-+(NSArray*)pullsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
-+(NSArray*)dsPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
-+(NSArray*)plusMinusCountPerPlayer: (Game*) game team: (Team*) team includeTournament: (BOOL) includeTournament;
++(NSArray*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD includeTournament: (BOOL) includeTournament;
++(NSArray*)throwsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)goalsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament; 
++(NSArray*)assistsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)dropsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)throwawaysPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)pullsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)plusMinusCountPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 
 @end

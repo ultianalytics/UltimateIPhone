@@ -69,27 +69,27 @@
 
 -(void)updatePlayerStats {
     if ([self.currentStat isEqualToString:kPlusMinusCount]) {
-        self.playerStats = [Statistics plusMinusCountPerPlayer: self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics plusMinusCountPerPlayer: self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kTotalPoints]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: YES includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics pointsPerPlayer: self.game includeOffense: YES includeDefense: YES includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kOPoints]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: YES includeDefense: NO includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics pointsPerPlayer: self.game includeOffense: YES includeDefense: NO includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDPoints]) {
-        self.playerStats = [Statistics pointsPerPlayer: self.game team: nil includeOffense: NO includeDefense: YES includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics pointsPerPlayer: self.game includeOffense: NO includeDefense: YES includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kGoals]) {
-        self.playerStats = [Statistics goalsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics goalsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kAssists]) {
-        self.playerStats = [Statistics assistsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics assistsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrows]) {
-        self.playerStats = [Statistics throwsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics throwsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDrops]) {
-        self.playerStats = [Statistics dropsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics dropsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrowaways]) {
-        self.playerStats = [Statistics throwawaysPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics throwawaysPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDs]) {
-        self.playerStats = [Statistics dsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics dsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kPulls]) {
-        self.playerStats = [Statistics pullsPerPlayer:self.game team: nil includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics pullsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else {
         self.playerStats = [[NSArray alloc] init];
     }

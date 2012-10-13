@@ -84,15 +84,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Player* player = [self.players objectAtIndex:[indexPath row]];
+    BOOL isChange = NO;
     if (tableView == self.player1TableView) {
         if ([self.event isOffense])  {
+            isChange = [self.offenseEvent.passer.name isEqualToString:player.name];
             self.offenseEvent.passer = player;
         } else {
+            [self.defenseEvent.defender.name isEqualToString:player.name];
             self.defenseEvent.defender = player;
         }
     } else if (tableView == self.player2TableView) {
+        isChange = [self.offenseEvent.receiver.name isEqualToString:player.name];
         self.offenseEvent.receiver = player;
     }
+    [self addSaveButton];
     [self refresh];
 }
 
@@ -105,9 +110,11 @@
 
 #pragma mark Miscellaneous
 
--(void)addDoneButton {
+-(void)addSaveButton {
     UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
-    currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
+    if (!currentNavItem.rightBarButtonItem) {
+        currentNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)];
+    }
 }
 
 -(void)refresh {
@@ -136,7 +143,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self stylize];
-    [self addDoneButton];
     self.pointDescriptionLabel.text = self.pointDescription;
 }
 

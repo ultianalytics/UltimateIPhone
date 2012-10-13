@@ -12,7 +12,7 @@
 
 @interface PlayerSelectionTableViewCell()
 
-@property (strong, nonatomic) IBOutlet UIButton *button;
+@property (strong, nonatomic) IBOutlet UIImageView *checkImageView;
 @property (strong, nonatomic) IBOutlet UILabel *label;
 
 @end
@@ -32,20 +32,15 @@
     _player = player;
     NSString* playerName = [player isAnonymous] ? @"UNKNOWN" : player.name;
     self.label.text = playerName;
-    self.button.titleLabel.text = playerName;
 }
 
 - (void)setChosen:(BOOL)isChosen {
-    self.button.hidden = isChosen;
-    self.label.hidden = !isChosen;
+    self.checkImageView.hidden = !isChosen;
 }
 
 -(NSString*)reuseIdentifier {
     return STD_ROW_TYPE;
 }
 
--(void)awakeFromNib {
-    self.button.titleLabel.bounds = self.bounds;
-}
 
 @end

@@ -166,26 +166,6 @@
     [self addSaveButton];
 }
 
-#pragma mark Miscellaneous
-
--(void)addSaveButton {
-    UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
-    if (!currentNavItem.rightBarButtonItem) {
-        [currentNavItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Save Change" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)]animated: YES];
-    }
-}
-
--(void)refresh {
-    [self.player1TableView reloadData];
-    [self.player2TableView reloadData];
-}
-
--(void)stylize {
-    [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
-    [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
-    self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
 
 #pragma mark Lifecycle
 
@@ -222,6 +202,26 @@
 }
 
 #pragma mark Misc
+
+-(void)addSaveButton {
+    UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
+    if (!currentNavItem.rightBarButtonItem) {
+        [currentNavItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Save Change" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)]animated: YES];
+    }
+}
+
+-(void)refresh {
+    [self.player1TableView reloadData];
+    [self.player2TableView reloadData];
+}
+
+-(void)stylize {
+    [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
+    [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
+    self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+}
+
 
 -(NSArray*)eligibleActions {
     return @[@"Catch"];

@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) OffenseEvent* offenseEvent;
 @property (strong, nonatomic) DefenseEvent* defenseEvent;
+@property (strong, nonatomic) Event *originalEvent;
 
 @end
 
@@ -39,6 +40,11 @@
     _playersInPoint = playerList;
     self.players = [NSMutableArray arrayWithArray:self.playersInPoint];
     [self.players addObject:[Player getAnonymous]];
+}
+
+-(void)setEvent:(Event *)event {
+    _event = event;
+    self.originalEvent = [event copy];
 }
 
 -(OffenseEvent*)offenseEvent {
@@ -89,6 +95,9 @@
         if ([self.event isOffense])  {
             isChange = [self.offenseEvent.passer.name isEqualToString:player.name];
             self.offenseEvent.passer = player;
+            if ([self.offenseEvent.receiver.name isEqualToString:player.name]) {
+                self.offenseEvent.receiver = [Player getAnonymous];
+            }
         } else {
             [self.defenseEvent.defender.name isEqualToString:player.name];
             self.defenseEvent.defender = player;
@@ -96,6 +105,9 @@
     } else if (tableView == self.player2TableView) {
         isChange = [self.offenseEvent.receiver.name isEqualToString:player.name];
         self.offenseEvent.receiver = player;
+        if ([self.offenseEvent.passer.name isEqualToString:player.name]) {
+            self.offenseEvent.passer = [Player getAnonymous];
+        }
     }
     [self addSaveButton];
     [self refresh];
@@ -104,9 +116,17 @@
 #pragma mark Event Handling
 
 -(void)doneButtonPressed {
-    
+    self.originalEvent.action = self.event.action;
+    if ([self.event isOffense]) {
+        ((OffenseEvent*)self.originalEvent).passer = self.offenseEvent.passer;
+        ((OffenseEvent*)self.originalEvent).receiver = self.offenseEvent.receiver;
+    } else {
+        ((DefenseEvent*)self.originalEvent).defender = self.defenseEvent.defender;
+    }
+    if (self.completion) {
+        self.completion();
+    }
 }
-
 
 #pragma mark Miscellaneous
 

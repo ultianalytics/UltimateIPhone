@@ -63,6 +63,12 @@
     return dict;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    DefenseEvent* evt = [super copyWithZone:nil];
+    evt.defender = self.defender;
+    return evt;
+}
+
 - (BOOL) isOurGoal {
     return self.action == Callahan;
 }

@@ -54,7 +54,14 @@
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
     } 
     return self; 
-} 
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    Event* evt = [[[self class] alloc] init];
+    evt.action = self.action;
+    evt.isHalftimeCause = self.isHalftimeCause;
+    return evt;
+}
 
 -(void)useSharedPlayers {
     [NSException raise:@"Method must be implemented in subclass" format:@"should be implemented in subclass"];

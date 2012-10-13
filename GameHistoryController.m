@@ -19,6 +19,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "EventChangeViewController.h"
 
+@interface GameHistoryController()
+
+@property (strong, nonatomic) IBOutlet UITableView *eventTableView;
+
+@end
+
 @implementation GameHistoryController
 @synthesize game,isCurlAnimation;
 
@@ -72,6 +78,13 @@
     changeController.event = event;
     changeController.pointDescription = [self.game getPointNameAtMostRecentIndex:[indexPath section]];
     changeController.playersInPoint = point.line;
+    NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
+    changeController.completion = ^{
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.game save];
+        [self.eventTableView reloadData];
+        [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    };
     
     [self.navigationController pushViewController:changeController animated:YES];
 }
@@ -135,4 +148,5 @@
     [self.navigationController popViewControllerAnimated:NO];
     [UIView commitAnimations];
 }
+
 @end

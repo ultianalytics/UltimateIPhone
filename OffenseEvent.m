@@ -85,6 +85,13 @@
     return self; 
 } 
 
+- (id)copyWithZone:(NSZone *)zone {
+    OffenseEvent* evt = [super copyWithZone:nil];
+    evt.receiver = self.receiver;
+    evt.passer = self.passer;
+    return evt;
+}
+
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     switch(self.action) {
         case Catch: {

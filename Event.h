@@ -21,7 +21,7 @@ typedef enum {
 #define kEventTypeProperty      @"type"
 
 
-@interface Event : NSObject <NSCoding>
+@interface Event : NSObject <NSCoding, NSCopying>
 
 @property Action action;
 @property BOOL isHalftimeCause;

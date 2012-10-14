@@ -16,6 +16,7 @@
 #import "StatsEventDetails.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
+#import "NSString+manipulations.h"
 
 // private methods
 @interface Statistics()

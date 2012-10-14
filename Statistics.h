@@ -7,13 +7,12 @@
 //
 
 @class Game;
-@class Team;
 @class Player;
 
 @interface Statistics : NSObject
 
 
-+(NSDictionary*)pointsPlayedFactorPerPlayer: (Game*) game team: (Team*) team;
++(NSDictionary*)pointsPlayedFactorPerPlayer: (Game*) game;
 +(NSDictionary*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD;
 
 +(NSArray*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD includeTournament: (BOOL) includeTournament;

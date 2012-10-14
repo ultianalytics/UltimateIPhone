@@ -274,7 +274,7 @@
 
 - (void) loadPlayerStats {
     self.pointsPerPlayer = [Statistics pointsPerPlayer:[Game getCurrentGame] includeOffense:YES includeDefense:YES];
-    self.pointFactorPerPlayer = [Statistics pointsPlayedFactorPerPlayer:[Game getCurrentGame] team:[Team getCurrentTeam]];
+    self.pointFactorPerPlayer = [Statistics pointsPlayedFactorPerPlayer:[Game getCurrentGame]];
 }
 
 - (NSArray*) getCurrentTeamPlayers {

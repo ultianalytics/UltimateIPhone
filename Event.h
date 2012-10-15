@@ -23,7 +23,7 @@ typedef enum {
 
 @interface Event : NSObject <NSCoding, NSCopying>
 
-@property Action action;
+@property (nonatomic) Action action;
 @property BOOL isHalftimeCause;
 
 + (Event*) fromDictionary:(NSDictionary*) dict;

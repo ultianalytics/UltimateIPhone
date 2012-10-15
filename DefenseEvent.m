@@ -12,7 +12,6 @@
 #import "Scrubber.h"
 
 @implementation DefenseEvent
-@synthesize defender;
 
 -(id) initDefender: (Player*)aDefender action: (Action)anAction {
     self = [super init];
@@ -43,6 +42,7 @@
 - (id)initWithCoder:(NSCoder *)decoder { 
     self = [super initWithCoder:decoder];
     self.defender = [decoder decodeObjectForKey:kDefenderKey];
+    [self ensureValid];
     return self; 
 } 
 
@@ -117,7 +117,17 @@
 }
 
 - (BOOL)isAnonymous {
-    return (defender == nil || defender.isAnonymous);
+    return (self.defender == nil || self.defender.isAnonymous);
+}
+
+-(void)ensureValid {
+    if (self.defender == nil) {
+        self.defender = [Player getAnonymous];
+    }
+}
+
+-(void)setDefender:(Player *)defender {
+    _defender = defender ? defender : [Player getAnonymous];
 }
 
 @end

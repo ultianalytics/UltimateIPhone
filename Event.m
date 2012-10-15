@@ -16,7 +16,7 @@
 
 
 @implementation Event
-@synthesize action, isHalftimeCause;
+@synthesize isHalftimeCause;
 
 +(Event*)fromDictionary:(NSDictionary*) dict {
     NSString* type = [dict objectForKey:kEventTypeProperty];
@@ -52,6 +52,7 @@
     if (self = [super init]) { 
         self.action = [decoder decodeIntForKey:kActionKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
+        [self ensureValid];
     } 
     return self; 
 }
@@ -118,11 +119,11 @@
 }
 
 - (BOOL) causesDirectionChange {
-    return !(action == Catch || action == Pull);
+    return !(self.action == Catch || self.action == Pull);
 }
 
 - (BOOL) causesLineChange {
-    return action == Goal;
+    return self.action == Goal;
 }
 
 - (BOOL) isNextEventOffense {
@@ -148,6 +149,15 @@
 
 - (BOOL)isAnonymous {
     return NO;
+}
+
+-(void)setAction:(Action)action {
+    _action = action;
+    [self ensureValid];
+}
+
+-(void)ensureValid {
+    // no-op...subclasses canm re-implement
 }
 
 @end

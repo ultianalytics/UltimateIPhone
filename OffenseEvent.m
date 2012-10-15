@@ -12,7 +12,6 @@
 #import "Scrubber.h"
 
 @implementation OffenseEvent
-@synthesize passer,receiver;
 
 -(id) initPasser: (Player*)aPasser action: (Action)anAction {
     self = [super init];
@@ -82,6 +81,7 @@
     self = [super initWithCoder:decoder];
     self.passer = [decoder decodeObjectForKey:kPasserKey];
     self.receiver = [decoder decodeObjectForKey:kReceiverKey];
+    [self ensureValid];
     return self; 
 } 
 
@@ -156,15 +156,32 @@
 }
 
 - (BOOL)isAnonymous {
-    return (passer == nil || passer.isAnonymous) && (receiver ==  nil || receiver.isAnonymous);
+    return (self.passer == nil || self.passer.isAnonymous) && (self.receiver ==  nil || self.receiver.isAnonymous);
 }
 
 - (BOOL)isPasserAnonymous {
-    return (passer == nil || passer.isAnonymous);
+    return (self.passer == nil || self.passer.isAnonymous);
 }
 
 - (BOOL)isReceiverAnonymous {
-    return (receiver ==  nil || receiver.isAnonymous);
+    return (self.receiver ==  nil || self.receiver.isAnonymous);
+}
+
+-(void)ensureValid {
+    if (self.passer == nil) {
+        self.passer = [Player getAnonymous];
+    }
+    if (self.receiver == nil) {
+        self.receiver = [Player getAnonymous];
+    }
+}
+
+-(void)setPasser:(Player *)passer {
+    _passer = passer ? passer : [Player getAnonymous];
+}
+
+-(void)setReceiver:(Player *)receiver {
+    _receiver = receiver ? receiver : [Player getAnonymous];
 }
 
 @end

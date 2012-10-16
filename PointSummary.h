@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
+
 @class UPoint;
 
 #define kLineTypeProperty       @"lineType"

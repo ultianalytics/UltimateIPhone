@@ -714,13 +714,23 @@ static Game* currentGame = nil;
     }
 }
 
+-(NSString*)shortOpponentName {
+    if ([self.opponentName length] > 20) {
+        return [NSString stringWithFormat: @"%@...", [self.opponentName substringToIndex: 17]];
+    } else {
+        return self.opponentName;
+    }
+}
+
+#pragma Leaguevine 
+
 -(BOOL)isLeaguevineGame {
     return self.leaguevineGame != nil;
 }
-
 
 -(void)setLeaguevineGame:(LeaguevineGame *)leaguevineGame {
     _leaguevineGame = leaguevineGame;
     self.publishScoreToLeaguevine = NO;  // reset publish
 }
+
 @end

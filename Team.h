@@ -45,6 +45,7 @@
 -(void)sortPlayers;
 -(BOOL)isLeaguevineTeam;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
+-(NSString*)shortName;
 
 // private
 +(NSString*)getFilePath: (NSString*) teamdId;

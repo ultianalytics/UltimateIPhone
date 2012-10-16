@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PointSummary.h"
+#import "Constants.h"
+
 @class Event;
 @class UPoint;
 @class Wind;
@@ -83,5 +85,6 @@
 -(void)clearPointSummaries;
 -(BOOL)doesGameAppearDone;
 -(BOOL)isLeaguevineGame;
+-(NSString*)shortOpponentName;
 
 @end

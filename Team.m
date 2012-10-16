@@ -382,4 +382,12 @@ static Team* currentTeam = nil;
     return line;
 }
 
+-(NSString*)shortName {
+    if ([self.name length] > 18) {
+        return [NSString stringWithFormat: @"%@...", [self.name substringToIndex: 15]];
+    } else {
+        return self.name;
+    }
+}
+
 @end

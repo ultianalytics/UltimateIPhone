@@ -111,7 +111,7 @@
 }
 
 - (NSString*)getDescription {
-    return [self getDescription:[Team getCurrentTeam].name opponent:[Game getCurrentGame].opponentName];
+    return [self getDescription:[Team getCurrentTeam].shortName opponent:[Game getCurrentGame].shortOpponentName];
 }
 
 - (BOOL) isOffense {

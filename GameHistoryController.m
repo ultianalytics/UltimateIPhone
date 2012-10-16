@@ -18,10 +18,16 @@
 #import "UPoint.h"
 #import <QuartzCore/QuartzCore.h>
 #import "EventChangeViewController.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
+
+#define kIsNotFirstGameHistoryViewUsage @"IsNotFirstGameHistoryViewUsage"
 
 @interface GameHistoryController()
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
+
+@property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
 @end
 
@@ -121,6 +127,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
         [super viewWillAppear:animated];
+        [self showFirstTimeUsageCallouts];
     } else {  // no longer open on the current game...pop back to previous view
         [self.navigationController popViewControllerAnimated:NO];
     }
@@ -138,6 +145,40 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+#pragma mark - Callouts
+
+
+-(BOOL)showFirstTimeUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameHistoryViewUsage] && [self.game hasEvents]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameHistoryViewUsage];
+        [self performSelector:@selector(displayFirstTimeCallouts) withObject:nil afterDelay:.1];
+        
+        return YES;
+    } else {
+        return NO;
+    }
+    
+}
+
+-(void)displayFirstTimeCallouts {
+    if ([self.game hasEvents]) {
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGRect firstCellRect = [self.eventTableView rectForRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
+        CGPoint anchor = CGPointBottom(firstCellRect);
+        
+        [calloutsView addCallout:@"Tap an event to make changes." anchor: anchor width: 200 degrees: 180 connectorLength: 70 font: [UIFont systemFontOfSize:14]];
+        
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+        
+        // move the callouts off the screen and then animate their return.
+        [self.firstTimeUsageCallouts slide: YES animated: NO];
+        [self.firstTimeUsageCallouts slide: NO animated: YES];
+    }
+}
+
 
 #pragma mark - Miscellaneous
 

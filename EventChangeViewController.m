@@ -15,6 +15,7 @@
 #import "PlayerSelectionTableViewCell.h"
 #import "Constants.h"
 #import "UltimateSegmentedControl.h"
+#import "DarkButton.h"
 
 @interface EventChangeViewController ()
 
@@ -129,6 +130,16 @@
     [self refresh];
 }
 
+- (void)addTableFooterView: (UITableView*)tableView {
+    CGFloat tableWidth = tableView.bounds.size.width;
+    UIView* footerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
+    footerView.backgroundColor = [UIColor clearColor];
+    DarkButton* footerButton = [[DarkButton alloc] initWithFrame:CGRectMake(0, 10, tableWidth, 34)];
+    [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
+    [footerView addSubview:footerButton];
+    tableView.tableFooterView = footerView;
+}
+
 #pragma mark Event Handling
 
 -(void)doneButtonPressed {
@@ -182,6 +193,8 @@
     [self stylize];
     self.pointDescriptionLabel.text = [NSString stringWithFormat: @"Point: %@",[self.pointDescription lowercaseString]];
     [self configureForEventType: YES];
+    [self addTableFooterView: self.player1TableView];
+    [self addTableFooterView: self.player2TableView];
 }
 
 - (void)didReceiveMemoryWarning {

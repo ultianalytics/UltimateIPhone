@@ -114,11 +114,15 @@
         [gradientLayer setColors: gradientColors];
         
         // set locations of gradient changes
-        gradientLayer.locations = [NSArray arrayWithObjects: [NSNumber numberWithFloat: .4], [NSNumber numberWithFloat: 1], nil];
+        gradientLayer.locations = [self getGradientLocations];
         
         // draw
         [super drawRect:rect];
     }
+}
+
+-(NSArray*)getGradientLocations {
+    return [NSArray arrayWithObjects: [NSNumber numberWithFloat: .4], [NSNumber numberWithFloat: 1], nil];
 }
 
 -(void)layoutSubviews {

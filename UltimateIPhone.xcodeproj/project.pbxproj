@@ -80,6 +80,7 @@
 		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
 		1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6B4FE215F04BCE000F0B5C /* undo.png */; };
 		1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78D9C315949DC300115BE5 /* CalloutView.m */; };
+		1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A793F29162CDAB8006C1001 /* DarkButton.m */; };
 		1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */; };
 		1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A7994DA16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib */; };
 		1A7994E4161736CD00E77FC5 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994E2161736CD00E77FC5 /* NSDate+Utilities.m */; };
@@ -320,6 +321,8 @@
 		1A6B4FE215F04BCE000F0B5C /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
 		1A78D9C215949DC300115BE5 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1A78D9C315949DC300115BE5 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
+		1A793F28162CDAB8006C1001 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
+		1A793F29162CDAB8006C1001 /* DarkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DarkButton.m; sourceTree = "<group>"; };
 		1A7994D616172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineSelectorGameTableViewCell.h; sourceTree = "<group>"; };
 		1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSelectorGameTableViewCell.m; sourceTree = "<group>"; };
 		1A7994DA16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueVineSelectorGameTableViewCell.xib; sourceTree = "<group>"; };
@@ -997,6 +1000,8 @@
 				1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */,
 				1A8D1310161D9C7A001CFD9C /* UltimateSwitch.h */,
 				1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */,
+				1A793F28162CDAB8006C1001 /* DarkButton.h */,
+				1A793F29162CDAB8006C1001 /* DarkButton.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1543,6 +1548,7 @@
 				1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */,
 				1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */,
 				1ACC07991627A9EB0038F934 /* PlayerSelectionTableViewCell.m in Sources */,
+				1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

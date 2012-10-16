@@ -11,8 +11,11 @@
 
 @implementation ColorMaster
 
-static UIColor* darkestColor = nil;
-static UIColor* darkestAlmostColor = nil;
+static UIColor* massivelyDarkColor = nil;
+static UIColor* hugelyColor = nil;
+static UIColor* veryVeryDarkColor = nil;
+static UIColor* veryDarkColor = nil;
+static UIColor* almostVeryDarkColor = nil;
 static UIColor* darkerColor = nil;
 static UIColor* darklightColor = nil;
 static UIColor* darklightestColor = nil;
@@ -34,6 +37,8 @@ static UIColor* navBarTintColor = nil;
 static UIColor* alarmingButtonHighColor = nil;
 static UIColor* alarmingButtonLowColor = nil;
 
+static UIColor* darkButtonHighColor = nil;
+static UIColor* darkButtonLowColor = nil;
 
 static UIColor* linePlayerButtonColor0 = nil;
 static UIColor* linePlayerButtonColor1 = nil;
@@ -75,8 +80,15 @@ static UIColor* linePlayerImbalanceWarningBoys;
     linePlayerButtonPointsColorLight = RGB(229,219,153);
     linePlayerButtonPointsColorDark = RGB(102,94,51);
     
-    darkestColor = RGB(102,102,51); // #666633
-    darkestAlmostColor = RGB(127,127,76); // #7F7F4C
+    
+    darkButtonHighColor = RGB(102, 102, 102);
+    darkButtonLowColor = RGB(25, 25, 0);// #191900
+    
+    massivelyDarkColor = RGB(25, 25, 0);// #191900
+    hugelyColor = RGB(51,51,0); // ##333300
+    veryVeryDarkColor = RGB(76,76,25); // #4C4C19
+    veryDarkColor = RGB(102,102,51); // #666633
+    almostVeryDarkColor = RGB(127,127,76); // #7F7F4C
     darkerColor = RGB(153,153,102);  // #999966
     darklightColor = RGB(173,173,132);  // ADAD84
     darklightestColor = RGB(193,193,162);  // C1C1A2
@@ -95,7 +107,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
     
     benchRowColor = lighterColor;
     
-    navBarTintColor = darkestColor;
+    navBarTintColor = veryDarkColor;
     
     linePlayerImbalanceWarningBoys = RGB(153, 242, 255);  // #99F2FF 
     linePlayerImbalanceWarningGirls = RGB(255, 178, 242);  // #FFB2F2  
@@ -107,7 +119,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getSearchBarTintColor {
-    return darkestAlmostColor;
+    return almostVeryDarkColor;
 }
 
 +(UIColor*)getNormalButtonHighColor {
@@ -143,6 +155,14 @@ static UIColor* linePlayerImbalanceWarningBoys;
 
 +(UIColor*)getNavBarTintColor {
     return navBarTintColor;
+}
+
++(UIColor*)getDarkButtonHighColor {
+    return darkButtonHighColor;
+}
+
++(UIColor*)getDarkButtonLowColor {
+    return darkButtonLowColor;
 }
 
 +(UIColor*)getWinScoreColor {

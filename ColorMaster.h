@@ -19,6 +19,8 @@
 +(UIColor*)getActiveGameColor;
 +(UIColor*)getBenchRowColor;
 +(UIColor*)getNavBarTintColor;
++(UIColor*)getDarkButtonHighColor;
++(UIColor*)getDarkButtonLowColor;
 +(NSArray*)getLinePlayerButtonColors;
 +(UIColor*)getLinePlayerPositionColor: (BOOL) dark;
 +(UIColor*)getLinePlayerPointsColor: (BOOL) dark;

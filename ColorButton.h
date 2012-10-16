@@ -23,7 +23,8 @@
 @property (nonatomic, strong) UIColor* labelStyleDisabledTextColor; 
 @property (nonatomic) BOOL isLabelStyle;
 
-- (void)initCharacteristics;
-- (void)initializeGradient;
+-(void)initCharacteristics;
+-(void)initializeGradient;
+-(NSArray*)getGradientLocations;
 
 @end

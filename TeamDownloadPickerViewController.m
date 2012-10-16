@@ -9,6 +9,7 @@
 #import "TeamDownloadPickerViewController.h"
 #import "Team.h"
 #import "ColorMaster.h"
+#import "Constants.h"
 
 @implementation TeamDownloadPickerViewController
 @synthesize teamsTableView,teams,selectedTeam;
@@ -29,7 +30,7 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleValue1
+                initWithStyle:UITableViewCellStyleSubtitle
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];

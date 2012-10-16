@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
+#import "Constants.h"
 
 #define kIsNotFirstTeamsViewUsage @"IsNotFirstTeamsViewUsage"
 
@@ -56,7 +57,7 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleValue1
+                initWithStyle:UITableViewCellStyleSubtitle
                 reuseIdentifier:STD_ROW_TYPE];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];

@@ -17,6 +17,7 @@
 #import "UltimateSegmentedControl.h"
 #import "DarkButton.h"
 #import "Team.h"
+#import "UIView+Convenience.h"
 
 @interface EventChangeViewController ()
 
@@ -271,6 +272,7 @@
 }
 
 -(void)configureForEventType: (BOOL)initial {
+    BOOL animate = !initial;
     self.passedToLabel.hidden = YES;
     self.player1TableView.hidden = NO;
     self.player2TableView.hidden = YES;
@@ -294,22 +296,25 @@
             }
             case Drop: {
                 self.eventTypeDescriptionLabel.text = @"Our Turnover:";
-                [self show: self.player2TableView shouldShow: YES animate: !initial];
-                [self show: self.passedToLabel shouldShow: YES animate: !initial];
+                [self show: self.player2TableView shouldShow: YES animate: animate];
+                [self show: self.passedToLabel shouldShow: YES animate: animate];
                 [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Drop" : nil];
+                [self movePlayer1TableToCenter:NO animate:animate];
                 break;                
             }
             case Throwaway: {
                 self.eventTypeDescriptionLabel.text = @"Our Turnover:";
-                [self show: self.player2TableView shouldShow: NO animate: !initial];
-                [self show: self.passedToLabel shouldShow: NO animate: !initial];
+                [self show: self.player2TableView shouldShow: NO animate: animate];
+                [self show: self.passedToLabel shouldShow: NO animate: animate];
                 [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
+                [self movePlayer1TableToCenter:YES animate:animate];
                 break;                
             }
             default: {
             }
         }
     } else {
+        [self movePlayer1TableToCenter:YES animate:NO];
         switch (self.event.action) {
             case Pull: {
                 self.eventActionSegmentedControl.hidden = YES;
@@ -325,13 +330,13 @@
             case De: {
                 self.eventTypeDescriptionLabel.text = @"Their Turnover:";
                 [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"D" :nil];
-                [self show: self.player1TableView shouldShow: YES animate: !initial];
+                [self show: self.player1TableView shouldShow: YES animate: animate];
                 break;                
             }
             case Throwaway:{
                 self.eventTypeDescriptionLabel.text = @"Their Turnover:";
                 [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
-                [self show: self.player1TableView shouldShow: NO animate: !initial];
+                [self show: self.player1TableView shouldShow: NO animate: animate];
                 break;
             }
             default: {
@@ -383,6 +388,22 @@
         }];
     } else {
         view.hidden = !show;
+    }
+}
+
+-(void)movePlayer1TableToCenter: (BOOL)moveToCenter animate: (BOOL) animate {
+    CGFloat xOriginWhenAtCenter = (self.view.bounds.size.width - self.player1TableView.bounds.size.width) / 2;
+    CGFloat xOriginWhenLeft = 10.f;
+    if (animate) {
+
+        [UIView animateWithDuration:.5 animations:^{
+            self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
+        } completion:^(BOOL finished) {
+            
+        }];
+        self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
+    } else {
+        self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
     }
 }
 

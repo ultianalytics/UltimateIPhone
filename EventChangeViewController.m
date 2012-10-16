@@ -138,15 +138,13 @@
         tableView.tableFooterView = nil;
     } else {
         CGFloat tableWidth = tableView.bounds.size.width;
-    //    UIView* footerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
-    //    footerView.backgroundColor = [UIColor clearColor];
+        UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
+        footerView.backgroundColor = [UIColor clearColor];
         DarkButton* footerButton = [[DarkButton alloc] initWithFrame:CGRectMake(0, 10, tableWidth, 34)];
         [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
         [footerButton addTarget:self action:@selector(showFullTapped) forControlEvents:UIControlEventTouchUpInside];
-        tableView.tableFooterView = footerButton;
-    //    [footerView addSubview:footerButton];
-    //    tableView.sectionFooterHeight = 50;
-    //    tableView.tableFooterView = footerView;
+        [footerView addSubview:footerButton];
+        tableView.tableFooterView = footerView;
     }
 }
 

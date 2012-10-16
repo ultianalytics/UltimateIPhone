@@ -16,5 +16,6 @@
 @property (strong, nonatomic) NSString *pointDescription;
 @property (strong, nonatomic) NSArray *playersInPoint;
 @property (strong, nonatomic) void (^completion)();
+@property (strong, nonatomic) IBOutlet UIButton *buttonTest;
 
 @end

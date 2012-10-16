@@ -16,6 +16,7 @@
 #import "Constants.h"
 #import "UltimateSegmentedControl.h"
 #import "DarkButton.h"
+#import "Team.h"
 
 @interface EventChangeViewController ()
 
@@ -32,6 +33,8 @@
 @property (strong, nonatomic) OffenseEvent* originalOffenseEvent;
 @property (strong, nonatomic) DefenseEvent* originalDefenseEvent;
 @property (strong, nonatomic) Event *originalEvent;
+
+@property (nonatomic) BOOL showingFullTeam;
 
 @end
 
@@ -131,13 +134,20 @@
 }
 
 - (void)addTableFooterView: (UITableView*)tableView {
-    CGFloat tableWidth = tableView.bounds.size.width;
-    UIView* footerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
-    footerView.backgroundColor = [UIColor clearColor];
-    DarkButton* footerButton = [[DarkButton alloc] initWithFrame:CGRectMake(0, 10, tableWidth, 34)];
-    [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
-    [footerView addSubview:footerButton];
-    tableView.tableFooterView = footerView;
+    if (self.showingFullTeam) {
+        tableView.tableFooterView = nil;
+    } else {
+        CGFloat tableWidth = tableView.bounds.size.width;
+    //    UIView* footerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
+    //    footerView.backgroundColor = [UIColor clearColor];
+        DarkButton* footerButton = [[DarkButton alloc] initWithFrame:CGRectMake(0, 10, tableWidth, 34)];
+        [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
+        [footerButton addTarget:self action:@selector(showFullTapped) forControlEvents:UIControlEventTouchUpInside];
+        tableView.tableFooterView = footerButton;
+    //    [footerView addSubview:footerButton];
+    //    tableView.sectionFooterHeight = 50;
+    //    tableView.tableFooterView = footerView;
+    }
 }
 
 #pragma mark Event Handling
@@ -177,6 +187,15 @@
     [self addSaveButton];
 }
 
+-(void)showFullTapped {
+    NSMutableSet* allPlayers = [NSMutableSet setWithArray:self.playersInPoint];
+    [allPlayers addObjectsFromArray: [Team getCurrentTeam].players];
+    self.players = [[[allPlayers allObjects] sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    [self.players addObject:[Player getAnonymous]];
+    self.showingFullTeam = YES;
+    [self refresh];
+}
+
 
 #pragma mark Lifecycle
 
@@ -211,6 +230,7 @@
     [self setPassedToLabel:nil];
     [self setEventActionSegmentedControl:nil];
     [self setPassedToLabel:nil];
+    [self setButtonTest:nil];
     [super viewDidUnload];
 }
 
@@ -226,6 +246,8 @@
 -(void)refresh {
     [self.player1TableView reloadData];
     [self.player2TableView reloadData];
+    [self addTableFooterView:self.player1TableView];
+    [self addTableFooterView:self.player2TableView];
 }
 
 -(void)stylize {

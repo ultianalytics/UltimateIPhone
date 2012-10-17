@@ -49,15 +49,13 @@
 
 -(void)setPlayersInPoint:(NSArray *)playerList {
     _playersInPoint = playerList;
-    self.players = [NSMutableArray arrayWithArray:self.playersInPoint];
-    [self ensureEventPlayersInPlayersList];
-    [self.players addObject:[Player getAnonymous]];
+    [self initSortedPlayersIncludingTeam: NO];
 }
 
 -(void)setEvent:(Event *)event {
     _event = [event copy];
     self.originalEvent = event;
-    [self ensureEventPlayersInPlayersList];
+    [self initSortedPlayersIncludingTeam: NO];
 }
 
 -(OffenseEvent*)offenseEvent {
@@ -187,10 +185,7 @@
 }
 
 -(void)showFullTapped {
-    NSMutableSet* allPlayers = [NSMutableSet setWithArray:self.playersInPoint];
-    [allPlayers addObjectsFromArray: [Team getCurrentTeam].players];
-    self.players = [[[allPlayers allObjects] sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
-    [self.players addObject:[Player getAnonymous]];
+    [self initSortedPlayersIncludingTeam: YES];
     self.showingFullTeam = YES;
     [self refresh];
 }
@@ -353,30 +348,6 @@
     }
 }
 
--(void)ensureEventPlayersInPlayersList {
-    if ([self.event isOffense]) {
-        [self ensureEventPlayerInPlayersList:self.offenseEvent.passer];
-        [self ensureEventPlayerInPlayersList:self.offenseEvent.receiver];
-    } else {
-        [self ensureEventPlayerInPlayersList:self.defenseEvent.defender];
-    }
-}
-
--(void)ensureEventPlayerInPlayersList: (Player*) eventPlayer {
-    if (eventPlayer == nil || [eventPlayer isAnonymous] ) {
-        return;
-    }
-    if (self.event && self.players) {
-        NSArray* playersCopy = [self.players copy];
-        for (Player* listPlayer in playersCopy) {
-            if ([eventPlayer.name isEqualToString:listPlayer.name]) {
-                return;
-            }
-        }
-        [self.players addObject:eventPlayer];
-    }
-}
-
 -(void)show: (UIView*) view shouldShow: (BOOL)show animate: (BOOL) animate {
     if (animate) {
         view.alpha = show ? 0.0 : 1.0;
@@ -404,6 +375,40 @@
         self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
     } else {
         self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
+    }
+}
+
+-(void)initSortedPlayersIncludingTeam: (BOOL) includeTeam {
+    NSMutableSet* playerSet = [NSMutableSet setWithArray: self.playersInPoint ? self.playersInPoint : @[]];
+    if (includeTeam) {
+        [playerSet addObjectsFromArray:[Team getCurrentTeam].players];
+    }
+    [self ensureEventPlayersInPlayersList: playerSet];
+    self.players = [[[playerSet allObjects] sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    [self.players addObject:[Player getAnonymous]];
+}
+
+-(void)ensureEventPlayersInPlayersList: (NSMutableSet*)playersSet {
+    if ([self.event isOffense]) {
+        [self ensureEventPlayer:self.offenseEvent.passer inPlayersList:playersSet];
+        [self ensureEventPlayer:self.offenseEvent.receiver inPlayersList:playersSet];
+    } else {
+        [self ensureEventPlayer:self.defenseEvent.defender inPlayersList:playersSet];
+    }
+}
+
+-(void)ensureEventPlayer: (Player*) eventPlayer inPlayersList: (NSMutableSet*) playerSet {
+    if (eventPlayer == nil || [eventPlayer isAnonymous] ) {
+        return;
+    }
+    if (self.event && playerSet) {
+        NSSet* playersCopy = [playerSet copy];
+        for (Player* listPlayer in playersCopy) {
+            if ([eventPlayer.name isEqualToString:listPlayer.name]) {
+                return;
+            }
+        }
+        [playerSet addObject:eventPlayer];
     }
 }
 

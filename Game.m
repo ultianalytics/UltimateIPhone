@@ -157,6 +157,9 @@ static Game* currentGame = nil;
         } else {
             [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kPointsAsJsonKey];
         }
+    } else {
+        score.ours = 0;
+        score.theirs = 0;
     }
     if (self.leaguevineGame) {
         NSDictionary* leaguevineGameDict = [self.leaguevineGame asDictionary];

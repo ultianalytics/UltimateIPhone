@@ -501,7 +501,12 @@
     [super viewWillAppear:animated];  
     [self dismissKeyboard];
     self.windLabel.text = [self.game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", self.game.wind.mph] : @"NOT SPECIFIED YET"; 
-    [self populateUIFromModel]; 
+    [self populateUIFromModel];
+    [self registerForKeyboardNotifications];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidUnload
@@ -527,6 +532,29 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - Keyboard Up/Down Handling
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    // make the view port smaller so the user can scroll up to click the start button
+    CGFloat keyboardHeight = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0);
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    // undo the view port 
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
 @end

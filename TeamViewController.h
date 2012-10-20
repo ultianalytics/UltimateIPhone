@@ -33,6 +33,7 @@
 @property (nonatomic, strong) IBOutlet UIButton* teamCopyButton;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
 @property (nonatomic, strong) IBOutlet UIButton *clearCloudIdButton;
+@property (strong, nonatomic) IBOutlet UIView *customFooterView;
 
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;

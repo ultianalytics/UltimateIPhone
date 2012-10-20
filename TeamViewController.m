@@ -236,6 +236,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.teamTableView.tableFooterView = self.customFooterView;
     self.clearCloudIdButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.clearCloudIdButton.titleLabel.textAlignment = UITextAlignmentCenter;
     self.teamNameField.delegate = self;
@@ -251,6 +252,7 @@
     self.teamCopyButton = nil;
     [self setLeagueVineCell:nil];
     [self setLeagueVineDescriptionLabel:nil];
+    [self setCustomFooterView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -265,6 +267,8 @@
     // with an existing team that is not the current team then we want to push them back to teams view.
     if (![self.team.teamId isEqualToString:[Team getCurrentTeam].teamId] && [self.team hasBeenSaved]) {
         [self.navigationController popViewControllerAnimated:NO];
+    } else {
+        [self registerForKeyboardNotifications];
     }
 
 }
@@ -276,9 +280,9 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -371,6 +375,29 @@
     // move the callouts off the screen and then animate their return.
     [self.firstTimeUsageCallouts slide: YES animated: NO];
     [self.firstTimeUsageCallouts slide: NO animated: YES];
+}
+
+#pragma mark - Keyboard Up/Down Handling
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    // make the view port smaller so the user can scroll up to click the start button
+    CGFloat keyboardHeight = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0);
+    self.teamTableView.contentInset = contentInsets;
+    self.teamTableView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    // undo the view port
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.teamTableView.contentInset = contentInsets;
+    self.teamTableView.scrollIndicatorInsets = contentInsets;
 }
 
 @end

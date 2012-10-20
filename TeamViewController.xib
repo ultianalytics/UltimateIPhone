@@ -54,8 +54,7 @@
 						</object>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<bool key="IBUIBounces">NO</bool>
-						<bool key="IBUIScrollEnabled">NO</bool>
+						<bool key="IBUIAlwaysBounceVertical">YES</bool>
 						<int key="IBUIStyle">1</int>
 						<int key="IBUISeparatorStyle">2</int>
 						<object class="NSColor" key="IBUISeparatorColor">
@@ -495,15 +494,15 @@
 				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="21428745"/>
 			</object>
-			<object class="IBUIView" id="245572115">
+			<object class="IBUIView" id="742545775">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="47712677">
-						<reference key="NSNextResponder" ref="245572115"/>
+						<reference key="NSNextResponder" ref="742545775"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{90, 6}, {141, 37}}</string>
-						<reference key="NSSuperview" ref="245572115"/>
+						<reference key="NSSuperview" ref="742545775"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="890153992"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -533,10 +532,10 @@
 						</object>
 					</object>
 					<object class="IBUIButton" id="890153992">
-						<reference key="NSNextResponder" ref="245572115"/>
+						<reference key="NSNextResponder" ref="742545775"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{90, 49}, {141, 37}}</string>
-						<reference key="NSSuperview" ref="245572115"/>
+						<reference key="NSSuperview" ref="742545775"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="532380750"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
@@ -563,10 +562,10 @@
 						</object>
 					</object>
 					<object class="IBUIButton" id="532380750">
-						<reference key="NSNextResponder" ref="245572115"/>
+						<reference key="NSNextResponder" ref="742545775"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{245, 21}, {72, 66}}</string>
-						<reference key="NSSuperview" ref="245572115"/>
+						<reference key="NSSuperview" ref="742545775"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -718,7 +717,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">customFooterView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="245572115"/>
+						<reference key="destination" ref="742545775"/>
 					</object>
 					<int key="connectionID">72</int>
 				</object>
@@ -925,7 +924,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
-						<reference key="object" ref="245572115"/>
+						<reference key="object" ref="742545775"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="47712677"/>
 							<reference ref="532380750"/>
@@ -937,19 +936,19 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">57</int>
 						<reference key="object" ref="47712677"/>
-						<reference key="parent" ref="245572115"/>
+						<reference key="parent" ref="742545775"/>
 						<string key="objectName">Copy Button</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
 						<reference key="object" ref="890153992"/>
-						<reference key="parent" ref="245572115"/>
+						<reference key="parent" ref="742545775"/>
 						<string key="objectName">Delete Button</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">54</int>
 						<reference key="object" ref="532380750"/>
-						<reference key="parent" ref="245572115"/>
+						<reference key="parent" ref="742545775"/>
 						<string key="objectName">Clear CloudID Button</string>
 					</object>
 				</array>

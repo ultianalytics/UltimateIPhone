@@ -10,6 +10,7 @@
 
 @interface PullLandingViewController : UIViewController
 
-@property (strong, nonatomic) void (^completion)(BOOL cancelled, BOOL isOutOfBounds);
+@property (nonatomic) double pullBeginTime;
+@property (strong, nonatomic) void (^completion)(BOOL cancelled, BOOL isOutOfBounds, long hangtimeMilliseconds);
 
 @end

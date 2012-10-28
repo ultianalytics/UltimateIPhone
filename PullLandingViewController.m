@@ -8,11 +8,18 @@
 
 #import "PullLandingViewController.h"
 #import "ColorMaster.h"
+#import "DefenseEvent.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PullLandingViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *startLabel;
 @property (strong, nonatomic) IBOutlet UILabel *endLabel;
+@property (strong, nonatomic) IBOutlet UIView *hangtimeView;
+@property (strong, nonatomic) IBOutlet UIView *waitingView;
+@property (strong, nonatomic) IBOutlet UILabel *hangtimeValueLabel;
+
+@property (nonatomic) int hangtimeMillis;
 
 @end
 
@@ -39,26 +46,43 @@
 - (void)viewDidUnload {
     [self setStartLabel:nil];
     [self setEndLabel:nil];
+    [self setHangtimeView:nil];
+    [self setHangtimeValueLabel:nil];
+    [self setWaitingView:nil];
     [super viewDidUnload];
 }
 
 #pragma mark Event handling
 
 - (IBAction)landedButtonTapped:(id)sender {
+    double currentTime = CACurrentMediaTime();
+    self.hangtimeMillis = (currentTime - self.pullBeginTime) * 1000;
+    if (self.hangtimeMillis < 0 || self.hangtimeMillis > 300000) { // handle user responding after to much time has passed
+        self.hangtimeMillis = 0;
+        [self notifyPullComplete];
+    } else {
+        self.hangtimeValueLabel.text = [NSString stringWithFormat:@"%@ seconds", [DefenseEvent formatHangtime:self.hangtimeMillis]];
+        [UIView transitionFromView:self.waitingView toView:self.hangtimeView duration:.5 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
+            [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
+        }];
+    }
+}
+
+- (void)notifyPullComplete {
     if (self.completion) {
-        self.completion(NO, NO);
+        self.completion(NO, NO, self.hangtimeMillis);
     }
 }
 
 - (IBAction)outOfBoundsTapped:(id)sender {
     if (self.completion) {
-        self.completion(NO, YES);
+        self.completion(NO, YES, 0);
     }
 }
 
 - (IBAction)cancelTapped:(id)sender {
     if (self.completion) {
-        self.completion(YES, NO);
+        self.completion(YES, NO, 0);
     }
 }
 

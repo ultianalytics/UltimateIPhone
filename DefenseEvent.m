@@ -13,6 +13,11 @@
 
 @implementation DefenseEvent
 
++(NSString*)formatHangtime: (int)hangtimeMilliseconds {
+    double hangtimeSeconds = (double)hangtimeMilliseconds / 1000.f;
+    return [NSString stringWithFormat:@"%.1f", hangtimeSeconds];
+}
+
 -(id) initDefender: (Player*)aDefender action: (Action)anAction {
     self = [super init];
     if (self) {

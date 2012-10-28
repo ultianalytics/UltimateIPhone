@@ -15,6 +15,7 @@
 @property (nonatomic, strong) Player* defender;
 
 +(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict;
++(NSString*)formatHangtime: (int)hangtimeMilliseconds;
 
 -(id) initAction: (Action)anAction;
 -(id) initDefender: (Player*)aDefender action: (Action)anAction;

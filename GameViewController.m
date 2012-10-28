@@ -28,6 +28,7 @@
 #import "LeaguevineClient.h"
 #import "LeagueVineSignonViewController.h"
 #import "PullLandingViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
@@ -72,8 +73,10 @@
 }
 
 -(void)handlePullBegin: (Player*) player {
+    double currentTime = CACurrentMediaTime();
     PullLandingViewController* pullLandingVC = [[PullLandingViewController alloc] init];
-    pullLandingVC.completion = ^(BOOL cancelled, BOOL isOutOfBounds) {
+    pullLandingVC.pullBeginTime = currentTime;
+    pullLandingVC.completion = ^(BOOL cancelled, BOOL isOutOfBounds, long hangtimeMilliseconds) {
         [self dismissViewControllerAnimated:YES completion:^{
             if(!cancelled) {
                DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:isOutOfBounds ? PullOb : Pull];

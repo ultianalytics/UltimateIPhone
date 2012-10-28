@@ -599,7 +599,7 @@ static Game* currentGame = nil;
 
 -(BOOL)canNextPointBePull {
     Event* lastEvent = [self getLastEvent];
-    return lastEvent == nil ? !self.isFirstPointOline : [lastEvent isOffense] && lastEvent.action == Goal;                                            
+    return lastEvent == nil ? !self.isFirstPointOline : ([lastEvent isOffense] && lastEvent.action == Goal) || lastEvent.isPullOb;
 }
 
 -(NSSet*)getPlayers {

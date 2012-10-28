@@ -29,6 +29,7 @@
 #define kThrowaways @"Throwaways"
 #define kDs @"Ds"
 #define kPulls @"Pulls"
+#define kPullsOb @"Pulls OB"
 
 #define kStatRowHieght 30
 #define kStatTypeRowHieght 43
@@ -63,7 +64,7 @@
 }
 
 -(void)initalizeStatTypes {
-    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kThrows,kDrops,kThrowaways,kDs,kPulls,nil];
+    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kThrows,kDrops,kThrowaways,kDs,kPulls,kPullsOb, nil];
     self.currentStat = kPlusMinusCount;
 }
 
@@ -90,6 +91,8 @@
         self.playerStats = [Statistics dsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kPulls]) {
         self.playerStats = [Statistics pullsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+    } else if ([self.currentStat isEqualToString:kPullsOb]) {
+        self.playerStats = [Statistics pullsObPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else {
         self.playerStats = [[NSArray alloc] init];
     }

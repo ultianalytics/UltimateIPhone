@@ -316,6 +316,11 @@
                 self.eventTypeDescriptionLabel.text = @"Pull";
                 break;                
             }
+            case PullOb: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Pull OB";
+                break;
+            }
             case Goal: {
                 self.eventActionSegmentedControl.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Their Goal";

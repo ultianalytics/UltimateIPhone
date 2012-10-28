@@ -27,6 +27,7 @@
 #import "CalloutView.h"
 #import "LeaguevineClient.h"
 #import "LeagueVineSignonViewController.h"
+#import "PullLandingViewController.h"
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
@@ -61,9 +62,26 @@
         OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
         [self addEvent: event];        
     } else {
-        DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:action];
-        [self addEvent: event];                       
+        if (action == Pull) {
+            [self handlePullBegin: player];
+        } else {
+            DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:action];
+            [self addEvent: event];
+        }
     }
+}
+
+-(void)handlePullBegin: (Player*) player {
+    PullLandingViewController* pullLandingVC = [[PullLandingViewController alloc] init];
+    pullLandingVC.completion = ^(BOOL cancelled, BOOL isOutOfBounds) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            if(!cancelled) {
+               DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:isOutOfBounds ? PullOb : Pull];
+               [self addEvent: event];
+            }
+        }];
+    };
+    [self presentModalViewController:pullLandingVC animated:YES];
 }
 
 - (void) passerSelected: (Player*) player view: (PlayerView*) view {
@@ -302,117 +320,6 @@
     }
 }
 
-#pragma mark - View lifecycle
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // use a smaller font for nav bat title
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
-    
-    self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
-    for (PlayerView* playerView in self.playerViews) {
-        playerView.actionListener = self;
-    }
-    
-    if ([UIScreen mainScreen].bounds.size.height > 480) {
-        [self resizeForLongDisplay];
-    }
-    
-    UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moreEventsSwipe:)];
-    [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
-    [self.swipeEventsView addGestureRecognizer:swipeRecognizer];
-    
-    UIBarButtonItem *navBarLineButton = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStyleBordered target:self action:@selector(goToPlayersOnFieldView)];
-    self.navigationItem.rightBarButtonItem = navBarLineButton;    
-    
-    self.throwAwayButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.throwAwayButton.titleLabel.textAlignment = UITextAlignmentCenter;
-    
-    self.gameOverButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.gameOverButton.titleLabel.textAlignment = UITextAlignmentCenter;
-    
-    self.otherTeamScoreButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.otherTeamScoreButton.titleLabel.textAlignment = UITextAlignmentCenter;
-    [self.otherTeamScoreButton setTitle:@"They Scored" forState: UIControlStateNormal];
-    
-    self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    
-    [self updateEventViews];
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(updateAutoTweetingNotice)
-                                                 name: @"UIApplicationWillEnterForegroundNotification"
-                                               object: nil];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (![Game hasCurrentGame]) {
-        GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
-        gameStartController.game = [[Game alloc] init];
-        gameStartController.navigationItem.hidesBackButton = YES;
-        [self.navigationController pushViewController:gameStartController animated:YES];
-    } else {
-        Game* game = [Game getCurrentGame];
-        [self setOffense: [game arePlayingOffense]];
-        [self updateEventViews];
-        [self updateNavBarTitle]; 
-        [[Game getCurrentGame] save];
-        [self updateViewFromGame:[Game getCurrentGame]];
-        [self updateAutoTweetingNotice];
-    }
-    [self addInfoButtton];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self toggleFirstTimeUsageCallouts];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.title = NSLocalizedString(@"Action", @"Action");
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
-
-#pragma mark 
-
 - (void)updateNavBarTitle {
     Score score = [[Game getCurrentGame] getScore];
     NSString* leaderDescription = score.ours == score.theirs ? @"" : score.ours > score.theirs    ? @", us" :  @", them";
@@ -451,22 +358,6 @@
                           otherButtonTitles: NSLocalizedString(@"Yes, done",nil), nil];
     [alert show];
 }
-
-#pragma mark AlertView delegate 
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
-        if (buttonIndex == 1) { // confirm game over
-            [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
-            [self notifyLeaguevine:YES];
-            [self.navigationController popViewControllerAnimated:YES];
-        } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
-            [self goToPlayersOnFieldView];
-        }
-    }
-}
-
-#pragma mark
 
 -(void) addInfoButtton {
     UIView *navBar = self.navigationController.navigationBar;
@@ -596,6 +487,127 @@
     [self presentViewController:lvController animated:YES completion:nil];
 }
 
+#pragma mark View lifecycle
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // use a smaller font for nav bat title
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
+    
+    self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
+    for (PlayerView* playerView in self.playerViews) {
+        playerView.actionListener = self;
+    }
+    
+    if ([UIScreen mainScreen].bounds.size.height > 480) {
+        [self resizeForLongDisplay];
+    }
+    
+    UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moreEventsSwipe:)];
+    [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
+    [self.swipeEventsView addGestureRecognizer:swipeRecognizer];
+    
+    UIBarButtonItem *navBarLineButton = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStyleBordered target:self action:@selector(goToPlayersOnFieldView)];
+    self.navigationItem.rightBarButtonItem = navBarLineButton;
+    
+    self.throwAwayButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.throwAwayButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    
+    self.gameOverButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.gameOverButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    
+    self.otherTeamScoreButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.otherTeamScoreButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    [self.otherTeamScoreButton setTitle:@"They Scored" forState: UIControlStateNormal];
+    
+    self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    
+    [self updateEventViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(updateAutoTweetingNotice)
+                                                 name: @"UIApplicationWillEnterForegroundNotification"
+                                               object: nil];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (![Game hasCurrentGame]) {
+        GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
+        gameStartController.game = [[Game alloc] init];
+        gameStartController.navigationItem.hidesBackButton = YES;
+        [self.navigationController pushViewController:gameStartController animated:YES];
+    } else {
+        Game* game = [Game getCurrentGame];
+        [self setOffense: [game arePlayingOffense]];
+        [self updateEventViews];
+        [self updateNavBarTitle];
+        [[Game getCurrentGame] save];
+        [self updateViewFromGame:[Game getCurrentGame]];
+        [self updateAutoTweetingNotice];
+    }
+    [self addInfoButtton];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self toggleFirstTimeUsageCallouts];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.title = NSLocalizedString(@"Action", @"Action");
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark AlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
+        if (buttonIndex == 1) { // confirm game over
+            [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
+            [self notifyLeaguevine:YES];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
+            [self goToPlayersOnFieldView];
+        }
+    }
+}
 
 @end
     

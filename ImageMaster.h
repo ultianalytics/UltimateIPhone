@@ -19,6 +19,7 @@
 +(UIImage*)getThrowawayImage;
 +(UIImage*)getOpponentThrowawayImage;
 +(UIImage*)getPullImage;
++(UIImage*)getPullObImage;
 +(UIImage*)getDeImage;
 +(UIImage*)getMaleImage;
 +(UIImage*)getFemaleImage;

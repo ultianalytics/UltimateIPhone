@@ -15,7 +15,8 @@ typedef enum {
     Throwaway,
     Pull,
     De,
-    Callahan
+    Callahan,
+    PullOb
 } Action;
 #define kActionKey              @"action"
 #define kEventTypeProperty      @"type"
@@ -36,6 +37,8 @@ typedef enum {
 - (BOOL) isTurnover;
 - (BOOL) isDrop;
 - (BOOL) isD;
+- (BOOL) isPull;
+- (BOOL) isPullOb;
 - (BOOL) isThrowaway;
 - (BOOL) isOffenseThrowaway;
 - (BOOL) isFinalEventOfPoint;

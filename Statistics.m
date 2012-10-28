@@ -148,6 +148,17 @@
     return [self accumulateStatsPerPlayer: game includeTournament: includeTournament statsAccumulator: statsAccumulator];
 }
 
++(NSArray*)pullsObPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == PullOb) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
 +(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
         if (eventDetails.event.action == De) {

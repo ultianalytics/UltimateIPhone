@@ -48,7 +48,7 @@
 
 +(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict {
     NSString* dictAction = [dict valueForKey:kActionKey];
-    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : [dictAction isEqualToString: @"Throwaway"] ? Throwaway : Callahan;
+    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : [dictAction isEqualToString: @"Throwaway"] ? Throwaway : [dictAction isEqualToString: @"PullOb"] ? PullOb : Callahan ;
     return [[DefenseEvent alloc] 
             initDefender: [Team getPlayerNamed:[dict valueForKey:kDefenderKey]]
             action: action];
@@ -57,7 +57,7 @@
 - (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub  {
     NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Defense" forKey:kEventTypeProperty];
-    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : @"Calahan" forKey:kActionKey];
+    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : self.action == PullOb ? @"PullOb" : @"Calahan" forKey:kActionKey];
     NSString *defenderName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.defender.name isMale:self.defender.isMale] : self.defender.name;
     [dict setValue: defenderName forKey:kDefenderKey];
     return dict;
@@ -81,6 +81,14 @@
     return self.action == De;
 }
 
+- (BOOL) isPull {
+    return self.action == Pull;
+}
+
+- (BOOL) isPullOb {
+    return self.action == PullOb;
+}
+
 - (BOOL) isFinalEventOfPoint {
     return self.action == Callahan || self.action == Goal;
 }
@@ -92,6 +100,13 @@
                 return [NSString stringWithFormat:@"%@ pull", (teamName == nil ? @"Our" : teamName)];
             } else {
                 return [NSString stringWithFormat:@"Pull from %@", self.defender.name];
+            }
+        }
+        case PullOb: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ OB pull", (teamName == nil ? @"Our" : teamName)];
+            } else {
+                return [NSString stringWithFormat:@"OB Pull from %@", self.defender.name];
             }
         }
         case Goal: {
@@ -109,7 +124,7 @@
 }
 
 - (BOOL) isNextEventOffense {
-    return self.action != Pull;
+    return self.action != Pull && self.action != PullOb;
 }
 
 - (NSArray*) getPlayers {

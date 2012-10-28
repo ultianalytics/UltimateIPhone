@@ -97,6 +97,14 @@
     return NO;
 }
 
+- (BOOL) isPull {
+    return NO;
+}
+
+- (BOOL) isPullOb {
+    return NO;
+}
+
 - (BOOL) isFinalEventOfPoint {
     return NO;
 }
@@ -119,7 +127,7 @@
 }
 
 - (BOOL) causesDirectionChange {
-    return !(self.action == Catch || self.action == Pull);
+    return !(self.action == Catch || self.action == Pull || self.action == PullOb);
 }
 
 - (BOOL) causesLineChange {

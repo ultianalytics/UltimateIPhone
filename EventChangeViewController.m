@@ -30,6 +30,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *hangtimeTextField;
 @property (strong, nonatomic) IBOutlet UILabel *textFieldLabel;
 
+@property (strong, nonatomic) UIAlertView *hangtimeAlertView;
+
 @property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) OffenseEvent* offenseEvent;
 @property (strong, nonatomic) DefenseEvent* defenseEvent;
@@ -152,20 +154,12 @@
 #pragma mark Event Handling
 
 -(void)doneButtonPressed {
-    self.originalEvent.action = self.event.action;
-    if ([self.event isOffense]) {
-        self.originalOffenseEvent.passer = self.offenseEvent.passer;
-        self.originalOffenseEvent.receiver = self.offenseEvent.receiver;
-    } else {
-        self.originalDefenseEvent.defender = self.defenseEvent.defender;
-        if ([self.defenseEvent isPull]) {
-            float hangtime = [self.hangtimeTextField.text floatValue];
-            self.originalDefenseEvent.pullHangtimeMilliseconds = hangtime * 1000;
-        }
+    if ([self.event isPull] && [self hangtimeTextFieldMs] > 60000) {
+        [self alertUnreasonbleHangtime];
+        return;
     }
-    if (self.completion) {
-        self.completion();
-    }
+    [self commitChanges];
+    self.completion();
 }
 
 - (IBAction)eventActionChanged:(id)sender {
@@ -433,6 +427,28 @@
     }
 }
 
+-(void)commitChanges {
+    self.originalEvent.action = self.event.action;
+    if ([self.event isOffense]) {
+        self.originalOffenseEvent.passer = self.offenseEvent.passer;
+        self.originalOffenseEvent.receiver = self.offenseEvent.receiver;
+    } else {
+        self.originalDefenseEvent.defender = self.defenseEvent.defender;
+        if ([self.defenseEvent isPull]) {
+            self.originalDefenseEvent.pullHangtimeMilliseconds = [self hangtimeTextFieldMs];
+        }
+    }
+}
+
+-(int)hangtimeTextFieldMs {
+    float hangtime = [self.hangtimeTextField.text floatValue];
+    int hangtimeMs = hangtime * 1000;
+    if (hangtimeMs < 0) {
+        hangtimeMs = 0;
+    }
+    return hangtimeMs;
+}
+
 #pragma mark TextField delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -453,5 +469,29 @@
     }
     return YES;
 }
+
+#pragma mark Alert
+
+-(void) alertUnreasonbleHangtime {
+    // Show the confirmation.
+    self.hangtimeAlertView = [[UIAlertView alloc]
+                          initWithTitle: @"Long Hang Time!"
+                          message: @"This hang time seems too high.  Are you sure?"
+                          delegate: self
+                          cancelButtonTitle: @"No"
+                          otherButtonTitles: @"Yes", nil];
+    [self.hangtimeAlertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == self.hangtimeAlertView) {
+        if (buttonIndex == 1) {
+            [self commitChanges];
+            self.completion();
+        }
+    }
+
+}
+
 
 @end

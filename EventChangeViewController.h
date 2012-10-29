@@ -10,7 +10,7 @@
 @class Event;
 #import "UltimateSegmentedControl.h"
 
-@interface EventChangeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface EventChangeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) NSString *pointDescription;

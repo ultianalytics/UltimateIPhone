@@ -63,9 +63,14 @@
     } else {
         self.hangtimeValueLabel.text = [NSString stringWithFormat:@"%@ seconds", [DefenseEvent formatHangtime:self.hangtimeMillis]];
         [UIView transitionFromView:self.waitingView toView:self.hangtimeView duration:.5 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-            [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
+            [NSTimer scheduledTimerWithTimeInterval:1.3 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
         }];
     }
+}
+
+- (IBAction)landedDoNotTimeTapped:(id)sender {
+    self.hangtimeMillis = 0;
+    [self notifyPullComplete];
 }
 
 - (void)notifyPullComplete {

@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIView *hangtimeView;
 @property (strong, nonatomic) IBOutlet UIView *waitingView;
 @property (strong, nonatomic) IBOutlet UILabel *hangtimeValueLabel;
+@property (strong, nonatomic) IBOutlet UILabel *hangtimeLabel;
 
 @property (nonatomic) int hangtimeMillis;
 
@@ -37,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self stylize];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +51,7 @@
     [self setHangtimeView:nil];
     [self setHangtimeValueLabel:nil];
     [self setWaitingView:nil];
+    [self setHangtimeLabel:nil];
     [super viewDidUnload];
 }
 
@@ -63,7 +66,7 @@
     } else {
         self.hangtimeValueLabel.text = [NSString stringWithFormat:@"%@ seconds", [DefenseEvent formatHangtime:self.hangtimeMillis]];
         [UIView transitionFromView:self.waitingView toView:self.hangtimeView duration:.5 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-            [NSTimer scheduledTimerWithTimeInterval:1.3 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
+            [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
         }];
     }
 }
@@ -96,6 +99,8 @@
 -(void)stylize {
     [ColorMaster styleAsWhiteLabel:self.startLabel size:18];
     [ColorMaster styleAsWhiteLabel:self.endLabel size:18];
+    [ColorMaster styleAsWhiteLabel:self.hangtimeLabel size:20];
+    [ColorMaster styleAsWhiteLabel:self.hangtimeValueLabel size:22];
 }
 
 @end

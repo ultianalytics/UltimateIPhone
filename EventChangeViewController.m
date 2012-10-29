@@ -27,6 +27,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventTypeDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *eventActionSegmentedControl;
 @property (strong, nonatomic) IBOutlet UILabel *passedToLabel;
+@property (strong, nonatomic) IBOutlet UITextField *hangtimeTextField;
+@property (strong, nonatomic) IBOutlet UILabel *textFieldLabel;
 
 @property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) OffenseEvent* offenseEvent;
@@ -156,6 +158,10 @@
         self.originalOffenseEvent.receiver = self.offenseEvent.receiver;
     } else {
         self.originalDefenseEvent.defender = self.defenseEvent.defender;
+        if ([self.defenseEvent isPull]) {
+            float hangtime = [self.hangtimeTextField.text floatValue];
+            self.originalDefenseEvent.pullHangtimeMilliseconds = hangtime * 1000;
+        }
     }
     if (self.completion) {
         self.completion();
@@ -225,6 +231,8 @@
     [self setEventActionSegmentedControl:nil];
     [self setPassedToLabel:nil];
     [self setButtonTest:nil];
+    [self setHangtimeTextField:nil];
+    [self setTextFieldLabel:nil];
     [super viewDidUnload];
 }
 
@@ -248,10 +256,10 @@
     [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
     [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
     [ColorMaster styleAsWhiteLabel:self.passedToLabel size:18];
+    [ColorMaster styleAsWhiteLabel:self.textFieldLabel size:14];
     self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
-
 
 -(NSArray*)eligibleActions {
     return @[@"Catch"];
@@ -272,6 +280,8 @@
     self.player1TableView.hidden = NO;
     self.player2TableView.hidden = YES;
     self.eventActionSegmentedControl.hidden = NO;
+    self.textFieldLabel.hidden = YES;
+    self.hangtimeTextField.hidden = YES;
 
     if ([self.event isOffense]) {
         switch (self.event.action) {
@@ -312,6 +322,12 @@
         [self movePlayer1TableToCenter:YES animate:NO];
         switch (self.event.action) {
             case Pull: {
+                self.textFieldLabel.hidden = NO;
+                self.textFieldLabel.text = @"Hang Time:";
+                self.hangtimeTextField.hidden = NO;
+                if (self.defenseEvent.pullHangtimeMilliseconds) {
+                    self.hangtimeTextField.text = [DefenseEvent formatHangtime:self.defenseEvent.pullHangtimeMilliseconds];
+                }
                 self.eventActionSegmentedControl.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Pull";
                 break;                
@@ -415,6 +431,27 @@
         }
         [playerSet addObject:eventPlayer];
     }
+}
+
+#pragma mark TextField delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.hangtimeTextField) {
+        [self addSaveButton];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if (textField == self.hangtimeTextField) {
+        [self addSaveButton];
+    }
+    return YES;
 }
 
 @end

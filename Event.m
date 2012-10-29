@@ -79,6 +79,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     Event* evt = [[[self class] alloc] init];
     evt.action = self.action;
+    evt.details = [[self.details copyWithZone:zone] mutableCopy];
     evt.isHalftimeCause = self.isHalftimeCause;
     return evt;
 }

@@ -13,6 +13,7 @@
 
 @interface DefenseEvent : Event
 @property (nonatomic, strong) Player* defender;
+@property (nonatomic) int pullHangtimeMilliseconds;
 
 +(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict;
 +(NSString*)formatHangtime: (int)hangtimeMilliseconds;

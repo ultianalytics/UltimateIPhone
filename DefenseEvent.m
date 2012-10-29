@@ -11,7 +11,10 @@
 #import "Player.h"
 #import "Scrubber.h"
 
+#define kHangtimeKey  @"hangtime"
+
 @implementation DefenseEvent
+@dynamic pullHangtimeMilliseconds;
 
 +(NSString*)formatHangtime: (int)hangtimeMilliseconds {
     double hangtimeSeconds = (double)hangtimeMilliseconds / 1000.f;
@@ -101,10 +104,13 @@
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     switch(self.action) {
         case Pull: {
+            NSString* hangtime = self.pullHangtimeMilliseconds > 0 ?
+                [NSString stringWithFormat: @" (%@ sec)", [DefenseEvent formatHangtime:self.pullHangtimeMilliseconds]] :
+                @"";
             if (self.isAnonymous) {
-                return [NSString stringWithFormat:@"%@ pull", (teamName == nil ? @"Our" : teamName)];
+                return [NSString stringWithFormat:@"%@ pull%@", (teamName == nil ? @"Our" : teamName), hangtime];
             } else {
-                return [NSString stringWithFormat:@"Pull from %@", self.defender.name];
+                return [NSString stringWithFormat:@"Pull from %@%@", self.defender.name, hangtime];
             }
         }
         case PullOb: {
@@ -148,6 +154,16 @@
 
 -(void)setDefender:(Player *)defender {
     _defender = defender ? defender : [Player getAnonymous];
+}
+
+#pragma mark Detail properties
+
+-(void)setPullHangtimeMilliseconds: (int)hangtimeMs {
+    [self setDetailIntValue:hangtimeMs forKey:kHangtimeKey];
+}
+
+-(int)pullHangtimeMilliseconds {
+    return [self intDetailValueForKey:kHangtimeKey default:0];
 }
 
 @end

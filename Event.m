@@ -14,6 +14,9 @@
 
 #define kIsHalftimeCauseKey     @"halftimeCause"
 
+@interface  Event()
+
+@end
 
 @implementation Event
 @synthesize isHalftimeCause;
@@ -29,14 +32,26 @@
     NSNumber* isCauseOfHalftime = [dict objectForKey:kIsHalftimeCauseKey];
     if (isCauseOfHalftime) {
         event.isHalftimeCause = [isCauseOfHalftime boolValue];
-    } 
+    }
+    event.details = [dict objectForKey:kDetailsKey];
     return event;
+}
+
+-(NSMutableDictionary*)details {
+    if (!_details) {
+        _details = [[NSMutableDictionary alloc] init];
+    }
+    return _details;
 }
 
 - (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     if (self.isHalftimeCause) {
         [dict setValue: [NSNumber numberWithBool:self.isHalftimeCause] forKey:kIsHalftimeCauseKey];
+    }
+    if (_details && [_details count] > 0) {
+        [dict setValue:self.details forKey:kDetailsKey];
+        NSLog(@"dict.details is %@", dict);
     }
     return dict;
 }
@@ -46,11 +61,15 @@
     if (self.isHalftimeCause) {
         [encoder encodeBool: self.isHalftimeCause forKey:kIsHalftimeCauseKey];
     }
+    if (_details && [_details count] > 0) {
+        [encoder encodeObject:self.details forKey:kDetailsKey];
+    }
 } 
 
 - (id)initWithCoder:(NSCoder *)decoder { 
     if (self = [super init]) { 
         self.action = [decoder decodeIntForKey:kActionKey];
+        self.details = [decoder decodeObjectForKey:kDetailsKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
         [self ensureValid];
     } 
@@ -165,7 +184,20 @@
 }
 
 -(void)ensureValid {
-    // no-op...subclasses canm re-implement
+    // no-op...subclasses can re-implement
+}
+
+
+-(void)setDetailIntValue:(int)value forKey:(NSString *)key {
+    [self.details setValue:[NSNumber numberWithInt:value] forKey:key];
+}
+
+-(int)intDetailValueForKey: (NSString *)key default: (int)defaultValue {
+    if (!_details) {  // optimization...don't create dictionary unless needed
+        return defaultValue;
+    }
+    NSNumber* value = [self.details valueForKey:key];
+    return value ? value.intValue : defaultValue;
 }
 
 @end

@@ -18,13 +18,16 @@ typedef enum {
     Callahan,
     PullOb
 } Action;
+
 #define kActionKey              @"action"
+#define kDetailsKey             @"details"
 #define kEventTypeProperty      @"type"
 
 
 @interface Event : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic) Action action;
+@property (nonatomic, strong) NSMutableDictionary* details;
 @property BOOL isHalftimeCause;
 
 + (Event*) fromDictionary:(NSDictionary*) dict;
@@ -49,5 +52,9 @@ typedef enum {
 - (void)useSharedPlayers;
 - (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 - (BOOL)isAnonymous;
+
+// subclass support
+-(void)setDetailIntValue:(int)value forKey:(NSString *)key;
+-(int)intDetailValueForKey: (NSString *)key default: (int)defaultValue;
 
 @end

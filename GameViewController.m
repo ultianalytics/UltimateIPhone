@@ -80,6 +80,9 @@
         [self dismissViewControllerAnimated:YES completion:^{
             if(!cancelled) {
                DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:isOutOfBounds ? PullOb : Pull];
+                if (hangtimeMilliseconds > 0) {
+                    event.pullHangtimeMilliseconds = hangtimeMilliseconds;
+                }
                [self addEvent: event];
             }
         }];

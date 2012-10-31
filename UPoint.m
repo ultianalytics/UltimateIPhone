@@ -54,7 +54,11 @@
 
 -(void)addEvent: (Event*) event {
     if ([self.events count] == 0) {
-        self.timeStartedSeconds = [NSDate timeIntervalSinceReferenceDate] - 5; // assume 5 seconds gas
+        self.timeStartedSeconds = [NSDate timeIntervalSinceReferenceDate];
+        // if O-line, reduce the start time to account for the pull
+        if (![event isPull]) {
+            self.timeStartedSeconds -= 5;  // assume 5 seconds 
+        }
     }
     self.timeEndedSeconds = [NSDate timeIntervalSinceReferenceDate];
     [self.events addObject:event];

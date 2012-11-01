@@ -2,8 +2,8 @@
 //  Event.h
 //  Ultimate
 //
-//  Created by james on 12/27/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -27,6 +27,7 @@ typedef enum {
 @interface Event : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic) Action action;
+@property (nonatomic) NSTimeInterval timestamp;
 @property (nonatomic, strong) NSMutableDictionary* details;
 @property BOOL isHalftimeCause;
 

@@ -2,8 +2,8 @@
 //  UPoint.m
 //  Ultimate
 //
-//  Created by james on 12/30/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "UPoint.h"
@@ -53,13 +53,15 @@
 }
 
 -(void)addEvent: (Event*) event {
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     if ([self.events count] == 0) {
-        self.timeStartedSeconds = [NSDate timeIntervalSinceReferenceDate];
         // if O-line, reduce the start time to account for the pull
         if (![event isPull]) {
-            self.timeStartedSeconds -= 5;  // assume 5 seconds 
+            now -= 5;  // assume 5 seconds
         }
+        self.timeStartedSeconds = now;
     }
+    event.timestamp = now;
     self.timeEndedSeconds = [NSDate timeIntervalSinceReferenceDate];
     [self.events addObject:event];
 }

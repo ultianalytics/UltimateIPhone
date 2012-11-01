@@ -2,8 +2,8 @@
 //  UPoint.h
 //  Ultimate
 //
-//  Created by james on 12/30/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

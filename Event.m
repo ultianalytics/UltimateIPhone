@@ -2,8 +2,8 @@
 //  Event.m
 //  Ultimate
 //
-//  Created by james on 12/27/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Jim Geppert
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "Event.h"
@@ -12,6 +12,7 @@
 #import "Team.h"
 #import "Game.h"
 
+#define kTimestampKey     @"timestamp"
 #define kIsHalftimeCauseKey     @"halftimeCause"
 
 @interface  Event()
@@ -28,6 +29,10 @@
         event = [OffenseEvent eventFromDictionary:dict];
     } else {
         event = [DefenseEvent eventFromDictionary:dict];
+    }
+    NSNumber* timestampNumber = [dict objectForKey:kTimestampKey];
+    if (timestampNumber) {
+        event.timestamp = [timestampNumber boolValue];
     }
     NSNumber* isCauseOfHalftime = [dict objectForKey:kIsHalftimeCauseKey];
     if (isCauseOfHalftime) {
@@ -46,6 +51,7 @@
 
 - (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue: [NSNumber numberWithDouble:self.timestamp] forKey:kTimestampKey];
     if (self.isHalftimeCause) {
         [dict setValue: [NSNumber numberWithBool:self.isHalftimeCause] forKey:kIsHalftimeCauseKey];
     }
@@ -58,6 +64,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 
     [encoder encodeInt: self.action forKey:kActionKey];
+    [encoder encodeDouble:self.timestamp forKey:kTimestampKey];
     if (self.isHalftimeCause) {
         [encoder encodeBool: self.isHalftimeCause forKey:kIsHalftimeCauseKey];
     }
@@ -69,6 +76,7 @@
 - (id)initWithCoder:(NSCoder *)decoder { 
     if (self = [super init]) { 
         self.action = [decoder decodeIntForKey:kActionKey];
+        self.timestamp = [decoder decodeIntForKey:kTimestampKey];
         self.details = [decoder decodeObjectForKey:kDetailsKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
         [self ensureValid];
@@ -79,6 +87,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     Event* evt = [[[self class] alloc] init];
     evt.action = self.action;
+    evt.timestamp  = self.timestamp;
     evt.details = [[self.details copyWithZone:zone] mutableCopy];
     evt.isHalftimeCause = self.isHalftimeCause;
     return evt;

@@ -103,6 +103,7 @@
 		1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */; };
 		1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE077159627B9004C03A1 /* CalloutsContainerView.m */; };
 		1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */; };
+		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
@@ -358,6 +359,8 @@
 		1AACE077159627B9004C03A1 /* CalloutsContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutsContainerView.m; sourceTree = "<group>"; };
 		1AACE07915974D87004C03A1 /* CloudMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudMetaInfo.h; sourceTree = "<group>"; };
 		1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudMetaInfo.m; sourceTree = "<group>"; };
+		1AAD2299164212170007C2EE /* PlayerSubstitution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSubstitution.h; sourceTree = "<group>"; };
+		1AAD229A164212170007C2EE /* PlayerSubstitution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSubstitution.m; sourceTree = "<group>"; };
 		1AAFDE381574F199005EA598 /* NSString+manipulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+manipulations.h"; sourceTree = "<group>"; };
 		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -955,6 +958,8 @@
 				1AFFE80E15175EB0004B4590 /* GameDescription.m */,
 				1AFFE83515175EB0004B4590 /* Player.h */,
 				1AFFE83615175EB0004B4590 /* Player.m */,
+				1AAD2299164212170007C2EE /* PlayerSubstitution.h */,
+				1AAD229A164212170007C2EE /* PlayerSubstitution.m */,
 				1AFFE7C715175E7B004B4590 /* AnonymousPlayer.h */,
 				1AFFE7C815175E7B004B4590 /* AnonymousPlayer.m */,
 				1AFFE84715175EB0004B4590 /* Preferences.h */,
@@ -1565,6 +1570,7 @@
 				1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */,
 				1ADE0AAB162D713300206DF8 /* UIView+Convenience.m in Sources */,
 				1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */,
+				1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

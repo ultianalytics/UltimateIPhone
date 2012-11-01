@@ -30,6 +30,11 @@
     return obj == nil ? defaultInt : ((NSNumber*)obj).intValue;
 }
 
+- (double)doubleForJsonProperty:(NSString *)propertyName defaultValue: (double) defaultDouble {
+    id obj = [self objectForJsonProperty:propertyName];
+    return obj == nil ? defaultDouble : ((NSNumber*)obj).doubleValue;
+}
+
 - (NSString *)stringForJsonProperty:(NSString *)propertyName {
     id obj = [self objectForJsonProperty:propertyName];
     return obj == nil ? nil : [obj isKindOfClass:[NSNumber class]] ? [NSString stringWithFormat:@"%d", ((NSNumber*)obj).intValue] : obj;

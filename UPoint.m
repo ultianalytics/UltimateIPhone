@@ -12,11 +12,19 @@
 #import "Event.h"
 #import "PointSummary.h"
 #import "Scrubber.h"
+#import "PlayerSubstitution.h"
 
 #define kSummaryProperty        @"summary"
 
+@interface UPoint()
+
+@property (nonatomic, strong) NSMutableArray* substitutions;
+
+@end
+
 @implementation UPoint
 @synthesize events, line, summary, timeStartedSeconds, timeEndedSeconds;
+@dynamic playerSubstitutions;
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"summary: %@ timeStartedSeconds=%d timeEndedSeconds=%d",summary, timeStartedSeconds, timeEndedSeconds];
@@ -27,6 +35,7 @@
     if (self) {
         self.events = [[NSMutableArray alloc] init];
         self.line = [[NSMutableArray alloc] init];
+        self.substitutions = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -151,5 +160,26 @@
     [dict setValue:[NSNumber numberWithInt:timeEndedSeconds] forKey:kEndTimeKey];
     return dict;
 }
+
+#pragma mark Player Substitution 
+
+-(BOOL)hasPlayerSubstitutions {
+    return [self.substitutions count] > 0;
+}
+
+-(NSArray*)playerSubsitutions {
+    return [NSArray arrayWithArray: self.substitutions];
+}
+
+-(void)addPlayerSubstitution: (PlayerSubstitution*)sub {
+    [self.substitutions addObject:sub];
+    NSMutableArray* newLine = [NSMutableArray arrayWithArray:self.line];
+    [newLine removeObject:sub.fromPlayer];
+    if ([newLine count] < 7) {
+        [newLine addObject:sub.toPlayer];
+    }
+    self.line = [NSArray arrayWithArray:newLine];
+}
+
 
 @end

@@ -240,7 +240,6 @@
     if (playerStat == nil) {
         NSNumber* number = type == IntStat ? [[NSNumber alloc] initWithInt:0] : [[NSNumber alloc] initWithFloat: 0];
         playerStat = [[PlayerStat alloc] initPlayer:player stat:number type:IntStat];
-        NSLog(@"player is %@", player);
         [statPerPlayer setValue:playerStat forKey:[player getId]];
     }
     return playerStat;

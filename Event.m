@@ -73,10 +73,10 @@
     }
 } 
 
-- (id)initWithCoder:(NSCoder *)decoder { 
+- (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) { 
         self.action = [decoder decodeIntForKey:kActionKey];
-        self.timestamp = [decoder decodeIntForKey:kTimestampKey];
+        self.timestamp = [decoder decodeDoubleForKey:kTimestampKey];
         self.details = [decoder decodeObjectForKey:kDetailsKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
         [self ensureValid];

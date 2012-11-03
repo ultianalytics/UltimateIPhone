@@ -10,6 +10,8 @@
 		1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */; };
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
+		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
+		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
 		1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B8291625900C00EC9D92 /* EventChangeViewController.m */; };
 		1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -271,6 +273,9 @@
 		1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDownloadPickerViewController.h; sourceTree = "<group>"; };
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
+		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
+		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
+		1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstitutionViewController.m; sourceTree = "<group>"; };
 		1A23B8281625900C00EC9D92 /* EventChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventChangeViewController.h; sourceTree = "<group>"; };
 		1A23B8291625900C00EC9D92 /* EventChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventChangeViewController.m; sourceTree = "<group>"; };
 		1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventChangeViewController.xib; sourceTree = "<group>"; };
@@ -1017,6 +1022,9 @@
 				1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */,
 				1A793F28162CDAB8006C1001 /* DarkButton.h */,
 				1A793F29162CDAB8006C1001 /* DarkButton.m */,
+				1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */,
+				1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */,
+				1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1076,6 +1084,9 @@
 				1AFFE83A15175EB0004B4590 /* PlayerButtonActual.h */,
 				1AFFE83B15175EB0004B4590 /* PlayerButtonActual.m */,
 				1AFFE83C15175EB0004B4590 /* PlayerButtonListener.h */,
+				1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */,
+				1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */,
+				1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */,
 			);
 			name = Line;
 			sourceTree = "<group>";
@@ -1089,9 +1100,6 @@
 				1A23B8281625900C00EC9D92 /* EventChangeViewController.h */,
 				1A23B8291625900C00EC9D92 /* EventChangeViewController.m */,
 				1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */,
-				1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */,
-				1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */,
-				1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */,
 			);
 			name = "Event History";
 			sourceTree = "<group>";
@@ -1414,6 +1422,7 @@
 				1AC93B781629F67200E26007 /* check.png in Resources */,
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
+				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1571,6 +1580,7 @@
 				1ADE0AAB162D713300206DF8 /* UIView+Convenience.m in Sources */,
 				1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */,
 				1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */,
+				1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

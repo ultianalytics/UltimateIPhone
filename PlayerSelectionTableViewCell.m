@@ -19,13 +19,27 @@
 
 @implementation PlayerSelectionTableViewCell
 
+-(id)init {
+    self = [super init];
+    [self commonInit];
+    return self;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
+        [self commonInit];
     }
     return self;
+}
+
+-(void)awakeFromNib {
+    [self commonInit];
+}
+
+-(void)commonInit {
+    self.chosen = NO;
 }
 
 -(void)setPlayer:(Player *)player {

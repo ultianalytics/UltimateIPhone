@@ -21,6 +21,9 @@
 #import "Tweeter.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
+#import "UPoint.h"
+#import "SubstitutionViewController.h"
+#import "PlayerSubstitution.h"
 
 #define kIsNotFirstPickPlayerViewUsage @"IsNotFirstPickPlayerViewUsage"
 #define kSetHalfimeText @"Halftime"
@@ -38,6 +41,9 @@
 @synthesize halftimeButton;
 @synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game,firstTimeUsageCallouts,infoCalloutsView;
 
+
+#pragma mark Initializtion
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -51,8 +57,15 @@
     [self updateBenchView];
     [self populateLineType];
     [self setupHalftimeButton];
+    [self showHideButtons];
 }
 
+-(void)showHideButtons {
+    BOOL hasPointStarted = [self.game isPointInProgress];
+    self.lastLineButton.hidden = hasPointStarted;
+    self.clearButton.hidden = hasPointStarted;
+    self.substitutionButton.hidden = !hasPointStarted;
+}
 
 - (void) populateLineType {
     NSString* title = [self shouldDisplayOline] ? @"Last O-Line" :  @"Last D-Line";
@@ -74,6 +87,72 @@
     self.benchButtons = [self initializePlayersViewCount: [[Team getCurrentTeam].players count] players: [self getCurrentTeamPlayers] isField: false];
 }
 
+- (void) loadPlayerStats {
+    self.pointsPerPlayer = [Statistics pointsPerPlayer:[Game getCurrentGame] includeOffense:YES includeDefense:YES];
+    self.pointFactorPerPlayer = [Statistics pointsPlayedFactorPerPlayer:[Game getCurrentGame]];
+}
+
+- (NSMutableArray*) initializePlayersViewCount: (int)numberOfButtons players: (NSArray*) players isField: (BOOL)isField {
+    NSMutableArray* buttons = [[NSMutableArray alloc] init];
+    if (isField) {
+        [self clearFieldView];
+    } else {
+        self.benchTableView.backgroundColor = [ColorMaster getBenchRowColor];
+        benchTableCells = [[NSMutableArray alloc] init];
+    }
+    
+    int maxColumns = 4;
+    int leftSlackMargin = 1;
+    int buttonMargin = 2;
+    int buttonWidth = 77;
+    int buttonHeight = 40;
+    int rowWidth = leftSlackMargin + (maxColumns * (buttonWidth + buttonMargin));
+    int rowHeight = buttonHeight + buttonMargin;
+    
+    int y = buttonMargin;
+    int x = isField ?  leftSlackMargin + buttonMargin + buttonWidth + buttonMargin : leftSlackMargin + buttonMargin;
+    int columnCount = isField ? 1 : 0;
+    UIView* rowView = nil;
+    UITableViewCell* tableCell = nil;
+    for (int i = 0; i <numberOfButtons; i++) {
+        if (columnCount >= maxColumns) {
+            columnCount = 0;
+            x = buttonMargin + leftSlackMargin;
+            y = y + buttonMargin + buttonHeight;
+            rowView = nil;
+        }
+        if (rowView == nil) {
+            rowView = [[UIView alloc] initWithFrame:CGRectMake(0, isField ? y : 0, rowWidth, rowHeight)];
+            if (isField) {
+                [fieldView addSubview:rowView];
+            } else {
+                tableCell = [[UITableViewCell alloc] init];
+                [tableCell addSubview:rowView];
+                rowView.backgroundColor = [ColorMaster getBenchRowColor];
+                tableCell.backgroundColor = [ColorMaster getBenchRowColor];
+                [benchTableCells addObject: tableCell];
+            }
+        }
+        CGRect buttonRectangle = CGRectMake(x, 0, buttonWidth, buttonHeight);
+        PlayerButton* button = [[PlayerButton alloc] init];
+        [button setOnField:isField];
+        [button setFrame:buttonRectangle];
+        [self setPlayer: i < [players count] ? [players objectAtIndex:i] : nil inButton: button];
+        [button setClickListener: self];
+        [buttons addObject:button];
+        [rowView addSubview:button];
+        x = x + buttonWidth + buttonMargin;
+        columnCount++;
+    }
+    
+    if (!isField) {
+        [self.benchTableView reloadData];
+    }
+    return buttons;
+}
+
+#pragma mark Field <--> Bench 
+
 -(void)updateBenchView {
     NSArray* allPlayers = [self getCurrentTeamPlayers];
     NSSet* currentFieldPlayers = [[NSSet alloc] initWithArray:[[Game getCurrentGame] getCurrentLineSorted]]; 
@@ -90,57 +169,6 @@
     while (playerButton = [e nextObject]) {
         [playerButton removeFromSuperview];
     }
-}
-
-- (void)clearClicked:(id)button
-{
-    [[Game getCurrentGame] clearCurrentLine];
-    [self loadPlayerButtons];
-}
-
-- (void)lastLineClicked:(id)button {
-    [[Game getCurrentGame] makeCurrentLineLastLine:[self shouldDisplayOline]];
-    [self loadPlayerButtons];
-    [self updateBenchView];
-}
-
-
-- (void) buttonClicked: (id)playerButton isOnField: (BOOL) isOnField {
-    if (isOnField) {
-        [self fieldPlayerClicked: playerButton];
-    } else {
-        [self benchPlayerClicked: playerButton];
-    }
-}
-
-- (void)fieldPlayerClicked:(id)fieldButton
-{
-    Player* player = [fieldButton getPlayer];
-    [[[Game getCurrentGame] getCurrentLine] removeObject:player];
-
-    [fieldButton setPlayer:nil];
-    
-    PlayerButton* benchButton = [self findBenchButton:player];
-    if (benchButton != nil) {  // if user deleted the player we just drop the player now
-        [self setPlayer:player inButton:benchButton];
-    }
-}
-
-- (void)benchPlayerClicked:(id)benchButton {
-    if ([[[Game getCurrentGame] getCurrentLine] count] >= 7) {
-        [SoundPlayer playMaxPlayersAlreadyOnField];
-    } else if (![self willGenderBeUnbalanced: [benchButton getPlayer]]) {
-        for (int i = 0; i < 7; i++) {
-            PlayerButton* fieldButton = [fieldButtons objectAtIndex:i];
-            if (![fieldButton getPlayer]) {
-                Player* player = [benchButton getPlayer];
-                [self setPlayer:player inButton:fieldButton];
-                [self setPlayer:nil inButton:benchButton];
-                [self updateGameCurrentLineFromView];
-                break;
-            }
-        }
-    } 
 }
 
 -(BOOL)willGenderBeUnbalanced: (Player*) newPlayer {
@@ -189,65 +217,7 @@
     return [[Game getCurrentGame] isCurrentlyOline];
 }
 
-- (NSMutableArray*) initializePlayersViewCount: (int)numberOfButtons players: (NSArray*) players isField: (BOOL)isField {
-    NSMutableArray* buttons = [[NSMutableArray alloc] init];
-    if (isField) {
-        [self clearFieldView];
-    } else {
-        self.benchTableView.backgroundColor = [ColorMaster getBenchRowColor];
-        benchTableCells = [[NSMutableArray alloc] init];
-    }
-    
-    int maxColumns = 4;
-    int leftSlackMargin = 1;
-    int buttonMargin = 2;
-    int buttonWidth = 77;
-    int buttonHeight = 40;
-    int rowWidth = leftSlackMargin + (maxColumns * (buttonWidth + buttonMargin));
-    int rowHeight = buttonHeight + buttonMargin;
-
-    int y = buttonMargin;
-    int x = isField ?  leftSlackMargin + buttonMargin + buttonWidth + buttonMargin : leftSlackMargin + buttonMargin;
-    int columnCount = isField ? 1 : 0;
-    UIView* rowView = nil;
-    UITableViewCell* tableCell = nil;
-    for (int i = 0; i <numberOfButtons; i++) {
-        if (columnCount >= maxColumns) {
-            columnCount = 0;
-            x = buttonMargin + leftSlackMargin;
-            y = y + buttonMargin + buttonHeight;
-            rowView = nil;
-        }
-        if (rowView == nil) {
-            rowView = [[UIView alloc] initWithFrame:CGRectMake(0, isField ? y : 0, rowWidth, rowHeight)];
-            if (isField) {
-                [fieldView addSubview:rowView];
-            } else {
-                tableCell = [[UITableViewCell alloc] init];
-                [tableCell addSubview:rowView];
-                rowView.backgroundColor = [ColorMaster getBenchRowColor];
-                tableCell.backgroundColor = [ColorMaster getBenchRowColor];
-                [benchTableCells addObject: tableCell];
-            }
-        }
-        CGRect buttonRectangle = CGRectMake(x, 0, buttonWidth, buttonHeight);
-        PlayerButton* button = [[PlayerButton alloc] init];
-        [button setOnField:isField];
-        [button setFrame:buttonRectangle];
-        [self setPlayer: i < [players count] ? [players objectAtIndex:i] : nil inButton: button];
-        [button setClickListener: self];
-        [buttons addObject:button];
-        [rowView addSubview:button];
-        x = x + buttonWidth + buttonMargin;
-        columnCount++;
-    }
-    
-    if (!isField) {
-        [self.benchTableView reloadData];
-    }
-    return buttons;
-}
-
+#pragma mark Table Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -262,34 +232,6 @@
     return [benchTableCells objectAtIndex: row];
 }
 
--(void)setPlayer: (Player*) player inButton: (PlayerButton*) button {
-    if (player == nil) {
-        [button setPlayer:nil];
-    } else {
-        PlayerStat* playerPoints = [pointsPerPlayer objectForKey: [player getId]];
-        NSNumber* pointFactor = [pointFactorPerPlayer objectForKey: [player getId]];
-        [button setPlayer:player points:(playerPoints == nil ? 0 : playerPoints.number.intValue) pointFactor:(pointFactor == nil ? 0 : pointFactor.floatValue)];
-    }
-}
-
-- (void) loadPlayerStats {
-    self.pointsPerPlayer = [Statistics pointsPerPlayer:[Game getCurrentGame] includeOffense:YES includeDefense:YES];
-    self.pointFactorPerPlayer = [Statistics pointsPlayedFactorPerPlayer:[Game getCurrentGame]];
-}
-
-- (NSArray*) getCurrentTeamPlayers {
-    return [[Team getCurrentTeam].players sortedArrayUsingSelector:@selector(compare:)];
-}
-
--(void)dumpBenchView {
-    NSLog(@".");
-    NSLog(@"************* Current bench view buttons ***************");
-    NSLog(@".");
-    for (int i = 0; i < [self.benchButtons count]; i++) {
-        PlayerButton* button = [self.benchButtons objectAtIndex:i];
-        NSLog(@"%@", button);
-    }
-}
 
 #pragma mark Lifecycle 
 
@@ -328,6 +270,8 @@
 - (void)viewDidUnload
 {
     [self setHalftimeButton:nil];
+    [self setClearButton:nil];
+    [self setSubstitutionButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -340,14 +284,55 @@
 }
 
 
-#pragma mark
+#pragma mark Event Handlers
 
-- (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
-    [errorMessageLabel setTextColor: [ColorMaster getPlayerImbalanceColor: isMaleImbalance]];
-    errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
-    errorMessageLabel.alpha = 1;
-    errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
-    [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+- (void)clearClicked:(id)button {
+    [[Game getCurrentGame] clearCurrentLine];
+    [self loadPlayerButtons];
+}
+
+- (void)lastLineClicked:(id)button {
+    [[Game getCurrentGame] makeCurrentLineLastLine:[self shouldDisplayOline]];
+    [self loadPlayerButtons];
+    [self updateBenchView];
+}
+
+- (void) buttonClicked: (id)playerButton isOnField: (BOOL) isOnField {
+    if (isOnField) {
+        [self fieldPlayerClicked: playerButton];
+    } else {
+        [self benchPlayerClicked: playerButton];
+    }
+}
+
+- (void)fieldPlayerClicked:(id)fieldButton
+{
+    Player* player = [fieldButton getPlayer];
+    [[[Game getCurrentGame] getCurrentLine] removeObject:player];
+    
+    [fieldButton setPlayer:nil];
+    
+    PlayerButton* benchButton = [self findBenchButton:player];
+    if (benchButton != nil) {  // if user deleted the player we just drop the player now
+        [self setPlayer:player inButton:benchButton];
+    }
+}
+
+- (void)benchPlayerClicked:(id)benchButton {
+    if ([[[Game getCurrentGame] getCurrentLine] count] >= 7) {
+        [SoundPlayer playMaxPlayersAlreadyOnField];
+    } else if (![self willGenderBeUnbalanced: [benchButton getPlayer]]) {
+        for (int i = 0; i < 7; i++) {
+            PlayerButton* fieldButton = [fieldButtons objectAtIndex:i];
+            if (![fieldButton getPlayer]) {
+                Player* player = [benchButton getPlayer];
+                [self setPlayer:player inButton:fieldButton];
+                [self setPlayer:nil inButton:benchButton];
+                [self updateGameCurrentLineFromView];
+                break;
+            }
+        }
+    }
 }
 
 - (IBAction)halftimeButtonClicked:(UIButton*)button {
@@ -361,20 +346,23 @@
     }
 }
 
--(void)halftimeWarning {
-    NSString* message = [[Game getCurrentGame] isCurrentlyOline] ? @"Our team will RECEIVE on the next point" : @"Our team will DEFEND on the next point";
-    NSString* windReminder = [[Game getCurrentGame].wind isSpecified] ? @"\n\nREMINDER: check wind speed" : @"";        
-    UIAlertView *alert = [[UIAlertView alloc] 
-                          initWithTitle:@"Half Time!" 
-                          message: [NSString stringWithFormat:@"%@%@", message, windReminder]
-                          delegate:self 
-                          cancelButtonTitle:@"OK" 
-                          otherButtonTitles:nil]; 
-    [alert show];
-    if ([[Tweeter getCurrent] isTweetingEvents]) {
-        [[Tweeter getCurrent] tweetHalftimeWithoutEvent];
-    }
+- (IBAction)substitutionButtonClicked:(id)sender {
+    SubstitutionViewController* subVC = [[SubstitutionViewController alloc] init];
+    subVC.playersOnField = self.game.currentLine;
+    subVC.completion = ^(PlayerSubstitution* addedPlayerSubstitution) {
+        if (addedPlayerSubstitution) {
+            [self.game addSubstitution:addedPlayerSubstitution];
+            [self adjustLineForSubstitution: addedPlayerSubstitution];
+            [self populateUI];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    };
+    subVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:subVC animated:YES];
 }
+
+
+#pragma mark Callouts
 
 -(void) addInfoButtton {
     UIView *navBar = self.navigationController.navigationBar;
@@ -425,6 +413,66 @@
         [self.view addSubview:calloutsView];
     }
 }
+
+#pragma mark Miscellaneous
+
+-(void)setPlayer: (Player*) player inButton: (PlayerButton*) button {
+    if (player == nil) {
+        [button setPlayer:nil];
+    } else {
+        PlayerStat* playerPoints = [pointsPerPlayer objectForKey: [player getId]];
+        NSNumber* pointFactor = [pointFactorPerPlayer objectForKey: [player getId]];
+        [button setPlayer:player points:(playerPoints == nil ? 0 : playerPoints.number.intValue) pointFactor:(pointFactor == nil ? 0 : pointFactor.floatValue)];
+    }
+}
+
+- (NSArray*) getCurrentTeamPlayers {
+    return [[Team getCurrentTeam].players sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
+    [errorMessageLabel setTextColor: [ColorMaster getPlayerImbalanceColor: isMaleImbalance]];
+    errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
+    errorMessageLabel.alpha = 1;
+    errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
+    [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+}
+
+
+-(void)halftimeWarning {
+    NSString* message = [[Game getCurrentGame] isCurrentlyOline] ? @"Our team will RECEIVE on the next point" : @"Our team will DEFEND on the next point";
+    NSString* windReminder = [[Game getCurrentGame].wind isSpecified] ? @"\n\nREMINDER: check wind speed" : @"";
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Half Time!"
+                          message: [NSString stringWithFormat:@"%@%@", message, windReminder]
+                          delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil];
+    [alert show];
+    if ([[Tweeter getCurrent] isTweetingEvents]) {
+        [[Tweeter getCurrent] tweetHalftimeWithoutEvent];
+    }
+}
+
+-(void)adjustLineForSubstitution:(PlayerSubstitution*)sub {
+   [[self.game getCurrentLine] removeObject:sub.fromPlayer];
+    if ([[self.game getCurrentLine] count] < 7) {
+        [[self.game getCurrentLine] addObject:sub.toPlayer];
+    }
+}
+
+#pragma mark Debugging
+
+-(void)dumpBenchView {
+    NSLog(@".");
+    NSLog(@"************* Current bench view buttons ***************");
+    NSLog(@".");
+    for (int i = 0; i < [self.benchButtons count]; i++) {
+        PlayerButton* button = [self.benchButtons objectAtIndex:i];
+        NSLog(@"%@", button);
+    }
+}
+
 
 @end
 

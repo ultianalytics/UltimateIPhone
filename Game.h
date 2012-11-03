@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PointSummary.h"
 #import "Constants.h"
+@class PlayerSubstitution;
 
 @class Event;
 @class UPoint;
@@ -73,6 +74,7 @@
 -(BOOL)isPointOline: (UPoint*) point;
 -(BOOL)isFirstPoint: (UPoint*) point;
 -(BOOL)isCurrentlyOline;
+-(BOOL)isPointInProgress;
 -(UPoint*)findPreviousPoint: (UPoint*) point;
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBePull;
@@ -86,5 +88,6 @@
 -(BOOL)doesGameAppearDone;
 -(BOOL)isLeaguevineGame;
 -(NSString*)shortOpponentName;
+-(void)addSubstitution: (PlayerSubstitution*)substitution;
 
 @end

@@ -18,13 +18,10 @@
 
 @interface UPoint()
 
-@property (nonatomic, strong) NSMutableArray* substitutions;
-
 @end
 
 @implementation UPoint
 @synthesize events, line, summary, timeStartedSeconds, timeEndedSeconds;
-@dynamic playerSubstitutions;
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"summary: %@ timeStartedSeconds=%d timeEndedSeconds=%d",summary, timeStartedSeconds, timeEndedSeconds];
@@ -159,26 +156,6 @@
     [dict setValue:[NSNumber numberWithInt:timeStartedSeconds] forKey:kStartTimeKey];
     [dict setValue:[NSNumber numberWithInt:timeEndedSeconds] forKey:kEndTimeKey];
     return dict;
-}
-
-#pragma mark Player Substitution 
-
--(BOOL)hasPlayerSubstitutions {
-    return [self.substitutions count] > 0;
-}
-
--(NSArray*)playerSubsitutions {
-    return [NSArray arrayWithArray: self.substitutions];
-}
-
--(void)addPlayerSubstitution: (PlayerSubstitution*)sub {
-    [self.substitutions addObject:sub];
-    NSMutableArray* newLine = [NSMutableArray arrayWithArray:self.line];
-    [newLine removeObject:sub.fromPlayer];
-    if ([newLine count] < 7) {
-        [newLine addObject:sub.toPlayer];
-    }
-    self.line = [NSArray arrayWithArray:newLine];
 }
 
 

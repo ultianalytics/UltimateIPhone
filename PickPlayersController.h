@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSMutableArray* benchTableCells;
 @property (nonatomic, strong) IBOutlet UIView* fieldView;
 @property (nonatomic, strong) IBOutlet UIButton* lastLineButton;
+@property (strong, nonatomic) IBOutlet UIButton *clearButton;
+@property (strong, nonatomic) IBOutlet UIButton *substitutionButton;
 @property (strong, nonatomic) IBOutlet UIButton *halftimeButton;
 @property (nonatomic, strong) IBOutlet UILabel* errorMessageLabel;
 @property (nonatomic, strong) NSMutableArray* fieldButtons;

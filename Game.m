@@ -455,6 +455,11 @@ static Game* currentGame = nil;
     [self clearPointSummaries];
 }
 
+-(void)addSubstitution: (PlayerSubstitution*)substitution {
+    UPoint* currentPoint = [self getCurrentPoint];
+    [currentPoint.substitutions addObject: substitution];
+}
+
 -(void)updateLastLine:(Event*) event {
     if ([event isFinalEventOfPoint]) {
         if ([self isPointOline:[self getCurrentPoint]]) {
@@ -600,6 +605,11 @@ static Game* currentGame = nil;
 -(BOOL)canNextPointBePull {
     Event* lastEvent = [self getLastEvent];
     return lastEvent == nil ? !self.isFirstPointOline : ([lastEvent isOffense] && lastEvent.action == Goal) || lastEvent.isPullOb;
+}
+
+-(BOOL)isPointInProgress {
+    Event* lastEvent = self.getLastEvent;
+    return lastEvent && ![lastEvent isGoal];
 }
 
 -(NSSet*)getPlayers {

@@ -53,5 +53,14 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    PlayerSubstitution* ps = [[[self class] alloc] init];
+    ps.fromPlayer = self.fromPlayer;
+    ps.toPlayer = self.toPlayer;
+    ps.timestamp = self.timestamp;
+    ps.reason = self.reason;
+    return ps;
+}
+
 
 @end

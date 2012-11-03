@@ -128,7 +128,7 @@ static AnonymousPlayer* singleAnonymous = nil;
     if (!other || ![other isKindOfClass:[self class]])
         return NO;
     Player* otherPlayer = (Player*) other;
-    return [self.name caseInsensitiveCompare: otherPlayer.name] == NSOrderedSame;
+    return [self isPlayerNamed:otherPlayer.name];
 }
 
 - (NSUInteger)hash {
@@ -151,6 +151,10 @@ static AnonymousPlayer* singleAnonymous = nil;
 
 -(NSString*)getDisplayName {
     return [[Team getCurrentTeam]isDiplayingPlayerNumber] && self.number !=  nil && (![self.number isEqualToString: @""]) ? self.number : self.name;
+}
+
+-(BOOL)isPlayerNamed: (NSString*)playerName {
+    return [self.name caseInsensitiveCompare: playerName] == NSOrderedSame;
 }
 
 @end

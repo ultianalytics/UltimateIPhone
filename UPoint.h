@@ -23,7 +23,7 @@
 @property (nonatomic) int timeStartedSeconds; // since epoch
 @property (nonatomic) int timeEndedSeconds; // since epoch
 @property (nonatomic, strong) PointSummary* summary;  // transient!
-@property (nonatomic, strong) NSArray* playerSubstitutions;
+@property (nonatomic, strong) NSMutableArray* substitutions;
 
 + (UPoint*) fromDictionary:(NSDictionary*) dict;
 

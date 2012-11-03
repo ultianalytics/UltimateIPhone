@@ -30,5 +30,6 @@ typedef enum {
 -(id)getId;
 -(NSString*)getDisplayName;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
+-(BOOL)isPlayerNamed: (NSString*)playerName;
 
 @end

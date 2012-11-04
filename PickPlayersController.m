@@ -368,22 +368,11 @@
 }
 
 - (IBAction)substitutionButtonClicked:(id)sender {
-    SubstitutionViewController* subVC = [[SubstitutionViewController alloc] init];
-    subVC.playersOnField = self.game.currentLine;
-    subVC.completion = ^(PlayerSubstitution* addedPlayerSubstitution) {
-        if (addedPlayerSubstitution) {
-            [self.game addSubstitution:addedPlayerSubstitution];
-            [self populateUI];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    };
-    subVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:subVC animated:YES];
+    [self goToAddSubstitutionView];
 }
 
 - (IBAction)substitutionUndoButtonClicked:(id)sender {
-    [self.game removeLastSubstitutionForCurrentPoint];
-    [self populateUI];
+    [self removeLastSubstitution];
 }
 
 
@@ -479,7 +468,7 @@
     }
 }
 
-#pragma mark Substitutions Table 
+#pragma mark Substitutions View
 
 -(UITableViewCell*)createSubstitutionTableCell {
     UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:STD_ROW_TYPE];
@@ -525,6 +514,38 @@
         }
     }
 }
+
+-(void)goToAddSubstitutionView {
+    SubstitutionViewController* subVC = [[SubstitutionViewController alloc] init];
+    subVC.playersOnField = self.game.currentLine;
+    subVC.completion = ^(PlayerSubstitution* addedPlayerSubstitution) {
+        if (addedPlayerSubstitution) {
+            [self.game addSubstitution:addedPlayerSubstitution];
+            [self populateUI];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    };
+    subVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:subVC animated:YES];
+}
+
+-(void)removeLastSubstitution {
+    BOOL lineCorrectlyAdjusted = [self.game removeLastSubstitutionForCurrentPoint];
+    if (!lineCorrectlyAdjusted) {
+        [SoundPlayer playMaxPlayersAlreadyOnField];
+        [self displayVerifyLine];
+    }
+    [self populateUI];
+}
+
+-(void)displayVerifyLine {
+    [errorMessageLabel setTextColor: [UIColor blackColor]];
+    errorMessageLabel.text =  @"Verify Line!!";
+    errorMessageLabel.alpha = 1;
+    errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
+    [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+}
+
 
 #pragma mark Debugging
 

@@ -750,13 +750,15 @@ static Game* currentGame = nil;
     [self adjustLineForSubstitution: substitution];
 }
 
--(void)removeLastSubstitutionForCurrentPoint {
+// answer YES if line could be readjusted correctly
+-(BOOL)removeLastSubstitutionForCurrentPoint {
     UPoint* currentPoint = [self getCurrentPoint];
     PlayerSubstitution* lastSub = [currentPoint.substitutions lastObject];
     if (lastSub) {
         [currentPoint.substitutions removeLastObject];
-        [self adjustLineForSubstitutionUndo:lastSub];
+        return [self adjustLineForSubstitutionUndo:lastSub];
     }
+    return YES;
 }
 
 -(NSArray*)substitutionsForCurrentPoint {
@@ -771,11 +773,15 @@ static Game* currentGame = nil;
     }
 }
 
--(void)adjustLineForSubstitutionUndo:(PlayerSubstitution*)sub {
+-(BOOL)adjustLineForSubstitutionUndo:(PlayerSubstitution*)sub {
+    if (![[self getCurrentLine] containsObject:sub.toPlayer] || [[self getCurrentLine] containsObject:sub.fromPlayer]) {
+        return NO;
+    }
     [[self getCurrentLine] removeObject:sub.toPlayer];
     if ([[self getCurrentLine] count] < 7) {
         [[self getCurrentLine] addObject:sub.fromPlayer];
     }
+    return YES;
 }
 
 @end

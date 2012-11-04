@@ -373,7 +373,6 @@
     subVC.completion = ^(PlayerSubstitution* addedPlayerSubstitution) {
         if (addedPlayerSubstitution) {
             [self.game addSubstitution:addedPlayerSubstitution];
-            [self adjustLineForSubstitution: addedPlayerSubstitution];
             [self populateUI];
             [self.navigationController popViewControllerAnimated:YES];
         }
@@ -383,7 +382,8 @@
 }
 
 - (IBAction)substitutionUndoButtonClicked:(id)sender {
-    
+    [self.game removeLastSubstitutionForCurrentPoint];
+    [self populateUI];
 }
 
 
@@ -479,13 +479,6 @@
     }
 }
 
--(void)adjustLineForSubstitution:(PlayerSubstitution*)sub {
-   [[self.game getCurrentLine] removeObject:sub.fromPlayer];
-    if ([[self.game getCurrentLine] count] < 7) {
-        [[self.game getCurrentLine] addObject:sub.toPlayer];
-    }
-}
-
 #pragma mark Substitutions Table 
 
 -(UITableViewCell*)createSubstitutionTableCell {
@@ -497,11 +490,12 @@
 }
 
 -(void)configureSubstitutionsView {
+    self.undoSubstitutionButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.undoSubstitutionButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    
     if ([[self.game substitutionsForCurrentPoint] count] > 0) {
         if (self.substitutionsView.hidden) {
-            self.undoSubstitutionButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-            self.undoSubstitutionButton.titleLabel.textAlignment = UITextAlignmentCenter;
-           
+        
             // move the subsitutions view below the window
             self.substitutionsView.frameY = self.substitutionsView.frameY + self.substitutionsView.frameHeight;
             
@@ -514,7 +508,21 @@
         }
         [self.substitutionTableView reloadData];
     } else {
-        self.substitutionsView.hidden = YES;
+        if (!self.substitutionsView.hidden) {
+            // animate the substitutions view below the window
+            [UIView animateWithDuration:1 animations:^{
+                self.substitutionsView.frameY = self.substitutionsView.frameY + self.substitutionsView.frameHeight;
+                self.benchTableView.frameHeight = self.benchTableView.frameHeight + self.substitutionsView.frameHeight;
+            } completion:^(BOOL finished) {
+                // hide the window
+                self.substitutionsView.hidden = YES;
+                
+                // reset the substitutions window to it's original location
+                self.substitutionsView.frameY = self.substitutionsView.frameY - self.substitutionsView.frameHeight;
+            }];
+        } else {
+            self.substitutionsView.hidden = YES;
+        }
     }
 }
 

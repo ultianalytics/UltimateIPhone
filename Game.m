@@ -20,6 +20,7 @@
 #import "Scrubber.h"
 #import "LeaguevineGame.h"
 #import "LeaguevineTournament.h"
+#import "PlayerSubstitution.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -746,11 +747,35 @@ static Game* currentGame = nil;
 -(void)addSubstitution: (PlayerSubstitution*)substitution {
     UPoint* currentPoint = [self getCurrentPoint];
     [currentPoint.substitutions addObject: substitution];
+    [self adjustLineForSubstitution: substitution];
+}
+
+-(void)removeLastSubstitutionForCurrentPoint {
+    UPoint* currentPoint = [self getCurrentPoint];
+    PlayerSubstitution* lastSub = [currentPoint.substitutions lastObject];
+    if (lastSub) {
+        [currentPoint.substitutions removeLastObject];
+        [self adjustLineForSubstitutionUndo:lastSub];
+    }
 }
 
 -(NSArray*)substitutionsForCurrentPoint {
     UPoint* currentPoint = [self getCurrentPoint];
     return currentPoint ? [[currentPoint.substitutions reverseObjectEnumerator] allObjects] : [NSArray array];
+}
+
+-(void)adjustLineForSubstitution:(PlayerSubstitution*)sub {
+    [[self getCurrentLine] removeObject:sub.fromPlayer];
+    if ([[self getCurrentLine] count] < 7) {
+        [[self getCurrentLine] addObject:sub.toPlayer];
+    }
+}
+
+-(void)adjustLineForSubstitutionUndo:(PlayerSubstitution*)sub {
+    [[self getCurrentLine] removeObject:sub.toPlayer];
+    if ([[self getCurrentLine] count] < 7) {
+        [[self getCurrentLine] addObject:sub.fromPlayer];
+    }
 }
 
 @end

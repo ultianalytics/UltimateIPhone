@@ -24,10 +24,12 @@
 #import "UPoint.h"
 #import "SubstitutionViewController.h"
 #import "PlayerSubstitution.h"
+#import "UIView+Convenience.h"
 
 #define kIsNotFirstPickPlayerViewUsage @"IsNotFirstPickPlayerViewUsage"
 #define kSetHalfimeText @"Halftime"
 #define kUndoHalfimeText @"Undo Half"
+
 @interface PickPlayersController()
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
@@ -48,6 +50,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
     }
     return self;
 }
@@ -58,6 +61,7 @@
     [self populateLineType];
     [self setupHalftimeButton];
     [self showHideButtons];
+    [self configureSubstitutionsView];
 }
 
 -(void)showHideButtons {
@@ -224,19 +228,33 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [benchTableCells count];
+    if (tableView == self.benchTableView) {
+        return [benchTableCells count];
+    } else {
+        return [[self.game substitutionsForCurrentPoint] count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = [indexPath row];
-    return [benchTableCells objectAtIndex: row];
+    if (tableView == self.benchTableView) {
+        NSUInteger row = [indexPath row];
+        return [benchTableCells objectAtIndex: row];
+    } else {
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+        if (cell == nil) {
+            cell = [self createSubstitutionTableCell];
+        }
+        PlayerSubstitution* playerSub = [[self.game substitutionsForCurrentPoint] objectAtIndex:[indexPath row]];
+        cell.textLabel.text = [playerSub description];
+        return cell;
+    }
 }
-
 
 #pragma mark Lifecycle 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.substitutionsView.hidden = YES;
     self.benchTableView.rowHeight = 41;
 }
 
@@ -272,6 +290,9 @@
     [self setHalftimeButton:nil];
     [self setClearButton:nil];
     [self setSubstitutionButton:nil];
+    [self setSubstitutionTableView:nil];
+    [self setSubstitutionsView:nil];
+    [self setUndoSubstitutionButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -359,6 +380,10 @@
     };
     subVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:subVC animated:YES];
+}
+
+- (IBAction)substitutionUndoButtonClicked:(id)sender {
+    
 }
 
 
@@ -458,6 +483,38 @@
    [[self.game getCurrentLine] removeObject:sub.fromPlayer];
     if ([[self.game getCurrentLine] count] < 7) {
         [[self.game getCurrentLine] addObject:sub.toPlayer];
+    }
+}
+
+#pragma mark Substitutions Table 
+
+-(UITableViewCell*)createSubstitutionTableCell {
+    UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:STD_ROW_TYPE];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
+    return cell;
+}
+
+-(void)configureSubstitutionsView {
+    if ([[self.game substitutionsForCurrentPoint] count] > 0) {
+        if (self.substitutionsView.hidden) {
+            self.undoSubstitutionButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+            self.undoSubstitutionButton.titleLabel.textAlignment = UITextAlignmentCenter;
+           
+            // move the subsitutions view below the window
+            self.substitutionsView.frameY = self.substitutionsView.frameY + self.substitutionsView.frameHeight;
+            
+            // animate it back to the original position (and move up the bench view)
+            self.substitutionsView.hidden = NO;
+            [UIView animateWithDuration:1 animations:^{
+                self.substitutionsView.frameY = self.substitutionsView.frameY - self.substitutionsView.frameHeight;
+                self.benchTableView.frameHeight = self.benchTableView.frameHeight - self.substitutionsView.frameHeight;
+            }];
+        }
+        [self.substitutionTableView reloadData];
+    } else {
+        self.substitutionsView.hidden = YES;
     }
 }
 

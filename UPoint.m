@@ -23,6 +23,13 @@
 @implementation UPoint
 @synthesize events, line, summary, timeStartedSeconds, timeEndedSeconds;
 
+-(NSMutableArray*)substitutions {
+    if (!_substitutions) {
+        _substitutions = [[NSMutableArray alloc] init];
+    }
+    return _substitutions;
+}
+
 - (NSString*)description {
     return [NSString stringWithFormat:@"summary: %@ timeStartedSeconds=%d timeEndedSeconds=%d",summary, timeStartedSeconds, timeEndedSeconds];
 }
@@ -42,7 +49,8 @@
         self.events = [decoder decodeObjectForKey:kEventsKey]; 
         self.line = [decoder decodeObjectForKey:kLineKey]; 
         self.timeStartedSeconds = [decoder decodeDoubleForKey:kStartTimeKey]; 
-        self.timeEndedSeconds = [decoder decodeDoubleForKey:kEndTimeKey]; 
+        self.timeEndedSeconds = [decoder decodeDoubleForKey:kEndTimeKey];
+        self.substitutions = [decoder decodeObjectForKey:kSubstitutionsKey]; 
     } 
     return self; 
 } 
@@ -51,7 +59,8 @@
     [encoder encodeObject:self.events forKey:kEventsKey]; 
     [encoder encodeObject:self.line forKey:kLineKey]; 
     [encoder encodeDouble:self.timeStartedSeconds forKey:kStartTimeKey]; 
-    [encoder encodeDouble:self.timeEndedSeconds forKey:kEndTimeKey]; 
+    [encoder encodeDouble:self.timeEndedSeconds forKey:kEndTimeKey];
+    [encoder encodeObject:self.substitutions forKey:kSubstitutionsKey];
 } 
 
 -(NSArray*)getEvents {
@@ -130,6 +139,14 @@
         [line addObject: [Team getPlayerNamed:playerName]];
     }
     upoint.line = line;
+    NSArray* playerSubDicts = [dict objectForKey:kSubstitutionsKey];
+    if (playerSubDicts) {
+        NSMutableArray* subs = [[NSMutableArray alloc] init];
+        for (NSDictionary* subDict in playerSubDicts) {
+            [subs addObject: [PlayerSubstitution fromDictionary:subDict]];
+        }
+        upoint.substitutions = subs;
+    }
     return upoint;
 }
 
@@ -155,6 +172,13 @@
     }
     [dict setValue:[NSNumber numberWithInt:timeStartedSeconds] forKey:kStartTimeKey];
     [dict setValue:[NSNumber numberWithInt:timeEndedSeconds] forKey:kEndTimeKey];
+    if (self.substitutions && [self.substitutions count] > 0) {
+        NSMutableArray* subDicts = [[NSMutableArray alloc] init];
+        for (PlayerSubstitution* playerSub in self.substitutions) {
+            [subDicts addObject: [playerSub asDictionaryWithScrubbing: shouldScrub]];
+        }
+        [dict setValue: subDicts forKey:kSubstitutionsKey];
+    }
     return dict;
 }
 

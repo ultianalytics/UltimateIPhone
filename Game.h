@@ -89,5 +89,6 @@
 -(BOOL)isLeaguevineGame;
 -(NSString*)shortOpponentName;
 -(void)addSubstitution: (PlayerSubstitution*)substitution;
+-(NSArray*)substitutionsForCurrentPoint;
 
 @end

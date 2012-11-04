@@ -52,7 +52,6 @@
     [encoder encodeInt:self.reason forKey:kReasonKey];
 }
 
-
 - (id)copyWithZone:(NSZone *)zone {
     PlayerSubstitution* ps = [[[self class] alloc] init];
     ps.fromPlayer = self.fromPlayer;
@@ -62,5 +61,9 @@
     return ps;
 }
 
+- (NSString* )description {
+    NSString* reasonDescription = self.reason == SubstitutionReasonOther ? @"" : @" (injury)";
+    return [NSString stringWithFormat:@"%@ in for %@%@", self.toPlayer.name, self.fromPlayer.name, reasonDescription];
+}
 
 @end

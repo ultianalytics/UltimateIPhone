@@ -10,10 +10,11 @@
 @class Event;
 @class PointSummary;
 
-#define kEventsKey      @"events"
-#define kLineKey        @"line"
-#define kStartTimeKey   @"startSeconds"
-#define kEndTimeKey     @"endSeconds"
+#define kEventsKey          @"events"
+#define kLineKey            @"line"
+#define kSubstitutionsKey   @"substitutions"
+#define kStartTimeKey       @"startSeconds"
+#define kEndTimeKey         @"endSeconds"
 
 @interface UPoint : NSObject {
     

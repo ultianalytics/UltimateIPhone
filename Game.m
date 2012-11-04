@@ -404,10 +404,10 @@ static Game* currentGame = nil;
 -(void)addEvent: (Event*) event{
     if ([self getCurrentPoint] == nil || [[self getCurrentPoint] isFinished]) {
         UPoint* newPoint = [[UPoint alloc] init];
-        newPoint.line = [NSArray arrayWithArray:[self getCurrentLine]];
         [self addPoint: newPoint];
     }
-    [[self getCurrentPoint] addEvent:event]; 
+    [[self getCurrentPoint] addEvent:event];
+    [self getCurrentPoint].line = [self getCurrentLine];
     [self updateLastLine: event];
     [self clearPointSummaries];
     [self tweetEvent: event point: [self getCurrentPoint] isUndo: NO];
@@ -453,11 +453,6 @@ static Game* currentGame = nil;
 -(void)addPoint: (UPoint*) point {
     [self.points addObject: point];
     [self clearPointSummaries];
-}
-
--(void)addSubstitution: (PlayerSubstitution*)substitution {
-    UPoint* currentPoint = [self getCurrentPoint];
-    [currentPoint.substitutions addObject: substitution];
 }
 
 -(void)updateLastLine:(Event*) event {
@@ -744,6 +739,18 @@ static Game* currentGame = nil;
 -(void)setLeaguevineGame:(LeaguevineGame *)leaguevineGame {
     _leaguevineGame = leaguevineGame;
     self.publishScoreToLeaguevine = NO;  // reset publish
+}
+
+#pragma Substitutions 
+
+-(void)addSubstitution: (PlayerSubstitution*)substitution {
+    UPoint* currentPoint = [self getCurrentPoint];
+    [currentPoint.substitutions addObject: substitution];
+}
+
+-(NSArray*)substitutionsForCurrentPoint {
+    UPoint* currentPoint = [self getCurrentPoint];
+    return currentPoint ? [[currentPoint.substitutions reverseObjectEnumerator] allObjects] : [NSArray array];
 }
 
 @end

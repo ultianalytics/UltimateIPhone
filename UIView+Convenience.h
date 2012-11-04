@@ -11,5 +11,8 @@
 @interface UIView (Convenience)
 
 @property (nonatomic) CGFloat frameX;
+@property (nonatomic) CGFloat frameY;
+@property (nonatomic) CGFloat frameHeight;
+@property (nonatomic) CGFloat frameWidth;
 
 @end

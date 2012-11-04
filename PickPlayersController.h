@@ -17,7 +17,11 @@
 }
 
 @property (nonatomic, strong) Game* game;
+
 @property (nonatomic, strong) IBOutlet UITableView* benchTableView;
+@property (strong, nonatomic) IBOutlet UIView *substitutionsView;
+@property (strong, nonatomic) IBOutlet UIButton *undoSubstitutionButton;
+@property (strong, nonatomic) IBOutlet UITableView *substitutionTableView;
 @property (nonatomic, strong) NSMutableArray* benchTableCells;
 @property (nonatomic, strong) IBOutlet UIView* fieldView;
 @property (nonatomic, strong) IBOutlet UIButton* lastLineButton;

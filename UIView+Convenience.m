@@ -21,4 +21,35 @@
     return self.frame.origin.x;
 }
 
+-(void)setFrameY: (CGFloat) y {
+    CGRect rect = self.frame;
+    rect.origin.y = y;
+    self.frame = rect;
+}
+
+-(CGFloat)frameY {
+    return self.frame.origin.y;
+}
+
+-(void)setFrameWidth: (CGFloat) width {
+    CGRect rect = self.frame;
+    rect.size.width = width;
+    self.frame = rect;
+}
+
+-(CGFloat)frameWidth {
+    return self.frame.size.width;
+}
+
+-(void)setFrameHeight: (CGFloat) height {
+    CGRect rect = self.frame;
+    rect.size.height = height;
+    self.frame = rect;
+}
+
+-(CGFloat)frameHeight {
+    return self.frame.size.height;
+}
+
+
 @end

@@ -21,4 +21,8 @@ typedef enum {
 @property (nonatomic) SubstitutionReason reason;
 @property (nonatomic) NSTimeInterval timestamp;
 
++(PlayerSubstitution*)fromDictionary:(NSDictionary*) dict;
+
+-(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
+
 @end

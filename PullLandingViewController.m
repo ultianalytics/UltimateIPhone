@@ -19,6 +19,10 @@
 @property (strong, nonatomic) IBOutlet UIView *waitingView;
 @property (strong, nonatomic) IBOutlet UILabel *hangtimeValueLabel;
 @property (strong, nonatomic) IBOutlet UILabel *hangtimeLabel;
+@property (strong, nonatomic) IBOutlet UIButton *landedButton;
+@property (strong, nonatomic) IBOutlet UIButton *landedNoHangButton;
+@property (strong, nonatomic) IBOutlet UIButton *obButton;
+@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
 
 @property (nonatomic) int hangtimeMillis;
 
@@ -52,6 +56,10 @@
     [self setHangtimeValueLabel:nil];
     [self setWaitingView:nil];
     [self setHangtimeLabel:nil];
+    [self setLandedButton:nil];
+    [self setLandedNoHangButton:nil];
+    [self setObButton:nil];
+    [self setCancelButton:nil];
     [super viewDidUnload];
 }
 
@@ -66,7 +74,7 @@
     } else {
         self.hangtimeValueLabel.text = [NSString stringWithFormat:@"%@ seconds", [DefenseEvent formatHangtime:self.hangtimeMillis]];
         [UIView transitionFromView:self.waitingView toView:self.hangtimeView duration:.5 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-            [NSTimer scheduledTimerWithTimeInterval:1.3 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
+            [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(notifyPullComplete) userInfo:nil repeats:NO];
         }];
     }
 }
@@ -101,6 +109,10 @@
     [ColorMaster styleAsWhiteLabel:self.endLabel size:18];
     [ColorMaster styleAsWhiteLabel:self.hangtimeLabel size:20];
     [ColorMaster styleAsWhiteLabel:self.hangtimeValueLabel size:22];
+    self.landedButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    self.landedNoHangButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    self.obButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    self.cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
 }
 
 @end

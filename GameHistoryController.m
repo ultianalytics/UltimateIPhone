@@ -97,7 +97,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     GameHistoryHeaderView* header = [self createHeader];
 
-    header.pointName = [self.game getPointNameAtMostRecentIndex:section];
+    [header setInfoForGame: self.game section: section];
     
     return header;
 }

@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Game;
 
 @interface GameHistoryHeaderView : UIView
-
-@property (strong, nonatomic) NSString* pointName;
-@property (strong, nonatomic) NSArray* finalLine;
-@property (strong, nonatomic) NSArray* playerSubstitutions;
 
 @property (strong, nonatomic) IBOutlet UILabel *currentPointLabel;
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutlet UILabel *pointLabel;
-@property (strong, nonatomic) IBOutlet UILabel *pointWinnerLabel;
+@property (strong, nonatomic) IBOutlet UILabel *scoreLeadLabel;
+@property (strong, nonatomic) IBOutlet UITextView *playersTextView;
+
+-(void)setInfoForGame: (Game*)game section: (NSInteger)section;
 
 @end

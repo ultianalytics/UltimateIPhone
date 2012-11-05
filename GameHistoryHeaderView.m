@@ -7,6 +7,10 @@
 //
 
 #import "GameHistoryHeaderView.h"
+#import "Game.h"
+#import "Upoint.h"
+#import "PointSummary.h"
+#import "NSArray+Utilities.h"
 
 @implementation GameHistoryHeaderView
 
@@ -19,22 +23,32 @@
     return self;
 }
 
--(void)setPointName:(NSString *)pointName {
-    _pointName = pointName;
+-(void)setInfoForGame: (Game*)game section: (NSInteger)section {
+    NSString* pointName = [game getPointNameAtMostRecentIndex:section];
+    UPoint* point = [game getPointAtMostRecentIndex:section];
+    PointSummary* summary = point.summary;
+    BOOL isOline = [game isPointOline: point];
+    
     self.currentPointLabel.hidden = YES;
     self.pointLabel.hidden = YES;
-    self.pointWinnerLabel.hidden = YES;
+    self.scoreLeadLabel.hidden = YES;
     BOOL isCurrentPoint = [pointName isEqualToString:@"Current"];
-
+    
     if (isCurrentPoint) {
         self.currentPointLabel.text =  @"Current Point" ;
         self.currentPointLabel.hidden = NO;
     } else {
         self.pointLabel.text = pointName;
         self.pointLabel.hidden = NO;
-        self.pointWinnerLabel.hidden = NO;
+        self.scoreLeadLabel.hidden = NO;
+        self.scoreLeadLabel.text = summary.score.ours > summary.score.theirs ? @"(Us)" : summary.score.ours < summary.score.theirs ? @"(Them)" : @"";
     }
-}
+    
+    if ([point.line  count] > 0) {
+        NSString* playersList = [[point.line valueForKeyPath: @"name"]componentsJoinedByString: @", "];
+        self.playersTextView.text = [NSString stringWithFormat:@"%@: %@", isOline ? @"O-line" : @"D-line", playersList];
+    }
 
+}
 
 @end

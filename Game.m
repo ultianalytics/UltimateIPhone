@@ -763,7 +763,7 @@ static Game* currentGame = nil;
 
 -(NSArray*)substitutionsForCurrentPoint {
     UPoint* currentPoint = [self getCurrentPoint];
-    return currentPoint ? [[currentPoint.substitutions reverseObjectEnumerator] allObjects] : [NSArray array];
+    return currentPoint && ![currentPoint isFinished] ? [[currentPoint.substitutions reverseObjectEnumerator] allObjects] : [NSArray array];
 }
 
 -(void)adjustLineForSubstitution:(PlayerSubstitution*)sub {

@@ -20,12 +20,15 @@
 #import "EventChangeViewController.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
+#import "GameHistoryHeaderView.h"
+#import "UIView+Convenience.h"
 
 #define kIsNotFirstGameHistoryViewUsage @"IsNotFirstGameHistoryViewUsage"
 
 @interface GameHistoryController()
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
+@property (nonatomic) CGFloat headerHeight;
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
@@ -43,11 +46,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[self.game getPointAtMostRecentIndex:section] getNumberOfEvents];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString* pointName = [self.game getPointNameAtMostRecentIndex:section];
-    return [pointName isEqualToString:@"Current"] ? @"Current Point" : pointName;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,6 +93,28 @@
     
     [self.navigationController pushViewController:changeController animated:YES];
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    GameHistoryHeaderView* header = [self createHeader];
+
+    header.pointName = [self.game getPointNameAtMostRecentIndex:section];
+    
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (!self.headerHeight) {
+        self.headerHeight = [self createHeader].frameHeight;
+    }
+    return self.headerHeight;
+}
+
+-(GameHistoryHeaderView*)createHeader {
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([GameHistoryHeaderView class]) owner:nil options:nil];
+    GameHistoryHeaderView*  header = (GameHistoryHeaderView *)[nib objectAtIndex:0];
+    return header;
+}
+
 
 #pragma mark Lifecycle
 

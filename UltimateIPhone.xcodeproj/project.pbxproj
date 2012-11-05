@@ -77,6 +77,8 @@
 		1A5983CC15446E5E00E97F09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AB15175DB9004B4590 /* Security.framework */; };
 		1A5983CD15446E6000E97F09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7AC15175DB9004B4590 /* SystemConfiguration.framework */; };
 		1A5983CE15446EAA00E97F09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B615175DF8004B4590 /* libz.dylib */; };
+		1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A59D36D16480487000EA798 /* GameHistoryHeaderView.xib */; };
+		1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */; };
 		1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A68891E1578E9C0004A3CDB /* Settings.bundle */; };
 		1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */; };
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
@@ -322,6 +324,9 @@
 		1A59839415445D5900E97F09 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		1A5983A7154464A500E97F09 /* GameTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTest.m; sourceTree = "<group>"; };
+		1A59D36D16480487000EA798 /* GameHistoryHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameHistoryHeaderView.xib; sourceTree = "<group>"; };
+		1A59D36F164804BD000EA798 /* GameHistoryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryHeaderView.h; sourceTree = "<group>"; };
+		1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryHeaderView.m; sourceTree = "<group>"; };
 		1A68891E1578E9C0004A3CDB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
@@ -1097,6 +1102,9 @@
 				1AFFE81215175EB0004B4590 /* GameHistoryController.h */,
 				1AFFE81315175EB0004B4590 /* GameHistoryController.m */,
 				1AFFE81415175EB0004B4590 /* GameHistoryController.xib */,
+				1A59D36F164804BD000EA798 /* GameHistoryHeaderView.h */,
+				1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */,
+				1A59D36D16480487000EA798 /* GameHistoryHeaderView.xib */,
 				1A23B8281625900C00EC9D92 /* EventChangeViewController.h */,
 				1A23B8291625900C00EC9D92 /* EventChangeViewController.m */,
 				1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */,
@@ -1423,6 +1431,7 @@
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
+				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1581,6 +1590,7 @@
 				1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */,
 				1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */,
 				1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */,
+				1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,16 @@
 #import "Game.h"
 #import "Upoint.h"
 #import "PointSummary.h"
+#import "PlayerSubstitution.h"
 #import "NSArray+Utilities.h"
+#import "Player.h"
+
+@interface GameHistoryHeaderView()
+
+@property (strong, nonatomic) IBOutlet UILabel *pointLabel;
+@property (strong, nonatomic) IBOutlet UILabel *playersLabel;
+
+@end
 
 @implementation GameHistoryHeaderView
 
@@ -29,26 +38,38 @@
     PointSummary* summary = point.summary;
     BOOL isOline = [game isPointOline: point];
     
-    self.currentPointLabel.hidden = YES;
-    self.pointLabel.hidden = YES;
-    self.scoreLeadLabel.hidden = YES;
     BOOL isCurrentPoint = [pointName isEqualToString:@"Current"];
     
     if (isCurrentPoint) {
-        self.currentPointLabel.text =  @"Current Point" ;
-        self.currentPointLabel.hidden = NO;
+        self.pointLabel.text =  @"Current Point" ;
+        self.pointLabel.font = [UIFont boldSystemFontOfSize:14];
     } else {
-        self.pointLabel.text = pointName;
-        self.pointLabel.hidden = NO;
-        self.scoreLeadLabel.hidden = NO;
-        self.scoreLeadLabel.text = summary.score.ours > summary.score.theirs ? @"(Us)" : summary.score.ours < summary.score.theirs ? @"(Them)" : @"";
+        self.pointLabel.text = [NSString stringWithFormat: @"%@ %@", pointName, summary.score.ours > summary.score.theirs ? @"(us)" : summary.score.ours < summary.score.theirs ? @"(them)" : @""];
     }
     
-    if ([point.line  count] > 0) {
-        NSString* playersList = [[point.line valueForKeyPath: @"name"]componentsJoinedByString: @", "];
-        self.playersTextView.text = [NSString stringWithFormat:@"%@: %@", isOline ? @"O-line" : @"D-line", playersList];
+    if ([point.line count] > 0) {
+        self.playersLabel.text = [NSString stringWithFormat:@"%@: %@", isOline ? @"O-line" : @"D-line", [self playersText: point]];
     }
 
+}
+
+-(NSString*)playersText: (UPoint*)point {
+    NSMutableSet* allPlayerNames = [NSMutableSet setWithArray:[point.line valueForKeyPath: @"name"]];
+    for (PlayerSubstitution* substitution in point.substitutions) {
+        [allPlayerNames addObject:substitution.fromPlayer.name];
+        [allPlayerNames addObject:substitution.toPlayer.name];
+    }
+    for (PlayerSubstitution* substitution in point.substitutions) {
+        if ([allPlayerNames containsObject:substitution.fromPlayer.name]) {
+            [allPlayerNames removeObject:substitution.fromPlayer.name];
+            [allPlayerNames addObject: [NSString stringWithFormat:@"%@ (partial)", substitution.fromPlayer.name]];
+        }
+        if ([allPlayerNames containsObject:substitution.toPlayer.name]) {
+            [allPlayerNames removeObject:substitution.toPlayer.name];
+            [allPlayerNames addObject: [NSString stringWithFormat:@"%@ (partial)", substitution.toPlayer.name]];
+        }
+    }
+    return [[allPlayerNames allObjects] componentsJoinedByString: @", "];
 }
 
 @end

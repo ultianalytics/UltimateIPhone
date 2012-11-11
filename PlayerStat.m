@@ -22,4 +22,8 @@
     return self;
 }
 
+-(NSString*)description {
+    return [NSString stringWithFormat:@"Player: %@, stat: %@, number: %f", self.player.name, self.type == FloatStat ? @"float" : @"int", [self.number floatValue]];
+}
+
 @end

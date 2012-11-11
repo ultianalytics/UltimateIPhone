@@ -173,7 +173,7 @@
         PlayerStat* playerStat = [self.playerStats objectAtIndex:row];
         nameLabel.text = playerStat.player.name;
         statLabel.text = playerStat.type == IntStat ? [NSString stringWithFormat:@"%d", [playerStat.number intValue]] :
-            [NSString stringWithFormat:@"%f", [playerStat.number floatValue]];
+            [NSString stringWithFormat:@"%.1f", [playerStat.number floatValue]];
     }
     
     return cell;

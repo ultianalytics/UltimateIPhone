@@ -38,8 +38,8 @@
     NSSet* players = [game getPlayers];
     for (Player* player in players) {
         PlayerStat* pointsPlayedStat = [pointsPerPlayer objectForKey:[player getId]];
-        int pointsPlayed = pointsPlayedStat == nil ? 0 : pointsPlayedStat.number.intValue;
-        float factor = playersMaxPoint == 0 ? 0 : (float)pointsPlayed / (float)playersMaxPoint;
+        float pointsPlayed = pointsPlayedStat == nil ? 0 : pointsPlayedStat.number.floatValue;
+        float factor = playersMaxPoint == 0 ? 0 : pointsPlayed / (float)playersMaxPoint;
         [pointFactorPerPlayer setObject:[NSNumber numberWithFloat:factor] forKey:[player getId]];
     }
     return pointFactorPerPlayer;
@@ -51,19 +51,26 @@
     for (UPoint* point in [game points]) {
         BOOL isOLine = [game isPointOline:point];
         if ((isOLine && includeO)  || (! isOLine && includeD)) {
-            for (Player* player in point.line) {
-                PlayerStat* playerStat = [pointsPerPlayer objectForKey:[player getId]];
-                if (playerStat == nil) {
-                    NSNumber* number = [[NSNumber alloc] initWithInt:1];
-                    playerStat = [[PlayerStat alloc] initPlayer: player stat: number type: IntStat];
-                    [pointsPerPlayer setObject:playerStat forKey:[player getId]];
-                } else {
-                    playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-                }
+            for (Player* player in [point playersInEntirePoint]) {
+                [self updatePointsPerPlayer:player pointsPerPlayer:pointsPerPlayer increment: 1.0f];
+            }
+            for (Player* player in [point playersInPartOfPoint]) {
+                [self updatePointsPerPlayer:player pointsPerPlayer:pointsPerPlayer increment: 0.5f];  // give partial players .5 
             }
         }
     }
     return pointsPerPlayer;
+}
+
++ (void)updatePointsPerPlayer:(Player *)player pointsPerPlayer:(NSMutableDictionary *)pointsPerPlayer increment: (float) increment {
+    PlayerStat* playerStat = [pointsPerPlayer objectForKey:[player getId]];
+    if (playerStat == nil) {
+        NSNumber* number = [[NSNumber alloc] initWithFloat:increment];
+        playerStat = [[PlayerStat alloc] initPlayer: player stat: number type: FloatStat];
+        [pointsPerPlayer setObject:playerStat forKey:[player getId]];
+    } else {
+        playerStat.number = [NSNumber numberWithInt:[playerStat.number floatValue] + increment];
+    }
 }
 
 #pragma mark - Stats Accumulator methods
@@ -72,9 +79,13 @@
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
         if (eventDetails.isFirstEventOfPoint) {
             if ((eventDetails.isOlinePoint && includeO)  || (! eventDetails.isOlinePoint && includeD)) {
-                for (Player* player in eventDetails.line) {
-                    PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:IntStat];
-                    playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+                for (Player* player in [eventDetails.point playersInEntirePoint]) {
+                    PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:FloatStat];
+                    playerStat.number = [NSNumber numberWithFloat:[playerStat.number floatValue] + 1.0f];
+                }
+                for (Player* player in [eventDetails.point playersInPartOfPoint]) {
+                    PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:FloatStat];
+                    playerStat.number = [NSNumber numberWithFloat:[playerStat.number floatValue] + 0.5f];
                 }
             }
         }
@@ -240,7 +251,7 @@
     PlayerStat* playerStat = [statPerPlayer objectForKey:[player getId]];
     if (playerStat == nil) {
         NSNumber* number = type == IntStat ? [[NSNumber alloc] initWithInt:0] : [[NSNumber alloc] initWithFloat: 0];
-        playerStat = [[PlayerStat alloc] initPlayer:player stat:number type:IntStat];
+        playerStat = [[PlayerStat alloc] initPlayer:player stat:number type:type];
         [statPerPlayer setValue:playerStat forKey:[player getId]];
     }
     return playerStat;

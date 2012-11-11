@@ -182,5 +182,27 @@
     return dict;
 }
 
+-(NSSet*)playersInEntirePoint {
+    NSMutableSet* players = [NSMutableSet setWithArray:self.line];
+    if ([self.substitutions count] > 0) {
+        for (PlayerSubstitution* sub in self.substitutions) {
+            [players removeObject:sub.toPlayer];
+            [players removeObject:sub.fromPlayer];
+        }
+    } 
+    return players;
+}
+
+-(NSSet*)playersInPartOfPoint {
+    NSMutableSet* players = [NSMutableSet set];
+    if ([self.substitutions count] > 0) {
+        for (PlayerSubstitution* sub in self.substitutions) {
+            [players addObject:sub.toPlayer];
+            [players addObject:sub.fromPlayer];
+        }
+    } 
+    return players;
+}
+
 
 @end

@@ -436,7 +436,7 @@
     } else {
         PlayerStat* playerPoints = [pointsPerPlayer objectForKey: [player getId]];
         NSNumber* pointFactor = [pointFactorPerPlayer objectForKey: [player getId]];
-        [button setPlayer:player points:(playerPoints == nil ? 0 : playerPoints.number.intValue) pointFactor:(pointFactor == nil ? 0 : pointFactor.floatValue)];
+        [button setPlayer:player points:(playerPoints == nil ? 0 : playerPoints.number.floatValue) pointFactor:(pointFactor == nil ? 0 : pointFactor.floatValue)];
     }
 }
 

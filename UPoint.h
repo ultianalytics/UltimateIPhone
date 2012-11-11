@@ -38,5 +38,7 @@
 -(BOOL)isOurPoint;
 -(int)getNumberOfEvents;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
+-(NSSet*)playersInEntirePoint;
+-(NSSet*)playersInPartOfPoint;
 
 @end

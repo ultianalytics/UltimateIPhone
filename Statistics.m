@@ -35,7 +35,7 @@
     for (PlayerStat* pointsPlayedStat in [pointsPerPlayer allValues]) {
         playersMaxPoint = MAX(playersMaxPoint, [pointsPlayedStat.number intValue]);
     }
-    NSArray* players = [game getPlayers];
+    NSSet* players = [game getPlayers];
     for (Player* player in players) {
         PlayerStat* pointsPlayedStat = [pointsPerPlayer objectForKey:[player getId]];
         int pointsPlayed = pointsPlayedStat == nil ? 0 : pointsPlayedStat.number.intValue;
@@ -221,7 +221,8 @@
 
 
 +(NSArray*)sortedPlayerStats: (NSDictionary*) statPerPlayer game: (Game*) game statType: (StatNumericType) type {
-    NSArray* players = [game getPlayers];
+    NSMutableSet* players = [NSMutableSet setWithSet:[game getPlayers]];
+    [players addObjectsFromArray:[Team getCurrentTeam].players];
     NSMutableArray* playerStats = [[NSMutableArray alloc] init];
     
     for (Player* player in players) {

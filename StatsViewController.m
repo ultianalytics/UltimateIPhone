@@ -60,7 +60,12 @@
 }
 
 - (IBAction)statsScopeChanged:(id)sender {
-    [self updatePlayerStats];
+    if ([self isTournamentLevel]) {
+        [self showBusyIndicator:YES];
+        [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(updatePlayerStats) userInfo:nil repeats:NO];
+    } else {
+        [self updatePlayerStats];
+    }
 }
 
 -(void)initalizeStatTypes {
@@ -99,6 +104,7 @@
     
     [self.playerStatsTableView reloadData];
     [self.playerStatsTableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated: YES];
+    [self showBusyIndicator:NO];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -174,13 +180,29 @@
 }
 
 -(void)buttonClicked: (UIButton*) statTypeButton {
+    if ([self isTournamentLevel]) {
+        [self showBusyIndicator:YES];
+    }
     NSString* statType = statTypeButton.titleLabel.text;
     self.currentStat = statType;
     [statTypeTableView reloadData];
     [statTypeButton setSelected:YES];
-    [self updatePlayerStats];
+    
+    if ([self isTournamentLevel]) {
+        [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(updatePlayerStats) userInfo:nil repeats:NO];
+    } else {
+        [self updatePlayerStats];
+    }
 }
 
+ -(void)showBusyIndicator: (BOOL)show {
+     if (show) {
+         [self.activityIndicator startAnimating];
+     } else {
+         [self.activityIndicator stopAnimating];
+     }
+ }
+     
 -(BOOL)isTournamentLevel {
      return self.statsScopeSegmentedControl.selectedSegmentIndex == 1;
 }
@@ -210,6 +232,7 @@
 
 - (void)viewDidUnload
 {
+    [self setActivityIndicator:nil];
     [super viewDidUnload];
     [self initalizeStatTypes];
     // Release any retained subviews of the main view.
@@ -245,5 +268,6 @@
         return NO;
     }
 }
+     
 
 @end

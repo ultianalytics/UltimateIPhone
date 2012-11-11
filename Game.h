@@ -78,7 +78,7 @@
 -(UPoint*)findPreviousPoint: (UPoint*) point;
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBePull;
--(NSArray*)getPlayers;
+-(NSSet*)getPlayers;
 -(BOOL)isAfterHalftime;
 -(BOOL)isNextEventImmediatelyAfterHalftime;
 -(int)getLeadingScore;

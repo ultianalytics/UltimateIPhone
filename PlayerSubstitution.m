@@ -9,6 +9,8 @@
 #import "PlayerSubstitution.h"
 #import "Player.h"
 #import "NSDictionary+JSON.h"
+#import "Scrubber.h"
+#import "Team.h"
 
 #define kFromPlayerKey         @"fromPlayer"
 #define kToPlayerKey           @"toPlayer"
@@ -19,8 +21,8 @@
 
 +(PlayerSubstitution*)fromDictionary:(NSDictionary*) dict {
     PlayerSubstitution* playerSub = [[PlayerSubstitution alloc] init];
-    playerSub.fromPlayer = [Player fromDictionary:[dict valueForKey:kFromPlayerKey]];
-    playerSub.toPlayer = [Player fromDictionary:[dict valueForKey:kToPlayerKey]];
+    playerSub.fromPlayer = [Team getPlayerNamed:[dict valueForKey:kFromPlayerKey]];
+    playerSub.toPlayer = [Team getPlayerNamed:[dict valueForKey:kToPlayerKey]];
     playerSub.reason = [dict intForJsonProperty:kReasonKey defaultValue: SubstitutionReasonOther];
     playerSub.timestamp = [dict doubleForJsonProperty:kTimestampKey defaultValue: 0.0f]; 
     return playerSub;
@@ -28,8 +30,11 @@
 
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setValue: [self.fromPlayer asDictionaryWithScrubbing: shouldScrub] forKey:kFromPlayerKey];
-    [dict setValue: [self.toPlayer asDictionaryWithScrubbing: shouldScrub] forKey:kToPlayerKey];
+    
+    NSString *fromPlayerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.fromPlayer.name isMale:self.fromPlayer.isMale] : self.fromPlayer.name;
+    [dict setValue: fromPlayerName forKey:kFromPlayerKey];
+    NSString *toPlayerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.toPlayer.name isMale:self.toPlayer.isMale] : self.toPlayer.name;
+    [dict setValue: toPlayerName forKey:kToPlayerKey];
     [dict setValue: [NSNumber numberWithInt:self.reason] forKey:kReasonKey];
     [dict setValue: [NSNumber numberWithDouble:self.timestamp] forKey:kTimestampKey];
     return dict;

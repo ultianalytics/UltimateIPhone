@@ -26,7 +26,7 @@
 -(void)setButtonFrame: (CGRect) buttonRectangle;
 -(void)setClickListener: (id<PlayerButtonListener>) listener;
 -(void)setPlayer: (Player*) player;
--(void)setPlayer: (Player*) player points: (int) points pointFactor: (float) pointFactor;
+-(void)setPlayer: (Player*) player points: (float) points pointFactor: (float) pointFactor;
 -(Player*)getPlayer;
 -(void)setOnField: (BOOL) shouldBeOnField;
 -(NSString*)getPlayerName;

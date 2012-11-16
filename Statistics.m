@@ -65,11 +65,11 @@
 + (void)updatePointsPerPlayer:(Player *)player pointsPerPlayer:(NSMutableDictionary *)pointsPerPlayer increment: (float) increment {
     PlayerStat* playerStat = [pointsPerPlayer objectForKey:[player getId]];
     if (playerStat == nil) {
-        NSNumber* number = [[NSNumber alloc] initWithFloat:increment];
+        NSNumber* number = [NSNumber numberWithFloat:increment];
         playerStat = [[PlayerStat alloc] initPlayer: player stat: number type: FloatStat];
         [pointsPerPlayer setObject:playerStat forKey:[player getId]];
     } else {
-        playerStat.number = [NSNumber numberWithInt:[playerStat.number floatValue] + increment];
+        playerStat.number = [NSNumber numberWithFloat:[playerStat.number floatValue] + increment];
     }
 }
 

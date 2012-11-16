@@ -51,12 +51,16 @@
     self.genderImage.hidden = player == nil || !isMixedTeam || (isMixedTeam && player.isMale);
 }
 
--(void)setPlayer: (Player*) player points: (int) points pointFactor: (float) pointFactor {
+-(void)setPlayer: (Player*) player points: (float) points pointFactor: (float) pointFactor {
     [self setPlayer:player];
-    self.pointsLabel.text = [NSString stringWithFormat:@"%d", points];
+    if (ceil(points) == floor(points)) {
+        self.pointsLabel.text = [NSString stringWithFormat:@"%d", (int)points];
+    } else {
+        self.pointsLabel.text = [NSString stringWithFormat:@"%.1f", points]; 
+    }
     [self.button setColor: pointFactor];
-    self.pointsLabel.textColor = [ColorMaster getLinePlayerPointsColor: pointFactor <= 0.5];
-    self.positionLabel.textColor = [ColorMaster getLinePlayerPositionColor: pointFactor <= 0.5];
+    self.pointsLabel.textColor = [ColorMaster getLinePlayerPointsColor: pointFactor <= 0.3];
+    self.positionLabel.textColor = [ColorMaster getLinePlayerPositionColor: pointFactor <= 0.3];
 }
 
 -(Player*)getPlayer {

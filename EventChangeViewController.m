@@ -27,7 +27,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventTypeDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *eventActionSegmentedControl;
 @property (strong, nonatomic) IBOutlet UILabel *passedToLabel;
-@property (strong, nonatomic) IBOutlet UITextField *hangtimeTextField;
+@property (strong, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) IBOutlet UILabel *textFieldLabel;
 
 @property (strong, nonatomic) UIAlertView *hangtimeAlertView;
@@ -154,7 +154,7 @@
 #pragma mark Event Handling
 
 -(void)doneButtonPressed {
-    if ([self.event isPull] && [self hangtimeTextFieldMs] > 60000) {
+    if ([self.event isPull] && [self textFieldMs] > 60000) {
         [self alertUnreasonbleHangtime];
         return;
     }
@@ -178,8 +178,12 @@
             if (self.event.action == De) {
                 self.defenseEvent.defender = self.originalDefenseEvent.defender ? self.originalDefenseEvent.defender : [Player getAnonymous];
             }
+        // pull (in-bounds or OB)
+        } else if (self.event.action == Pull || self.event.action == PullOb) {
+            self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? Pull : PullOb;
+            [self showTextField: self.event.action == Pull animate:YES];
         }
-    }
+    } 
     [self configureForEventType: NO];
     [self addSaveButton];
 }
@@ -225,7 +229,7 @@
     [self setEventActionSegmentedControl:nil];
     [self setPassedToLabel:nil];
     [self setButtonTest:nil];
-    [self setHangtimeTextField:nil];
+    [self setTextField:nil];
     [self setTextFieldLabel:nil];
     [super viewDidUnload];
 }
@@ -275,7 +279,7 @@
     self.player2TableView.hidden = YES;
     self.eventActionSegmentedControl.hidden = NO;
     self.textFieldLabel.hidden = YES;
-    self.hangtimeTextField.hidden = YES;
+    self.textField.hidden = YES;
 
     if ([self.event isOffense]) {
         switch (self.event.action) {
@@ -316,19 +320,23 @@
         [self movePlayer1TableToCenter:YES animate:NO];
         switch (self.event.action) {
             case Pull: {
-                self.textFieldLabel.hidden = NO;
+                self.eventTypeDescriptionLabel.text = @"Pull:";
                 self.textFieldLabel.text = @"Hang Time:";
-                self.hangtimeTextField.hidden = NO;
+                self.textField.placeholder = @"seconds";
+                [self showTextField: YES animate:NO];
                 if (self.defenseEvent.pullHangtimeMilliseconds) {
-                    self.hangtimeTextField.text = [DefenseEvent formatHangtime:self.defenseEvent.pullHangtimeMilliseconds];
+                    self.textField.text = [DefenseEvent formatHangtime:self.defenseEvent.pullHangtimeMilliseconds];
                 }
-                self.eventActionSegmentedControl.hidden = YES;
-                self.eventTypeDescriptionLabel.text = @"Pull";
+                [self configureActionControlFor:@"In Bounds" and:@"OB" initial:initial ? @"In Bounds" :nil];
                 break;                
             }
             case PullOb: {
-                self.eventActionSegmentedControl.hidden = YES;
-                self.eventTypeDescriptionLabel.text = @"Pull OB";
+                self.eventTypeDescriptionLabel.text = @"Pull:";
+                self.textFieldLabel.text = @"Hang Time:";
+                self.textField.placeholder = @"seconds";
+                [self showTextField: NO animate:NO];
+                self.eventActionSegmentedControl.hidden = NO;
+                [self configureActionControlFor:@"In Bounds" and:@"OB" initial:initial ? @"OB" :nil];
                 break;
             }
             case Goal: {
@@ -381,15 +389,39 @@
     CGFloat xOriginWhenAtCenter = (self.view.bounds.size.width - self.player1TableView.bounds.size.width) / 2;
     CGFloat xOriginWhenLeft = 10.f;
     if (animate) {
-
         [UIView animateWithDuration:.5 animations:^{
             self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
-        } completion:^(BOOL finished) {
-            
         }];
         self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
     } else {
         self.player1TableView.frameX = moveToCenter ? xOriginWhenAtCenter : xOriginWhenLeft;
+    }
+}
+
+-(void)showTextField: (BOOL)show animate: (BOOL)animate{
+    if (animate) {
+        if (show) {
+            self.textFieldLabel.alpha = 0;
+            self.textField.alpha = 0;
+            self.textFieldLabel.hidden = NO;
+            self.textField.hidden = NO;
+            [UIView animateWithDuration:.5 animations:^{
+                self.textFieldLabel.alpha = 1;
+                self.textField.alpha = 1;
+            }];
+        } else {
+            [UIView animateWithDuration:.5 animations:^{
+                self.textFieldLabel.alpha = 0;
+                self.textField.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.textFieldLabel.hidden = YES;
+                self.textField.hidden = YES;
+            }];
+        }
+        
+    } else {
+        self.textFieldLabel.hidden = !show;
+        self.textField.hidden = !show;
     }
 }
 
@@ -435,13 +467,13 @@
     } else {
         self.originalDefenseEvent.defender = self.defenseEvent.defender;
         if ([self.defenseEvent isPull]) {
-            self.originalDefenseEvent.pullHangtimeMilliseconds = [self hangtimeTextFieldMs];
+            self.originalDefenseEvent.pullHangtimeMilliseconds = [self textFieldMs];
         }
     }
 }
 
--(int)hangtimeTextFieldMs {
-    float hangtime = [self.hangtimeTextField.text floatValue];
+-(int)textFieldMs {
+    float hangtime = [self.textField.text floatValue];
     int hangtimeMs = hangtime * 1000;
     if (hangtimeMs < 0) {
         hangtimeMs = 0;
@@ -452,7 +484,7 @@
 #pragma mark TextField delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == self.hangtimeTextField) {
+    if (textField == self.textField) {
         [self addSaveButton];
     }
     return YES;
@@ -464,7 +496,7 @@
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (textField == self.hangtimeTextField) {
+    if (textField == self.textField) {
         [self addSaveButton];
     }
     return YES;

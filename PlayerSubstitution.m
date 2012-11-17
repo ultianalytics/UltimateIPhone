@@ -12,10 +12,12 @@
 #import "Scrubber.h"
 #import "Team.h"
 
-#define kFromPlayerKey         @"fromPlayer"
-#define kToPlayerKey           @"toPlayer"
-#define kTimestampKey          @"timestamp"
-#define kReasonKey           @"reason"
+#define kFromPlayerKey          @"fromPlayer"
+#define kToPlayerKey            @"toPlayer"
+#define kTimestampKey           @"timestamp"
+#define kReasonKey              @"reason"
+#define kReasonInjuryValue      @"injury"
+#define kReasonOtherValue       @"other"
 
 @implementation PlayerSubstitution
 
@@ -23,7 +25,8 @@
     PlayerSubstitution* playerSub = [[PlayerSubstitution alloc] init];
     playerSub.fromPlayer = [Team getPlayerNamed:[dict valueForKey:kFromPlayerKey]];
     playerSub.toPlayer = [Team getPlayerNamed:[dict valueForKey:kToPlayerKey]];
-    playerSub.reason = [dict intForJsonProperty:kReasonKey defaultValue: SubstitutionReasonOther];
+    NSString* reasonAsString = [dict objectForJsonProperty:kReasonKey];
+    playerSub.reason = [reasonAsString isEqualToString:kReasonOtherValue] ? SubstitutionReasonOther : SubstitutionReasonInjury;
     playerSub.timestamp = [dict doubleForJsonProperty:kTimestampKey defaultValue: 0.0f]; 
     return playerSub;
 }
@@ -35,7 +38,7 @@
     [dict setValue: fromPlayerName forKey:kFromPlayerKey];
     NSString *toPlayerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.toPlayer.name isMale:self.toPlayer.isMale] : self.toPlayer.name;
     [dict setValue: toPlayerName forKey:kToPlayerKey];
-    [dict setValue: [NSNumber numberWithInt:self.reason] forKey:kReasonKey];
+    [dict setValue: self.reason == SubstitutionReasonInjury ? kReasonInjuryValue : kReasonOtherValue forKey:kReasonKey];
     [dict setValue: [NSNumber numberWithDouble:self.timestamp] forKey:kTimestampKey];
     return dict;
 }

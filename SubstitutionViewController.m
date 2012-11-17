@@ -198,6 +198,7 @@
         self.originalPlayerSubstitution.reason = self.playerSubstitution.reason;
     } else {
         self.originalPlayerSubstitution = self.playerSubstitution;
+        self.originalPlayerSubstitution.timestamp = [NSDate timeIntervalSinceReferenceDate];
     }
 }
 

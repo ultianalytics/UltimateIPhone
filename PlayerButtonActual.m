@@ -17,9 +17,8 @@
 
 -(void)setColor: (float) pointsPlayedFactor {
     long factor = lroundf(pointsPlayedFactor * ([[ColorMaster getLinePlayerButtonColors] count] - 3));
-    
-    self.highColor = [[ColorMaster getLinePlayerButtonColors] objectAtIndex:factor];  
-    self.lowColor = [[ColorMaster getLinePlayerButtonColors] objectAtIndex:factor + 2];
+    self.highColor = [[ColorMaster getLinePlayerButtonColors] objectAtIndex:MAX(factor, 0)];
+    self.lowColor = [[ColorMaster getLinePlayerButtonColors] objectAtIndex:MIN(factor + 2, [[ColorMaster getLinePlayerButtonColors] count] - 1)];
     
     self.borderColor = self.highColor;
     self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];

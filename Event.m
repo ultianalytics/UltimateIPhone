@@ -32,7 +32,8 @@
     }
     NSNumber* timestampNumber = [dict objectForKey:kTimestampKey];
     if (timestampNumber) {
-        event.timestamp = [timestampNumber boolValue];
+        double ts = [timestampNumber doubleValue];
+        event.timestamp = ts;
     }
     NSNumber* isCauseOfHalftime = [dict objectForKey:kIsHalftimeCauseKey];
     if (isCauseOfHalftime) {

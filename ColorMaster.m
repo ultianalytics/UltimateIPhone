@@ -202,7 +202,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getFormTableCellColor {
-    return lighterishColor;
+    return lightestColor;
 }
 
 +(UIColor*)getTableListSeparatorColor {

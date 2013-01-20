@@ -67,8 +67,8 @@
 -(Score)getScore;
 -(Score)getScoreAtMostRecentIndex: (int) index;
 -(NSString*)getPointNameAtMostRecentIndex: (int) index;
--(NSMutableArray*)getCurrentLine;
--(NSMutableArray*)getCurrentLineSorted;
+-(NSMutableArray*)currentLineSorted;
+-(void)resetCurrentLine;
 -(void)clearCurrentLine;
 -(BOOL)arePlayingOffense;
 -(BOOL)isPointOline: (UPoint*) point;

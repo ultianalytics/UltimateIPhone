@@ -57,7 +57,7 @@ static Game* currentGame = nil;
 @end
 
 @implementation Game
-@synthesize gameId, points,currentLine,isFirstPointOline, lastOLine, lastDLine, startDateTime,wind,gamePoint,firstEventTweeted;
+@synthesize gameId, points,isFirstPointOline, lastOLine, lastDLine, startDateTime,wind,gamePoint,firstEventTweeted;
 
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
@@ -408,7 +408,7 @@ static Game* currentGame = nil;
         [self addPoint: newPoint];
     }
     [[self getCurrentPoint] addEvent:event];
-    [self getCurrentPoint].line = [self getCurrentLine];
+    [self getCurrentPoint].line = self.currentLine;
     [self updateLastLine: event];
     [self clearPointSummaries];
     [self tweetEvent: event point: [self getCurrentPoint] isUndo: NO];
@@ -425,6 +425,9 @@ static Game* currentGame = nil;
         [[self getCurrentPoint] removeLastEvent]; 
         if ([[self getCurrentPoint] getNumberOfEvents] == 0)  {
             [self.points removeLastObject];
+        }
+        if ([lastEvent isGoal] && [self getCurrentPoint] != nil && [self getCurrentPoint].line != nil) {
+            self.currentLine = [NSMutableArray arrayWithArray:[self getCurrentPoint].line];
         }
         [self clearPointSummaries];
     }
@@ -459,9 +462,9 @@ static Game* currentGame = nil;
 -(void)updateLastLine:(Event*) event {
     if ([event isFinalEventOfPoint]) {
         if ([self isPointOline:[self getCurrentPoint]]) {
-            self.lastOLine = [[NSArray alloc] initWithArray:[self getCurrentLine]];
+            self.lastOLine = [[NSArray alloc] initWithArray:self.currentLine];
         } else {
-            self.lastDLine = [[NSArray alloc] initWithArray:[self getCurrentLine]];
+            self.lastDLine = [[NSArray alloc] initWithArray:self.currentLine];
         }
     }
 }
@@ -565,31 +568,32 @@ static Game* currentGame = nil;
     return [self getCurrentPoint].summary.score;
 }
 
-
--(NSMutableArray*)getCurrentLine {
-    return currentLine;
-}
-
--(NSMutableArray*)getCurrentLineSorted {
+-(NSMutableArray*)currentLineSorted {
     if ([Team getCurrentTeam].isDiplayingPlayerNumber ) {
-        [[self getCurrentLine] sortUsingComparator:^(id a, id b) {
+        [self.currentLine sortUsingComparator:^(id a, id b) {
             int first = ((Player*)a).number.intValue;
             int second = ((Player*)b).number.intValue;
             return first == second ? NSOrderedSame : first < second ? NSOrderedAscending : NSOrderedDescending;
         }];
     } else {
-        [[self getCurrentLine] sortUsingComparator:^(id a, id b) {
+        [self.currentLine sortUsingComparator:^(id a, id b) {
             NSString *first = ((Player*)a).name;
             NSString *second = ((Player*)b).name;
             return [first caseInsensitiveCompare:second];
         }];
     }
-    return currentLine;
+    return self.currentLine;
 }
 
 -(void)clearCurrentLine {
-    if (currentLine != nil) {
-        [[self getCurrentLine] removeAllObjects];
+    if (self.currentLine != nil) {
+        [self.currentLine removeAllObjects];
+    }
+}
+
+-(void)resetCurrentLine {
+    if (self.currentLine) {
+        self.currentLine = [NSMutableArray arrayWithArray:self.currentLine];
     }
 }
 
@@ -767,19 +771,19 @@ static Game* currentGame = nil;
 }
 
 -(void)adjustLineForSubstitution:(PlayerSubstitution*)sub {
-    [[self getCurrentLine] removeObject:sub.fromPlayer];
-    if ([[self getCurrentLine] count] < 7) {
-        [[self getCurrentLine] addObject:sub.toPlayer];
+    [self.currentLine removeObject:sub.fromPlayer];
+    if ([self.currentLine count] < 7) {
+        [self.currentLine addObject:sub.toPlayer];
     }
 }
 
 -(BOOL)adjustLineForSubstitutionUndo:(PlayerSubstitution*)sub {
-    if (![[self getCurrentLine] containsObject:sub.toPlayer] || [[self getCurrentLine] containsObject:sub.fromPlayer]) {
+    if (![self.currentLine containsObject:sub.toPlayer] || [self.currentLine containsObject:sub.fromPlayer]) {
         return NO;
     }
-    [[self getCurrentLine] removeObject:sub.toPlayer];
-    if ([[self getCurrentLine] count] < 7) {
-        [[self getCurrentLine] addObject:sub.fromPlayer];
+    [self.currentLine removeObject:sub.toPlayer];
+    if ([self.currentLine count] < 7) {
+        [self.currentLine addObject:sub.fromPlayer];
     }
     return YES;
 }

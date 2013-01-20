@@ -56,6 +56,7 @@
 }
 
 - (void)populateUI {
+    [[Game getCurrentGame] resetCurrentLine];
     [self loadPlayerButtons];
     [self updateBenchView];
     [self populateLineType];
@@ -87,7 +88,7 @@
 
 -(void) loadPlayerButtons {
     self.fieldButtons = [self initializePlayersViewCount: 7 players: 
-                         [[Game getCurrentGame] getCurrentLineSorted] isField: true];
+                         [[Game getCurrentGame] currentLineSorted] isField: true];
     self.benchButtons = [self initializePlayersViewCount: [[Team getCurrentTeam].players count] players: [self getCurrentTeamPlayers] isField: false];
 }
 
@@ -159,7 +160,7 @@
 
 -(void)updateBenchView {
     NSArray* allPlayers = [self getCurrentTeamPlayers];
-    NSSet* currentFieldPlayers = [[NSSet alloc] initWithArray:[[Game getCurrentGame] getCurrentLineSorted]]; 
+    NSSet* currentFieldPlayers = [[NSSet alloc] initWithArray:[[Game getCurrentGame] currentLineSorted]];
     for (int i = 0; i < [allPlayers count]; i++) {
         Player* player = [allPlayers objectAtIndex:i];
         PlayerButton* button = [self.benchButtons objectAtIndex:i];
@@ -201,7 +202,7 @@
     [[Game getCurrentGame] clearCurrentLine];
     for (PlayerButton* playerButton in self.fieldButtons) {
         if ([playerButton getPlayer] != nil) {
-            [[[Game getCurrentGame] getCurrentLine] addObject:[playerButton getPlayer]];
+            [[[Game getCurrentGame] currentLine] addObject:[playerButton getPlayer]];
         }
     }
 }
@@ -329,7 +330,7 @@
 - (void)fieldPlayerClicked:(id)fieldButton
 {
     Player* player = [fieldButton getPlayer];
-    [[[Game getCurrentGame] getCurrentLine] removeObject:player];
+    [[[Game getCurrentGame] currentLine] removeObject:player];
     
     [fieldButton setPlayer:nil];
     
@@ -340,7 +341,7 @@
 }
 
 - (void)benchPlayerClicked:(id)benchButton {
-    if ([[[Game getCurrentGame] getCurrentLine] count] >= 7) {
+    if ([[[Game getCurrentGame] currentLine] count] >= 7) {
         [SoundPlayer playMaxPlayersAlreadyOnField];
     } else if (![self willGenderBeUnbalanced: [benchButton getPlayer]]) {
         for (int i = 0; i < 7; i++) {

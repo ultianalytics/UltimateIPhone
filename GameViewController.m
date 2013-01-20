@@ -244,7 +244,7 @@
 - (void) populatePlayers {
     PlayerView* previousSelected = [self findSelectedPlayerView];
     Player* previousSelectedPlayer = previousSelected ? previousSelected.player : nil;
-    NSArray* players = [[Game getCurrentGame] getCurrentLineSorted];
+    NSArray* players = [[Game getCurrentGame] currentLineSorted];
     for (int i = 0; i < 7; i++) {
         PlayerView* view = [self.playerViews objectAtIndex: i];
         if (i < [players count]) {

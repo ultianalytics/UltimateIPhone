@@ -29,6 +29,7 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* privacyPolicyCell;
 
 @property (strong, nonatomic) IBOutlet UILabel *userUnknownLabel;
 @property (nonatomic, strong) IBOutlet UILabel* userLabel;

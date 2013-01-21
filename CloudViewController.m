@@ -53,7 +53,7 @@
 @synthesize scrubberView;
 @synthesize scrubberSwitch;
 @synthesize userUnknownLabel;
-@synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, downloadTeamButton, downloadGameButton;
+@synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, privacyPolicyCell, downloadTeamButton, downloadGameButton;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -364,8 +364,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     cloudCells = [Team getCurrentTeam].cloudId == nil ? 
-    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, userCell, websiteCell, adminSiteCell, nil] :
-    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, downloadGameCell, userCell, websiteCell, adminSiteCell, nil];
+    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, userCell, websiteCell, adminSiteCell, privacyPolicyCell, nil] :
+    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, downloadGameCell, userCell, websiteCell, adminSiteCell, privacyPolicyCell, nil];
     return [cloudCells count];
 }
 
@@ -387,7 +387,10 @@
         } else if (cell == adminSiteCell) {
             NSString* adminUrl = adminSiteLabel.text;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
-        } 
+        } else if (cell == privacyPolicyCell) {
+            NSString* privacyPolicyUrl = [NSString stringWithFormat: @"%@/privacy.html", [CloudClient getBaseUrl]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
+        }
     }
 } 
 

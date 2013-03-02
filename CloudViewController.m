@@ -342,6 +342,8 @@
     self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
+    NSString* adminURL = [NSString stringWithFormat:@"%@/team/admin", [CloudClient getBaseUrl]];
+    self.adminSiteLabel.text = adminURL;
     self.userUnknownLabel.hidden = userid != nil;
     self.userLabel.hidden = userid == nil;
     self.userLabel.text = userid;

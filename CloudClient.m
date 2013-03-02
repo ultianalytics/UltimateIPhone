@@ -330,7 +330,7 @@
 }
 
 +(NSString*) getWebsiteURL: (Team*) team {
-    if (team.cloudId != nil && team.cloudId != @"") {
+    if (team.cloudId != nil && ![team.cloudId isEqualToString: @""]) {
         return [NSString stringWithFormat:@"%@/team/%@/main", [CloudClient getBaseUrl], team.cloudId];
     }
     return nil;

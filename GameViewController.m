@@ -28,6 +28,8 @@
 #import "LeaguevineClient.h"
 #import "LeagueVineSignonViewController.h"
 #import "PullLandingViewController.h"
+#import "UIViewController+Additions.h"
+#import "ActionDetailsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
@@ -44,6 +46,9 @@
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 @property (nonatomic, strong) LeaguevineClient *leaguevineClient;
+@property (nonatomic, strong) IBOutlet UIView *normalView;
+@property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
+@property (nonatomic, strong) ActionDetailsViewController* detailsController;
 
 @end
 
@@ -499,7 +504,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
     }
     return self;
 }
@@ -518,6 +522,10 @@
     if ([UIScreen mainScreen].bounds.size.height > 480) {
         [self resizeForLongDisplay];
     }
+    
+    // TODO...uncomment when long press handling done
+//    UILongPressGestureRecognizer* turnoverLongPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(turnoverButtonLongPress:)];
+//    [self.throwAwayButton addGestureRecognizer:turnoverLongPressRecognizer];
     
     UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moreEventsSwipe:)];
     [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
@@ -539,6 +547,8 @@
     self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     
     [self updateEventViews];
+    
+    [self initializeDetailSelectionView];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(updateAutoTweetingNotice)
@@ -614,6 +624,39 @@
         }
     }
 }
+
+#pragma mark Long Press handling
+
+-(void)initializeDetailSelectionView {
+    self.detailsController = [[ActionDetailsViewController alloc] init];
+    [self addChildViewController:self.detailsController inSubView:self.detailSelectionView];
+    GameViewController* __weak weakSelf = self;
+    self.detailsController.cancelBlock = ^{
+        [weakSelf showDetailSelectionView:NO];
+    };
+}
+
+-(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        Event* throwawayEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Throwaway];
+        Event* otherEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Drop];
+        [self.detailsController setCandidateEvents:@[throwawayEvent, otherEvent] initialChosen:throwawayEvent];
+        [self showDetailSelectionView: YES];
+    }
+}
+
+-(void)showDetailSelectionView: (BOOL) show {
+    if (show) {
+        [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+            
+        }];
+    }
+}
+
 
 @end
     

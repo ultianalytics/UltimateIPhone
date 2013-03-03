@@ -40,6 +40,12 @@
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
 		1A6B266215250FC400C119A5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B266115250FC400C119A5 /* Tweet.m */; };
 		1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6B4FE215F04BCE000F0B5C /* undo.png */; };
+		1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */; };
+		1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82DE16E3C01600B84595 /* ActionDetailsViewController.m */; };
+		1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A6C82DF16E3C01600B84595 /* ActionDetailsViewController.xib */; };
+		1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A6C82E216E3C51E00B84595 /* EventSelectTableViewCell.xib */; };
+		1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82E316E3C51E00B84595 /* EventSelectTableViewCell.m */; };
+		1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */; };
 		1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78D9C315949DC300115BE5 /* CalloutView.m */; };
 		1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A793F29162CDAB8006C1001 /* DarkButton.m */; };
 		1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */; };
@@ -289,6 +295,16 @@
 		1A6B266015250FC400C119A5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		1A6B266115250FC400C119A5 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		1A6B4FE215F04BCE000F0B5C /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
+		1A6C82DA16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButtonLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionButtonLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		1A6C82DD16E3C01600B84595 /* ActionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionDetailsViewController.h; sourceTree = "<group>"; };
+		1A6C82DE16E3C01600B84595 /* ActionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionDetailsViewController.m; sourceTree = "<group>"; };
+		1A6C82DF16E3C01600B84595 /* ActionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionDetailsViewController.xib; sourceTree = "<group>"; };
+		1A6C82E216E3C51E00B84595 /* EventSelectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventSelectTableViewCell.xib; sourceTree = "<group>"; };
+		1A6C82E316E3C51E00B84595 /* EventSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSelectTableViewCell.m; sourceTree = "<group>"; };
+		1A6C82E416E3C51E00B84595 /* EventSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSelectTableViewCell.h; sourceTree = "<group>"; };
+		1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
+		1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		1A78D9C215949DC300115BE5 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1A78D9C315949DC300115BE5 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		1A793F28162CDAB8006C1001 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
@@ -963,6 +979,10 @@
 				1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */,
 				1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */,
 				1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */,
+				1A6C82DA16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.h */,
+				1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */,
+				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
+				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1083,6 +1103,12 @@
 				1A894CBE16361223008B3990 /* PullLandingViewController.h */,
 				1A894CBF16361223008B3990 /* PullLandingViewController.m */,
 				1A894CC016361223008B3990 /* PullLandingViewController.xib */,
+				1A6C82DD16E3C01600B84595 /* ActionDetailsViewController.h */,
+				1A6C82DE16E3C01600B84595 /* ActionDetailsViewController.m */,
+				1A6C82DF16E3C01600B84595 /* ActionDetailsViewController.xib */,
+				1A6C82E416E3C51E00B84595 /* EventSelectTableViewCell.h */,
+				1A6C82E316E3C51E00B84595 /* EventSelectTableViewCell.m */,
+				1A6C82E216E3C51E00B84595 /* EventSelectTableViewCell.xib */,
 			);
 			name = "Active Game";
 			sourceTree = "<group>";
@@ -1339,6 +1365,8 @@
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
+				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
+				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1462,6 +1490,10 @@
 				1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */,
 				1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */,
 				1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */,
+				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
+				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
+				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
+				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

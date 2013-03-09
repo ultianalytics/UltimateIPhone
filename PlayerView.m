@@ -19,6 +19,7 @@
     self.player = [Player getAnonymous];
     [self setIsOffense: YES];
     [self makeSelected:NO];
+    [self addGestureRecognizers];
 }
 
 - (void) setIsOffense: (BOOL) shouldSwitchToOffense {
@@ -83,36 +84,20 @@
 
 - (IBAction)firstButtonClicked: (id) sender {
     if (isOffense) {
-       [self caughtButtonClicked];
+       [self.actionListener action: Catch targetPlayer: self.player fromView: self];
     } else {
-       [self deButtonClicked]; 
+       [self.actionListener action: De targetPlayer: self.player fromView: self];
     }
 }
 - (IBAction)secondButtonClicked: (id) sender {
     if (isOffense) {
-        [self droppedButtonClicked];
+        [self.actionListener action: Drop targetPlayer: self.player fromView: self];
     } else {
-        [self pullButtonClicked]; 
+        [self.actionListener action: Pull targetPlayer: self.player fromView: self];
     }
 }
 - (IBAction)thirdButtonClicked: (id) sender {
-    [self goalButtonClicked];
-}
-
-- (void)caughtButtonClicked {
-    [self.actionListener action: Catch targetPlayer: self.player fromView: self];
-}
-- (void)droppedButtonClicked {
-    [self.actionListener action: Drop targetPlayer: self.player fromView: self];
-}
-- (void)goalButtonClicked {
     [self.actionListener action: Goal targetPlayer: self.player fromView: self];
-}
-- (void)deButtonClicked {
-    [self.actionListener action: De targetPlayer: self.player fromView: self];
-}
-- (void)pullButtonClicked {
-    [self.actionListener action: Pull targetPlayer: self.player fromView: self];
 }
 
 - (void)update: (Game*) game {
@@ -122,4 +107,49 @@
     }
 }
 
+-(void)addGestureRecognizers {
+    UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(passerButtonLongPress:)];
+    [self.passerButton addGestureRecognizer:longPressRecognizer];
+    
+    longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(firstButtonLongPress:)];
+    [self.firstButton addGestureRecognizer:longPressRecognizer];
+    
+    longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(secondButtonLongPress:)];
+    [self.secondButton addGestureRecognizer:longPressRecognizer];
+    
+    longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(thirdButtonLongPress:)];
+    [self.thirdButton addGestureRecognizer:longPressRecognizer];
+}
+
+-(void)passerButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self.actionListener passerLongPress: self.player view: self];
+    }
+}
+
+-(void)firstButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        if (isOffense) {
+            [self.actionListener actionLongPress: Catch targetPlayer: self.player fromView: self];
+        } else {
+            [self.actionListener actionLongPress: De targetPlayer: self.player fromView: self];
+        }
+    }
+}
+
+-(void)secondButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        if (isOffense) {
+            [self.actionListener actionLongPress: Drop targetPlayer: self.player fromView: self];
+        } else {
+            [self.actionListener actionLongPress: Pull targetPlayer: self.player fromView: self];
+        }
+    }
+}
+
+-(void)thirdButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self.actionListener actionLongPress: Goal targetPlayer: self.player fromView: self];
+    }
+}
 @end

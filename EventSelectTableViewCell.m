@@ -54,6 +54,7 @@
         [ColorMaster styleAsWhiteLabel: self.label size: self.label.font.pointSize];
     } else {
         self.label.textColor = [UIColor blackColor];
+        self.label.shadowOffset = CGSizeZero;
     }
 }
 

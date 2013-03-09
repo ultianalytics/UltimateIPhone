@@ -56,6 +56,7 @@
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
     eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, firstTimeUsageCallouts,infoCalloutsView;
 
+#pragma mark ActionListener 
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
     if (isOffense) {
@@ -77,22 +78,38 @@
     }
 }
 
--(void)handlePullBegin: (Player*) player {
-    double currentTime = CACurrentMediaTime();
-    PullLandingViewController* pullLandingVC = [[PullLandingViewController alloc] init];
-    pullLandingVC.pullBeginTime = currentTime;
-    pullLandingVC.completion = ^(BOOL cancelled, BOOL isOutOfBounds, long hangtimeMilliseconds) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            if(!cancelled) {
-               DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:isOutOfBounds ? PullOb : Pull];
-                if (hangtimeMilliseconds > 0) {
-                    event.pullHangtimeMilliseconds = hangtimeMilliseconds;
-                }
-               [self addEvent: event];
+- (void) actionLongPress: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
+    if (action == Pull) {
+        [self handlePullBegin: player];
+    } else {
+        if (isOffense) {
+            PlayerView* oldSelected = [self findSelectedPlayerView];
+            if (oldSelected) {
+                [oldSelected makeSelected:NO];
             }
-        }];
-    };
-    [self presentModalViewController:pullLandingVC animated:YES];
+            [view makeSelected:YES];
+            Player* passer = oldSelected.player;
+            OffenseEvent* defaultEvent = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
+            [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
+            self.detailsController.description = @"Only choice for this button is...";
+        } else {
+            DefenseEvent* defaultEvent = [[DefenseEvent alloc] initDefender:player action:action];
+            if (action == De) {
+                DefenseEvent* callahan = [[DefenseEvent alloc] initDefender:player action:Callahan];
+                [self.detailsController setCandidateEvents:@[defaultEvent, callahan] initialChosen:defaultEvent];
+                self.detailsController.description = @"D is...";
+            } else {
+                [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
+                self.detailsController.description = @"Only choice for this button is...";
+            }
+        }
+        GameViewController* __weak weakSelf = self;
+        self.detailsController.saveBlock = ^(Event* event){
+            [weakSelf addEvent: event];
+            [weakSelf showDetailSelectionView:NO];
+        };
+        [self showDetailSelectionView: YES];
+    }
 }
 
 - (void) passerSelected: (Player*) player view: (PlayerView*) view {
@@ -104,6 +121,58 @@
         [oldSelected makeSelected:NO];
     }
     [view makeSelected:YES];
+}
+
+- (void) passerLongPress: (Player*) player view: (PlayerView*) view {
+    [self passerSelected:player view:view];
+}
+
+-(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        if (isOffense) {
+            PlayerView* oldSelected = [self findSelectedPlayerView];
+            if (oldSelected) {
+                [oldSelected makeSelected:NO];
+            }
+            [playerViewTeam makeSelected:YES];
+            Player* passer = oldSelected.player;
+            OffenseEvent* throwaway = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
+            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Stall];
+            OffenseEvent* miscPenalty = [[OffenseEvent alloc] initPasser:passer action:MiscPenalty];
+            [self.detailsController setCandidateEvents:@[throwaway, stall, miscPenalty] initialChosen:throwaway];
+            self.detailsController.description = @"Turnover is...";
+        } else {
+            DefenseEvent* throwaway = [[DefenseEvent alloc] initAction:Throwaway];
+            [self.detailsController setCandidateEvents:@[throwaway] initialChosen:throwaway];
+            self.detailsController.description = @"Only choice for this button is...";
+        }
+        GameViewController* __weak weakSelf = self;
+        self.detailsController.saveBlock = ^(Event* event){
+            [weakSelf addEvent: event];
+            [weakSelf showDetailSelectionView:NO];
+        };
+        [self showDetailSelectionView: YES];
+    }
+}
+
+#pragma mark  
+
+-(void)handlePullBegin: (Player*) player {
+    double currentTime = CACurrentMediaTime();
+    PullLandingViewController* pullLandingVC = [[PullLandingViewController alloc] init];
+    pullLandingVC.pullBeginTime = currentTime;
+    pullLandingVC.completion = ^(BOOL cancelled, BOOL isOutOfBounds, long hangtimeMilliseconds) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            if(!cancelled) {
+                DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:isOutOfBounds ? PullOb : Pull];
+                if (hangtimeMilliseconds > 0) {
+                    event.pullHangtimeMilliseconds = hangtimeMilliseconds;
+                }
+                [self addEvent: event];
+            }
+        }];
+    };
+    [self presentModalViewController:pullLandingVC animated:YES];
 }
 
 -(void) addEvent: (Event*) event {
@@ -625,7 +694,7 @@
     }
 }
 
-#pragma mark Long Press handling
+#pragma mark Detail selection view
 
 -(void)initializeDetailSelectionView {
     self.detailsController = [[ActionDetailsViewController alloc] init];
@@ -634,34 +703,6 @@
     self.detailsController.cancelBlock = ^{
         [weakSelf showDetailSelectionView:NO];
     };
-}
-
--(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        if (isOffense) {
-            PlayerView* oldSelected = [self findSelectedPlayerView];
-            if (oldSelected) {
-                [oldSelected makeSelected:NO];
-            }
-            [playerViewTeam makeSelected:YES];
-            Player* passer = oldSelected.player;
-            OffenseEvent* throwaway = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
-            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Stall];
-            OffenseEvent* miscPenalty = [[OffenseEvent alloc] initPasser:passer action:MiscPenalty];
-            [self.detailsController setCandidateEvents:@[throwaway, stall, miscPenalty] initialChosen:throwaway];
-            self.detailsController.description = @"Turnover is...";
-        } else {
-            DefenseEvent* throwaway = [[DefenseEvent alloc] initAction:Throwaway];
-            [self.detailsController setCandidateEvents:@[throwaway] initialChosen:throwaway];
-            self.detailsController.description = @"Only choice for this button is...";
-        }
-        GameViewController* __weak weakSelf = self;
-        self.detailsController.saveBlock = ^(Event* event){
-            [weakSelf addEvent: event];
-            [weakSelf showDetailSelectionView:NO];
-        };
-        [self showDetailSelectionView: YES];
-    }
 }
 
 -(void)showDetailSelectionView: (BOOL) show {

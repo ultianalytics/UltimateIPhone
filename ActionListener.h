@@ -13,6 +13,9 @@
 @protocol ActionListener <NSObject>
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view;
-- (void) passerSelected: (Player*) player view: (PlayerView*) view; 
+- (void) actionLongPress: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view;
+- (void) passerSelected: (Player*) player view: (PlayerView*) view;
+- (void) passerLongPress: (Player*) player view: (PlayerView*) view;
+
 
 @end

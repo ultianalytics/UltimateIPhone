@@ -68,7 +68,7 @@ static UIImage* unknownImage = nil;
         case De:
             return [ImageMaster getDeImage];
         case Callahan:
-            return [ImageMaster getDeImage];
+            return [ImageMaster getCallahanImage];
         default:
             return [ImageMaster getUnknownImage];
     }
@@ -109,6 +109,10 @@ static UIImage* unknownImage = nil;
 
 +(UIImage*)getDeImage {
     return deImage;
+}
+
++(UIImage*)getCallahanImage {
+    return callahanImage;
 }
 
 +(UIImage*)getUnknownImage {

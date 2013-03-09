@@ -21,6 +21,7 @@
 +(UIImage*)getPullImage;
 +(UIImage*)getPullObImage;
 +(UIImage*)getDeImage;
++(UIImage*)getCallahanImage;
 +(UIImage*)getMaleImage;
 +(UIImage*)getFemaleImage;
 +(UIImage*)getUnknownImage;

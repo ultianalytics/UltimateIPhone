@@ -9,6 +9,7 @@
 #import "EventSelectTableViewCell.h"
 #import "Constants.h"
 #import "Event.h"
+#import "ColorMaster.h"
 
 @interface EventSelectTableViewCell()
 
@@ -49,7 +50,11 @@
 
 - (void)setChosen:(BOOL)isChosen {
     self.checkImageView.hidden = !isChosen;
-    self.label.textColor = isChosen ? [UIColor whiteColor] : [UIColor blackColor];
+    if (isChosen) {
+        [ColorMaster styleAsWhiteLabel: self.label size: self.label.font.pointSize];
+    } else {
+        self.label.textColor = [UIColor blackColor];
+    }
 }
 
 -(NSString*)reuseIdentifier {

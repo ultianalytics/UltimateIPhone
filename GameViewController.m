@@ -523,9 +523,9 @@
         [self resizeForLongDisplay];
     }
     
-    // TODO...uncomment when long press handling done
-//    UILongPressGestureRecognizer* turnoverLongPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(turnoverButtonLongPress:)];
-//    [self.throwAwayButton addGestureRecognizer:turnoverLongPressRecognizer];
+    // TODO...comment to turn off long press when long press handling done
+    UILongPressGestureRecognizer* turnoverLongPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(turnoverButtonLongPress:)];
+    [self.throwAwayButton addGestureRecognizer:turnoverLongPressRecognizer];
     
     UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moreEventsSwipe:)];
     [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
@@ -638,9 +638,27 @@
 
 -(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        Event* throwawayEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Throwaway];
-        Event* otherEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Drop];
-        [self.detailsController setCandidateEvents:@[throwawayEvent, otherEvent] initialChosen:throwawayEvent];
+        if (isOffense) {
+            PlayerView* oldSelected = [self findSelectedPlayerView];
+            if (oldSelected) {
+                [oldSelected makeSelected:NO];
+            }
+            [playerViewTeam makeSelected:YES];
+            Player* passer = oldSelected.player;
+            OffenseEvent* throwaway = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
+            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Drop];
+            [self.detailsController setCandidateEvents:@[throwaway, stall] initialChosen:throwaway];
+            self.detailsController.description = @"Turnover is...";
+        } else {
+            DefenseEvent* throwaway = [[DefenseEvent alloc] initAction:Throwaway];
+            [self.detailsController setCandidateEvents:@[throwaway] initialChosen:throwaway];
+            self.detailsController.description = @"Only choice for this button is...";
+        }
+        GameViewController* __weak weakSelf = self;
+        self.detailsController.saveBlock = ^(Event* event){
+            [weakSelf addEvent: event];
+            [weakSelf showDetailSelectionView:NO];
+        };
         [self showDetailSelectionView: YES];
     }
 }

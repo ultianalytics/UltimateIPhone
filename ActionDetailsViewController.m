@@ -25,6 +25,7 @@
 @end
 
 @implementation ActionDetailsViewController
+@dynamic description;
 
 #pragma mark Lifecycle
 
@@ -116,6 +117,7 @@
         self.choicesTable.frame = f;
         self.choicesTable.scrollEnabled = NO;
     }
+    self.choicesTable.separatorStyle = [self.candidateEvents count] > 1 ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
 }
     
 #pragma mark Event handlers 
@@ -139,6 +141,10 @@
     self.candidateEvents = candidateEvents;
     self.chosenEvent = initialEvent;
     [self refresh];
+}
+
+-(void)setDescription:(NSString *)description {
+    self.descriptionLabel.text = description;
 }
 
 

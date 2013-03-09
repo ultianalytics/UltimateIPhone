@@ -11,6 +11,7 @@
 
 @interface ActionDetailsViewController : UIViewController
 
+@property (strong, nonatomic) NSString* description;
 @property (strong, nonatomic) void (^saveBlock)(Event* eventChosen);
 @property (strong, nonatomic) void (^cancelBlock)();
 

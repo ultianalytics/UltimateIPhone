@@ -16,7 +16,9 @@ typedef enum {
     Pull,
     De,
     Callahan,
-    PullOb
+    PullOb,
+    Stall,
+    MiscPenalty
 } Action;
 
 #define kActionKey              @"action"

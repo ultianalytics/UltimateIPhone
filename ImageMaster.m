@@ -20,6 +20,7 @@ static UIImage* defenseThrowawayImage = nil;
 static UIImage* pullImage = nil;
 static UIImage* pullObImage = nil;
 static UIImage* deImage = nil;
+static UIImage* callahanImage = nil;
 static UIImage* maleImage = nil;
 static UIImage* femaleImage = nil;
 static UIImage* unknownImage = nil;
@@ -35,9 +36,8 @@ static UIImage* unknownImage = nil;
     pullImage = [UIImage imageNamed:@"nothing.png"];
     pullObImage = [UIImage imageNamed:@"what.png"];
     deImage = [UIImage imageNamed:@"electric_shock.png"];
+    callahanImage = [UIImage imageNamed:@"victory.png"];
     unknownImage = [UIImage imageNamed:@"hearts.png"];
-//    maleImage = [UIImage imageNamed:@"man.png"];
-//    femaleImage = [UIImage imageNamed:@"woman.png"];
     maleImage = [UIImage imageNamed:@"big_smile.png"];
     femaleImage = [UIImage imageNamed:@"girl.png"];
 }
@@ -56,13 +56,19 @@ static UIImage* unknownImage = nil;
         case Goal:
             return [ImageMaster getOurGoalImage];    
         case Throwaway:
-            return [ImageMaster getThrowawayImage];  
+            return [ImageMaster getThrowawayImage];
+        case Stall:
+            return [ImageMaster getThrowawayImage];
+        case MiscPenalty:
+            return [ImageMaster getThrowawayImage];
         case Pull:
             return [ImageMaster getPullImage];
         case PullOb:
             return [ImageMaster getPullObImage];
         case De:
-            return [ImageMaster getDeImage];             
+            return [ImageMaster getDeImage];
+        case Callahan:
+            return [ImageMaster getDeImage];
         default:
             return [ImageMaster getUnknownImage];
     }

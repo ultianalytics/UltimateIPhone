@@ -129,6 +129,9 @@
         case De: {
             return self.isAnonymous ? [NSString stringWithFormat:@"%@ D", (teamName == nil ? @"Our" : teamName)] :[NSString stringWithFormat:@"D by %@", self.defender.name];    
         }
+        case Callahan: {
+            return self.isAnonymous ? [NSString stringWithFormat:@"%@ Callahan", (teamName == nil ? @"Our" : teamName)] :[NSString stringWithFormat:@"Callahan by %@", self.defender.name];
+        }
         default:
             return @"";
     }

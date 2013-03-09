@@ -119,6 +119,12 @@
         case Throwaway:{
             return self.isAnonymous ?  [NSString stringWithFormat:@"%@ throwaway", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ throwaway", self.passer.name];     
         }
+        case Stall:{
+            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ stalled", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ stalled", self.passer.name];
+        }
+        case MiscPenalty:{
+            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ penalized", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ penalized", self.passer.name];
+        }
         case Goal: {
             if (self.isAnonymous) {
                 return [NSString stringWithFormat:@"%@ goal", (teamName == nil ? @"Our" : teamName)]; 
@@ -140,7 +146,7 @@
 }
 
 - (BOOL) isTurnover {
-    return self.action == Drop || self.action == Throwaway;
+    return self.action == Drop || self.action == Throwaway || self.action == Stall || self.action == MiscPenalty;
 }
 
 - (BOOL) isNextEventOffense {

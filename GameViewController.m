@@ -646,8 +646,9 @@
             [playerViewTeam makeSelected:YES];
             Player* passer = oldSelected.player;
             OffenseEvent* throwaway = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
-            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Drop];
-            [self.detailsController setCandidateEvents:@[throwaway, stall] initialChosen:throwaway];
+            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Stall];
+            OffenseEvent* miscPenalty = [[OffenseEvent alloc] initPasser:passer action:MiscPenalty];
+            [self.detailsController setCandidateEvents:@[throwaway, stall, miscPenalty] initialChosen:throwaway];
             self.detailsController.description = @"Turnover is...";
         } else {
             DefenseEvent* throwaway = [[DefenseEvent alloc] initAction:Throwaway];

@@ -161,7 +161,7 @@
 }
 
 - (BOOL) causesLineChange {
-    return self.action == Goal;
+    return [self isGoal];
 }
 
 - (BOOL) isNextEventOffense {

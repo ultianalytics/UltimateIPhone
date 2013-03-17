@@ -52,7 +52,36 @@
 - (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Offense" forKey:kEventTypeProperty];
-    [dict setValue: self.action == Catch ? @"Catch" :  self.action == Drop ? @"Drop" : self.action == Goal ? @"Goal" : @"Throwaway" forKey:kActionKey];
+    
+    switch (self.action) {
+        case Catch: {
+            [dict setValue: @"Catch" forKey:kActionKey];
+            break;
+        }
+        case Drop: {
+            [dict setValue: @"Drop" forKey:kActionKey];
+            break;
+        }
+        case Goal: {
+            [dict setValue: @"Goal" forKey:kActionKey];
+            break;
+        }
+        case Throwaway: {
+            [dict setValue: @"Throwaway" forKey:kActionKey];
+            break;
+        }
+        case Stall: {
+            [dict setValue: @"Stall" forKey:kActionKey];
+            break;
+        }
+        case MiscPenalty: {
+            [dict setValue: @"MiscPenalty" forKey:kActionKey];
+            break;
+        }
+        default: {
+        }
+    }
+    
     NSString *passerName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.passer.name isMale:self.passer.isMale] : self.passer.name;
     [dict setValue: passerName forKey:kPasserKey];
     if (self.receiver) {
@@ -64,8 +93,23 @@
 
 +(OffenseEvent*)eventFromDictionary:(NSDictionary*) dict {
     NSString* dictAction = [dict valueForKey:kActionKey];
-    Action action = [dictAction isEqualToString: @"Catch"] ? Catch :  [dictAction isEqualToString: @"Drop"] ? Drop : [dictAction isEqualToString: @"Goal"] ? Goal : Throwaway;
-    return [[OffenseEvent alloc] 
+    
+    Action action = Catch;
+    if ([dictAction isEqualToString: @"Catch"]) {
+        action = Catch;
+    } else if ([dictAction isEqualToString: @"Drop"]) {
+        action = Drop;
+    } else if ([dictAction isEqualToString: @"Goal"]) {
+        action = Goal;
+    } else if ([dictAction isEqualToString: @"Throwaway"]) {
+        action = Throwaway;
+    } else if ([dictAction isEqualToString: @"Stall"]) {
+        action = Stall;
+    } else if ([dictAction isEqualToString: @"MiscPenalty"]) {
+        action = MiscPenalty;
+    }
+    
+    return [[OffenseEvent alloc]
         initPasser: [Team getPlayerNamed:[dict valueForKey:kPasserKey]]
         action: action 
         receiver: [Team getPlayerNamed:[dict valueForKey:kReceiverKey]]];
@@ -120,7 +164,7 @@
             return self.isAnonymous ?  [NSString stringWithFormat:@"%@ throwaway", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ throwaway", self.passer.name];     
         }
         case Stall:{
-            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ stalled", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ stalled", self.passer.name];
+            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ was stalled", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ was stalled", self.passer.name];
         }
         case MiscPenalty:{
             return self.isAnonymous ?  [NSString stringWithFormat:@"%@ penalized", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ penalized", self.passer.name];

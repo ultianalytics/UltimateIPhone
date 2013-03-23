@@ -164,15 +164,30 @@
 
 - (IBAction)eventActionChanged:(id)sender {
     self.eventTypeDescriptionLabel.text = @"Foo";
-    
     if ([self.event isOffense]) {
-        // drop/throway
-        self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? Drop : Throwaway;
+        // offense turnover
+        switch (self.eventActionSegmentedControl.selectedSegmentIndex)
+        {
+            case 0:
+                self.event.action = Drop;
+                break;
+            case 1:
+                self.event.action = Throwaway;
+                break;
+            case 2:
+                self.event.action = Stall;
+                break;
+            case 3:
+                self.event.action = MiscPenalty;
+                break;
+            default:
+                break;
+        }
         if (self.event.action == Drop) {
             self.offenseEvent.receiver = self.originalOffenseEvent.receiver ? self.originalOffenseEvent.receiver : [Player getAnonymous];
         }
     } else {
-        // d/throway
+        // defense d or throwaway
         if (self.event.action == De || self.event.action == Throwaway) {
             self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 0 ? De : Throwaway;
             if (self.event.action == De) {
@@ -254,7 +269,7 @@
     [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
     [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
     [ColorMaster styleAsWhiteLabel:self.passedToLabel size:18];
-    [ColorMaster styleAsWhiteLabel:self.textFieldLabel size:14];
+    [ColorMaster styleAsWhiteLabel:self.textFieldLabel size:12];
     self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
@@ -278,6 +293,7 @@
     self.player1TableView.hidden = NO;
     self.player2TableView.hidden = YES;
     self.eventActionSegmentedControl.hidden = NO;
+    [self showTextField:NO animate:NO];
     self.textFieldLabel.hidden = YES;
     self.textField.hidden = YES;
 
@@ -301,7 +317,7 @@
                 self.eventTypeDescriptionLabel.text = @"Our Turnover:";
                 [self show: self.player2TableView shouldShow: YES animate: animate];
                 [self show: self.passedToLabel shouldShow: YES animate: animate];
-                [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Drop" : nil];
+                [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Drop" : nil];
                 [self movePlayer1TableToCenter:NO animate:animate];
                 break;                
             }
@@ -309,9 +325,25 @@
                 self.eventTypeDescriptionLabel.text = @"Our Turnover:";
                 [self show: self.player2TableView shouldShow: NO animate: animate];
                 [self show: self.passedToLabel shouldShow: NO animate: animate];
-                [self configureActionControlFor:@"Drop" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
+                [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Throwaway" : nil];
                 [self movePlayer1TableToCenter:YES animate:animate];
                 break;                
+            }
+            case Stall: {
+                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                [self show: self.player2TableView shouldShow: NO animate: animate];
+                [self show: self.passedToLabel shouldShow: NO animate: animate];
+                [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Stall" : nil];
+                [self movePlayer1TableToCenter:YES animate:animate];
+                break;
+            }
+            case MiscPenalty: {
+                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                [self show: self.player2TableView shouldShow: NO animate: animate];
+                [self show: self.passedToLabel shouldShow: NO animate: animate];
+                [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Misc. Penalty" : nil];
+                [self movePlayer1TableToCenter:YES animate:animate];
+                break;
             }
             default: {
             }
@@ -322,21 +354,21 @@
             case Pull: {
                 self.eventTypeDescriptionLabel.text = @"Pull:";
                 self.textFieldLabel.text = @"Hang Time:";
-                self.textField.placeholder = @"seconds";
+                self.textField.placeholder = @"sec.";
                 [self showTextField: YES animate:NO];
                 if (self.defenseEvent.pullHangtimeMilliseconds) {
                     self.textField.text = [DefenseEvent formatHangtime:self.defenseEvent.pullHangtimeMilliseconds];
                 }
-                [self configureActionControlFor:@"In Bounds" and:@"OB" initial:initial ? @"In Bounds" :nil];
+                [self configureActionControlFor:@[@"In Bounds", @"OB"] initial: initial ? @"In Bounds" : nil];
                 break;                
             }
             case PullOb: {
                 self.eventTypeDescriptionLabel.text = @"Pull:";
                 self.textFieldLabel.text = @"Hang Time:";
-                self.textField.placeholder = @"seconds";
+                self.textField.placeholder = @"sec.";
                 [self showTextField: NO animate:NO];
                 self.eventActionSegmentedControl.hidden = NO;
-                [self configureActionControlFor:@"In Bounds" and:@"OB" initial:initial ? @"OB" :nil];
+                [self configureActionControlFor:@[@"In Bounds", @"OB"] initial: initial ? @"OB" : nil];
                 break;
             }
             case Goal: {
@@ -347,13 +379,13 @@
             }
             case De: {
                 self.eventTypeDescriptionLabel.text = @"Their Turnover:";
-                [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"D" :nil];
+                [self configureActionControlFor:@[@"D", @"Throwaway"] initial: initial ? @"D" : nil];
                 [self show: self.player1TableView shouldShow: YES animate: animate];
                 break;                
             }
             case Throwaway:{
                 self.eventTypeDescriptionLabel.text = @"Their Turnover:";
-                [self configureActionControlFor:@"D" and:@"Throwaway" initial:initial ? @"Throwaway" :nil];
+                [self configureActionControlFor:@[@"D", @"Throwaway"] initial: initial ? @"Throwaway" : nil];
                 [self show: self.player1TableView shouldShow: NO animate: animate];
                 break;
             }
@@ -363,15 +395,27 @@
     }
 }
 
--(void)configureActionControlFor: (NSString*)action1 and: (NSString*)action2 initial: (NSString*)initial {
-    [self.eventActionSegmentedControl setTitle:action1 forSegmentAtIndex:0];
-    [self.eventActionSegmentedControl setTitle:action2 forSegmentAtIndex:1];
-    if (initial) {
-        self.eventActionSegmentedControl.selectedSegmentIndex = [action1 isEqualToString:initial ] ? 0 : 1;
+-(void)configureActionControlFor: (NSArray*)actionTitles initial: (NSString*)initialTitle {
+    self.eventActionSegmentedControl.apportionsSegmentWidthsByContent = YES;
+    NSUInteger index = 0;
+    for (NSString* segmentTitle in actionTitles) {
+        if (index < [self.eventActionSegmentedControl numberOfSegments]) {
+            [self.eventActionSegmentedControl setTitle:segmentTitle forSegmentAtIndex:index];
+        } else {
+            [self.eventActionSegmentedControl insertSegmentWithTitle:segmentTitle atIndex:index animated:NO];
+        }
+        index++;
     }
+    if (initialTitle && [actionTitles indexOfObject:initialTitle] != NSNotFound) {
+        self.eventActionSegmentedControl.selectedSegmentIndex = [actionTitles indexOfObject:initialTitle];
+    }
+    [self.eventActionSegmentedControl sizeToFit];
 }
 
 -(void)show: (UIView*) view shouldShow: (BOOL)show animate: (BOOL) animate {
+    if (!show && view.hidden) {
+        return;
+    }
     if (animate) {
         view.alpha = show ? 0.0 : 1.0;
         view.hidden = NO;

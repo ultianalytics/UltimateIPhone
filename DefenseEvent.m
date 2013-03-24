@@ -86,7 +86,7 @@
 }
 
 - (BOOL) isTurnover {
-    return self.action == De || self.action == Callahan;
+    return self.action == De || self.action == Throwaway || self.action == Callahan;
 }
 
 - (BOOL) isPull {
@@ -138,7 +138,7 @@
 }
 
 - (BOOL) isNextEventOffense {
-    return self.action == De || self.action == Goal;
+    return [self isTurnover] || self.action == Goal;
 }
 
 - (NSArray*) getPlayers {

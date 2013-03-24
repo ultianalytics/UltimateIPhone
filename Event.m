@@ -135,6 +135,10 @@
     return NO;
 }
 
+- (BOOL) isCallahan {
+    return NO;
+}
+
 - (BOOL) isFinalEventOfPoint {
     return NO;
 }

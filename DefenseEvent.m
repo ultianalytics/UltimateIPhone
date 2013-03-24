@@ -96,6 +96,9 @@
 - (BOOL) isPullOb {
     return self.action == PullOb;
 }
+- (BOOL) isCallahan {
+    return self.action == Callahan;
+}
 
 - (BOOL) isFinalEventOfPoint {
     return self.action == Callahan || self.action == Goal;

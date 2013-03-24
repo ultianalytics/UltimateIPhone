@@ -106,9 +106,13 @@
 
 +(NSArray*)goalsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == Goal &&  [eventDetails.event isOffense]) {
+        if ((eventDetails.event.action == Goal &&  [eventDetails.event isOffense])) {
             OffenseEvent* event = (OffenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        } else  if (eventDetails.event.action == Callahan) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
         }
     };
@@ -148,6 +152,28 @@
     return [self accumulateStatsPerPlayer: game includeTournament: includeTournament statsAccumulator: statsAccumulator];
 }
 
++(NSArray*)stallsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if ([eventDetails.event isOffense] && eventDetails.event.action == Stall) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)miscPenaltiesPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if ([eventDetails.event isOffense] && eventDetails.event.action == MiscPenalty) {
+            OffenseEvent* event = (OffenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.passer fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
 +(NSArray*)pullsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
         if (eventDetails.event.action == Pull) {
@@ -172,7 +198,18 @@
 
 +(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == De) {
+        if (eventDetails.event.action == De || eventDetails.event.action == Callahan) {
+            DefenseEvent* event = (DefenseEvent*)eventDetails.event;
+            PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+        }
+    };
+    return [self accumulateStatsPerPlayer: game includeTournament: includeTournament statsAccumulator: statsAccumulator];
+}
+
++(NSArray*)callansPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
+    void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
+        if (eventDetails.event.action == Callahan) {
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
@@ -190,7 +227,7 @@
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
         if ([eventDetails.event isOffense]) {
             OffenseEvent* event = (OffenseEvent*)eventDetails.event;
-            if ([event isDrop] || [event isThrowaway]) {
+            if ([event isTurnover]) {
                 Player *player = [event isDrop] ? event.receiver : event.passer;
                 PlayerStat* playerStat = [Statistics getStatForPlayer:player fromStats:eventDetails.accumulatedStats statType:IntStat];
                 playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] - 1];
@@ -200,10 +237,11 @@
                 playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
                 playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
             }
-        } else if ([eventDetails.event isD]) {
+        } else if ([eventDetails.event isD] || [eventDetails.event isCallahan] ) {
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
-            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
+            int increase = [eventDetails.event isCallahan] ? 2 : 1;
+            playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + increase];
         }
     };
     

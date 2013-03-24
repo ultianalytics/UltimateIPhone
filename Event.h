@@ -45,6 +45,7 @@ typedef enum {
 - (BOOL) isD;
 - (BOOL) isPull;
 - (BOOL) isPullOb;
+- (BOOL) isCallahan;
 - (BOOL) isThrowaway;
 - (BOOL) isOffenseThrowaway;
 - (BOOL) isFinalEventOfPoint;

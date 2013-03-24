@@ -21,9 +21,12 @@
 +(NSArray*)assistsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)dropsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)throwawaysPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)stallsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)miscPenaltiesPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)pullsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)pullsObPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)plusMinusCountPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)callansPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 
 @end

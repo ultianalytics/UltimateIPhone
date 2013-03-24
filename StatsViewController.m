@@ -23,10 +23,13 @@
 #define kOPoints @"O Points Played"
 #define kDPoints @"D Points Played"
 #define kGoals @"Goals"
+#define kCallahans @"Callahans"
 #define kAssists @"Assists"
 #define kThrows @"Throws"
 #define kDrops @"Drops"
 #define kThrowaways @"Throwaways"
+#define kStalls @"Stalled"
+#define kMiscPenalties @"Penalties (turns)"
 #define kDs @"Ds"
 #define kPulls @"Pulls"
 #define kPullsOb @"Pulls OB"
@@ -69,7 +72,7 @@
 }
 
 -(void)initalizeStatTypes {
-    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kThrows,kDrops,kThrowaways,kDs,kPulls,kPullsOb, nil];
+    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kCallahans,kThrows,kDrops,kThrowaways,kStalls,kMiscPenalties,kDs,kPulls,kPullsOb, nil];
     self.currentStat = kPlusMinusCount;
 }
 
@@ -84,12 +87,20 @@
         self.playerStats = [Statistics pointsPerPlayer: self.game includeOffense: NO includeDefense: YES includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kGoals]) {
         self.playerStats = [Statistics goalsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+    } else if ([self.currentStat isEqualToString:kCallahans]) {
+        self.playerStats = [Statistics callansPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kAssists]) {
         self.playerStats = [Statistics assistsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrows]) {
         self.playerStats = [Statistics throwsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDrops]) {
         self.playerStats = [Statistics dropsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+    } else if ([self.currentStat isEqualToString:kThrowaways]) {
+        self.playerStats = [Statistics throwawaysPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+    } else if ([self.currentStat isEqualToString:kStalls]) {
+        self.playerStats = [Statistics stallsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+    } else if ([self.currentStat isEqualToString:kMiscPenalties]) {
+        self.playerStats = [Statistics miscPenaltiesPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrowaways]) {
         self.playerStats = [Statistics throwawaysPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDs]) {
@@ -107,77 +118,6 @@
     [self showBusyIndicator:NO];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return tableView == statTypeTableView ? kStatTypeRowHieght : kStatRowHieght;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return tableView == statTypeTableView ? [statTypes count] : [playerStats count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = [indexPath row];
-    
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.backgroundColor = [ColorMaster getBenchRowColor];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        UIView* contentView = cell.contentView;
-        // remove the normal views
-        for (UIView *view in [contentView subviews]) {
-            [view removeFromSuperview];
-        }
-        
-        // stat type table
-        if (tableView == statTypeTableView) {
-            CGRect buttonRectangle = CGRectMake(kButtonMargin, kButtonMargin, 125, kStatTypeRowHieght - (kButtonMargin * 2));
-            StandardButton* button = [[StandardButton alloc] initWithFrame:buttonRectangle];
-            [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [contentView addSubview:button];
-            
-        // player stats table
-        } else {
-            // (0.) name label
-            UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, kStatRowHieght)];
-            label.font = [UIFont boldSystemFontOfSize: 16];
-            label.backgroundColor = [ColorMaster getBenchRowColor];
-            [contentView addSubview:label];
-            // (1.) stat label
-            label = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 50, kStatRowHieght)];
-            [label setTextAlignment:UITextAlignmentRight];
-            label.textColor = [UIColor blueColor];
-            label.backgroundColor = [ColorMaster getBenchRowColor];
-            [contentView addSubview:label];
-        }
-    }
-    
-    // stat type table
-    if (tableView == statTypeTableView) {
-        UIButton* statTypeButton = [cell.contentView.subviews objectAtIndex:0];
-        NSString* statType = [self.statTypes objectAtIndex:row];
-        [statTypeButton setTitle:statType forState:UIControlStateNormal];
-        [statTypeButton setSelected: [statType isEqualToString: self.currentStat]];
-        
-    // player stats table    
-    } else {
-        UILabel* nameLabel = [cell.contentView.subviews objectAtIndex:0];
-        UILabel* statLabel = [cell.contentView.subviews objectAtIndex:1];
-        PlayerStat* playerStat = [self.playerStats objectAtIndex:row];
-        nameLabel.text = playerStat.player.name;
-        statLabel.text = playerStat.type == IntStat ? [NSString stringWithFormat:@"%d", [playerStat.number intValue]] :
-            [NSString stringWithFormat:@"%.1f", [playerStat.number floatValue]];
-    }
-    
-    return cell;
-}
 
 -(void)buttonClicked: (UIButton*) statTypeButton {
     if ([self isTournamentLevel]) {
@@ -205,14 +145,6 @@
      
 -(BOOL)isTournamentLevel {
      return self.statsScopeSegmentedControl.selectedSegmentIndex == 1;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -247,6 +179,81 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Table Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return tableView == statTypeTableView ? kStatTypeRowHieght : kStatRowHieght;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return tableView == statTypeTableView ? [statTypes count] : [playerStats count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier:STD_ROW_TYPE];
+        cell.backgroundColor = [ColorMaster getBenchRowColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIView* contentView = cell.contentView;
+        // remove the normal views
+        for (UIView *view in [contentView subviews]) {
+            [view removeFromSuperview];
+        }
+        
+        // stat type table
+        if (tableView == statTypeTableView) {
+            CGRect buttonRectangle = CGRectMake(kButtonMargin, kButtonMargin, 140, kStatTypeRowHieght - (kButtonMargin * 2));
+            StandardButton* button = [[StandardButton alloc] initWithFrame:buttonRectangle];
+            [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [contentView addSubview:button];
+            
+            // player stats table
+        } else {
+            // (0.) name label
+            UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, kStatRowHieght)];
+            label.adjustsFontSizeToFitWidth = YES;
+            label.font = [UIFont boldSystemFontOfSize: 16];
+            label.backgroundColor = [ColorMaster getBenchRowColor];
+            [contentView addSubview:label];
+            // (1.) stat label
+            label = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 40, kStatRowHieght)];
+            [label setTextAlignment:UITextAlignmentRight];
+            label.textColor = [UIColor blueColor];
+            label.backgroundColor = [ColorMaster getBenchRowColor];
+            [contentView addSubview:label];
+        }
+    }
+    
+    // stat type table
+    if (tableView == statTypeTableView) {
+        UIButton* statTypeButton = [cell.contentView.subviews objectAtIndex:0];
+        NSString* statType = [self.statTypes objectAtIndex:row];
+        [statTypeButton setTitle:statType forState:UIControlStateNormal];
+        [statTypeButton setSelected: [statType isEqualToString: self.currentStat]];
+        
+        // player stats table
+    } else {
+        UILabel* nameLabel = [cell.contentView.subviews objectAtIndex:0];
+        UILabel* statLabel = [cell.contentView.subviews objectAtIndex:1];
+        PlayerStat* playerStat = [self.playerStats objectAtIndex:row];
+        nameLabel.text = playerStat.player.name;
+        statLabel.text = playerStat.type == IntStat ? [NSString stringWithFormat:@"%d", [playerStat.number intValue]] :
+        [NSString stringWithFormat:@"%.1f", [playerStat.number floatValue]];
+    }
+    
+    return cell;
 }
 
 #pragma mark - Help Callouts

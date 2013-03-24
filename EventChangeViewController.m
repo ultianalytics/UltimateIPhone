@@ -389,6 +389,12 @@
                 [self show: self.player1TableView shouldShow: NO animate: animate];
                 break;
             }
+            case Callahan: {
+                self.eventTypeDescriptionLabel.text = @"Callahan";
+                self.eventActionSegmentedControl.hidden = YES;
+                [self show: self.player1TableView shouldShow: YES animate: animate];
+                break;
+            }
             default: {
             }
         }

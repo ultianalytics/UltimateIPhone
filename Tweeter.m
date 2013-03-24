@@ -10,6 +10,7 @@
 #import "Tweeter.h"
 #import "Event.h"
 #import "OffenseEvent.h"
+#import "DefenseEvent.h"
 #import "Game.h"
 #import "Preferences.h"
 #import "Team.h"
@@ -299,25 +300,57 @@ NSDateFormatter* timeFormatter;
 
 -(NSString*)goalTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
     NSString* ourTeam = [Team getCurrentTeam].name;
-    NSString* message = [NSString stringWithFormat: @"Goal %@", [event isOurGoal] ? ourTeam : game.opponentName];
-    message = 
-            isUndo ? 
-                [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", message] : 
-            [event isOurGoal] ?
-                [NSString stringWithFormat: @"%@!!! %@ to %@. %@.", message, ((OffenseEvent*)event).passer.name, ((OffenseEvent*)event).receiver.name, [self getGameScoreDescription:game]]:
-                [NSString stringWithFormat: @"%@. %@.", message, [self getGameScoreDescription:game]];
+    NSString* message;
+    
+    if ([event isCallahan]) {
+        message = [NSString stringWithFormat: @"Callahan %@", ourTeam];
+    } else {
+        message = [NSString stringWithFormat: @"Goal %@", [event isOurGoal] ? ourTeam : game.opponentName];
+    }
+    
+    if (isUndo) {
+        message = [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind", message];
+    } else {
+        if ([event isOurGoal]) {
+            if ([event isCallahan]) {
+                message = [NSString stringWithFormat: @"%@!!! %@. %@.", message, ((DefenseEvent*)event).defender.name, [self getGameScoreDescription:game]];
+            } else {
+                message = [NSString stringWithFormat: @"%@!!! %@ to %@. %@.", message, ((OffenseEvent*)event).passer.name, ((OffenseEvent*)event).receiver.name, [self getGameScoreDescription:game]];
+            }
+        } else {
+            message = [NSString stringWithFormat: @"%@. %@.", message, [self getGameScoreDescription:game]];
+        }
+    }
+
     return message;
 }
 
 -(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
     NSString* ourTeam = [Team getCurrentTeam].name;
     NSString* message = [NSString stringWithFormat: @"%@ %@ the disc", ourTeam, event.action == De ? @"steal" : @"lose"];
-        message = 
-        isUndo ? 
+    NSString* cause;
+    switch (event.action) {
+        case Drop:
+            cause = @"drop";
+            break;
+        case Throwaway:
+            cause = @"throwaway";
+            break;
+        case Stall:
+            cause = @"stall";
+            break;
+        case MiscPenalty:
+            cause = @"penalty";
+            break;
+        default:
+            cause = @"not sure why";
+            break;
+    }
+    message = isUndo ?
         [NSString stringWithFormat: @"\"%@\" was a boo-boo...never mind.", message] : 
         event.action == De ?
         [NSString stringWithFormat: @"%@!!! (%@).", message, [event getDescription]]:
-        [NSString stringWithFormat: @"%@ (%@).", message, event.action == Drop ? @"drop" : @"throwaway"];
+        [NSString stringWithFormat: @"%@ (%@).", message, cause];
     return message;
 }
 

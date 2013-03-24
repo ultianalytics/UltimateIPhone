@@ -65,7 +65,7 @@
 - (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub  {
     NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Defense" forKey:kEventTypeProperty];
-    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : self.action == PullOb ? @"PullOb" : @"Calahan" forKey:kActionKey];
+    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : self.action == PullOb ? @"PullOb" : @"Callahan" forKey:kActionKey];
     NSString *defenderName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.defender.name isMale:self.defender.isMale] : self.defender.name;
     [dict setValue: defenderName forKey:kDefenderKey];
     return dict;

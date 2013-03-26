@@ -14,6 +14,7 @@
 #import "LeaguevineTeam.h"
 #import "LeaguevineTournament.h"
 #import "LeaguevineGame.h"
+#import "LeaguevinePlayer.h"
 
 #define kLeaguevineResponseMeta @"meta"
 #define kLeaguevineResponseObjects @"objects"
@@ -51,6 +52,10 @@
         case LeaguevineResultTypeGames:
             return [self parseResponseObjects: responseDict parse:(id)^(NSDictionary* objectDict){
                 return [LeaguevineGame fromJson:objectDict];
+            }];
+        case LeaguevineResultTypePlayers:
+            return [self parseResponseObjects: responseDict parse:(id)^(NSDictionary* objectDict){
+                return [LeaguevinePlayer fromJson: objectDict];
             }];
         default:
             return [NSMutableArray array];

@@ -81,6 +81,12 @@
     [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
 }
 
+-(void)retrievePlayersForTeam: (int) teamId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    NSString* teams = [[NSString stringWithFormat: @"[%d]", teamId] urlEncoded];
+    NSString* url = [self fullUrl:[NSString stringWithFormat:@"team_players/?team_ids=%@", teams]];
+    [self retrieveObjects:finishedBlock type: LeaguevineResultTypeGames url:url results:nil];
+}
+
 -(void)postGameScore: (LeaguevineGame*) leaguevineGame score: (Score)score isFinal: (BOOL) final completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
     LeaguevineTeam* lvTeam = [Team getCurrentTeam].leaguevineTeam;
     if (!lvTeam) {

@@ -71,6 +71,7 @@
 		1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */; };
 		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
+		1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
@@ -344,6 +345,8 @@
 		1AAD229A164212170007C2EE /* PlayerSubstitution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSubstitution.m; sourceTree = "<group>"; };
 		1AAFDE381574F199005EA598 /* NSString+manipulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+manipulations.h"; sourceTree = "<group>"; };
 		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
+		1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePlayer.h; sourceTree = "<group>"; };
+		1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePlayer.m; sourceTree = "<group>"; };
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
@@ -674,6 +677,8 @@
 				1A7A89391613233300CAB5EF /* LeaguevineGame.m */,
 				1A7A89251611D50700CAB5EF /* LeaguevineTournament.h */,
 				1A7A89261611D50700CAB5EF /* LeaguevineTournament.m */,
+				1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */,
+				1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */,
 			);
 			name = Leaguevine;
 			sourceTree = "<group>";
@@ -1494,6 +1499,7 @@
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
+				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

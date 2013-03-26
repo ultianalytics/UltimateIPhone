@@ -10,8 +10,6 @@
 
 @interface TeamPlayersViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) IBOutlet UITableView* playersTableView;
-
 -(void)goToAddItem;
 
 @end

@@ -22,6 +22,7 @@
 @property (nonatomic) BOOL isDiplayingPlayerNumber;
 @property (nonatomic, strong) NSString* cloudId;
 @property (nonatomic, strong) LeaguevineTeam* leaguevineTeam;
+@property (nonatomic) BOOL arePlayersFromLeagueVine;
 
 +(Team*)getCurrentTeam;
 +(Team*)readTeam: (NSString*) teamId;

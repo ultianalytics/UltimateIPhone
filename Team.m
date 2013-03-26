@@ -390,4 +390,11 @@ static Team* currentTeam = nil;
     }
 }
 
+-(void)setLeaguevineTeam:(LeaguevineTeam *)leaguevineTeam {
+    _leaguevineTeam = leaguevineTeam;
+    if (!_leaguevineTeam) {
+        self.arePlayersFromLeagueVine = NO;
+    }
+}
+
 @end

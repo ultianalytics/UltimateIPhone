@@ -16,6 +16,9 @@
 @property (nonatomic, strong) NSString* nickname;
 @property (nonatomic) int number;
 
++(NSArray*)playersFromLeaguevinePlayers: (NSArray*)leaguevinePlayers;
 +(LeaguevinePlayer*)fromJson:(NSDictionary*) dict;
++(LeaguevinePlayer*)fromDictionary:(NSDictionary*) dict;
+-(NSMutableDictionary*)asDictionary;
 
 @end

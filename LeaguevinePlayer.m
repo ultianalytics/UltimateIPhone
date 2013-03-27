@@ -8,6 +8,7 @@
 
 #import "LeaguevinePlayer.h"
 #import "NSDictionary+JSON.h"
+#import "Player.h"
 
 #define kLeaguevineJsonNumber      @"number"
 #define kLeaguevineJsonPlayer      @"player"
@@ -79,6 +80,28 @@
     return [NSString stringWithFormat:@"LeaguevinePlayer: %d %@ %@ nickname=%@", self.playerId, self.firstName, self.lastName, self.nickname];
 }
 
+-(Player*)asPlayer {
+    Player* player = [[Player alloc] init];
+    player.name = [NSString stringWithFormat: @"%@ %@", self.firstName, self.lastName];
+    if (self.number) {
+        player.number = [NSString stringWithFormat: @"%d", self.number];
+    }
+    player.position = Any;
+    player.isMale = YES;
+    
+    player.leaguevinePlayer = self;
+    
+    return player;
+}
+
++(NSArray*)playersFromLeaguevinePlayers: (NSArray*)leaguevinePlayers {
+    NSMutableArray* players = [NSMutableArray array];
+    for (LeaguevinePlayer* leaguevinePlayer in leaguevinePlayers) {
+        Player* player = [leaguevinePlayer asPlayer];
+        [players addObject:player];
+    }
+    return players;
+}
 
 @end
 

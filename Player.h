@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+@class LeaguevinePlayer;
+
 typedef enum {
     Any,
     Handler,
@@ -14,10 +16,12 @@ typedef enum {
 } Position;
 
 @interface Player : NSObject
+
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSString* number;
 @property (nonatomic) Position position;
 @property (nonatomic) BOOL isMale;
+@property (nonatomic, strong) LeaguevinePlayer* leaguevinePlayer;
 
 +(Player*)getAnonymous;
 +(Player*)replaceWithSharedPlayer: (Player*) player;
@@ -31,5 +35,6 @@ typedef enum {
 -(NSString*)getDisplayName;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(BOOL)isPlayerNamed: (NSString*)playerName;
+-(BOOL)isLeaguevinePlayer;
 
 @end

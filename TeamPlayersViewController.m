@@ -3,7 +3,7 @@
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 4/5/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
 #import "TeamPlayersViewController.h"
@@ -13,13 +13,22 @@
 #import "Player.h"
 #import "UltimateSegmentedControl.h"
 #import "ColorMaster.h"
+#import "LeaguevineClient.h"
+#import "LeaguevineTeam.h"
+#import "LeaguevinePlayer.h"
 
 @interface TeamPlayersViewController ()
 
+@property (strong, nonatomic) IBOutlet UIView *playersView;
 @property (nonatomic, strong) IBOutlet UITableView* playersTableView;
 @property (nonatomic, strong) IBOutlet UILabel* playersTypeLabel;
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playersTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* leagueVineTeamRefresh;
+@property (strong, nonatomic) IBOutlet UILabel *noResultsFoundLabel;
+
+@property (strong, nonatomic) IBOutlet UIView *waitingView;
+@property (strong, nonatomic) IBOutlet UILabel *busyLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -140,7 +149,38 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Event Handlers
+#pragma mark - Leaguevine
+
+-(void)showWaitingView {
+    self.waitingView.hidden = NO;
+}
+
+-(void)hideWaitingView {
+    [UIView  transitionFromView:self.waitingView toView:self.playersView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:nil];
+}
+
+-(void)refreshPlayersFromLeagueVine {
+    LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
+    [lvClient retrievePlayersForTeam:[Team getCurrentTeam].leaguevineTeam.itemId completion:^(LeaguevineInvokeStatus status, id result) {
+        [self handleLeagueViewRetrievalResponse:status result:result];
+    }];
+}
+
+- (void)handleLeagueViewRetrievalResponse:(LeaguevineInvokeStatus)status result:(id)arrayOfLVPlayers {
+    if (status == LeaguevineInvokeOK) {
+        NSArray* players = [LeaguevinePlayer playersFromLeaguevinePlayers:arrayOfLVPlayers];
+        [Team getCurrentTeam].players = [NSMutableArray arrayWithArray:players];
+        [self.playersTableView reloadData];
+        [self hideWaitingView];
+        self.noResultsFoundLabel.hidden = [players count] > 0;
+    } else {
+        [self.spinner stopAnimating];
+        [self alertFailure:status];
+    }
+}
+
+
+#pragma mark Leaguevine Event Handlers
 
 - (IBAction)playersTypeChanged:(id)sender {
     if (self.playersTypeSegmentedControl.selectedSegmentIndex == 1) {
@@ -155,6 +195,33 @@
 }
 
 - (IBAction)refreshButtonPressed:(id)sender {
+    [self refreshPlayersFromLeagueVine];
+}
+
+#pragma mark Leaguevine Error alerting
+
+-(void)alertError:(NSString*) title message: (NSString*) message {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: title
+                                                        message: message
+                                                       delegate: nil
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+    [alertView show];
+}
+
+-(void)alertFailure: (LeaguevineInvokeStatus) type {
+    [self alertError:@"Error talking to Leaguevine" message:[self errorDescription:type]];
+}
+
+-(NSString*)errorDescription: (LeaguevineInvokeStatus) type {
+    switch(type) {
+        case LeaguevineInvokeNetworkError:
+            return @"Network error detected...are you connected to the internet?";
+        case LeaguevineInvokeInvalidResponse:
+            return @"Leaguevine is having problems. Try later";
+        default:
+            return @"Unkown error. Try later";
+    }
 }
 
 

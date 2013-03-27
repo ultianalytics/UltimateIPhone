@@ -11,17 +11,25 @@
 #import "Preferences.h"
 #import "Team.h"
 #import "Scrubber.h"
+#import "LeaguevinePlayer.h"
 
 #define kNameKey        @"name"
 #define kPositionKey    @"position"
 #define kSexKey         @"sex"
 #define kIsMaleKey      @"male"
 #define kNumberKey      @"number"
+#define kLeagueVinePlayerJsonKey      @"leaguevinePlayer"
 
 static AnonymousPlayer* singleAnonymous = nil;
 
+@interface Player()
+
+@property (nonatomic, strong) NSString* leaguevinePlayerJson;
+
+@end
+
 @implementation Player
-@synthesize name,number,position,isMale;
+@synthesize leaguevinePlayer=_leaguevinePlayer;
 
 + (void)initialize
 {
@@ -66,6 +74,8 @@ static AnonymousPlayer* singleAnonymous = nil;
     NSNumber* isMaleNumber = [dict valueForKey:kIsMaleKey];
     player.isMale = [isMaleNumber boolValue];
     player.number = [dict valueForKey:kNumberKey];
+    player.leaguevinePlayerJson = [dict valueForKey:kLeagueVinePlayerJsonKey];
+    
     return player;
 }
 
@@ -91,6 +101,7 @@ static AnonymousPlayer* singleAnonymous = nil;
         self.position = [decoder decodeIntForKey:kPositionKey]; 
         self.isMale = [decoder decodeBoolForKey:kSexKey]; 
         self.number = [decoder decodeObjectForKey:kNumberKey];
+        self.leaguevinePlayerJson = [decoder decodeObjectForKey:kLeagueVinePlayerJsonKey];
     } 
     return self; 
 } 
@@ -100,6 +111,7 @@ static AnonymousPlayer* singleAnonymous = nil;
     [encoder encodeInt:self.position forKey:kPositionKey]; 
     [encoder encodeBool:self.isMale forKey:kSexKey]; 
     [encoder encodeObject:self.number forKey:kNumberKey];
+    [encoder encodeObject:self.leaguevinePlayerJson forKey:kLeagueVinePlayerJsonKey];
 } 
 
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
@@ -109,6 +121,8 @@ static AnonymousPlayer* singleAnonymous = nil;
     [dict setValue: (self.position == Any ? @"Any" : self.position == Cutter ? @"Cutter" : @"Handler") forKey:kPositionKey];
     [dict setValue: [NSNumber numberWithBool:self.isMale ] forKey:kIsMaleKey];
     [dict setValue: self.number forKey:kNumberKey];
+    [dict setValue: self.leaguevinePlayerJson forKey:kLeagueVinePlayerJsonKey];
+    
     return dict;
 }
 
@@ -155,6 +169,40 @@ static AnonymousPlayer* singleAnonymous = nil;
 
 -(BOOL)isPlayerNamed: (NSString*)playerName {
     return [self.name caseInsensitiveCompare: playerName] == NSOrderedSame;
+}
+
+-(BOOL)isLeaguevinePlayer {
+    return self.leaguevinePlayerJson != nil;
+}
+
+-(void)setLeaguevinePlayer:(LeaguevinePlayer *)leaguevinePlayer {
+    _leaguevinePlayer = leaguevinePlayer;
+    if (leaguevinePlayer) {
+        NSDictionary* leaguevinePlayerDict = [leaguevinePlayer asDictionary];
+        NSError* marshallError;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:leaguevinePlayerDict options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error creating JSON of leaguevine");
+        } else {
+            self.leaguevinePlayerJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+    } else {
+        self.leaguevinePlayerJson = nil;
+    }
+}
+
+-(LeaguevinePlayer*)leaguevinePlayer {
+    if (_leaguevinePlayer == nil && self.leaguevinePlayerJson) {
+        NSError* marshallError;
+        NSData* jsonData = [self.leaguevinePlayerJson dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary* leaguevinePlayerDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error parsing leaguevine JSON");
+        } else {
+            _leaguevinePlayer = [LeaguevinePlayer fromDictionary: leaguevinePlayerDict];
+        }
+    }
+    return _leaguevinePlayer;
 }
 
 @end

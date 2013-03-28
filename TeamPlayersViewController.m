@@ -17,7 +17,11 @@
 #import "LeaguevineTeam.h"
 #import "LeaguevinePlayer.h"
 
-@interface TeamPlayersViewController ()
+#define kAlertErrorTitle @"Error talking to Leaguevine"
+#define kAlertPrivateToLeagueVineTitle @"Players will be deleted!" 
+#define kAlertLeaguevineToPrivateTitle @"Switching to private players" 
+
+@interface TeamPlayersViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *playersView;
 @property (nonatomic, strong) IBOutlet UITableView* playersTableView;
@@ -26,9 +30,13 @@
 @property (nonatomic, strong) IBOutlet UIButton* leagueVineTeamRefresh;
 @property (strong, nonatomic) IBOutlet UILabel *noResultsFoundLabel;
 
+@property (strong, nonatomic) UIBarButtonItem *addNavBarItem;
+
 @property (strong, nonatomic) IBOutlet UIView *waitingView;
 @property (strong, nonatomic) IBOutlet UILabel *busyLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
+@property (strong, nonatomic) void (^alertAction)();
 
 @end
 
@@ -97,6 +105,7 @@
     CGFloat y = 0;
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         if ([[Team getCurrentTeam] arePlayersFromLeagueVine]) {
+            [self updateLeagueVineRefreshButtonText];
             y = 111;
         } else {
             y = 54;
@@ -111,11 +120,18 @@
         self.playersTableView.frame = newRect;
     }
     [self.playersTableView reloadData];
+    self.noResultsFoundLabel.hidden = [[Team getCurrentTeam].players count] > 0;
+    [self updateAddButton];
 }
 
 -(void)animateTableViewResizeFrom: (CGRect)oldRect to: (CGRect)newRect {
-    // TODO...animate
-    self.playersTableView.frame = newRect;
+    [UIView animateWithDuration:.3 animations:^{
+        self.playersTableView.frame = newRect;
+    }];
+}
+
+-(void)updateAddButton {
+    self.navigationItem.rightBarButtonItem = ![[Team getCurrentTeam] isLeaguevineTeam] || ![[Team getCurrentTeam] arePlayersFromLeagueVine] ? self.addNavBarItem : nil;
 }
 
 #pragma mark - View lifecycle
@@ -123,8 +139,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *addNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
-    self.navigationItem.rightBarButtonItem = addNavBarItem;  
+    self.addNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
 }
 
@@ -151,15 +166,23 @@
 
 #pragma mark - Leaguevine
 
--(void)showWaitingView {
-    self.waitingView.hidden = NO;
-}
-
--(void)hideWaitingView {
-    [UIView  transitionFromView:self.waitingView toView:self.playersView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:nil];
+-(void)showWaitingView: (BOOL)show animate: (BOOL)animate {
+    if (animate) {
+        UIView* fromView = show ? self.playersView : self.waitingView;
+        UIView* toView = show ? self.waitingView : self.playersView;
+        [UIView  transitionFromView:fromView toView:toView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:nil];
+        if (show) {
+            [self.spinner startAnimating];
+        } else {
+            [self.spinner startAnimating];            
+        }
+    } else {
+        self.waitingView.hidden = !show;
+    }
 }
 
 -(void)refreshPlayersFromLeagueVine {
+    [self showWaitingView:YES animate:YES];
     LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
     [lvClient retrievePlayersForTeam:[Team getCurrentTeam].leaguevineTeam.itemId completion:^(LeaguevineInvokeStatus status, id result) {
         [self handleLeagueViewRetrievalResponse:status result:result];
@@ -170,27 +193,47 @@
     if (status == LeaguevineInvokeOK) {
         NSArray* players = [LeaguevinePlayer playersFromLeaguevinePlayers:arrayOfLVPlayers];
         [Team getCurrentTeam].players = [NSMutableArray arrayWithArray:players];
-        [self.playersTableView reloadData];
-        [self hideWaitingView];
-        self.noResultsFoundLabel.hidden = [players count] > 0;
+        [[Team getCurrentTeam] save];
+        [self updateViewAnimated:NO];
+        [self showWaitingView:NO animate:YES];
     } else {
         [self.spinner stopAnimating];
         [self alertFailure:status];
     }
 }
 
+-(void)updateLeagueVineRefreshButtonText {
+    [self.leagueVineTeamRefresh setTitle:[[Team getCurrentTeam].players count] > 0 ? @"Refresh" : @"Download Players" forState:UIControlStateNormal];
+}
+
+-(void)switchToLeaguevinePlayers: (BOOL)toLeaguevine {
+    if (toLeaguevine) {
+        [Team getCurrentTeam].arePlayersFromLeagueVine = YES;
+        [[Team getCurrentTeam].players removeAllObjects];
+        [[Team getCurrentTeam] save];
+        [self updateViewAnimated:NO];
+        [self refreshPlayersFromLeagueVine];
+    } else {
+        [Team getCurrentTeam].arePlayersFromLeagueVine = NO;
+        for (Player* player in [Team getCurrentTeam].players) {
+            player.leaguevinePlayer = nil;
+        }
+        [[Team getCurrentTeam] save];
+        [self updateViewAnimated:YES];
+    }
+}
 
 #pragma mark Leaguevine Event Handlers
 
 - (IBAction)playersTypeChanged:(id)sender {
-    if (self.playersTypeSegmentedControl.selectedSegmentIndex == 1) {
-        // TODO...warn that players will be replaced and replace if team has players
-        [Team getCurrentTeam].arePlayersFromLeagueVine = YES;
-        [self updateViewAnimated:YES];
+    if ([[Team getCurrentTeam].players count] > 0) {
+        if (self.playersTypeSegmentedControl.selectedSegmentIndex == 1) {
+            [self alertTransitionToLeaguevinePlayers];
+        } else {
+            [self alertTransitionFromLeaguevinePlayers];
+        }
     } else {
-        // TODO...warn that players will be removed?
-        [Team getCurrentTeam].arePlayersFromLeagueVine = NO;
-        [self updateViewAnimated:YES];
+        [self switchToLeaguevinePlayers:self.playersTypeSegmentedControl.selectedSegmentIndex == 1];
     }
 }
 
@@ -200,17 +243,31 @@
 
 #pragma mark Leaguevine Error alerting
 
--(void)alertError:(NSString*) title message: (NSString*) message {
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: title
-                                                        message: message
-                                                       delegate: nil
-                                              cancelButtonTitle: @"OK"
-                                              otherButtonTitles: nil];
+-(void)alertTransitionToLeaguevinePlayers {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertPrivateToLeagueVineTitle
+                                                        message: @"Switching to leaguevine players will delete all existing players.\n\nContinue?"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Cancel"
+                                              otherButtonTitles: @"Continue", nil];
+    [alertView show];
+}
+
+-(void)alertTransitionFromLeaguevinePlayers {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertLeaguevineToPrivateTitle
+                                                        message: @"Switching to private players will keep existing player names but you will not be able to publish players stats to leaguevine.\n\nContinue?"
+                                                       delegate: self
+                                              cancelButtonTitle: @"Cancel"
+                                              otherButtonTitles: @"Continue", nil];
     [alertView show];
 }
 
 -(void)alertFailure: (LeaguevineInvokeStatus) type {
-    [self alertError:@"Error talking to Leaguevine" message:[self errorDescription:type]];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertErrorTitle
+                                                        message: [self errorDescription:type]
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 -(NSString*)errorDescription: (LeaguevineInvokeStatus) type {
@@ -224,5 +281,26 @@
     }
 }
 
+#pragma mark Leaguevine alert delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString: kAlertPrivateToLeagueVineTitle]) {
+        if (buttonIndex == 1) {
+            [self switchToLeaguevinePlayers: YES];
+        } else {
+            self.playersTypeSegmentedControl.selectedSegmentIndex = 0;
+        }
+    } else if ([alertView.title isEqualToString: kAlertLeaguevineToPrivateTitle]) {
+        if (buttonIndex == 1) {
+            [self switchToLeaguevinePlayers: NO];
+        } else {
+            self.playersTypeSegmentedControl.selectedSegmentIndex = 1;
+        }
+    } else if ([alertView.title isEqualToString: kAlertErrorTitle]) {
+        [self updateViewAnimated: NO];
+        [self showWaitingView:NO animate:YES];
+    }
+    
+}
 
 @end

@@ -391,10 +391,24 @@ static Team* currentTeam = nil;
 }
 
 -(void)setLeaguevineTeam:(LeaguevineTeam *)leaguevineTeam {
-    _leaguevineTeam = leaguevineTeam;
-    if (!_leaguevineTeam) {
+    // ignore setting to same
+    if (_leaguevineTeam && _leaguevineTeam.itemId == leaguevineTeam.itemId) {
+        return;
+    }
+    
+    //  if we already have a lv team...
+    if (_leaguevineTeam) {
+        // ...already lv players?  clear them.
+        if (self.arePlayersFromLeagueVine) {
+            for (Player* player in self.players) {
+                player.leaguevinePlayer = nil;
+            }
+        }
+    } else {
+        // always reset the arePlayers if don't already have a lv team
         self.arePlayersFromLeagueVine = NO;
     }
+    _leaguevineTeam = leaguevineTeam;
 }
 
 @end

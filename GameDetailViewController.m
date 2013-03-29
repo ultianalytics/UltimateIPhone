@@ -291,7 +291,16 @@
 -(void)populateLeaguevineCells {
     self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame opponentDescription] : @"NOT SET";
     self.pubToLeaguevineSegmentedControl.enabled = self.game.leaguevineGame != nil;
-    self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = !self.game.publishScoreToLeaguevine;
+    if ([Team getCurrentTeam].arePlayersFromLeagueVine && self.pubToLeaguevineSegmentedControl.numberOfSegments < 3) {
+        [self.pubToLeaguevineSegmentedControl insertSegmentWithTitle:@"Stats" atIndex:2 animated:NO];
+    }
+    if (self.game.publishStatsToLeaguevine) {
+        self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = 2;
+    } else if (self.game.publishScoreToLeaguevine) {
+        self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = 1;
+    } else {
+        self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = 0;
+    }
 }
 
 -(void)handleLeaguevineGameSelected: (LeaguevineGame*) leaguevineGame {
@@ -314,12 +323,15 @@
 }
 
 - (void)leaguevinePublishChanged {
-    BOOL shouldPublishScores = !self.pubToLeaguevineSegmentedControl.selectedSegmentIndex;
-    self.game.publishScoreToLeaguevine = shouldPublishScores;
-    if (shouldPublishScores) {
+    self.game.publishScoreToLeaguevine = self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 1;
+    self.game.publishStatsToLeaguevine = self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 2;
+    if (self.game.publishScoreToLeaguevine || self.game.publishStatsToLeaguevine) {
         if (![[Preferences getCurrentPreferences].leaguevineToken isNotEmpty]) {
             [self askUserForLeauguevineCredentials:^(BOOL hasLeaguevineCredentials) {
-                self.game.publishScoreToLeaguevine = hasLeaguevineCredentials;
+                if (!hasLeaguevineCredentials) {
+                    self.game.publishScoreToLeaguevine = NO;
+                    self.game.publishStatsToLeaguevine = NO;
+                }
                 [self populateLeaguevineCells];
                 [self saveChanges];
                 if (hasLeaguevineCredentials) {
@@ -360,9 +372,10 @@
             }
         }];
     } else {
+        NSString* message = [NSString stringWithFormat:@"Automatic publishing to Leaguevine is active.  %@", self.game.publishStatsToLeaguevine ? @"All events will be sent to leaguevine." :  @"Team scores (no player stats) will be sent after each goal."];
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Leaguevine Publishing Ready"
-                              message:@"Automatic publishing to Leaguevine is active.  Updates will be sent after each goal."
+                              message:message
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];

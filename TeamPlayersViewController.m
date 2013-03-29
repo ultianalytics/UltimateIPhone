@@ -18,7 +18,8 @@
 #import "LeaguevinePlayer.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
-#define kAlertPrivateToLeagueVineTitle @"Players will be deleted!" 
+#define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
+#define kAlertPrivateToLeagueVineNotAllowedTitle @"Cannot switch to leaguevine" 
 #define kAlertLeaguevineToPrivateTitle @"Switching to private players" 
 
 @interface TeamPlayersViewController () <UIAlertViewDelegate>
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playersTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UIButton* leagueVineTeamRefresh;
 @property (strong, nonatomic) IBOutlet UILabel *noResultsFoundLabel;
+@property (strong, nonatomic) IBOutlet UILabel *leaguevinePlayersDownloadedLabel;
 
 @property (strong, nonatomic) UIBarButtonItem *addNavBarItem;
 
@@ -153,6 +155,7 @@
 
 - (void)viewDidUnload
 {
+    [self setLeaguevinePlayersDownloadedLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -196,6 +199,7 @@
         [[Team getCurrentTeam] save];
         [self updateViewAnimated:NO];
         [self showWaitingView:NO animate:YES];
+        [self brieflyShowLeaguvineDownloadSuccessMessage];
     } else {
         [self.spinner stopAnimating];
         [self alertFailure:status];
@@ -204,6 +208,16 @@
 
 -(void)updateLeagueVineRefreshButtonText {
     [self.leagueVineTeamRefresh setTitle:[[Team getCurrentTeam].players count] > 0 ? @"Refresh" : @"Download Players" forState:UIControlStateNormal];
+}
+
+-(void)brieflyShowLeaguvineDownloadSuccessMessage {
+    self.leaguevinePlayersDownloadedLabel.hidden = NO;
+    [UIView animateWithDuration:3 animations:^{
+        self.leaguevinePlayersDownloadedLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.leaguevinePlayersDownloadedLabel.alpha = 1;
+        self.leaguevinePlayersDownloadedLabel.hidden = YES;
+    }];
 }
 
 -(void)switchToLeaguevinePlayers: (BOOL)toLeaguevine {
@@ -226,6 +240,13 @@
 #pragma mark Leaguevine Event Handlers
 
 - (IBAction)playersTypeChanged:(id)sender {
+    if (self.playersTypeSegmentedControl.selectedSegmentIndex == 1) {
+        if (([Team getCurrentTeam].cloudId != nil) || [[Team getCurrentTeam] hasGames]) {
+            self.playersTypeSegmentedControl.selectedSegmentIndex = 0;
+            [self alertTransitionToLeaguevinePlayersNotAllowed];
+            return;
+        }
+    }
     if ([[Team getCurrentTeam].players count] > 0) {
         if (self.playersTypeSegmentedControl.selectedSegmentIndex == 1) {
             [self alertTransitionToLeaguevinePlayers];
@@ -241,7 +262,16 @@
     [self refreshPlayersFromLeagueVine];
 }
 
-#pragma mark Leaguevine Error alerting
+#pragma mark Leaguevine Alerts
+
+-(void)alertTransitionToLeaguevinePlayersNotAllowed {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertPrivateToLeagueVineNotAllowedTitle
+                                                        message: @"The players on this team cannot be converted to leaguevine players because the team already has games on this iPhone or uploaded to the website.\n\nPlease create a new team."
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+    [alertView show];
+}
 
 -(void)alertTransitionToLeaguevinePlayers {
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertPrivateToLeagueVineTitle

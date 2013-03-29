@@ -12,6 +12,7 @@
 #import "Game.h"
 #import "Player.h"
 #import "LeaguevineTeam.h"
+#import "NSDictionary+JSON.h"
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"
@@ -20,6 +21,7 @@
 #define kNameKey                @"name"
 #define kIsMixedKey             @"mixed"
 #define kLeagueVineTeamAsJsonKey      @"leaguevineJson"
+#define kPlayersAreLeaguevineKey      @"playersAreLeaguevine"
 #define kDisplayPlayerNumberKey @"displayPlayerNumber"
 #define kTeamFileNamePrefixKey  @"team-"
 
@@ -153,6 +155,7 @@ static Team* currentTeam = nil;
         } else {
             team.leaguevineTeam = [LeaguevineTeam fromDictionary: leaguevineTeamDict];
         }
+        team.arePlayersFromLeagueVine = [dict boolForJsonProperty:kPlayersAreLeaguevineKey defaultValue:NO];
     }
     return team;
 }
@@ -210,6 +213,7 @@ static Team* currentTeam = nil;
         } else {
             [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kLeagueVineTeamAsJsonKey];
         }
+        [dict setValue: [NSNumber numberWithBool:self.arePlayersFromLeagueVine ] forKey:kPlayersAreLeaguevineKey];
     }
     return dict;
 }
@@ -239,6 +243,7 @@ static Team* currentTeam = nil;
         self.isDiplayingPlayerNumber = [decoder decodeBoolForKey:kDisplayPlayerNumberKey];
         self.cloudId = [decoder decodeObjectForKey:kCloudIdKey];
         self.leaguevineTeam = [decoder decodeObjectForKey:kLeaguevineTeamKey];
+        self.arePlayersFromLeagueVine = [decoder decodeBoolForKey:kPlayersAreLeaguevineKey];
     } 
     return self; 
 } 
@@ -251,6 +256,7 @@ static Team* currentTeam = nil;
     [encoder encodeBool:self.isDiplayingPlayerNumber forKey:kDisplayPlayerNumberKey];     
     [encoder encodeObject:self.cloudId forKey:kCloudIdKey];
     [encoder encodeObject:self.leaguevineTeam forKey:kLeaguevineTeamKey];
+    [encoder encodeBool:self.arePlayersFromLeagueVine forKey:kPlayersAreLeaguevineKey];
 } 
 
 -(void)save {
@@ -390,6 +396,10 @@ static Team* currentTeam = nil;
     }
 }
 
+-(BOOL)hasGames {
+    return [[Game getAllGameFileNames:self.teamId] count] > 0;
+}
+
 -(void)setLeaguevineTeam:(LeaguevineTeam *)leaguevineTeam {
     // ignore setting to same
     if (_leaguevineTeam && _leaguevineTeam.itemId == leaguevineTeam.itemId) {
@@ -404,11 +414,12 @@ static Team* currentTeam = nil;
                 player.leaguevinePlayer = nil;
             }
         }
-    } else {
-        // always reset the arePlayers if don't already have a lv team
-        self.arePlayersFromLeagueVine = NO;
-    }
+    } 
     _leaguevineTeam = leaguevineTeam;
+}
+
+-(BOOL)arePlayersFromLeagueVine {
+    return [self.players count] > 0 && [[self.players objectAtIndex:0] isLeaguevinePlayer];
 }
 
 @end

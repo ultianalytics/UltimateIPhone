@@ -130,6 +130,8 @@
 }
 
 -(void)goToPlayersView: (BOOL) animated {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
     TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
     [self.navigationController pushViewController:playersController animated:animated];
 }
@@ -162,6 +164,17 @@
 }
 
 - (IBAction)copyClicked:(id)sender {
+    if (self.team.arePlayersFromLeagueVine) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Cannot copy team with leaguevine players"
+                              message:@"This team cannot be copied because the players are downloaded from leaguevine.\n\nPlease create a new team instead."
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     Team* teamCopy = [self.team copy];
     [teamCopy save];
     [Team setCurrentTeam:teamCopy.teamId];

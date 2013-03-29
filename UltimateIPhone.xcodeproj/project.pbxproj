@@ -46,6 +46,8 @@
 		1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A6C82E216E3C51E00B84595 /* EventSelectTableViewCell.xib */; };
 		1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82E316E3C51E00B84595 /* EventSelectTableViewCell.m */; };
 		1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */; };
+		1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */; };
+		1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */; };
 		1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78D9C315949DC300115BE5 /* CalloutView.m */; };
 		1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A793F29162CDAB8006C1001 /* DarkButton.m */; };
 		1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */; };
@@ -306,6 +308,10 @@
 		1A6C82E416E3C51E00B84595 /* EventSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSelectTableViewCell.h; sourceTree = "<group>"; };
 		1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
+		1A74B0B4170603B000D667F1 /* LeaguevineEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineEvent.h; sourceTree = "<group>"; };
+		1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineEvent.m; sourceTree = "<group>"; };
+		1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineEventQueue.h; sourceTree = "<group>"; };
+		1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineEventQueue.m; sourceTree = "<group>"; };
 		1A78D9C215949DC300115BE5 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1A78D9C315949DC300115BE5 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		1A793F28162CDAB8006C1001 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
@@ -679,6 +685,10 @@
 				1A7A89261611D50700CAB5EF /* LeaguevineTournament.m */,
 				1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */,
 				1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */,
+				1A74B0B4170603B000D667F1 /* LeaguevineEvent.h */,
+				1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */,
+				1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */,
+				1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */,
 			);
 			name = Leaguevine;
 			sourceTree = "<group>";
@@ -1500,6 +1510,8 @@
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
+				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,
+				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

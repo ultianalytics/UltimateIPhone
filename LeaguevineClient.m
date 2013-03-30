@@ -13,6 +13,7 @@
 #import "LeaguevineResponseMeta.h"
 #import "LeaguevineTeam.h"
 #import "LeaguevineGame.h"
+#import "LeaguevineEvent.h"
 #import "Team.h"
 #import "Preferences.h"
 
@@ -26,16 +27,6 @@
 @end
 
 @implementation LeaguevineClient
-
-
--(id) init  {
-    self = [super init];
-    if (self) {
-        self.queue = [[NSOperationQueue alloc] init];
-        self.responseParser = [[LeaguevineResponseParser alloc] init];
-    }
-    return self;
-}
 
 #pragma mark Public methods
 
@@ -111,7 +102,53 @@
     [self postGameScore:leaguevineGame.itemId team1Score:team1Score team2Score:team2Score isFinal:final completion:finishedBlock];
 }
 
+-(LeaguevineInvokeStatus)postEvent: (LeaguevineEvent*) leaguevineEvent {
+    NSString* url = [self fullUrl:@"events/"];
+    NSMutableURLRequest* request;
+    if (leaguevineEvent.crud == CRUDUpdate) {
+        url = [NSString stringWithFormat:@"%@%d/", url, leaguevineEvent.leaguevineEventId];
+        request = [self createUrlRequest:url httpMethod:@"PUT"];
+    } else if (leaguevineEvent.crud == CRUDDelete) {
+        url = [NSString stringWithFormat:@"%@%d/", url, leaguevineEvent.leaguevineEventId];
+        request = [self createUrlRequest:url httpMethod:@"DELETE"];
+    } else {
+        request = [self createUrlRequest:url httpMethod:@"POST"];
+    }
+    
+    NSString* eventTime = @"2013-04-12T09:01:00-05:00"; // TODO...format the event time!
+    NSString* player2id = leaguevineEvent.leaguevinePlayer2Id ? [NSString stringWithFormat: @",\"game_id\": \"%d\"", leaguevineEvent.leaguevinePlayer2Id] : @"";
+    NSString* requestBody = [NSString stringWithFormat: @"{\"game_id\": \"%d\",\"type\": \"%d\",\"player_1_id\": \"%d\",\"time\":\"%@\"%@}",
+                             leaguevineEvent.leaguevineGameId, leaguevineEvent.leaguevineEventType, leaguevineEvent.leaguevinePlayer1Id, eventTime, player2id];
+    
+    request.HTTPBody = [requestBody dataUsingEncoding:NSUTF8StringEncoding];
+    return [self postEventRequest:request];
+}
+
 #pragma mark private Post methods
+
+-(LeaguevineInvokeStatus)postEventRequest: (NSMutableURLRequest*) request {
+    NSString* leaguevineToken = [Preferences getCurrentPreferences].leaguevineToken;
+    if (![leaguevineToken isNotEmpty]) {
+        return LeaguevineInvokeCredentialsRejected;
+    }
+    
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
+    
+    NSURLResponse* response;
+    NSError* sendError;
+    NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    if (sendError != nil || httpResponse.statusCode < 200) {
+        NSLog(@"Request to %@ failed with http response %d error %@", request.URL, httpResponse.statusCode, sendError);
+        return LeaguevineInvokeNetworkError;
+    } else if (sendError == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) && responseData) {
+        return LeaguevineInvokeOK;
+    } else {
+        NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@",request.URL, httpResponse.statusCode, sendError, [NSString stringFromData:responseData]);
+        return httpResponse.statusCode == 401 ? LeaguevineInvokeCredentialsRejected : LeaguevineInvokeInvalidResponse;
+    }
+}
 
 -(void)postGameScore: (int) gameId team1Score: (int) team1Score team2Score: (int)team2Score isFinal: (BOOL) final completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
     
@@ -137,7 +174,6 @@
 }
 
 -(void)postGameScore: (NSMutableURLRequest*) request completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
-    
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* sendError) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (sendError != nil || httpResponse.statusCode < 200) {
@@ -150,7 +186,8 @@
     }];
 }
 
-#pragma mark pdrivate Retrieve methods
+
+#pragma mark private Retrieve methods
 
 -(void)retrieveObjects: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock type: (LeaguevineResultType) type url: url results: (NSMutableArray*) previousResults {
     NSMutableArray* results = previousResults == nil ? [[NSMutableArray alloc] init] : previousResults;
@@ -241,6 +278,20 @@
     return request;
 }
 
+#pragma mark Custom accesors
 
+-(NSOperationQueue*)queue {
+    if (!_queue) {
+        _queue = [[NSOperationQueue alloc] init];
+    }
+    return _queue;
+}
+
+-(LeaguevineResponseParser*)responseParser {
+    if (!_responseParser) {
+        _responseParser = [[LeaguevineResponseParser alloc] init];
+    }
+    return _responseParser;
+}
 
 @end

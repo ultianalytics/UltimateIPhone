@@ -16,5 +16,10 @@
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game;
 -(void)submitChangedEvent: (Event*)event forGame: (Game*)game;
 -(void)submitDeletedEvent: (Event*)event forGame: (Game*)game;
+-(void)triggerImmediateSubmit;
+
+-(void)triggerDelayedSubmit;
+-(NSArray*)filesInQueueFolder;
+-(void)removeEvent: (NSString*)filePath;
 
 @end

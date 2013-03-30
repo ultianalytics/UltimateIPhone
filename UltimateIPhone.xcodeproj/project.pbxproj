@@ -48,6 +48,7 @@
 		1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */; };
 		1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */; };
 		1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */; };
+		1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */; };
 		1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78D9C315949DC300115BE5 /* CalloutView.m */; };
 		1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A793F29162CDAB8006C1001 /* DarkButton.m */; };
 		1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */; };
@@ -312,6 +313,8 @@
 		1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineEvent.m; sourceTree = "<group>"; };
 		1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineEventQueue.h; sourceTree = "<group>"; };
 		1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineEventQueue.m; sourceTree = "<group>"; };
+		1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePostOperation.h; sourceTree = "<group>"; };
+		1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePostOperation.m; sourceTree = "<group>"; };
 		1A78D9C215949DC300115BE5 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1A78D9C315949DC300115BE5 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		1A793F28162CDAB8006C1001 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
@@ -689,6 +692,8 @@
 				1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */,
 				1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */,
 				1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */,
+				1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */,
+				1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */,
 			);
 			name = Leaguevine;
 			sourceTree = "<group>";
@@ -1512,6 +1517,7 @@
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
 				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,
 				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
+				1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

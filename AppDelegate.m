@@ -16,6 +16,7 @@
 #import "CloudViewController.h"
 #import "TwitterController.h"
 #import "ColorMaster.h"
+#import "LeaguevineEventQueue.h"
 
 
 @implementation AppDelegate
@@ -130,11 +131,8 @@ UINavigationController* gameNavController;
      */
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[LeaguevineEventQueue sharedQueue] triggerImmediateSubmit];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

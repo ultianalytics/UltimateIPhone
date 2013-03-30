@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class LeaguevineGame;
+@class LeaguevineGame, LeaguevineEvent;
 
 typedef enum {
     LeaguevineInvokeOK,
@@ -29,4 +29,6 @@ typedef enum {
 -(void)retrieveGamesForTeam: (int) teamId andTournament: (int) tournamentId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
 -(void)retrievePlayersForTeam: (int) teamId completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
 -(void)postGameScore: (LeaguevineGame*) leaguevineGame score: (Score)score isFinal: (BOOL) final completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock;
+-(LeaguevineInvokeStatus)postEvent: (LeaguevineEvent*) leaguevineEvent;
+
 @end

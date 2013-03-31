@@ -234,4 +234,12 @@
     _receiver = receiver ? receiver : [Player getAnonymous];
 }
 
+-(Player*)playerOne {
+    return self.passer;
+}
+
+-(Player*)playerTwo {
+    return self.receiver;
+}
+
 @end

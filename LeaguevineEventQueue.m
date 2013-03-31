@@ -8,8 +8,12 @@
 
 #import "LeaguevineEventQueue.h"
 #import "LeaguevineEvent.h"
+#import "Game.h"
+#import "LeaguevineGame.h"
 #import "Event.h"
 #import "LeaguevinePostOperation.h"
+#import "LeaguevinePostingLog.h"
+#import "LeaguevineEventConverter.h"
 
 #define kTriggerDelaySeconds 15
 
@@ -20,6 +24,7 @@
 @property (nonatomic) int lastQueueId;
 @property (nonatomic, strong) NSTimer* delayedTriggerTimer;
 @property (nonatomic) long lastEventTimeIntervalSinceReferenceDateSeconds;
+@property (nonatomic, strong) LeaguevineEventConverter* eventConverter;
 
 @end
 
@@ -44,20 +49,28 @@
         [self initQueueFolderPath];
         self.triggerQueue = [[NSOperationQueue alloc] init];
         self.triggerQueue.maxConcurrentOperationCount = 1;
+        self.postingLog = [[LeaguevinePostingLog alloc] init];
     }
     return self;
 }
 
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game {
-    [self triggerImmediateSubmit];
+    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDAdd]];
 }
 
 -(void)submitChangedEvent: (Event*)event forGame: (Game*)game {
-    [self triggerImmediateSubmit];
+    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDUpdate]];
 }
 
 -(void)submitDeletedEvent: (Event*)event forGame: (Game*)game {
-    [self triggerImmediateSubmit];
+    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDDelete]];
+}
+
+-(void)submitEvent: (LeaguevineEvent*) leaguevineEvent {
+    if (leaguevineEvent) {
+        [self addEventToQueue:leaguevineEvent];
+        [self triggerImmediateSubmit];
+    }
 }
 
 #pragma mark - Trigger queue
@@ -117,6 +130,20 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDir = [paths objectAtIndex:0];
     self.queueFolderPath = [cacheDir stringByAppendingPathComponent:  @"LeaguevineSubmitQueue"];
+}
+
+-(LeaguevineEvent*)createLeaguevineEventFor: (Event*) event inGame: (Game*)game crud: (CRUD)crud {
+    LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:crud];
+    if (crud != CRUDAdd) {
+        leaguevineEvent.leaguevineEventId = [self.postingLog leaguevineEventIdForTimestamp:event.timestamp];
+        if (!leaguevineEvent.leaguevineEventId) {
+            return nil;
+        }
+    }
+    leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
+    leaguevineEvent.iUltimateTimestamp = event.timestamp;
+    BOOL isConverted = [self.eventConverter populateLeaguevineEvent:leaguevineEvent withEvent:event fromGame:game];
+    return isConverted ? leaguevineEvent : nil;
 }
 
 @end

@@ -40,6 +40,7 @@ typedef enum {
 - (BOOL) isOffense;
 - (BOOL) isGoal;
 - (BOOL) isOurGoal;
+- (BOOL) isTheirGoal;
 - (BOOL) isTurnover;
 - (BOOL) isDrop;
 - (BOOL) isD;
@@ -48,11 +49,14 @@ typedef enum {
 - (BOOL) isCallahan;
 - (BOOL) isThrowaway;
 - (BOOL) isOffenseThrowaway;
+- (BOOL) isDefenseThrowaway;
 - (BOOL) isFinalEventOfPoint;
 - (BOOL) causesDirectionChange;
 - (BOOL) causesLineChange;
 - (BOOL) isNextEventOffense;
 - (NSArray*) getPlayers;
+- (Player*)playerOne;
+- (Player*)playerTwo;
 - (void)useSharedPlayers;
 - (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 - (BOOL)isAnonymous;

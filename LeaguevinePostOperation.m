@@ -8,6 +8,7 @@
 
 #import "LeaguevinePostOperation.h"
 #import "LeaguevineEventQueue.h"
+#import "LeaguevinePostingLog.h"
 #import "LeaguevineEvent.h"
 #import "LeaguevineClient.h"
 #import "CloudClient.h"
@@ -57,6 +58,7 @@
 -(BOOL)submitEvent: (LeaguevineEvent*)event usingClient: (LeaguevineClient*)client {
     LeaguevineInvokeStatus status = [client postEvent:event];
     if (status == LeaguevineInvokeOK) {
+        [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:event];
         return YES;
     } else {
         return NO;

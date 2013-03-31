@@ -115,13 +115,33 @@
         request = [self createUrlRequest:url httpMethod:@"POST"];
     }
     
-    NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.secondsSinceReferenceDate];
-    NSString* player2Property = leaguevineEvent.leaguevinePlayer2Id ? [NSString stringWithFormat: @",\"player_2_id\": \"%d\"", leaguevineEvent.leaguevinePlayer2Id] : @"";
-    NSString* requestBody = [NSString stringWithFormat: @"{\"game_id\": \"%d\",\"type\": \"%d\",\"player_1_id\": \"%d\",\"time\":\"%@\"%@}",
-                             leaguevineEvent.leaguevineGameId, leaguevineEvent.leaguevineEventType, leaguevineEvent.leaguevinePlayer1Id, eventTime, player2Property];
-    request.HTTPBody = [requestBody dataUsingEncoding:NSUTF8StringEncoding];
+    NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.iUltimateTimestamp];
+    NSMutableDictionary* requestDict = [NSMutableDictionary dictionary];
+    [requestDict setObject:eventTime forKey:@"time"];
+    [self addNonZeroProperty:@"game_id" value:leaguevineEvent.leaguevineGameId toDictionary:requestDict];
+    [self addNonZeroProperty:@"type" value:leaguevineEvent.leaguevineEventType toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_1_id" value:leaguevineEvent.leaguevinePlayer1Id toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_2_id" value:leaguevineEvent.leaguevinePlayer2Id toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_3_id" value:leaguevineEvent.leaguevinePlayer3Id toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_1_team_id" value:leaguevineEvent.leaguevinePlayer1Id toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_2_team_id" value:leaguevineEvent.leaguevinePlayer2Id toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_3_team_id" value:leaguevineEvent.leaguevinePlayer3Id toDictionary:requestDict];
     
-    return [self postEventRequest:request];
+    NSError *error = nil;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:&error]; 
+    if (error) {
+        NSLog(@"Error creating JSON for event posting: %@", error);
+        return LeaguevineInvokeOK; // bad but what else can we do?
+    } else {
+        request.HTTPBody = jsonData;
+        return [self postEventRequest:request];
+    }
+}
+
+-(void)addNonZeroProperty: (NSString*)property value: (int)value toDictionary: (NSMutableDictionary*) requestDict {
+    if (value) {
+        [requestDict setObject:[NSNumber numberWithInt:value] forKey:property];
+    }
 }
 
 #pragma mark private Post methods

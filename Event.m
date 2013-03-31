@@ -118,7 +118,15 @@
     return self.action == Throwaway && [self isOffense];
 }
 
+- (BOOL) isDefenseThrowaway {
+    return self.action == Throwaway && ![self isOffense];
+}
+
 - (BOOL) isOurGoal {
+    return NO;
+}
+
+- (BOOL) isTheirGoal {
     return NO;
 }
 
@@ -213,6 +221,14 @@
     }
     NSNumber* value = [self.details valueForKey:key];
     return value ? value.intValue : defaultValue;
+}
+
+-(Player*)playerOne {
+    return nil;
+}
+
+-(Player*)playerTwo {
+    return nil;
 }
 
 @end

@@ -99,9 +99,16 @@
 - (BOOL) isCallahan {
     return self.action == Callahan;
 }
+- (BOOL) isTheirGoal {
+    return [self isGoal];
+}
 
 - (BOOL) isFinalEventOfPoint {
     return self.action == Callahan || self.action == Goal;
+}
+
+-(Player*)playerOne {
+    return self.defender;
 }
 
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {

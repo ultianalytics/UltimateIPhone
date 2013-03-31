@@ -85,6 +85,9 @@
 		1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC9BA121621DF0A00390D3F /* chevron@2x.png */; };
 		1ACC07991627A9EB0038F934 /* PlayerSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */; };
 		1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */; };
+		1AD1231217087D0200B89BC1 /* LeaguevinePostingLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */; };
+		1AD1231B17088D0400B89BC1 /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1231A17088D0400B89BC1 /* DDFileReader.m */; };
+		1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1231D1708A00B00B89BC1 /* LeaguevineEventConverter.m */; };
 		1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DDC1614643600605947 /* LeagueVineSelectorGameViewController.m */; };
 		1AD50DE11614643600605947 /* LeagueVineSelectorTournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DDD1614643600605947 /* LeagueVineSelectorTournamentViewController.m */; };
 		1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD50DF81615C9A600605947 /* LeagueVineGameViewController.m */; };
@@ -371,6 +374,12 @@
 		1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSelectionTableViewCell.h; sourceTree = "<group>"; };
 		1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSelectionTableViewCell.m; sourceTree = "<group>"; };
 		1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerSelectionTableViewCell.xib; sourceTree = "<group>"; };
+		1AD1231017087D0200B89BC1 /* LeaguevinePostingLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePostingLog.h; sourceTree = "<group>"; };
+		1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePostingLog.m; sourceTree = "<group>"; };
+		1AD1231917088D0400B89BC1 /* DDFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
+		1AD1231A17088D0400B89BC1 /* DDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileReader.m; sourceTree = "<group>"; };
+		1AD1231C1708A00B00B89BC1 /* LeaguevineEventConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineEventConverter.h; sourceTree = "<group>"; };
+		1AD1231D1708A00B00B89BC1 /* LeaguevineEventConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineEventConverter.m; sourceTree = "<group>"; };
 		1AD50DDC1614643600605947 /* LeagueVineSelectorGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSelectorGameViewController.m; sourceTree = "<group>"; };
 		1AD50DDD1614643600605947 /* LeagueVineSelectorTournamentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineSelectorTournamentViewController.m; sourceTree = "<group>"; };
 		1AD50DDE1614643600605947 /* LeagueVineSelectorGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineSelectorGameViewController.h; sourceTree = "<group>"; };
@@ -697,6 +706,10 @@
 				1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */,
 				1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */,
 				1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */,
+				1AD1231017087D0200B89BC1 /* LeaguevinePostingLog.h */,
+				1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */,
+				1AD1231C1708A00B00B89BC1 /* LeaguevineEventConverter.h */,
+				1AD1231D1708A00B00B89BC1 /* LeaguevineEventConverter.m */,
 			);
 			name = Leaguevine;
 			sourceTree = "<group>";
@@ -762,6 +775,8 @@
 				1AFFE7DA15175E7B004B4590 /* Constants.m */,
 				1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */,
 				1A74B0BE1707D7EB00D667F1 /* UniqueTimestampGenerator.m */,
+				1AD1231917088D0400B89BC1 /* DDFileReader.h */,
+				1AD1231A17088D0400B89BC1 /* DDFileReader.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1524,6 +1539,9 @@
 				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
 				1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */,
 				1A74B0BF1707D7EB00D667F1 /* UniqueTimestampGenerator.m in Sources */,
+				1AD1231217087D0200B89BC1 /* LeaguevinePostingLog.m in Sources */,
+				1AD1231B17088D0400B89BC1 /* DDFileReader.m in Sources */,
+				1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

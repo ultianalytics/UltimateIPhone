@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-@class Event, Game;
+@class Event, Game, LeaguevinePostingLog;
 
 @interface LeaguevineEventQueue : NSObject
+
+@property (nonatomic, strong) LeaguevinePostingLog* postingLog;
 
 + (LeaguevineEventQueue*)sharedQueue;
 

@@ -16,11 +16,11 @@
 @implementation LeaguevinePostOperation
 
 -(void)main {
-    NSArray* eventsToSubmit = [[LeaguevineEventQueue sharedQueue] filesInQueueFolder];
-    if ([eventsToSubmit count] > 0) {
+    NSArray* eventsToPost = [[LeaguevineEventQueue sharedQueue] filesInQueueFolder];
+    if ([eventsToPost count] > 0) {
         if ([CloudClient isConnected]) {
             // submit all of the events
-            if (![self submitEvents:eventsToSubmit]) {
+            if (![self postEvents:eventsToPost]) {
                 // failed...try again in awhile
                 [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
             };
@@ -41,11 +41,11 @@
     return events;
 }
 
--(BOOL)submitEvents: (NSArray*) filesInQueueFolder {
+-(BOOL)postEvents: (NSArray*) filesInQueueFolder {
     LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
     for (NSString* filePath in filesInQueueFolder) {
         LeaguevineEvent* event = [LeaguevineEvent restoreFrom:filePath];
-        BOOL submitted = [self submitEvent: event usingClient:lvClient];
+        BOOL submitted = [self postEvent: event usingClient:lvClient];
         if (submitted) {
             [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
         } else {
@@ -55,7 +55,7 @@
     return YES;
 }
 
--(BOOL)submitEvent: (LeaguevineEvent*)event usingClient: (LeaguevineClient*)client {
+-(BOOL)postEvent: (LeaguevineEvent*)event usingClient: (LeaguevineClient*)client {
     LeaguevineInvokeStatus status = [client postEvent:event];
     if (status == LeaguevineInvokeOK) {
         [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:event];

@@ -13,6 +13,7 @@
 #import "PointSummary.h"
 #import "Scrubber.h"
 #import "PlayerSubstitution.h"
+#import "UniqueTimestampGenerator.h"
 
 #define kSummaryProperty        @"summary"
 
@@ -68,7 +69,7 @@
 }
 
 -(void)addEvent: (Event*) event {
-    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+    NSTimeInterval now = [[UniqueTimestampGenerator sharedGenerator] uniqueTimeIntervalSinceReferenceDateSeconds];
     if ([self.events count] == 0) {
         // if O-line, reduce the start time to account for the pull
         if (![event isPull]) {
@@ -77,7 +78,7 @@
         self.timeStartedSeconds = now;
     }
     event.timestamp = now;
-    self.timeEndedSeconds = [NSDate timeIntervalSinceReferenceDate];
+    self.timeEndedSeconds = [[UniqueTimestampGenerator sharedGenerator] uniqueTimeIntervalSinceReferenceDateSeconds];
     [self.events addObject:event];
 }
 

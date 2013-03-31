@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString* queueFolderPath;
 @property (nonatomic) int lastQueueId;
 @property (nonatomic, strong) NSTimer* delayedTriggerTimer;
+@property (nonatomic) long lastEventTimeIntervalSinceReferenceDateSeconds;
 
 @end
 
@@ -117,6 +118,5 @@
     NSString *cacheDir = [paths objectAtIndex:0];
     self.queueFolderPath = [cacheDir stringByAppendingPathComponent:  @"LeaguevineSubmitQueue"];
 }
-
 
 @end

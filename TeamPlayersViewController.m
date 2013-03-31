@@ -68,9 +68,9 @@
         cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.imageView.backgroundColor = [UIColor clearColor];
     }
+    cell.accessoryType = [Team getCurrentTeam].arePlayersFromLeagueVine ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
     
     NSString* text = player.name;
@@ -92,6 +92,9 @@
     [self.navigationController pushViewController:playerController animated:YES];
 } 
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [Team getCurrentTeam].arePlayersFromLeagueVine ? nil : indexPath;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -252,6 +255,7 @@
             [self alertTransitionToLeaguevinePlayers];
         } else {
             [self alertTransitionFromLeaguevinePlayers];
+            [self.playersTableView reloadData];
         }
     } else {
         [self switchToLeaguevinePlayers:self.playersTypeSegmentedControl.selectedSegmentIndex == 1];

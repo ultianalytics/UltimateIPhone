@@ -49,6 +49,7 @@
 		1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */; };
 		1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */; };
 		1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */; };
+		1A74B0BF1707D7EB00D667F1 /* UniqueTimestampGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0BE1707D7EB00D667F1 /* UniqueTimestampGenerator.m */; };
 		1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78D9C315949DC300115BE5 /* CalloutView.m */; };
 		1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A793F29162CDAB8006C1001 /* DarkButton.m */; };
 		1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */; };
@@ -315,6 +316,8 @@
 		1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineEventQueue.m; sourceTree = "<group>"; };
 		1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePostOperation.h; sourceTree = "<group>"; };
 		1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePostOperation.m; sourceTree = "<group>"; };
+		1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniqueTimestampGenerator.h; sourceTree = "<group>"; };
+		1A74B0BE1707D7EB00D667F1 /* UniqueTimestampGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniqueTimestampGenerator.m; sourceTree = "<group>"; };
 		1A78D9C215949DC300115BE5 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1A78D9C315949DC300115BE5 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		1A793F28162CDAB8006C1001 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 			children = (
 				1AFFE7D915175E7B004B4590 /* Constants.h */,
 				1AFFE7DA15175E7B004B4590 /* Constants.m */,
+				1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */,
+				1A74B0BE1707D7EB00D667F1 /* UniqueTimestampGenerator.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1518,6 +1523,7 @@
 				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,
 				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
 				1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */,
+				1A74B0BF1707D7EB00D667F1 /* UniqueTimestampGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

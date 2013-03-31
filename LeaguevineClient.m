@@ -115,12 +115,12 @@
         request = [self createUrlRequest:url httpMethod:@"POST"];
     }
     
-    NSString* eventTime = @"2013-04-12T09:01:00-05:00"; // TODO...format the event time!
-    NSString* player2id = leaguevineEvent.leaguevinePlayer2Id ? [NSString stringWithFormat: @",\"game_id\": \"%d\"", leaguevineEvent.leaguevinePlayer2Id] : @"";
+    NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.secondsSinceReferenceDate];
+    NSString* player2Property = leaguevineEvent.leaguevinePlayer2Id ? [NSString stringWithFormat: @",\"player_2_id\": \"%d\"", leaguevineEvent.leaguevinePlayer2Id] : @"";
     NSString* requestBody = [NSString stringWithFormat: @"{\"game_id\": \"%d\",\"type\": \"%d\",\"player_1_id\": \"%d\",\"time\":\"%@\"%@}",
-                             leaguevineEvent.leaguevineGameId, leaguevineEvent.leaguevineEventType, leaguevineEvent.leaguevinePlayer1Id, eventTime, player2id];
-    
+                             leaguevineEvent.leaguevineGameId, leaguevineEvent.leaguevineEventType, leaguevineEvent.leaguevinePlayer1Id, eventTime, player2Property];
     request.HTTPBody = [requestBody dataUsingEncoding:NSUTF8StringEncoding];
+    
     return [self postEventRequest:request];
 }
 
@@ -292,6 +292,16 @@
         _responseParser = [[LeaguevineResponseParser alloc] init];
     }
     return _responseParser;
+}
+
+#pragma mark Misc.
+
+-(NSString*)formatAsISO8601Timestamp: (NSTimeInterval)eventTimestamp {
+    NSDate* now = [NSDate dateWithTimeIntervalSinceReferenceDate:eventTimestamp];
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    NSString* dateFormatted = [dateFormatter stringFromDate:now];
+    return dateFormatted;
 }
 
 @end

@@ -55,7 +55,7 @@
         self.leaguevineEventType = [decoder decodeIntForKey:kEventType];
         self.leaguevinePlayer1Id = [decoder decodeIntForKey:kPlayer1Id];
         self.leaguevinePlayer2Id = [decoder decodeIntForKey:kPlayer2Id];
-        self.iUltimateTimestamp = [decoder decodeDoubleForKey:kTimestamp];
+        self.secondsSinceReferenceDate = [decoder decodeDoubleForKey:kTimestamp];
         self.crud = [decoder decodeDoubleForKey:kCrud];
    }
     return self;
@@ -66,7 +66,7 @@
     [encoder encodeInt:self.leaguevineEventType forKey:kEventType];
     [encoder encodeInt:self.leaguevinePlayer1Id forKey:kPlayer1Id];
     [encoder encodeInt:self.leaguevinePlayer2Id forKey:kPlayer2Id];
-    [encoder encodeDouble:self.iUltimateTimestamp forKey:kTimestamp];
+    [encoder encodeDouble:self.secondsSinceReferenceDate forKey:kTimestamp];
     [encoder encodeInt:self.crud forKey:kCrud];
 }
 

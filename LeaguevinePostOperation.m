@@ -45,11 +45,16 @@
     LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
     for (NSString* filePath in filesInQueueFolder) {
         LeaguevineEvent* event = [LeaguevineEvent restoreFrom:filePath];
-        BOOL submitted = [self postEvent: event usingClient:lvClient];
-        if (submitted) {
-            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+        if (event) {
+            BOOL submitted = [self postEvent: event usingClient:lvClient];
+            if (submitted) {
+                [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+            } else {
+                return NO;
+            }
         } else {
-            return NO;
+            NSLog(@"bad data...dumping the event");
+            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
         }
     }
     return YES;

@@ -680,36 +680,8 @@
 		1A4C42B31609DA110067BB96 /* Leaguevine */ = {
 			isa = PBXGroup;
 			children = (
-				1A4C42B51609DA4F0067BB96 /* LeaguevineClient.h */,
-				1A4C42B61609DA4F0067BB96 /* LeaguevineClient.m */,
-				1A4C42D2160C7C550067BB96 /* LeaguevineResponseParser.h */,
-				1A4C42D3160C7C550067BB96 /* LeaguevineResponseParser.m */,
-				1A4C42D6160C87C70067BB96 /* LeaguevineResponseMeta.h */,
-				1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */,
-				1A4C4324160F6BEF0067BB96 /* LeaguevineItem.h */,
-				1A4C4325160F6BEF0067BB96 /* LeaguevineItem.m */,
-				1A4C42F9160D5FA90067BB96 /* LeaguevineLeague.h */,
-				1A4C42FA160D5FA90067BB96 /* LeaguevineLeague.m */,
-				1A4C4300160D66A50067BB96 /* LeaguevineSeason.h */,
-				1A4C4301160D66A50067BB96 /* LeaguevineSeason.m */,
-				1A4C42FD160D5FC20067BB96 /* LeaguevineTeam.h */,
-				1A4C42FE160D5FC20067BB96 /* LeaguevineTeam.m */,
-				1A7A89381613233300CAB5EF /* LeaguevineGame.h */,
-				1A7A89391613233300CAB5EF /* LeaguevineGame.m */,
-				1A7A89251611D50700CAB5EF /* LeaguevineTournament.h */,
-				1A7A89261611D50700CAB5EF /* LeaguevineTournament.m */,
-				1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */,
-				1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */,
-				1A74B0B4170603B000D667F1 /* LeaguevineEvent.h */,
-				1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */,
-				1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */,
-				1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */,
-				1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */,
-				1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */,
-				1AD1231017087D0200B89BC1 /* LeaguevinePostingLog.h */,
-				1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */,
-				1AD1231C1708A00B00B89BC1 /* LeaguevineEventConverter.h */,
-				1AD1231D1708A00B00B89BC1 /* LeaguevineEventConverter.m */,
+				1AD1231F1708C58600B89BC1 /* Model */,
+				1AD123201708C5A900B89BC1 /* Service Interaction */,
 			);
 			name = Leaguevine;
 			sourceTree = "<group>";
@@ -779,6 +751,50 @@
 				1AD1231A17088D0400B89BC1 /* DDFileReader.m */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		1AD1231F1708C58600B89BC1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C4324160F6BEF0067BB96 /* LeaguevineItem.h */,
+				1A4C4325160F6BEF0067BB96 /* LeaguevineItem.m */,
+				1A4C42F9160D5FA90067BB96 /* LeaguevineLeague.h */,
+				1A4C42FA160D5FA90067BB96 /* LeaguevineLeague.m */,
+				1A4C4300160D66A50067BB96 /* LeaguevineSeason.h */,
+				1A4C4301160D66A50067BB96 /* LeaguevineSeason.m */,
+				1A4C42FD160D5FC20067BB96 /* LeaguevineTeam.h */,
+				1A4C42FE160D5FC20067BB96 /* LeaguevineTeam.m */,
+				1A7A89381613233300CAB5EF /* LeaguevineGame.h */,
+				1A7A89391613233300CAB5EF /* LeaguevineGame.m */,
+				1A7A89251611D50700CAB5EF /* LeaguevineTournament.h */,
+				1A7A89261611D50700CAB5EF /* LeaguevineTournament.m */,
+				1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */,
+				1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1AD123201708C5A900B89BC1 /* Service Interaction */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C42B51609DA4F0067BB96 /* LeaguevineClient.h */,
+				1A4C42B61609DA4F0067BB96 /* LeaguevineClient.m */,
+				1A4C42D2160C7C550067BB96 /* LeaguevineResponseParser.h */,
+				1A4C42D3160C7C550067BB96 /* LeaguevineResponseParser.m */,
+				1A4C42D6160C87C70067BB96 /* LeaguevineResponseMeta.h */,
+				1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */,
+				1A74B0B4170603B000D667F1 /* LeaguevineEvent.h */,
+				1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */,
+				1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */,
+				1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */,
+				1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */,
+				1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */,
+				1AD1231017087D0200B89BC1 /* LeaguevinePostingLog.h */,
+				1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */,
+				1AD1231C1708A00B00B89BC1 /* LeaguevineEventConverter.h */,
+				1AD1231D1708A00B00B89BC1 /* LeaguevineEventConverter.m */,
+			);
+			name = "Service Interaction";
 			sourceTree = "<group>";
 		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {

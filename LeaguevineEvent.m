@@ -64,7 +64,7 @@
         self.leaguevinePlayer2TeamId = [decoder decodeIntForKey:kPlayer2TeamId];
         self.leaguevinePlayer3TeamId = [decoder decodeIntForKey:kPlayer3TeamId];
         self.iUltimateTimestamp = [decoder decodeDoubleForKey:kTimestamp];
-        self.crud = [decoder decodeDoubleForKey:kCrud];
+        self.crud = [decoder decodeIntForKey:kCrud];
    }
     return self;
 }

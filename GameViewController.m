@@ -30,6 +30,7 @@
 #import "PullLandingViewController.h"
 #import "UIViewController+Additions.h"
 #import "ActionDetailsViewController.h"
+#import "LeaguevineEventQueue.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
@@ -183,7 +184,7 @@
     if ([event causesDirectionChange]) {
         [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
         if ([event isGoal]) {
-            [self notifyLeaguevine:NO];
+            [self notifyLeaguevineOfScoreIsFinal:NO];
         }
         if ([[Game getCurrentGame] doesGameAppearDone]) {
             [self gameOverChallenge];
@@ -192,6 +193,7 @@
         }
     }
     [self updateViewFromGame:[Game getCurrentGame]];
+    [self notifyLeaguevineOfNewEvent:event];
 }
 
 -(IBAction)removeEventClicked: (id) sender {
@@ -519,8 +521,8 @@
 
 #pragma mark Leaguevine 
 
--(void)notifyLeaguevine: (BOOL)isFinal {
-    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
+-(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
+    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine && ![Game getCurrentGame].publishStatsToLeaguevine) {
         [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
             if (status != LeaguevineInvokeOK) {
                 [Game getCurrentGame].publishScoreToLeaguevine = NO;
@@ -545,6 +547,12 @@
                 [alert show];
             }
         }];
+    }
+}
+        
+-(void)notifyLeaguevineOfNewEvent: (Event*)event {
+    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishStatsToLeaguevine) {
+        [[LeaguevineEventQueue sharedQueue] submitNewEvent:event forGame:[Game getCurrentGame]];
     }
 }
 
@@ -686,7 +694,7 @@
     if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
         if (buttonIndex == 1) { // confirm game over
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
-            [self notifyLeaguevine:YES];
+            [self notifyLeaguevineOfScoreIsFinal:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
             [self goToPlayersOnFieldView];

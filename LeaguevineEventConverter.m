@@ -24,77 +24,74 @@
     int ourLeaguevineTeamId = [Team getCurrentTeam].leaguevineTeam.itemId;
     int theirLeaguevineTeamId = game.leaguevineGame.team1Id == ourLeaguevineTeamId ? game.leaguevineGame.team2Id : game.leaguevineGame.team1Id;
     
-    
-    // Set the players. If the player(s) is anonymous then set the team Id instead.
-    if ([event isTheirGoal] || [event isDefenseThrowaway]) {
-       leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
-       if ([event isTheirGoal]) {
-           leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
-       }
-    } else if ([event isCallahan]) {
-       leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
-       leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
-       // player 3 (used only for callahan)
-       if ([event playerOne] && ![[event playerOne] isAnonymous]) {
-           leaguevineEvent.leaguevinePlayer3Id = [event playerOne].leaguevinePlayer.playerId;
-       } else {
-           leaguevineEvent.leaguevinePlayer3TeamId = ourLeaguevineTeamId;
-       }
-    } else {
-        // player 1
-        if ([event playerOne] && ![[event playerOne] isAnonymous]) {
-            leaguevineEvent.leaguevinePlayer1Id = [event playerOne].leaguevinePlayer.playerId;
-        } else {
-            leaguevineEvent.leaguevinePlayer1TeamId = ourLeaguevineTeamId;
-        }
-
-        // player 2 
-        if ([event playerTwo] && ![[event playerTwo] isAnonymous]) {
-            leaguevineEvent.leaguevinePlayer2Id = [event playerTwo].leaguevinePlayer.playerId;
-        } else {
-            leaguevineEvent.leaguevinePlayer2TeamId = ourLeaguevineTeamId;
-        }
-    }
-    
     switch (event.action) {
         case Catch: {
             leaguevineEvent.leaguevineEventType = 21;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+            [self populatePlayerTwoInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
             break;
         }
         case Goal: {
             leaguevineEvent.leaguevineEventType = 22;
+            if ([event isOurGoal]) {
+                [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+                [self populatePlayerTwoInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+            } else {
+                leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
+                leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
+            }
             break;
         }
         case Drop: {
             leaguevineEvent.leaguevineEventType = 33;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+            [self populatePlayerTwoInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
             break;
         }
         case Throwaway: {
             leaguevineEvent.leaguevineEventType = 32;
+            if ([event isOffenseThrowaway]) {
+                [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+            } else {
+                leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
+            }
             break;
         }
         case Stall: {
             leaguevineEvent.leaguevineEventType = 52;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];            
             break;
         }
         case MiscPenalty: {
             leaguevineEvent.leaguevineEventType = 50;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];            
             break;
         }
         case Pull: {
             leaguevineEvent.leaguevineEventType = 2;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];            
             break;
         }
         case PullOb: {
             leaguevineEvent.leaguevineEventType = 5;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
             break;
         }
         case De: {
             leaguevineEvent.leaguevineEventType = 34;
+            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];            
             break;
         }
         case Callahan: {
             leaguevineEvent.leaguevineEventType = 38;
+            leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
+            leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
+            // player 3 (used only for callahan)
+            if ([event playerOne] && ![[event playerOne] isAnonymous]) {
+                leaguevineEvent.leaguevinePlayer3Id = [event playerOne].leaguevinePlayer.playerId;
+            } else {
+                leaguevineEvent.leaguevinePlayer3TeamId = ourLeaguevineTeamId;
+            }
             break;
         }
 
@@ -105,5 +102,22 @@
     
     return converted;
 }
+
+-(void)populatePlayerOneInLVEvent: (LeaguevineEvent*) leaguevineEvent withEvent: (Event*)event ourLeaguevineId: (NSUInteger)ourLeaguevineTeamId {
+    if ([event playerOne] && ![[event playerOne] isAnonymous]) {
+        leaguevineEvent.leaguevinePlayer1Id = [event playerOne].leaguevinePlayer.playerId;
+    } else {
+        leaguevineEvent.leaguevinePlayer1TeamId = ourLeaguevineTeamId;
+    }
+}
+
+-(void)populatePlayerTwoInLVEvent: (LeaguevineEvent*) leaguevineEvent withEvent: (Event*)event ourLeaguevineId: (NSUInteger)ourLeaguevineTeamId {
+    if ([event playerTwo] && ![[event playerTwo] isAnonymous]) {
+        leaguevineEvent.leaguevinePlayer2Id = [event playerTwo].leaguevinePlayer.playerId;
+    } else {
+        leaguevineEvent.leaguevinePlayer2TeamId = ourLeaguevineTeamId;
+    }
+}
+
 
 @end

@@ -123,9 +123,9 @@
     [self addNonZeroProperty:@"player_1_id" value:leaguevineEvent.leaguevinePlayer1Id toDictionary:requestDict];
     [self addNonZeroProperty:@"player_2_id" value:leaguevineEvent.leaguevinePlayer2Id toDictionary:requestDict];
     [self addNonZeroProperty:@"player_3_id" value:leaguevineEvent.leaguevinePlayer3Id toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_1_team_id" value:leaguevineEvent.leaguevinePlayer1Id toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_2_team_id" value:leaguevineEvent.leaguevinePlayer2Id toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_3_team_id" value:leaguevineEvent.leaguevinePlayer3Id toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_1_team_id" value:leaguevineEvent.leaguevinePlayer1TeamId toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_2_team_id" value:leaguevineEvent.leaguevinePlayer2TeamId toDictionary:requestDict];
+    [self addNonZeroProperty:@"player_3_team_id" value:leaguevineEvent.leaguevinePlayer3TeamId toDictionary:requestDict];
     
     NSError *error = nil;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:&error]; 
@@ -156,6 +156,7 @@
     [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
     
     NSURLResponse* response;
+    NSLog(@"Posting event to leaguevine: \n%@", [NSString stringFromData: request.HTTPBody]);
     NSError* sendError;
     NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;

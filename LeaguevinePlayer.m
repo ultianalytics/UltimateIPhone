@@ -52,7 +52,7 @@
 -(void)populateFromDictionary:(NSDictionary*) dict {
     self.number = [dict intForJsonProperty:kLeaguevineJsonNumber defaultValue:0];
     NSDictionary* playerDetails = [dict objectForJsonProperty:kLeaguevineJsonPlayer defaultValue:[NSDictionary dictionary]];
-    self.playerId = [dict intForJsonProperty:kLeaguevineJsonPlayerId defaultValue:0];
+    self.playerId = [playerDetails intForJsonProperty:kLeaguevineJsonPlayerId defaultValue:0];
     self.firstName = [playerDetails stringForJsonProperty:kLeaguevineJsonFirstName];
     self.lastName = [playerDetails stringForJsonProperty:kLeaguevineJsonLastName];
     self.nickname = [playerDetails stringForJsonProperty:kLeaguevineJsonNickname];

@@ -50,6 +50,7 @@
         self.triggerQueue = [[NSOperationQueue alloc] init];
         self.triggerQueue.maxConcurrentOperationCount = 1;
         self.postingLog = [[LeaguevinePostingLog alloc] init];
+        self.eventConverter = [[LeaguevineEventConverter alloc] init];
     }
     return self;
 }
@@ -92,7 +93,12 @@
     NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.queueFolderPath error:NULL];
     if (files && [files count] > 0) {
         NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:NO selector:@selector(localizedCompare:)];
-        return [files sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+        NSArray* fileNames = [files sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+        NSMutableArray* filePaths = [NSMutableArray array];
+        for (NSString* fileName in fileNames) {
+            [filePaths addObject:[self.queueFolderPath stringByAppendingPathComponent:fileName]];
+        }
+        return filePaths;
     } else {
         return [NSArray array];
     }
@@ -108,7 +114,7 @@
 }
 
 -(void)addEventToQueue: (LeaguevineEvent*) leaguevineEvent {
-    NSString* filePath = [self nextQueueId];
+    NSString* filePath = [self.queueFolderPath stringByAppendingPathComponent: [self nextQueueId]];
     [leaguevineEvent save:filePath];
 }
 
@@ -130,6 +136,12 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDir = [paths objectAtIndex:0];
     self.queueFolderPath = [cacheDir stringByAppendingPathComponent:  @"LeaguevineSubmitQueue"];
+    NSError *error;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:self.queueFolderPath]) {
+		if (![[NSFileManager defaultManager] createDirectoryAtPath:self.queueFolderPath withIntermediateDirectories:NO attributes:nil error:&error]) {
+			NSLog(@"Error creating leaguevine event queue: %@", error);
+		}
+	}
 }
 
 -(LeaguevineEvent*)createLeaguevineEventFor: (Event*) event inGame: (Game*)game crud: (CRUD)crud {

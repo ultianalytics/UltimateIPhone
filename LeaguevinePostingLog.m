@@ -10,6 +10,7 @@
 #import "Event.h"
 #import "LeaguevineEvent.h"
 #import "DDFileReader.h"
+#import "NSString+manipulations.h"
 
 @interface LeaguevinePostingLog()
 
@@ -50,11 +51,20 @@
 }
 
 -(void)appendToLog: (NSString*)record {
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.currentLogFilePath];
-    [fileHandle seekToEndOfFile];
-    [fileHandle writeData:[record dataUsingEncoding:NSUTF8StringEncoding]];
-    [fileHandle closeFile];
-    [self switchLogsIfNeeded];
+    NSData* recordAsData = [record dataUsingEncoding:NSUTF8StringEncoding];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.currentLogFilePath]) {
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.currentLogFilePath];
+        [fileHandle seekToEndOfFile];
+        [fileHandle writeData:recordAsData];
+        [fileHandle closeFile];
+        [self switchLogsIfNeeded];
+    } else {
+        NSError* error;
+        [recordAsData writeToFile:self.currentLogFilePath options:NSDataWritingAtomic error:&error];
+        if(error != nil) {
+            NSLog(@"error writing to log: %@", error);
+        }
+    }
 }
 
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp inFile: (NSString*)filePath{
@@ -65,7 +75,7 @@
             NSArray* fields = [line pathComponents];
             NSTimeInterval recordTimestamp = [[fields objectAtIndex:0] doubleValue];
             if (recordTimestamp == eventTimestamp) {
-                return [[fields objectAtIndex:1] longValue];
+                return [[fields objectAtIndex:1] intValue];
             }
         }
     }
@@ -76,6 +86,12 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDir = [paths objectAtIndex:0];
     self.logsDirectory = [cacheDir stringByAppendingPathComponent:  @"LeaguevineSubmitLog"];
+    NSError *error;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:self.logsDirectory]) {
+		if (![[NSFileManager defaultManager] createDirectoryAtPath:self.logsDirectory withIntermediateDirectories:NO attributes:nil error:&error]) {
+			NSLog(@"Error creating leaguevine event submit log: %@", error);
+		}
+	}
     self.logAPath = [self getFilePathForLog: @"A"];
     self.logBPath = [self getFilePathForLog: @"B"];
 }

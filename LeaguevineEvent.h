@@ -32,4 +32,9 @@ typedef enum {
 +(LeaguevineEvent*)restoreFrom: (NSString*)filePath;
 -(void)save: (NSString*)filePath;
 
+-(BOOL)isAdd;
+-(BOOL)isUpdate;
+-(BOOL)isDelete;
+-(BOOL)isUpdateOrDelete;
+
 @end

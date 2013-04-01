@@ -61,6 +61,13 @@
 }
 
 -(BOOL)postEvent: (LeaguevineEvent*)event usingClient: (LeaguevineClient*)client {
+    if ([event isUpdateOrDelete]) {
+        event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue] leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
+        if (!event.leaguevineEventId) {
+            NSLog(@"Posting an event for %@ but the previous add event was not found in log. Event will be skipped. Event is %@", [event isDelete] ? @"delete" : @"update", event);
+            return YES;
+        }
+    }
     LeaguevineInvokeStatus status = [client postEvent:event];
     if (status == LeaguevineInvokeOK) {
         [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:event];

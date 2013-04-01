@@ -23,5 +23,6 @@
 -(void)triggerDelayedSubmit;
 -(NSArray*)filesInQueueFolder;
 -(void)removeEvent: (NSString*)filePath;
+-(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp;
 
 @end

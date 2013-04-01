@@ -11,6 +11,7 @@
 
 #define kLeaguevineEvent @"LeaguevineEvent"
 #define kCrud @"crud"
+#define kEventId @"leaguevine_id"
 #define kEventType @"type"
 #define kTimestamp @"time"
 #define kGameId @"game_id"
@@ -47,15 +48,18 @@
                                  initForWritingWithMutableData:data];
     [archiver encodeObject: self forKey:kLeaguevineEvent];
     [archiver finishEncoding];
-    BOOL success = [data writeToFile:filePath atomically:YES];
-    if (!success) {
-        NSLog(@"Failed trying to save leaguevine event");
+    
+    NSError* error;
+    [data writeToFile:filePath options:NSDataWritingAtomic error:&error];
+    if(error != nil) {
+        NSLog(@"Failed trying to save leaguevine event: %@", error);
     }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
         self.leaguevineGameId = [decoder decodeIntForKey:kGameId];
+        self.leaguevineEventId = [decoder decodeIntForKey:kEventId];
         self.leaguevineEventType = [decoder decodeIntForKey:kEventType];
         self.leaguevinePlayer1Id = [decoder decodeIntForKey:kPlayer1Id];
         self.leaguevinePlayer2Id = [decoder decodeIntForKey:kPlayer2Id];
@@ -71,6 +75,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInt:self.leaguevineGameId forKey:kGameId];
+    [encoder encodeInt:self.leaguevineEventId forKey:kEventId];
     [encoder encodeInt:self.leaguevineEventType forKey:kEventType];
     [encoder encodeInt:self.leaguevinePlayer1Id forKey:kPlayer1Id];
     [encoder encodeInt:self.leaguevinePlayer2Id forKey:kPlayer2Id];
@@ -82,5 +87,24 @@
     [encoder encodeInt:self.crud forKey:kCrud];
 }
 
+-(NSString*)description {
+    return [NSString stringWithFormat: @"LeaguevineEvent: iUltimateTimestamp=%f, leaguevineEventId=%d, leaguevineGameId=%d, leaguevinePlayer1Id=%d, leaguevinePlayer2Id=%d, leaguevinePlayer3Id=%d, leaguevinePlayer1TeamId=%d, leaguevinePlayer2TeamId=%d, leaguevinePlayer3TeamId=%d", self.iUltimateTimestamp, self.leaguevineEventId, self.leaguevineGameId, self.leaguevinePlayer1Id, self.leaguevinePlayer2Id, self.leaguevinePlayer3Id, self.leaguevinePlayer1TeamId, self.leaguevinePlayer2TeamId, self.leaguevinePlayer3TeamId];
+}
+
+-(BOOL)isAdd {
+    return self.crud == CRUDAdd;
+}
+
+-(BOOL)isUpdate {
+    return self.crud == CRUDUpdate;
+}
+
+-(BOOL)isDelete {
+    return self.crud == CRUDDelete;
+}
+
+-(BOOL)isUpdateOrDelete {
+    return self.crud == CRUDDelete || self.crud == CRUDUpdate;
+}
 
 @end

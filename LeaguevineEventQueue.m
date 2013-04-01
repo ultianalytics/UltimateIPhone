@@ -74,6 +74,10 @@
     }
 }
 
+-(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {
+    return [self.postingLog leaguevineEventIdForTimestamp: eventTimestamp];
+}
+
 #pragma mark - Trigger queue
 
 -(void)triggerImmediateSubmit {
@@ -146,12 +150,6 @@
 
 -(LeaguevineEvent*)createLeaguevineEventFor: (Event*) event inGame: (Game*)game crud: (CRUD)crud {
     LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:crud];
-    if (crud != CRUDAdd) {
-        leaguevineEvent.leaguevineEventId = [self.postingLog leaguevineEventIdForTimestamp:event.timestamp];
-        if (!leaguevineEvent.leaguevineEventId) {
-            return nil;
-        }
-    }
     leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
     leaguevineEvent.iUltimateTimestamp = event.timestamp;
     BOOL isConverted = [self.eventConverter populateLeaguevineEvent:leaguevineEvent withEvent:event fromGame:game];

@@ -16,6 +16,7 @@
 #import "LeaguevineEvent.h"
 #import "Team.h"
 #import "Preferences.h"
+#import "NSDictionary+JSON.h"
 
 #define BASE_API_URL @"https://api.leaguevine.com/v1/"
 
@@ -103,6 +104,11 @@
 }
 
 -(LeaguevineInvokeStatus)postEvent: (LeaguevineEvent*) leaguevineEvent {
+    if (![self isValidLeaguevineEvent:leaguevineEvent]) {
+        NSLog(@"skipping post of leaguevine event %@ because it is not valid", leaguevineEvent);
+        return LeaguevineInvokeOK; // bad but what else can we do?
+    } 
+        
     NSString* url = [self fullUrl:@"events/"];
     NSMutableURLRequest* request;
     if (leaguevineEvent.crud == CRUDUpdate) {
@@ -134,7 +140,8 @@
         return LeaguevineInvokeOK; // bad but what else can we do?
     } else {
         request.HTTPBody = jsonData;
-        return [self postEventRequest:request];
+        NSLog(@"Posting %@ event to leaguevine: \n%@", leaguevineEvent.crud == CRUDUpdate ? @"update" : leaguevineEvent.crud == CRUDDelete ? @"delete" : @"add", [NSString stringFromData: request.HTTPBody]);
+        return [self postEventRequest:request forEvent:leaguevineEvent];
     }
 }
 
@@ -146,7 +153,7 @@
 
 #pragma mark private Post methods
 
--(LeaguevineInvokeStatus)postEventRequest: (NSMutableURLRequest*) request {
+-(LeaguevineInvokeStatus)postEventRequest: (NSMutableURLRequest*) request forEvent: (LeaguevineEvent*) leaguevineEvent {
     NSString* leaguevineToken = [Preferences getCurrentPreferences].leaguevineToken;
     if (![leaguevineToken isNotEmpty]) {
         return LeaguevineInvokeCredentialsRejected;
@@ -156,15 +163,32 @@
     [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
     
     NSURLResponse* response;
-    NSLog(@"Posting event to leaguevine: \n%@", [NSString stringFromData: request.HTTPBody]);
     NSError* sendError;
     NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if (sendError != nil || httpResponse.statusCode < 200) {
         NSLog(@"Request to %@ failed with http response %d error %@", request.URL, httpResponse.statusCode, sendError);
         return LeaguevineInvokeNetworkError;
-    } else if (sendError == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) && responseData) {
+    } else if (sendError == nil && [leaguevineEvent isDelete] && (httpResponse.statusCode == 200 || httpResponse.statusCode == 204 || httpResponse.statusCode == 410)) {
+        if ( httpResponse.statusCode == 410) {
+            NSLog(@"league rejected delete of event: already deleted");
+        }
         return LeaguevineInvokeOK;
+    } else if (sendError == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) && responseData) {
+        NSError* parseError;
+        NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&parseError];
+        if (!parseError) {
+            int eventId = [responseDict intForJsonProperty:@"id" defaultValue:0];
+            if (eventId) {
+                leaguevineEvent.leaguevineEventId = eventId;
+                return LeaguevineInvokeOK;
+            } else {
+                NSLog(@"Unable to find event ID from leaguevine response when adding event"); 
+            }
+        } else {
+            NSLog(@"Unable to parse leaguevine response when adding event: %@", parseError);
+        }
+        return LeaguevineInvokeInvalidResponse;
     } else {
         NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@",request.URL, httpResponse.statusCode, sendError, [NSString stringFromData:responseData]);
         return httpResponse.statusCode == 401 ? LeaguevineInvokeCredentialsRejected : LeaguevineInvokeInvalidResponse;
@@ -323,6 +347,15 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     NSString* dateFormatted = [dateFormatter stringFromDate:now];
     return dateFormatted;
+}
+
+-(BOOL)isValidLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent {
+    if (leaguevineEvent.iUltimateTimestamp && leaguevineEvent.leaguevineGameId && leaguevineEvent.leaguevineEventType) {
+        if (leaguevineEvent.leaguevinePlayer1Id || leaguevineEvent.leaguevinePlayer1TeamId) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

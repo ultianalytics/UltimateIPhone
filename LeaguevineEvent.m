@@ -106,6 +106,19 @@
     return self.crud == CRUDDelete;
 }
 
+-(NSString*)crudDescription {
+    switch (self.crud) {
+        case CRUDAdd:
+            return @"Add";
+        case CRUDUpdate:
+            return @"Update";
+        case CRUDDelete:
+            return @"Delete";
+        default:
+            return @"";
+    }
+}
+
 -(BOOL)isUpdateOrDelete {
     return self.crud == CRUDDelete || self.crud == CRUDUpdate;
 }

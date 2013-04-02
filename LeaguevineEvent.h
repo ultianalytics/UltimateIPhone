@@ -37,5 +37,6 @@ typedef enum {
 -(BOOL)isUpdate;
 -(BOOL)isDelete;
 -(BOOL)isUpdateOrDelete;
+-(NSString*)crudDescription;
 
 @end

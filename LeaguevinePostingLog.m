@@ -26,7 +26,7 @@
 
 -(void)logLeaguevineEvent: (LeaguevineEvent*)event {
     // format: {timestamp}/{leavuevine-id}
-    [self appendToLog:[NSString stringWithFormat:@"%f/%lu\n", event.iUltimateTimestamp, (unsigned long)event.leaguevineEventId]];
+    [self appendToLog:[NSString stringWithFormat:@"%f/%lu/%@\n", event.iUltimateTimestamp, (unsigned long)event.leaguevineEventId, [event crudDescription]]];
 }
 
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {

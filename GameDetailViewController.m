@@ -27,6 +27,11 @@
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
 
+#define kAlertTitleDeleteGame @"Delete Game"
+#define kAlertLeaguevineStatsEnding @"Stats Posting Ending"
+#define kAlertLeaguevineStatsStarting @"Posting Stats to Leaguevine"
+#define kAlertLeaguevineStatsStartingWithGameInProgress @"Warning: Game Started"
+
 @interface GameDetailViewController()
 
 @property (nonatomic, strong) NSDateFormatter* dateFormat;
@@ -223,19 +228,15 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    switch (buttonIndex) {
-        case 0:
-        {
-            //NSLog(@"Delete was cancelled by the user");
-        }
-            break;
-            
-        case 1:
-        {
+    if ([alertView.title isEqualToString:kAlertTitleDeleteGame]) {
+        if (buttonIndex == 1) {  // delete
             [self.game delete];
             [self.navigationController popViewControllerAnimated:YES];
         }
-            break;
+    } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsStartingWithGameInProgress] ||
+               [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
+               [alertView.title isEqualToString:kAlertLeaguevineStatsEnding]) {
+        [self updateLeaguevinePublishing];
     }
 }
 
@@ -260,11 +261,11 @@
 -(IBAction) deleteClicked: (id) sender {
     // Show the confirmation.
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle: NSLocalizedString(@"Delete Game",nil)
-                          message: NSLocalizedString(@"Are you sure you want to delete this game?",nil)
+                          initWithTitle: kAlertTitleDeleteGame
+                          message: @"Are you sure you want to delete this game?"
                           delegate: self
-                          cancelButtonTitle: NSLocalizedString(@"Cancel",nil)
-                          otherButtonTitles: NSLocalizedString(@"Delete",nil), nil];
+                          cancelButtonTitle: @"Cancel"
+                          otherButtonTitles: @"Delete", nil];
     [alert show];
 }
 
@@ -305,6 +306,8 @@
 
 -(void)handleLeaguevineGameSelected: (LeaguevineGame*) leaguevineGame {
     self.game.leaguevineGame = leaguevineGame;
+    self.game.publishScoreToLeaguevine = NO;
+    self.game.publishStatsToLeaguevine = self.game.leaguevineGame && [Team getCurrentTeam].arePlayersFromLeagueVine;
     [self saveChanges];
     [self populateLeaguevineCells];
     [self.navigationController popViewControllerAnimated:YES];
@@ -323,6 +326,49 @@
 }
 
 - (void)leaguevinePublishChanged {
+    // user is turning OFF stats publishing
+    if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex != 2 && self.game.publishStatsToLeaguevine) {
+        NSString* warning = [self.game hasEvents] ?
+            @"You have chosen NOT to publish stats to leaguevine for this game.  Remember that you should not change this property after the game is started." :
+            @"Warning: You have STOPPED publishing stats to leaguevine for this game.  Changing this property during a game can lead to unpredictable results if not all stats are posted.";
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:kAlertLeaguevineStatsEnding
+                                  message:warning
+                                  delegate: self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alert show];
+      
+    // user is turning ON stats publishing and game is in progress
+    } else if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 2 && !self.game.publishStatsToLeaguevine && [self.game hasEvents]) {
+        NSString* warning = @"You have chosen to publish stats for a game which is already started.  Any events recorded when stats publishing was off will NOT be posted to leaguevine.";
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:kAlertLeaguevineStatsStartingWithGameInProgress
+                              message:warning
+                              delegate: self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        
+    // user is turning ON stats publishing
+    } else if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 2) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Leaguevine Publishing Started"
+                              message:@"All events recorded by iUltimate will be published to leaguevine."
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        
+    // other changes
+    } else {
+        [self updateLeaguevinePublishing];
+    }
+}
+
+
+
+- (void)updateLeaguevinePublishing {
     self.game.publishScoreToLeaguevine = self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 1;
     self.game.publishStatsToLeaguevine = self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 2;
     if (self.game.publishScoreToLeaguevine || self.game.publishStatsToLeaguevine) {
@@ -335,18 +381,22 @@
                 [self populateLeaguevineCells];
                 [self saveChanges];
                 if (hasLeaguevineCredentials) {
-                    [self updateLeaguevine];
+                    if (self.game.publishScoreToLeaguevine) {
+                        [self postScoreToleaguevine];
+                    } 
                 }
             }];
         } else {
-            [self updateLeaguevine];
+            if (self.game.publishScoreToLeaguevine) {
+                [self postScoreToleaguevine];
+            } 
         }
     } else {
         [self saveChanges];
     }
 }
 
--(void)updateLeaguevine {
+-(void)postScoreToleaguevine {
     Score score = [self.game getScore];
     if (score.ours > 0 || score.theirs > 0) {
         LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
@@ -382,7 +432,6 @@
         [alert show];
     }
 }
-
 
 #pragma mark - Table delegate
 

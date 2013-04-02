@@ -27,6 +27,7 @@ typedef enum {
 @property (nonatomic) NSUInteger leaguevinePlayer3TeamId;
 @property (nonatomic) NSUInteger leaguevineEventId;
 @property (nonatomic) NSTimeInterval iUltimateTimestamp;
+@property (nonatomic) NSString* eventDescription;
 
 +(LeaguevineEvent*)leaguevineEventWithCrud: (CRUD)crud;
 +(LeaguevineEvent*)restoreFrom: (NSString*)filePath;

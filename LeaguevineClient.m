@@ -121,26 +121,30 @@
         request = [self createUrlRequest:url httpMethod:@"POST"];
     }
     
-    NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.iUltimateTimestamp];
-    NSMutableDictionary* requestDict = [NSMutableDictionary dictionary];
-    [requestDict setObject:eventTime forKey:@"time"];
-    [self addNonZeroProperty:@"game_id" value:leaguevineEvent.leaguevineGameId toDictionary:requestDict];
-    [self addNonZeroProperty:@"type" value:leaguevineEvent.leaguevineEventType toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_1_id" value:leaguevineEvent.leaguevinePlayer1Id toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_2_id" value:leaguevineEvent.leaguevinePlayer2Id toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_3_id" value:leaguevineEvent.leaguevinePlayer3Id toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_1_team_id" value:leaguevineEvent.leaguevinePlayer1TeamId toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_2_team_id" value:leaguevineEvent.leaguevinePlayer2TeamId toDictionary:requestDict];
-    [self addNonZeroProperty:@"player_3_team_id" value:leaguevineEvent.leaguevinePlayer3TeamId toDictionary:requestDict];
-    
+    NSData* jsonData;
     NSError *error = nil;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:&error]; 
+    
+    if (![leaguevineEvent isDelete]) {
+        NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.iUltimateTimestamp];
+        NSMutableDictionary* requestDict = [NSMutableDictionary dictionary];
+        [requestDict setObject:eventTime forKey:@"time"];
+        [self addNonZeroProperty:@"game_id" value:leaguevineEvent.leaguevineGameId toDictionary:requestDict];
+        [self addNonZeroProperty:@"type" value:leaguevineEvent.leaguevineEventType toDictionary:requestDict];
+        [self addNonZeroProperty:@"player_1_id" value:leaguevineEvent.leaguevinePlayer1Id toDictionary:requestDict];
+        [self addNonZeroProperty:@"player_2_id" value:leaguevineEvent.leaguevinePlayer2Id toDictionary:requestDict];
+        [self addNonZeroProperty:@"player_3_id" value:leaguevineEvent.leaguevinePlayer3Id toDictionary:requestDict];
+        [self addNonZeroProperty:@"player_1_team_id" value:leaguevineEvent.leaguevinePlayer1TeamId toDictionary:requestDict];
+        [self addNonZeroProperty:@"player_2_team_id" value:leaguevineEvent.leaguevinePlayer2TeamId toDictionary:requestDict];
+        [self addNonZeroProperty:@"player_3_team_id" value:leaguevineEvent.leaguevinePlayer3TeamId toDictionary:requestDict];
+        jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:&error];
+    }
     if (error) {
         NSLog(@"Error creating JSON for event posting: %@", error);
         return LeaguevineInvokeOK; // bad but what else can we do?
     } else {
         request.HTTPBody = jsonData;
-        NSLog(@"Posting %@ event to leaguevine: \n%@", leaguevineEvent.crud == CRUDUpdate ? @"update" : leaguevineEvent.crud == CRUDDelete ? @"delete" : @"add", [NSString stringFromData: request.HTTPBody]);
+        NSLog(@"Posting %@ event to leaguevine\nURL: %@%@", leaguevineEvent.crud == CRUDUpdate ? @"update" : leaguevineEvent.crud == CRUDDelete ? @"delete" : @"add",
+              url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringFromData: jsonData]] : @"");
         return [self postEventRequest:request forEvent:leaguevineEvent];
     }
 }
@@ -169,12 +173,12 @@
     if (sendError != nil || httpResponse.statusCode < 200) {
         NSLog(@"Request to %@ failed with http response %d error %@", request.URL, httpResponse.statusCode, sendError);
         return LeaguevineInvokeNetworkError;
-    } else if (sendError == nil && [leaguevineEvent isDelete] && (httpResponse.statusCode == 200 || httpResponse.statusCode == 204 || httpResponse.statusCode == 410)) {
+    } else if ([leaguevineEvent isDelete] && (httpResponse.statusCode == 200 || httpResponse.statusCode == 204 || httpResponse.statusCode == 410)) {
         if ( httpResponse.statusCode == 410) {
             NSLog(@"league rejected delete of event: already deleted");
         }
         return LeaguevineInvokeOK;
-    } else if (sendError == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) && responseData) {
+    } else if ((httpResponse.statusCode == 200 || httpResponse.statusCode == 201) && responseData) {
         NSError* parseError;
         NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&parseError];
         if (!parseError) {

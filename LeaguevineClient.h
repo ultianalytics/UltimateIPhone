@@ -14,7 +14,7 @@ typedef enum {
     LeaguevineInvokeCredentialsRejected,
     LeaguevineInvokeNetworkError,
     LeaguevineInvokeInvalidResponse,
-    LeaguevineInvokeInvalidGame,
+    LeaguevineInvokeInvalidGame
 } LeaguevineInvokeStatus;
 
 @interface LeaguevineClient : NSObject

@@ -18,6 +18,8 @@
 #import "DarkButton.h"
 #import "Team.h"
 #import "UIView+Convenience.h"
+#import "LeaguevineEventQueue.h"
+#import "Game.h"
 
 @interface EventChangeViewController ()
 
@@ -519,6 +521,9 @@
         if ([self.defenseEvent isPull]) {
             self.originalDefenseEvent.pullHangtimeMilliseconds = [self textFieldMs];
         }
+    }
+    if ([Game getCurrentGame].publishStatsToLeaguevine) {
+        [[LeaguevineEventQueue sharedQueue] submitChangedEvent:self.originalDefenseEvent forGame:[Game getCurrentGame]];
     }
 }
 

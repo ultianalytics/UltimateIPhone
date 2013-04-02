@@ -16,6 +16,7 @@
 #import "LeaguevineEventConverter.h"
 
 #define kTriggerDelaySeconds 15
+#define kEventFileExtension @"evt"
 
 @interface LeaguevineEventQueue()
 
@@ -100,7 +101,9 @@
         NSArray* fileNames = [files sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
         NSMutableArray* filePaths = [NSMutableArray array];
         for (NSString* fileName in fileNames) {
-            [filePaths addObject:[self.queueFolderPath stringByAppendingPathComponent:fileName]];
+            if ([[fileName pathExtension] isEqualToString:kEventFileExtension]) {
+                [filePaths addObject:[self.queueFolderPath stringByAppendingPathComponent:fileName]];
+            }
         }
         return filePaths;
     } else {
@@ -118,7 +121,7 @@
 }
 
 -(void)addEventToQueue: (LeaguevineEvent*) leaguevineEvent {
-    NSString* filePath = [self.queueFolderPath stringByAppendingPathComponent: [self nextQueueId]];
+    NSString* filePath = [[self.queueFolderPath stringByAppendingPathComponent: [self nextQueueId]] stringByAppendingPathExtension:kEventFileExtension];
     [leaguevineEvent save:filePath];
 }
 
@@ -150,8 +153,7 @@
 
 -(LeaguevineEvent*)createLeaguevineEventFor: (Event*) event inGame: (Game*)game crud: (CRUD)crud {
     LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:crud];
-    leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
-    leaguevineEvent.iUltimateTimestamp = event.timestamp;
+
     BOOL isConverted = [self.eventConverter populateLeaguevineEvent:leaguevineEvent withEvent:event fromGame:game];
     return isConverted ? leaguevineEvent : nil;
 }

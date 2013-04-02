@@ -791,4 +791,12 @@ static Game* currentGame = nil;
     return YES;
 }
 
+-(BOOL)publishStatsToLeaguevine {
+    return (self.leaguevineGame) && _publishStatsToLeaguevine;
+}
+
+-(BOOL)publishScoresToLeaguevine {
+    return (self.leaguevineGame) && _publishScoreToLeaguevine;
+}
+
 @end

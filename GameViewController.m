@@ -552,13 +552,13 @@
 }
         
 -(void)notifyLeaguevineOfNewEvent: (Event*)event {
-    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishStatsToLeaguevine) {
+    if ([Game getCurrentGame].publishStatsToLeaguevine) {
         [[LeaguevineEventQueue sharedQueue] submitNewEvent:event forGame:[Game getCurrentGame]];
     }
 }
 
 -(void)notifyLeaguevineOfRemovedEvent: (Event*)event {
-    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishStatsToLeaguevine) {
+    if ([Game getCurrentGame].publishStatsToLeaguevine) {
         [[LeaguevineEventQueue sharedQueue] submitDeletedEvent:event forGame:[Game getCurrentGame]];
     }
 }

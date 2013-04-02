@@ -21,6 +21,10 @@
 -(BOOL)populateLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent withEvent: (Event*)event fromGame: (Game*)game {
     BOOL converted = YES;
     
+    leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
+    leaguevineEvent.iUltimateTimestamp = event.timestamp;
+    leaguevineEvent.eventDescription = [event description];
+    
     int ourLeaguevineTeamId = [Team getCurrentTeam].leaguevineTeam.itemId;
     int theirLeaguevineTeamId = game.leaguevineGame.team1Id == ourLeaguevineTeamId ? game.leaguevineGame.team2Id : game.leaguevineGame.team1Id;
     

@@ -514,8 +514,6 @@
     
     // resize the throwaway button to match the margins of the first and last buttons
     CGRect buttonRect = self.throwAwayButton.frame;
-    LOG_RECT(@"playerViewTeam.frame", self.playerViewTeam.frame);
-    LOG_RECT(@"playerView1.frame", self.playerView1.frame);
     buttonRect.size.height = CGRectGetMaxY(self.playerViewTeam.frame) - CGRectGetMinY(self.playerView1.frame);
     self.throwAwayButton.frame = buttonRect;
 }

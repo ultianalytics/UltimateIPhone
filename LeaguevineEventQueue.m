@@ -8,15 +8,20 @@
 
 #import "LeaguevineEventQueue.h"
 #import "LeaguevineEvent.h"
-#import "Game.h"
+#import "LeaguevineScore.h"
 #import "LeaguevineGame.h"
+#import "LeaguevineTeam.h"
+#import "Game.h"
 #import "Event.h"
+#import "Team.h"
 #import "LeaguevinePostOperation.h"
 #import "LeaguevinePostingLog.h"
 #import "LeaguevineEventConverter.h"
 
+
 #define kTriggerDelaySeconds 15
-#define kEventFileExtension @"evt"
+#define kEventFileExtension @"event"
+#define kScoreFileExtension @"score"
 
 @interface LeaguevineEventQueue()
 
@@ -57,21 +62,41 @@
 }
 
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game {
-    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDAdd]];
+    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDAdd] forEventDescription:[event description]];
+    if ([event isGoal]) {
+        [self submitScoreForGame:game final:NO];
+    }
 }
 
 -(void)submitChangedEvent: (Event*)event forGame: (Game*)game {
-    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDUpdate]];
+    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDUpdate]  forEventDescription:[event description]];
 }
 
 -(void)submitDeletedEvent: (Event*)event forGame: (Game*)game {
-    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDDelete]];
+    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDDelete]  forEventDescription:[event description]];
+    if ([event isGoal]) {
+        [self submitScoreForGame:game final:NO];
+    }
 }
 
--(void)submitEvent: (LeaguevineEvent*) leaguevineEvent {
+-(void)submitScoreForGame: (Game*)game final: (BOOL)final {
+    LeaguevineScore* score = [self createLeaguevineScoreFor: game final:final];
+    if (score) {
+        [self addScoreToQueue:score];
+        [self triggerImmediateSubmit];
+        NSLog(@"Submitted score");
+    } else {
+        NSLog(@"Warning: submit score failed");
+    }
+}
+
+-(void)submitEvent: (LeaguevineEvent*) leaguevineEvent forEventDescription: (NSString*)eventDescription {
     if (leaguevineEvent) {
         [self addEventToQueue:leaguevineEvent];
         [self triggerImmediateSubmit];
+        NSLog(@"Submitted event \"%@\"", eventDescription);
+    } else {
+        NSLog(@"Warning: submit event  failed: %@", eventDescription);
     }
 }
 
@@ -97,11 +122,12 @@
 -(NSArray*)filesInQueueFolder {
     NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.queueFolderPath error:NULL];
     if (files && [files count] > 0) {
-        NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:NO selector:@selector(localizedCompare:)];
+        NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES selector:@selector(localizedCompare:)];
         NSArray* fileNames = [files sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
         NSMutableArray* filePaths = [NSMutableArray array];
         for (NSString* fileName in fileNames) {
-            if ([[fileName pathExtension] isEqualToString:kEventFileExtension]) {
+            NSString* extension = [fileName pathExtension];
+            if ([extension isEqualToString:kEventFileExtension] || [extension isEqualToString:kScoreFileExtension]) {
                 [filePaths addObject:[self.queueFolderPath stringByAppendingPathComponent:fileName]];
             }
         }
@@ -123,6 +149,11 @@
 -(void)addEventToQueue: (LeaguevineEvent*) leaguevineEvent {
     NSString* filePath = [[self.queueFolderPath stringByAppendingPathComponent: [self nextQueueId]] stringByAppendingPathExtension:kEventFileExtension];
     [leaguevineEvent save:filePath];
+}
+
+-(void)addScoreToQueue: (LeaguevineScore*) leaguevineScore {
+    NSString* filePath = [[self.queueFolderPath stringByAppendingPathComponent: [self nextQueueId]] stringByAppendingPathExtension:kScoreFileExtension];
+    [leaguevineScore save:filePath];
 }
 
 -(NSString*)nextQueueId {
@@ -156,6 +187,43 @@
 
     BOOL isConverted = [self.eventConverter populateLeaguevineEvent:leaguevineEvent withEvent:event fromGame:game];
     return isConverted ? leaguevineEvent : nil;
+}
+
+-(LeaguevineScore*)createLeaguevineScoreFor: (Game*)game final: (BOOL)scoreIsFinal {
+    LeaguevineGame* lvGame = game.leaguevineGame;
+    if (!lvGame) {
+        NSLog(@"Error posting LV game score: game isn't a LV game anymore");
+        return nil;
+    }
+    LeaguevineTeam* lvTeam = [Team getCurrentTeam].leaguevineTeam;
+    if (!lvGame) {
+        NSLog(@"Error posting LV game score: game team isn't a LV team anymore");
+        return nil;
+    }
+    LeaguevineScore* lvScore = [LeaguevineScore leaguevineScoreWithGameId:lvGame.itemId];
+    
+    if (lvGame.team1Id == lvTeam.itemId) {  // are we team 1?
+        lvScore.team1Score = [game getScore].ours;
+        lvScore.team2Score = [game getScore].theirs;
+    } else if (lvGame.team2Id == lvTeam.itemId) { // or team 2?
+        lvScore.team2Score = [game getScore].ours;
+        lvScore.team1Score = [game getScore].theirs;
+    } else {  // or nowhere to be found?
+        NSLog(@"Error posting LV game score: our team isn't one of the teams on the LV game");
+        return nil;
+    }
+    lvScore.final = scoreIsFinal;
+    
+    return lvScore;
+
+}
+
+-(BOOL)isEvent: (NSString*)filePath  {
+    return [[filePath pathExtension] isEqualToString:kEventFileExtension];
+}
+
+-(BOOL)isScore: (NSString*)filePath {
+    return [[filePath pathExtension] isEqualToString:kScoreFileExtension];
 }
 
 @end

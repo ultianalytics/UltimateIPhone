@@ -308,6 +308,10 @@
     self.game.leaguevineGame = leaguevineGame;
     self.game.publishScoreToLeaguevine = NO;
     self.game.publishStatsToLeaguevine = self.game.leaguevineGame && [Team getCurrentTeam].arePlayersFromLeagueVine;
+    if (self.game.publishStatsToLeaguevine) {
+        self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = 2;
+        [self updateLeaguevinePublishing];
+    }
     [self saveChanges];
     [self populateLeaguevineCells];
     [self.navigationController popViewControllerAnimated:YES];

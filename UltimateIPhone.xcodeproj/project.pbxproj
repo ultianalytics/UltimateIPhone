@@ -85,6 +85,7 @@
 		1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC9BA121621DF0A00390D3F /* chevron@2x.png */; };
 		1ACC07991627A9EB0038F934 /* PlayerSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */; };
 		1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */; };
+		1ACED4DD170BB8220041AA23 /* LeaguevineScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACED4DC170BB8220041AA23 /* LeaguevineScore.m */; };
 		1AD1231217087D0200B89BC1 /* LeaguevinePostingLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */; };
 		1AD1231B17088D0400B89BC1 /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1231A17088D0400B89BC1 /* DDFileReader.m */; };
 		1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD1231D1708A00B00B89BC1 /* LeaguevineEventConverter.m */; };
@@ -374,6 +375,8 @@
 		1ACC07971627A9EB0038F934 /* PlayerSelectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSelectionTableViewCell.h; sourceTree = "<group>"; };
 		1ACC07981627A9EB0038F934 /* PlayerSelectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSelectionTableViewCell.m; sourceTree = "<group>"; };
 		1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerSelectionTableViewCell.xib; sourceTree = "<group>"; };
+		1ACED4DB170BB8220041AA23 /* LeaguevineScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineScore.h; sourceTree = "<group>"; };
+		1ACED4DC170BB8220041AA23 /* LeaguevineScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineScore.m; sourceTree = "<group>"; };
 		1AD1231017087D0200B89BC1 /* LeaguevinePostingLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePostingLog.h; sourceTree = "<group>"; };
 		1AD1231117087D0200B89BC1 /* LeaguevinePostingLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePostingLog.m; sourceTree = "<group>"; };
 		1AD1231917088D0400B89BC1 /* DDFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
@@ -785,6 +788,8 @@
 				1A4C42D7160C87C70067BB96 /* LeaguevineResponseMeta.m */,
 				1A74B0B4170603B000D667F1 /* LeaguevineEvent.h */,
 				1A74B0B5170603B000D667F1 /* LeaguevineEvent.m */,
+				1ACED4DB170BB8220041AA23 /* LeaguevineScore.h */,
+				1ACED4DC170BB8220041AA23 /* LeaguevineScore.m */,
 				1A74B0B7170603C300D667F1 /* LeaguevineEventQueue.h */,
 				1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */,
 				1A74B0BA17073D6800D667F1 /* LeaguevinePostOperation.h */,
@@ -1558,6 +1563,7 @@
 				1AD1231217087D0200B89BC1 /* LeaguevinePostingLog.m in Sources */,
 				1AD1231B17088D0400B89BC1 /* DDFileReader.m in Sources */,
 				1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */,
+				1ACED4DD170BB8220041AA23 /* LeaguevineScore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

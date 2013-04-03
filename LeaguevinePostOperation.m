@@ -10,6 +10,7 @@
 #import "LeaguevineEventQueue.h"
 #import "LeaguevinePostingLog.h"
 #import "LeaguevineEvent.h"
+#import "LeaguevineScore.h"
 #import "LeaguevineClient.h"
 #import "CloudClient.h"
 
@@ -22,8 +23,14 @@
             // post all of the events
             LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
             for (NSString* filePath in filesInQueueFolder) {
-                if (![self postEvent: filePath usingClient:lvClient]) {
-                    break;
+                if ([[LeaguevineEventQueue sharedQueue] isEvent:filePath]) {
+                    if (![self postEvent: filePath usingClient:lvClient]) {
+                        break;
+                    }
+                } else {
+                    if (![self postScore: filePath usingClient:lvClient]) {
+                        break;
+                    }
                 }
             }
         } else {
@@ -82,5 +89,39 @@
         return YES;
     }
 }
+
+-(BOOL)postScore: (NSString*)filePath usingClient: (LeaguevineClient*)client {
+    LeaguevineScore* lvScore = [LeaguevineScore restoreFrom:filePath];
+    if (lvScore) {
+        LeaguevineInvokeStatus status = [client postGameScore:lvScore];
+        if (status == LeaguevineInvokeOK) {
+            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+            return YES;
+        } else if (status == LeaguevineInvokeNetworkError) {
+            [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
+            NSLog(@"Posting a score for %@ but leaguvine failed due to network error.", lvScore);
+            return NO;
+        } else if (status == LeaguevineInvokeCredentialsRejected) {
+            NSLog(@"Posting a score for %@ but leaguvine failed response due to invalid credentials.", lvScore);
+            return NO;
+        } else if (status == LeaguevineInvokeInvalidResponse) {
+            NSLog(@"Posting a score for %@ but leaguvine returned an invalid response.  Skipping.", lvScore);
+            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+            return YES;
+        } else if (status == LeaguevineInvokeInvalidGame) {
+            NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping.", lvScore);
+            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+            return YES;
+        } else {
+            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+            return YES;
+        }
+    } else {
+        NSLog(@"bad data...dumping the score");
+        [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+        return YES;
+    }
+}
+
 
 @end

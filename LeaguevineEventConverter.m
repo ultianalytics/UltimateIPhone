@@ -83,19 +83,14 @@
         }
         case De: {
             leaguevineEvent.leaguevineEventType = 34;
-            [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];            
+            [self populatePlayerThreeInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
             break;
         }
         case Callahan: {
             leaguevineEvent.leaguevineEventType = 38;
             leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
             leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
-            // player 3 (used only for callahan)
-            if ([event playerOne] && ![[event playerOne] isAnonymous]) {
-                leaguevineEvent.leaguevinePlayer3Id = [event playerOne].leaguevinePlayer.playerId;
-            } else {
-                leaguevineEvent.leaguevinePlayer3TeamId = ourLeaguevineTeamId;
-            }
+            [self populatePlayerThreeInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
             break;
         }
 
@@ -120,6 +115,14 @@
         leaguevineEvent.leaguevinePlayer2Id = [event playerTwo].leaguevinePlayer.playerId;
     } else {
         leaguevineEvent.leaguevinePlayer2TeamId = ourLeaguevineTeamId;
+    }
+}
+
+-(void)populatePlayerThreeInLVEvent: (LeaguevineEvent*) leaguevineEvent withEvent: (Event*)event ourLeaguevineId: (NSUInteger)ourLeaguevineTeamId {
+    if ([event playerOne] && ![[event playerOne] isAnonymous]) {
+        leaguevineEvent.leaguevinePlayer3Id = [event playerOne].leaguevinePlayer.playerId;
+    } else {
+        leaguevineEvent.leaguevinePlayer3TeamId = ourLeaguevineTeamId;
     }
 }
 

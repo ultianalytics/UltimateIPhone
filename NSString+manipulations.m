@@ -43,7 +43,7 @@
 }
 
 +(NSString*)stringFromData: (NSData*)data {
-    return data ? [NSString stringWithUTF8String:[data bytes]] : nil;
+    return data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : nil;
 }
 
 @end

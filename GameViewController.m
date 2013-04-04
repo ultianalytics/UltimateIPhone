@@ -183,7 +183,7 @@
     [[Game getCurrentGame] save]; 
     if ([event causesDirectionChange]) {
         [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
-        if ([event isGoal]) {
+        if ([event isGoal] && [Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
             [self notifyLeaguevineOfScoreIsFinal:NO];
         }
         if ([[Game getCurrentGame] doesGameAppearDone]) {
@@ -521,32 +521,30 @@
 #pragma mark Leaguevine 
 
 -(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
-    if ([Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine && ![Game getCurrentGame].publishStatsToLeaguevine) {
-        [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
-            if (status != LeaguevineInvokeOK) {
-                [Game getCurrentGame].publishScoreToLeaguevine = NO;
-                [[Game getCurrentGame] save];
-                NSString *message, *title;
-                if (status == LeaguevineInvokeCredentialsRejected) {
-                    title = kLeaguevineCredentialsRejected;
-                    message = @"You have asked to post game scores to Leaguevine but you are not signed on.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again.";
-                } else if (status == LeaguevineInvokeInvalidGame) {
-                    title = kLeaguevineGameInvalid;
-                    message = @"You have asked to post game scores to Leaguevine but your team is not associated with this game.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on choose another Leaguevine game.";
-                } else {
-                    title = kLeaguevineError;
-                    message = @"We receieved an error while trying to post to Leaguevine. \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again.";
-                }
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle: title
-                                      message: message
-                                      delegate: nil
-                                      cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                                      otherButtonTitles: nil];
-                [alert show];
+    [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
+        if (status != LeaguevineInvokeOK) {
+            [Game getCurrentGame].publishScoreToLeaguevine = NO;
+            [[Game getCurrentGame] save];
+            NSString *message, *title;
+            if (status == LeaguevineInvokeCredentialsRejected) {
+                title = kLeaguevineCredentialsRejected;
+                message = @"You have asked to post game scores to Leaguevine but you are not signed on.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again.";
+            } else if (status == LeaguevineInvokeInvalidGame) {
+                title = kLeaguevineGameInvalid;
+                message = @"You have asked to post game scores to Leaguevine but your team is not associated with this game.  \n\nScore publishing has been turned off for this game.  Return to game view to turn on choose another Leaguevine game.";
+            } else {
+                title = kLeaguevineError;
+                message = @"We receieved an error while trying to post to Leaguevine. \n\nScore publishing has been turned off for this game.  Return to game view to turn on score publishing again.";
             }
-        }];
-    }
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: title
+                                  message: message
+                                  delegate: nil
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+        }
+    }];
 }
         
 -(void)notifyLeaguevineOfNewEvent: (Event*)event {
@@ -699,7 +697,9 @@
     if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
         if (buttonIndex == 1) { // confirm game over
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
-            [self notifyLeaguevineOfScoreIsFinal:YES];
+            if ([Game getCurrentGame].isLeaguevineGame && ([Game getCurrentGame].publishScoreToLeaguevine || [Game getCurrentGame].publishStatsToLeaguevine)) {
+                [self notifyLeaguevineOfScoreIsFinal:YES];
+            }
             [self.navigationController popViewControllerAnimated:YES];
         } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
             [self goToPlayersOnFieldView];

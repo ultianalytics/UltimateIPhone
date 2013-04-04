@@ -17,7 +17,7 @@
 #import "LeaguevinePostOperation.h"
 #import "LeaguevinePostingLog.h"
 #import "LeaguevineEventConverter.h"
-
+#import "Reachability.h"
 
 #define kTriggerDelaySeconds 15
 #define kEventFileExtension @"event"
@@ -57,6 +57,7 @@
         self.triggerQueue.maxConcurrentOperationCount = 1;
         self.postingLog = [[LeaguevinePostingLog alloc] init];
         self.eventConverter = [[LeaguevineEventConverter alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerImmediateSubmit) name:kReachabilityChangedNotification object:nil];
     }
     return self;
 }

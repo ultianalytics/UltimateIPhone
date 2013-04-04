@@ -17,6 +17,7 @@
 #import "TwitterController.h"
 #import "ColorMaster.h"
 #import "LeaguevineEventQueue.h"
+#import "Reachability.h"
 
 
 @implementation AppDelegate
@@ -133,6 +134,7 @@ UINavigationController* gameNavController;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[LeaguevineEventQueue sharedQueue] triggerImmediateSubmit];
+    [[Reachability reachabilityForInternetConnection] startNotifier];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

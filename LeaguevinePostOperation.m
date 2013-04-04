@@ -12,14 +12,15 @@
 #import "LeaguevineEvent.h"
 #import "LeaguevineScore.h"
 #import "LeaguevineClient.h"
-#import "CloudClient.h"
+#import "Reachability.h"
 
 @implementation LeaguevinePostOperation
 
 -(void)main {
     NSArray* filesInQueueFolder = [[LeaguevineEventQueue sharedQueue] filesInQueueFolder];
     if ([filesInQueueFolder count] > 0) {
-        if ([CloudClient isConnected]) {
+        Reachability* reachability = [Reachability reachabilityForInternetConnection];
+        if (![reachability currentReachabilityStatus] == NotReachable) {
             // post all of the events
             LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
             for (NSString* filePath in filesInQueueFolder) {

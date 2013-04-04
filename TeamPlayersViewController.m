@@ -16,6 +16,7 @@
 #import "LeaguevineClient.h"
 #import "LeaguevineTeam.h"
 #import "LeaguevinePlayer.h"
+#import "LeagueVinePlayerNameTransformer.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
@@ -62,23 +63,28 @@
     NSUInteger row = [indexPath row];
     
     Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
+    NSString* primaryName = player.name;
+    if (player.number != nil && ![player.number isEqualToString:@""]) {
+        primaryName = [NSString stringWithFormat:@"%@ (%@)", primaryName, player.number];
+    }
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
+                initWithStyle:[Team getCurrentTeam].arePlayersFromLeagueVine ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.imageView.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [ColorMaster getFormTableCellColor];
     }
+
+    cell.textLabel.text = primaryName;
     cell.accessoryType = [Team getCurrentTeam].arePlayersFromLeagueVine ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
-    
-    NSString* text = player.name;
-    if (player.number != nil && ![player.number isEqualToString:@""]) {
-        text = [NSString stringWithFormat:@"%@ (%@)", text, player.number];
+    if ([Team getCurrentTeam].arePlayersFromLeagueVine) {
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
+    } else {
+        cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
     }
-    cell.textLabel.text = text;
-    cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    
     return cell;
 }
 
@@ -197,8 +203,9 @@
 
 - (void)handleLeagueViewRetrievalResponse:(LeaguevineInvokeStatus)status result:(id)arrayOfLVPlayers {
     if (status == LeaguevineInvokeOK) {
-        NSArray* players = [LeaguevinePlayer playersFromLeaguevinePlayers:arrayOfLVPlayers];
-        [Team getCurrentTeam].players = [NSMutableArray arrayWithArray:players];
+        NSMutableArray* updatedPlayers = [NSMutableArray arrayWithArray: [Team getCurrentTeam].players];
+        [[LeagueVinePlayerNameTransformer transformer]  updatePlayers:updatedPlayers playersFromLeaguevine:arrayOfLVPlayers];
+        [Team getCurrentTeam].players = updatedPlayers;
         [[Team getCurrentTeam] save];
         [self updateViewAnimated:NO];
         [self showWaitingView:NO animate:YES];

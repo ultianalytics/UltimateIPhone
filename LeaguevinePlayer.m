@@ -94,14 +94,5 @@
     return player;
 }
 
-+(NSArray*)playersFromLeaguevinePlayers: (NSArray*)leaguevinePlayers {
-    NSMutableArray* players = [NSMutableArray array];
-    for (LeaguevinePlayer* leaguevinePlayer in leaguevinePlayers) {
-        Player* player = [leaguevinePlayer asPlayer];
-        [players addObject:player];
-    }
-    return players;
-}
-
 @end
 

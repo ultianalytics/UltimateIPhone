@@ -10,6 +10,8 @@
 
 @interface LeaguevineWaitingViewController ()
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+
 @end
 
 @implementation LeaguevineWaitingViewController
@@ -18,21 +20,27 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Cancel";
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidUnload {
+    [self setCancelButton:nil];
+    [super viewDidUnload];
+}
+
+- (IBAction)cancelTapped:(id)sender {
+    if (self.cancelBlock) {
+        self.cancelBlock();
+    }
+    
 }
 
 @end

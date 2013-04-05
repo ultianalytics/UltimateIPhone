@@ -10,4 +10,6 @@
 
 @interface LeaguevineWaitingViewController : UIViewController
 
+@property (strong, nonatomic) void (^cancelBlock)();
+
 @end

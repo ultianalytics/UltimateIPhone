@@ -71,6 +71,8 @@
 		1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A999EF516062B8F0015B891 /* leaguevine_logo.png */; };
 		1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */; };
 		1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */; };
+		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
+		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE077159627B9004C03A1 /* CalloutsContainerView.m */; };
 		1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */; };
 		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
@@ -354,6 +356,9 @@
 		1A999F0916063CDC0015B891 /* LeagueVineTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineTeamViewController.h; sourceTree = "<group>"; };
 		1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineTeamViewController.m; sourceTree = "<group>"; };
 		1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueVineTeamViewController.xib; sourceTree = "<group>"; };
+		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
+		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
+		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
 		1AACE076159627B9004C03A1 /* CalloutsContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutsContainerView.h; sourceTree = "<group>"; };
 		1AACE077159627B9004C03A1 /* CalloutsContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutsContainerView.m; sourceTree = "<group>"; };
 		1AACE07915974D87004C03A1 /* CloudMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudMetaInfo.h; sourceTree = "<group>"; };
@@ -727,6 +732,9 @@
 				1AD50DF91615C9A600605947 /* LeagueVineGameViewController.xib */,
 				1ACED4DE170D945A0041AA23 /* LeagueVinePlayerNameTransformer.h */,
 				1ACED4DF170D945A0041AA23 /* LeagueVinePlayerNameTransformer.m */,
+				1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */,
+				1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */,
+				1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */,
 			);
 			name = LeagueVine;
 			sourceTree = "<group>";
@@ -1433,6 +1441,7 @@
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
+				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1570,6 +1579,7 @@
 				1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */,
 				1ACED4DD170BB8220041AA23 /* LeaguevineScore.m in Sources */,
 				1ACED4E0170D945A0041AA23 /* LeagueVinePlayerNameTransformer.m in Sources */,
+				1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

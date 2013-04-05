@@ -182,14 +182,20 @@
     if (animate) {
         UIView* fromView = show ? self.playersView : self.waitingView;
         UIView* toView = show ? self.waitingView : self.playersView;
-        [UIView  transitionFromView:fromView toView:toView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:nil];
+        [UIView  transitionFromView:fromView toView:toView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+            if (show) {
+                [self.spinner startAnimating];
+            } else {
+                [self.spinner startAnimating];
+            }
+        }];
+    } else {
+        self.waitingView.hidden = !show;
         if (show) {
             [self.spinner startAnimating];
         } else {
-            [self.spinner startAnimating];            
+            [self.spinner startAnimating];
         }
-    } else {
-        self.waitingView.hidden = !show;
     }
 }
 

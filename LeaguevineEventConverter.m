@@ -62,7 +62,7 @@
             break;
         }
         case Stall: {
-            leaguevineEvent.leaguevineEventType = 52;
+            leaguevineEvent.leaguevineEventType = 51;
             [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];            
             break;
         }

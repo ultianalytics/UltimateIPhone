@@ -195,6 +195,10 @@
 
 -(void)refreshPlayersFromLeagueVine {
     [self showWaitingView:YES animate:YES];
+    [self performSelectorInBackground:@selector(startLeaguevinePlayerRetrieve) withObject:nil];
+}
+
+-(void)startLeaguevinePlayerRetrieve {
     LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
     [lvClient retrievePlayersForTeam:[Team getCurrentTeam].leaguevineTeam.itemId completion:^(LeaguevineInvokeStatus status, id result) {
         [self handleLeagueViewRetrievalResponse:status result:result];

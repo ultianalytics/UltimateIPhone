@@ -31,7 +31,7 @@ UINavigationController* gameNavController;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // start up test flight SDK
-    [TestFlight takeOff:@"01dff7f7ad89edec89a36930e359a707_NjE1NDUyMDEyLTAyLTEyIDEzOjM5OjU0Ljc5NDg1OQ"];
+    [TestFlight takeOff:@"d8b09015-d74c-461d-993c-e7e378ebbeb5"];
     
     [self setupGlobalAppearance];
      

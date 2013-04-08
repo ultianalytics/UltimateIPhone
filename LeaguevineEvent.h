@@ -10,7 +10,7 @@
 
 typedef enum {
     CRUDAdd=0,
-    CRUDUpdate,
+    CRUDUpdate,   // line changes are always update
     CRUDDelete
 } CRUD;
 
@@ -27,6 +27,7 @@ typedef enum {
 @property (nonatomic) NSUInteger leaguevinePlayer3TeamId;
 @property (nonatomic) NSUInteger leaguevineEventId;
 @property (nonatomic) NSTimeInterval iUltimateTimestamp;
+@property (nonatomic, strong) NSArray* newLine;
 @property (nonatomic) NSString* eventDescription;
 
 +(LeaguevineEvent*)leaguevineEventWithCrud: (CRUD)crud;

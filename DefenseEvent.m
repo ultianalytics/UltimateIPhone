@@ -148,7 +148,7 @@
 }
 
 - (BOOL) isNextEventOffense {
-    return [self isTurnover] || self.action == Goal;
+    return ![self isCallahan] && ([self isTurnover] || [self isGoal]);
 }
 
 - (NSArray*) getPlayers {

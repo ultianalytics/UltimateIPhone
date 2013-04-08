@@ -21,6 +21,7 @@
 #define kPlayer1TeamId @"player_1_team_id"
 #define kPlayer2TeamId @"player_2_team_id"
 #define kPlayer3TeamId @"player_3_team_id"
+#define kLineChange @"line_change"
 #define kDescription @"description"
 
 
@@ -70,6 +71,7 @@
         self.leaguevinePlayer3TeamId = [decoder decodeIntForKey:kPlayer3TeamId];
         self.iUltimateTimestamp = [decoder decodeDoubleForKey:kTimestamp];
         self.eventDescription = [decoder decodeObjectForKey:kDescription];
+        self.newLine = [decoder decodeObjectForKey:kLineChange];
         self.crud = [decoder decodeIntForKey:kCrud];
    }
     return self;
@@ -85,13 +87,14 @@
     [encoder encodeInt:self.leaguevinePlayer1TeamId forKey:kPlayer1TeamId];
     [encoder encodeInt:self.leaguevinePlayer2TeamId forKey:kPlayer2TeamId];
     [encoder encodeInt:self.leaguevinePlayer3TeamId forKey:kPlayer3TeamId];
+    [encoder encodeObject:self.newLine forKey:kLineChange];
     [encoder encodeDouble:self.iUltimateTimestamp forKey:kTimestamp];
     [encoder encodeObject:self.eventDescription forKey:kDescription];
     [encoder encodeInt:self.crud forKey:kCrud];
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat: @"LeaguevineEvent \"%@\" iUltimateTimestamp=%f, leaguevineEventId=%d, leaguevineGameId=%d, leaguevinePlayer1Id=%d, leaguevinePlayer2Id=%d, leaguevinePlayer3Id=%d, leaguevinePlayer1TeamId=%d, leaguevinePlayer2TeamId=%d, leaguevinePlayer3TeamId=%d", self.eventDescription, self.iUltimateTimestamp, self.leaguevineEventId, self.leaguevineGameId, self.leaguevinePlayer1Id, self.leaguevinePlayer2Id, self.leaguevinePlayer3Id, self.leaguevinePlayer1TeamId, self.leaguevinePlayer2TeamId, self.leaguevinePlayer3TeamId];
+    return [NSString stringWithFormat: @"LeaguevineEvent \"%@\" iUltimateTimestamp=%f, leaguevineEventId=%d, leaguevineGameId=%d, leaguevinePlayer1Id=%d, leaguevinePlayer2Id=%d, leaguevinePlayer3Id=%d, leaguevinePlayer1TeamId=%d, leaguevinePlayer2TeamId=%d, leaguevinePlayer3TeamId=%d, newLine=%@", self.eventDescription, self.iUltimateTimestamp, self.leaguevineEventId, self.leaguevineGameId, self.leaguevinePlayer1Id, self.leaguevinePlayer2Id, self.leaguevinePlayer3Id, self.leaguevinePlayer1TeamId, self.leaguevinePlayer2TeamId, self.leaguevinePlayer3TeamId, self.newLine];
 }
 
 -(BOOL)isAdd {

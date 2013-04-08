@@ -17,6 +17,7 @@
 #import "LeaguevineTeam.h"
 #import "LeaguevinePlayer.h"
 #import "LeagueVinePlayerNameTransformer.h"
+#import "LeaguevineWaitingViewController.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
@@ -34,10 +35,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *leaguevinePlayersDownloadedLabel;
 
 @property (strong, nonatomic) UIBarButtonItem *addNavBarItem;
-
-@property (strong, nonatomic) IBOutlet UIView *waitingView;
-@property (strong, nonatomic) IBOutlet UILabel *busyLabel;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) LeaguevineWaitingViewController* waitingViewController;
 
 @property (strong, nonatomic) void (^alertAction)();
 
@@ -178,30 +176,16 @@
 
 #pragma mark - Leaguevine
 
--(void)showWaitingView: (BOOL)show animate: (BOOL)animate {
-    if (animate) {
-        UIView* fromView = show ? self.playersView : self.waitingView;
-        UIView* toView = show ? self.waitingView : self.playersView;
-        [UIView  transitionFromView:fromView toView:toView duration:0.4 options: UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            if (show) {
-                [self.spinner startAnimating];
-            } else {
-                [self.spinner startAnimating];
-            }
-        }];
-    } else {
-        self.waitingView.hidden = !show;
-        if (show) {
-            [self.spinner startAnimating];
-        } else {
-            [self.spinner startAnimating];
-        }
-    }
-}
-
 -(void)refreshPlayersFromLeagueVine {
-    [self showWaitingView:YES animate:YES];
-    [self performSelectorInBackground:@selector(startLeaguevinePlayerRetrieve) withObject:nil];
+    self.waitingViewController = [[LeaguevineWaitingViewController alloc] init];
+    self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    __weak TeamPlayersViewController* weakSelf = self;
+    self.waitingViewController.cancelBlock = ^{
+        [weakSelf dismissWaitingViewWithSuccess: NO];
+    };
+    [self presentViewController:self.waitingViewController animated:YES completion:^{
+        [self performSelectorInBackground:@selector(startLeaguevinePlayerRetrieve) withObject:nil];
+    }];
 }
 
 -(void)startLeaguevinePlayerRetrieve {
@@ -212,17 +196,20 @@
 }
 
 - (void)handleLeagueViewRetrievalResponse:(LeaguevineInvokeStatus)status result:(id)arrayOfLVPlayers {
-    if (status == LeaguevineInvokeOK) {
-        NSMutableArray* updatedPlayers = [NSMutableArray arrayWithArray: [Team getCurrentTeam].players];
-        [[LeagueVinePlayerNameTransformer transformer]  updatePlayers:updatedPlayers playersFromLeaguevine:arrayOfLVPlayers];
-        [Team getCurrentTeam].players = updatedPlayers;
-        [[Team getCurrentTeam] save];
-        [self updateViewAnimated:NO];
-        [self showWaitingView:NO animate:YES];
-        [self brieflyShowLeaguvineDownloadSuccessMessage];
-    } else {
-        [self.spinner stopAnimating];
-        [self alertFailure:status];
+    if (self.waitingViewController) {  // nil if cancelled
+        if (status == LeaguevineInvokeOK) {
+            NSMutableArray* updatedPlayers = [NSMutableArray arrayWithArray: [Team getCurrentTeam].players];
+            [[LeagueVinePlayerNameTransformer transformer]  updatePlayers:updatedPlayers playersFromLeaguevine:arrayOfLVPlayers];
+            [Team getCurrentTeam].players = updatedPlayers;
+            [[Team getCurrentTeam] save];
+            [self updateViewAnimated:NO];
+            __weak TeamPlayersViewController* weakSelf;
+            [self dismissViewControllerAnimated:YES completion:^{
+                [weakSelf dismissWaitingViewWithSuccess:YES];
+            }];
+        } else {
+            [self alertFailure:status];
+        }
     }
 }
 
@@ -255,6 +242,16 @@
         [[Team getCurrentTeam] save];
         [self updateViewAnimated:YES];
     }
+}
+
+-(void)dismissWaitingViewWithSuccess: (BOOL)success {
+    self.waitingViewController = nil;
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.waitingViewController = nil;
+        if (success) {
+            [self brieflyShowLeaguvineDownloadSuccessMessage];
+        }
+    }];
 }
 
 #pragma mark Leaguevine Event Handlers
@@ -349,7 +346,7 @@
         }
     } else if ([alertView.title isEqualToString: kAlertErrorTitle]) {
         [self updateViewAnimated: NO];
-        [self showWaitingView:NO animate:YES];
+        [self dismissWaitingViewWithSuccess:NO];
     }
     
 }

@@ -14,6 +14,8 @@ typedef enum {
     CRUDDelete
 } CRUD;
 
+#define kLineChangeEventType 888
+
 @interface LeaguevineEvent : NSObject
 
 @property (nonatomic) CRUD crud;

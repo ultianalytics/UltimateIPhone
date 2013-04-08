@@ -13,5 +13,6 @@
 
 -(void)logLeaguevineEvent: (LeaguevineEvent*)event;
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp;
+-(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId;
 
 @end

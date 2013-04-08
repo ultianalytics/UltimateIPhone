@@ -6,18 +6,21 @@
 //  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
+#import "Reachability.h"
+#import "UniqueTimestampGenerator.h"
 #import "LeaguevineEventQueue.h"
 #import "LeaguevineEvent.h"
 #import "LeaguevineScore.h"
 #import "LeaguevineGame.h"
 #import "LeaguevineTeam.h"
-#import "Game.h"
-#import "Event.h"
-#import "Team.h"
+#import "LeaguevinePlayer.h"
 #import "LeaguevinePostOperation.h"
 #import "LeaguevinePostingLog.h"
 #import "LeaguevineEventConverter.h"
-#import "Reachability.h"
+#import "Game.h"
+#import "Event.h"
+#import "Team.h"
+#import "Player.h"
 
 #define kTriggerDelaySeconds 15
 #define kEventFileExtension @"event"
@@ -78,6 +81,10 @@
     if ([event isGoal]) {
         [self submitScoreForGame:game final:NO];
     }
+}
+
+-(void)submitLineChangeForGame: (Game*)game {
+    [self addEventToQueue:[self createLineChangeEventForGame:game]];
 }
 
 -(void)submitScoreForGame: (Game*)game final: (BOOL)final {
@@ -189,6 +196,24 @@
     BOOL isConverted = [self.eventConverter populateLeaguevineEvent:leaguevineEvent withEvent:event fromGame:game];
     return isConverted ? leaguevineEvent : nil;
 }
+
+-(LeaguevineEvent*)createLineChangeEventForGame: (Game*)game {
+    LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:CRUDUpdate];
+    leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
+    leaguevineEvent.leaguevineEventType = kLineChangeEventType;  
+    leaguevineEvent.iUltimateTimestamp = [[UniqueTimestampGenerator sharedGenerator] uniqueTimeIntervalSinceReferenceDateSeconds];
+    
+    NSMutableArray* leaguevinePlayerIds = [NSMutableArray array];
+    for (Player* player in game.currentLine) {
+        NSUInteger playerId = player.leaguevinePlayer.playerId;
+        if (playerId) {
+            [leaguevinePlayerIds addObject:[NSNumber numberWithInt:playerId]];
+        }
+    }
+    
+    return leaguevineEvent;
+}
+
 
 -(LeaguevineScore*)createLeaguevineScoreFor: (Game*)game final: (BOOL)scoreIsFinal {
     LeaguevineGame* lvGame = game.leaguevineGame;

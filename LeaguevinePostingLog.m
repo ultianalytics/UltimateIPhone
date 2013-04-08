@@ -12,6 +12,8 @@
 #import "DDFileReader.h"
 #import "NSString+manipulations.h"
 
+#define kLineChangePlayerIdsSeparator @"|"
+
 @interface LeaguevinePostingLog()
 
 @property (nonatomic, strong) NSString* currentLogFilePath;
@@ -25,8 +27,16 @@
 
 
 -(void)logLeaguevineEvent: (LeaguevineEvent*)event {
-    // format: {timestamp}/{leavuevine-id}
-    [self appendToLog:[NSString stringWithFormat:@"%f/%lu/%@\n", event.iUltimateTimestamp, (unsigned long)event.leaguevineEventId, [event crudDescription]]];
+    // format: {log-record-version}/{timestamp}/{leavuevine-id}/{game-id}/{event-type}/{UNUSED}/{array-of-LV-player-ids-for-line-change-event}/{description}
+    [self appendToLog:[NSString stringWithFormat:@"%d/%@/%f/%lu/%d/%@/%@/%@\n",
+                       event.leaguevineEventType,
+                       @"V1",
+                       event.iUltimateTimestamp,
+                       (unsigned long)event.leaguevineEventId,
+                       event.leaguevineGameId,
+                       @"",  // unused
+                       [self lineChangePlayersAsString:event],
+                       [event crudDescription]]];
 }
 
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {
@@ -37,6 +47,14 @@
         eventId = [self leaguevineEventIdForTimestamp:eventTimestamp inFile:otherLogFilePath];
     }
     return eventId;
+}
+
+-(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId {
+    NSArray* lastLineChangePlayerIds = [self lastLinePostedForGameId:gameId inFile:self.currentLogFilePath];
+    if (!lastLineChangePlayerIds) {
+        lastLineChangePlayerIds = [self lastLinePostedForGameId:gameId inFile:self.currentLogFilePath == self.logAPath ? self.logBPath : self.logAPath];
+    }
+    return lastLineChangePlayerIds;
 }
 
 #pragma mark Private
@@ -73,13 +91,40 @@
         NSString * line = nil;
         while ((line = [reader readLine])) {
             NSArray* fields = [line pathComponents];
-            NSTimeInterval recordTimestamp = [[fields objectAtIndex:0] doubleValue];
+            NSTimeInterval recordTimestamp = [[fields objectAtIndex:2] doubleValue];
             if (recordTimestamp == eventTimestamp) {
-                return [[fields objectAtIndex:1] intValue];
+                return [[fields objectAtIndex:3] intValue];
             }
         }
     }
     return 0;
+}
+
+-(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId inFile: (NSString*)filePath{
+    NSString* lineChangeEventTypeRecordPrefix = [NSString stringWithFormat:@"%d/", kLineChangeEventType];
+    NSString* lastLineChangeEventTypeRecord;
+    // find last logged line record for this game in the file
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        DDFileReader * reader = [[DDFileReader alloc] initWithFilePath:filePath];
+        NSString * line = nil;
+        while ((line = [reader readLine])) {
+            if ([line hasPrefix:lineChangeEventTypeRecordPrefix]) {  // is it a line change event?
+                NSArray* fields = [line pathComponents];
+                NSTimeInterval recordGameId = [[fields objectAtIndex:4] intValue];
+                if (gameId == recordGameId) {
+                    lastLineChangeEventTypeRecord = line;
+                }
+            }
+        }
+    }
+    // if we found one, return the players in the line change
+    if (lastLineChangeEventTypeRecord) {
+        NSArray* fields = [lastLineChangeEventTypeRecord pathComponents];
+        NSString* lineChangePlayerArrayAsString = [fields objectAtIndex:6];
+        return [self lineChangePlayersAsArray: lineChangePlayerArrayAsString];
+    } else {
+        return nil;
+    }
 }
 
 -(void)initFilePaths {
@@ -144,6 +189,31 @@
         if (![[NSFileManager defaultManager] removeItemAtPath:self.currentLogFilePath error:&error]) {
 			NSLog(@"Delete file error: %@", error);
 		}
+    }
+}
+
+-(NSString*)lineChangePlayersAsString: (LeaguevineEvent*)event {
+    NSString* lineChangePlayerIdsAsString = @"";
+    if (event.leaguevineEventType == kLineChangeEventType && event.latestLine) {
+        NSMutableArray* playerIdStrings = [NSMutableArray array];
+        for (NSNumber* playerId in event.latestLine) {
+            [playerIdStrings addObject:[NSString stringWithFormat:@"%d", playerId.intValue]];
+        }
+        lineChangePlayerIdsAsString = [playerIdStrings componentsJoinedByString: kLineChangePlayerIdsSeparator];
+    }
+    return lineChangePlayerIdsAsString;
+}
+
+-(NSArray*)lineChangePlayersAsArray: (NSString*)lineChangePlayerArrayAsString {
+    if ([lineChangePlayerArrayAsString isNotEmpty]) {
+        NSArray* playerIdStrings = [lineChangePlayerArrayAsString componentsSeparatedByString: kLineChangePlayerIdsSeparator];
+        NSMutableArray* playerIds = [NSMutableArray arrayWithCapacity:[playerIdStrings count]];
+        for (NSString* playerIdString in playerIdStrings) {
+            [playerIds addObject: [NSNumber numberWithInt:[playerIdString intValue]]];
+        }
+        return playerIds;
+    } else {
+        return [NSArray array];
     }
 }
 

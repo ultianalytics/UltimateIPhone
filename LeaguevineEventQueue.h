@@ -18,6 +18,7 @@
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game;
 -(void)submitChangedEvent: (Event*)event forGame: (Game*)game;
 -(void)submitDeletedEvent: (Event*)event forGame: (Game*)game;
+-(void)submitLineChangeForGame: (Game*)game;
 -(void)submitScoreForGame: (Game*)game final: (BOOL)final;
 -(void)triggerImmediateSubmit;
 -(BOOL)isEvent: (NSString*)filePath;

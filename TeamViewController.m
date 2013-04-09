@@ -44,6 +44,12 @@
 
 -(void)populateViewFromModel {
     [self.teamNameField setText:([self.team.name isEqualToString: kAnonymousTeam] ? @"" : self.team.name)];
+    if ([self.team isLeaguevineTeam] && self.team.arePlayersFromLeagueVine) {
+        self.team.isMixed = NO;
+        self.teamTypeSegmentedControl.enabled = NO;
+    } else {
+        self.teamTypeSegmentedControl.enabled = YES;
+    }
     [self.teamTypeSegmentedControl setSelection: self.team.isMixed ? @"Mixed" : @"Uni"];
     [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];
     [self populateLeagueVineTeamCell];
@@ -341,6 +347,16 @@
 #pragma mark Leaguevine
 
 -(void)handleLeaguevineTeamNeedsSelection {
+    if (self.team.leaguevineTeam && [self.team hasGames]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Cannot change leaguevine team now"
+                              message:@"The leaguevine team can no longer be changed because games have been created using this team.\n\nPlease create a new team instead."
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     LeagueVineTeamViewController* leagueController = [[LeagueVineTeamViewController alloc] init];
     leagueController.team = self.team;
     leagueController.selectedBlock = ^(LeaguevineTeam* leaguevineTeam) {

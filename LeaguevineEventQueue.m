@@ -84,7 +84,7 @@
 }
 
 -(void)submitLineChangeForGame: (Game*)game {
-    [self addEventToQueue:[self createLineChangeEventForGame:game]];
+    [self submitEvent:[self createLineChangeEventForGame:game] forEventDescription:@"line change"];
 }
 
 -(void)submitScoreForGame: (Game*)game final: (BOOL)final {
@@ -110,6 +110,10 @@
 
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {
     return [self.postingLog leaguevineEventIdForTimestamp: eventTimestamp];
+}
+
+-(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId {
+    return [self.postingLog lastLinePostedForGameId:gameId];
 }
 
 #pragma mark - Trigger queue
@@ -210,6 +214,7 @@
             [leaguevinePlayerIds addObject:[NSNumber numberWithInt:playerId]];
         }
     }
+    leaguevineEvent.latestLine = leaguevinePlayerIds;
     
     return leaguevineEvent;
 }

@@ -57,6 +57,7 @@
 -(void)delete;
 -(void)addEvent: (Event*) event;
 -(BOOL)hasEvents;
+-(BOOL)hasOneEvent;
 -(void)removeLastEvent;
 -(Event*)getLastEvent;
 -(NSArray*)getLastEvents: (int) numberToRetrieve;

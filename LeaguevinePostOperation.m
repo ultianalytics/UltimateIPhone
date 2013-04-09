@@ -53,36 +53,40 @@
 
 -(BOOL)postEvent: (NSString*)filePath usingClient: (LeaguevineClient*)client {
     LeaguevineEvent* event = [LeaguevineEvent restoreFrom:filePath];
-    if (event) {
-        if ([event isUpdateOrDelete]) {
-            event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue] leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
-            if (!event.leaguevineEventId) {
-                NSLog(@"Posting an event for %@ but the previous add event was not found in log.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+    if (event) {    
+        if ([event isLineChange]) {
+            return [self postLineChangeEvent:filePath usingClient:client];
+        } else {
+            if ([event isUpdateOrDelete]) {
+                event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue] leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
+                if (!event.leaguevineEventId) {
+                    NSLog(@"Posting an event for %@ but the previous add event was not found in log.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+                    [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+                    return YES;
+                }
+            }
+            LeaguevineInvokeStatus status = [client postEvent:event];
+            if (status == LeaguevineInvokeOK) {
+                [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:event];
+                [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+                return YES;
+            } else if (status == LeaguevineInvokeNetworkError) {
+                [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
+                return NO;
+            } else if (status == LeaguevineInvokeCredentialsRejected) {
+                return NO;
+            } else if (status == LeaguevineInvokeInvalidResponse) {
+                NSLog(@"Posting an event for %@ but leaguvine returned an invalid response.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+                [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+                return YES;
+            } else if (status == LeaguevineInvokeInvalidGame) {
+                NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+                [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+                return YES;
+            } else {
                 [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
                 return YES;
             }
-        }
-        LeaguevineInvokeStatus status = [client postEvent:event];
-        if (status == LeaguevineInvokeOK) {
-            [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:event];
-            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
-            return YES;
-        } else if (status == LeaguevineInvokeNetworkError) {
-            [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
-            return NO;
-        } else if (status == LeaguevineInvokeCredentialsRejected) {
-            return NO;
-        } else if (status == LeaguevineInvokeInvalidResponse) {
-            NSLog(@"Posting an event for %@ but leaguvine returned an invalid response.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
-            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
-            return YES;
-        } else if (status == LeaguevineInvokeInvalidGame) {
-            NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
-            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
-            return YES;
-        } else {
-            [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
-            return YES;
         }
     } else {
         NSLog(@"bad data...dumping the event");
@@ -124,6 +128,65 @@
     }
 }
 
+#pragma Line Changes
 
+-(BOOL)postLineChangeEvent: (NSString*)filePath usingClient: (LeaguevineClient*)client {
+    LeaguevineEvent* lineChangeEvent = [LeaguevineEvent restoreFrom:filePath];
+    // create a list of events to sub out old and sub in new
+    NSArray* newLine = lineChangeEvent.latestLine;
+    NSArray* oldLine = [[LeaguevineEventQueue sharedQueue] lastLinePostedForGameId:lineChangeEvent.leaguevineGameId];
+    NSMutableArray* events = [self subOutEventsFor:lineChangeEvent.leaguevineGameId oldLine:oldLine newLine:newLine];
+    [events addObjectsFromArray:[self subInEventsFor:lineChangeEvent.leaguevineGameId oldLine:oldLine newLine:newLine]];
+    
+    BOOL ok = YES;
+    for (LeaguevineEvent* substitutionEvent in events) {
+        substitutionEvent.iUltimateTimestamp = lineChangeEvent.iUltimateTimestamp;
+        LeaguevineInvokeStatus status = [client postEvent:substitutionEvent];
+        if (status != LeaguevineInvokeOK) {
+           if (status == LeaguevineInvokeNetworkError) {
+                [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
+                ok = NO;
+            } else if (status == LeaguevineInvokeCredentialsRejected) {
+                ok = NO;
+            } else if (status == LeaguevineInvokeInvalidResponse) {
+                NSLog(@"Posting a line change event but leaguvine returned an invalid response.  Skipping subsitution event %@", substitutionEvent);
+            } else if (status == LeaguevineInvokeInvalidGame) {
+                NSLog(@"Posting a line change event but leaguvine rejected it as invalid game.  Skipping subsitution event %@", substitutionEvent);
+            }
+        }
+        if (!ok) {
+            return NO;
+        }
+    }
+    [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:lineChangeEvent];
+    [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
+    return YES;
+}
+
+-(NSMutableArray*)subOutEventsFor: (NSUInteger)gameId oldLine: (NSArray*)oldLine newLine:(NSArray*)newLine {
+    NSMutableSet* subOutEvents = oldLine ? [NSMutableSet setWithArray:oldLine] : [NSMutableSet set];
+    [subOutEvents minusSet: newLine ? [NSMutableSet setWithArray:newLine] : [NSMutableSet set]];
+    return [self subEventsForGame:gameId withPlayerIds:subOutEvents isOut: YES];
+}
+
+-(NSMutableArray*)subInEventsFor: (NSUInteger)gameId oldLine: (NSArray*)oldLine newLine:(NSArray*)newLine {
+    NSMutableSet* subInEvents = newLine ? [NSMutableSet setWithArray:newLine] : [NSMutableSet set];
+    [subInEvents minusSet: oldLine ? [NSMutableSet setWithArray:oldLine] : [NSMutableSet set]];
+    return [self subEventsForGame:gameId withPlayerIds:subInEvents isOut: NO];
+}
+
+-(NSMutableArray*)subEventsForGame: (NSUInteger)gameId withPlayerIds: (NSSet*)playerIds isOut: (BOOL)subOut {
+    NSUInteger eventType = subOut ? 81 : 80;
+    NSMutableArray* events = [NSMutableArray array];
+    for (NSNumber* playerId in playerIds) {
+        LeaguevineEvent* lvEvent = [LeaguevineEvent leaguevineEventWithCrud:CRUDAdd];
+        lvEvent.leaguevineGameId = gameId;
+        lvEvent.eventDescription = [NSString stringWithFormat: @"substitution %@", subOut ? @"out" : @"in"];
+        lvEvent.leaguevinePlayer1Id = playerId.intValue;
+        lvEvent.leaguevineEventType = eventType;
+        [events addObject:lvEvent];
+    }
+    return events;
+}
 
 @end

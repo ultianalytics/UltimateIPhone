@@ -120,7 +120,7 @@
     // if we found one, return the players in the line change
     if (lastLineChangeEventTypeRecord) {
         NSArray* fields = [lastLineChangeEventTypeRecord pathComponents];
-        NSString* lineChangePlayerArrayAsString = [fields objectAtIndex:6];
+        NSString* lineChangePlayerArrayAsString = [fields objectAtIndex:5];
         return [self lineChangePlayersAsArray: lineChangePlayerArrayAsString];
     } else {
         return nil;

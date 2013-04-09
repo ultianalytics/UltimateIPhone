@@ -25,6 +25,7 @@
 #import "SubstitutionViewController.h"
 #import "PlayerSubstitution.h"
 #import "UIView+Convenience.h"
+#import "LeaguevineEventQueue.h"
 
 #define kIsNotFirstPickPlayerViewUsage @"IsNotFirstPickPlayerViewUsage"
 #define kSetHalfimeText @"Halftime"
@@ -276,6 +277,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self toggleFirstTimeUsageCallouts];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    // parent is nil if this view controller was removed (back button pressed)
+    if (!parent && [self.game isLeaguevineGame] &&  self.game.publishStatsToLeaguevine) {
+        [[LeaguevineEventQueue sharedQueue] submitLineChangeForGame:self.game];
+    }
 }
 
 - (void)didReceiveMemoryWarning

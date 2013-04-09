@@ -28,5 +28,6 @@
 -(NSArray*)filesInQueueFolder;
 -(void)removeEvent: (NSString*)filePath;
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp;
+-(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId;
 
 @end

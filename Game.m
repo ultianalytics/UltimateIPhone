@@ -421,6 +421,10 @@ static Game* currentGame = nil;
     return [self.points count] > 1 || [[self getCurrentPoint] getNumberOfEvents] > 0;
 }
 
+-(BOOL)hasOneEvent {
+    return [self.points count] == 1 || [[self getCurrentPoint] getNumberOfEvents] == 1;
+}
+
 -(void)removeLastEvent {
     if ([self getCurrentPoint] != nil) {
         Event* lastEvent = [self getLastEvent];

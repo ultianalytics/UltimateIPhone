@@ -126,4 +126,8 @@
     return self.crud == CRUDDelete || self.crud == CRUDUpdate;
 }
 
+-(BOOL)isLineChange {
+    return self.leaguevineEventType == kLineChangeEventType;
+}
+
 @end

@@ -549,6 +549,9 @@
         
 -(void)notifyLeaguevineOfNewEvent: (Event*)event {
     if ([Game getCurrentGame].publishStatsToLeaguevine) {
+        if ([[Game getCurrentGame] hasOneEvent]) {
+            [[LeaguevineEventQueue sharedQueue] submitLineChangeForGame:[Game getCurrentGame]];  // submit initial line
+        }
         [[LeaguevineEventQueue sharedQueue] submitNewEvent:event forGame:[Game getCurrentGame]];
     }
 }

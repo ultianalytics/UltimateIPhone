@@ -57,6 +57,10 @@
     return self.name;
 }
 
+-(NSString*)shortDescription {
+    return [self listDescription];
+}
+
 @end
 
 

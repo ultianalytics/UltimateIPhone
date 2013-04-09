@@ -384,7 +384,7 @@
 
 - (void) updateAutoTweetingNotice {
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
-    BOOL isLeaguevinePosting = [Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine;
+    BOOL isLeaguevinePosting = [Game getCurrentGame].isLeaguevineGame && ([Game getCurrentGame].publishScoreToLeaguevine || [Game getCurrentGame].publishStatsToLeaguevine);
     self.broadcast1Label.hidden = !isAutoTweeting;
     self.broadcast2Label.hidden = !isLeaguevinePosting;
 

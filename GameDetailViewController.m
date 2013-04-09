@@ -290,7 +290,7 @@
 }
 
 -(void)populateLeaguevineCells {
-    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame opponentDescription] : @"NOT SET";
+    self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame shortDescription] : @"NOT SET";
     self.pubToLeaguevineSegmentedControl.enabled = self.game.leaguevineGame != nil;
     if ([Team getCurrentTeam].arePlayersFromLeagueVine && self.pubToLeaguevineSegmentedControl.numberOfSegments < 3) {
         [self.pubToLeaguevineSegmentedControl insertSegmentWithTitle:@"Stats" atIndex:2 animated:NO];

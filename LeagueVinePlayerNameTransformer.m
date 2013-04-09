@@ -40,6 +40,8 @@
         if (![[self nicknameFromFirstAndLast:newLvPlayer] isEqualToString:[self nicknameFromFirstAndLast:oldLvPlayer]]) {
             [self renamePlayer:player from:player.name to:[self preferredUniqueName:newLvPlayer]];
         }
+        player.leaguevinePlayer = newLvPlayer;
+        player.number = [NSString stringWithFormat: @"%d", newLvPlayer.number];
     }
     
     // add new players with unique preferred names

@@ -11,6 +11,7 @@
 #import "Team.h"
 #import "LeaguevineTeam.h"
 #import "LeaguevineTournament.h"
+#import "NSDate+Utilities.h"
 
 #define kLeaguevineGameStartTime @"start_time"
 #define kLeaguevineGameTeam1Id @"team_1_id"
@@ -111,6 +112,17 @@
 
 -(NSString*)opponentDescription {
     return self.team1Id == [Team getCurrentTeam].leaguevineTeam.itemId ? self.team2Name : self.team1Name;
+}
+
+-(NSString*)shortDescription {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    if ([self.startTime isToday]) {
+        [dateFormatter setDateFormat:@"'Today at' h:mm"];
+    } else {
+        [dateFormatter setDateFormat:@"MMM d 'at' h:mm"];
+    }
+    NSString* time = [dateFormatter stringFromDate:self.startTime];
+    return [NSString stringWithFormat:@"%@ (%@)", [self opponentDescription], time];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {

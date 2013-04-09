@@ -23,6 +23,7 @@
 +(LeaguevineGame*)fromJson:(NSDictionary*) dict;
 +(LeaguevineGame*)fromDictionary:(NSDictionary*) dict;
 -(NSString*)opponentDescription;
+-(NSString*)shortDescription;
 -(NSTimeZone*)getStartTimezone;
 
 @end

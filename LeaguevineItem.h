@@ -19,5 +19,6 @@
 -(NSMutableDictionary*)asDictionary;
 -(void)populateFromDictionary:(NSDictionary*) dict;
 -(NSString*)listDescription;
+-(NSString*)shortDescription;
 
 @end

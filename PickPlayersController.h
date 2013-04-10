@@ -34,6 +34,8 @@
 @property (nonatomic, strong) NSDictionary* pointsPerPlayer;
 @property (nonatomic, strong) NSDictionary* pointFactorPerPlayer;
 
++(void)halftimeWarning;
+
 - (NSMutableArray*) initializePlayersViewCount: (int)numberOfButtons players: (NSArray*) players isField: (BOOL)isField;
 - (void) clearFieldView;
 - (IBAction) lastLineClicked:(id)button;

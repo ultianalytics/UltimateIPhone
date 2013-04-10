@@ -187,7 +187,10 @@
         if ([event isGoal] && [Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
             [self notifyLeaguevineOfScoreIsFinal:NO];
         }
-        if ([[Game getCurrentGame] doesGameAppearDone]) {
+        if ([event isGoal] && [[Game getCurrentGame] isNextEventImmediatelyAfterHalftime] && ![[Game getCurrentGame] isTimeBasedEnd]) {
+            [PickPlayersController halftimeWarning];
+            [self goToPlayersOnFieldView];
+        } else if ([[Game getCurrentGame] doesGameAppearDone]) {
             [self gameOverChallenge];
         } else if ([event causesLineChange]) {
             [self goToPlayersOnFieldView];

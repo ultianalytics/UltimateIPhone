@@ -36,8 +36,6 @@
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 
--(void)halftimeWarning;
-
 @end
 
 @implementation PickPlayersController
@@ -266,9 +264,6 @@
     if ([Game getCurrentGame] !=  nil && [[Game getCurrentGame].gameId isEqualToString: game.gameId]) {
         [self loadPlayerStats];
         [self populateUI];
-        if ([game isNextEventImmediatelyAfterHalftime] && ![game isTimeBasedEnd]) {
-            [self halftimeWarning];
-        }
     } else {
         [self.navigationController popViewControllerAnimated:NO];
     }
@@ -371,7 +366,7 @@
         [game getLastEvent].isHalftimeCause = [button.titleLabel.text isEqualToString:kSetHalfimeText];
         [self populateUI];
         if ([game getLastEvent].isHalftimeCause) {
-            [self halftimeWarning];
+            [[self class] halftimeWarning];
         }
     }
 }
@@ -462,7 +457,7 @@
 }
 
 
--(void)halftimeWarning {
++(void)halftimeWarning {
     NSString* message = [[Game getCurrentGame] isCurrentlyOline] ? @"Our team will RECEIVE on the next point" : @"Our team will DEFEND on the next point";
     NSString* windReminder = [[Game getCurrentGame].wind isSpecified] ? @"\n\nREMINDER: check wind speed" : @"";
     UIAlertView *alert = [[UIAlertView alloc]

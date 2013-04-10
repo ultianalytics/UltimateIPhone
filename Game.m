@@ -611,7 +611,9 @@ static Game* currentGame = nil;
 
 -(BOOL)canNextPointBePull {
     Event* lastEvent = [self getLastEvent];
-    return lastEvent == nil ? !self.isFirstPointOline : [lastEvent isOurGoal];
+    return lastEvent == nil ?
+        !self.isFirstPointOline :
+        [lastEvent isOurGoal] || ([lastEvent isTheirGoal] && [self isNextEventImmediatelyAfterHalftime] && self.isFirstPointOline);
 }
 
 -(BOOL)isPointInProgress {

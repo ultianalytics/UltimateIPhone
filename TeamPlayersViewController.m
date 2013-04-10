@@ -22,6 +22,7 @@
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
 #define kAlertPrivateToLeagueVineNotAllowedTitle @"Cannot switch to leaguevine" 
+#define kAlertLeagueVineToPrivateNotAllowedTitle @"Cannot switch to private"
 #define kAlertLeaguevineToPrivateTitle @"Switching to private players" 
 
 @interface TeamPlayersViewController () <UIAlertViewDelegate>
@@ -66,18 +67,19 @@
         primaryName = [NSString stringWithFormat:@"%@ (%@)", primaryName, player.number];
     }
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    BOOL isLeaguevinePlayers = [Team getCurrentTeam].arePlayersFromLeagueVine;
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: isLeaguevinePlayers ? @"LEAGUEVINE_PLAYER" : @"PRIVATE_PLAYER"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:[Team getCurrentTeam].arePlayersFromLeagueVine ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault
+                initWithStyle:isLeaguevinePlayers ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.imageView.backgroundColor = [UIColor clearColor];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
     }
 
     cell.textLabel.text = primaryName;
-    cell.accessoryType = [Team getCurrentTeam].arePlayersFromLeagueVine ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    if ([Team getCurrentTeam].arePlayersFromLeagueVine) {
+    cell.accessoryType = isLeaguevinePlayers ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    if (isLeaguevinePlayers) {
         cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
     } else {
         cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
@@ -203,10 +205,7 @@
             [Team getCurrentTeam].players = updatedPlayers;
             [[Team getCurrentTeam] save];
             [self updateViewAnimated:NO];
-            __weak TeamPlayersViewController* weakSelf;
-            [self dismissViewControllerAnimated:YES completion:^{
-                [weakSelf dismissWaitingViewWithSuccess:YES];
-            }];
+            [self dismissWaitingViewWithSuccess:YES];
         } else {
             [self alertFailure:status];
         }
@@ -219,7 +218,7 @@
 
 -(void)brieflyShowLeaguvineDownloadSuccessMessage {
     self.leaguevinePlayersDownloadedLabel.hidden = NO;
-    [UIView animateWithDuration:3 animations:^{
+    [UIView animateWithDuration:1 delay:2 options:UIViewAnimationOptionCurveEaseIn  animations:^{
         self.leaguevinePlayersDownloadedLabel.alpha = 0;
     } completion:^(BOOL finished) {
         self.leaguevinePlayersDownloadedLabel.alpha = 1;
@@ -245,12 +244,12 @@
 }
 
 -(void)dismissWaitingViewWithSuccess: (BOOL)success {
+    if (success) {
+        [self brieflyShowLeaguvineDownloadSuccessMessage];
+    }
     self.waitingViewController = nil;
     [self dismissViewControllerAnimated:YES completion:^{
         self.waitingViewController = nil;
-        if (success) {
-            [self brieflyShowLeaguvineDownloadSuccessMessage];
-        }
     }];
 }
 
@@ -261,6 +260,12 @@
         if (([Team getCurrentTeam].cloudId != nil) || [[Team getCurrentTeam] hasGames]) {
             self.playersTypeSegmentedControl.selectedSegmentIndex = 0;
             [self alertTransitionToLeaguevinePlayersNotAllowed];
+            return;
+        }
+    } else if (self.playersTypeSegmentedControl.selectedSegmentIndex == 0) {
+        if (([Team getCurrentTeam].cloudId != nil) || [[Team getCurrentTeam] hasGames]) {
+            self.playersTypeSegmentedControl.selectedSegmentIndex = 1;
+            [self alertTransitionToPrivatePlayersNotAllowed];
             return;
         }
     }
@@ -285,7 +290,16 @@
 -(void)alertTransitionToLeaguevinePlayersNotAllowed {
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertPrivateToLeagueVineNotAllowedTitle
                                                         message: @"The players on this team cannot be converted to leaguevine players because the team already has games on this iPhone or uploaded to the website.\n\nPlease create a new team."
-                                                       delegate: self
+                                                       delegate: nil
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+    [alertView show];
+}
+
+-(void)alertTransitionToPrivatePlayersNotAllowed {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: kAlertLeagueVineToPrivateNotAllowedTitle
+                                                        message: @"The players on this team cannot be converted to private players because the team already has games on this iPhone or uploaded to the website.\n\nPlease create a new team."
+                                                       delegate: nil
                                               cancelButtonTitle: @"OK"
                                               otherButtonTitles: nil];
     [alertView show];
@@ -335,12 +349,14 @@
     if ([alertView.title isEqualToString: kAlertPrivateToLeagueVineTitle]) {
         if (buttonIndex == 1) {
             [self switchToLeaguevinePlayers: YES];
+            [self.playersTableView reloadData];
         } else {
             self.playersTypeSegmentedControl.selectedSegmentIndex = 0;
         }
     } else if ([alertView.title isEqualToString: kAlertLeaguevineToPrivateTitle]) {
         if (buttonIndex == 1) {
             [self switchToLeaguevinePlayers: NO];
+            [self.playersTableView reloadData];
         } else {
             self.playersTypeSegmentedControl.selectedSegmentIndex = 1;
         }

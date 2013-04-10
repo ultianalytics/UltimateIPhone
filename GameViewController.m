@@ -184,7 +184,7 @@
     [[Game getCurrentGame] save]; 
     if ([event causesDirectionChange]) {
         [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
-        if ([event isGoal] && [Game getCurrentGame].isLeaguevineGame && [Game getCurrentGame].publishScoreToLeaguevine) {
+        if ([event isGoal] && [self shouldPublishScoresToLeaguevine]) {
             [self notifyLeaguevineOfScoreIsFinal:NO];
         }
         if ([event isGoal] && [[Game getCurrentGame] isNextEventImmediatelyAfterHalftime] && ![[Game getCurrentGame] isTimeBasedEnd]) {
@@ -388,7 +388,7 @@
 
 - (void) updateAutoTweetingNotice {
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
-    BOOL isLeaguevinePosting = [Game getCurrentGame].isLeaguevineGame && ([Game getCurrentGame].publishScoreToLeaguevine || [Game getCurrentGame].publishStatsToLeaguevine);
+    BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
     self.broadcast1Label.hidden = !isAutoTweeting;
     self.broadcast2Label.hidden = !isLeaguevinePosting;
 
@@ -552,7 +552,7 @@
 }
         
 -(void)notifyLeaguevineOfNewEvent: (Event*)event {
-    if ([Game getCurrentGame].publishStatsToLeaguevine) {
+    if ([self shouldPublishStatsToLeaguevine]) {
         if ([[Game getCurrentGame] hasOneEvent]) {
             [[LeaguevineEventQueue sharedQueue] submitLineChangeForGame:[Game getCurrentGame]];  // submit initial line
         }
@@ -579,7 +579,7 @@
 }
 
 -(void)notifyLeaguevineOfRemovedEvent: (Event*)event {
-    if ([Game getCurrentGame].publishStatsToLeaguevine) {
+    if ([self shouldPublishStatsToLeaguevine]) {
         [[LeaguevineEventQueue sharedQueue] submitDeletedEvent:event forGame:[Game getCurrentGame]];
     }
 }
@@ -601,6 +601,18 @@
         }];
     };
     [self presentViewController:lvController animated:YES completion:nil];
+}
+
+-(BOOL)shouldPublishToLeaguevine {
+    return [self shouldPublishScoresToLeaguevine] || [self shouldPublishStatsToLeaguevine];
+}
+
+-(BOOL)shouldPublishStatsToLeaguevine {
+    return [Game getCurrentGame].publishStatsToLeaguevine && [Game getCurrentGame].isLeaguevineGame && [Team getCurrentTeam].isLeaguevineTeam && [Team getCurrentTeam].arePlayersFromLeagueVine;
+}
+
+-(BOOL)shouldPublishScoresToLeaguevine {
+    return [Game getCurrentGame].publishScoreToLeaguevine && [Game getCurrentGame].isLeaguevineGame && [Team getCurrentTeam].isLeaguevineTeam;
 }
 
 #pragma mark View lifecycle
@@ -722,7 +734,7 @@
     if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
         if (buttonIndex == 1) { // confirm game over
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
-            if ([Game getCurrentGame].isLeaguevineGame && ([Game getCurrentGame].publishScoreToLeaguevine || [Game getCurrentGame].publishStatsToLeaguevine)) {
+            if ([self shouldPublishToLeaguevine]) {
                 [self notifyLeaguevineOfScoreIsFinal:YES];
             }
             [self.navigationController popViewControllerAnimated:YES];

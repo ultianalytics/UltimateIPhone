@@ -108,14 +108,6 @@
     }
 }
 
--(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {
-    return [self.postingLog leaguevineEventIdForTimestamp: eventTimestamp];
-}
-
--(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId {
-    return [self.postingLog lastLinePostedForGameId:gameId];
-}
-
 #pragma mark - Trigger queue
 
 -(void)triggerImmediateSubmit {
@@ -256,5 +248,6 @@
 -(BOOL)isScore: (NSString*)filePath {
     return [[filePath pathExtension] isEqualToString:kScoreFileExtension];
 }
+
 
 @end

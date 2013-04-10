@@ -31,6 +31,7 @@
 #import "UIViewController+Additions.h"
 #import "ActionDetailsViewController.h"
 #import "LeaguevineEventQueue.h"
+#import "LeaguevinePostingLog.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
@@ -553,6 +554,24 @@
             [[LeaguevineEventQueue sharedQueue] submitLineChangeForGame:[Game getCurrentGame]];  // submit initial line
         }
         [[LeaguevineEventQueue sharedQueue] submitNewEvent:event forGame:[Game getCurrentGame]];
+        
+        if ([event isGoal]) {
+            [self checkForLeaguevinePostingError];
+        }
+    }
+}
+
+-(void)checkForLeaguevinePostingError {
+    NSString* postingError = [[LeaguevineEventQueue sharedQueue].postingLog readErrorMessage];
+    if (postingError) {
+        [[LeaguevineEventQueue sharedQueue].postingLog deleteErrorMessage];
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Warning: failed publishing to leaguevine"
+                              message: postingError
+                              delegate: nil
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
     }
 }
 

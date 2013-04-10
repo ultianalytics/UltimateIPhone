@@ -217,4 +217,28 @@
     }
 }
 
+-(void)writeErrorMessage: (NSString*) message overwrite: (BOOL)overwrite {
+    NSString* path = [self errorMessageFilePath];
+    if (overwrite || ![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSData* data = [message asData];
+        [[NSFileManager defaultManager] createFileAtPath:path contents:data attributes:nil];
+    }
+}
+
+-(NSString*)readErrorMessage {
+    NSData* data = [[NSData alloc] initWithContentsOfFile:[self errorMessageFilePath]];
+    return data ? [NSString stringWithData: data] : nil;
+}
+
+-(void)deleteErrorMessage {
+    NSString* path = [self errorMessageFilePath];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+	}
+}
+
+-(NSString*)errorMessageFilePath {
+     return [self.logsDirectory stringByAppendingPathComponent:@"LeaguevineErrorMessage"];
+}
+
 @end

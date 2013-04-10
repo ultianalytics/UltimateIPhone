@@ -14,6 +14,7 @@
 -(BOOL)isNotEmpty;
 -(NSDictionary*)toQueryStringParamaters;
 -(NSString*)urlEncoded;
-+(NSString*)stringFromData: (NSData*)data;
+-(NSData*)asData;
++(NSString*)stringWithData: (NSData*)data;
 
 @end

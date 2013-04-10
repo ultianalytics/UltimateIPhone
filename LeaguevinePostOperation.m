@@ -58,7 +58,7 @@
             return [self postLineChangeEvent:filePath usingClient:client];
         } else {
             if ([event isUpdateOrDelete]) {
-                event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue] leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
+                event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue].postingLog leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
                 if (!event.leaguevineEventId) {
                     NSLog(@"Posting an event for %@ but the previous add event was not found in log.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                     [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
@@ -74,12 +74,15 @@
                 [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
                 return NO;
             } else if (status == LeaguevineInvokeCredentialsRejected) {
+                [self writeInvalidCredentialsError];
                 return NO;
             } else if (status == LeaguevineInvokeInvalidResponse) {
+                [self writeInvalidRequestError];
                 NSLog(@"Posting an event for %@ but leaguvine returned an invalid response.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                 [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
                 return YES;
             } else if (status == LeaguevineInvokeInvalidGame) {
+                [self writeInvalidRequestError];
                 NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                 [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
                 return YES;
@@ -107,17 +110,21 @@
             NSLog(@"Posting a score for %@ but leaguvine failed due to network error.", lvScore);
             return NO;
         } else if (status == LeaguevineInvokeCredentialsRejected) {
+            [self writeInvalidCredentialsError];
             NSLog(@"Posting a score for %@ but leaguvine failed response due to invalid credentials.", lvScore);
             return NO;
         } else if (status == LeaguevineInvokeInvalidResponse) {
+            [self writeInvalidRequestError];
             NSLog(@"Posting a score for %@ but leaguvine returned an invalid response.  Skipping.", lvScore);
             [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
             return YES;
         } else if (status == LeaguevineInvokeInvalidGame) {
+            [self writeInvalidRequestError];
             NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping.", lvScore);
             [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
             return YES;
         } else {
+            [self writeInvalidRequestError];
             [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
             return YES;
         }
@@ -134,7 +141,7 @@
     LeaguevineEvent* lineChangeEvent = [LeaguevineEvent restoreFrom:filePath];
     // create a list of events to sub out old and sub in new
     NSArray* newLine = lineChangeEvent.latestLine;
-    NSArray* oldLine = [[LeaguevineEventQueue sharedQueue] lastLinePostedForGameId:lineChangeEvent.leaguevineGameId];
+    NSArray* oldLine = [[LeaguevineEventQueue sharedQueue].postingLog lastLinePostedForGameId:lineChangeEvent.leaguevineGameId];
     NSMutableArray* events = [self subOutEventsFor:lineChangeEvent.leaguevineGameId oldLine:oldLine newLine:newLine];
     [events addObjectsFromArray:[self subInEventsFor:lineChangeEvent.leaguevineGameId oldLine:oldLine newLine:newLine]];
     
@@ -147,10 +154,13 @@
                 [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
                 ok = NO;
             } else if (status == LeaguevineInvokeCredentialsRejected) {
+                [self writeInvalidCredentialsError];
                 ok = NO;
             } else if (status == LeaguevineInvokeInvalidResponse) {
+                [self writeInvalidRequestError];
                 NSLog(@"Posting a line change event but leaguvine returned an invalid response.  Skipping subsitution event %@", substitutionEvent);
             } else if (status == LeaguevineInvokeInvalidGame) {
+                [self writeInvalidRequestError];
                 NSLog(@"Posting a line change event but leaguvine rejected it as invalid game.  Skipping subsitution event %@", substitutionEvent);
             }
         }
@@ -187,6 +197,14 @@
         [events addObject:lvEvent];
     }
     return events;
+}
+
+-(void)writeInvalidRequestError {
+    [[LeaguevineEventQueue sharedQueue].postingLog writeErrorMessage:@"Errors attempting to publish events to leaguevine (usually caused by changes in the leaguevine team, game, or players since the game began).  Data has been skipped." overwrite:NO];
+}
+
+-(void)writeInvalidCredentialsError {
+    [[LeaguevineEventQueue sharedQueue].postingLog writeErrorMessage:@"Leaguevine is not accepting the event data that iUltimate is attempting to publish because it does not accept your credentials.  Try switching the game to private and back to \"stats\" to get authenticated." overwrite:NO];
 }
 
 @end

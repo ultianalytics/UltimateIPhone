@@ -127,7 +127,7 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
     
-    NSLog(@"Posting score to leaguevine\nURL: %@%@", url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringFromData:jsonData]] : @"");
+    NSLog(@"Posting score to leaguevine\nURL: %@%@", url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringWithData:jsonData]] : @"");
     NSURLResponse* response;
     NSError* sendError;
     NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
@@ -138,7 +138,7 @@
     } else if (sendError == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201)) {
         return LeaguevineInvokeOK;
     } else {
-        NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@", url, httpResponse.statusCode, sendError, [NSString stringFromData:responseData]);
+        NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@", url, httpResponse.statusCode, sendError, [NSString stringWithData:responseData]);
         return httpResponse.statusCode == 401 ? LeaguevineInvokeCredentialsRejected : LeaguevineInvokeInvalidResponse;
     }
 }
@@ -184,7 +184,7 @@
         return LeaguevineInvokeOK; // bad but what else can we do?
     } else {
         request.HTTPBody = jsonData;
-        NSLog(@"Posting %@ event (%@) to leaguevine\nURL: %@%@", leaguevineEvent.crud == CRUDUpdate ? @"UPDATE" : leaguevineEvent.crud == CRUDDelete ? @"DELETE" : @"ADD", leaguevineEvent.eventDescription, url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringFromData: jsonData]] : @"");
+        NSLog(@"Posting %@ event (%@) to leaguevine\nURL: %@%@", leaguevineEvent.crud == CRUDUpdate ? @"UPDATE" : leaguevineEvent.crud == CRUDDelete ? @"DELETE" : @"ADD", leaguevineEvent.eventDescription, url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringWithData: jsonData]] : @"");
         return [self postEventRequest:request forEvent:leaguevineEvent];
     }
 }
@@ -215,7 +215,7 @@
         return LeaguevineInvokeNetworkError;
     } else if ([leaguevineEvent isDelete] && (httpResponse.statusCode == 200 || httpResponse.statusCode == 204 || httpResponse.statusCode == 410)) {
         if ( httpResponse.statusCode == 410) {
-            NSLog(@"league rejected delete of event: already deleted");
+            NSLog(@"leaguevine rejected delete of event: already deleted");
         }
         return LeaguevineInvokeOK;
     } else if ([leaguevineEvent isUpdate] && (httpResponse.statusCode == 200 || httpResponse.statusCode == 202)) {
@@ -236,7 +236,7 @@
         }
         return LeaguevineInvokeInvalidResponse;
     } else {
-        NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@",request.URL, httpResponse.statusCode, sendError, [NSString stringFromData:responseData]);
+        NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@",request.URL, httpResponse.statusCode, sendError, [NSString stringWithData:responseData]);
         return httpResponse.statusCode == 401 ? LeaguevineInvokeCredentialsRejected : LeaguevineInvokeInvalidResponse;
     }
 }
@@ -261,7 +261,7 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request addValue:[NSString stringWithFormat:@"bearer %@", leaguevineToken] forHTTPHeaderField:@"Authorization"];
     
-    NSLog(@"Posting score to leaguevine\nURL: %@%@", url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringFromData:jsonData]] : @"");
+    NSLog(@"Posting score to leaguevine\nURL: %@%@", url, jsonData ? [NSString stringWithFormat:@"\nDATA: %@", [NSString stringWithData:jsonData]] : @"");
     [self postGameScore:request completion:finishedBlock];
     
 }
@@ -343,7 +343,7 @@
 }
 
 -(void)returnFailedResponse: (NSString*) url withHttpFailure: (NSError*) error httpResponse: (NSHTTPURLResponse*) httpResponse data: (NSData*) responseData finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
-    NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@", url, httpResponse.statusCode, error, [NSString stringFromData:responseData]);
+    NSLog(@"Request to %@ failed with http response %d error %@ \nresponse:\n%@", url, httpResponse.statusCode, error, [NSString stringWithData:responseData]);
     LeaguevineInvokeStatus invokeErrorStatus = httpResponse.statusCode == 401 ? LeaguevineInvokeCredentialsRejected : LeaguevineInvokeInvalidResponse;
     dispatch_async(dispatch_get_main_queue(), ^{
         finishedBlock(invokeErrorStatus, nil);
@@ -351,7 +351,7 @@
 }
 
 -(void)returnFailedResponse: (NSString*) url withMissingMetaPropertyInResponse: (NSData*) responseData finishedBlock: (void (^)(LeaguevineInvokeStatus, NSArray* leagues)) finishedBlock {
-    NSLog(@"Request to %@ failed. Response is missing meta property.  Response: %@", url, [NSString stringFromData: responseData]);
+    NSLog(@"Request to %@ failed. Response is missing meta property.  Response: %@", url, [NSString stringWithData: responseData]);
     dispatch_async(dispatch_get_main_queue(), ^{
         finishedBlock(LeaguevineInvokeInvalidResponse, nil);
     });

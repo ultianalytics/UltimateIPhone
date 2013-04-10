@@ -15,4 +15,8 @@
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp;
 -(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId;
 
+-(void)writeErrorMessage: (NSString*) message overwrite: (BOOL)overwrite;
+-(NSString*)readErrorMessage;
+-(void)deleteErrorMessage;
+
 @end

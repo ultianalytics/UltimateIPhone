@@ -42,8 +42,13 @@
     return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-+(NSString*)stringFromData: (NSData*)data {
+-(NSData*)asData {
+    return [self dataUsingEncoding:NSUTF8StringEncoding];
+}
+
++(NSString*)stringWithData: (NSData*)data {
     return data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : nil;
 }
+
 
 @end

@@ -27,6 +27,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UIButton *clearLeaguevineButton;
+@property (strong, nonatomic) IBOutlet UIButton *websiteButton;
 
 @property (strong, nonatomic) LeaguevineClient* client;
 @property (nonatomic, strong) LeaguevineTournament* leaguevineTournament;
@@ -60,7 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.clearLeaguevineButton.hidden = !self.team.leaguevineTeam;
+    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,6 +87,11 @@
     if (self.selectedBlock) {
         self.selectedBlock(nil);
     }
+}
+
+- (IBAction)websiteButtonPressed:(id)sender {
+    NSURL* url =[ NSURL URLWithString: [NSString stringWithFormat:@"http://www.leaguevine.com/games/%d/",self.leaguevineGame.itemId]];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 #pragma mark TableView delegate
@@ -242,6 +248,8 @@
     } else {
         [self removeDoneButton];
     }
+    self.clearLeaguevineButton.hidden = !self.game.leaguevineGame;
+    self.websiteButton.hidden = !self.leaguevineGame;
 }
 
 

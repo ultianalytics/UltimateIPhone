@@ -410,7 +410,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.title = NSLocalizedString(@"Cloud", @"Cloud");
+    self.title = NSLocalizedString(@"Website", @"Website");
     [self populateViewFromModel];
     if  (teamDownloadController && teamDownloadController.selectedTeam) {
         if (teamDownloadController.selectedTeam) {

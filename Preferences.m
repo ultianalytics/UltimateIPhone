@@ -15,14 +15,15 @@
 #define kGamePointKey           @"gamePoint"
 #define kAutoTweetLevelKey      @"autoTweetLevel"
 #define kUseridKey              @"userid"
-#define kLeaguevineTokenKey              @"leagevineToken"
+#define kLeaguevineTokenKey     @"leagevineToken"
+#define kTimeoutPerHalfKey      @"timeoutPerHalf"
+#define kTimeoutFloaterKey      @"timeoutFloater"
 #define kDefaultGamePoint       13
 #define kMinGamePoint           9
 #define kMaxGamePoint           17
 static Preferences* currentPreferences= nil;
 
 @implementation Preferences
-@synthesize filePath, tournamentName,currentTeamFileName,currentGameFileName, gamePoint,userid,autoTweetLevel,twitterAccountDescription;
 
 -(id) init  {
     self = [super init];
@@ -46,6 +47,8 @@ static Preferences* currentPreferences= nil;
         self.userid = [decoder decodeObjectForKey:kUseridKey];
         self.autoTweetLevel = [decoder decodeIntForKey:kAutoTweetLevelKey];
         self.leaguevineToken = [decoder decodeObjectForKey:kLeaguevineTokenKey];
+        self.timeoutsPerHalf = [decoder decodeIntForKey:kTimeoutPerHalfKey];
+        self.timeoutFloaters = [decoder decodeIntForKey:kTimeoutFloaterKey];
     } 
     return self; 
 } 
@@ -58,6 +61,8 @@ static Preferences* currentPreferences= nil;
     [encoder encodeObject:self.userid forKey:kUseridKey];
     [encoder encodeInt:self.autoTweetLevel forKey:kAutoTweetLevelKey];
     [encoder encodeObject:self.leaguevineToken forKey:kLeaguevineTokenKey];
+    [encoder encodeInt:self.timeoutsPerHalf forKey:kTimeoutPerHalfKey];
+    [encoder encodeInt:self.timeoutFloaters forKey:kTimeoutFloaterKey];
 } 
 
 +(Preferences*)getCurrentPreferences {

@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSString* currentGameFileName;
 @property (nonatomic, strong) NSString* filePath;
 @property (nonatomic) int gamePoint;
+@property (nonatomic) int timeoutsPerHalf;
+@property (nonatomic) int timeoutFloaters;
 @property (nonatomic, strong) NSString* userid;
 @property (nonatomic) AutoTweetLevel autoTweetLevel;
 @property (nonatomic, strong) NSString* twitterAccountDescription;

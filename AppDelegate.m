@@ -69,8 +69,8 @@ UINavigationController* gameNavController;
     tabBarItem.title = @"Game";
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
-    tabBarItem.image = [UIImage imageNamed:@"234-cloud.png"];
-    tabBarItem.title = @"Cloud";  
+    tabBarItem.image = [UIImage imageNamed:@"137-presentation.png"];
+    tabBarItem.title = @"Website";  
     
     tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
     tabBarItem.image = [UIImage imageNamed:@"210-twitterbird.png"];

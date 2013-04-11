@@ -474,6 +474,8 @@
             [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
             // recents list
             [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
+            // long press
+            [calloutsView addCallout:@"Press and hold to see other options for an action." anchor: CGPointMake(140, 100) width: 100 degrees: 270 connectorLength: 80 font: textFont];
         }
         // line button
         CGPoint anchor = CGPointTopRight(self.view.bounds);

@@ -392,7 +392,7 @@
     self.broadcast1Label.hidden = !isAutoTweeting;
     self.broadcast2Label.hidden = !isLeaguevinePosting;
 
-    if ((isAutoTweeting || isLeaguevinePosting) &&
+    if ((isAutoTweeting || [self shouldPublishScoresToLeaguevine]) &&
         [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
         NSString* broadcastTarget = isAutoTweeting ?
             isLeaguevinePosting ? @"auto-tweeting and posting scores to Leaguevine" : @"auto-tweeting" :

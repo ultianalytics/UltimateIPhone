@@ -77,6 +77,7 @@
         [self.team save];  
         [Team setCurrentTeam:self.team.teamId];
         self.team = [Team getCurrentTeam];
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         return YES;
     }
     return NO;

@@ -114,7 +114,9 @@
     }
     
     [self.playerStatsTableView reloadData];
-    [self.playerStatsTableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated: YES];
+    if ([playerStats count] > 0) {
+        [self.playerStatsTableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated: YES];
+    }
     [self showBusyIndicator:NO];
 }
 
@@ -266,7 +268,7 @@
         
         CGPoint anchor = CGPointMake(CGRectGetMaxX(self.statTypeTableView.frame), CGRectGetMinY(self.statTypeTableView.frame) + 80);
         
-        [calloutsView addCallout:@"Not all stats are viewable on the iPhone.  To see the full stats for your team, upload the team to your website (Cloud tab)."  anchor: anchor width: 150 degrees: 90 connectorLength: 100 font:[UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"Not all stats are viewable on the iPhone.  To see the full stats for your team, upload the team to your website (Website tab)."  anchor: anchor width: 150 degrees: 90 connectorLength: 100 font:[UIFont systemFontOfSize:14]];
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

@@ -18,6 +18,7 @@
 #import "LeaguevinePlayer.h"
 #import "LeagueVinePlayerNameTransformer.h"
 #import "LeaguevineWaitingViewController.h"
+#import "AppDelegate.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
@@ -206,6 +207,8 @@
             [[Team getCurrentTeam] save];
             [self updateViewAnimated:NO];
             [self dismissWaitingViewWithSuccess:YES];
+            [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+
         } else {
             [self alertFailure:status];
         }

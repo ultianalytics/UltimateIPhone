@@ -12,6 +12,7 @@
 #import "ColorMaster.h"
 #import "Player.h"
 #import "UltimateSegmentedControl.h"
+#import "AppDelegate.h"
 
 @implementation PlayerDetailsViewController
 @synthesize player,nickNameField,numberField,positionControl,sexControl,saveAndAddButton,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
@@ -163,17 +164,17 @@
     self.player = [[Player alloc] init];
     [self populateModelFromView];
     [[Team getCurrentTeam] addPlayer:player];
-    [[Team getCurrentTeam] save];
+    [self saveTeam];
 }
 
 -(void)updatePlayer {
     [self populateModelFromView];
-    [[Team getCurrentTeam] save];
+    [self saveTeam];
 }
 
 -(void)deletePlayer {
     [[Team getCurrentTeam] removePlayer:player];
-    [[Team getCurrentTeam] save];
+    [self saveTeam];
 }
 
 - (void)didReceiveMemoryWarning
@@ -205,6 +206,10 @@
     }
 }
 
+-(void)saveTeam {
+    [[Team getCurrentTeam] save];
+    [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+}
 
 #pragma mark - View lifecycle
 

@@ -23,6 +23,7 @@
 #import "LeaguevineGame.h"
 #import "LeagueVineSignonViewController.h"
 #import "LeaguevineClient.h"
+#import "TimeoutViewController.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
@@ -178,6 +179,7 @@
     }
     [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell]];
     [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.windCell]];
+//    [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.timeoutsCell, self.windCell]];
     if ([self.game hasBeenSaved]) {
         [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell]];
     }
@@ -498,6 +500,10 @@
         GameHistoryController* eventsController = [[GameHistoryController alloc] init];
         eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
+    } else if (cell == self.timeoutsCell) {
+        TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
+        timeoutController.game = self.game;
+        [self.navigationController pushViewController:timeoutController animated:YES];
     } else if (cell == self.opponentCell && [self isLeaguevineType]) {
         LeagueVineGameViewController* leaguevineController = [[LeagueVineGameViewController alloc] init];
         leaguevineController.team = [Team getCurrentTeam];

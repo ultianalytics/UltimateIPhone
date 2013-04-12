@@ -814,6 +814,8 @@ static Game* currentGame = nil;
     return (self.leaguevineGame) && _publishScoreToLeaguevine;
 }
 
+#pragma Timeouts 
+
 -(void)setTimeoutDetails:(TimeoutDetails *)timeoutDetails {
     _timeoutDetails = timeoutDetails;
     if (timeoutDetails) {
@@ -842,6 +844,20 @@ static Game* currentGame = nil;
         }
     }
     return _timeoutDetails;
+}
+
+-(int)availableTimeouts {
+    if (!self.timeoutDetails) {
+        return 0;
+    }
+    int totalAvailableFirstHalf = self.timeoutDetails.quotaPerHalf + self.timeoutDetails.quotaFloaters;
+    if ([self isAfterHalftime]) {
+        int floatersAvailableAfterFirstHalf = MIN(totalAvailableFirstHalf - self.timeoutDetails.takenFirstHalf, self.timeoutDetails.quotaFloaters);
+        int totalAvailableSecondHalf = self.timeoutDetails.quotaPerHalf + floatersAvailableAfterFirstHalf;
+        return totalAvailableSecondHalf - self.timeoutDetails.takenSecondHalf;
+    } else {
+        return totalAvailableFirstHalf - self.timeoutDetails.takenFirstHalf;
+    }
 }
 
 @end

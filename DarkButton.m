@@ -18,7 +18,7 @@
     self.borderDisabledColor = self.lowDisabledColor;
     self.buttonStyleNormalTextColor = [UIColor whiteColor];
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize: 14];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
 }
 
 -(NSArray*)getGradientLocations {

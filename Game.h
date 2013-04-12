@@ -94,5 +94,6 @@
 -(void)addSubstitution: (PlayerSubstitution*)substitution;
 -(BOOL)removeLastSubstitutionForCurrentPoint;
 -(NSArray*)substitutionsForCurrentPoint;
+-(int)availableTimeouts;
 
 @end

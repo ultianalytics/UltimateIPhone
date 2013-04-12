@@ -146,6 +146,7 @@
         UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
         footerView.backgroundColor = [UIColor clearColor];
         DarkButton* footerButton = [[DarkButton alloc] initWithFrame:CGRectMake(0, 10, tableWidth, 34)];
+        footerButton.titleLabel.font = [UIFont boldSystemFontOfSize: 14];
         [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
         [footerButton addTarget:self action:@selector(showFullTapped) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:footerButton];

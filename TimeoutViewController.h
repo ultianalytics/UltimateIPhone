@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Game;
 
 @interface TimeoutViewController : UIViewController
+
+@property (nonatomic, strong) Game* game;
 
 @end

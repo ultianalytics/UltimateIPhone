@@ -74,6 +74,7 @@
 		1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
+		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
 		1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE077159627B9004C03A1 /* CalloutsContainerView.m */; };
 		1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */; };
 		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
@@ -366,6 +367,8 @@
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
+		1AAC148F1718240200827C51 /* UILabel+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Utilities.h"; sourceTree = "<group>"; };
+		1AAC14901718240200827C51 /* UILabel+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Utilities.m"; sourceTree = "<group>"; };
 		1AACE076159627B9004C03A1 /* CalloutsContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutsContainerView.h; sourceTree = "<group>"; };
 		1AACE077159627B9004C03A1 /* CalloutsContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutsContainerView.m; sourceTree = "<group>"; };
 		1AACE07915974D87004C03A1 /* CloudMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudMetaInfo.h; sourceTree = "<group>"; };
@@ -764,6 +767,8 @@
 				1AAFDE391574F199005EA598 /* NSString+manipulations.m */,
 				1ADE0AA9162D713300206DF8 /* UIView+Convenience.h */,
 				1ADE0AAA162D713300206DF8 /* UIView+Convenience.m */,
+				1AAC148F1718240200827C51 /* UILabel+Utilities.h */,
+				1AAC14901718240200827C51 /* UILabel+Utilities.m */,
 			);
 			name = "Categories on Apple Classes";
 			sourceTree = "<group>";
@@ -976,7 +981,6 @@
 			children = (
 				1A999EF816062E990015B891 /* LeagueVine */,
 				1AFFE8D415176470004B4590 /* Common */,
-				1AEE549F1529442E0067F539 /* Twitter */,
 				1AE669EF1521534B000965B5 /* Cloud */,
 				1AF34E7915176A260065A16D /* Stats */,
 				1A00013A1517697500600916 /* Signon */,
@@ -1187,6 +1191,7 @@
 		1AFFE8DD151764DB004B4590 /* Active Game */ = {
 			isa = PBXGroup;
 			children = (
+				1AEE549F1529442E0067F539 /* Twitter */,
 				1AFFE81815175EB0004B4590 /* GameViewController.h */,
 				1AFFE81915175EB0004B4590 /* GameViewController.m */,
 				1AFFE8CC151761AA004B4590 /* GameViewController.xib */,
@@ -1612,6 +1617,7 @@
 				1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */,
 				1AC6613317164B1800DCFF58 /* TimeoutViewController.m in Sources */,
 				1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */,
+				1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

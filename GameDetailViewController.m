@@ -45,6 +45,7 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* statsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* timeoutsCell;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tournamentOrPubCell;

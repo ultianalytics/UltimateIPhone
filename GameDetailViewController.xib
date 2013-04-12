@@ -863,6 +863,54 @@
 				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="590702005"/>
 			</object>
+			<object class="IBUITableViewCell" id="944733773">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIView" id="128490159">
+						<reference key="NSNextResponder" ref="944733773"/>
+						<int key="NSvFlags">256</int>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUILabel" id="301224881">
+								<reference key="NSNextResponder" ref="128490159"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{10, 7}, {76, 21}}</string>
+								<reference key="NSSuperview" ref="128490159"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Timeouts</string>
+								<reference key="IBUITextColor" ref="908483221"/>
+								<reference key="IBUIHighlightedColor" ref="755285768"/>
+								<int key="IBUIBaselineAdjustment">0</int>
+								<reference key="IBUIFontDescription" ref="268022568"/>
+								<reference key="IBUIFont" ref="981848999"/>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+							</object>
+						</array>
+						<string key="NSFrameSize">{300, 33}</string>
+						<reference key="NSSuperview" ref="944733773"/>
+						<string key="NSReuseIdentifierKey">_NS:11</string>
+						<reference key="IBUIBackgroundColor" ref="242674979"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+				</array>
+				<string key="NSFrameSize">{320, 34}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSNextKeyView" ref="128490159"/>
+				<string key="NSReuseIdentifierKey">_NS:9</string>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				<int key="IBUISelectionStyle">0</int>
+				<int key="IBUIAccessoryType">1</int>
+				<reference key="IBUIContentView" ref="128490159"/>
+			</object>
 			<object class="IBUIButton" id="665482067">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
@@ -895,9 +943,10 @@
 				</object>
 			</object>
 			<object class="IBUIButton" id="483023096">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{140, 37}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSReuseIdentifierKey">_NS:225</string>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1108,6 +1157,14 @@
 						<reference key="destination" ref="650339871"/>
 					</object>
 					<int key="connectionID">104</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">timeoutsCell</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="944733773"/>
+					</object>
+					<int key="connectionID">108</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -1449,6 +1506,20 @@
 						<reference key="object" ref="19458368"/>
 						<reference key="parent" ref="364439147"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">106</int>
+						<reference key="object" ref="944733773"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="301224881"/>
+						</array>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Cell - Timeouts</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">107</int>
+						<reference key="object" ref="301224881"/>
+						<reference key="parent" ref="944733773"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1458,6 +1529,8 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="107.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1504,7 +1577,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">105</int>
+			<int key="maxID">108</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

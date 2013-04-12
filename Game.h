@@ -10,11 +10,11 @@
 #import "PointSummary.h"
 #import "Constants.h"
 @class PlayerSubstitution;
-
 @class Event;
 @class UPoint;
 @class Wind;
 @class LeaguevineGame;
+@class TimeoutDetails;
 
 #define kDefaultGamePoint 15
 #define kTimeBasedGame    1000
@@ -36,6 +36,7 @@
 @property (nonatomic, strong) LeaguevineGame* leaguevineGame;
 @property (nonatomic) BOOL publishScoreToLeaguevine;
 @property (nonatomic) BOOL publishStatsToLeaguevine;
+@property (nonatomic, strong) TimeoutDetails* timeoutDetails;
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
 
 +(Game*)getCurrentGame;

@@ -21,6 +21,7 @@
 #import "LeaguevineGame.h"
 #import "LeaguevineTournament.h"
 #import "PlayerSubstitution.h"
+#import "TimeoutDetails.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -41,10 +42,13 @@
 #define kLeagueVineScoresPublishKey   @"pubToLeaguevine"
 #define kLeagueVineStatsPublishKey   @"pubStatsToLeaguevine"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
+#define kTimeoutDetailsJsonKey      @"timeoutDetailsJson"
 
 static Game* currentGame = nil;
 
-@interface Game() 
+@interface Game()
+
+@property (nonatomic, strong) NSString* timeoutJson;
 
 +(NSString*)getDirectoryPath: (NSString*) teamId;
 +(void)delete: (NSString*) aGameId;
@@ -59,6 +63,7 @@ static Game* currentGame = nil;
 
 @implementation Game
 @synthesize gameId, points,isFirstPointOline, lastOLine, lastDLine, startDateTime,wind,gamePoint,firstEventTweeted;
+@synthesize timeoutDetails=_timeoutDetails;
 
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
@@ -105,6 +110,7 @@ static Game* currentGame = nil;
             game.leaguevineGame = [LeaguevineGame fromDictionary: leaguevineGameDict];
         }
     }
+    game.timeoutJson = [dict objectForKey:kTimeoutDetailsJsonKey];
 //    NSDictionary* windDict = [dict objectForKey:kPointsAsJsonKey];
 //    if (windDict) {
 //        game.wind = [Wind fromDictionary:windDict];
@@ -176,6 +182,7 @@ static Game* currentGame = nil;
     [dict setValue: [NSNumber numberWithInt:score.ours] forKey:kScoreOursProperty];
     [dict setValue: [NSNumber numberWithInt:score.theirs] forKey:kScoreTheirsProperty];
     [dict setValue: [wind asDictionary] forKey: kWindKey];
+    [dict setValue: self.timeoutJson forKey: kTimeoutDetailsJsonKey];
     
     return dict;
 }
@@ -350,6 +357,7 @@ static Game* currentGame = nil;
         self.leaguevineGame = [decoder decodeObjectForKey:kLeagueVineGameKey];
         self.publishScoreToLeaguevine = [decoder decodeBoolForKey:kLeagueVineScoresPublishKey];
         self.publishStatsToLeaguevine = [decoder decodeBoolForKey:kLeagueVineStatsPublishKey];
+        self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
     } 
     return self; 
 } 
@@ -369,6 +377,7 @@ static Game* currentGame = nil;
     [encoder encodeObject:self.leaguevineGame forKey: kLeagueVineGameKey];
     [encoder encodeBool:self.publishScoreToLeaguevine forKey:kLeagueVineScoresPublishKey];
     [encoder encodeBool:self.publishStatsToLeaguevine forKey:kLeagueVineStatsPublishKey];
+    [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
 } 
 
 
@@ -803,6 +812,36 @@ static Game* currentGame = nil;
 
 -(BOOL)publishScoresToLeaguevine {
     return (self.leaguevineGame) && _publishScoreToLeaguevine;
+}
+
+-(void)setTimeoutDetails:(TimeoutDetails *)timeoutDetails {
+    _timeoutDetails = timeoutDetails;
+    if (timeoutDetails) {
+        NSDictionary* timeoutDetailsDict = [timeoutDetails asDictionary];
+        NSError* marshallError;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:timeoutDetailsDict options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error creating JSON of timeout details");
+        } else {
+            self.timeoutJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+    } else {
+        self.timeoutJson = nil;
+    }
+}
+
+-(TimeoutDetails*)timeoutDetails {
+    if (_timeoutDetails == nil && self.timeoutJson) {
+        NSError* marshallError;
+        NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary* timeoutDetailsDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+        if (marshallError) {
+            NSLog(@"Error parsing leaguevine JSON");
+        } else {
+            _timeoutDetails = [TimeoutDetails fromDictionary: timeoutDetailsDict];
+        }
+    }
+    return _timeoutDetails;
 }
 
 @end

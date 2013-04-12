@@ -12,6 +12,7 @@
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
 		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
 		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
+		1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A209AB917177A5400BF9D6A /* TimeoutDetails.m */; };
 		1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B8291625900C00EC9D92 /* EventChangeViewController.m */; };
 		1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -256,6 +257,8 @@
 		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
 		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
 		1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstitutionViewController.m; sourceTree = "<group>"; };
+		1A209AB817177A5400BF9D6A /* TimeoutDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeoutDetails.h; sourceTree = "<group>"; };
+		1A209AB917177A5400BF9D6A /* TimeoutDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeoutDetails.m; sourceTree = "<group>"; };
 		1A23B8281625900C00EC9D92 /* EventChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventChangeViewController.h; sourceTree = "<group>"; };
 		1A23B8291625900C00EC9D92 /* EventChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventChangeViewController.m; sourceTree = "<group>"; };
 		1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventChangeViewController.xib; sourceTree = "<group>"; };
@@ -1021,6 +1024,8 @@
 				1AFFE87415175EB0004B4590 /* Wind.m */,
 				1AEAE9E8152D1D80008574C2 /* TeamDescription.h */,
 				1AEAE9E9152D1D80008574C2 /* TeamDescription.m */,
+				1A209AB817177A5400BF9D6A /* TimeoutDetails.h */,
+				1A209AB917177A5400BF9D6A /* TimeoutDetails.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1606,6 +1611,7 @@
 				1ACED4E0170D945A0041AA23 /* LeagueVinePlayerNameTransformer.m in Sources */,
 				1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */,
 				1AC6613317164B1800DCFF58 /* TimeoutViewController.m in Sources */,
+				1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

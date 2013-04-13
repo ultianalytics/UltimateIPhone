@@ -79,7 +79,7 @@
 }
 
 - (void) setupHalftimeButton; {
-    self.halftimeButton.hidden = (![game isTimeBasedEnd]) || [game isAfterHalftime]  || ![[game getLastEvent] isGoal];
+    self.halftimeButton.hidden = (![game isTimeBasedEnd]) || [game isAfterHalftimeStarted]  || ![[game getLastEvent] isGoal];
     if (!self.halftimeButton.hidden) {
         [self.halftimeButton setTitle:[[game getLastEvent] isHalftimeCause] ? kUndoHalfimeText : kSetHalfimeText forState:UIControlStateNormal];
     }

@@ -82,7 +82,9 @@
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBePull;
 -(NSSet*)getPlayers;
+-(BOOL)isHalftime;
 -(BOOL)isAfterHalftime;
+-(BOOL)isAfterHalftimeStarted;
 -(BOOL)isNextEventImmediatelyAfterHalftime;
 -(int)getLeadingScore;
 -(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;

@@ -655,7 +655,15 @@ static Game* currentGame = nil;
     }
 }
 
+-(BOOL)isHalftime {
+    return [self isNextEventImmediatelyAfterHalftime];
+}
+
 -(BOOL)isAfterHalftime {
+    return [self isAfterHalftimeStarted] || [self isNextEventImmediatelyAfterHalftime];
+}
+
+-(BOOL)isAfterHalftimeStarted {
     [self updatePointSummaries];
     return ([self getCurrentPoint] != nil && ([self getCurrentPoint].summary.isAfterHalftime));
 }

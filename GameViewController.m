@@ -30,6 +30,7 @@
 #import "PullLandingViewController.h"
 #import "UIViewController+Additions.h"
 #import "ActionDetailsViewController.h"
+#import "TimeoutViewController.h"
 #import "LeaguevineEventQueue.h"
 #import "LeaguevinePostingLog.h"
 #import <QuartzCore/QuartzCore.h>
@@ -264,6 +265,12 @@
     [self.navigationController pushViewController:pickPlayersController animated:YES];
 }
 
+-(void) goToTimeoutView {
+    TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
+    timeoutController.game = [Game getCurrentGame];
+    [self.navigationController pushViewController:timeoutController animated:YES];
+}
+
 -(void) goToHistoryViewRight {
     [self goToHistoryView:NO];
 }
@@ -289,6 +296,10 @@
 
 -(IBAction) gameOverButtonClicked: (id) sender {
     [self gameOverConfirm];
+}
+
+-(IBAction) timeoutButtonClicked: (id) sender {
+    [self goToTimeoutView];
 }
 
 -(IBAction)otherTeamScoreClicked: (id) sender {
@@ -659,6 +670,9 @@
     self.gameOverButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.gameOverButton.titleLabel.textAlignment = UITextAlignmentCenter;
     
+    self.timeoutButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.timeoutButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    
     self.otherTeamScoreButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.otherTeamScoreButton.titleLabel.textAlignment = UITextAlignmentCenter;
     [self.otherTeamScoreButton setTitle:@"They Scored" forState: UIControlStateNormal];
@@ -698,6 +712,7 @@
         [self updateViewFromGame:[Game getCurrentGame]];
         [self updateAutoTweetingNotice];
     }
+    self.timeoutButton.titleLabel.text = [NSString stringWithFormat:@"Timeout (%d free)", [[Game getCurrentGame] availableTimeouts]];
     [self addInfoButtton];
 }
 

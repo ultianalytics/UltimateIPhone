@@ -20,6 +20,7 @@
 @property (nonatomic, strong) IBOutlet UILabel* playerLabel;
 @property (nonatomic, strong) IBOutlet UILabel* receiverLabel;
 @property (nonatomic, strong) IBOutlet UIButton* throwAwayButton;
+@property (nonatomic, strong) IBOutlet UIButton* timeoutButton;
 @property (nonatomic, strong) IBOutlet UIButton* gameOverButton;
 @property (nonatomic, strong) IBOutlet UIButton* otherTeamScoreButton;
 @property (nonatomic, strong) IBOutlet UIButton* removeEventButton;

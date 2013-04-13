@@ -49,6 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Team Timeouts";
     [self populateView];
 }
 
@@ -72,9 +73,13 @@
     self.takenSecondHalfLabel.font = is2ndHalf ? [UIFont boldSystemFontOfSize:19] : [UIFont systemFontOfSize:17];
     self.availableNow.text = [NSString stringWithFormat:@"%d", self.game.availableTimeouts];
     self.availableNow.textColor = self.game.availableTimeouts > 0 ? [UIColor whiteColor] : [UIColor redColor];
+    
+    // hide stuff that is not applicable
     self.actionView.hidden = !hasGameStarted;
     self.timeoutButton.hidden = !(self.game.availableTimeouts > 0) && hasGameStarted;
     self.undoButton.hidden = !(self.timeoutDetails.takenFirstHalf > 0 || self.timeoutDetails.takenSecondHalf > 0);
+    self.takenSecondHalf.hidden = !is2ndHalf;
+    self.takenSecondHalfLabel.hidden = self.takenSecondHalf.hidden;
 }
 
 - (void)didReceiveMemoryWarning {

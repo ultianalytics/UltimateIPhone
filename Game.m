@@ -850,6 +850,11 @@ static Game* currentGame = nil;
         } else {
             _timeoutDetails = [TimeoutDetails fromDictionary: timeoutDetailsDict];
         }
+    } else {
+        TimeoutDetails* timeoutDetails = [[TimeoutDetails alloc] init];
+        timeoutDetails.quotaPerHalf = [Preferences getCurrentPreferences].timeoutsPerHalf;
+        timeoutDetails.quotaFloaters = [Preferences getCurrentPreferences].timeoutFloaters;
+        self.timeoutDetails = timeoutDetails;
     }
     return _timeoutDetails;
 }

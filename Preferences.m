@@ -19,6 +19,7 @@
 #define kTimeoutPerHalfKey      @"timeoutPerHalf"
 #define kTimeoutFloaterKey      @"timeoutFloater"
 #define kDefaultGamePoint       13
+#define kDefaultTimeoutsPerHalf 2
 #define kMinGamePoint           9
 #define kMaxGamePoint           17
 static Preferences* currentPreferences= nil;
@@ -30,6 +31,7 @@ static Preferences* currentPreferences= nil;
     if (self) {
         self.filePath = [Preferences getFilePath];
         self.gamePoint = kDefaultGamePoint;
+        self.timeoutsPerHalf = kDefaultTimeoutsPerHalf;
     }
     return self;
 }

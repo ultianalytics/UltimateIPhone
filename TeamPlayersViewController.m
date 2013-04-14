@@ -19,6 +19,8 @@
 #import "LeagueVinePlayerNameTransformer.h"
 #import "LeaguevineWaitingViewController.h"
 #import "AppDelegate.h"
+#import "CalloutsContainerView.h"
+#import "CalloutView.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
@@ -40,6 +42,8 @@
 @property (strong, nonatomic) LeaguevineWaitingViewController* waitingViewController;
 
 @property (strong, nonatomic) void (^alertAction)();
+
+@property (nonatomic) BOOL hasShownLVPlayerStatsCallout;
 
 @end
 
@@ -163,6 +167,17 @@
     [self updateViewAnimated: NO];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    if ([[Team getCurrentTeam] isLeaguevineTeam]) {
+        if (!([[Team getCurrentTeam].players count] > 0) && ![[Team getCurrentTeam] arePlayersFromLeagueVine]) {
+            if (!self.hasShownLVPlayerStatsCallout) {
+                [self showUseLeaguevinePlayersIfWantPlayersStats];
+                self.hasShownLVPlayerStatsCallout = YES;
+            }
+        }
+    }
+}
+
 - (void)viewDidUnload
 {
     [self setLeaguevinePlayersDownloadedLabel:nil];
@@ -254,6 +269,23 @@
     [self dismissViewControllerAnimated:YES completion:^{
         self.waitingViewController = nil;
     }];
+}
+
+-(void)showUseLeaguevinePlayersIfWantPlayersStats {
+        
+    CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+    
+    CGPoint anchor = CGPointTop(self.view.bounds);
+    anchor.y = anchor.y + 50;
+    anchor.x = anchor.x + 50;
+    [calloutsView addCallout:@"NOTE: You can post SCORES to leaguevine with private players but you must choose \"Leaguevine\" players if you want to post PLAYER STATS to leaguevine." anchor: anchor width: 260 degrees: 200 connectorLength: 120 font: [UIFont systemFontOfSize:16]];
+    
+    [self.view addSubview:calloutsView];
+    
+    // move the callouts off the screen and then animate their return.
+    [calloutsView slide: YES animated: NO];
+    [calloutsView slide: NO animated: YES];
+    
 }
 
 #pragma mark Leaguevine Event Handlers

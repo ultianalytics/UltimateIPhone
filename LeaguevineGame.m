@@ -115,6 +115,9 @@
 }
 
 -(NSString*)shortDescription {
+    if (!self.startTime) {
+        return [self opponentDescription];
+    }
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     if ([self.startTime isToday]) {
         [dateFormatter setDateFormat:@"'Today at' h:mm"];
@@ -128,7 +131,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
         self.tournament = [decoder decodeObjectForKey:kLeaguevineGameTournament];
-        self.startTime = [decoder decodeObjectForKey:kLeaguevineGameStartTime];
+        self.startTimeString = [decoder decodeObjectForKey:kLeaguevineGameStartTime];
         self.timezoneOffsetMinutes = [decoder decodeIntForKey:kLeaguevineGameTimezoneOffsetMinutes];
         self.timezone = [decoder decodeObjectForKey:kLeaguevineGameTimezone];
         self.team1Id = [decoder decodeIntForKey:kLeaguevineGameTeam1Id];
@@ -142,7 +145,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:self.tournament forKey:kLeaguevineGameTournament];
-    [encoder encodeObject:self.startTime forKey:kLeaguevineGameStartTime];
+    [encoder encodeObject:self.startTimeString forKey:kLeaguevineGameStartTime];
     [encoder encodeInt:self.timezoneOffsetMinutes forKey:kLeaguevineGameTimezoneOffsetMinutes];
     [encoder encodeObject:self.timezone forKey:kLeaguevineGameTimezone];
     [encoder encodeInt:self.team1Id forKey:kLeaguevineGameTeam1Id];

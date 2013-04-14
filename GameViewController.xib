@@ -357,7 +357,7 @@
 							<object class="IBUIButton" id="673434692">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{260, 293}, {57, 35}}</string>
+								<string key="NSFrame">{{256, 293}, {61, 35}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -386,7 +386,7 @@
 							<object class="IBUIButton" id="926498864">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{260, 329}, {57, 35}}</string>
+								<string key="NSFrame">{{256, 329}, {61, 35}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="556759236"/>
@@ -1111,6 +1111,7 @@
 						<string key="removeEventClicked:">id</string>
 						<string key="switchSidesClicked:">id</string>
 						<string key="throwAwayButtonClicked:">id</string>
+						<string key="timeoutButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="gameOverButtonClicked:">
@@ -1131,6 +1132,10 @@
 						</object>
 						<object class="IBActionInfo" key="throwAwayButtonClicked:">
 							<string key="name">throwAwayButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="timeoutButtonClicked:">
+							<string key="name">timeoutButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

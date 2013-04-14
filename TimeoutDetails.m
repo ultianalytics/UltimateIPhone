@@ -51,4 +51,12 @@
     return dict;
 }
 
+-(void)setTakenFirstHalf:(int)takenFirstHalf {
+    _takenFirstHalf = MAX(takenFirstHalf,0);
+}
+
+-(void)setTakenSecondHalf:(int)takenSecondHalf {
+    _takenSecondHalf = MAX(takenSecondHalf,0);
+}
+
 @end

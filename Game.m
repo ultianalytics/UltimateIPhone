@@ -841,20 +841,22 @@ static Game* currentGame = nil;
 }
 
 -(TimeoutDetails*)timeoutDetails {
-    if (_timeoutDetails == nil && self.timeoutJson) {
-        NSError* marshallError;
-        NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary* timeoutDetailsDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
-        if (marshallError) {
-            NSLog(@"Error parsing leaguevine JSON");
+    if (_timeoutDetails == nil) {
+        if (self.timeoutJson) {
+            NSError* marshallError;
+            NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary* timeoutDetailsDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+            if (marshallError) {
+                NSLog(@"Error parsing leaguevine JSON");
+            } else {
+                _timeoutDetails = [TimeoutDetails fromDictionary: timeoutDetailsDict];
+            }
         } else {
-            _timeoutDetails = [TimeoutDetails fromDictionary: timeoutDetailsDict];
+            TimeoutDetails* timeoutDetails = [[TimeoutDetails alloc] init];
+            timeoutDetails.quotaPerHalf = [Preferences getCurrentPreferences].timeoutsPerHalf;
+            timeoutDetails.quotaFloaters = [Preferences getCurrentPreferences].timeoutFloaters;
+            self.timeoutDetails = timeoutDetails;
         }
-    } else {
-        TimeoutDetails* timeoutDetails = [[TimeoutDetails alloc] init];
-        timeoutDetails.quotaPerHalf = [Preferences getCurrentPreferences].timeoutsPerHalf;
-        timeoutDetails.quotaFloaters = [Preferences getCurrentPreferences].timeoutFloaters;
-        self.timeoutDetails = timeoutDetails;
     }
     return _timeoutDetails;
 }

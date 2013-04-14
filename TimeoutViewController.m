@@ -15,7 +15,7 @@
 #import "TimeoutDetails.h"
 #import "Preferences.h"
 
-#define kPromptFirstHalfUndo 1
+#define kPromptConfirmUndo 1
 #define kPromptForWhichHalfUndo 2
 #define kPromptForWhichHalfApplyDuringHalf 3
 
@@ -131,9 +131,13 @@
 
 - (IBAction)undoButtonTapped:(id)sender {
     if ([self.game isAfterHalftime]) {
-        [self promptForWhichHalfForUndo];
+        if (self.timeoutDetails.takenFirstHalf > 0 && self.timeoutDetails.takenSecondHalf) {
+            [self promptForWhichHalfForUndo];
+        } else {
+            [self promptForFirstUndoConfirm];
+        }
     } else {
-        [self promptForFirstHalfUndoConfirm];
+        [self promptForFirstUndoConfirm];
     }
     [self populateView];
     [self saveTimeoutDetails];
@@ -157,14 +161,14 @@
     [alert show];
 }
 
--(void)promptForFirstHalfUndoConfirm {
+-(void)promptForFirstUndoConfirm {
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Timeout Undo"
                           message:@"Are you sure you want to undo the last timeout?"
                           delegate:self
                           cancelButtonTitle:@"No...nevermind"
                           otherButtonTitles:@"Yes", nil];
-    alert.tag = kPromptFirstHalfUndo;
+    alert.tag = kPromptConfirmUndo;
     [alert show];
 }
 
@@ -180,9 +184,13 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == kPromptFirstHalfUndo) {
+    if (alertView.tag == kPromptConfirmUndo) {
         if (buttonIndex == 1) {
-            self.timeoutDetails.takenFirstHalf = self.timeoutDetails.takenFirstHalf - 1;
+            if (self.timeoutDetails.takenFirstHalf > 0) {
+                self.timeoutDetails.takenFirstHalf = self.timeoutDetails.takenFirstHalf - 1;
+            } else {
+                self.timeoutDetails.takenSecondHalf = self.timeoutDetails.takenSecondHalf - 1;
+            }
         }
     } else if (alertView.tag == kPromptForWhichHalfUndo) {
         if (buttonIndex == 1) {
@@ -197,8 +205,8 @@
             self.timeoutDetails.takenFirstHalf = self.timeoutDetails.takenFirstHalf + 1;
         }
     }
-    [self populateView];
     [self saveTimeoutDetails];
+    [self populateView];
 }
 
 

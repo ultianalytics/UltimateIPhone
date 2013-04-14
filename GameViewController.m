@@ -712,7 +712,7 @@
         [self updateViewFromGame:[Game getCurrentGame]];
         [self updateAutoTweetingNotice];
     }
-    self.timeoutButton.titleLabel.text = [NSString stringWithFormat:@"Timeout (%d free)", [[Game getCurrentGame] availableTimeouts]];
+    self.timeoutButton.titleLabel.text = [NSString stringWithFormat:@"Timeouts (%d free)", [[Game getCurrentGame] availableTimeouts]];
     [self addInfoButtton];
 }
 

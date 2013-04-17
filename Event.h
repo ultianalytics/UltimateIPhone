@@ -18,7 +18,12 @@ typedef enum {
     Callahan,
     PullOb,
     Stall,
-    MiscPenalty
+    MiscPenalty,
+    
+    EndOfFirstQuarter,
+    Halftime,
+    EndOfThirdQuarter,
+    GameOver
 } Action;
 
 #define kActionKey              @"action"
@@ -37,6 +42,8 @@ typedef enum {
 
 - (NSString*)getDescription;
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName;
+- (BOOL) isCessationEvent;
+- (BOOL) isPlayEvent;
 - (BOOL) isOffense;
 - (BOOL) isGoal;
 - (BOOL) isOurGoal;

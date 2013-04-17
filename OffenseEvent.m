@@ -189,6 +189,10 @@
     return YES;
 }
 
+- (BOOL) isPlayEvent {
+    return YES;
+}
+
 - (BOOL) isTurnover {
     return self.action == Drop || self.action == Throwaway || self.action == Stall || self.action == MiscPenalty;
 }

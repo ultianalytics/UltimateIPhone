@@ -107,6 +107,10 @@
     return self.action == Callahan || self.action == Goal;
 }
 
+- (BOOL) isPlayEvent {
+    return YES;
+}
+
 -(Player*)playerOne {
     return self.defender;
 }

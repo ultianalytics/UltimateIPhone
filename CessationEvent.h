@@ -10,4 +10,6 @@
 
 @interface CessationEvent : Event
 
++(CessationEvent*) eventWithAction: (Action)anAction;
+
 @end

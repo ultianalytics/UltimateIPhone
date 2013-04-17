@@ -23,6 +23,8 @@ static UIImage* deImage = nil;
 static UIImage* callahanImage = nil;
 static UIImage* maleImage = nil;
 static UIImage* femaleImage = nil;
+static UIImage* cessationImage = nil;
+static UIImage* gameoverImage = nil;
 static UIImage* unknownImage = nil;
 
 
@@ -40,6 +42,8 @@ static UIImage* unknownImage = nil;
     unknownImage = [UIImage imageNamed:@"hearts.png"];
     maleImage = [UIImage imageNamed:@"big_smile.png"];
     femaleImage = [UIImage imageNamed:@"girl.png"];
+    cessationImage = [UIImage imageNamed:@"stopwatch1.png"];
+    gameoverImage = [UIImage imageNamed:@"finishflag.png"];
 }
 
 + (UIImage*) getImageForEvent: (Event*) event {
@@ -69,6 +73,14 @@ static UIImage* unknownImage = nil;
             return [ImageMaster getDeImage];
         case Callahan:
             return [ImageMaster getCallahanImage];
+        case EndOfFirstQuarter:
+            return [ImageMaster getCallahanImage];
+        case EndOfThirdQuarter:
+            return [ImageMaster getCallahanImage];
+        case Halftime:
+            return [ImageMaster getCallahanImage];
+        case GameOver:
+            return [ImageMaster getFinishImage];
         default:
             return [ImageMaster getUnknownImage];
     }
@@ -118,11 +130,21 @@ static UIImage* unknownImage = nil;
 +(UIImage*)getUnknownImage {
     return unknownImage;
 }
+
 +(UIImage*)getMaleImage {
     return maleImage;
 }
+
 +(UIImage*)getFemaleImage {
     return femaleImage;
+}
+
++(UIImage*)getCessationImage {
+    return cessationImage;
+}
+
++(UIImage*)getFinishImage {
+    return gameoverImage;
 }
 
 @end

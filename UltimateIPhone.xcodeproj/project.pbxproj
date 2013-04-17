@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */; };
 		1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */; };
+		1A047EF4171E2881006DE1C9 /* CessationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A047EF3171E2881006DE1C9 /* CessationEvent.m */; };
+		1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */; };
+		1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFD171E4D04006DE1C9 /* finishflag.png */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
 		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
 		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
@@ -254,6 +257,10 @@
 		1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDownloadPickerViewController.xib; sourceTree = "<group>"; };
 		1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDownloadPickerViewController.m; sourceTree = "<group>"; };
 		1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDownloadPickerViewController.h; sourceTree = "<group>"; };
+		1A047EF2171E2881006DE1C9 /* CessationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CessationEvent.h; sourceTree = "<group>"; };
+		1A047EF3171E2881006DE1C9 /* CessationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CessationEvent.m; sourceTree = "<group>"; };
+		1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopwatch1.png; sourceTree = "<group>"; };
+		1A047EFD171E4D04006DE1C9 /* finishflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finishflag.png; sourceTree = "<group>"; };
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
 		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
 		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
@@ -1013,6 +1020,8 @@
 				1AFFE82F15175EB0004B4590 /* OffenseEvent.m */,
 				1AFFE7DC15175E7B004B4590 /* DefenseEvent.h */,
 				1AFFE7DD15175E7B004B4590 /* DefenseEvent.m */,
+				1A047EF2171E2881006DE1C9 /* CessationEvent.h */,
+				1A047EF3171E2881006DE1C9 /* CessationEvent.m */,
 				1AFFE80B15175EB0004B4590 /* Game.h */,
 				1AFFE80C15175EB0004B4590 /* Game.m */,
 				1AFFE80D15175EB0004B4590 /* GameDescription.h */,
@@ -1233,6 +1242,8 @@
 		1AFFE8DF151765B7004B4590 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1A047EFD171E4D04006DE1C9 /* finishflag.png */,
+				1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */,
 				1AC6613517164CB500DCFF58 /* 137-presentation.png */,
 				1AC6613617164CB500DCFF58 /* 137-presentation@2x.png */,
 				1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */,
@@ -1477,6 +1488,8 @@
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
+				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
+				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1618,6 +1631,7 @@
 				1AC6613317164B1800DCFF58 /* TimeoutViewController.m in Sources */,
 				1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */,
 				1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */,
+				1A047EF4171E2881006DE1C9 /* CessationEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

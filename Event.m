@@ -151,6 +151,15 @@
     return NO;
 }
 
+- (BOOL) isCessationEvent {
+    return NO;
+}
+
+- (BOOL) isPlayEvent {
+    return NO;    
+}
+
+
 - (NSString*)description {
     return [self getDescription];
 }

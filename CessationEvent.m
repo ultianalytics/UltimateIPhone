@@ -21,19 +21,32 @@
     return YES;
 }
 
-- (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
-    switch (self.action) {
-        case EndOfFirstQuarter:
-            return @"End of 1st Qtr";
-        case EndOfThirdQuarter:
-            return @"End of 3rd Qtr";
-        case Halftime:
-            return @"Halftime";
-        case GameOver:
-            return @"Game Over";
-        default:
-            return @"";
-    }
+- (BOOL) isTimeout {
+    return self.action == Timeout;
+}
+
+- (BOOL) isEndOfFirstQuarter {
+    return self.action == EndOfFirstQuarter;
+}
+
+- (BOOL) isEndOfThirdQuarter {
+    return self.action == EndOfThirdQuarter;
+}
+
+- (BOOL) isHalftime {
+    return self.action == Halftime;
+}
+
+- (BOOL) isGameOver {
+    return self.action == GameOver;
+}
+
+- (BOOL) isPeriodEnd {
+    return ![self isTimeout];
+}
+
+- (BOOL) isFinalEventOfPoint {
+    return [self isPeriodEnd];
 }
 
 -(BOOL)isHalftimeCause {
@@ -101,6 +114,22 @@
 
 -(void)useSharedPlayers {
     // no-op...not application to cessation
+}
+
+
+- (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
+    switch (self.action) {
+        case EndOfFirstQuarter:
+            return @"End of 1st Qtr";
+        case EndOfThirdQuarter:
+            return @"End of 3rd Qtr";
+        case Halftime:
+            return @"Halftime";
+        case GameOver:
+            return @"Game Over";
+        default:
+            return @"";
+    }
 }
 
 @end

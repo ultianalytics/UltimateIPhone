@@ -100,6 +100,18 @@
     }
 }
 
+-(Event*)getLastPlayEvent {
+    if ([self.events count] > 0) {
+        for (int i = [self.events count] - 1; i >= 0; i--) {
+            Event* evt = [events objectAtIndex:i];
+            if ([evt isPlayEvent]) {
+                return evt;
+            }
+        }
+    }
+    return nil;
+}
+
 -(NSEnumerator*)getLastEvents: (int) number {
     int numberToReturn = MIN(number, [self.events count]);
     NSArray* lastEvents = [self.events subarrayWithRange: NSMakeRange ([self.events count] - numberToReturn, numberToReturn)];
@@ -117,7 +129,7 @@
 }
 
 -(BOOL)isOurPoint {
-    return [self isFinished] && [[self getLastEvent] isOurGoal];
+    return [[self getLastPlayEvent] isOurGoal];
 }
 
 -(int)getNumberOfEvents {
@@ -203,6 +215,10 @@
         }
     } 
     return players;
+}
+
+-(BOOL)isPeriodEnd {
+    return [self.events count] > 0 && [[self getLastEvent] isPeriodEnd];
 }
 
 

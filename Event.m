@@ -180,6 +180,10 @@
     return NO;
 }
 
+- (BOOL) isPeriodEnd {
+    return NO;
+}
+
 - (BOOL) causesDirectionChange {
     return !(self.action == Catch || self.action == Pull || self.action == PullOb);
 }

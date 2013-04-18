@@ -50,20 +50,12 @@ static Game* currentGame = nil;
 
 @property (nonatomic, strong) NSString* timeoutJson;
 
-+(NSString*)getDirectoryPath: (NSString*) teamId;
-+(void)delete: (NSString*) aGameId;
--(void)updateLastLine: (Event*) event;
--(void)addPoint: (UPoint*) point;
--(void)updatePointSummaries;
--(Score)createScoreForOurs: (int) ours theirs: (int) theirs;
--(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo;
--(int)getHalftimePoint;
-
 @end
 
 @implementation Game
 @synthesize gameId, points,isFirstPointOline, lastOLine, lastDLine, startDateTime,wind,gamePoint,firstEventTweeted;
 @synthesize timeoutDetails=_timeoutDetails;
+@synthesize periodsComplete=_periodsComplete;
 
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
@@ -699,6 +691,7 @@ static Game* currentGame = nil;
 
 -(void)updatePointSummaries {
     if (!arePointSummariesValid) {
+        int periodEndCount = 0;
         Score score;
         score.ours = 0;
         score.theirs = 0;
@@ -724,9 +717,13 @@ static Game* currentGame = nil;
             point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
             point.summary.elapsedSeconds = point.timeEndedSeconds - point.timeStartedSeconds;
             point.summary.previousPoint = lastPoint;
+            if ([point isPeriodEnd]) {
+                periodEndCount++;
+            }
             
             lastPoint = point;
         }
+        _periodsComplete = periodEndCount;
         arePointSummariesValid = YES;
     }
 }
@@ -761,7 +758,12 @@ static Game* currentGame = nil;
     }
 }
 
-#pragma Leaguevine 
+-(int)periodsComplete {
+    [self updatePointSummaries];
+    return _periodsComplete;
+}
+
+#pragma mark - Leaguevine
 
 -(BOOL)isLeaguevineGame {
     return self.leaguevineGame != nil;
@@ -772,7 +774,7 @@ static Game* currentGame = nil;
     self.publishScoreToLeaguevine = NO;  // reset publish
 }
 
-#pragma Substitutions 
+#pragma mark - Substitutions
 
 -(void)addSubstitution: (PlayerSubstitution*)substitution {
     UPoint* currentPoint = [self getCurrentPoint];
@@ -822,7 +824,7 @@ static Game* currentGame = nil;
     return (self.leaguevineGame) && _publishScoreToLeaguevine;
 }
 
-#pragma Timeouts 
+#pragma mark - Timeouts 
 
 -(void)setTimeoutDetails:(TimeoutDetails *)timeoutDetails {
     _timeoutDetails = timeoutDetails;

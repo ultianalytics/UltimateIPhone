@@ -40,5 +40,6 @@
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(NSSet*)playersInEntirePoint;
 -(NSSet*)playersInPartOfPoint;
+-(BOOL)isPeriodEnd;
 
 @end

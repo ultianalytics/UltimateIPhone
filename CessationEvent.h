@@ -14,4 +14,11 @@
 
 +(CessationEvent*) eventFromDictionary:(NSDictionary*) dict; 
 
+- (BOOL) isTimeout;
+- (BOOL) isEndOfFirstQuarter;
+- (BOOL) isEndOfThirdQuarter;
+- (BOOL) isHalftime;
+- (BOOL) isGameOver;
+- (BOOL) isPeriodEnd;
+
 @end

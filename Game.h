@@ -38,6 +38,7 @@
 @property (nonatomic) BOOL publishStatsToLeaguevine;
 @property (nonatomic, strong) TimeoutDetails* timeoutDetails;
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
+@property (nonatomic, readonly) int periodsComplete;
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;
@@ -97,5 +98,6 @@
 -(BOOL)removeLastSubstitutionForCurrentPoint;
 -(NSArray*)substitutionsForCurrentPoint;
 -(int)availableTimeouts;
+
 
 @end

@@ -74,13 +74,15 @@ static UIImage* unknownImage = nil;
         case Callahan:
             return [ImageMaster getCallahanImage];
         case EndOfFirstQuarter:
-            return [ImageMaster getCallahanImage];
+            return [ImageMaster getPeriodEndImage];
         case EndOfThirdQuarter:
-            return [ImageMaster getCallahanImage];
+            return [ImageMaster getPeriodEndImage];
         case Halftime:
-            return [ImageMaster getCallahanImage];
+            return [ImageMaster getPeriodEndImage];
         case GameOver:
             return [ImageMaster getFinishImage];
+        case Timeout:
+            return [ImageMaster getTimeoutImage];
         default:
             return [ImageMaster getUnknownImage];
     }
@@ -143,8 +145,16 @@ static UIImage* unknownImage = nil;
     return cessationImage;
 }
 
++(UIImage*)getPeriodEndImage {
+    return cessationImage;
+}
+
 +(UIImage*)getFinishImage {
     return gameoverImage;
+}
+
++(UIImage*)getTimeoutImage {
+    return cessationImage;
 }
 
 @end

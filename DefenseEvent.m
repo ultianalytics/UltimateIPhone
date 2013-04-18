@@ -77,6 +77,10 @@
     return evt;
 }
 
+- (BOOL) isDefense {
+    return YES;
+}
+
 - (BOOL) isOurGoal {
     return self.action == Callahan;
 }

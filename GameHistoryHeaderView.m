@@ -48,7 +48,11 @@
     }
     
     if ([point.line count] > 0) {
-        self.playersLabel.text = [NSString stringWithFormat:@"%@: %@", isOline ? @"O-line" : @"D-line", [self playersText: point]];
+        if ([game isTimeBasedEnd] && [point isPeriodEnd] && [[point events] count] == 1) {
+            self.playersLabel.text = @"";
+        } else {
+            self.playersLabel.text = [NSString stringWithFormat:@"%@: %@", isOline ? @"O-line" : @"D-line", [self playersText: point]];
+        }
     }
 
 }

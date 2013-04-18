@@ -180,6 +180,10 @@
     return NO;
 }
 
+- (BOOL) isDefense {
+    return NO;
+}
+
 - (BOOL) isPeriodEnd {
     return NO;
 }

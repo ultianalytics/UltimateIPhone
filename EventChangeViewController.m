@@ -61,7 +61,9 @@
 -(void)setEvent:(Event *)event {
     _event = [event copy];
     self.originalEvent = event;
-    [self initSortedPlayersIncludingTeam: NO];
+    if ([event isPlayEvent]) {
+        [self initSortedPlayersIncludingTeam: NO];
+    }
 }
 
 -(OffenseEvent*)offenseEvent {
@@ -87,7 +89,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.players count];
+    return [self.event isPlayEvent] ? [self.players count] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -351,7 +353,7 @@
             default: {
             }
         }
-    } else {
+    } else if ([self.event isDefense]) {
         [self movePlayer1TableToCenter:YES animate:NO];
         switch (self.event.action) {
             case Pull: {
@@ -401,8 +403,40 @@
             default: {
             }
         }
+    } else if ([self.event isCessationEvent]) {
+        self.player1TableView.hidden = YES;
+        self.player2TableView.hidden = YES;
+        self.eventActionSegmentedControl.hidden = YES;
+        
+        switch (self.event.action) {
+            case EndOfFirstQuarter: {
+                self.eventTypeDescriptionLabel.text = @"End Of 1st Quarter";
+                break;
+            }
+            case Halftime: {
+                self.eventTypeDescriptionLabel.text = @"Halftime";
+                break;
+            }
+            case EndOfThirdQuarter: {
+                self.eventTypeDescriptionLabel.text = @"End Of 3rd Quarter";
+                break;
+            }
+            case GameOver: {
+                self.eventTypeDescriptionLabel.text = @"Game Over";
+                break;
+            }
+            case Timeout: {
+                self.eventTypeDescriptionLabel.text = @"Timeout";
+                break;
+            }
+            default: {
+            }
+        }
     }
+
 }
+
+
 
 -(void)configureActionControlFor: (NSArray*)actionTitles initial: (NSString*)initialTitle {
     self.eventActionSegmentedControl.apportionsSegmentWidthsByContent = YES;
@@ -492,7 +526,7 @@
     if ([self.event isOffense]) {
         [self ensureEventPlayer:self.offenseEvent.passer inPlayersList:playersSet];
         [self ensureEventPlayer:self.offenseEvent.receiver inPlayersList:playersSet];
-    } else {
+    } else if ([self.event isDefense]) {
         [self ensureEventPlayer:self.defenseEvent.defender inPlayersList:playersSet];
     }
 }

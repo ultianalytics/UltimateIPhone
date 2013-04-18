@@ -296,7 +296,11 @@
 }
 
 -(IBAction) gameOverButtonClicked: (id) sender {
-    [self gameOverConfirm];
+    if ([[Game getCurrentGame] isTimeBasedEnd]) {
+        [self addEvent:[self createNextPeriodEndEvent]];
+    } else {
+        [self gameOverConfirm];
+    }
 }
 
 -(IBAction) timeoutButtonClicked: (id) sender {
@@ -449,7 +453,7 @@
                 buttonText = @"Halftime";
                 break;
             case 2:
-                buttonText = @"End 2nd Quarter";
+                buttonText = @"End 3rd Quarter";
                 break;
             default:
                 buttonText = @"Game Over";
@@ -464,17 +468,18 @@
     int lastPeriodEnded = [Game getCurrentGame].periodsComplete;
     switch (lastPeriodEnded) {
         case 0:
-            return CessationEvent eventWithAction:EndOfFirstQuarter;
+            return [CessationEvent eventWithAction:EndOfFirstQuarter];
             break;
         case 1:
-            return CessationEvent eventWithAction:Halftime;
+            return [CessationEvent eventWithAction:Halftime];
             break;
         case 2:
-            return CessationEvent eventWithAction:EndOfThirdQuarter;
+            return [CessationEvent eventWithAction:EndOfThirdQuarter];
             break;
         default:
-            return CessationEvent eventWithAction:GameOver;
+            return [CessationEvent eventWithAction:GameOver];
             break;
+    }
 }
 
 -(void)gameOverConfirm {

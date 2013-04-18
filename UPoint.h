@@ -36,6 +36,7 @@
 -(void)removeLastEvent;
 -(BOOL)isFinished;
 -(BOOL)isOurPoint;
+-(BOOL)isTheirPoint;
 -(int)getNumberOfEvents;
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(NSSet*)playersInEntirePoint;

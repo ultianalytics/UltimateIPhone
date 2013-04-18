@@ -132,6 +132,10 @@
     return [[self getLastPlayEvent] isOurGoal];
 }
 
+-(BOOL)isTheirPoint {
+    return [[self getLastPlayEvent] isTheirGoal];
+}
+
 -(int)getNumberOfEvents {
     return [self.events count];
 }

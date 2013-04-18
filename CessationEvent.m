@@ -116,6 +116,9 @@
     // no-op...not application to cessation
 }
 
+- (NSArray*) getPlayers {
+    return @[];
+}
 
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     switch (self.action) {

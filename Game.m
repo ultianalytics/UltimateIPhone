@@ -10,6 +10,7 @@
 #import "UPoint.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
+#import "CessationEvent.h"
 #import "Event.h"
 #import "Team.h"
 #import "Preferences.h"
@@ -534,11 +535,13 @@ static Game* currentGame = nil;
     [self updatePointSummaries];
     if ([self getCurrentPoint] == nil) {
         return isFirstPointOline;
-    } else if ([self isNextEventImmediatelyAfterHalftime]) {
-        return ! isFirstPointOline;
     } else {
         Event* lastEvent = [[self getCurrentPoint] getLastEvent];
-        return [lastEvent isNextEventOffense];
+        if ([self isNextEventImmediatelyAfterHalftime] || [lastEvent isPeriodEnd]) {
+            return [self isNextPointAfterPeriodEndOline];
+        } else {
+            return [lastEvent isNextEventOffense];
+        }
     }
 }
 
@@ -555,8 +558,8 @@ static Game* currentGame = nil;
     [self updatePointSummaries];
     if ([self getCurrentPoint] == nil) {
         return isFirstPointOline;
-    } else if ([self isNextEventImmediatelyAfterHalftime]) {
-        return ! isFirstPointOline;
+    } else if ([self isNextEventImmediatelyAfterHalftime] || [[self getLastEvent] isPeriodEnd]) {
+        return [self isNextPointAfterPeriodEndOline];
     } else if ([[self getCurrentPoint] isFinished]) {
         return ![[self getCurrentPoint] isOurPoint];
     }
@@ -612,14 +615,34 @@ static Game* currentGame = nil;
 
 -(BOOL)canNextPointBePull {
     Event* lastEvent = [self getLastEvent];
-    return lastEvent == nil ?
-        !self.isFirstPointOline :
-        [lastEvent isOurGoal] || ([lastEvent isTheirGoal] && [self isNextEventImmediatelyAfterHalftime] && self.isFirstPointOline);
+    if (lastEvent == nil) {
+        return !self.isFirstPointOline;
+    }
+    if ([self isTimeBasedEnd]) {
+        if ([lastEvent isOurGoal]) {
+            return YES;
+        } else if ([lastEvent isPeriodEnd]) {
+            return ![self isNextPointAfterPeriodEndOline];
+        } else {
+            return NO;
+        }
+    } else {
+        return [lastEvent isOurGoal] || ([lastEvent isTheirGoal] && [self isNextEventImmediatelyAfterHalftime] && self.isFirstPointOline);
+    }
+}
+
+-(BOOL)isNextPointAfterPeriodEndOline {
+    int periodsFinished = [self isTimeBasedEnd] ? self.periodsComplete : [self isAfterHalftime];
+    return [self isNextPointOlineAfterPeriodsFinished: periodsFinished];
+}
+
+-(BOOL)isNextPointOlineAfterPeriodsFinished: (int)periodsFinished {
+    return ((self.isFirstPointOline + periodsFinished) % 2);
 }
 
 -(BOOL)isPointInProgress {
     Event* lastEvent = self.getLastEvent;
-    return lastEvent && ![lastEvent isGoal];
+    return lastEvent && ![lastEvent isGoal] && ![lastEvent isPeriodEnd];
 }
 
 -(NSSet*)getPlayers {
@@ -637,7 +660,7 @@ static Game* currentGame = nil;
 
 -(BOOL)isNextEventImmediatelyAfterHalftime {
     if (self.isTimeBasedEnd) {
-        return [self hasEvents] && [[self getLastEvent] isHalftimeCause];
+        return [self isHalftime];
     } else {
         [self updatePointSummaries];
         if ([self getCurrentPoint] != nil && [[self getCurrentPoint] isFinished] && (![self getCurrentPoint].summary.isAfterHalftime)) {
@@ -648,16 +671,29 @@ static Game* currentGame = nil;
 }
 
 -(BOOL)isHalftime {
-    return [self isNextEventImmediatelyAfterHalftime];
+    if ([self isTimeBasedEnd]) {
+        Event* evt = [self getLastEvent];
+        return [evt isCessationEvent] && [((CessationEvent*)evt) isHalftime];
+    } else {
+        return [self isNextEventImmediatelyAfterHalftime];
+    }
 }
 
 -(BOOL)isAfterHalftime {
-    return [self isAfterHalftimeStarted] || [self isNextEventImmediatelyAfterHalftime];
+    if ([self isTimeBasedEnd]) {
+        return self.periodsComplete >= 2;
+    } else {
+        return [self isAfterHalftimeStarted] || [self isNextEventImmediatelyAfterHalftime];
+    }
 }
 
 -(BOOL)isAfterHalftimeStarted {
-    [self updatePointSummaries];
-    return ([self getCurrentPoint] != nil && ([self getCurrentPoint].summary.isAfterHalftime));
+    if ([self isTimeBasedEnd]) {
+        return self.periodsComplete >= 2 && ![self isHalftime];
+    } else {
+        [self updatePointSummaries];
+        return ([self getCurrentPoint] != nil && ([self getCurrentPoint].summary.isAfterHalftime));
+    }
 }
 
 -(int)getHalftimePoint {
@@ -703,20 +739,26 @@ static Game* currentGame = nil;
             if (point.summary.isFinished) {
                 if ([point isOurPoint]) {
                     score.ours++;
-                } else { 
+                } else if ([point isTheirPoint]) {
                     score.theirs++;
                 }
             } 
             point.summary.score = [self createScoreForOurs:score.ours theirs:score.theirs];
             if (self.isTimeBasedEnd) {
-                point.summary.isAfterHalftime = lastPoint && (lastPoint.summary.isAfterHalftime || [[lastPoint getLastEvent] isHalftimeCause]);
+                point.summary.isAfterHalftime = periodEndCount > 2;
+                if (!lastPoint || [lastPoint isPeriodEnd]) {
+                    point.summary.isOline = [self isNextPointOlineAfterPeriodsFinished: periodEndCount];
+                } else {
+                    point.summary.isOline = ![lastPoint isOurPoint];
+                }
             } else {
-                point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint]<= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
+                point.summary.isAfterHalftime = lastPoint != nil && [self getHalftimePoint] <= MAX(lastPoint.summary.score.ours, lastPoint.summary.score.theirs);
+                BOOL isFirstPointAfterHalftime = lastPoint != nil && point.summary.isAfterHalftime && !lastPoint.summary.isAfterHalftime;
+                point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
             }
-            BOOL isFirstPointAfterHalftime = lastPoint != nil && point.summary.isAfterHalftime && !lastPoint.summary.isAfterHalftime;
-            point.summary.isOline = lastPoint == nil ? self.isFirstPointOline : isFirstPointAfterHalftime ? !self.isFirstPointOline : ![lastPoint isOurPoint];
             point.summary.elapsedSeconds = point.timeEndedSeconds - point.timeStartedSeconds;
             point.summary.previousPoint = lastPoint;
+            
             if ([point isPeriodEnd]) {
                 periodEndCount++;
             }

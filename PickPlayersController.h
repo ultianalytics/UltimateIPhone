@@ -27,7 +27,6 @@
 @property (nonatomic, strong) IBOutlet UIButton* lastLineButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearButton;
 @property (strong, nonatomic) IBOutlet UIButton *substitutionButton;
-@property (strong, nonatomic) IBOutlet UIButton *halftimeButton;
 @property (nonatomic, strong) IBOutlet UILabel* errorMessageLabel;
 @property (nonatomic, strong) NSMutableArray* fieldButtons;
 @property (nonatomic, strong) NSMutableArray* benchButtons;
@@ -41,7 +40,6 @@
 - (IBAction) lastLineClicked:(id)button;
 - (IBAction) clearClicked:(id)button;
 - (void) populateLineType;
-- (void) setupHalftimeButton;
 - (void) benchPlayerClicked:(id)playerButton;
 - (void) fieldPlayerClicked:(id)playerButton;
 - (void) updateBenchView;

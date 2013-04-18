@@ -39,7 +39,6 @@
 @end
 
 @implementation PickPlayersController
-@synthesize halftimeButton;
 @synthesize benchTableView, benchTableCells, fieldView, fieldButtons, benchButtons, lastLineButton, pointsPerPlayer, pointFactorPerPlayer,errorMessageLabel,game,firstTimeUsageCallouts,infoCalloutsView;
 
 
@@ -59,7 +58,6 @@
     [self loadPlayerButtons];
     [self updateBenchView];
     [self populateLineType];
-    [self setupHalftimeButton];
     [self showHideButtons];
     [self configureSubstitutionsView];
 }
@@ -76,13 +74,6 @@
     [self.lastLineButton setTitle:title forState:UIControlStateNormal];
     NSString* viewTitle = [self shouldDisplayOline] ? @"O-Line" :  @"D-Line";
     self.title = viewTitle;
-}
-
-- (void) setupHalftimeButton; {
-    self.halftimeButton.hidden = (![game isTimeBasedEnd]) || [game isAfterHalftimeStarted]  || ![[game getLastEvent] isGoal];
-    if (!self.halftimeButton.hidden) {
-        [self.halftimeButton setTitle:[[game getLastEvent] isHalftimeCause] ? kUndoHalfimeText : kSetHalfimeText forState:UIControlStateNormal];
-    }
 }
 
 -(void) loadPlayerButtons {
@@ -289,17 +280,13 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload
-{
-    [self setHalftimeButton:nil];
+- (void)viewDidUnload {
     [self setClearButton:nil];
     [self setSubstitutionButton:nil];
     [self setSubstitutionTableView:nil];
     [self setSubstitutionsView:nil];
     [self setUndoSubstitutionButton:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

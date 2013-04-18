@@ -434,6 +434,47 @@
     for (PlayerView* playerView in playerViews) {
         [playerView update:game];
     }
+    [self updateGameOverButtonForTimeBasedGame];
+}
+
+-(void)updateGameOverButtonForTimeBasedGame {
+    if ([[Game getCurrentGame] isTimeBasedEnd]) {
+        int lastPeriodEnded = [Game getCurrentGame].periodsComplete;
+        NSString* buttonText;
+        switch (lastPeriodEnded) {
+            case 0:
+                buttonText = @"End 1st Quarter";
+                break;
+            case 1:
+                buttonText = @"Halftime";
+                break;
+            case 2:
+                buttonText = @"End 2nd Quarter";
+                break;
+            default:
+                buttonText = @"Game Over";
+                break;
+        }
+        [self.gameOverButton setTitle:buttonText forState:UIControlStateNormal];
+        [self.gameOverButton setTitle:buttonText forState:UIControlStateHighlighted];
+    }
+}
+
+-(CessationEvent*)createNextPeriodEndEvent {
+    int lastPeriodEnded = [Game getCurrentGame].periodsComplete;
+    switch (lastPeriodEnded) {
+        case 0:
+            return CessationEvent eventWithAction:EndOfFirstQuarter;
+            break;
+        case 1:
+            return CessationEvent eventWithAction:Halftime;
+            break;
+        case 2:
+            return CessationEvent eventWithAction:EndOfThirdQuarter;
+            break;
+        default:
+            return CessationEvent eventWithAction:GameOver;
+            break;
 }
 
 -(void)gameOverConfirm {

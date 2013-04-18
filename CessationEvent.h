@@ -12,4 +12,6 @@
 
 +(CessationEvent*) eventWithAction: (Action)anAction;
 
++(CessationEvent*) eventFromDictionary:(NSDictionary*) dict; 
+
 @end

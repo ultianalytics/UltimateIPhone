@@ -15,6 +15,7 @@
 #import "Team.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
+#import "CessationEvent.h"
 #import "Game.h"
 #import "GameDetailViewController.h"
 #import "ColorMaster.h"

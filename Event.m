@@ -9,6 +9,7 @@
 #import "Event.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
+#import "CessationEvent.h"
 #import "Team.h"
 #import "Game.h"
 
@@ -25,7 +26,9 @@
 +(Event*)fromDictionary:(NSDictionary*) dict {
     NSString* type = [dict objectForKey:kEventTypeProperty];
     Event* event = nil;
-    if ([type isEqualToString:@"Offense"]) {
+    if ([type isEqualToString:@"Cessation"]) {
+        event = [CessationEvent eventFromDictionary:dict];
+    } else if ([type isEqualToString:@"Offense"]) {
         event = [OffenseEvent eventFromDictionary:dict];
     } else {
         event = [DefenseEvent eventFromDictionary:dict];

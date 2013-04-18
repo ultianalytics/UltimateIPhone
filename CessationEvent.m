@@ -48,5 +48,59 @@
     return YES;
 }
 
+- (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
+    NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
+    [dict setValue: @"Cessation" forKey:kEventTypeProperty];
+    
+    switch (self.action) {
+        case EndOfFirstQuarter: {
+            [dict setValue: @"EndOfFirstQuarter" forKey:kActionKey];
+            break;
+        }
+        case EndOfThirdQuarter: {
+            [dict setValue: @"EndOfThirdQuarter" forKey:kActionKey];
+            break;
+        }
+        case Halftime: {
+            [dict setValue: @"Halftime" forKey:kActionKey];
+            break;
+        }
+        case GameOver: {
+            [dict setValue: @"GameOver" forKey:kActionKey];
+            break;
+        }
+        case Timeout: {
+            [dict setValue: @"Timeout" forKey:kActionKey];
+            break;
+        }
+        default: {
+        }
+    }
+    
+    return dict;
+}
+
++(CessationEvent*)eventFromDictionary:(NSDictionary*) dict {
+    NSString* dictAction = [dict valueForKey:kActionKey];
+    
+    Action action;
+    if ([dictAction isEqualToString: @"EndOfFirstQuarter"]) {
+        action = EndOfFirstQuarter;
+    } else if ([dictAction isEqualToString: @"EndOfThirdQuarter"]) {
+        action = EndOfThirdQuarter;
+    } else if ([dictAction isEqualToString: @"Halftime"]) {
+        action = Halftime;
+    } else if ([dictAction isEqualToString: @"GameOver"]) {
+        action = GameOver;
+    } else  {
+        action = Timeout;
+    }
+    
+    return [CessationEvent eventWithAction: action];
+}
+
+-(void)useSharedPlayers {
+    // no-op...not application to cessation
+}
 
 @end

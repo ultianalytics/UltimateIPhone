@@ -23,7 +23,8 @@ typedef enum {
     EndOfFirstQuarter,
     Halftime,
     EndOfThirdQuarter,
-    GameOver
+    GameOver,
+    Timeout
 } Action;
 
 #define kActionKey              @"action"

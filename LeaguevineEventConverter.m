@@ -93,6 +93,22 @@
             [self populatePlayerThreeInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
             break;
         }
+        case EndOfFirstQuarter: {
+            leaguevineEvent.leaguevineEventType = 95;
+            break;
+        }
+        case Halftime: {
+            leaguevineEvent.leaguevineEventType = 96;
+            break;
+        }
+        case EndOfThirdQuarter: {
+            leaguevineEvent.leaguevineEventType = 97;
+            break;
+        }
+        case GameOver: {
+            leaguevineEvent.leaguevineEventType = 98;
+            break;
+        }
 
         default: {
             converted = NO;

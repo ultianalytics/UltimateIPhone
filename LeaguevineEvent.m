@@ -94,7 +94,7 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat: @"LeaguevineEvent \"%@\" iUltimateTimestamp=%f, leaguevineEventId=%d, leaguevineGameId=%d, leaguevinePlayer1Id=%d, leaguevinePlayer2Id=%d, leaguevinePlayer3Id=%d, leaguevinePlayer1TeamId=%d, leaguevinePlayer2TeamId=%d, leaguevinePlayer3TeamId=%d, latestLine=%@", self.eventDescription, self.iUltimateTimestamp, self.leaguevineEventId, self.leaguevineGameId, self.leaguevinePlayer1Id, self.leaguevinePlayer2Id, self.leaguevinePlayer3Id, self.leaguevinePlayer1TeamId, self.leaguevinePlayer2TeamId, self.leaguevinePlayer3TeamId, self.latestLine];
+    return [NSString stringWithFormat: @"LeaguevineEvent \"%@\" type=%d iUltimateTimestamp=%f, leaguevineEventId=%d, leaguevineGameId=%d, leaguevinePlayer1Id=%d, leaguevinePlayer2Id=%d, leaguevinePlayer3Id=%d, leaguevinePlayer1TeamId=%d, leaguevinePlayer2TeamId=%d, leaguevinePlayer3TeamId=%d, latestLine=%@", self.eventDescription, self.leaguevineEventType, self.iUltimateTimestamp, self.leaguevineEventId, self.leaguevineGameId, self.leaguevinePlayer1Id, self.leaguevinePlayer2Id, self.leaguevinePlayer3Id, self.leaguevinePlayer1TeamId, self.leaguevinePlayer2TeamId, self.leaguevinePlayer3TeamId, self.latestLine];
 }
 
 -(BOOL)isAdd {
@@ -128,6 +128,10 @@
 
 -(BOOL)isLineChange {
     return self.leaguevineEventType == kLineChangeEventType;
+}
+
+-(BOOL)isPeriodEnd {
+    return self.leaguevineEventType >= 94 && self.leaguevineEventType <= 98;
 }
 
 @end

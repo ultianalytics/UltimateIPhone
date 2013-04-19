@@ -399,6 +399,9 @@
 
 -(BOOL)isValidLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent {
     if (leaguevineEvent.iUltimateTimestamp && leaguevineEvent.leaguevineGameId && leaguevineEvent.leaguevineEventType) {
+        if ([leaguevineEvent isPeriodEnd]) {
+            return YES;
+        }
         if (leaguevineEvent.leaguevinePlayer1Id || leaguevineEvent.leaguevinePlayer1TeamId || leaguevineEvent.leaguevinePlayer3Id || leaguevineEvent.leaguevinePlayer3TeamId) {
             return YES;
         }

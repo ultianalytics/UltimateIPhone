@@ -32,6 +32,7 @@
 #define kAlertLeaguevineStatsEnding @"Stats Posting Ending"
 #define kAlertLeaguevineStatsStarting @"Posting Stats to Leaguevine"
 #define kAlertLeaguevineStatsStartingWithGameInProgress @"Warning: Game Started"
+#define kAlertOpeningFinishedGame @"Game Is Over"
 
 @interface GameDetailViewController()
 
@@ -112,7 +113,7 @@
     self.deleteButton.hidden = ![self.game hasBeenSaved];
     self.startButton.hidden = [self.game hasBeenSaved];
     if ([self.game hasBeenSaved]) {
-        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(goToActionView)];
+        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(actionButtonTapped)];
         self.navigationItem.rightBarButtonItem = navBarActionButton;    
     }
     
@@ -178,7 +179,6 @@
         [self.cells addObject:self.gameTypeCell];
     }
     [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell]];
-//    [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.windCell]];
     [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.timeoutsCell, self.windCell]];
     if ([self.game hasBeenSaved]) {
         [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell]];
@@ -186,6 +186,15 @@
 }
 
 #pragma mark - Event Handlers
+
+-(void)actionButtonTapped {
+    if ([[Game getCurrentGame] isTimeBasedEnd]) {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kAlertOpeningFinishedGame message:@"This game is over.  You can correct events without re-opening it by using the Events view.\n\nDo you really want to re-open this game?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alertView show];
+    } else {
+        [self goToActionView];
+    }
+}
 
 -(IBAction)opponentNameChanged: (id) sender {
     self.game.opponentName = [self.opposingTeamNameField.text trim];
@@ -240,6 +249,11 @@
                [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
                [alertView.title isEqualToString:kAlertLeaguevineStatsEnding]) {
         [self updateLeaguevinePublishing];
+    } else  if ([alertView.title isEqualToString:kAlertOpeningFinishedGame]) {
+        if (buttonIndex == 1) {  // re-open game
+            [[Game getCurrentGame] removeLastEvent];
+            [self goToActionView];
+        }
     }
 }
 

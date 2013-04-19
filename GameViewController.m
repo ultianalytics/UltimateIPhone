@@ -296,7 +296,7 @@
 }
 
 -(IBAction) gameOverButtonClicked: (id) sender {
-    if ([[Game getCurrentGame] isTimeBasedEnd]) {
+    if ([[Game getCurrentGame] isTimeBasedEnd] && [Game getCurrentGame].periodsComplete < 3) {
         [self addEvent:[self createNextPeriodEndEvent]];
     } else {
         [self gameOverConfirm];
@@ -585,6 +585,10 @@
 #pragma mark Leaguevine 
 
 -(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
+    if (isFinal && [[Game getCurrentGame] isTimeBasedEnd]) {
+        [self addEvent:[self createNextPeriodEndEvent]];
+    }
+
     [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
         if (status != LeaguevineInvokeOK) {
             [Game getCurrentGame].publishScoreToLeaguevine = NO;

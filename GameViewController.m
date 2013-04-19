@@ -44,6 +44,7 @@
 #define kLeaguevineError @"Error Posting To Leaguevine"
 
 #define kIsNotFirstGameViewUsage @"IsNotFirstGameViewUsage"
+#define kHasNotUsedAnyDetailView @"HasNotUsedAnyDetailView"
 
 @interface GameViewController()
 
@@ -828,13 +829,21 @@
 -(void)showDetailSelectionView: (BOOL) show {
     if (show) {
         [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            
+            [self updateUserHasUsedDetailViews];
         }];
     } else {
         [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
             
         }];
     }
+}
+
+-(BOOL)hasUserUsedDetailViews {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: kHasNotUsedAnyDetailView];
+}
+
+-(void)updateUserHasUsedDetailViews {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasNotUsedAnyDetailView];
 }
 
 

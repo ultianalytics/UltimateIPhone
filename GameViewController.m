@@ -44,7 +44,8 @@
 #define kLeaguevineError @"Error Posting To Leaguevine"
 
 #define kIsNotFirstGameViewUsage @"IsNotFirstGameViewUsage"
-#define kHasNotUsedAnyDetailView @"HasNotUsedAnyDetailView"
+#define kHasUserSeenDeLongPressCallout @"HasUserSeenDeLongPressCallout"
+#define kHasUserSeenThrowawayLongPressCallout @"HasUserSeenThrowawayLongPressCallout"
 
 @interface GameViewController()
 
@@ -75,6 +76,7 @@
                     event.pullHangtimeMilliseconds = hangtimeMilliseconds;
                 }
                 [self addEvent: event];
+                [self showDidYouKnow];
             }
         }];
     };
@@ -277,6 +279,7 @@
 - (void) passerSelected: (Player*) player view: (PlayerView*) view {
     if (isOffense) {
         [self setNeedToSelectPasser: NO];
+        [self showDidYouKnow];
     }
     PlayerView* oldSelected = [self findSelectedPlayerView];
     if (oldSelected) {
@@ -775,7 +778,7 @@
     }
 }
 
-#pragma mark Detail selection view
+#pragma mark Detail Selection View
 
 -(void)initializeDetailSelectionView {
     self.detailsController = [[ActionDetailsViewController alloc] init];
@@ -789,24 +792,18 @@
 -(void)showDetailSelectionView: (BOOL) show {
     if (show) {
         [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            [self updateUserHasUsedDetailViews];
         }];
     } else {
         [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-            
         }];
     }
 }
 
--(BOOL)hasUserUsedDetailViews {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: kHasNotUsedAnyDetailView];
-}
-
--(void)updateUserHasUsedDetailViews {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasNotUsedAnyDetailView];
-}
-
 #pragma mark Callouts 
+
+-(BOOL)isFirstTimeGameViewUsage {
+    return ![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage];
+}
 
 - (void)infoButtonTapped {
     [self toggleInfoCallouts];
@@ -816,7 +813,7 @@
     if (self.firstTimeUsageCallouts) {
         [self.firstTimeUsageCallouts removeFromSuperview];
         self.firstTimeUsageCallouts = nil;
-    } else if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage]) {
+    } else if ([self isFirstTimeGameViewUsage]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
         
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
@@ -848,6 +845,46 @@
         CGPoint anchor = CGPointTopRight(self.view.bounds);
         anchor.x = anchor.x - 40;
         [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80 font: textFont];
+        
+        self.infoCalloutsView = calloutsView;
+        [self.view addSubview:calloutsView];
+        // move the callouts off the screen and then animate their return.
+        [self.infoCalloutsView slide: YES animated: NO];
+        [self.infoCalloutsView slide: NO animated: YES];
+    }
+}
+
+-(void)showDidYouKnow {
+    if (isOffense && ![[Game getCurrentGame] hasEvents] && !self.throwAwayButton.hidden) {
+        [self showThrowawayPressCallout];
+    } else if (!isOffense && [[Game getCurrentGame] hasOneEvent]) {
+        [self showDeLongPressCallout];
+    }
+}
+
+-(void)showDeLongPressCallout {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kHasUserSeenDeLongPressCallout]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasUserSeenDeLongPressCallout];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+
+        CGPoint anchor = CGPointMake(155,70);
+        [calloutsView addCallout:@"Did you know?\n\nYou can record a Callahan by tap-and-holding the D button." anchor: anchor width: 140 degrees: 110 connectorLength: 95 font: [UIFont systemFontOfSize:14]];
+        
+        self.infoCalloutsView = calloutsView;
+        [self.view addSubview:calloutsView];
+        // move the callouts off the screen and then animate their return.
+        [self.infoCalloutsView slide: YES animated: NO];
+        [self.infoCalloutsView slide: NO animated: YES];
+    }
+}
+
+-(void)showThrowawayPressCallout {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kHasUserSeenThrowawayLongPressCallout]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasUserSeenThrowawayLongPressCallout];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = CGPointMake(300,70);
+        [calloutsView addCallout:@"Did you know?\n\nYou can record other turnover types by tap-and-holding the Throwaway button." anchor: anchor width: 160 degrees: 250 connectorLength: 125 font: [UIFont systemFontOfSize:14]];
         
         self.infoCalloutsView = calloutsView;
         [self.view addSubview:calloutsView];

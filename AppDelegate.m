@@ -40,22 +40,22 @@ UINavigationController* gameNavController;
     
     // Tab 1: team
     TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-    teamNavController = [[UltimateNavigationController alloc] initWithRootViewController:teamController];
+    teamNavController = [[UINavigationController alloc] initWithRootViewController:teamController];
     UIViewController *viewController1 = teamNavController;
 
     // Tab 2: game
     GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
-    gameNavController = [[UltimateNavigationController alloc] initWithRootViewController:gameController];
+    gameNavController = [[UINavigationController alloc] initWithRootViewController:gameController];
     UIViewController *viewController2 = gameNavController;
     
     // Tab 3: cloud
     CloudViewController* cloudController = [[CloudViewController alloc] init];
-    UINavigationController* cloudNavController = [[UltimateNavigationController alloc] initWithRootViewController:cloudController];
+    UINavigationController* cloudNavController = [[UINavigationController alloc] initWithRootViewController:cloudController];
     UIViewController* viewController3 = cloudNavController;
     
     // Tab 4: twitter
     TwitterController* twitterController = [[TwitterController alloc] init];
-    UINavigationController* twitterNavController = [[UltimateNavigationController alloc] initWithRootViewController:twitterController];
+    UINavigationController* twitterNavController = [[UINavigationController alloc] initWithRootViewController:twitterController];
     UIViewController *viewController4 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];

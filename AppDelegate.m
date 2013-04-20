@@ -18,8 +18,7 @@
 #import "ColorMaster.h"
 #import "LeaguevineEventQueue.h"
 #import "Reachability.h"
-#import "UltimateNavigationController.h"
-
+#import "BufferedNavigationController.h"
 
 @implementation AppDelegate
 
@@ -40,22 +39,22 @@ UINavigationController* gameNavController;
     
     // Tab 1: team
     TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-    teamNavController = [[UINavigationController alloc] initWithRootViewController:teamController];
+    teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
     UIViewController *viewController1 = teamNavController;
 
     // Tab 2: game
     GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
-    gameNavController = [[UINavigationController alloc] initWithRootViewController:gameController];
+    gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
     UIViewController *viewController2 = gameNavController;
     
     // Tab 3: cloud
     CloudViewController* cloudController = [[CloudViewController alloc] init];
-    UINavigationController* cloudNavController = [[UINavigationController alloc] initWithRootViewController:cloudController];
+    UINavigationController* cloudNavController = [[BufferedNavigationController alloc] initWithRootViewController:cloudController];
     UIViewController* viewController3 = cloudNavController;
     
     // Tab 4: twitter
     TwitterController* twitterController = [[TwitterController alloc] init];
-    UINavigationController* twitterNavController = [[UINavigationController alloc] initWithRootViewController:twitterController];
+    UINavigationController* twitterNavController = [[BufferedNavigationController alloc] initWithRootViewController:twitterController];
     UIViewController *viewController4 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];

@@ -924,7 +924,7 @@
 				1AFFE8D11517643A004B4590 /* Model */,
 				1A00013B151769AE00600916 /* Sound Player */,
 				1AFFE8D315176457004B4590 /* TestFlightSDK */,
-				1AFFE8DF151765B7004B4590 /* Graphics */,
+				1AFFE8DF151765B7004B4590 /* Images */,
 				1AFFE85B15175EB0004B4590 /* sounds */,
 				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
@@ -1239,7 +1239,7 @@
 			name = Stats;
 			sourceTree = "<group>";
 		};
-		1AFFE8DF151765B7004B4590 /* Graphics */ = {
+		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				1A047EFD171E4D04006DE1C9 /* finishflag.png */,
@@ -1319,7 +1319,7 @@
 				1AFFE82D15175EB0004B4590 /* nothing.png */,
 				1AFFE82715175EB0004B4590 /* left-arrow.png */,
 			);
-			name = Graphics;
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

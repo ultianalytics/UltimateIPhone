@@ -587,7 +587,7 @@
 
 -(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
     if (isFinal && [[Game getCurrentGame] isTimeBasedEnd]) {
-        [self addEvent:[self createNextPeriodEndEvent]];
+        [[Game getCurrentGame] addEvent: [self createNextPeriodEndEvent]];  
     }
 
     [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {

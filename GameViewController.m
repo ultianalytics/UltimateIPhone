@@ -61,106 +61,7 @@
 @synthesize playerLabel,receiverLabel,throwAwayButton, gameOverButton,playerViews,playerView1,playerView2,playerView3,playerView4,playerView5,playerView6,playerView7,playerViewTeam,otherTeamScoreButton,eventView1,
     eventView2,eventView3, removeEventButton, swipeEventsView, hideReceiverView, firstTimeUsageCallouts,infoCalloutsView;
 
-#pragma mark ActionListener 
-
-- (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
-    if (isOffense) {
-        PlayerView* oldSelected = [self findSelectedPlayerView];
-        if (oldSelected) {
-            [oldSelected makeSelected:NO];
-        }
-        [view makeSelected:YES];
-        Player* passer = oldSelected.player;
-        OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
-        [self addEvent: event];        
-    } else {
-        if (action == Pull) {
-            [self handlePullBegin: player];
-        } else {
-            DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:action];
-            [self addEvent: event];
-        }
-    }
-}
-
-- (void) actionLongPress: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
-    if (action == Pull) {
-        [self handlePullBegin: player];
-    } else {
-        if (isOffense) {
-            PlayerView* oldSelected = [self findSelectedPlayerView];
-            if (oldSelected) {
-                [oldSelected makeSelected:NO];
-            }
-            [view makeSelected:YES];
-            Player* passer = oldSelected.player;
-            OffenseEvent* defaultEvent = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
-            [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
-            self.detailsController.description = @"Only choice for this button is...";
-        } else {
-            DefenseEvent* defaultEvent = [[DefenseEvent alloc] initDefender:player action:action];
-            if (action == De) {
-                DefenseEvent* callahan = [[DefenseEvent alloc] initDefender:player action:Callahan];
-                [self.detailsController setCandidateEvents:@[defaultEvent, callahan] initialChosen:defaultEvent];
-                self.detailsController.description = @"D is...";
-            } else {
-                [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
-                self.detailsController.description = @"Only choice for this button is...";
-            }
-        }
-        GameViewController* __weak weakSelf = self;
-        self.detailsController.saveBlock = ^(Event* event){
-            [weakSelf addEvent: event];
-            [weakSelf showDetailSelectionView:NO];
-        };
-        [self showDetailSelectionView: YES];
-    }
-}
-
-- (void) passerSelected: (Player*) player view: (PlayerView*) view {
-    if (isOffense) {
-        [self setNeedToSelectPasser: NO];
-    }
-    PlayerView* oldSelected = [self findSelectedPlayerView];
-    if (oldSelected) {
-        [oldSelected makeSelected:NO];
-    }
-    [view makeSelected:YES];
-}
-
-- (void) passerLongPress: (Player*) player view: (PlayerView*) view {
-    [self passerSelected:player view:view];
-}
-
--(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        if (isOffense) {
-            PlayerView* oldSelected = [self findSelectedPlayerView];
-            if (oldSelected) {
-                [oldSelected makeSelected:NO];
-            }
-            [playerViewTeam makeSelected:YES];
-            Player* passer = oldSelected.player;
-            OffenseEvent* throwaway = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
-            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Stall];
-            OffenseEvent* miscPenalty = [[OffenseEvent alloc] initPasser:passer action:MiscPenalty];
-            [self.detailsController setCandidateEvents:@[throwaway, stall, miscPenalty] initialChosen:throwaway];
-            self.detailsController.description = @"Turnover is...";
-        } else {
-            DefenseEvent* throwaway = [[DefenseEvent alloc] initAction:Throwaway];
-            [self.detailsController setCandidateEvents:@[throwaway] initialChosen:throwaway];
-            self.detailsController.description = @"Only choice for this button is...";
-        }
-        GameViewController* __weak weakSelf = self;
-        self.detailsController.saveBlock = ^(Event* event){
-            [weakSelf addEvent: event];
-            [weakSelf showDetailSelectionView:NO];
-        };
-        [self showDetailSelectionView: YES];
-    }
-}
-
-#pragma mark  
+#pragma mark  Miscelleanous
 
 -(void)handlePullBegin: (Player*) player {
     double currentTime = CACurrentMediaTime();
@@ -203,24 +104,6 @@
     [self notifyLeaguevineOfNewEvent:event];
 }
 
--(IBAction)removeEventClicked: (id) sender {
-    Event* lastEventBefore = [[Game getCurrentGame] getLastEvent];
-    [[Game getCurrentGame] removeLastEvent];
-    [self updateEventViews];
-    Event* lastEventAfter = [[Game getCurrentGame] getLastEvent];
-    [self refreshTitle: lastEventBefore];
-    [[Game getCurrentGame] save];
-    if ([lastEventBefore causesDirectionChange]) {
-        [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
-        if ([lastEventAfter causesLineChange]) {
-            [self goToPlayersOnFieldView];
-        }
-    }
-    [self initializeSelected];
-    [self updateViewFromGame:[Game getCurrentGame]];
-    [self notifyLeaguevineOfRemovedEvent:lastEventBefore];
-}
-
 -(void)updateEventViews {
     NSArray* lastFewEvents = [[Game getCurrentGame] getLastEvents:3];
     [self.eventView1 updateEvent: [lastFewEvents count] >= 1 ? [lastFewEvents objectAtIndex:0] : nil];
@@ -258,59 +141,6 @@
         [playerView setNeedToSelectPasser: needToSelectPasser];
     }
     self.hideReceiverView.hidden = !needToSelectPasser;
-}
-
--(void) goToPlayersOnFieldView {
-    PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
-    pickPlayersController.hidesBottomBarWhenPushed = YES;
-    pickPlayersController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:pickPlayersController animated:YES];
-}
-
--(void) goToTimeoutView {
-    TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
-    timeoutController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:timeoutController animated:YES];
-}
-
--(void) goToHistoryViewRight {
-    [self goToHistoryView:NO];
-}
-
--(void) goToHistoryView: (BOOL) curl {
-    GameHistoryController* historyController = [[GameHistoryController alloc] init];
-    historyController.game = [Game getCurrentGame];
-    if (curl) {
-         historyController.isCurlAnimation = YES;
-        [UIView beginAnimations:@"animation" context:nil];
-        [UIView setAnimationDuration:1];
-        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.navigationController.view cache:NO]; 
-        [self.navigationController pushViewController:historyController animated:NO];
-        [UIView commitAnimations];
-    } else {
-        [self.navigationController pushViewController:historyController animated:YES];
-    }
-}
-
--(IBAction)switchSidesClicked: (id) sender {
-    [self setOffense: !isOffense];
-}
-
--(IBAction) gameOverButtonClicked: (id) sender {
-    if ([[Game getCurrentGame] isTimeBasedEnd] && [Game getCurrentGame].periodsComplete < 3) {
-        [self addEvent:[self createNextPeriodEndEvent]];
-    } else {
-        [self gameOverConfirm];
-    }
-}
-
--(IBAction) timeoutButtonClicked: (id) sender {
-    [self goToTimeoutView];
-}
-
--(IBAction)otherTeamScoreClicked: (id) sender {
-    DefenseEvent* event = [[DefenseEvent alloc] initAction:Goal];
-    [self addEvent: event];  
 }
 
 -(void) setOffense: (BOOL) shouldBeOnOffense {
@@ -382,27 +212,6 @@
     }
 }
 
--(IBAction)throwAwayButtonClicked: (id) sender {
-    if (isOffense) {
-        PlayerView* oldSelected = [self findSelectedPlayerView];
-        if (oldSelected) {
-            [oldSelected makeSelected:NO];
-        }
-        [playerViewTeam makeSelected:YES];
-        Player* passer = oldSelected.player;
-        OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
-        [self addEvent: event];    
-    } else {
-        DefenseEvent* event = [[DefenseEvent alloc] initAction:Throwaway];
-        [self addEvent: event];  
-    }
-}
-
-
-- (void)moreEventsSwipe:(UISwipeGestureRecognizer *)recognizer { 
-    [self goToHistoryView: YES];
-}
-
 - (void) updateAutoTweetingNotice {
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
     BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
@@ -441,6 +250,206 @@
     }
     [self updateGameOverButtonForTimeBasedGame];
 }
+
+
+#pragma mark ActionListener
+
+- (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
+    if (isOffense) {
+        PlayerView* oldSelected = [self findSelectedPlayerView];
+        if (oldSelected) {
+            [oldSelected makeSelected:NO];
+        }
+        [view makeSelected:YES];
+        Player* passer = oldSelected.player;
+        OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
+        [self addEvent: event];
+    } else {
+        if (action == Pull) {
+            [self handlePullBegin: player];
+        } else {
+            DefenseEvent* event = [[DefenseEvent alloc] initDefender:player action:action];
+            [self addEvent: event];
+        }
+    }
+}
+
+- (void) passerSelected: (Player*) player view: (PlayerView*) view {
+    if (isOffense) {
+        [self setNeedToSelectPasser: NO];
+    }
+    PlayerView* oldSelected = [self findSelectedPlayerView];
+    if (oldSelected) {
+        [oldSelected makeSelected:NO];
+    }
+    [view makeSelected:YES];
+}
+
+#pragma mark Long Press Handling
+
+- (void) passerLongPress: (Player*) player view: (PlayerView*) view {
+    [self passerSelected:player view:view];
+}
+
+
+- (void) actionLongPress: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
+    if (action == Pull) {
+        [self handlePullBegin: player];
+    } else {
+        if (isOffense) {
+            PlayerView* oldSelected = [self findSelectedPlayerView];
+            if (oldSelected) {
+                [oldSelected makeSelected:NO];
+            }
+            [view makeSelected:YES];
+            Player* passer = oldSelected.player;
+            OffenseEvent* defaultEvent = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
+            [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
+            self.detailsController.description = @"Only choice for this button is...";
+        } else {
+            DefenseEvent* defaultEvent = [[DefenseEvent alloc] initDefender:player action:action];
+            if (action == De) {
+                DefenseEvent* callahan = [[DefenseEvent alloc] initDefender:player action:Callahan];
+                [self.detailsController setCandidateEvents:@[defaultEvent, callahan] initialChosen:defaultEvent];
+                self.detailsController.description = @"D is...";
+            } else {
+                [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
+                self.detailsController.description = @"Only choice for this button is...";
+            }
+        }
+        GameViewController* __weak weakSelf = self;
+        self.detailsController.saveBlock = ^(Event* event){
+            [weakSelf addEvent: event];
+            [weakSelf showDetailSelectionView:NO];
+        };
+        [self showDetailSelectionView: YES];
+    }
+}
+
+-(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        if (isOffense) {
+            PlayerView* oldSelected = [self findSelectedPlayerView];
+            if (oldSelected) {
+                [oldSelected makeSelected:NO];
+            }
+            [playerViewTeam makeSelected:YES];
+            Player* passer = oldSelected.player;
+            OffenseEvent* throwaway = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
+            OffenseEvent* stall = [[OffenseEvent alloc] initPasser:passer action:Stall];
+            OffenseEvent* miscPenalty = [[OffenseEvent alloc] initPasser:passer action:MiscPenalty];
+            [self.detailsController setCandidateEvents:@[throwaway, stall, miscPenalty] initialChosen:throwaway];
+            self.detailsController.description = @"Turnover is...";
+        } else {
+            DefenseEvent* throwaway = [[DefenseEvent alloc] initAction:Throwaway];
+            [self.detailsController setCandidateEvents:@[throwaway] initialChosen:throwaway];
+            self.detailsController.description = @"Only choice for this button is...";
+        }
+        GameViewController* __weak weakSelf = self;
+        self.detailsController.saveBlock = ^(Event* event){
+            [weakSelf addEvent: event];
+            [weakSelf showDetailSelectionView:NO];
+        };
+        [self showDetailSelectionView: YES];
+    }
+}
+
+#pragma mark Event Handlers
+
+-(IBAction)removeEventClicked: (id) sender {
+    Event* lastEventBefore = [[Game getCurrentGame] getLastEvent];
+    [[Game getCurrentGame] removeLastEvent];
+    [self updateEventViews];
+    Event* lastEventAfter = [[Game getCurrentGame] getLastEvent];
+    [self refreshTitle: lastEventBefore];
+    [[Game getCurrentGame] save];
+    if ([lastEventBefore causesDirectionChange]) {
+        [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
+        if ([lastEventAfter causesLineChange]) {
+            [self goToPlayersOnFieldView];
+        }
+    }
+    [self initializeSelected];
+    [self updateViewFromGame:[Game getCurrentGame]];
+    [self notifyLeaguevineOfRemovedEvent:lastEventBefore];
+}
+
+-(IBAction)throwAwayButtonClicked: (id) sender {
+    if (isOffense) {
+        PlayerView* oldSelected = [self findSelectedPlayerView];
+        if (oldSelected) {
+            [oldSelected makeSelected:NO];
+        }
+        [playerViewTeam makeSelected:YES];
+        Player* passer = oldSelected.player;
+        OffenseEvent* event = [[OffenseEvent alloc] initPasser:passer action:Throwaway];
+        [self addEvent: event];
+    } else {
+        DefenseEvent* event = [[DefenseEvent alloc] initAction:Throwaway];
+        [self addEvent: event];
+    }
+}
+
+-(IBAction)switchSidesClicked: (id) sender {
+    [self setOffense: !isOffense];
+}
+
+-(IBAction) gameOverButtonClicked: (id) sender {
+    if ([[Game getCurrentGame] isTimeBasedEnd] && [Game getCurrentGame].periodsComplete < 3) {
+        [self addEvent:[self createNextPeriodEndEvent]];
+    } else {
+        [self gameOverConfirm];
+    }
+}
+
+-(IBAction) timeoutButtonClicked: (id) sender {
+    [self goToTimeoutView];
+}
+
+-(IBAction)otherTeamScoreClicked: (id) sender {
+    DefenseEvent* event = [[DefenseEvent alloc] initAction:Goal];
+    [self addEvent: event];
+}
+
+- (void)moreEventsSwipe:(UISwipeGestureRecognizer *)recognizer {
+    [self goToHistoryView: YES];
+}
+
+#pragma mark Go To Other views
+
+-(void) goToPlayersOnFieldView {
+    PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
+    pickPlayersController.hidesBottomBarWhenPushed = YES;
+    pickPlayersController.game = [Game getCurrentGame];
+    [self.navigationController pushViewController:pickPlayersController animated:YES];
+}
+
+-(void) goToTimeoutView {
+    TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
+    timeoutController.game = [Game getCurrentGame];
+    [self.navigationController pushViewController:timeoutController animated:YES];
+}
+
+-(void) goToHistoryViewRight {
+    [self goToHistoryView:NO];
+}
+
+-(void) goToHistoryView: (BOOL) curl {
+    GameHistoryController* historyController = [[GameHistoryController alloc] init];
+    historyController.game = [Game getCurrentGame];
+    if (curl) {
+        historyController.isCurlAnimation = YES;
+        [UIView beginAnimations:@"animation" context:nil];
+        [UIView setAnimationDuration:1];
+        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.navigationController.view cache:NO];
+        [self.navigationController pushViewController:historyController animated:NO];
+        [UIView commitAnimations];
+    } else {
+        [self.navigationController pushViewController:historyController animated:YES];
+    }
+}
+
+#pragma mark Game Over handling 
 
 -(void)updateGameOverButtonForTimeBasedGame {
     if ([[Game getCurrentGame] isTimeBasedEnd]) {
@@ -512,55 +521,6 @@
     button.backgroundColor = [UIColor clearColor];
     [button addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:button];
-}
-
-- (void)infoButtonTapped {
-    [self toggleInfoCallouts];
-}
-
--(void)toggleInfoCallouts {
-    [self toggleFirstTimeUsageCallouts];
-    
-    if (self.infoCalloutsView) {
-        [self.infoCalloutsView removeFromSuperview];
-        self.infoCalloutsView = nil;
-    } else {
-       CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
-        
-        UIFont *textFont = [UIFont systemFontOfSize:14];
-        if ([[Game getCurrentGame] hasEvents]) {
-            // undo button
-            [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
-            // recents list
-            [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
-            // long press
-            [calloutsView addCallout:@"Press and hold to see other options for an action." anchor: CGPointMake(140, 100) width: 100 degrees: 270 connectorLength: 80 font: textFont];
-        }
-        // line button
-        CGPoint anchor = CGPointTopRight(self.view.bounds);
-        anchor.x = anchor.x - 40;
-        [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80 font: textFont];    
-        
-        self.infoCalloutsView = calloutsView;
-        [self.view addSubview:calloutsView];
-        // move the callouts off the screen and then animate their return.
-        [self.infoCalloutsView slide: YES animated: NO];
-        [self.infoCalloutsView slide: NO animated: YES];
-    }
-}
-
--(void)toggleFirstTimeUsageCallouts {
-    if (self.firstTimeUsageCallouts) {  
-        [self.firstTimeUsageCallouts removeFromSuperview];
-        self.firstTimeUsageCallouts = nil;
-    } else if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
-        
-        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
-        [calloutsView addNavControllerHelpAvailableCallout];  
-        self.firstTimeUsageCallouts = calloutsView;
-        [self.view addSubview:calloutsView];
-    }
 }
 
 -(void)resizeForLongDisplay {
@@ -846,6 +806,56 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasNotUsedAnyDetailView];
 }
 
+#pragma mark Callouts 
+
+- (void)infoButtonTapped {
+    [self toggleInfoCallouts];
+}
+
+-(void)toggleFirstTimeUsageCallouts {
+    if (self.firstTimeUsageCallouts) {
+        [self.firstTimeUsageCallouts removeFromSuperview];
+        self.firstTimeUsageCallouts = nil;
+    } else if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
+        
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        [calloutsView addNavControllerHelpAvailableCallout];
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+    }
+}
+
+-(void)toggleInfoCallouts {
+    [self toggleFirstTimeUsageCallouts];
+    
+    if (self.infoCalloutsView) {
+        [self.infoCalloutsView removeFromSuperview];
+        self.infoCalloutsView = nil;
+    } else {
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        UIFont *textFont = [UIFont systemFontOfSize:14];
+        if ([[Game getCurrentGame] hasEvents]) {
+            // undo button
+            [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
+            // recents list
+            [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
+            // long press
+            [calloutsView addCallout:@"Press and hold to see other options for an action." anchor: CGPointMake(140, 100) width: 100 degrees: 270 connectorLength: 80 font: textFont];
+        }
+        // line button
+        CGPoint anchor = CGPointTopRight(self.view.bounds);
+        anchor.x = anchor.x - 40;
+        [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80 font: textFont];
+        
+        self.infoCalloutsView = calloutsView;
+        [self.view addSubview:calloutsView];
+        // move the callouts off the screen and then animate their return.
+        [self.infoCalloutsView slide: YES animated: NO];
+        [self.infoCalloutsView slide: NO animated: YES];
+    }
+}
 
 @end
     

@@ -868,7 +868,7 @@
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
 
         CGPoint anchor = CGPointMake(155,70);
-        [calloutsView addCallout:@"Did you know?\n\nYou can record a Callahan by tap-and-holding the D button." anchor: anchor width: 140 degrees: 110 connectorLength: 95 font: [UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"Did you know?\n\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\nYou can record a Callahan by tap-and-holding the D button." anchor: anchor width: 120 degrees: 110 connectorLength: 95 font: [UIFont systemFontOfSize:14]];
         
         self.infoCalloutsView = calloutsView;
         [self.view addSubview:calloutsView];
@@ -884,7 +884,7 @@
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
         CGPoint anchor = CGPointMake(300,70);
-        [calloutsView addCallout:@"Did you know?\n\nYou can record other turnover types by tap-and-holding the Throwaway button." anchor: anchor width: 160 degrees: 250 connectorLength: 125 font: [UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"Did you know?\n\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\nYou can record other turnover types by tap-and-holding the Throwaway button." anchor: anchor width: 140 degrees: 250 connectorLength: 125 font: [UIFont systemFontOfSize:14]];
         
         self.infoCalloutsView = calloutsView;
         [self.view addSubview:calloutsView];

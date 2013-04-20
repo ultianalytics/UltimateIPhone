@@ -71,6 +71,7 @@
 		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
 		1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A894CBF16361223008B3990 /* PullLandingViewController.m */; };
 		1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A894CC016361223008B3990 /* PullLandingViewController.xib */; };
+		1A8CC5D41722FE4F00B8295C /* UltimateNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CC5D31722FE4F00B8295C /* UltimateNavigationController.m */; };
 		1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */; };
 		1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A999EF516062B8F0015B891 /* leaguevine_logo.png */; };
 		1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */; };
@@ -365,6 +366,8 @@
 		1A894CBE16361223008B3990 /* PullLandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullLandingViewController.h; sourceTree = "<group>"; };
 		1A894CBF16361223008B3990 /* PullLandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullLandingViewController.m; sourceTree = "<group>"; };
 		1A894CC016361223008B3990 /* PullLandingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullLandingViewController.xib; sourceTree = "<group>"; };
+		1A8CC5D21722FE4F00B8295C /* UltimateNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateNavigationController.h; sourceTree = "<group>"; };
+		1A8CC5D31722FE4F00B8295C /* UltimateNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateNavigationController.m; sourceTree = "<group>"; };
 		1A8D1310161D9C7A001CFD9C /* UltimateSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSwitch.h; sourceTree = "<group>"; };
 		1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSwitch.m; sourceTree = "<group>"; };
 		1A999EF516062B8F0015B891 /* leaguevine_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leaguevine_logo.png; sourceTree = "<group>"; };
@@ -986,8 +989,8 @@
 		1AFFE8D015176431004B4590 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				1A999EF816062E990015B891 /* LeagueVine */,
 				1AFFE8D415176470004B4590 /* Common */,
+				1A999EF816062E990015B891 /* LeagueVine */,
 				1AE669EF1521534B000965B5 /* Cloud */,
 				1AF34E7915176A260065A16D /* Stats */,
 				1A00013A1517697500600916 /* Signon */,
@@ -1096,6 +1099,8 @@
 				1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */,
 				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
 				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
+				1A8CC5D21722FE4F00B8295C /* UltimateNavigationController.h */,
+				1A8CC5D31722FE4F00B8295C /* UltimateNavigationController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1632,6 +1637,7 @@
 				1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */,
 				1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */,
 				1A047EF4171E2881006DE1C9 /* CessationEvent.m in Sources */,
+				1A8CC5D41722FE4F00B8295C /* UltimateNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

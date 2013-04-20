@@ -525,8 +525,6 @@
         leaguevineController.selectedBlock = ^(LeaguevineGame* leaguevineGame) {
             [self handleLeaguevineGameSelected: leaguevineGame];
         };
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        [[self navigationItem] setBackBarButtonItem:backButton];
         [self.navigationController pushViewController:leaguevineController animated:YES];
     }
 }

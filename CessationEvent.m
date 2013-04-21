@@ -61,6 +61,14 @@
     return YES;
 }
 
+- (BOOL) isTurnover {
+    return NO;
+}
+
+- (BOOL) isNextEventOffense {
+    return NO;
+}
+
 - (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
     NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Cessation" forKey:kEventTypeProperty];

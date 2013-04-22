@@ -425,6 +425,14 @@
                 self.eventTypeDescriptionLabel.text = @"Game Over";
                 break;
             }
+            case EndOfFourthQuarter: {
+                self.eventTypeDescriptionLabel.text = @"End Of 4th Quarter";
+                break;
+            }
+            case EndOfOvertime: {
+                self.eventTypeDescriptionLabel.text = @"End Of An Overtime";
+                break;
+            }
             case Timeout: {
                 self.eventTypeDescriptionLabel.text = @"Timeout";
                 break;

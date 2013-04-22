@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PointSummary.h"
 #import "Constants.h"
+#import "Event.h"
 @class PlayerSubstitution;
 @class Event;
 @class UPoint;
@@ -98,6 +99,8 @@
 -(BOOL)removeLastSubstitutionForCurrentPoint;
 -(NSArray*)substitutionsForCurrentPoint;
 -(int)availableTimeouts;
+-(Action)nextPeriodEnd;
+-(BOOL)isTie;
 
 
 @end

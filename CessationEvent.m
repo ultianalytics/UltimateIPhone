@@ -13,7 +13,7 @@
 +(CessationEvent*) eventWithAction: (Action)anAction {
     CessationEvent* evt = [[CessationEvent alloc] init];
     evt.action = anAction;
-    NSAssert(anAction == EndOfFirstQuarter || anAction == EndOfThirdQuarter || anAction == Halftime || anAction == GameOver, @"Invalid action for cessation event");
+    NSAssert(anAction == EndOfFirstQuarter || anAction == EndOfThirdQuarter || anAction == Halftime || anAction == GameOver || anAction == EndOfFourthQuarter || anAction == EndOfOvertime, @"Invalid action for cessation event");
     return evt;
 }
 
@@ -39,6 +39,14 @@
 
 - (BOOL) isGameOver {
     return self.action == GameOver;
+}
+
+- (BOOL) isEndOfFourthQuarter {
+    return self.action == EndOfFourthQuarter;
+}
+
+- (BOOL) isEndOfOvertime {
+    return self.action == EndOfOvertime;
 }
 
 - (BOOL) isPeriodEnd {
@@ -90,6 +98,14 @@
             [dict setValue: @"GameOver" forKey:kActionKey];
             break;
         }
+        case EndOfFourthQuarter: {
+            [dict setValue: @"EndOfFourthQuarter" forKey:kActionKey];
+            break;
+        }
+        case EndOfOvertime: {
+            [dict setValue: @"EndOfOvertime" forKey:kActionKey];
+            break;
+        }
         case Timeout: {
             [dict setValue: @"Timeout" forKey:kActionKey];
             break;
@@ -113,6 +129,10 @@
         action = Halftime;
     } else if ([dictAction isEqualToString: @"GameOver"]) {
         action = GameOver;
+    } else if ([dictAction isEqualToString: @"EndOfFourthQuarter"]) {
+        action = EndOfFourthQuarter;
+    } else if ([dictAction isEqualToString: @"EndOfOvertime"]) {
+        action = EndOfOvertime;
     } else  {
         action = Timeout;
     }
@@ -138,6 +158,10 @@
             return @"Halftime";
         case GameOver:
             return @"Game Over";
+        case EndOfFourthQuarter:
+            return @"End of 4th Qtr";
+        case EndOfOvertime:
+            return @"End of an overtime";
         default:
             return @"";
     }

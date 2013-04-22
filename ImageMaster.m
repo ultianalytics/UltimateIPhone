@@ -79,6 +79,10 @@ static UIImage* unknownImage = nil;
             return [ImageMaster getPeriodEndImage];
         case Halftime:
             return [ImageMaster getPeriodEndImage];
+        case EndOfFourthQuarter:
+            return [ImageMaster getPeriodEndImage];
+        case EndOfOvertime:
+            return [ImageMaster getPeriodEndImage];
         case GameOver:
             return [ImageMaster getFinishImage];
         case Timeout:

@@ -700,6 +700,39 @@ static Game* currentGame = nil;
     return ((self.gamePoint == 0 ? kDefaultGamePoint : self.gamePoint) + 1) / 2;
 }
 
+-(Action)nextPeriodEnd {
+    int lastPeriodEnded = [Game getCurrentGame].periodsComplete;
+    switch (lastPeriodEnded) {
+        case 0:
+            return EndOfFirstQuarter;
+            break;
+        case 1:
+            return Halftime;
+            break;
+        case 2:
+            return EndOfThirdQuarter;
+            break;
+            // TODO....finish this
+//        case 3: {
+//            if ([self isTie]) {
+//                return EndOfFourthQuarter;
+//            } else {
+//                return GameOver;
+//            }
+//            break;
+//        }
+        default: {
+//            if ([self isTie]) {
+//                return EndOfOvertime;
+//            } else {
+//                return GameOver;
+//            }
+            return GameOver;
+            break;
+        }
+    }
+}
+
 -(int)getLeadingScore {
     Score score = [self getScore];
     return MAX(score.ours, score.theirs);
@@ -710,6 +743,11 @@ static Game* currentGame = nil;
     score.ours = ours;
     score.theirs = theirs;
     return score;
+}
+
+-(BOOL)isTie {
+    Score score = [self getScore];
+    return score.ours == score.theirs;
 }
 
 -(void)setGamePoint:(int)newGamePoint {

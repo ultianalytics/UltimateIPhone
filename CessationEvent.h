@@ -17,6 +17,8 @@
 - (BOOL) isTimeout;
 - (BOOL) isEndOfFirstQuarter;
 - (BOOL) isEndOfThirdQuarter;
+- (BOOL) isEndOfFourthQuarter;
+- (BOOL) isEndOfOvertime;
 - (BOOL) isHalftime;
 - (BOOL) isGameOver;
 - (BOOL) isPeriodEnd;

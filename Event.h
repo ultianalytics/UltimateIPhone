@@ -23,6 +23,8 @@ typedef enum {
     EndOfFirstQuarter,
     Halftime,
     EndOfThirdQuarter,
+    EndOfFourthQuarter,
+    EndOfOvertime,
     GameOver,
     Timeout
 } Action;

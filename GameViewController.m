@@ -456,17 +456,23 @@
 
 -(void)updateGameOverButtonForTimeBasedGame {
     if ([[Game getCurrentGame] isTimeBasedEnd]) {
-        int lastPeriodEnded = [Game getCurrentGame].periodsComplete;
+        Action nextPeriodEnd = [[Game getCurrentGame] nextPeriodEnd];
         NSString* buttonText;
-        switch (lastPeriodEnded) {
-            case 0:
+        switch (nextPeriodEnd) {
+            case EndOfFirstQuarter:
                 buttonText = @"End 1st Quarter";
                 break;
-            case 1:
+            case Halftime:
                 buttonText = @"Halftime";
                 break;
-            case 2:
+            case EndOfThirdQuarter:
                 buttonText = @"End 3rd Quarter";
+                break;
+            case EndOfFourthQuarter:
+                buttonText = @"End 4th Quarter";
+                break;
+            case EndOfOvertime:
+                buttonText = @"End Overtime";
                 break;
             default:
                 buttonText = @"Game Over";
@@ -478,21 +484,8 @@
 }
 
 -(CessationEvent*)createNextPeriodEndEvent {
-    int lastPeriodEnded = [Game getCurrentGame].periodsComplete;
-    switch (lastPeriodEnded) {
-        case 0:
-            return [CessationEvent eventWithAction:EndOfFirstQuarter];
-            break;
-        case 1:
-            return [CessationEvent eventWithAction:Halftime];
-            break;
-        case 2:
-            return [CessationEvent eventWithAction:EndOfThirdQuarter];
-            break;
-        default:
-            return [CessationEvent eventWithAction:GameOver];
-            break;
-    }
+    Action nextPeriodEnd = [[Game getCurrentGame] nextPeriodEnd];
+    return [CessationEvent eventWithAction:nextPeriodEnd];
 }
 
 -(void)gameOverConfirm {

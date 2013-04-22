@@ -105,6 +105,14 @@
             leaguevineEvent.leaguevineEventType = 97;
             break;
         }
+        case EndOfFourthQuarter: {
+            leaguevineEvent.leaguevineEventType = 94;
+            break;
+        }
+        case EndOfOvertime: {
+            leaguevineEvent.leaguevineEventType = 94;
+            break;
+        }
         case GameOver: {
             leaguevineEvent.leaguevineEventType = 98;
             break;

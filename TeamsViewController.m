@@ -15,6 +15,7 @@
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
 #import "Constants.h"
+#import "SHSLogsMailer.h"
 
 #define kIsNotFirstTeamsViewUsage @"IsNotFirstTeamsViewUsage"
 
@@ -138,13 +139,28 @@
     
 }
 
+#pragma mark - Support Tools
+
+-(void)addSupportGestureRecognizer {
+    UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(supportSwipe:)];
+    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    swipeRecognizer.numberOfTouchesRequired = 3;
+    [self.view addGestureRecognizer: swipeRecognizer];
+}
+
+- (void)supportSwipe:(UISwipeGestureRecognizer*)gestureRecognizer {
+    [[SHSLogsMailer sharedMailer] presentEmailLogsControllerOn:self];
+}
+
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
-    self.navigationItem.rightBarButtonItem = historyNavBarItem;  
+    self.navigationItem.rightBarButtonItem = historyNavBarItem;
+    [self addSupportGestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,8 +180,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

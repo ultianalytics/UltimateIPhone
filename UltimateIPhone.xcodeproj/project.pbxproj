@@ -86,6 +86,8 @@
 		1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AB78D0417269E40003235AE /* SHSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D0317269E40003235AE /* SHSLogger.m */; };
+		1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D061726B0DE003235AE /* SHSLogsMailer.m */; };
+		1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB78D081726B1E0003235AE /* MessageUI.framework */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
@@ -393,6 +395,9 @@
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1AB78D0217269E40003235AE /* SHSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogger.h; sourceTree = "<group>"; };
 		1AB78D0317269E40003235AE /* SHSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSLogger.m; sourceTree = "<group>"; };
+		1AB78D051726B0DE003235AE /* SHSLogsMailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogsMailer.h; sourceTree = "<group>"; };
+		1AB78D061726B0DE003235AE /* SHSLogsMailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSLogsMailer.m; sourceTree = "<group>"; };
+		1AB78D081726B1E0003235AE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
 		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
@@ -637,6 +642,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
 				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
@@ -955,6 +961,7 @@
 			isa = PBXGroup;
 			children = (
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
+				1AB78D081726B1E0003235AE /* MessageUI.framework */,
 				1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */,
 				1AE66A131522769B000965B5 /* Accounts.framework */,
 				1AE669D21520012C000965B5 /* Twitter.framework */,
@@ -1075,6 +1082,8 @@
 		1AFFE8D415176470004B4590 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1AB78D051726B0DE003235AE /* SHSLogsMailer.h */,
+				1AB78D061726B0DE003235AE /* SHSLogsMailer.m */,
 				1A8CC5D517230C2100B8295C /* BufferedNavigationController.h */,
 				1A8CC5D617230C2100B8295C /* BufferedNavigationController.m */,
 				1A78D9C215949DC300115BE5 /* CalloutView.h */,
@@ -1644,6 +1653,7 @@
 				1A047EF4171E2881006DE1C9 /* CessationEvent.m in Sources */,
 				1A8CC5D717230C2100B8295C /* BufferedNavigationController.m in Sources */,
 				1AB78D0417269E40003235AE /* SHSLogger.m in Sources */,
+				1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

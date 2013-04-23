@@ -19,7 +19,7 @@
     #define DebugLog( s, ... ) 
 #endif
 
-#ifdef DEBUG
+#if TARGET_IPHONE_SIMULATOR
     #define SHSLog( s, ... ) NSLog(s, ##__VA_ARGS__ )
 #else
     #define SHSLog( s, ... ) [[SHSLogger sharedLogger] log:[NSString stringWithFormat:(s), ##__VA_ARGS__]];

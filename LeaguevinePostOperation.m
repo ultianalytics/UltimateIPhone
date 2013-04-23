@@ -144,29 +144,33 @@
     NSArray* oldLine = [[LeaguevineEventQueue sharedQueue].postingLog lastLinePostedForGameId:lineChangeEvent.leaguevineGameId];
     NSMutableArray* events = [self subOutEventsFor:lineChangeEvent.leaguevineGameId oldLine:oldLine newLine:newLine];
     [events addObjectsFromArray:[self subInEventsFor:lineChangeEvent.leaguevineGameId oldLine:oldLine newLine:newLine]];
-    
-    BOOL ok = YES;
-    for (LeaguevineEvent* substitutionEvent in events) {
-        substitutionEvent.iUltimateTimestamp = lineChangeEvent.iUltimateTimestamp;
-        LeaguevineInvokeStatus status = [client postEvent:substitutionEvent];
-        if (status != LeaguevineInvokeOK) {
-           if (status == LeaguevineInvokeNetworkError) {
-                [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
-                ok = NO;
-            } else if (status == LeaguevineInvokeCredentialsRejected) {
-                [self writeInvalidCredentialsError];
-                ok = NO;
-            } else if (status == LeaguevineInvokeInvalidResponse) {
-                [self writeInvalidRequestError];
-                NSLog(@"Posting a line change event but leaguvine returned an invalid response.  Skipping subsitution event %@", substitutionEvent);
-            } else if (status == LeaguevineInvokeInvalidGame) {
-                [self writeInvalidRequestError];
-                NSLog(@"Posting a line change event but leaguvine rejected it as invalid game.  Skipping subsitution event %@", substitutionEvent);
+
+    if ([events count] > 0) {    
+        BOOL ok = YES;
+        for (LeaguevineEvent* substitutionEvent in events) {
+            substitutionEvent.iUltimateTimestamp = lineChangeEvent.iUltimateTimestamp;
+            LeaguevineInvokeStatus status = [client postEvent:substitutionEvent];
+            if (status != LeaguevineInvokeOK) {
+               if (status == LeaguevineInvokeNetworkError) {
+                    [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
+                    ok = NO;
+                } else if (status == LeaguevineInvokeCredentialsRejected) {
+                    [self writeInvalidCredentialsError];
+                    ok = NO;
+                } else if (status == LeaguevineInvokeInvalidResponse) {
+                    [self writeInvalidRequestError];
+                    NSLog(@"Posting a line change event but leaguvine returned an invalid response.  Skipping subsitution event %@", substitutionEvent);
+                } else if (status == LeaguevineInvokeInvalidGame) {
+                    [self writeInvalidRequestError];
+                    NSLog(@"Posting a line change event but leaguvine rejected it as invalid game.  Skipping subsitution event %@", substitutionEvent);
+                }
+            }
+            if (!ok) {
+                return NO;
             }
         }
-        if (!ok) {
-            return NO;
-        }
+    } else {
+        NSLog(@"Posting line change but no personnel changed.  Didn't posted to leaguevine");
     }
     [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:lineChangeEvent];
     [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];

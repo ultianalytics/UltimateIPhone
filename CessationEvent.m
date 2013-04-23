@@ -8,6 +8,8 @@
 
 #import "CessationEvent.h"
 
+#define kNextPeriodStartOLine @"nextPeriodStartO"
+
 @implementation CessationEvent
 
 +(CessationEvent*) eventWithAction: (Action)anAction {
@@ -15,6 +17,26 @@
     evt.action = anAction;
     NSAssert(anAction == EndOfFirstQuarter || anAction == EndOfThirdQuarter || anAction == Halftime || anAction == GameOver || anAction == EndOfFourthQuarter || anAction == EndOfOvertime, @"Invalid action for cessation event");
     return evt;
+}
+
++(CessationEvent*) endOfFourthQuarterWithOlineStartNextPeriod: (BOOL)startOline {
+    CessationEvent* evt = [[CessationEvent alloc] init];
+    evt.action = EndOfFourthQuarter;
+    [evt.details setObject:[NSNumber numberWithBool:startOline] forKey:kNextPeriodStartOLine];
+    return evt;
+}
+
++(CessationEvent*) endOfOvertimeWithOlineStartNextPeriod: (BOOL)startOline {
+    CessationEvent* evt = [[CessationEvent alloc] init];
+    evt.action = EndOfOvertime;
+    [evt.details setObject:[NSNumber numberWithBool:startOline] forKey:kNextPeriodStartOLine];    
+    return evt;
+}
+
+-(BOOL) isNextOvertimePeriodStartingOline {
+    NSAssert(self.action == EndOfFourthQuarter || self.action == EndOfOvertime, @"only overtime related periods know if next period starts O-line");
+    NSNumber* isOlineAsNumber = [self.details objectForKey:kNextPeriodStartOLine];
+    return isOlineAsNumber ? NO : isOlineAsNumber.boolValue;
 }
 
 - (BOOL) isCessationEvent {

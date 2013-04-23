@@ -11,6 +11,8 @@
 @interface CessationEvent : Event
 
 +(CessationEvent*) eventWithAction: (Action)anAction;
++(CessationEvent*) endOfFourthQuarterWithOlineStartNextPeriod: (BOOL)startOline;
++(CessationEvent*) endOfOvertimeWithOlineStartNextPeriod: (BOOL)startOline;
 
 +(CessationEvent*) eventFromDictionary:(NSDictionary*) dict; 
 

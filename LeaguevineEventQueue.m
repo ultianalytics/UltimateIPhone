@@ -92,9 +92,9 @@
     if (score) {
         [self addScoreToQueue:score];
         [self triggerImmediateSubmit];
-        NSLog(@"Submitted score");
+        SHSLog(@"Submitted score");
     } else {
-        NSLog(@"Warning: submit score failed");
+        SHSLog(@"Warning: submit score failed");
     }
 }
 
@@ -102,9 +102,9 @@
     if (leaguevineEvent) {
         [self addEventToQueue:leaguevineEvent];
         [self triggerImmediateSubmit];
-        NSLog(@"Submitted event \"%@\"", eventDescription);
+        SHSLog(@"Submitted event \"%@\"", eventDescription);
     } else {
-        NSLog(@"Warning: submit event  failed: %@", eventDescription);
+        SHSLog(@"Warning: submit event  failed: %@", eventDescription);
     }
 }
 
@@ -145,7 +145,7 @@
     NSError *error;
 	if ([[NSFileManager defaultManager] fileExistsAtPath:filePath])	{
 		if (![[NSFileManager defaultManager] removeItemAtPath:filePath error:&error]) {
-			NSLog(@"Delete file error: %@", error);
+			SHSLog(@"Delete file error: %@", error);
 		}
 	}
 }
@@ -181,7 +181,7 @@
     NSError *error;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:self.queueFolderPath]) {
 		if (![[NSFileManager defaultManager] createDirectoryAtPath:self.queueFolderPath withIntermediateDirectories:NO attributes:nil error:&error]) {
-			NSLog(@"Error creating leaguevine event queue: %@", error);
+			SHSLog(@"Error creating leaguevine event queue: %@", error);
 		}
 	}
 }
@@ -215,12 +215,12 @@
 -(LeaguevineScore*)createLeaguevineScoreFor: (Game*)game final: (BOOL)scoreIsFinal {
     LeaguevineGame* lvGame = game.leaguevineGame;
     if (!lvGame) {
-        NSLog(@"Error posting LV game score: game isn't a LV game anymore");
+        SHSLog(@"Error posting LV game score: game isn't a LV game anymore");
         return nil;
     }
     LeaguevineTeam* lvTeam = [Team getCurrentTeam].leaguevineTeam;
     if (!lvGame) {
-        NSLog(@"Error posting LV game score: game team isn't a LV team anymore");
+        SHSLog(@"Error posting LV game score: game team isn't a LV team anymore");
         return nil;
     }
     LeaguevineScore* lvScore = [LeaguevineScore leaguevineScoreWithGameId:lvGame.itemId];
@@ -232,7 +232,7 @@
         lvScore.team2Score = [game getScore].ours;
         lvScore.team1Score = [game getScore].theirs;
     } else {  // or nowhere to be found?
-        NSLog(@"Error posting LV game score: our team isn't one of the teams on the LV game");
+        SHSLog(@"Error posting LV game score: our team isn't one of the teams on the LV game");
         return nil;
     }
     lvScore.final = scoreIsFinal;

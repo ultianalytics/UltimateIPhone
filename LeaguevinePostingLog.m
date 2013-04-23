@@ -80,7 +80,7 @@
         NSError* error;
         [recordAsData writeToFile:self.currentLogFilePath options:NSDataWritingAtomic error:&error];
         if(error != nil) {
-            NSLog(@"error writing to log: %@", error);
+            SHSLog(@"error writing to log: %@", error);
         }
     }
 }
@@ -134,7 +134,7 @@
     NSError *error;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:self.logsDirectory]) {
 		if (![[NSFileManager defaultManager] createDirectoryAtPath:self.logsDirectory withIntermediateDirectories:NO attributes:nil error:&error]) {
-			NSLog(@"Error creating leaguevine event submit log: %@", error);
+			SHSLog(@"Error creating leaguevine event submit log: %@", error);
 		}
 	}
     self.logAPath = [self getFilePathForLog: @"A"];
@@ -187,7 +187,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.currentLogFilePath]) {
         NSError *error;
         if (![[NSFileManager defaultManager] removeItemAtPath:self.currentLogFilePath error:&error]) {
-			NSLog(@"Delete file error: %@", error);
+			SHSLog(@"Delete file error: %@", error);
 		}
     }
 }

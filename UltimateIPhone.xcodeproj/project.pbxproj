@@ -85,6 +85,7 @@
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
+		1AB78D0417269E40003235AE /* SHSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D0317269E40003235AE /* SHSLogger.m */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
@@ -390,6 +391,8 @@
 		1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePlayer.h; sourceTree = "<group>"; };
 		1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePlayer.m; sourceTree = "<group>"; };
 		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		1AB78D0217269E40003235AE /* SHSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogger.h; sourceTree = "<group>"; };
+		1AB78D0317269E40003235AE /* SHSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSLogger.m; sourceTree = "<group>"; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
 		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
@@ -796,6 +799,8 @@
 		1AC8579815FE2A150070BA24 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1AB78D0217269E40003235AE /* SHSLogger.h */,
+				1AB78D0317269E40003235AE /* SHSLogger.m */,
 				1AFFE7D915175E7B004B4590 /* Constants.h */,
 				1AFFE7DA15175E7B004B4590 /* Constants.m */,
 				1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */,
@@ -1638,6 +1643,7 @@
 				1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */,
 				1A047EF4171E2881006DE1C9 /* CessationEvent.m in Sources */,
 				1A8CC5D717230C2100B8295C /* BufferedNavigationController.m in Sources */,
+				1AB78D0417269E40003235AE /* SHSLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -60,7 +60,7 @@
             if ([event isUpdateOrDelete]) {
                 event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue].postingLog leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
                 if (!event.leaguevineEventId) {
-                    NSLog(@"Posting an event for %@ but the previous add event was not found in log.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+                    SHSLog(@"Posting an event for %@ but the previous add event was not found in log.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                     [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
                     return YES;
                 }
@@ -78,12 +78,12 @@
                 return NO;
             } else if (status == LeaguevineInvokeInvalidResponse) {
                 [self writeInvalidRequestError];
-                NSLog(@"Posting an event for %@ but leaguvine returned an invalid response.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+                SHSLog(@"Posting an event for %@ but leaguvine returned an invalid response.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                 [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
                 return YES;
             } else if (status == LeaguevineInvokeInvalidGame) {
                 [self writeInvalidRequestError];
-                NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
+                SHSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                 [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
                 return YES;
             } else {
@@ -92,7 +92,7 @@
             }
         }
     } else {
-        NSLog(@"bad data...dumping the event");
+        SHSLog(@"bad data...dumping the event");
         [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
         return YES;
     }
@@ -107,20 +107,20 @@
             return YES;
         } else if (status == LeaguevineInvokeNetworkError) {
             [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
-            NSLog(@"Posting a score for %@ but leaguvine failed due to network error.", lvScore);
+            SHSLog(@"Posting a score for %@ but leaguvine failed due to network error.", lvScore);
             return NO;
         } else if (status == LeaguevineInvokeCredentialsRejected) {
             [self writeInvalidCredentialsError];
-            NSLog(@"Posting a score for %@ but leaguvine failed response due to invalid credentials.", lvScore);
+            SHSLog(@"Posting a score for %@ but leaguvine failed response due to invalid credentials.", lvScore);
             return NO;
         } else if (status == LeaguevineInvokeInvalidResponse) {
             [self writeInvalidRequestError];
-            NSLog(@"Posting a score for %@ but leaguvine returned an invalid response.  Skipping.", lvScore);
+            SHSLog(@"Posting a score for %@ but leaguvine returned an invalid response.  Skipping.", lvScore);
             [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
             return YES;
         } else if (status == LeaguevineInvokeInvalidGame) {
             [self writeInvalidRequestError];
-            NSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping.", lvScore);
+            SHSLog(@"Posting an event for %@ but leaguvine rejected it as invalid game.  Skipping.", lvScore);
             [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
             return YES;
         } else {
@@ -129,7 +129,7 @@
             return YES;
         }
     } else {
-        NSLog(@"bad data...dumping the score");
+        SHSLog(@"bad data...dumping the score");
         [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];
         return YES;
     }
@@ -159,10 +159,10 @@
                     ok = NO;
                 } else if (status == LeaguevineInvokeInvalidResponse) {
                     [self writeInvalidRequestError];
-                    NSLog(@"Posting a line change event but leaguvine returned an invalid response.  Skipping subsitution event %@", substitutionEvent);
+                    SHSLog(@"Posting a line change event but leaguvine returned an invalid response.  Skipping subsitution event %@", substitutionEvent);
                 } else if (status == LeaguevineInvokeInvalidGame) {
                     [self writeInvalidRequestError];
-                    NSLog(@"Posting a line change event but leaguvine rejected it as invalid game.  Skipping subsitution event %@", substitutionEvent);
+                    SHSLog(@"Posting a line change event but leaguvine rejected it as invalid game.  Skipping subsitution event %@", substitutionEvent);
                 }
             }
             if (!ok) {
@@ -170,7 +170,7 @@
             }
         }
     } else {
-        NSLog(@"Posting line change but no personnel changed.  Didn't posted to leaguevine");
+        SHSLog(@"Posting line change but no personnel changed.  Didn't posted to leaguevine");
     }
     [[LeaguevineEventQueue sharedQueue].postingLog logLeaguevineEvent:lineChangeEvent];
     [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];

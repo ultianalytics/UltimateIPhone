@@ -19,6 +19,12 @@
     #define DebugLog( s, ... ) 
 #endif
 
+#ifdef DEBUG
+    #define SHSLog( s, ... ) NSLog(s, ##__VA_ARGS__ )
+#else
+    #define SHSLog( s, ... ) [[SHSLogger sharedLogger] log:[NSString stringWithFormat:(s), ##__VA_ARGS__]];
+#endif
+
 #define LOG_RECT(title, rect) NSLog(@"rect %@: x=%f,y=%f,width=%f,height=%f", title, rect.origin.x,rect.origin.y, rect.size.width,rect.size.height);
 #define LOG_POINT(title, point) NSLog(@"point %@: x=%f,y=%f", title, point.x,point.y);
 
@@ -27,3 +33,4 @@
 
 #import "Constants.h"
 #import "NSString+manipulations.h"
+#import "SHSLogger.h"

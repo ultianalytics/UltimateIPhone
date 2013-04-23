@@ -295,12 +295,20 @@
         [Game setCurrentGame:self.game.gameId];
         self.game = [Game getCurrentGame];
         [self upateViewTitle];
+        [self logLeaguevinePostingStatus];
         [self goToActionView];
     }
 }
 
 #pragma mark - Leaguevine
 
+ -(void)logLeaguevinePostingStatus {
+     if (self.game.publishScoreToLeaguevine) {
+         SHSLog(@"game started...publishing SCORES to leaguevine");
+     } else if (self.game.publishStatsToLeaguevine) {
+         SHSLog(@"game started...publishing STATS to leaguevine");
+     }
+ }
 
 -(BOOL)isLeaguevineType {
     return self.gameTypeSegmentedControl.selectedSegmentIndex == 1;
@@ -415,6 +423,7 @@
     } else {
         [self saveChanges];
     }
+    SHSLog(@"leaguevine publishing status for game vs. %@ changed.  New status is %@", self.game.opponentName, self.game.publishStatsToLeaguevine ? @"STATS" : self.game.publishScoreToLeaguevine ? @"SCORE" : @"NONE");
 }
 
 -(void)postScoreToleaguevine {

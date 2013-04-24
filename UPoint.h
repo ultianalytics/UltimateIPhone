@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @class Event;
 @class PointSummary;
+@class CessationEvent;
 
 #define kEventsKey          @"events"
 #define kLineKey            @"line"
@@ -42,5 +43,6 @@
 -(NSSet*)playersInEntirePoint;
 -(NSSet*)playersInPartOfPoint;
 -(BOOL)isPeriodEnd;
+-(CessationEvent*)getPeriodEnd;
 
 @end

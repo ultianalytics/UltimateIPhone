@@ -38,7 +38,7 @@
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
-#define kPromptForOvertimeReceiverTitle @"Receive In Overtime?"
+#define kPromptForOvertimeReceiverTitle @"Overtime: who will receive?"
 #define kNoInternetAlertTitle @"No Internet Access"
 #define kLeaguevineCredentialsRejected @"Leaguevine Signon Needed"
 #define kLeaguevineGameInvalid @"Leaguevine Game Not Valid"
@@ -399,8 +399,15 @@
 }
 
 -(IBAction) gameOverButtonClicked: (id) sender {
-    if ([[Game getCurrentGame] isTimeBasedEnd] && [Game getCurrentGame].periodsComplete < 3) {
-        [self addEvent:[self createNextPeriodEndEvent]];
+    if ([[Game getCurrentGame] isTimeBasedEnd]) {
+        Action nextPeriodEnd = [[Game getCurrentGame] nextPeriodEnd];
+        if (nextPeriodEnd == EndOfFourthQuarter || nextPeriodEnd == EndOfOvertime) {
+            [self overtimeReceiverPrompt];
+        } else if (nextPeriodEnd != GameOver) {
+            [self addEvent:[self createNextPeriodEndEvent]];
+        } else {
+            [self gameOverConfirm];
+        }
     } else {
         [self gameOverConfirm];
     }
@@ -515,7 +522,7 @@
     // Ask if we are receiving or pulling
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: NSLocalizedString(kPromptForOvertimeReceiverTitle,nil)
-                          message: NSLocalizedString(@"For the overtime period which follows will our team receive or pull?",nil)
+                          message: NSLocalizedString(@"You are about to begin an overtime period.\n\nWill our team receive or pull?",nil)
                           delegate: self
                           cancelButtonTitle: NSLocalizedString(@"Receive",nil)
                           otherButtonTitles: NSLocalizedString(@"Pull",nil), nil];
@@ -788,7 +795,7 @@
         } else {
             periodEndEvent = [CessationEvent endOfOvertimeWithOlineStartNextPeriod:isReceiving];
         }
-        [[Game getCurrentGame] addEvent: periodEndEvent];
+        [self addEvent:periodEndEvent];
     }
 }
 

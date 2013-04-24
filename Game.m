@@ -50,6 +50,7 @@ static Game* currentGame = nil;
 @interface Game()
 
 @property (nonatomic, strong) NSString* timeoutJson;
+@property (nonatomic, strong) CessationEvent* lastPeriodEnd; // transient
 
 @end
 
@@ -622,7 +623,8 @@ static Game* currentGame = nil;
         if ([lastEvent isOurGoal]) {
             return YES;
         } else if ([lastEvent isPeriodEnd]) {
-            return ![self isNextPointAfterPeriodEndOline];
+            BOOL isNextPointOline = [self isNextPointAfterPeriodEndOline];
+            return !isNextPointOline;
         } else {
             return NO;
         }
@@ -633,7 +635,11 @@ static Game* currentGame = nil;
 
 -(BOOL)isNextPointAfterPeriodEndOline {
     int periodsFinished = [self isTimeBasedEnd] ? self.periodsComplete : [self isAfterHalftime];
-    return [self isNextPointOlineAfterPeriodsFinished: periodsFinished];
+    if (periodsFinished >= 4) {
+        return [[self lastPeriodEnd] isNextOvertimePeriodStartingOline];
+    } else {
+        return [self isNextPointOlineAfterPeriodsFinished: periodsFinished];
+    }
 }
 
 -(BOOL)isNextPointOlineAfterPeriodsFinished: (int)periodsFinished {
@@ -712,22 +718,20 @@ static Game* currentGame = nil;
         case 2:
             return EndOfThirdQuarter;
             break;
-            // TODO....finish this
-//        case 3: {
-//            if ([self isTie]) {
-//                return EndOfFourthQuarter;
-//            } else {
-//                return GameOver;
-//            }
-//            break;
-//        }
+        case 3: {
+            if ([self isTie]) {
+                return EndOfFourthQuarter;
+            } else {
+                return GameOver;
+            }
+            break;
+        }
         default: {
-//            if ([self isTie]) {
-//                return EndOfOvertime;
-//            } else {
-//                return GameOver;
-//            }
-            return GameOver;
+            if ([self isTie]) {
+                return EndOfOvertime;
+            } else {
+                return GameOver;
+            }
             break;
         }
     }
@@ -774,6 +778,9 @@ static Game* currentGame = nil;
             UPoint* point = [self.points objectAtIndex:i];
             point.summary = [[PointSummary alloc] init];
             point.summary.isFinished = point.isFinished;
+            if ([point isPeriodEnd]) {
+                self.lastPeriodEnd = [point getPeriodEnd];
+            }
             if (point.summary.isFinished) {
                 if ([point isOurPoint]) {
                     score.ours++;
@@ -840,6 +847,11 @@ static Game* currentGame = nil;
 -(int)periodsComplete {
     [self updatePointSummaries];
     return _periodsComplete;
+}
+
+-(CessationEvent*)lastPeriodEnd {
+    [self updatePointSummaries];
+    return _lastPeriodEnd;
 }
 
 #pragma mark - Leaguevine

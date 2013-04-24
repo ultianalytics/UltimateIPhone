@@ -21,8 +21,10 @@
 - (BOOL) isEndOfThirdQuarter;
 - (BOOL) isEndOfFourthQuarter;
 - (BOOL) isEndOfOvertime;
+- (BOOL) isPreHalftime;
 - (BOOL) isHalftime;
 - (BOOL) isGameOver;
 - (BOOL) isPeriodEnd;
+- (BOOL) isNextOvertimePeriodStartingOline;
 
 @end

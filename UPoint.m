@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "Team.h"
 #import "Event.h"
+#import "CessationEvent.h"
 #import "PointSummary.h"
 #import "Scrubber.h"
 #import "PlayerSubstitution.h"
@@ -223,6 +224,10 @@
 
 -(BOOL)isPeriodEnd {
     return [self.events count] > 0 && [[self getLastEvent] isPeriodEnd];
+}
+
+-(CessationEvent*)getPeriodEnd {
+    return [self isPeriodEnd] ? (CessationEvent*)[self getLastEvent] : nil;
 }
 
 

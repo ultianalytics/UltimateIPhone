@@ -36,7 +36,8 @@
 -(BOOL) isNextOvertimePeriodStartingOline {
     NSAssert(self.action == EndOfFourthQuarter || self.action == EndOfOvertime, @"only overtime related periods know if next period starts O-line");
     NSNumber* isOlineAsNumber = [self.details objectForKey:kNextPeriodStartOLine];
-    return isOlineAsNumber ? NO : isOlineAsNumber.boolValue;
+    BOOL answer = isOlineAsNumber ? isOlineAsNumber.boolValue : NO;
+    return answer;
 }
 
 - (BOOL) isCessationEvent {
@@ -57,6 +58,10 @@
 
 - (BOOL) isHalftime {
     return self.action == Halftime;
+}
+
+- (BOOL) isPreHalftime {
+    return self.action == EndOfFirstQuarter;
 }
 
 - (BOOL) isGameOver {

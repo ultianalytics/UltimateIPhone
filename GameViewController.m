@@ -38,6 +38,7 @@
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
+#define kPromptForOvertimeReceiverTitle @"Receive In Overtime?"
 #define kNoInternetAlertTitle @"No Internet Access"
 #define kLeaguevineCredentialsRejected @"Leaguevine Signon Needed"
 #define kLeaguevineGameInvalid @"Leaguevine Game Not Valid"
@@ -510,6 +511,17 @@
     [alert show];
 }
 
+-(void)overtimeReceiverPrompt {
+    // Ask if we are receiving or pulling
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: NSLocalizedString(kPromptForOvertimeReceiverTitle,nil)
+                          message: NSLocalizedString(@"For the overtime period which follows will our team receive or pull?",nil)
+                          delegate: self
+                          cancelButtonTitle: NSLocalizedString(@"Receive",nil)
+                          otherButtonTitles: NSLocalizedString(@"Pull",nil), nil];
+    [alert show];
+}
+
 -(void) addInfoButtton {
     UIView *navBar = self.navigationController.navigationBar;
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, navBar.frame.size.height)];
@@ -767,6 +779,16 @@
         } else if ([alertView.title isEqualToString:kNotifyNewGameAlertTitle] && [[[Game getCurrentGame] getLastEvent] causesLineChange]) {
             [self goToPlayersOnFieldView];
         }
+    } else if ([alertView.title isEqualToString:kPromptForOvertimeReceiverTitle]) {  // only for time-based games
+        Action nextPeriodEnd = [[Game getCurrentGame] nextPeriodEnd];
+        CessationEvent* periodEndEvent;
+        BOOL isReceiving = buttonIndex == 0;
+        if (nextPeriodEnd == EndOfFourthQuarter) {
+            periodEndEvent = [CessationEvent endOfFourthQuarterWithOlineStartNextPeriod:isReceiving];
+        } else {
+            periodEndEvent = [CessationEvent endOfOvertimeWithOlineStartNextPeriod:isReceiving];
+        }
+        [[Game getCurrentGame] addEvent: periodEndEvent];
     }
 }
 

@@ -817,9 +817,8 @@ static Game* currentGame = nil;
 }
 
 -(BOOL)doesGameAppearDone {
-    // don't know if time based
     if (self.isTimeBasedEnd) {
-        return NO;
+        return [self getLastEvent].action == GameOver;
     // have we reached the end point and leader has >= 2 lead?        
     } else {
         [self updatePointSummaries];

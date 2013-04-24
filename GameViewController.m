@@ -542,10 +542,6 @@
 #pragma mark Leaguevine 
 
 -(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
-    if (isFinal && [[Game getCurrentGame] isTimeBasedEnd]) {
-        [[Game getCurrentGame] addEvent: [self createNextPeriodEndEvent]];  
-    }
-
     [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
         if (status != LeaguevineInvokeOK) {
             [Game getCurrentGame].publishScoreToLeaguevine = NO;
@@ -759,7 +755,10 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:kConfirmNewGameAlertTitle] || [alertView.title isEqualToString:kNotifyNewGameAlertTitle]) {
-        if (buttonIndex == 1) { // confirm game over
+        if (buttonIndex == 1) { // confirmed game over
+            if ([[Game getCurrentGame] isTimeBasedEnd]) {
+                [[Game getCurrentGame] addEvent: [self createNextPeriodEndEvent]];
+            }
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
             if ([self shouldPublishToLeaguevine]) {
                 [self notifyLeaguevineOfScoreIsFinal:YES];

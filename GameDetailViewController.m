@@ -188,7 +188,7 @@
 #pragma mark - Event Handlers
 
 -(void)actionButtonTapped {
-    if ([[Game getCurrentGame] isTimeBasedEnd]) {
+    if ([[Game getCurrentGame] isTimeBasedEnd] && [self.game doesGameAppearDone]) {
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kAlertOpeningFinishedGame message:@"This game is over.  You can correct events without re-opening it by using the Events view.\n\nDo you really want to re-open this game?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [alertView show];
     } else {

@@ -82,10 +82,10 @@
 								<int key="IBUIDataDetectorTypes">1</int>
 								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
 							</object>
-							<object class="IBUIActivityIndicatorView" id="299933967">
+							<object class="IBUIActivityIndicatorView" id="323516711">
 								<reference key="NSNextResponder" ref="782472748"/>
 								<int key="NSvFlags">-2147483356</int>
-								<string key="NSFrame">{{141, 105}, {37, 37}}</string>
+								<string key="NSFrame">{{141, 57}, {37, 37}}</string>
 								<reference key="NSSuperview" ref="782472748"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -141,7 +141,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{142, 165}, {37, 37}}</string>
 										<reference key="NSSuperview" ref="345495792"/>
-										<reference key="NSNextKeyView" ref="299933967"/>
+										<reference key="NSNextKeyView" ref="323516711"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -251,7 +251,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">webBusySpinner</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="299933967"/>
+						<reference key="destination" ref="323516711"/>
 					</object>
 					<int key="connectionID">24</int>
 				</object>
@@ -319,7 +319,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="807316258"/>
 							<reference ref="345495792"/>
-							<reference ref="299933967"/>
+							<reference ref="323516711"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Content View</string>
@@ -351,7 +351,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
-						<reference key="object" ref="299933967"/>
+						<reference key="object" ref="323516711"/>
 						<reference key="parent" ref="782472748"/>
 						<string key="objectName">Web busy spinner</string>
 					</object>
@@ -382,10 +382,6 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1552" key="NS.object.0"/>
-		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

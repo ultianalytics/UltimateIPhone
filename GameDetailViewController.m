@@ -23,6 +23,7 @@
 #import "LeaguevineGame.h"
 #import "LeagueVineSignonViewController.h"
 #import "LeaguevineClient.h"
+#import "LeaguevineEventQueue.h"
 #import "TimeoutViewController.h"
 
 #define kLowestGamePoint 9
@@ -276,6 +277,17 @@
 
 
 -(IBAction) deleteClicked: (id) sender {
+    // uncomment to post all of the games stats to LV when click the DELETE button
+//    [[LeaguevineEventQueue sharedQueue] submitAllGameStats:self.game];
+//    UIAlertView *alertx = [[UIAlertView alloc]
+//                          initWithTitle: @"All LV events submitted"
+//                          message: @"All events submitted"
+//                          delegate: nil
+//                          cancelButtonTitle: @"OK"
+//                          otherButtonTitles: nil];
+//    [alertx show];
+//    return;
+    
     // Show the confirmation.
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: kAlertTitleDeleteGame

@@ -27,5 +27,6 @@
 -(void)triggerDelayedSubmit;
 -(NSArray*)filesInQueueFolder;
 -(void)removeEvent: (NSString*)filePath;
+-(void)submitAllGameStats: (Game*)game;
 
 @end

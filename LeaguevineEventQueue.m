@@ -18,6 +18,7 @@
 #import "LeaguevinePostingLog.h"
 #import "LeaguevineEventConverter.h"
 #import "Game.h"
+#import "UPoint.h"
 #import "Event.h"
 #import "Team.h"
 #import "Player.h"
@@ -64,6 +65,8 @@
     }
     return self;
 }
+
+#pragma mark - Submitting
 
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game {
     [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDAdd] forEventDescription:[event description]];
@@ -194,13 +197,18 @@
 }
 
 -(LeaguevineEvent*)createLineChangeEventForGame: (Game*)game {
-    LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:CRUDUpdate];
-    leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
-    leaguevineEvent.leaguevineEventType = kLineChangeEventType;  
+    LeaguevineEvent* leaguevineEvent =[self createLineChangeEventForLeaguevineGameId:game.leaguevineGame.itemId withNewPlayers:game.currentLine];
     leaguevineEvent.iUltimateTimestamp = [[UniqueTimestampGenerator sharedGenerator] uniqueTimeIntervalSinceReferenceDateSeconds];
+    return leaguevineEvent;
+}
+
+-(LeaguevineEvent*)createLineChangeEventForLeaguevineGameId: (NSUInteger)leaguevineGameId withNewPlayers: (NSArray*)players {
+    LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:CRUDUpdate];
+    leaguevineEvent.leaguevineGameId = leaguevineGameId;
+    leaguevineEvent.leaguevineEventType = kLineChangeEventType;
     
     NSMutableArray* leaguevinePlayerIds = [NSMutableArray array];
-    for (Player* player in game.currentLine) {
+    for (Player* player in players) {
         NSUInteger playerId = player.leaguevinePlayer.playerId;
         if (playerId) {
             [leaguevinePlayerIds addObject:[NSNumber numberWithInt:playerId]];
@@ -249,5 +257,21 @@
     return [[filePath pathExtension] isEqualToString:kScoreFileExtension];
 }
 
+-(void)submitAllGameStats: (Game*)game {
+    if ([game hasEvents]) {
+        Event* firstEvent = [[[[game points] objectAtIndex:0] events] objectAtIndex:0];
+        NSTimeInterval lastEventTime = firstEvent.timestamp - 5;
+        for (UPoint* point in game.points) {
+            LeaguevineEvent* lineChangeEvent = [self createLineChangeEventForLeaguevineGameId: game.leaguevineGame.itemId withNewPlayers: point.line];
+            lineChangeEvent.iUltimateTimestamp = lastEventTime + 1;
+            [self submitEvent:lineChangeEvent forEventDescription:@"line change"];
+            for (Event* evt in [point getEvents]) {
+                [self submitNewEvent:evt forGame:game];
+                lastEventTime = evt.timestamp;
+            }
+        }
+        [self submitScoreForGame:game final:YES];
+    }
+}
 
 @end

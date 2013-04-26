@@ -30,6 +30,7 @@
 #define kHeaderHeight 40
 
 #define kAlertTitleDeleteGame @"Delete Game"
+#define kAlertLeaguevineStatsNotAllowedWithPrivatePlayers @"Team Not Setup for LV Stats"
 #define kAlertLeaguevineStatsEnding @"Stats Posting Ending"
 #define kAlertLeaguevineStatsStarting @"Posting Stats to Leaguevine"
 #define kAlertLeaguevineStatsStartingWithGameInProgress @"Warning: Game Started"
@@ -250,6 +251,8 @@
                [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
                [alertView.title isEqualToString:kAlertLeaguevineStatsEnding]) {
         [self updateLeaguevinePublishing];
+    } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsNotAllowedWithPrivatePlayers]) {
+        [self populateLeaguevineCells];
     } else  if ([alertView.title isEqualToString:kAlertOpeningFinishedGame]) {
         if (buttonIndex == 1) {  // re-open game
             [[Game getCurrentGame] removeLastEvent];
@@ -329,9 +332,9 @@
 -(void)populateLeaguevineCells {
     self.leaguevineGameLabel.text = self.game.leaguevineGame ? [self.game.leaguevineGame shortDescription] : @"NOT SET";
     self.pubToLeaguevineSegmentedControl.enabled = self.game.leaguevineGame != nil;
-    if ([Team getCurrentTeam].arePlayersFromLeagueVine && self.pubToLeaguevineSegmentedControl.numberOfSegments < 3) {
-        [self.pubToLeaguevineSegmentedControl insertSegmentWithTitle:@"Stats" atIndex:2 animated:NO];
-    }
+//    if ([Team getCurrentTeam].arePlayersFromLeagueVine && self.pubToLeaguevineSegmentedControl.numberOfSegments < 3) {
+//        [self.pubToLeaguevineSegmentedControl insertSegmentWithTitle:@"Stats" atIndex:2 animated:NO];
+//    }
     if (self.game.publishStatsToLeaguevine) {
         self.pubToLeaguevineSegmentedControl.selectedSegmentIndex = 2;
     } else if (self.game.publishScoreToLeaguevine) {
@@ -368,7 +371,16 @@
 
 - (void)leaguevinePublishChanged {
     // user is turning OFF stats publishing
-    if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex != 2 && self.game.publishStatsToLeaguevine) {
+    if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 2 && ![[Team getCurrentTeam] arePlayersFromLeagueVine]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:kAlertLeaguevineStatsNotAllowedWithPrivatePlayers
+                              message:@"Publishing stats to leaguevine requires that the Team be configured with leaguevine players.\nReturn to the Team players view and select Leaguevine."
+                              delegate: self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+    // user is turning OFF stats publishing
+    } else if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex != 2 && self.game.publishStatsToLeaguevine) {
         NSString* warning = [self.game hasEvents] ?
             @"You have chosen NOT to publish stats to leaguevine for this game.  Remember that you should not change this property after the game is started." :
             @"Warning: You have STOPPED publishing stats to leaguevine for this game.  Changing this property during a game can lead to unpredictable results if not all stats are posted.";
@@ -390,17 +402,6 @@
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
         [alert show];
-        
-    // user is turning ON stats publishing
-    } else if (self.pubToLeaguevineSegmentedControl.selectedSegmentIndex == 2) {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Leaguevine Publishing Started"
-                              message:@"All events recorded by iUltimate will be published to leaguevine."
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-        
     // other changes
     } else {
         [self updateLeaguevinePublishing];
@@ -424,7 +425,15 @@
                 if (hasLeaguevineCredentials) {
                     if (self.game.publishScoreToLeaguevine) {
                         [self postScoreToleaguevine];
-                    } 
+                    } else if (self.game.publishStatsToLeaguevine) {
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Leaguevine Publishing Started"
+                                              message:@"All events recorded by iUltimate will be published to leaguevine."
+                                              delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+                        [alert show];
+                    }
                 }
             }];
         } else {

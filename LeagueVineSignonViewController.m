@@ -46,7 +46,16 @@
 
 #pragma mark - WebView delegate 
 
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [self showWebBusySpinner:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self showWebBusySpinner:NO];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView {
+    [self showWebBusySpinner:NO];
 /*
      If the user logs in successfully, they will be redirected to:
      
@@ -120,7 +129,6 @@
 #pragma mark - Miscellaneous 
 
 -(void)showWebView {
-    
     [UIView transitionWithView:self.containerView
                       duration:0.6
                        options:UIViewAnimationOptionTransitionCrossDissolve
@@ -128,8 +136,9 @@
                         [self.coverView removeFromSuperview]; 
                         [self.containerView addSubview:self.webView]; 
                     }
-                    completion:NULL];
-    //[self showNewLogonUsageCallouts];
+                    completion:^(BOOL finished) {
+                        self.coverView = nil;
+                    }];
 }
 
 -(BOOL)isNetworkAvailable {
@@ -208,6 +217,20 @@
         return YES;
     } else {
         return NO;
+    }
+}
+
+
+#pragma mark - Misc
+
+-(void)showWebBusySpinner: (BOOL)show {
+    BOOL shouldDisplay = show && !self.coverView;
+    self.webBusySpinner.hidden = !shouldDisplay;
+    if (shouldDisplay) {
+        [self.containerView bringSubviewToFront: self.webBusySpinner];
+        [self.webBusySpinner startAnimating];
+    } else {
+        [self.webBusySpinner stopAnimating];
     }
 }
 

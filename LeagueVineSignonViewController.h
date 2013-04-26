@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UILabel *busyLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *webBusySpinner;
 
 @end

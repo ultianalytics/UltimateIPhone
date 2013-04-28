@@ -777,6 +777,7 @@
         if (buttonIndex == 1) { // confirmed game over
             if ([[Game getCurrentGame] isTimeBasedEnd]) {
                 [[Game getCurrentGame] addEvent: [self createNextPeriodEndEvent]];
+                [[Game getCurrentGame] save];
             }
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
             if ([self shouldPublishToLeaguevine]) {

@@ -61,7 +61,6 @@
     }
     if (_details && [_details count] > 0) {
         [dict setValue:self.details forKey:kDetailsKey];
-        NSLog(@"dict.details is %@", dict);
     }
     return dict;
 }

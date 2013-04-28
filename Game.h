@@ -46,7 +46,6 @@
 +(BOOL)isCurrentGame: (NSString*) gameId;
 +(BOOL)hasCurrentGame;
 +(void)setCurrentGame: (NSString*) gameId;
-+(void)startNewGame;
 +(Game*)readGame: (NSString*) gameId;
 +(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId;
 +(NSArray*)getAllGameFileNames: (NSString*) teamId;

@@ -231,15 +231,6 @@ static Game* currentGame = nil;
     return loadedGame;
 }
 
-+(void)startNewGame {
-    @synchronized(self) {
-        Game* newGame = [[Game alloc] init]; 
-        newGame.startDateTime = [NSDate date];
-        [newGame save];
-        [Game setCurrentGame:newGame.gameId];
-    }
-}
-
 +(NSArray*)getAllGameFileNames: (NSString*) teamId {
     NSString* gamesDirectory = [Game getDirectoryPath: teamId];
     NSArray* directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:gamesDirectory error:NULL];

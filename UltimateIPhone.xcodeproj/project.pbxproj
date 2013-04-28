@@ -54,6 +54,8 @@
 		1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0B8170603C300D667F1 /* LeaguevineEventQueue.m */; };
 		1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */; };
 		1A74B0BF1707D7EB00D667F1 /* UniqueTimestampGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A74B0BE1707D7EB00D667F1 /* UniqueTimestampGenerator.m */; };
+		1A7587F6172D767700638AD7 /* GameStartTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7587F5172D767700638AD7 /* GameStartTimeViewController.m */; };
+		1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A7587F7172D768B00638AD7 /* GameStartTimeViewController.xib */; };
 		1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A78D9C315949DC300115BE5 /* CalloutView.m */; };
 		1A793F2A162CDAB8006C1001 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A793F29162CDAB8006C1001 /* DarkButton.m */; };
 		1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7994D716172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m */; };
@@ -344,6 +346,9 @@
 		1A74B0BB17073D6800D667F1 /* LeaguevinePostOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePostOperation.m; sourceTree = "<group>"; };
 		1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniqueTimestampGenerator.h; sourceTree = "<group>"; };
 		1A74B0BE1707D7EB00D667F1 /* UniqueTimestampGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniqueTimestampGenerator.m; sourceTree = "<group>"; };
+		1A7587F4172D767700638AD7 /* GameStartTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStartTimeViewController.h; sourceTree = "<group>"; };
+		1A7587F5172D767700638AD7 /* GameStartTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStartTimeViewController.m; sourceTree = "<group>"; };
+		1A7587F7172D768B00638AD7 /* GameStartTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameStartTimeViewController.xib; sourceTree = "<group>"; };
 		1A78D9C215949DC300115BE5 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1A78D9C315949DC300115BE5 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		1A793F28162CDAB8006C1001 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
@@ -1213,6 +1218,9 @@
 				1AFFE80F15175EB0004B4590 /* GameDetailViewController.h */,
 				1AFFE81015175EB0004B4590 /* GameDetailViewController.m */,
 				1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */,
+				1A7587F4172D767700638AD7 /* GameStartTimeViewController.h */,
+				1A7587F5172D767700638AD7 /* GameStartTimeViewController.m */,
+				1A7587F7172D768B00638AD7 /* GameStartTimeViewController.xib */,
 			);
 			name = "Game Detail";
 			sourceTree = "<group>";
@@ -1509,6 +1517,7 @@
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
+				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1654,6 +1663,7 @@
 				1A8CC5D717230C2100B8295C /* BufferedNavigationController.m in Sources */,
 				1AB78D0417269E40003235AE /* SHSLogger.m in Sources */,
 				1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */,
+				1A7587F6172D767700638AD7 /* GameStartTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

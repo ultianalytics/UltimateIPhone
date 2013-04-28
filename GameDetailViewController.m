@@ -25,6 +25,7 @@
 #import "LeaguevineClient.h"
 #import "LeaguevineEventQueue.h"
 #import "TimeoutViewController.h"
+#import "GameStartTimeViewController.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 40
@@ -188,6 +189,10 @@
 }
 
 #pragma mark - Event Handlers
+
+-(void)dateTimeButtonTapped {
+    [self showDateTimePicker];
+}
 
 -(void)actionButtonTapped {
     if ([[Game getCurrentGame] isTimeBasedEnd] && [self.game doesGameAppearDone]) {
@@ -565,11 +570,14 @@
         headerView.backgroundColor = [UIColor clearColor];
         
         // start time
-        UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 190, kHeaderHeight)];
-        dateLabel.backgroundColor = [UIColor clearColor];
-        [ColorMaster styleAsWhiteLabel:dateLabel size:16];
-        dateLabel.text = [self.dateFormat stringFromDate:self.game.startDateTime];
-        [headerView addSubview:dateLabel];
+        NSString* dateText = self.game.startDateTime ? [self.dateFormat stringFromDate:self.game.startDateTime] : @"Start Time Unknown";
+        UIButton* dateButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 190, kHeaderHeight)];
+        dateButton.backgroundColor = [UIColor clearColor];
+        [ColorMaster styleAsWhiteLabel:dateButton.titleLabel size:16];
+        [dateButton setTitle:dateText forState:UIControlStateNormal];
+        [dateButton setTitle:dateText forState:UIControlStateHighlighted];
+        [dateButton addTarget:self action:@selector(dateTimeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:dateButton];
         
         // score
         UILabel* scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 110, kHeaderHeight)];
@@ -670,6 +678,22 @@
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     self.tableView.contentInset = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
+}
+
+
+#pragma mark - DateTime picker
+
+-(void)showDateTimePicker {
+    GameStartTimeViewController* startTimeController = [[GameStartTimeViewController alloc] init];
+    startTimeController.date = self.game.startDateTime;
+    startTimeController.completion = ^(GameStartTimeViewController* startTimeController) {
+        if (startTimeController.date) {
+            self.game.startDateTime = startTimeController.date;
+            [self.game save];
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
+    [self presentViewController:startTimeController animated:YES completion:nil];
 }
 
 @end

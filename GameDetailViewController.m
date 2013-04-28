@@ -7,6 +7,7 @@
 //
 
 #import "GameDetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "Game.h"
 #import "Preferences.h"
 #import "SoundPlayer.h"
@@ -571,7 +572,12 @@
         
         // start time
         NSString* dateText = self.game.startDateTime ? [self.dateFormat stringFromDate:self.game.startDateTime] : @"Start Time Unknown";
-        UIButton* dateButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 190, kHeaderHeight)];
+        CGFloat buttonMargin = 5;
+        UIButton* dateButton = [[UIButton alloc] initWithFrame:CGRectMake(10, buttonMargin, 190, kHeaderHeight - (buttonMargin * 2))];
+        [dateButton.layer setBorderWidth:1.0f];
+        [dateButton.layer setBorderColor:[ColorMaster getSegmentControlDarkTintColor].CGColor];
+        dateButton.layer.cornerRadius = 5;
+        dateButton.layer.masksToBounds = YES;
         dateButton.backgroundColor = [UIColor clearColor];
         [ColorMaster styleAsWhiteLabel:dateButton.titleLabel size:16];
         [dateButton setTitle:dateText forState:UIControlStateNormal];
@@ -616,8 +622,7 @@
     [self.opposingTeamNameField addTarget:self action:@selector(opponentNameChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.tournamentNameField addTarget:self action:@selector(tournamendNameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.opposingTeamNameField.delegate = self; 
-    self.tournamentNameField.delegate = self; 
-
+    self.tournamentNameField.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

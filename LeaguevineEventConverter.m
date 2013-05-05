@@ -126,6 +126,20 @@
     return converted;
 }
 
+
+-(void)populateDummyOtherTeamPullLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent usingFirstOlineEvent: (Event*)firstOlineEvent fromGame: (Game*)game {
+    leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
+    leaguevineEvent.iUltimateTimestamp = firstOlineEvent.timestamp;
+    leaguevineEvent.leaguevineTimestamp = firstOlineEvent.timestamp - 5;
+    leaguevineEvent.eventDescription = [NSString stringWithFormat:@"Other team pull (dummy event for leaguevine).  Actual event is %@",[firstOlineEvent description]];
+    
+    int ourLeaguevineTeamId = [Team getCurrentTeam].leaguevineTeam.itemId;
+    int theirLeaguevineTeamId = game.leaguevineGame.team1Id == ourLeaguevineTeamId ? game.leaguevineGame.team2Id : game.leaguevineGame.team1Id;
+
+    leaguevineEvent.leaguevineEventType = 2;  // pull
+    leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
+}
+
 -(void)populatePlayerOneInLVEvent: (LeaguevineEvent*) leaguevineEvent withEvent: (Event*)event ourLeaguevineId: (NSUInteger)ourLeaguevineTeamId {
     if ([event playerOne] && ![[event playerOne] isAnonymous]) {
         leaguevineEvent.leaguevinePlayer1Id = [event playerOne].leaguevinePlayer.playerId;

@@ -27,7 +27,7 @@
 
 
 -(void)logLeaguevineEvent: (LeaguevineEvent*)event {
-    // format: {log-record-version}/{timestamp}/{leavuevine-id}/{game-id}/{event-type}/{UNUSED}/{array-of-LV-player-ids-for-line-change-event}/{description}
+    // format: {event-type}/{log-record-version}/{timestamp}/{leaguevine-id}/{game-id}/{UNUSED}/{array-of-LV-player-ids-for-line-change-event}/{description}
     [self appendToLog:[NSString stringWithFormat:@"%d/%@/%f/%lu/%d/%@/%@/%@\n",
                        event.leaguevineEventType,
                        @"V1",
@@ -39,14 +39,18 @@
                        [event crudDescription]]];
 }
 
--(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {
+-(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp eventType: (NSUInteger)eventType {
     NSUInteger eventId = 0;
-    eventId = [self leaguevineEventIdForTimestamp:eventTimestamp inFile:self.currentLogFilePath];
+    eventId = [self leaguevineEventIdForTimestamp:eventTimestamp eventType:eventType inFile:self.currentLogFilePath];
     if (eventId == 0) {
         NSString* otherLogFilePath = [self.currentLogFilePath isEqualToString:self.logAPath] ? self.logBPath : self.logAPath;
-        eventId = [self leaguevineEventIdForTimestamp:eventTimestamp inFile:otherLogFilePath];
+        eventId = [self leaguevineEventIdForTimestamp:eventTimestamp eventType:eventType inFile:otherLogFilePath];
     }
     return eventId;
+}
+
+-(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp {
+    return [self leaguevineEventIdForTimestamp:eventTimestamp eventType:0];
 }
 
 -(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId {
@@ -85,14 +89,15 @@
     }
 }
 
--(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp inFile: (NSString*)filePath{
+-(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp eventType: (NSUInteger)eventType inFile: (NSString*)filePath {
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         DDFileReader * reader = [[DDFileReader alloc] initWithFilePath:filePath];
         NSString * line = nil;
         while ((line = [reader readLine])) {
             NSArray* fields = [line pathComponents];
+            NSTimeInterval recordEventType = [[fields objectAtIndex:0] doubleValue];
             NSTimeInterval recordTimestamp = [[fields objectAtIndex:2] doubleValue];
-            if (recordTimestamp == eventTimestamp) {
+            if ((eventType == 0 || (recordEventType == eventType)) && recordTimestamp == eventTimestamp) {
                 return [[fields objectAtIndex:3] intValue];
             }
         }

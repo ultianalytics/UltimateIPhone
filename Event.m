@@ -141,6 +141,10 @@
     return NO;
 }
 
+- (BOOL) isPullIb {
+    return NO;
+}
+
 - (BOOL) isPullOb {
     return NO;
 }

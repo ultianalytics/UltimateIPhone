@@ -166,7 +166,7 @@
     NSError *error = nil;
     
     if (![leaguevineEvent isDelete]) {
-        NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.iUltimateTimestamp];
+        NSString* eventTime = [self formatAsISO8601Timestamp:leaguevineEvent.leaguevineTimestamp];
         NSMutableDictionary* requestDict = [NSMutableDictionary dictionary];
         [requestDict setObject:eventTime forKey:@"time"];
         [self addNonZeroProperty:@"game_id" value:leaguevineEvent.leaguevineGameId toDictionary:requestDict];

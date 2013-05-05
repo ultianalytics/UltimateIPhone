@@ -68,8 +68,12 @@
 
 #pragma mark - Submitting
 
--(void)submitNewEvent: (Event*)event forGame: (Game*)game {
-    [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDAdd] forEventDescription:[event description]];
+-(void)submitNewEvent: (Event*)event forGame: (Game*)game isFirstEventAfterPull: (BOOL)isFirstEventAfterPull {
+    if (event.isOffense && isFirstEventAfterPull) {
+        [self submitEvent:[self createDummyPullLeaguevineEventForFirstOlineEvent: event inGame: game crud:CRUDAdd] forEventDescription:[event description]];
+    }
+    LeaguevineEvent* lvEvt = [self createLeaguevineEventFor: event inGame: game crud:CRUDAdd];
+    [self submitEvent:lvEvt forEventDescription:[event description]];
     if ([event isGoal]) {
         [self submitScoreForGame:game final:NO];
     }
@@ -196,6 +200,12 @@
     return isConverted ? leaguevineEvent : nil;
 }
 
+-(LeaguevineEvent*)createDummyPullLeaguevineEventForFirstOlineEvent: (Event*) event inGame: (Game*)game crud: (CRUD)crud {
+    LeaguevineEvent* leaguevineEvent = [LeaguevineEvent leaguevineEventWithCrud:crud];
+    [self.eventConverter populateDummyOtherTeamPullLeaguevineEvent:leaguevineEvent usingFirstOlineEvent:event fromGame:game];
+    return leaguevineEvent;
+}
+
 -(LeaguevineEvent*)createLineChangeEventForGame: (Game*)game {
     LeaguevineEvent* leaguevineEvent =[self createLineChangeEventForLeaguevineGameId:game.leaguevineGame.itemId withNewPlayers:game.currentLine];
     leaguevineEvent.iUltimateTimestamp = [[UniqueTimestampGenerator sharedGenerator] uniqueTimeIntervalSinceReferenceDateSeconds];
@@ -265,9 +275,11 @@
             LeaguevineEvent* lineChangeEvent = [self createLineChangeEventForLeaguevineGameId: game.leaguevineGame.itemId withNewPlayers: point.line];
             lineChangeEvent.iUltimateTimestamp = lastEventTime + 1;
             [self submitEvent:lineChangeEvent forEventDescription:@"line change"];
+            Event* lastEvent;
             for (Event* evt in [point getEvents]) {
-                [self submitNewEvent:evt forGame:game];
-                lastEventTime = evt.timestamp;
+                BOOL wasLastPointPull = point.summary.isOline ? lastEvent == nil : [lastEvent isPull];
+                [self submitNewEvent:evt forGame:game isFirstEventAfterPull:wasLastPointPull];
+                lastEvent = evt;
             }
         }
         [self submitScoreForGame:game final:YES];

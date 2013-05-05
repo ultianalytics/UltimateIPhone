@@ -14,6 +14,7 @@
 #define kEventId @"leaguevine_id"
 #define kEventType @"type"
 #define kTimestamp @"time"
+#define kLeaguevineTimestamp @"leaguevineTimne"
 #define kGameId @"game_id"
 #define kPlayer1Id @"player_1_id"
 #define kPlayer2Id @"player_2_id"
@@ -70,6 +71,7 @@
         self.leaguevinePlayer2TeamId = [decoder decodeIntForKey:kPlayer2TeamId];
         self.leaguevinePlayer3TeamId = [decoder decodeIntForKey:kPlayer3TeamId];
         self.iUltimateTimestamp = [decoder decodeDoubleForKey:kTimestamp];
+        self.leaguevineTimestamp = [decoder decodeDoubleForKey:kLeaguevineTimestamp];
         self.eventDescription = [decoder decodeObjectForKey:kDescription];
         self.latestLine = [decoder decodeObjectForKey:kLineChange];
         self.crud = [decoder decodeIntForKey:kCrud];
@@ -89,6 +91,7 @@
     [encoder encodeInt:self.leaguevinePlayer3TeamId forKey:kPlayer3TeamId];
     [encoder encodeObject:self.latestLine forKey:kLineChange];
     [encoder encodeDouble:self.iUltimateTimestamp forKey:kTimestamp];
+    [encoder encodeDouble:self.leaguevineTimestamp forKey:kLeaguevineTimestamp];    
     [encoder encodeObject:self.eventDescription forKey:kDescription];
     [encoder encodeInt:self.crud forKey:kCrud];
 }
@@ -132,6 +135,13 @@
 
 -(BOOL)isPeriodEnd {
     return self.leaguevineEventType >= 94 && self.leaguevineEventType <= 98;
+}
+
+-(NSTimeInterval)leaguevineTimestamp {
+    if (_leaguevineTimestamp) {
+        return _leaguevineTimestamp;
+    }
+    return self.iUltimateTimestamp;
 }
 
 @end

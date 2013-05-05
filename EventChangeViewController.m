@@ -159,7 +159,7 @@
 #pragma mark Event Handling
 
 -(void)doneButtonPressed {
-    if ([self.event isPull] && [self textFieldMs] > 60000) {
+    if ([self.event isPullIb] && [self textFieldMs] > 60000) {
         [self alertUnreasonbleHangtime];
         return;
     }
@@ -561,7 +561,7 @@
         self.originalOffenseEvent.receiver = self.offenseEvent.receiver;
     } else {
         self.originalDefenseEvent.defender = self.defenseEvent.defender;
-        if ([self.defenseEvent isPull]) {
+        if ([self.defenseEvent isPullIb]) {
             self.originalDefenseEvent.pullHangtimeMilliseconds = [self textFieldMs];
         }
     }

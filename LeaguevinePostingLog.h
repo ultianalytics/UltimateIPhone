@@ -12,6 +12,7 @@
 @interface LeaguevinePostingLog : NSObject
 
 -(void)logLeaguevineEvent: (LeaguevineEvent*)event;
+-(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp eventType: (NSUInteger)eventType;
 -(NSUInteger)leaguevineEventIdForTimestamp: (NSTimeInterval)eventTimestamp;
 -(NSArray*)lastLinePostedForGameId: (NSUInteger)gameId;
 

@@ -12,5 +12,6 @@
 @interface LeaguevineEventConverter : NSObject
 
 -(BOOL)populateLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent withEvent: (Event*)event fromGame: (Game*)game;
+-(void)populateDummyOtherTeamPullLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent usingFirstOlineEvent: (Event*)firstOlineEvent fromGame: (Game*)game;
 
 @end

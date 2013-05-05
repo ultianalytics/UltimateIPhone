@@ -637,6 +637,18 @@ static Game* currentGame = nil;
     return ((self.isFirstPointOline + periodsFinished) % 2);
 }
 
+-(BOOL)wasLastPointPull {
+    if ([self hasEvents]) {
+        UPoint* currentPoint = [self getCurrentPoint];
+        if (currentPoint.summary.isOline) {
+            return [currentPoint.events count] == 0;
+        } else {
+            return [currentPoint.events count] > 0 && [[currentPoint.events lastObject] isPull];
+        }
+    }
+    return NO;
+}
+
 -(BOOL)isPointInProgress {
     Event* lastEvent = self.getLastEvent;
     return lastEvent && ![lastEvent isGoal] && ![lastEvent isPeriodEnd];

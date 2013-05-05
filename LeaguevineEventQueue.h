@@ -15,7 +15,7 @@
 
 + (LeaguevineEventQueue*)sharedQueue;
 
--(void)submitNewEvent: (Event*)event forGame: (Game*)game;
+-(void)submitNewEvent: (Event*)event forGame: (Game*)game isFirstEventAfterPull: (BOOL)isFirstEventAfterPull;
 -(void)submitChangedEvent: (Event*)event forGame: (Game*)game;
 -(void)submitDeletedEvent: (Event*)event forGame: (Game*)game;
 -(void)submitLineChangeForGame: (Game*)game;

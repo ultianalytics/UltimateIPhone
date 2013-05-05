@@ -592,7 +592,7 @@
         if ([[Game getCurrentGame] hasOneEvent]) {
             [[LeaguevineEventQueue sharedQueue] submitLineChangeForGame:[Game getCurrentGame]];  // submit initial line
         }
-        [[LeaguevineEventQueue sharedQueue] submitNewEvent:event forGame:[Game getCurrentGame]];
+        [[LeaguevineEventQueue sharedQueue] submitNewEvent:event forGame:[Game getCurrentGame] isFirstEventAfterPull:[[Game getCurrentGame] wasLastPointPull]];
         
         if ([event isGoal]) {
             [self checkForLeaguevinePostingError];

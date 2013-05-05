@@ -56,6 +56,7 @@ typedef enum {
 - (BOOL) isDrop;
 - (BOOL) isD;
 - (BOOL) isPull;
+- (BOOL) isPullIb;
 - (BOOL) isPullOb;
 - (BOOL) isCallahan;
 - (BOOL) isThrowaway;

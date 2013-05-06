@@ -130,7 +130,7 @@
 -(void)populateDummyOtherTeamPullLeaguevineEvent: (LeaguevineEvent*) leaguevineEvent usingFirstOlineEvent: (Event*)firstOlineEvent fromGame: (Game*)game {
     leaguevineEvent.leaguevineGameId = game.leaguevineGame.itemId;
     leaguevineEvent.iUltimateTimestamp = firstOlineEvent.timestamp;
-    leaguevineEvent.leaguevineTimestamp = firstOlineEvent.timestamp - 5;
+    leaguevineEvent.leaguevineTimestamp = firstOlineEvent.timestamp - 1;  // Don't decrement by more than one because it could put the event before another event
     leaguevineEvent.eventDescription = [NSString stringWithFormat:@"Other team pull (dummy event for leaguevine).  Actual event is %@",[firstOlineEvent description]];
     
     int ourLeaguevineTeamId = [Team getCurrentTeam].leaguevineTeam.itemId;

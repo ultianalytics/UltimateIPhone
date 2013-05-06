@@ -58,7 +58,7 @@
             return [self postLineChangeEvent:filePath usingClient:client];
         } else {
             if ([event isUpdateOrDelete]) {
-                event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue].postingLog leaguevineEventIdForTimestamp:event.iUltimateTimestamp];
+                event.leaguevineEventId = [[LeaguevineEventQueue sharedQueue].postingLog leaguevineEventIdForTimestamp:event.iUltimateTimestamp  eventType: event.leaguevineEventType];
                 if (!event.leaguevineEventId) {
                     SHSLog(@"Posting an event for %@ but the previous add event was not found in log.  Skipping %@", [event isDelete] ? @"delete" : @"update", event);
                     [[LeaguevineEventQueue sharedQueue] removeEvent:filePath];

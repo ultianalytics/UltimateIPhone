@@ -81,6 +81,7 @@
 -(BOOL)isPointInProgress;
 -(UPoint*)findPreviousPoint: (UPoint*) point;
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
+-(BOOL)canNextPointBeDLinePull;
 -(BOOL)canNextPointBePull;
 -(NSSet*)getPlayers;
 -(BOOL)isHalftime;

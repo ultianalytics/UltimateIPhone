@@ -245,8 +245,8 @@
 
 -(void) updateViewFromGame: (Game*) game {
     if (!isOffense) {
-        self.otherTeamScoreButton.hidden = [game canNextPointBePull] ? YES : NO;
-        self.throwAwayButton.hidden = [game canNextPointBePull] ? YES : NO;
+        self.otherTeamScoreButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
+        self.throwAwayButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
     }
     for (PlayerView* playerView in playerViews) {
         [playerView update:game];
@@ -616,7 +616,7 @@
 
 -(void)notifyLeaguevineOfRemovedEvent: (Event*)event {
     if ([self shouldPublishStatsToLeaguevine]) {
-        [[LeaguevineEventQueue sharedQueue] submitDeletedEvent:event forGame:[Game getCurrentGame]];
+        [[LeaguevineEventQueue sharedQueue] submitDeletedEvent:event forGame:[Game getCurrentGame] wasFirstEventAfterPull:[[Game getCurrentGame] canNextPointBePull]];
     }
 }
 

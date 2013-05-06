@@ -17,7 +17,7 @@
 
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game isFirstEventAfterPull: (BOOL)isFirstEventAfterPull;
 -(void)submitChangedEvent: (Event*)event forGame: (Game*)game;
--(void)submitDeletedEvent: (Event*)event forGame: (Game*)game;
+-(void)submitDeletedEvent: (Event*)event forGame: (Game*)game wasFirstEventAfterPull: (BOOL)wasFirstEventAfterPull;
 -(void)submitLineChangeForGame: (Game*)game;
 -(void)submitScoreForGame: (Game*)game final: (BOOL)final;
 -(void)triggerImmediateSubmit;

@@ -70,7 +70,8 @@
 
 -(void)submitNewEvent: (Event*)event forGame: (Game*)game isFirstEventAfterPull: (BOOL)isFirstEventAfterPull {
     if (event.isOffense && isFirstEventAfterPull) {
-        [self submitEvent:[self createDummyPullLeaguevineEventForFirstOlineEvent: event inGame: game crud:CRUDAdd] forEventDescription:[event description]];
+        [self submitEvent:[self createDummyPullLeaguevineEventForFirstOlineEvent: event inGame: game crud:CRUDAdd]
+            forEventDescription:[NSString stringWithFormat:@"Dummy pull (kicked off because of %@)",[event description]]];
     }
     LeaguevineEvent* lvEvt = [self createLeaguevineEventFor: event inGame: game crud:CRUDAdd];
     [self submitEvent:lvEvt forEventDescription:[event description]];
@@ -83,8 +84,12 @@
     [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDUpdate]  forEventDescription:[event description]];
 }
 
--(void)submitDeletedEvent: (Event*)event forGame: (Game*)game {
+-(void)submitDeletedEvent: (Event*)event forGame: (Game*)game wasFirstEventAfterPull: (BOOL)wasFirstEventAfterPull {
     [self submitEvent:[self createLeaguevineEventFor: event inGame: game crud:CRUDDelete]  forEventDescription:[event description]];
+    if (event.isOffense && wasFirstEventAfterPull) {
+        [self submitEvent:[self createDummyPullLeaguevineEventForFirstOlineEvent: event inGame: game crud:CRUDDelete]
+            forEventDescription:[NSString stringWithFormat:@"Dummy pull (originally kicked off because of %@)",[event description]]];
+    }
     if ([event isGoal]) {
         [self submitScoreForGame:game final:NO];
     }

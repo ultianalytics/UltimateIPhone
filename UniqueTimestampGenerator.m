@@ -34,7 +34,7 @@
 -(NSTimeInterval)uniqueTimeIntervalSinceReferenceDateSeconds {
     NSTimeInterval newTimestamp = MAX(ceil([NSDate timeIntervalSinceReferenceDate]),self.lastEventTimeIntervalSinceReferenceDateSeconds);
     while (newTimestamp == self.lastEventTimeIntervalSinceReferenceDateSeconds) {
-        newTimestamp++;
+        newTimestamp = newTimestamp + 2;  // increment by 2 so that insertions can be made for special events
     }
     self.lastEventTimeIntervalSinceReferenceDateSeconds = newTimestamp;
     return newTimestamp;

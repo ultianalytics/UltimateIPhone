@@ -605,7 +605,7 @@ static Game* currentGame = nil;
         self.lastOLine : self.lastDLine];
 }
 
--(BOOL)canNextPointBePull {
+-(BOOL)canNextPointBeDLinePull {
     Event* lastEvent = [self getLastEvent];
     if (lastEvent == nil) {
         return !self.isFirstPointOline;
@@ -622,6 +622,11 @@ static Game* currentGame = nil;
     } else {
         return [lastEvent isOurGoal] || ([lastEvent isTheirGoal] && [self isNextEventImmediatelyAfterHalftime] && self.isFirstPointOline);
     }
+}
+
+-(BOOL)canNextPointBePull {
+    Event* lastEvent = [self getLastEvent];
+    return lastEvent == nil ? YES : [lastEvent isGoal] || [lastEvent isPeriodEnd];
 }
 
 -(BOOL)isNextPointAfterPeriodEndOline {
@@ -641,7 +646,7 @@ static Game* currentGame = nil;
     if ([self hasEvents]) {
         UPoint* currentPoint = [self getCurrentPoint];
         if (currentPoint.summary.isOline) {
-            return [currentPoint.events count] == 0;
+            return [currentPoint.events count] == 1;
         } else {
             return [currentPoint.events count] > 0 && [[currentPoint.events lastObject] isPull];
         }

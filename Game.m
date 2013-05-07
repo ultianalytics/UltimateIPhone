@@ -643,6 +643,7 @@ static Game* currentGame = nil;
 }
 
 -(BOOL)wasLastPointPull {
+    [self updatePointSummaries];
     if ([self hasEvents]) {
         UPoint* currentPoint = [self getCurrentPoint];
         if (currentPoint.summary.isOline) {

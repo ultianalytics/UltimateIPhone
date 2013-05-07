@@ -12,6 +12,7 @@
 #import "LeaguevineTeam.h"
 #import "LeaguevineTournament.h"
 #import "NSDate+Utilities.h"
+#import "NSString+manipulations.h"
 
 #define kLeaguevineGameStartTime @"start_time"
 #define kLeaguevineGameTeam1Id @"team_1_id"

@@ -14,6 +14,8 @@
 #import "LeaguevineClient.h"
 #import "Reachability.h"
 
+#define kMinimumRemainingBackgroundTimeToContinue 120  
+
 @implementation LeaguevinePostOperation
 
 -(void)main {
@@ -22,22 +24,34 @@
         Reachability* reachability = [Reachability reachabilityForInternetConnection];
         if (![reachability currentReachabilityStatus] == NotReachable) {
             // post all of the events
-            LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
-            for (NSString* filePath in filesInQueueFolder) {
-                if ([[LeaguevineEventQueue sharedQueue] isEvent:filePath]) {
-                    if (![self postEvent: filePath usingClient:lvClient]) {
-                        break;
-                    }
-                } else {
-                    if (![self postScore: filePath usingClient:lvClient]) {
-                        break;
-                    }
-                }
-            }
+            [self postEvents:filesInQueueFolder];
         } else {
             // not connected...try again in awhile
             [[LeaguevineEventQueue sharedQueue] triggerDelayedSubmit];
         }
+    }
+}
+
+-(void)postEvents: (NSArray*)eventFilePaths {
+    UIBackgroundTaskIdentifier backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    LeaguevineClient* lvClient = [[LeaguevineClient alloc] init];
+    for (NSString* filePath in eventFilePaths) {
+        if ([UIApplication sharedApplication].backgroundTimeRemaining > kMinimumRemainingBackgroundTimeToContinue) {
+            if ([[LeaguevineEventQueue sharedQueue] isEvent:filePath]) {
+                if (![self postEvent: filePath usingClient:lvClient]) {
+                    break;
+                }
+            } else {
+                if (![self postScore: filePath usingClient:lvClient]) {
+                    break;
+                }
+            }
+        } else {
+            break;
+        }
+    }
+    if (backgroundTaskId != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
     }
 }
 

@@ -23,6 +23,7 @@
 #import "LeaguevineTournament.h"
 #import "PlayerSubstitution.h"
 #import "TimeoutDetails.h"
+#import "GameDescription.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -213,10 +214,14 @@ static Game* currentGame = nil;
 }
 
 +(Game*)readGame: (NSString*) gameId {
-    return [self readGame:gameId forTeam:[Team getCurrentTeam].teamId];
+    return [self readGame:gameId forTeam:[Team getCurrentTeam].teamId mergePlayersWithCurrentTeam:YES];
 }
 
 +(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId {
+    return [self readGame:gameId forTeam:teamId mergePlayersWithCurrentTeam:YES];
+}
+
++(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId mergePlayersWithCurrentTeam: (BOOL)mergePlayers {
     if (gameId == nil) {
         return nil;
     }
@@ -227,7 +232,10 @@ static Game* currentGame = nil;
         return nil;
     } 
     NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data]; 
-    Game* loadedGame = [unarchiver decodeObjectForKey:kGameKey]; 
+    Game* loadedGame = [unarchiver decodeObjectForKey:kGameKey];
+    if (mergePlayers) {
+        [loadedGame mergePlayersWithCurrentTeam];
+    }
     return loadedGame;
 }
 
@@ -244,6 +252,34 @@ static Game* currentGame = nil;
         }
     }
     return fileNames;
+}
+
++(NSArray*)retrieveGameDescriptionsForCurrentTeam {
+    NSMutableArray* descriptions = [[NSMutableArray alloc] init];
+    NSArray* fileNames = [Game getAllGameFileNames: [Team getCurrentTeam].teamId];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    for (NSString* gameId in fileNames) {
+        Game* game = [self readGame:gameId forTeam:[Team getCurrentTeam].teamId mergePlayersWithCurrentTeam:NO];
+        GameDescription* gameDesc = [[GameDescription alloc] init];
+        gameDesc.gameId = game.gameId;
+        gameDesc.startDate = game.startDateTime;
+        gameDesc.formattedStartDate = [dateFormat stringFromDate:game.startDateTime];
+        gameDesc.opponent = game.opponentName;
+        gameDesc.score = [game getScore];
+        gameDesc.formattedScore = [NSString stringWithFormat:@"%d-%d", gameDesc.score.ours, gameDesc.score.theirs];
+        [descriptions addObject:gameDesc];
+        NSString* tournament = game.tournamentName;
+        gameDesc.tournamentName = tournament == nil ? nil : [tournament stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    }
+    // sort
+    NSArray* gameDescriptions = [descriptions sortedArrayUsingComparator:^(id a, id b) {
+        NSDate *first = ((GameDescription*)a).startDate;
+        NSDate *second = ((GameDescription*)b).startDate;
+        return [first compare:second];
+    }];
+    // descending
+    return [[gameDescriptions reverseObjectEnumerator] allObjects];
 }
 
 +(NSString*)generateUniqueFileName {
@@ -366,7 +402,7 @@ static Game* currentGame = nil;
 } 
 
 
-- (id)awakeAfterUsingCoder:(NSCoder*)decoder {
+- (void)mergePlayersWithCurrentTeam {
     for (UPoint* point in points) {
         for (Event* event in point.events) {
             [event useSharedPlayers];
@@ -375,7 +411,6 @@ static Game* currentGame = nil;
     self.currentLine = [Player replaceAllWithSharedPlayer: self.currentLine];
     self.lastDLine = [Player replaceAllWithSharedPlayer: self.lastDLine];
     self.lastOLine = [Player replaceAllWithSharedPlayer: self.lastOLine];
-    return self;
 }
 
 -(void)save {

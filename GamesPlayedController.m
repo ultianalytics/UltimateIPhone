@@ -25,31 +25,7 @@
 
 -(void)retrieveGameDescriptions {
     // make array of descriptions so we don't have to crack open the game objects as we scroll the list
-    NSMutableArray* descriptions = [[NSMutableArray alloc] init];
-    NSArray* fileNames = [Game getAllGameFileNames: [Team getCurrentTeam].teamId];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
-    for (NSString* gameId in fileNames) {
-        Game* game = [Game readGame:gameId];
-        GameDescription* gameDesc = [[GameDescription alloc] init];
-        gameDesc.gameId = game.gameId;
-        gameDesc.startDate = game.startDateTime;
-        gameDesc.formattedStartDate = [dateFormat stringFromDate:game.startDateTime];
-        gameDesc.opponent = game.opponentName;
-        gameDesc.score = [game getScore];
-        gameDesc.formattedScore = [NSString stringWithFormat:@"%d-%d", gameDesc.score.ours, gameDesc.score.theirs];
-        [descriptions addObject:gameDesc];
-        NSString* tournament = game.tournamentName;
-        gameDesc.tournamentName = tournament == nil ? nil : [tournament stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    }
-    // sort
-    self.gameDescriptions = [descriptions sortedArrayUsingComparator:^(id a, id b) {
-        NSDate *first = ((GameDescription*)a).startDate;
-        NSDate *second = ((GameDescription*)b).startDate;
-        return [first compare:second];
-    }];
-    // descending
-    self.gameDescriptions = [[self.gameDescriptions reverseObjectEnumerator] allObjects];
+    self.gameDescriptions = [Game retrieveGameDescriptionsForCurrentTeam];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

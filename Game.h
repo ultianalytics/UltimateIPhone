@@ -48,6 +48,7 @@
 +(void)setCurrentGame: (NSString*) gameId;
 +(Game*)readGame: (NSString*) gameId;
 +(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId;
++(NSArray*)retrieveGameDescriptionsForCurrentTeam;
 +(NSArray*)getAllGameFileNames: (NSString*) teamId;
 +(NSString*)getFilePath: (NSString*) gameId team: (NSString *) teamId;
 +(NSString*)generateUniqueFileName;

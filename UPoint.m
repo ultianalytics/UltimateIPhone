@@ -23,7 +23,6 @@
 @end
 
 @implementation UPoint
-@synthesize events, line, summary, timeStartedSeconds, timeEndedSeconds;
 
 -(NSMutableArray*)substitutions {
     if (!_substitutions) {
@@ -33,7 +32,7 @@
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"summary: %@ timeStartedSeconds=%d timeEndedSeconds=%d",summary, timeStartedSeconds, timeEndedSeconds];
+    return [NSString stringWithFormat:@"summary: %@ timeStartedSeconds=%d timeEndedSeconds=%d",self.summary, self.timeStartedSeconds, self.timeEndedSeconds];
 }
 
 -(id) init  {
@@ -94,7 +93,7 @@
 }
 
 -(Event*)getLastEvent {
-    if ([events count] > 0) {
+    if ([self.events count] > 0) {
         return [self.events lastObject];
     } else {
         return nil;
@@ -104,7 +103,7 @@
 -(Event*)getLastPlayEvent {
     if ([self.events count] > 0) {
         for (int i = [self.events count] - 1; i >= 0; i--) {
-            Event* evt = [events objectAtIndex:i];
+            Event* evt = [self.events objectAtIndex:i];
             if ([evt isPlayEvent]) {
                 return evt;
             }
@@ -188,8 +187,8 @@
     if (self.summary) {
         [dict setValue: [self.summary asDictionary] forKey:kSummaryProperty];
     }
-    [dict setValue:[NSNumber numberWithInt:timeStartedSeconds] forKey:kStartTimeKey];
-    [dict setValue:[NSNumber numberWithInt:timeEndedSeconds] forKey:kEndTimeKey];
+    [dict setValue:[NSNumber numberWithInt:self.timeStartedSeconds] forKey:kStartTimeKey];
+    [dict setValue:[NSNumber numberWithInt:self.timeEndedSeconds] forKey:kEndTimeKey];
     if (self.substitutions && [self.substitutions count] > 0) {
         NSMutableArray* subDicts = [[NSMutableArray alloc] init];
         for (PlayerSubstitution* playerSub in self.substitutions) {
@@ -230,5 +229,8 @@
     return [self isPeriodEnd] ? (CessationEvent*)[self getLastEvent] : nil;
 }
 
+-(void)setLine:(NSArray *)line {
+    _line = [NSArray arrayWithArray:line];
+}
 
 @end

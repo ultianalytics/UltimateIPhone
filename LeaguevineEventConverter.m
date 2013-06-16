@@ -88,9 +88,15 @@
         }
         case Callahan: {
             leaguevineEvent.leaguevineEventType = 38;
-            leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
-            leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
-            [self populatePlayerThreeInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+            if ([event isOffense]) {
+                [self populatePlayerOneInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+                leaguevineEvent.leaguevinePlayer2TeamId = ourLeaguevineTeamId;
+                leaguevineEvent.leaguevinePlayer3TeamId = theirLeaguevineTeamId;
+            } else {
+                leaguevineEvent.leaguevinePlayer1TeamId = theirLeaguevineTeamId;
+                leaguevineEvent.leaguevinePlayer2TeamId = theirLeaguevineTeamId;
+                [self populatePlayerThreeInLVEvent: leaguevineEvent withEvent: event ourLeaguevineId: ourLeaguevineTeamId];
+            }
             break;
         }
         case EndOfFirstQuarter: {

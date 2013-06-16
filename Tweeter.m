@@ -303,7 +303,7 @@ NSDateFormatter* timeFormatter;
     NSString* message;
     
     if ([event isCallahan]) {
-        message = [NSString stringWithFormat: @"Callahan %@", ourTeam];
+        message = [NSString stringWithFormat: @"Callahan %@", [event isOffense] ? game.opponentName : ourTeam];
     } else {
         message = [NSString stringWithFormat: @"Goal %@", [event isOurGoal] ? ourTeam : game.opponentName];
     }

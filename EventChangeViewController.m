@@ -350,6 +350,13 @@
                 [self movePlayer1TableToCenter:YES animate:animate];
                 break;
             }
+            case Callahan: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Callahan'd";
+                self.passedToLabel.hidden = YES;
+                self.player2TableView.hidden = YES;
+                break;
+            }
             default: {
             }
         }

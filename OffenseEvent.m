@@ -41,12 +41,20 @@
     return self.action == Goal;
 }
 
+- (BOOL) isTheirGoal {
+    return self.action == Callahan;
+}
+
 - (BOOL) isGoal {
-    return self.action == Goal;
+    return self.action == Goal || self.action == Callahan;
+}
+
+- (BOOL) isCallahan {
+    return self.action == Callahan;
 }
 
 - (BOOL) isFinalEventOfPoint {
-    return self.action == Goal;
+    return self.action == Goal || self.action == Callahan;
 }
 
 - (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
@@ -78,6 +86,10 @@
             [dict setValue: @"MiscPenalty" forKey:kActionKey];
             break;
         }
+        case Callahan: {
+            [dict setValue: @"Callahan" forKey:kActionKey];
+            break;
+        }
         default: {
         }
     }
@@ -107,6 +119,8 @@
         action = Stall;
     } else if ([dictAction isEqualToString: @"MiscPenalty"]) {
         action = MiscPenalty;
+    }else if ([dictAction isEqualToString: @"Callahan"]) {
+        action = Callahan;
     }
     
     return [[OffenseEvent alloc]
@@ -180,6 +194,9 @@
                 return [NSString stringWithFormat:@"%@ goal (%@ to %@)", (teamName == nil ? @"Our" : teamName), self.passer.name, self.receiver.name];            
             }
         }
+        case Callahan:{
+            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ callahan'd", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ callahan'd", self.passer.name];
+        }
         default:
             return @"";
     }
@@ -194,11 +211,11 @@
 }
 
 - (BOOL) isTurnover {
-    return self.action == Drop || self.action == Throwaway || self.action == Stall || self.action == MiscPenalty;
+    return self.action == Drop || self.action == Throwaway || self.action == Stall || self.action == MiscPenalty || self.action == Callahan;
 }
 
 - (BOOL) isNextEventOffense {
-    return self.action == Catch;
+    return self.action == Catch || self.action == Callahan;
 }
 
 - (NSArray*) getPlayers {

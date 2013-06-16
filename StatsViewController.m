@@ -24,6 +24,7 @@
 #define kDPoints @"D Points Played"
 #define kGoals @"Goals"
 #define kCallahans @"Callahans"
+#define kCallahaneds @"Callahan'd"
 #define kAssists @"Assists"
 #define kThrows @"Throws"
 #define kDrops @"Drops"
@@ -72,7 +73,7 @@
 }
 
 -(void)initalizeStatTypes {
-    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kCallahans,kThrows,kDrops,kThrowaways,kStalls,kMiscPenalties,kDs,kPulls,kPullsOb, nil];
+    self.statTypes = [[NSArray alloc] initWithObjects: kPlusMinusCount,kTotalPoints,kOPoints,kDPoints,kGoals,kAssists,kCallahans,kThrows,kDrops,kThrowaways,kStalls,kMiscPenalties,kCallahaneds,kDs,kPulls,kPullsOb, nil];
     self.currentStat = kPlusMinusCount;
 }
 
@@ -88,7 +89,7 @@
     } else if ([self.currentStat isEqualToString:kGoals]) {
         self.playerStats = [Statistics goalsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kCallahans]) {
-        self.playerStats = [Statistics callansPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+        self.playerStats = [Statistics callahansPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kAssists]) {
         self.playerStats = [Statistics assistsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kThrows]) {
@@ -101,8 +102,8 @@
         self.playerStats = [Statistics stallsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kMiscPenalties]) {
         self.playerStats = [Statistics miscPenaltiesPerPlayer:self.game includeTournament:[self isTournamentLevel]];
-    } else if ([self.currentStat isEqualToString:kThrowaways]) {
-        self.playerStats = [Statistics throwawaysPerPlayer:self.game includeTournament:[self isTournamentLevel]];
+    } else if ([self.currentStat isEqualToString:kCallahaneds]) {
+        self.playerStats = [Statistics callahanedPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kDs]) {
         self.playerStats = [Statistics dsPerPlayer:self.game includeTournament:[self isTournamentLevel]];
     } else if ([self.currentStat isEqualToString:kPulls]) {

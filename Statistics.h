@@ -27,6 +27,7 @@
 +(NSArray*)pullsObPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 +(NSArray*)plusMinusCountPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
-+(NSArray*)callansPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)callahansPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
++(NSArray*)callahanedPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament;
 
 @end

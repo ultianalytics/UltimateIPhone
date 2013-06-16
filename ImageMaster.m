@@ -20,7 +20,8 @@ static UIImage* defenseThrowawayImage = nil;
 static UIImage* pullImage = nil;
 static UIImage* pullObImage = nil;
 static UIImage* deImage = nil;
-static UIImage* callahanImage = nil;
+static UIImage* ourCallahanImage = nil;
+static UIImage* theirCallahanImage = nil;
 static UIImage* maleImage = nil;
 static UIImage* femaleImage = nil;
 static UIImage* cessationImage = nil;
@@ -38,7 +39,8 @@ static UIImage* unknownImage = nil;
     pullImage = [UIImage imageNamed:@"nothing.png"];
     pullObImage = [UIImage imageNamed:@"what.png"];
     deImage = [UIImage imageNamed:@"electric_shock.png"];
-    callahanImage = [UIImage imageNamed:@"victory.png"];
+    ourCallahanImage = [UIImage imageNamed:@"victory.png"];
+    theirCallahanImage = [UIImage imageNamed:@"shocked"];
     unknownImage = [UIImage imageNamed:@"hearts.png"];
     maleImage = [UIImage imageNamed:@"big_smile.png"];
     femaleImage = [UIImage imageNamed:@"girl.png"];
@@ -51,6 +53,8 @@ static UIImage* unknownImage = nil;
         return [ImageMaster getTheirGoalImage];  
     } else if ((![event isOffense]) && event.action == Throwaway) {
         return [ImageMaster getOpponentThrowawayImage];  
+    } else if (event.action == Callahan) {
+        return event.isOffense ? [ImageMaster getTheirCallahanImage] : [ImageMaster getOurCallahanImage];
     }
     switch(event.action) {
         case Catch:
@@ -71,8 +75,6 @@ static UIImage* unknownImage = nil;
             return [ImageMaster getPullObImage];
         case De:
             return [ImageMaster getDeImage];
-        case Callahan:
-            return [ImageMaster getCallahanImage];
         case EndOfFirstQuarter:
             return [ImageMaster getPeriodEndImage];
         case EndOfThirdQuarter:
@@ -129,8 +131,12 @@ static UIImage* unknownImage = nil;
     return deImage;
 }
 
-+(UIImage*)getCallahanImage {
-    return callahanImage;
++(UIImage*)getOurCallahanImage {
+    return ourCallahanImage;
+}
+
++(UIImage*)getTheirCallahanImage {
+    return theirCallahanImage;
 }
 
 +(UIImage*)getUnknownImage {

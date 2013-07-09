@@ -11,7 +11,7 @@
 @class LeaguevineClient;
 @class LeaguevineSeason;
 
-@interface LeagueVineSelectorTournamentViewController : LeaguevineSelectorAbstractViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LeagueVineSelectorTournamentViewController : LeaguevineSelectorAbstractViewController
 
 @property (nonatomic, strong) LeaguevineSeason* season; 
 

@@ -12,7 +12,7 @@
 @class LeaguevineTournament;
 @class LeaguevineTeam;
 
-@interface LeagueVineSelectorGameViewController : LeaguevineSelectorAbstractViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LeagueVineSelectorGameViewController : LeaguevineSelectorAbstractViewController
 
 @property (nonatomic, strong) LeaguevineSeason* season; // required
 @property (nonatomic, strong) LeaguevineTeam* myTeam; // required

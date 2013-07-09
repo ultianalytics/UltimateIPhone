@@ -70,7 +70,7 @@
 
 - (CGFloat)heightForTweetText:(NSString*)text{
     CGSize maxSize = CGSizeMake(kTweetViewWidth - 15,9999);  // reducing width by margins
-    CGSize titleSize = [text sizeWithFont:tweetFont constrainedToSize:maxSize lineBreakMode:UILineBreakModeWordWrap];
+    CGSize titleSize = [text sizeWithFont:tweetFont constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping];
     return titleSize.height + 20; // add some space for margin
 }
 

@@ -232,7 +232,7 @@
             [contentView addSubview:label];
             // (1.) stat label
             label = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 40, kStatRowHieght)];
-            [label setTextAlignment:UITextAlignmentRight];
+            [label setTextAlignment:NSTextAlignmentRight];
             label.textColor = [UIColor blueColor];
             label.backgroundColor = [ColorMaster getBenchRowColor];
             [contentView addSubview:label];

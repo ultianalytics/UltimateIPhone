@@ -67,7 +67,7 @@
 -(NSMutableArray*)parseResponseObjects: (NSDictionary*) responseDict parse: (id(^)(NSDictionary* objectDict)) parseBlock {
     NSArray* jsonArray = [responseDict objectForKey:kLeaguevineResponseObjects];
     if (!jsonArray) {
-        return [NSArray array];
+        return [NSMutableArray array];
     }
     NSMutableArray* objects = [[NSMutableArray alloc] init];
     for (NSDictionary* objectDict in jsonArray) {

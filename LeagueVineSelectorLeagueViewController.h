@@ -10,6 +10,6 @@
 #import "LeaguevineSelectorAbstractViewController.h"
 @class LeaguevineClient;
 
-@interface LeagueVineSelectorLeagueViewController : LeaguevineSelectorAbstractViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LeagueVineSelectorLeagueViewController : LeaguevineSelectorAbstractViewController
 
 @end

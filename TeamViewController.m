@@ -256,6 +256,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeBottom | UIExtendedEdgeRight;
+    self.extendedLayoutIncludesOpaqueBars = NO;
     self.teamTableView.tableFooterView = self.customFooterView;
     self.clearCloudIdButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.clearCloudIdButton.titleLabel.textAlignment = UITextAlignmentCenter;
@@ -343,6 +345,10 @@
     } else if ([self.cells objectAtIndex:[indexPath row]] == self.leagueVineCell) {
         [self handleLeaguevineTeamNeedsSelection];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
 #pragma mark Leaguevine

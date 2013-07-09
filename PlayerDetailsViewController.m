@@ -48,25 +48,6 @@
     self.player.isMale = [[self.sexControl getSelection] isEqualToString:@"Male"] ? YES : NO;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cells = [NSArray arrayWithObjects:nameTableCell, numberTableCell, positionTableCell, genderTableCell, nil];
-    return [cells count];
-}
-
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
-    cell.backgroundColor = [ColorMaster getFormTableCellColor];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 36;
-}
-
 -(IBAction)addAnotherClicked: (id) sender{
     if ([self verifyPlayer]) {
         [self addPlayer];
@@ -177,35 +158,6 @@
     [self saveTeam];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-
-/* Text field delegate */
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == nickNameField) {
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        BOOL isTooLong = (newLength > kMaxNicknameLength);
-        if (isTooLong) {
-            [SoundPlayer playKeyIgnored];
-        }
-        return !isTooLong;
-    } else {
-        return true;
-    }
-}
-
 -(void)saveTeam {
     [[Team getCurrentTeam] save];
     [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
@@ -216,6 +168,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeBottom | UIExtendedEdgeRight;
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    self.tableView.tableFooterView = self.footerView;
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     
     self.nickNameField.delegate = self; 
@@ -240,6 +195,7 @@
 
 - (void)viewDidUnload
 {
+    [self setFooterView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -249,6 +205,52 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+#pragma mark = Table Source/Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    cells = [NSArray arrayWithObjects:nameTableCell, numberTableCell, positionTableCell, genderTableCell, nil];
+    return [cells count];
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* cell = [cells objectAtIndex:[indexPath row]];
+    cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 36;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
+}
+
+#pragma mark  Text Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == nickNameField) {
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        BOOL isTooLong = (newLength > kMaxNicknameLength);
+        if (isTooLong) {
+            [SoundPlayer playKeyIgnored];
+        }
+        return !isTooLong;
+    } else {
+        return true;
+    }
 }
 
 @end

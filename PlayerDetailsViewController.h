@@ -19,6 +19,8 @@
 @property (nonatomic, strong) IBOutlet UITextField* numberField;
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* positionControl;
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* sexControl;
+
+@property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (nonatomic, strong) IBOutlet UIButton* saveAndAddButton;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
 

@@ -115,7 +115,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getTabBarSelectedImageColor {
-    return lightestColor;
+    return [UIColor whiteColor];
 }
 
 +(UIColor*)getSearchBarTintColor {
@@ -202,11 +202,11 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getFormTableCellColor {
-    return lighterishColor;
+    return [UIColor colorWithWhite:255.f/255.f alpha:1.f];
 }
 
 +(UIColor*)getTableListSeparatorColor {
-    return lighterColor;
+    return [UIColor colorWithWhite:200.f/255.f alpha:1.f];
 }
 
 +(UIColor*)getAlarmingButtonHighColor {

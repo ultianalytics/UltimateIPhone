@@ -59,53 +59,6 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[Team getCurrentTeam] players] count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = [indexPath row];
-    
-    Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
-    NSString* primaryName = player.name;
-    if (player.number != nil && ![player.number isEqualToString:@""]) {
-        primaryName = [NSString stringWithFormat:@"%@ (%@)", primaryName, player.number];
-    }
-    
-    BOOL isLeaguevinePlayers = [Team getCurrentTeam].arePlayersFromLeagueVine;
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: isLeaguevinePlayers ? @"LEAGUEVINE_PLAYER" : @"PRIVATE_PLAYER"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:isLeaguevinePlayers ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.imageView.backgroundColor = [UIColor clearColor];
-        cell.backgroundColor = [ColorMaster getFormTableCellColor];
-    }
-
-    cell.textLabel.text = primaryName;
-    cell.accessoryType = isLeaguevinePlayers ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    if (isLeaguevinePlayers) {
-        cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
-    } else {
-        cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
-    }
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
-    NSUInteger row = [indexPath row]; 
-    NSArray* players = [Team getCurrentTeam].players;
-    Player* player = [players objectAtIndex:row];
-    
-    PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
-    playerController.player = player;
-    [self.navigationController pushViewController:playerController animated:YES];
-} 
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [Team getCurrentTeam].arePlayersFromLeagueVine ? nil : indexPath;
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -192,6 +145,60 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Table Delegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [[[Team getCurrentTeam] players] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    
+    Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
+    NSString* primaryName = player.name;
+    if (player.number != nil && ![player.number isEqualToString:@""]) {
+        primaryName = [NSString stringWithFormat:@"%@ (%@)", primaryName, player.number];
+    }
+    
+    BOOL isLeaguevinePlayers = [Team getCurrentTeam].arePlayersFromLeagueVine;
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: isLeaguevinePlayers ? @"LEAGUEVINE_PLAYER" : @"PRIVATE_PLAYER"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:isLeaguevinePlayers ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault
+                reuseIdentifier:STD_ROW_TYPE];
+        cell.imageView.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [ColorMaster getFormTableCellColor];
+    }
+    
+    cell.textLabel.text = primaryName;
+    cell.accessoryType = isLeaguevinePlayers ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    if (isLeaguevinePlayers) {
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
+    } else {
+        cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    NSArray* players = [Team getCurrentTeam].players;
+    Player* player = [players objectAtIndex:row];
+    
+    PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
+    playerController.player = player;
+    [self.navigationController pushViewController:playerController animated:YES];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [Team getCurrentTeam].arePlayersFromLeagueVine ? nil : indexPath;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
 #pragma mark - Leaguevine

@@ -33,7 +33,7 @@ UINavigationController* gameNavController;
     // start up test flight SDK
     [TestFlight takeOff:@"d8b09015-d74c-461d-993c-e7e378ebbeb5"];
     
-    [self setupGlobalAppearance];
+    [self setupGlobalAppearance: application];
      
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -102,11 +102,15 @@ UINavigationController* gameNavController;
     return YES;
 }
 
--(void)setupGlobalAppearance {
-    // TODO...update the global appearance?
-//    [[UINavigationBar appearance] setTintColor: [ColorMaster getNavBarTintColor]];
-//    [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
-//    [[UITableView appearance] setSeparatorColor:[ColorMaster getTableListSeparatorColor]];
+-(void)setupGlobalAppearance: (UIApplication *)application {
+    application.statusBarStyle = UIStatusBarStyleLightContent;
+    [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // This forces title text to white
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithWhite:40.f/255 alpha:1.f];
+    [UITabBar appearance].backgroundColor = [UIColor blackColor];
+    [UITabBar appearance].barTintColor = [UIColor blackColor];
+    [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
+    [[UITableView appearance] setSeparatorColor:[ColorMaster getTableListSeparatorColor]];    
+    // TODO...delete commented lines when done converting to iOS7
 //    [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 }
 

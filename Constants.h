@@ -15,7 +15,7 @@
 #define kNoAccountText @"NO TWITTER ACCOUNT"
 #define kAnonymousTeam @"Anonymous Team"
 #define STD_ROW_TYPE @"stdRowType"
-#define kSingleSectionGroupedTableSectionHeaderHeight 4
+#define kSingleSectionGroupedTableSectionHeaderHeight 1
 
 typedef struct {
     int ours;

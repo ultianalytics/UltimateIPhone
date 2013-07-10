@@ -46,39 +46,6 @@
     [self.navigationController pushViewController:teamController animated:animated]; 
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [teamDescriptions count];
-}
-
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = [indexPath row];
-    
-    TeamDescription* team = [teamDescriptions objectAtIndex:row];
-    
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleSubtitle
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
-    }
-    cell.textLabel.text = team.name;
-    cell.detailTextLabel.text = team.cloudId ? [NSString stringWithFormat:@"ID %@", team.cloudId] : @"Not uploaded yet";
-    cell.textLabel.textColor = [Team isCurrentTeam:team.teamId]  ? [ColorMaster getActiveGameColor] : [UIColor blackColor];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { 
-    NSUInteger row = [indexPath row]; 
-    TeamDescription* teamDescription = [teamDescriptions objectAtIndex:row];
-    if (![teamDescription.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
-        [Team setCurrentTeam:teamDescription.teamId];
-        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-    }
-    [self goToTeamView: [Team getCurrentTeam] animated: YES];
-} 
 
 -(void)retrieveTeamDescriptions {
     // make array of descriptions so we don't have to crack open the team objects as we scroll the list
@@ -121,7 +88,9 @@
 }
 
 -(BOOL)showFirstTimeUsageCallouts {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstTeamsViewUsage]) {
+    // TODO...uncomment when callouts fixed
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstTeamsViewUsage]) {
+        if (YES) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstTeamsViewUsage];
         
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
@@ -158,6 +127,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeBottom | UIExtendedEdgeRight;
+    self.extendedLayoutIncludesOpaqueBars = NO;
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;
     [self addSupportGestureRecognizer];
@@ -186,6 +157,46 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Table Delegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [teamDescriptions count];
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    
+    TeamDescription* team = [teamDescriptions objectAtIndex:row];
+    
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleSubtitle
+                reuseIdentifier:STD_ROW_TYPE];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+    }
+    cell.textLabel.text = team.name;
+    cell.detailTextLabel.text = team.cloudId ? [NSString stringWithFormat:@"ID %@", team.cloudId] : @"Not uploaded yet";
+    cell.textLabel.textColor = [Team isCurrentTeam:team.teamId]  ? [ColorMaster getActiveGameColor] : [UIColor blackColor];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    TeamDescription* teamDescription = [teamDescriptions objectAtIndex:row];
+    if (![teamDescription.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
+        [Team setCurrentTeam:teamDescription.teamId];
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+    }
+    [self goToTeamView: [Team getCurrentTeam] animated: YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
 @end

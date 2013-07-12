@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Team;
 @class LeaguevineTeam;
 
-@interface LeagueVineTeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LeagueVineTeamViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) Team* team;
 @property (strong, nonatomic) void (^selectedBlock)(LeaguevineTeam* item);

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Team;
 
-@interface TeamsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TeamsViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSArray* teamDescriptions;
     BOOL isAfterFirstView;

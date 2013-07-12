@@ -114,6 +114,7 @@
 		1ADE0AAB162D713300206DF8 /* UIView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE0AAA162D713300206DF8 /* UIView+Convenience.m */; };
 		1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */; };
 		1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */; };
+		1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE5C6EF17902BF600B604FE /* UltimateViewController.m */; };
 		1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE669D21520012C000965B5 /* Twitter.framework */; };
 		1AE669F815215485000965B5 /* CloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE669F615215485000965B5 /* CloudViewController.m */; };
 		1AE669F915215485000965B5 /* CloudViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE669F715215485000965B5 /* CloudViewController.xib */; };
@@ -440,6 +441,8 @@
 		1ADE0AAA162D713300206DF8 /* UIView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Convenience.m"; sourceTree = "<group>"; };
 		1AE52B4B15A13FC8003EF5E6 /* passser-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow.png"; sourceTree = "<group>"; };
 		1AE52B4C15A13FC8003EF5E6 /* passser-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passser-arrow@2x.png"; sourceTree = "<group>"; };
+		1AE5C6EE17902BF600B604FE /* UltimateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UltimateViewController.h; sourceTree = "<group>"; };
+		1AE5C6EF17902BF600B604FE /* UltimateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UltimateViewController.m; sourceTree = "<group>"; };
 		1AE669D21520012C000965B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1AE669F515215485000965B5 /* CloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudViewController.h; sourceTree = "<group>"; };
 		1AE669F615215485000965B5 /* CloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudViewController.m; sourceTree = "<group>"; };
@@ -1128,6 +1131,8 @@
 				1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */,
 				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
 				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
+				1AE5C6EE17902BF600B604FE /* UltimateViewController.h */,
+				1AE5C6EF17902BF600B604FE /* UltimateViewController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1386,6 +1391,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Summit Hill Software";
+				TargetAttributes = {
+					1AFFE77615175D4A004B4590 = {
+						DevelopmentTeam = PU8L69S62C;
+					};
+				};
 			};
 			buildConfigurationList = 1AFFE77115175D49004B4590 /* Build configuration list for PBXProject "UltimateIPhone" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1553,6 +1563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */,
 				1AFFE78815175D4A004B4590 /* main.m in Sources */,
 				1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */,
 				1AFFE7F015175E7B004B4590 /* AppDelegate.m in Sources */,
@@ -1726,6 +1737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Summit Hill Software, Inc. (PU8L69S62C)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1804,6 +1816,7 @@
 		1AFFE7A415175D4A004B4590 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Summit Hill Software, Inc. (PU8L69S62C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1826,6 +1839,7 @@
 		1AFFE7A515175D4A004B4590 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Summit Hill Software, Inc.";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (

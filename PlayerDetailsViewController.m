@@ -168,8 +168,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeBottom | UIExtendedEdgeRight;
-    self.extendedLayoutIncludesOpaqueBars = NO;
     self.tableView.tableFooterView = self.footerView;
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     

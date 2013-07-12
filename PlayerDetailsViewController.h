@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Player;
 @class UltimateSegmentedControl;
 
-@interface PlayerDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+@interface PlayerDetailsViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
     NSArray* cells;
 }
 

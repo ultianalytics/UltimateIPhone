@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface TeamPlayersViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TeamPlayersViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 -(void)goToAddItem;
 

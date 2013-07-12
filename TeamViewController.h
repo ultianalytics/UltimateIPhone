@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Team;
 @class UltimateSegmentedControl;
 @class StandardButton;
 
-@interface TeamViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+@interface TeamViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
 
 }
 

@@ -125,8 +125,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeBottom | UIExtendedEdgeRight;
-    self.extendedLayoutIncludesOpaqueBars = NO;
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;
     [self addSupportGestureRecognizer];

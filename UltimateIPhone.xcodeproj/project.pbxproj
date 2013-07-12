@@ -868,6 +868,17 @@
 			name = "Service Interaction";
 			sourceTree = "<group>";
 		};
+		1AE5C6EB178ED33800B604FE /* Callouts */ = {
+			isa = PBXGroup;
+			children = (
+				1A78D9C215949DC300115BE5 /* CalloutView.h */,
+				1A78D9C315949DC300115BE5 /* CalloutView.m */,
+				1AACE076159627B9004C03A1 /* CalloutsContainerView.h */,
+				1AACE077159627B9004C03A1 /* CalloutsContainerView.m */,
+			);
+			name = Callouts;
+			sourceTree = "<group>";
+		};
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -1006,6 +1017,7 @@
 		1AFFE8D015176431004B4590 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1AE5C6EB178ED33800B604FE /* Callouts */,
 				1AFFE8D415176470004B4590 /* Common */,
 				1A999EF816062E990015B891 /* LeagueVine */,
 				1AE669EF1521534B000965B5 /* Cloud */,
@@ -1091,10 +1103,6 @@
 				1AB78D061726B0DE003235AE /* SHSLogsMailer.m */,
 				1A8CC5D517230C2100B8295C /* BufferedNavigationController.h */,
 				1A8CC5D617230C2100B8295C /* BufferedNavigationController.m */,
-				1A78D9C215949DC300115BE5 /* CalloutView.h */,
-				1A78D9C315949DC300115BE5 /* CalloutView.m */,
-				1AACE076159627B9004C03A1 /* CalloutsContainerView.h */,
-				1AACE077159627B9004C03A1 /* CalloutsContainerView.m */,
 				1AFFE85C15175EB0004B4590 /* StandardButton.h */,
 				1AFFE85D15175EB0004B4590 /* StandardButton.m */,
 				1AFFE84E15175EB0004B4590 /* RedButton.h */,

@@ -88,9 +88,7 @@
 }
 
 -(BOOL)showFirstTimeUsageCallouts {
-    // TODO...uncomment when callouts fixed
-//    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstTeamsViewUsage]) {
-        if (YES) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstTeamsViewUsage]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstTeamsViewUsage];
         
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];

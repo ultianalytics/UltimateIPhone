@@ -10,6 +10,8 @@
 
 #define radians(x) ((x) * M_PI/180 )
 
+#define kTextViewContentSizeTopInset 10.f
+#define kTextViewContentSizeBottomInset 10.f
 #define kPaddingHorizontal 0.f
 #define kPaddingVertical 2.f
 #define kBorderWidth 4.f
@@ -76,7 +78,13 @@
     CGFloat textViewHorizontalInset = kPaddingHorizontal + kBorderWidth;
     CGFloat textViewWidth = self.widthConstraint - (textViewHorizontalInset * 2);
     self.textView.frame = CGRectMake(0,0, textViewWidth, 10);
-    CGFloat textViewHeight = self.textView.contentSize.height;
+    CGFloat textViewHeight;
+    if (isPreiOS7) {
+        textViewHeight = self.textView.contentSize.height;
+    } else {
+        textViewHeight = [self.textView.attributedText boundingRectWithSize:CGSizeMake(textViewWidth, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height;
+        textViewHeight = textViewHeight + kTextViewContentSizeBottomInset + kTextViewContentSizeTopInset;
+    }
     CGSize textViewSize = CGSizeMake(textViewWidth, textViewHeight);
     self.textView.frame = CGRectMake(0,0, textViewSize.width, textViewSize.height);
     [self addSubview:self.textView];

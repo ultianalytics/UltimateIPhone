@@ -31,6 +31,8 @@
 #define uirgb(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0f]
 #define cgrgb(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0f].CGColor
 
+#define isPreiOS7    ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] == NSOrderedAscending)
+
 #import "Constants.h"
 #import "NSString+manipulations.h"
 #import "SHSLogger.h"

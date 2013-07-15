@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "LeaguevineClient.h"
+#import "UltimateViewController.h"
 @class LeaguevineItem;
 
-@interface LeaguevineSelectorAbstractViewController : UIViewController <UISearchBarDelegate, UIAlertViewDelegate>
+@interface LeaguevineSelectorAbstractViewController : UltimateViewController <UISearchBarDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) LeaguevineClient* leaguevineClient;
 @property (nonatomic, strong) NSArray* items;

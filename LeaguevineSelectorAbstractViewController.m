@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.searchBar.tintColor = [ColorMaster getSearchBarTintColor];
+    self.searchBar.barTintColor = [ColorMaster getSearchBarTintColor];
     [self showWaitingView];
     [self refresh];
 }
@@ -79,6 +79,10 @@
     [self populateCell:cell withItem:item];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

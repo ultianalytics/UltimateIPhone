@@ -64,6 +64,10 @@
     self.clearLeaguevineButton.hidden = !self.team.leaguevineTeam;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self refresh];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -167,7 +171,6 @@
                 self.leaguevineTeam = nil;
                 self.season = nil;
                 self.league = (LeaguevineLeague*)item;
-                [self refresh];
             }
         };
         [self pushSelectorController:selectionController];
@@ -185,7 +188,6 @@
             if (itemChanged) {
                 self.leaguevineTeam = nil;
                 self.season = (LeaguevineSeason*)item;
-                [self refresh];
             }
         };
         [self pushSelectorController:selectionController];
@@ -202,7 +204,6 @@
             BOOL itemChanged = self.leaguevineTeam == nil || self.leaguevineTeam.itemId != item.itemId;
             if (itemChanged) {
                 self.leaguevineTeam = (LeaguevineTeam*)item;
-                [self refresh];
             }
         };
         [self pushSelectorController:selectionController];

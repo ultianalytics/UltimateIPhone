@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface LeagueVineSignonViewController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate>
+@interface LeagueVineSignonViewController : UltimateViewController <UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) void (^finishedBlock)(BOOL isSignedOn, LeagueVineSignonViewController* signonController);
 @property (strong, nonatomic) IBOutlet UIView *containerView;

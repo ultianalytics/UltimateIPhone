@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface LeaguevineWaitingViewController : UIViewController
+@interface LeaguevineWaitingViewController : UltimateViewController
 
 @property (strong, nonatomic) void (^cancelBlock)();
 

@@ -27,14 +27,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
-    barButton.title = @"Cancel";
 }
 
 - (void)viewDidUnload {
     [self setCancelButton:nil];
     [super viewDidUnload];
 }
+
+//-(BOOL)prefersStatusBarHidden {
+//    return YES;
+//}
 
 - (IBAction)cancelTapped:(id)sender {
     if (self.cancelBlock) {

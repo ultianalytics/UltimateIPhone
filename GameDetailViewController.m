@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/18/12.
-//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
+//  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
 #import "GameDetailViewController.h"
@@ -611,7 +611,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     self.tableView.rowHeight = 34;
     
     self.gameTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];

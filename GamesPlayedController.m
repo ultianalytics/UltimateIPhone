@@ -125,15 +125,11 @@
     [super viewDidLoad];
     UIBarButtonItem *navBarAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddGame)];
     self.navigationItem.rightBarButtonItem = navBarAddButton; 
-    
-    self.gamesTableView.separatorColor = [ColorMaster getTableListSeparatorColor];
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Games", @"Games"),[Team getCurrentTeam].name];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", @"Games",[Team getCurrentTeam].name];
     [self retrieveGameDescriptions];
     [self.gamesTableView reloadData];
 }

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class PlayerSubstitution;
 
 
-@interface SubstitutionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate>
+@interface SubstitutionViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSArray *playersOnField;
 @property (strong, nonatomic) PlayerSubstitution* playerSubstitution;

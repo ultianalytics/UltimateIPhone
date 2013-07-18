@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Game;
 
-@interface TimeoutViewController : UIViewController
+@interface TimeoutViewController : UltimateViewController
 
 @property (nonatomic, strong) Game* game;
 

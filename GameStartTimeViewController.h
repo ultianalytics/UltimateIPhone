@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface GameStartTimeViewController : UIViewController
+@interface GameStartTimeViewController : UltimateViewController
 
 @property (strong, nonatomic) NSDate* date;
 @property (strong, nonatomic) void (^completion)(GameStartTimeViewController* controller);

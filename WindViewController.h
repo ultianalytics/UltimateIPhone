@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Game;
 @class ArrowView;
 
-@interface WindViewController : UIViewController
+@interface WindViewController : UltimateViewController
 @property (nonatomic, strong) Game* game;
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl* playStartSideSegmentedControl;

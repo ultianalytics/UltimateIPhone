@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class Event;
 
-@interface ActionDetailsViewController : UIViewController
+@interface ActionDetailsViewController : UltimateViewController
 
 @property (strong, nonatomic) NSString* description;
 @property (strong, nonatomic) void (^saveBlock)(Event* eventChosen);

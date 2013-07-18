@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface PullLandingViewController : UIViewController
+@interface PullLandingViewController : UltimateViewController
 
 @property (nonatomic) double pullBeginTime;
 @property (strong, nonatomic) void (^completion)(BOOL cancelled, BOOL isOutOfBounds, long hangtimeMilliseconds);

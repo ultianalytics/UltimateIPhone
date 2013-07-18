@@ -463,6 +463,7 @@
 
 -(UITableViewCell*)createSubstitutionTableCell {
     UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:STD_ROW_TYPE];
+    cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.font = [UIFont systemFontOfSize:16];

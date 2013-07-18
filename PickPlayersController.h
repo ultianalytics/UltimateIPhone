@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "PlayerButtonListener.h"
+#import "UltimateViewController.h"
 @class Game;
 @class PlayerButton;
 @class Player;
 
-@interface PickPlayersController : UIViewController <UITableViewDelegate, UITableViewDataSource, PlayerButtonListener> {
+@interface PickPlayersController : UltimateViewController <UITableViewDelegate, UITableViewDataSource, PlayerButtonListener> {
     int numberOfPlayersOnBench;
 }
 

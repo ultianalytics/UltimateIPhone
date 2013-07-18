@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class UltimateSegmentedControl;
 @class Game;
 
-@interface StatsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface StatsViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView* statTypeTableView;
 @property (nonatomic, strong) IBOutlet UITableView* playerStatsTableView;

@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ActionListener.h"
+#import "UltimateViewController.h"
 
 @class EventView;
 @class PlayerView;
 @class Game;
 
-@interface GameViewController : UIViewController <ActionListener, UIAlertViewDelegate> {
+@interface GameViewController : UltimateViewController <ActionListener, UIAlertViewDelegate> {
     BOOL isOffense;
 }
 

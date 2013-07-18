@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
+
 @class Game;
 
-@interface GameHistoryController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GameHistoryController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) Game* game;
 @property (nonatomic) BOOL isCurlAnimation;
 

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class Team;
 @class Game;
 @class LeaguevineGame;
 
-@interface LeagueVineGameViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LeagueVineGameViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) Team* team;
 @property (strong, nonatomic) Game* game;

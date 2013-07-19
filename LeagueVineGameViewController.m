@@ -75,6 +75,10 @@
     [super viewDidUnload];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self refresh];
+}
+
 #pragma mark Event handling
 
 -(void)doneButtonPressed {
@@ -169,7 +173,6 @@
             if (itemChanged) {
                 self.leaguevineGame = nil;
                 self.leaguevineTournament = (LeaguevineTournament*)item;
-                [self refresh];
             }
         };
         [self pushSelectorController:selectionController];
@@ -188,7 +191,6 @@
             BOOL itemChanged = self.leaguevineGame == nil || self.leaguevineGame.itemId != item.itemId;
             if (itemChanged) {
                 self.leaguevineGame = (LeaguevineGame*)item;
-                [self refresh];
             }
         };
         [self pushSelectorController:selectionController];

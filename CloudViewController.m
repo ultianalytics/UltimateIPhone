@@ -394,7 +394,11 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
         }
     }
-} 
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
+}
 
 #pragma mark - View lifecycle
 

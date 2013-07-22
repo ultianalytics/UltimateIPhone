@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
 @protocol WebViewSignonControllerDelegate <NSObject>
 
@@ -14,7 +15,7 @@
 
 @end
 
-@interface WebViewSignonController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate>
+@interface WebViewSignonController : UltimateViewController <UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) id<WebViewSignonControllerDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIView *containerView;

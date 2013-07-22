@@ -695,9 +695,11 @@
     
     self.gameOverButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.gameOverButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.gameOverButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     
     self.timeoutButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.timeoutButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.timeoutButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     
     self.otherTeamScoreButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.otherTeamScoreButton.titleLabel.textAlignment = UITextAlignmentCenter;

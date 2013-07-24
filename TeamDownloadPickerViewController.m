@@ -14,6 +14,16 @@
 @implementation TeamDownloadPickerViewController
 @synthesize teamsTableView,teams,selectedTeam;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"Team Download", @"Team Download");
+    }
+    return self;
+}
+
+#pragma mark - Table
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -46,14 +56,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 } 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Team Download", @"Team Download");
-    }
-    return self;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
 }
+
+
+#pragma mark - View lifecycle
 
 - (void)didReceiveMemoryWarning
 {
@@ -63,19 +71,15 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)];
-    headerLabel.numberOfLines = 2;
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 60)];
+    headerLabel.numberOfLines = 0;
     headerLabel.lineBreakMode = UILineBreakModeWordWrap;
     headerLabel.text = NSLocalizedString(@"Pick a team to download to your iPhone (does not include games)", @"");
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.shadowColor = [UIColor blackColor];
-    headerLabel.shadowOffset = CGSizeMake(0, 1);
     headerLabel.font = [UIFont boldSystemFontOfSize:18];
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerLabel];

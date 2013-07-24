@@ -14,6 +14,17 @@
 @implementation GameDownloadPickerViewController
 @synthesize gamesTableView,games,selectedGame;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"Game Download", @"Game Download");
+    }
+    return self;
+}
+
+#pragma mark - Table
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -45,23 +56,10 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
     self.selectedGame = [games objectAtIndex:[indexPath row]];
     [self.navigationController popViewControllerAnimated:YES];
-} 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Game Download", @"Game Download");
-    }
-    return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
 #pragma mark - View lifecycle
@@ -77,13 +75,10 @@
         return [second compare:first];
     }];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)];
-    headerLabel.numberOfLines = 2;
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 60)];
+    headerLabel.numberOfLines = 0;
     headerLabel.lineBreakMode = UILineBreakModeWordWrap;
-    headerLabel.text = NSLocalizedString(@"Pick a game to download to your iPhone", @"");
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.shadowColor = [UIColor blackColor];
-    headerLabel.shadowOffset = CGSizeMake(0, 1);
+    headerLabel.text = @"Pick a game to download to your iPhone";
     headerLabel.font = [UIFont boldSystemFontOfSize:18];
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerLabel];

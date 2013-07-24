@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class Game;
 
-@interface GameDownloadPickerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface GameDownloadPickerViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSDateFormatter *dateFormat;
 }

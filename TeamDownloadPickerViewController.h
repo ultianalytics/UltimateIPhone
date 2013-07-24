@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class Team;
 
-@interface TeamDownloadPickerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TeamDownloadPickerViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray* teams;
 @property (nonatomic, strong) Team* selectedTeam;

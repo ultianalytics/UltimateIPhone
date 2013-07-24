@@ -18,6 +18,7 @@
 #import "CalloutView.h"
 #import "AppDelegate.h"
 #import "RequestContext.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kNoInternetMessage @"We were unable to access the internet."
 #define kButtonFont [UIFont boldSystemFontOfSize: 15]
@@ -28,33 +29,9 @@
 
 @property (nonatomic, strong) CalloutsContainerView *usageCallouts;
 
--(void)populateViewFromModel;
-
--(void)goSignonView;
--(void)goTeamPickerView: (NSArray*) teams;
--(void)goGamePickerView: (NSArray*) games;
-
--(void)startUpload;
--(void)startTeamsDownload;
--(void)startTeamDownload:(NSString*) cloudId;
--(void)startGamesDownload;
--(void)startGameDownload:(NSString*) gameId;
-
--(void)startBusyDialog;
--(void)stopBusyDialog;
-
--(void)showCompleteAlert: (NSString*) title message: (NSString*) message;
-
--(void)styleButtons;
-
 @end
 
 @implementation CloudViewController
-@synthesize scrubberView;
-@synthesize scrubberSwitch;
-@synthesize userUnknownLabel;
-@synthesize uploadButton,uploadCell,userCell,websiteCell,adminSiteCell,userLabel,websiteLabel,adminSiteLabel,cloudTableView,signoffButton,downloadTeamCell,downloadGameCell, privacyPolicyCell, downloadTeamButton, downloadGameButton;
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -284,25 +261,11 @@
 #pragma mark - Busy Dialog
 
 -(void)startBusyDialog {
-    busyView = [[UIAlertView alloc] initWithTitle: @"Talking to cloud..."
-                                          message: nil
-                                         delegate: self
-                                cancelButtonTitle: nil
-                                otherButtonTitles: nil];
-    // Add a spinner
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinner.frame = CGRectMake(50,50, 200, 50);
-    [busyView addSubview:spinner];
-    [spinner startAnimating];
-    
-    [busyView show];
+    self.busyView.hidden = NO;
 }
 
 -(void)stopBusyDialog {
-    if (busyView) {
-        [busyView dismissWithClickedButtonIndex:0 animated:NO];
-        [busyView removeFromSuperview];
-    }
+    self.busyView.hidden = YES;
 }
 
 #pragma mark - Miscellaneous
@@ -329,8 +292,9 @@
     [alert show];
 }
 
--(void)styleButtons {
-    self.uploadButton.titleLabel.font = kButtonFont;  
+-(void)styleView {
+    self.busyDisplay.layer.cornerRadius = 8.0;
+    self.uploadButton.titleLabel.font = kButtonFont;
     self.downloadGameButton.titleLabel.font = kButtonFont;    
     self.downloadTeamButton.titleLabel.font = kButtonFont;    
     self.signoffButton.titleLabel.font = kButtonFont;    
@@ -366,8 +330,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     cloudCells = [Team getCurrentTeam].cloudId == nil ? 
-    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, userCell, websiteCell, adminSiteCell, privacyPolicyCell, nil] :
-    [NSArray arrayWithObjects:uploadCell, downloadTeamCell, downloadGameCell, userCell, websiteCell, adminSiteCell, privacyPolicyCell, nil];
+    @[self.uploadCell, self.downloadTeamCell, self.userCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell] :
+    @[self.uploadCell, self.downloadTeamCell, self.downloadGameCell, self.userCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
     return [cloudCells count];
 }
 
@@ -380,16 +344,16 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
     if (tableView == self.cloudTableView) {
         UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
-        if (cell == websiteCell) {
+        if (cell == self.websiteCell) {
             NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
             if (websiteURL != nil) {
                 NSURL *url = [NSURL URLWithString:websiteURL];
                 [[UIApplication sharedApplication] openURL:url];
             }
-        } else if (cell == adminSiteCell) {
-            NSString* adminUrl = adminSiteLabel.text;
+        } else if (cell == self.adminSiteCell) {
+            NSString* adminUrl = self.adminSiteLabel.text;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
-        } else if (cell == privacyPolicyCell) {
+        } else if (cell == self.privacyPolicyCell) {
             NSString* privacyPolicyUrl = [NSString stringWithFormat: @"%@/privacy.html", [CloudClient getBaseUrl]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
         }
@@ -404,7 +368,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self styleButtons];
+    [self styleView];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)
                                                  name: @"UIApplicationWillEnterForegroundNotification"

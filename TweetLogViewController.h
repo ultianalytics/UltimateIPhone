@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 @class Tweet;
 
-@interface TweetLogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TweetLogViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     UIFont* tweetFont;
     NSArray* tweetLog;

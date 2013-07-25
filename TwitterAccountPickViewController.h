@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface TwitterAccountPickViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TwitterAccountPickViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView* acctNamesTableView;
 @property (nonatomic, strong) NSArray* accountNames;

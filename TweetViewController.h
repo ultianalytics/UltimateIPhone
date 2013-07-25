@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface TweetViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIAlertViewDelegate>
+@interface TweetViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tweetTextCell;

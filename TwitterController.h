@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UltimateViewController.h"
 
-@interface TwitterController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TwitterController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSArray* twitterCells;
     UIAlertView* busyView;

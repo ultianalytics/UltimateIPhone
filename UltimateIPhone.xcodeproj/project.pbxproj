@@ -85,6 +85,7 @@
 		1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE077159627B9004C03A1 /* CalloutsContainerView.m */; };
 		1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */; };
 		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
+		1AAD828617A1578F0071BE3E /* TweetLogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD828417A151FC0071BE3E /* TweetLogTableViewCell.m */; };
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */; };
 		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
@@ -397,6 +398,9 @@
 		1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudMetaInfo.m; sourceTree = "<group>"; };
 		1AAD2299164212170007C2EE /* PlayerSubstitution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSubstitution.h; sourceTree = "<group>"; };
 		1AAD229A164212170007C2EE /* PlayerSubstitution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSubstitution.m; sourceTree = "<group>"; };
+		1AAD828317A151FC0071BE3E /* TweetLogTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetLogTableViewCell.h; sourceTree = "<group>"; };
+		1AAD828417A151FC0071BE3E /* TweetLogTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TweetLogTableViewCell.m; sourceTree = "<group>"; };
+		1AAD828517A152230071BE3E /* TweetLogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TweetLogTableViewCell.xib; sourceTree = "<group>"; };
 		1AAFDE381574F199005EA598 /* NSString+manipulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+manipulations.h"; sourceTree = "<group>"; };
 		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
 		1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePlayer.h; sourceTree = "<group>"; };
@@ -931,6 +935,9 @@
 				1AEE54A41529D2CA0067F539 /* TweetLogViewController.h */,
 				1AEE54A51529D2CA0067F539 /* TweetLogViewController.m */,
 				1AEE54A61529D2CA0067F539 /* TweetLogViewController.xib */,
+				1AAD828317A151FC0071BE3E /* TweetLogTableViewCell.h */,
+				1AAD828417A151FC0071BE3E /* TweetLogTableViewCell.m */,
+				1AAD828517A152230071BE3E /* TweetLogTableViewCell.xib */,
 			);
 			name = Twitter;
 			sourceTree = "<group>";
@@ -1568,6 +1575,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AAD828617A1578F0071BE3E /* TweetLogTableViewCell.m in Sources */,
 				1A5A5D34179971C7002B4AF8 /* LightButton.m in Sources */,
 				1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */,
 				1AFFE78815175D4A004B4590 /* main.m in Sources */,

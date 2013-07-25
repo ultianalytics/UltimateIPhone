@@ -9,6 +9,7 @@
 #import "TweetLogViewController.h"
 #import "Tweet.h"
 #import "Tweeter.h"
+#import "TweetLogTableViewCell.h"
 #import "ColorMaster.h"
 
 #define kTweetViewWidth 290
@@ -30,14 +31,9 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    TweetLogTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                                 initWithStyle:UITableViewCellStyleDefault
-                                 reuseIdentifier:STD_ROW_TYPE];
-        for (UIView *view in cell.subviews) {
-            [view removeFromSuperview];
-        }
+        cell = [self createCell];
         UITextView* textView = [[UITextView alloc] init];
         textView.backgroundColor = [UIColor clearColor];
         textView.editable = NO;
@@ -46,7 +42,7 @@
         timeLabel.backgroundColor = [UIColor clearColor];
         timeLabel.textColor = [UIColor grayColor];
         timeLabel.font =[UIFont systemFontOfSize: 12];
-        [cell addSubview: timeLabel];        
+        [cell.contentView addSubview: timeLabel];
     }
     Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
     UITextView* textView = (UITextView*) [cell.subviews objectAtIndex:0];
@@ -73,6 +69,12 @@
     CGSize titleSize = [text sizeWithFont:tweetFont constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping];
     return titleSize.height + 20; // add some space for margin
 }
+
+- (TweetLogTableViewCell*)createCell {
+	NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"TRPDFOutlineTableViewCell" owner:self options:nil];
+	return [array lastObject];
+}
+
 
 -(NSString*) tweetText: (Tweet*) tweet {
     switch(tweet.status)

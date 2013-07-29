@@ -14,6 +14,12 @@
 
 #define kTweetViewWidth 290
 
+@interface TweetLogViewController()
+
+@property (nonatomic, strong) TweetLogTableViewCell* sampleCell;
+
+@end
+
 @implementation TweetLogViewController
 @synthesize tweetLogTableView;
 
@@ -31,30 +37,16 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TweetLogTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
+    TweetLogTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"std"];
     if (cell == nil) {
         cell = [self createCell];
-        UITextView* textView = [[UITextView alloc] init];
-        textView.backgroundColor = [UIColor clearColor];
-        textView.editable = NO;
-        [cell addSubview: textView];
-        UILabel* timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kTweetViewWidth + 5,0, 25, 20)];
-        timeLabel.backgroundColor = [UIColor clearColor];
-        timeLabel.textColor = [UIColor grayColor];
-        timeLabel.font =[UIFont systemFontOfSize: 12];
-        [cell.contentView addSubview: timeLabel];
     }
-    Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
-    UITextView* textView = (UITextView*) [cell.subviews objectAtIndex:0];
-    NSString* text = [self tweetText:tweet];
-    textView.font = tweetFont;
-    textView.frame = CGRectMake(0,0, kTweetViewWidth, [self heightForTweetText:text]);
-    textView.text = text;
-    [textView setTextColor: tweet.status == TweetQueued ? [UIColor blueColor] : tweet.status == TweetSent ? [UIColor blackColor] : [UIColor redColor]];    
-    textView.font = tweetFont;
     
-    UILabel* numberLabel = (UILabel*) [cell.subviews objectAtIndex:1];
-    numberLabel.text= tweet.status == TweetQueued ? @"" : [self timeSince:tweet.time];
+    Tweet* tweet = [tweetLog objectAtIndex:[indexPath row]];
+    
+    cell.tweetText = [self tweetText:tweet];
+    cell.status = tweet.status;
+    cell.timeSinceText = tweet.status == TweetQueued ? @"" : [self timeSince:tweet.time];
 
     return cell;
 }
@@ -65,16 +57,12 @@
 }
 
 - (CGFloat)heightForTweetText:(NSString*)text{
-    CGSize maxSize = CGSizeMake(kTweetViewWidth - 15,9999);  // reducing width by margins
-    CGSize titleSize = [text sizeWithFont:tweetFont constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping];
-    return titleSize.height + 20; // add some space for margin
+    return [self.sampleCell preferredCellHeight:text];
 }
 
 - (TweetLogTableViewCell*)createCell {
-	NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"TRPDFOutlineTableViewCell" owner:self options:nil];
-	return [array lastObject];
+	return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TweetLogTableViewCell class]) owner:nil options:nil] lastObject];
 }
-
 
 -(NSString*) tweetText: (Tweet*) tweet {
     switch(tweet.status)
@@ -132,7 +120,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    tweetFont = [UIFont systemFontOfSize: 14];
+    self.sampleCell = [self createCell];
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(populateViewFromModel)];
     self.navigationItem.rightBarButtonItem = refreshButton;    
     [[NSNotificationCenter defaultCenter] addObserver: self

@@ -13,5 +13,8 @@
 
 @property (strong, nonatomic) NSString* tweetText;
 @property (strong, nonatomic) NSString* timeSinceText;
+@property (nonatomic) TweetStatus status;
+
+-(CGFloat)preferredCellHeight: (NSString*)text;
 
 @end

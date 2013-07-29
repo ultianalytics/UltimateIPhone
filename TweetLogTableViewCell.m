@@ -8,8 +8,6 @@
 
 #import "TweetLogTableViewCell.h"
 
-#define kTweetLogTextFont [UIFont systemFontOfSize:13]
-
 @interface TweetLogTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel *tweetTextLabel;
@@ -18,19 +16,38 @@
 @end
 
 @implementation TweetLogTableViewCell
-@dynamic tweetText, timeSinceText;
+@dynamic tweetText, timeSinceText, status;
 
--(void)awakeFromNib {
-    self.tweetTextLabel.font = kTweetLogTextFont;
-}
-
--(void)setTweetText:(NSString *)tweetText {
-    self.tweetTextLabel.text = tweetText;
-}
 
 -(void)setTimeSinceText:(NSString *)timeSinceText {
     self.tweetTimeSinceLabel.text = timeSinceText;
 }
 
+-(void)setTweetText:(NSString *)tweetText {
+    self.tweetTextLabel.text = tweetText;
+    
+    // resize the the tweet text label
+    CGRect f = self.tweetTextLabel.frame;
+    f.size.height = [self preferredLabelHeight:self.tweetTextLabel.text];
+    self.tweetTextLabel.frame = f;
+}
+
+-(void)setStatus:(TweetStatus)status {
+    // set the color of the tweet
+    self.tweetTextLabel.textColor = status == TweetQueued ? [UIColor blueColor] : status == TweetSent ? [UIColor blackColor] : [UIColor redColor];
+}
+
+-(CGFloat)preferredCellHeight: (NSString*)text {
+    CGFloat height = [self preferredLabelHeight: text];
+    height += self.tweetTextLabel.frame.origin.x;
+    height += (self.bounds.size.height - CGRectGetMaxY(self.tweetTextLabel.frame));
+    return height;
+}
+
+-(CGFloat)preferredLabelHeight: (NSString*)text {
+    CGSize maxSize = CGSizeMake(self.tweetTextLabel.bounds.size.width, 99999);
+    CGFloat estimatedHeight = [text sizeWithFont:self.tweetTextLabel.font constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping].height;
+    return ceilf(estimatedHeight);
+}
 
 @end

@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeRight;
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;
     [self stylize];
     [self refresh];
 }

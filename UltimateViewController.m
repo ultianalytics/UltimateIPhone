@@ -16,7 +16,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeBottom | UIExtendedEdgeRight;
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
     self.extendedLayoutIncludesOpaqueBars = NO;
 }
 

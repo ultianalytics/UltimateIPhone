@@ -227,7 +227,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIExtendedEdgeLeft | UIExtendedEdgeRight;
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;
     [self stylize];
     self.pointDescriptionLabel.text = [NSString stringWithFormat: @"Point: %@",[self.pointDescription lowercaseString]];
     [self configureForEventType: YES];

@@ -105,11 +105,11 @@
         CalloutView* callout = [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to a Google account (Gmail™) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account for this app.\n\n              - Tap to dismiss -" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:16]];  
         
         // customize callout...
-        UITextView *calloutTextView = [[UITextView alloc] init];
-        calloutTextView.textColor = [UIColor whiteColor];
-        calloutTextView.font = [UIFont systemFontOfSize:16]; 
-        calloutTextView.backgroundColor = [ColorMaster getSegmentControlLightTintColor];
-        callout.textView = calloutTextView;
+        UILabel *calloutLabel = [[UILabel alloc] init];
+        calloutLabel.textColor = [UIColor whiteColor];
+        calloutLabel.font = [UIFont systemFontOfSize:16];
+        calloutLabel.backgroundColor = [ColorMaster getSegmentControlLightTintColor];
+        callout.textLabel = calloutLabel;
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

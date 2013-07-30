@@ -206,11 +206,11 @@
         CalloutView* callout = [calloutsView addCallout:@"blah, blah, blah" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:16]];
         
         // customize callout...
-        UITextView *calloutTextView = [[UITextView alloc] init];
-        calloutTextView.textColor = [UIColor whiteColor];
-        calloutTextView.font = [UIFont systemFontOfSize:16];
-        calloutTextView.backgroundColor = [ColorMaster getSegmentControlLightTintColor];
-        callout.textView = calloutTextView;
+        UILabel *calloutLabel = [[UILabel alloc] init];
+        calloutLabel.textColor = [UIColor whiteColor];
+        calloutLabel.font = [UIFont systemFontOfSize:16];
+        calloutLabel.backgroundColor = [ColorMaster getSegmentControlLightTintColor];
+        callout.textLabel = calloutLabel;
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

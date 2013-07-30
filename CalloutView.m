@@ -10,9 +10,9 @@
 
 #define radians(x) ((x) * M_PI/180 )
 
-#define kTextViewContentSizeTopInset 10.f
-#define kTextViewContentSizeBottomInset 10.f
-#define kPaddingHorizontal 0.f
+#define kTextViewContentSizeTopInset 2.f
+#define kTextViewContentSizeBottomInset 2.f
+#define kPaddingHorizontal 2.f
 #define kPaddingVertical 2.f
 #define kBorderWidth 4.f
 #define kRoundedCornerRadius 4.f  
@@ -31,7 +31,7 @@
 @end
 
 @implementation CalloutView
-@synthesize textView, text, widthConstraint, degreesFromNorth, anchor, connectorLength, connectorLineBaseWidth, borderColor, useShadow, fontOverride,calloutColor;
+@synthesize textLabel, text, widthConstraint, degreesFromNorth, anchor, connectorLength, connectorLineBaseWidth, borderColor, useShadow, fontOverride,calloutColor;
 
 - (id)initWithFrame:(CGRect)frame text:(NSString *) textToDisplay anchor: (CGPoint) anchorPoint width: (CGFloat) width degrees: (int) degreesFromAnchor connectorLength: (int) length {
     self = [super initWithFrame:frame];
@@ -61,40 +61,40 @@
 }
 
 -(CGSize)addTextView {
-    if (self.textView == nil) {
-        self.textView = [[UITextView alloc] init];
-        self.textView.backgroundColor = self.calloutColor;
+    if (self.textLabel == nil) {
+        self.textLabel = [[UILabel alloc] init];
+        self.textLabel.backgroundColor = self.calloutColor;
         if (fontOverride) {
-            self.textView.font = fontOverride;
+            self.textLabel.font = fontOverride;
         }
-        self.textView.text = self.text;
+        self.textLabel.text = self.text;
     } else {
-        if (![self.textView.text length]) {
-            self.textView.text = self.text;
+        if (![self.textLabel.text length]) {
+            self.textLabel.text = self.text;
         }
     }
-    self.textView.editable = NO;
-    // set constraints and then find size
-    CGFloat textViewHorizontalInset = kPaddingHorizontal + kBorderWidth;
-    CGFloat textViewWidth = self.widthConstraint - (textViewHorizontalInset * 2);
-    self.textView.frame = CGRectMake(0,0, textViewWidth, 10);
-    CGFloat textViewHeight;
-    if (isPreiOS7) {
-        textViewHeight = self.textView.contentSize.height;
-    } else {
-        textViewHeight = [self.textView.attributedText boundingRectWithSize:CGSizeMake(textViewWidth, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height;
-        textViewHeight = textViewHeight + kTextViewContentSizeBottomInset + kTextViewContentSizeTopInset;
-    }
-    CGSize textViewSize = CGSizeMake(textViewWidth, textViewHeight);
-    self.textView.frame = CGRectMake(0,0, textViewSize.width, textViewSize.height);
-    [self addSubview:self.textView];
+    self.textLabel.numberOfLines = 0;
+    self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;    
+    // setup constraints and then find size
+    CGFloat textLabelHorizontalInset = kPaddingHorizontal + kBorderWidth;
+    CGFloat textLabelWidth = self.widthConstraint - (textLabelHorizontalInset * 2);
+    CGFloat textLabelHeight = [self preferredLabelHeightForWidth:textLabelWidth];
+    textLabelHeight = textLabelHeight + kTextViewContentSizeBottomInset + kTextViewContentSizeTopInset;
+    self.textLabel.frame = CGRectMake(0,0, textLabelWidth, textLabelHeight);
+    [self addSubview:self.textLabel];
     [self calcConnectorLineBaseWidth];
-    return textViewSize;
+    return CGSizeMake(textLabelWidth, textLabelHeight);
+}
+
+-(CGFloat)preferredLabelHeightForWidth: (CGFloat)preferredWidth {
+    CGSize maxSize = CGSizeMake(preferredWidth, FLT_MAX);
+    CGFloat preferredHeight = [text sizeWithFont:self.textLabel.font constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping].height;
+    return ceilf(preferredHeight);
 }
 
 -(void)positionTextView {
     CGPoint midPoint = [self calcPointOnCirle:self.anchor radius:self.connectorLength degrees:self.degreesFromNorth];
-    self.textView.center = midPoint;
+    self.textLabel.center = midPoint;
 }
 
 -(CGPoint)calcPointOnCirle: (CGPoint) centerPoint radius: (float) radius degrees: (float) degrees {
@@ -103,18 +103,18 @@
 }
 
 -(void)calcConnectorLineBaseWidth {
-    CGSize textViewSize = self.textView.bounds.size;
-    self.connectorLineBaseWidth = MIN(self.connectorLineBaseWidth, MIN(textViewSize.width, textViewSize.height));
+    CGSize textLabelSize = self.textLabel.bounds.size;
+    self.connectorLineBaseWidth = MIN(self.connectorLineBaseWidth, MIN(textLabelSize.width, textLabelSize.height));
 }
 
 - (void)drawRect:(CGRect)rect {
     CGFloat verticalInset = kPaddingVertical  + kBorderWidth / 2;
     CGFloat horizontalInset = kPaddingHorizontal  + kBorderWidth / 2;
-    CGRect bubbleRect = CGRectInset(self.textView.frame, -1 * horizontalInset, -1 * verticalInset);
+    CGRect bubbleRect = CGRectInset(self.textLabel.frame, -1 * horizontalInset, -1 * verticalInset);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
-    CGContextSetFillColorWithColor(context, self.textView ? self.textView.backgroundColor.CGColor : self.calloutColor.CGColor);
+    CGContextSetFillColorWithColor(context, self.textLabel ? self.textLabel.backgroundColor.CGColor : self.calloutColor.CGColor);
     CGContextSetStrokeColorWithColor(context, borderColor.CGColor);
     CGContextSetLineWidth(context, kBorderWidth);
     CGContextSetLineJoin(context, kCGLineJoinRound);
@@ -143,7 +143,7 @@
     CGContextClosePath(context);
     
     // draw the pointer
-    CGPoint bubbleCenter = self.textView.center;
+    CGPoint bubbleCenter = self.textLabel.center;
     CGPoint p1 = CGPointMake(-1 * self.connectorLineBaseWidth / 2 ,0);
     CGPoint p2 = CGPointMake(0, -1 * (connectorLength - kBorderWidth)); // shorten to accomodate for the border affect on the point
     CGPoint p3 = CGPointMake(self.connectorLineBaseWidth / 2 , 0);

@@ -33,10 +33,10 @@ UINavigationController* gameNavController;
     // start up test flight SDK
     [TestFlight takeOff:@"d8b09015-d74c-461d-993c-e7e378ebbeb5"];
     
-    [self setupGlobalAppearance: application];
-     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    [self setupGlobalAppearance: application];
+     
     // Tab 1: team
     TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
     teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
@@ -103,14 +103,16 @@ UINavigationController* gameNavController;
 }
 
 -(void)setupGlobalAppearance: (UIApplication *)application {
-    application.statusBarStyle = UIStatusBarStyleLightContent;
-    [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // This forces title text to white
-    [UINavigationBar appearance].barTintColor = [UIColor colorWithWhite:40.f/255 alpha:1.f];
+    self.window.tintColor = [ColorMaster applicationTintColor];
+    application.statusBarStyle = UIStatusBarStyleLightContent;  // Causes light text in status bar
+    [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // Causes light text in nav bar
     [UITabBar appearance].backgroundColor = [UIColor blackColor];
     [UITabBar appearance].barTintColor = [UIColor blackColor];
-    [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
-    [[UITableView appearance] setSeparatorColor:[ColorMaster getTableListSeparatorColor]];    
-    // TODO...delete commented lines when done converting to iOS7
+    
+    
+        // TODO...delete commented lines when done converting to iOS7
+//    [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
+//    [[UITableView appearance] setSeparatorColor:[ColorMaster getTableListSeparatorColor]];
 //    [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 }
 

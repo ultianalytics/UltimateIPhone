@@ -7,6 +7,7 @@
 //
 
 #import "UltimateViewController.h"
+#import "ColorMaster.h"
 
 @interface UltimateViewController()
 
@@ -16,8 +17,10 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
     self.extendedLayoutIncludesOpaqueBars = NO;
+    self.view.window.tintColor = [ColorMaster applicationTintColor];
+    self.navigationController.navigationBar.tintColor = nil;
 }
 
 @end

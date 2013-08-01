@@ -42,4 +42,6 @@
 
 +(void)styleAsWhiteLabel: (UILabel*) label size: (CGFloat) size;
 
++(UIColor*)applicationTintColor;
+
 @end

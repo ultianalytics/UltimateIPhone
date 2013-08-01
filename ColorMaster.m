@@ -236,4 +236,8 @@ static UIColor* linePlayerImbalanceWarningBoys;
     label.shadowOffset = CGSizeMake(0, 1);
 }
 
++(UIColor*)applicationTintColor {
+    return [UIColor redColor];
+}
+
 @end

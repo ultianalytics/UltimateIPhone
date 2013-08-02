@@ -103,7 +103,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
     defenseEventColor = darkerColor;
     
     
-    activeGameColor = [UIColor blueColor];
+    activeGameColor = [UIColor redColor];
     
     benchRowColor = lighterColor;
     

@@ -12,6 +12,7 @@
 		1A047EF4171E2881006DE1C9 /* CessationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A047EF3171E2881006DE1C9 /* CessationEvent.m */; };
 		1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */; };
 		1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFD171E4D04006DE1C9 /* finishflag.png */; };
+		1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C8E17AE9C9F00035849 /* FlatButton.m */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
 		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
 		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
@@ -271,6 +272,8 @@
 		1A047EF3171E2881006DE1C9 /* CessationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CessationEvent.m; sourceTree = "<group>"; };
 		1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopwatch1.png; sourceTree = "<group>"; };
 		1A047EFD171E4D04006DE1C9 /* finishflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finishflag.png; sourceTree = "<group>"; };
+		1A0A2C8D17AE9C9F00035849 /* FlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlatButton.h; sourceTree = "<group>"; };
+		1A0A2C8E17AE9C9F00035849 /* FlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatButton.m; sourceTree = "<group>"; };
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
 		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
 		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
@@ -1146,6 +1149,8 @@
 				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
 				1AE5C6EE17902BF600B604FE /* UltimateViewController.h */,
 				1AE5C6EF17902BF600B604FE /* UltimateViewController.m */,
+				1A0A2C8D17AE9C9F00035849 /* FlatButton.h */,
+				1A0A2C8E17AE9C9F00035849 /* FlatButton.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1651,6 +1656,7 @@
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,
 				1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */,
+				1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */,
 				1A4C42FB160D5FA90067BB96 /* LeaguevineLeague.m in Sources */,
 				1A4C42FF160D5FC20067BB96 /* LeaguevineTeam.m in Sources */,
 				1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */,

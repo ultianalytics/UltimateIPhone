@@ -3,12 +3,12 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/26/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ColorButton.h"
+#import "FlatButton.h"
 
-@interface StandardButton : ColorButton
+@interface StandardButton : FlatButton
 
 @end

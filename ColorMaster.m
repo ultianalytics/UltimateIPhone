@@ -218,7 +218,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getSegmentControlLightTintColor {
-    return darklightColor;
+    return [UIColor darkGrayColor];
 }
 
 +(UIColor*)getSegmentControlDarkTintColor {

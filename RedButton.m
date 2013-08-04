@@ -1,9 +1,9 @@
 //
-//  ColorButton.m
+//  RedButton.m
 //  Numbers
 //
 //  Created by james on 8/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
 #import "RedButton.h"
@@ -12,14 +12,10 @@
 
 @implementation RedButton
 
-- (void)initCharacteristics {
-    self.highColor = [ColorMaster getAlarmingButtonHighColor];
-    self.lowColor = [ColorMaster getAlarmingButtonLowColor];
-    self.borderColor = self.highColor;
-    self.borderDisabledColor = self.lowDisabledColor;
-    self.buttonStyleNormalTextColor = [UIColor whiteColor];
-    self.buttonStyleHighlightTextColor = [UIColor blackColor];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor redColor];
 }
 
 @end

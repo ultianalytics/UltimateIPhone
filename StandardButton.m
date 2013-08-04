@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/26/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
 #import "StandardButton.h"
@@ -11,27 +11,10 @@
 
 @implementation StandardButton
 
-- (void)initCharacteristics {
-    [self setSelected: NO];
-    self.buttonStyleNormalTextColor = [UIColor whiteColor];
-    self.buttonStyleHighlightTextColor = [UIColor blackColor];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
-}
-
-- (void) setSelected: (BOOL) shouldBeSelected {
-    if (shouldBeSelected) {
-        self.highColor = [ColorMaster getPasserButtonSelectedHighColor];  
-        self.lowColor = [ColorMaster getPasserButtonSelectedLowColor];
-    } else {
-        self.highColor = [ColorMaster getPasserButtonHighColor];
-        self.lowColor = [ColorMaster getPasserButtonLowColor];
-    }
-    self.borderColor = self.highColor;
-    [self setNeedsDisplay];
-}
-
-- (NSString* )description {
-    return [NSString stringWithFormat:@"StandardButton: %@", self.titleLabel];
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
 }
 
 @end

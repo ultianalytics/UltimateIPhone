@@ -50,11 +50,11 @@ static SHSLogsMailer *sharedInstance = nil;
     
     NSString *emailBody = @"iUltimate log files attached";
     [mailComposeVC setMessageBody:emailBody isHTML:NO];
-    [self.presentingController presentModalViewController:mailComposeVC animated:YES];
+    [self.presentingController presentViewController:mailComposeVC animated:YES completion: nil];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    [self.presentingController dismissModalViewControllerAnimated:YES];
+    [self.presentingController dismissViewControllerAnimated:YES completion:nil];
     self.presentingController = nil;
 }
 

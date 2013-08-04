@@ -71,7 +71,7 @@
         label.backgroundColor = [UIColor clearColor];
         [contentView addSubview:label];
         label.font = [UIFont boldSystemFontOfSize:18];
-        label.textAlignment = UITextAlignmentRight;
+        label.textAlignment = NSTextAlignmentRight;
         label.textColor = [ColorMaster getWinScoreColor];
         
         // (2.) add the tournament/time label

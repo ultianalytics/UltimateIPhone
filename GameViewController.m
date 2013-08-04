@@ -81,7 +81,7 @@
             }
         }];
     };
-    [self presentModalViewController:pullLandingVC animated:YES];
+    [self presentViewController:pullLandingVC animated:YES completion:nil];
 }
 
 -(void) addEvent: (Event*) event {
@@ -690,19 +690,19 @@
     UIBarButtonItem *navBarLineButton = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStyleBordered target:self action:@selector(goToPlayersOnFieldView)];
     self.navigationItem.rightBarButtonItem = navBarLineButton;
     
-    self.throwAwayButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.throwAwayButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.throwAwayButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.throwAwayButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
-    self.gameOverButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.gameOverButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.gameOverButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.gameOverButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.gameOverButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     
-    self.timeoutButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.timeoutButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.timeoutButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.timeoutButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.timeoutButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     
-    self.otherTeamScoreButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.otherTeamScoreButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.otherTeamScoreButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.otherTeamScoreButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.otherTeamScoreButton setTitle:@"They Scored" forState: UIControlStateNormal];
     
     self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];

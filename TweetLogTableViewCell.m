@@ -46,7 +46,11 @@
 
 -(CGFloat)preferredLabelHeight: (NSString*)text {
     CGSize maxSize = CGSizeMake(self.tweetTextLabel.bounds.size.width, 99999);
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     CGFloat estimatedHeight = [text sizeWithFont:self.tweetTextLabel.font constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping].height;
+    #pragma clang diagnostic pop
+
     return ceilf(estimatedHeight);
 }
 

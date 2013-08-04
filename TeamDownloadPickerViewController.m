@@ -78,7 +78,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 60)];
     headerLabel.numberOfLines = 0;
-    headerLabel.lineBreakMode = UILineBreakModeWordWrap;
+    headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
     headerLabel.text = NSLocalizedString(@"Pick a team to download to your iPhone (does not include games)", @"");
     headerLabel.font = [UIFont boldSystemFontOfSize:18];
     headerLabel.backgroundColor = [UIColor clearColor];

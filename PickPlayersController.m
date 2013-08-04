@@ -471,8 +471,8 @@
 }
 
 -(void)configureSubstitutionsView {
-    self.undoSubstitutionButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.undoSubstitutionButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.undoSubstitutionButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.undoSubstitutionButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     if ([[self.game substitutionsForCurrentPoint] count] > 0) {
         if (self.substitutionsView.hidden) {

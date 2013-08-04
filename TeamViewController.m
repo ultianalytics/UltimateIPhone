@@ -257,8 +257,8 @@
 {
     [super viewDidLoad];
     self.teamTableView.tableFooterView = self.customFooterView;
-    self.clearCloudIdButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.clearCloudIdButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.clearCloudIdButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.clearCloudIdButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.teamNameField.delegate = self;
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];

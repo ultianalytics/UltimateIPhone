@@ -61,7 +61,6 @@
 
 -(void)setup {
     self.tintColor = [ColorMaster getSegmentControlLightTintColor];
-    [self addTarget:self action:@selector(updateView) forControlEvents:UIControlEventValueChanged];
 }
 
 

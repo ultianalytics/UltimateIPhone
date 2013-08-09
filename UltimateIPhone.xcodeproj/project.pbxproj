@@ -77,6 +77,7 @@
 		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
 		1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A894CBF16361223008B3990 /* PullLandingViewController.m */; };
 		1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A894CC016361223008B3990 /* PullLandingViewController.xib */; };
+		1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8C5F0017B519E300601D21 /* Social.framework */; };
 		1A8CC5D717230C2100B8295C /* BufferedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CC5D617230C2100B8295C /* BufferedNavigationController.m */; };
 		1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8D1311161D9C7A001CFD9C /* UltimateSwitch.m */; };
 		1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A999EF516062B8F0015B891 /* leaguevine_logo.png */; };
@@ -386,6 +387,7 @@
 		1A894CBE16361223008B3990 /* PullLandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullLandingViewController.h; sourceTree = "<group>"; };
 		1A894CBF16361223008B3990 /* PullLandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullLandingViewController.m; sourceTree = "<group>"; };
 		1A894CC016361223008B3990 /* PullLandingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullLandingViewController.xib; sourceTree = "<group>"; };
+		1A8C5F0017B519E300601D21 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1A8CC5D517230C2100B8295C /* BufferedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedNavigationController.h; sourceTree = "<group>"; };
 		1A8CC5D617230C2100B8295C /* BufferedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedNavigationController.m; sourceTree = "<group>"; };
 		1A8D1310161D9C7A001CFD9C /* UltimateSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSwitch.h; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
 				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
 				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
@@ -993,6 +996,7 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A8C5F0017B519E300601D21 /* Social.framework */,
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
 				1AB78D081726B1E0003235AE /* MessageUI.framework */,
 				1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */,

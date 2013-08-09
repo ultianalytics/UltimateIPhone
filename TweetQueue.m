@@ -65,14 +65,14 @@ static TweetQueue* current = nil;
 // PRIVATE 
 
 -(void)sendTweet: (Tweet*) tweet {
-    if ([TWTweetComposeViewController canSendTweet]) {
+    if ([SLComposeViewController isAvailableForServiceType: SLServiceTypeTwitter]) {
         // Create account store, followed by a twitter account identifier
         // At this point, twitter is the only account type available
         ACAccountStore* accountStore = [[ACAccountStore alloc] init];
         ACAccountType* accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
         
         // Request access from the user to access their Twitter account
-        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) 
+        [accountStore requestAccessToAccountsWithType:accountType options: nil completion:^(BOOL granted, NSError *error)
          {
              // Did user allow us access?
              if (granted == YES)
@@ -121,9 +121,9 @@ static TweetQueue* current = nil;
     NSLog(@"Sending tweet %@ to twitter", tweet.message);
     @try {
         // Build a twitter request
-        TWRequest *postRequest = [[TWRequest alloc] initWithURL: [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] 
-                                                     parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"] requestMethod:TWRequestMethodPOST];
-        
+//        TWRequest *postRequest = [[TWRequest alloc] initWithURL: [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
+//                                                     parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"] requestMethod:TWRequestMethodPOST];
+        SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodPOST URL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"]];
         // Post the request
         [postRequest setAccount:twitterAccount];
         

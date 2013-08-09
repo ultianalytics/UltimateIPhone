@@ -162,13 +162,13 @@ NSDateFormatter* timeFormatter;
 
 -(void)tweet:(Tweet*) tweet { 
     // before we add it to the queue...make sure we have access
-    if ([TWTweetComposeViewController canSendTweet]) {
+    if ([SLComposeViewController isAvailableForServiceType: SLServiceTypeTwitter]) {
         // Create account store, followed by a twitter account identifier
         ACAccountStore* accountStore = [[ACAccountStore alloc] init];
         ACAccountType* accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
         
         // Request access from the user to access their Twitter account
-        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        [accountStore requestAccessToAccountsWithType:accountType options: nil completion:^(BOOL granted, NSError *error) {
             // Did user allow us access?
             if (granted == YES)
             {
@@ -200,12 +200,12 @@ NSDateFormatter* timeFormatter;
 
 -(NSArray*)getTwitterAccounts {
     __block NSArray* accounts = nil;
-    if ([TWTweetComposeViewController canSendTweet]) {
+    if ([SLComposeViewController isAvailableForServiceType: SLServiceTypeTwitter]) {
         // Create account store and ask it for all of the twitter type accounts
         ACAccountStore* accountStore = [[ACAccountStore alloc] init];
         ACAccountType* accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
         // Request access from the user to access their Twitter account
-        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        [accountStore requestAccessToAccountsWithType:accountType options: nil completion:^(BOOL granted, NSError *error) {
             // Did user have access?
             if (granted == YES) {
                 accounts = [accountStore accountsWithAccountType:accountType];

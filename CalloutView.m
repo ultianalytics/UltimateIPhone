@@ -88,7 +88,7 @@
 
 -(CGFloat)preferredLabelHeightForWidth: (CGFloat)preferredWidth {
     CGSize maxSize = CGSizeMake(preferredWidth, FLT_MAX);
-    CGFloat preferredHeight = [text sizeWithFont:self.textLabel.font constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping].height;
+    CGFloat preferredHeight = [self.textLabel.attributedText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
     return ceilf(preferredHeight);
 }
 

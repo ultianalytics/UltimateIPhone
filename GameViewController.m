@@ -668,7 +668,7 @@
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;
     
     // use a smaller font for nav title
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], UITextAttributeFont, nil]];
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName, nil]];
     
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
     for (PlayerView* playerView in self.playerViews) {

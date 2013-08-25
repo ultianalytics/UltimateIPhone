@@ -20,7 +20,7 @@
 + (void)initialize {
     if (self == [UltimateSegmentedControl class]) {
         UltimateSegmentedControl *appearance = [self appearance];
-        [appearance setCornerRadius:5.0f];
+        [appearance setCornerRadius:3.0f];
         [appearance setSelectedColor:[UIColor blackColor]];
         [appearance setDeselectedColor:[UIColor lightGrayColor]];
         [appearance setDividerColor:[UIColor whiteColor]];

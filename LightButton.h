@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
-#import "ColorButton.h"
+#import "FlatButton.h"
 
-@interface LightButton : ColorButton
+@interface LightButton : FlatButton
 
 @end

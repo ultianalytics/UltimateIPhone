@@ -11,18 +11,10 @@
 
 @implementation LightButton
 
-- (void)initCharacteristics {
-    self.highColor = [UIColor whiteColor];
-    self.lowColor = [UIColor whiteColor];
-    self.borderColor = self.lowColor;
-    self.borderDisabledColor = self.lowDisabledColor;
-    self.buttonStyleNormalTextColor = [UIColor blackColor];
-    self.buttonStyleHighlightTextColor = [UIColor whiteColor];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
-}
-
--(NSArray*)getGradientLocations {
-    return [NSArray arrayWithObjects: [NSNumber numberWithFloat: .1], [NSNumber numberWithFloat: .5], nil];
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
 }
 
 @end

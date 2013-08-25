@@ -613,9 +613,9 @@
     [super viewDidLoad];
     self.tableView.rowHeight = 34;
     
-    self.gameTypeSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    self.gameTypeSegmentedControl.apportionsSegmentWidthsByContent = YES;
     self.gameTypeSegmentedControl.selectedSegmentIndex = 0;
-    self.gamePointsSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
+    self.gamePointsSegmentedControl.apportionsSegmentWidthsByContent = YES;
     self.initialLine.tintColor = [ColorMaster getNavBarTintColor];    
     
     [self.opposingTeamNameField addTarget:self action:@selector(opponentNameChanged:) forControlEvents:UIControlEventEditingChanged];

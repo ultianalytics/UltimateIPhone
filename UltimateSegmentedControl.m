@@ -24,8 +24,8 @@
         [appearance setSelectedColor:[UIColor blackColor]];
         [appearance setDeselectedColor:[UIColor lightGrayColor]];
         [appearance setDividerColor:[UIColor whiteColor]];
-        [appearance setSelectedFont:[UIFont boldSystemFontOfSize:13.0]];
-        [appearance setDeselectedFont:[UIFont systemFontOfSize:13.0]];
+        [appearance setSelectedFont:[UIFont boldSystemFontOfSize:15.0]];
+        [appearance setDeselectedFont:[UIFont systemFontOfSize:15.0]];
         [appearance setSelectedFontColor:[UIColor whiteColor]];
         [appearance setDeselectedFontColor:[UIColor whiteColor]];
     }
@@ -74,9 +74,7 @@
 // private methods
 
 -(void)setup {
-//    self.tintColor = [ColorMaster getSegmentControlLightTintColor];
-    self.selectedColor = [UIColor redColor];
-    self.deselectedColor = [UIColor greenColor];
+    
 }
 
 

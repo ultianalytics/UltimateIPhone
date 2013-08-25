@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FUISegmentedControl.h"
 
-@interface UltimateSegmentedControl : UISegmentedControl
+@interface UltimateSegmentedControl : FUISegmentedControl
 
 -(void)setSelection: (NSString*) title;
 -(NSString*)getSelection;

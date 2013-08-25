@@ -17,6 +17,20 @@
 
 @implementation UltimateSegmentedControl
 
++ (void)initialize {
+    if (self == [UltimateSegmentedControl class]) {
+        UltimateSegmentedControl *appearance = [self appearance];
+        [appearance setCornerRadius:5.0f];
+        [appearance setSelectedColor:[UIColor blackColor]];
+        [appearance setDeselectedColor:[UIColor lightGrayColor]];
+        [appearance setDividerColor:[UIColor whiteColor]];
+        [appearance setSelectedFont:[UIFont boldSystemFontOfSize:13.0]];
+        [appearance setDeselectedFont:[UIFont systemFontOfSize:13.0]];
+        [appearance setSelectedFontColor:[UIColor whiteColor]];
+        [appearance setDeselectedFontColor:[UIColor whiteColor]];
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -60,8 +74,12 @@
 // private methods
 
 -(void)setup {
-    self.tintColor = [ColorMaster getSegmentControlLightTintColor];
+//    self.tintColor = [ColorMaster getSegmentControlLightTintColor];
+    self.selectedColor = [UIColor redColor];
+    self.deselectedColor = [UIColor greenColor];
 }
+
+
 
 
 @end

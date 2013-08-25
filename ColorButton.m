@@ -52,7 +52,7 @@
     
     // Adjust the primary layer
     // Set the layer's corner radius
-    [[self layer] setCornerRadius:8.0f];
+    [[self layer] setCornerRadius:4.0f];
     // Turn on masking
     [[self layer] setMasksToBounds:YES];
     // Display a border around the button

@@ -18,6 +18,14 @@
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
 		</dict>
+		<dict>
+			<key>File</key>
+			<string>Acknowledgements</string>
+			<key>Title</key>
+			<string>Acknowledgements</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
 	</array>
 </dict>
 </plist>

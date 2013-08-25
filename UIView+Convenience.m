@@ -9,7 +9,7 @@
 #import "UIView+Convenience.h"
 
 @implementation UIView (Convenience)
-@dynamic frameX;
+@dynamic frameX, frameY, frameHeight, frameWidth, visible;
 
 -(void)setFrameX: (CGFloat) x {
     CGRect rect = self.frame;
@@ -51,5 +51,12 @@
     return self.frame.size.height;
 }
 
+-(BOOL)visible {
+    return !self.hidden;
+}
+
+-(void)setVisible:(BOOL)visbile {
+    self.hidden = !visbile;
+}
 
 @end

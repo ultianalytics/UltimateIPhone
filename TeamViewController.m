@@ -22,6 +22,7 @@
 #import "LeaguevineTeam.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
+#import "UIView+Convenience.h"
 
 #define kIsNotFirstGameDetailViewUsage @"IsNotFirstGameDetailViewUsage"
 
@@ -53,7 +54,8 @@
     [self.teamTypeSegmentedControl setSelection: self.team.isMixed ? @"Mixed" : @"Uni"];
     [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];
     [self populateLeagueVineTeamCell];
-    self.deleteButton.hidden = ![self.team hasBeenSaved];
+    self.teamCopyButton.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
+    self.deleteButton.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
 #ifdef DEBUG
     self.clearCloudIdButton.hidden = NO;
 #endif

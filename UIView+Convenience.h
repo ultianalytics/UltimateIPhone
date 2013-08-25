@@ -14,5 +14,6 @@
 @property (nonatomic) CGFloat frameY;
 @property (nonatomic) CGFloat frameHeight;
 @property (nonatomic) CGFloat frameWidth;
+@property (nonatomic) BOOL visible;
 
 @end

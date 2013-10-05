@@ -14,6 +14,9 @@
 		1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFD171E4D04006DE1C9 /* finishflag.png */; };
 		1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C8E17AE9C9F00035849 /* FlatButton.m */; };
 		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
+		1A0E65FD18007356003BEB88 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E65FC18007356003BEB88 /* icon-120.png */; };
+		1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E65FE180074CD003BEB88 /* icon-58.png */; };
+		1A0E6601180074DA003BEB88 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E6600180074DA003BEB88 /* icon-80.png */; };
 		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
 		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
 		1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A209AB917177A5400BF9D6A /* TimeoutDetails.m */; };
@@ -296,6 +299,9 @@
 		1A0A2C8D17AE9C9F00035849 /* FlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlatButton.h; sourceTree = "<group>"; };
 		1A0A2C8E17AE9C9F00035849 /* FlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatButton.m; sourceTree = "<group>"; };
 		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
+		1A0E65FC18007356003BEB88 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
+		1A0E65FE180074CD003BEB88 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-58.png"; sourceTree = "<group>"; };
+		1A0E6600180074DA003BEB88 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-80.png"; sourceTree = "<group>"; };
 		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
 		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
 		1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstitutionViewController.m; sourceTree = "<group>"; };
@@ -1432,6 +1438,9 @@
 				1A0A6C4F1556B5740041C962 /* icon-AppStore.png */,
 				1AB332011544F1B500219FFD /* icon.png */,
 				1A80C9751561223C007F03C2 /* icon@2x.png */,
+				1A0E65FC18007356003BEB88 /* icon-120.png */,
+				1A0E6600180074DA003BEB88 /* icon-80.png */,
+				1A0E65FE180074CD003BEB88 /* icon-58.png */,
 				1AEE549A15293DD30067F539 /* 210-twitterbird.png */,
 				1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */,
 				1AE66A091521EA9B000965B5 /* tweet-button.png */,
@@ -1551,6 +1560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A3A559617A6967C002B3C84 /* TweetLogTableViewCell.xib in Resources */,
+				1A0E65FD18007356003BEB88 /* icon-120.png in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
 				1AFFE7E315175E7B004B4590 /* 19-gear@2x.png in Resources */,
@@ -1658,10 +1668,12 @@
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
+				1A0E6601180074DA003BEB88 /* icon-80.png in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
 				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
+				1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */,
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
@@ -1880,7 +1892,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1938,7 +1950,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1961,7 +1973,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

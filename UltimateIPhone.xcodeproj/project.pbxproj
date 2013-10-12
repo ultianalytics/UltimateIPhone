@@ -41,7 +41,6 @@
 		1A246D1D17CA59E000B8868D /* UITableViewCell+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1EAC9917C9808E00BD34D5 /* UITableViewCell+FlatUI.m */; };
 		1A246D1E17CA59E000B8868D /* UIToolbar+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1EAC9B17C9808E00BD34D5 /* UIToolbar+FlatUI.m */; };
 		1A246D2017CA5A8200B8868D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A246D1F17CA5A8200B8868D /* CoreText.framework */; };
-		1A246D2317CA776500B8868D /* FormFooterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A246D2217CA76F600B8868D /* FormFooterButton.m */; };
 		1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2DA03B15458AE200D59B29 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F9E0115F4E51400037C70 /* NSArray+Utilities.m */; };
 		1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */; };
@@ -348,8 +347,6 @@
 		1A23B8291625900C00EC9D92 /* EventChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventChangeViewController.m; sourceTree = "<group>"; };
 		1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventChangeViewController.xib; sourceTree = "<group>"; };
 		1A246D1F17CA5A8200B8868D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		1A246D2117CA76F600B8868D /* FormFooterButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FormFooterButton.h; path = ../../Users/james/Temp/FormFooterButton.h; sourceTree = "<group>"; };
-		1A246D2217CA76F600B8868D /* FormFooterButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FormFooterButton.m; path = ../../Users/james/Temp/FormFooterButton.m; sourceTree = "<group>"; };
 		1A2DA03A15458AE200D59B29 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1A2DA03B15458AE200D59B29 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1A2F9E0015F4E51400037C70 /* NSArray+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utilities.h"; sourceTree = "<group>"; };
@@ -1232,8 +1229,6 @@
 		1AFFE8D415176470004B4590 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				1A246D2117CA76F600B8868D /* FormFooterButton.h */,
-				1A246D2217CA76F600B8868D /* FormFooterButton.m */,
 				1AB78D051726B0DE003235AE /* SHSLogsMailer.h */,
 				1AB78D061726B0DE003235AE /* SHSLogsMailer.m */,
 				1A8CC5D517230C2100B8295C /* BufferedNavigationController.h */,
@@ -1707,7 +1702,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A246D2317CA776500B8868D /* FormFooterButton.m in Sources */,
 				1A246D0D17CA59E000B8868D /* FUIAlertView.m in Sources */,
 				1A246D0E17CA59E000B8868D /* FUIButton.m in Sources */,
 				1A246D0F17CA59E000B8868D /* FUICellBackgroundView.m in Sources */,

@@ -19,8 +19,8 @@
 // send nslog output to testflight
 #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-//#define kHostHame @"www.ultimate-numbers.com"
-#define kHostHame @"local.appspot.com:8888"
+#define kHostHame @"www.ultimate-numbers.com"
+//#define kHostHame @"local.appspot.com:8888"
 //#define kHostHame @"local.appspot.com:8890" // tcp monitor
 //#define [CloudClient getBaseUrl] @"http://www.ultimate-numbers.com"
 //#define [CloudClient getBaseUrl] @"http://local.appspot.com:8888"

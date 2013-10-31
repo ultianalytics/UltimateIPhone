@@ -404,9 +404,7 @@ static Game* currentGame = nil;
 
 - (void)mergePlayersWithCurrentTeam {
     for (UPoint* point in points) {
-        for (Event* event in point.events) {
-            [event useSharedPlayers];
-        }
+        [point useSharedPlayers];
     }
     self.currentLine = [Player replaceAllWithSharedPlayer: self.currentLine];
     self.lastDLine = [Player replaceAllWithSharedPlayer: self.lastDLine];
@@ -451,7 +449,7 @@ static Game* currentGame = nil;
 }
 
 -(BOOL)hasOneEvent {
-    return [self.points count] == 1 || [[self getCurrentPoint] getNumberOfEvents] == 1;
+    return [self.points count] == 1 && [[self getCurrentPoint] getNumberOfEvents] == 1;
 }
 
 -(void)removeLastEvent {

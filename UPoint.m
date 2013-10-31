@@ -233,4 +233,13 @@
     _line = [NSArray arrayWithArray:line];
 }
 
+- (void)useSharedPlayers {
+    for (Event* event in self.events) {
+        [event useSharedPlayers];
+    }
+    for (PlayerSubstitution* sub in self.substitutions) {
+        [sub useSharedPlayers];
+    }
+}
+
 @end

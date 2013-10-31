@@ -24,5 +24,6 @@ typedef enum {
 +(PlayerSubstitution*)fromDictionary:(NSDictionary*) dict;
 
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
+-(void)useSharedPlayers;
 
 @end

@@ -44,5 +44,6 @@
 -(NSSet*)playersInPartOfPoint;
 -(BOOL)isPeriodEnd;
 -(CessationEvent*)getPeriodEnd;
+-(void)useSharedPlayers;
 
 @end

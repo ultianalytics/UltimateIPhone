@@ -69,6 +69,11 @@
     return ps;
 }
 
+-(void)useSharedPlayers {
+    self.fromPlayer = [Player replaceWithSharedPlayer: self.fromPlayer];
+    self.toPlayer = [Player replaceWithSharedPlayer: self.toPlayer];
+}
+
 - (NSString* )description {
     NSString* reasonDescription = self.reason == SubstitutionReasonOther ? @"" : @" (injury)";
     return [NSString stringWithFormat:@"%@ in for %@%@", self.toPlayer.name, self.fromPlayer.name, reasonDescription];

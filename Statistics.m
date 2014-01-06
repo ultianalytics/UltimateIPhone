@@ -45,7 +45,7 @@
     return pointFactorPerPlayer;
 }
 
-// Answer a dictionary (key=player id, value=NSNumber with int) of all of the players' points in the game
+// Answer a dictionary (key=player id, value=PlayerStat) of all of the players' number of points in the game
 +(NSDictionary*)pointsPerPlayer: (Game*) game includeOffense: (BOOL) includeO includeDefense: (BOOL) includeD {
     NSMutableDictionary* pointsPerPlayer = [[NSMutableDictionary alloc] init];
     for (UPoint* point in [game points]) {
@@ -110,7 +110,7 @@
             OffenseEvent* event = (OffenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        } else  if (eventDetails.event.action == Callahan) {
+        } else  if (eventDetails.event.action == Callahan && [eventDetails.event isDefense]) {
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
@@ -198,7 +198,7 @@
 
 +(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == De || eventDetails.event.action == Callahan) {
+        if ([eventDetails.event isDefense] && (eventDetails.event.action == De || eventDetails.event.action == Callahan)) {
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
@@ -322,11 +322,11 @@
 
 
 // Answer a dictionary (key = player id, value = PlayerStat.  The accumulatorBlock is called for each event.
-+(NSDictionary*)accumulateStatsPerPlayer: (Game*) game accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock {
-    NSMutableDictionary* statsPerPlayer = [[NSMutableDictionary alloc] init];
-    [self accumulateStatsPerPlayer:game inDictionary:statsPerPlayer accumulator:accumulatorBlock];
-    return statsPerPlayer;
-}
+//+(NSDictionary*)accumulateStatsPerPlayer: (Game*) game accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock {
+//    NSMutableDictionary* statsPerPlayer = [[NSMutableDictionary alloc] init];
+//    [self accumulateStatsPerPlayer:game inDictionary:statsPerPlayer accumulator:accumulatorBlock];
+//    return statsPerPlayer;
+//}
 
 // Accumulate stats in a dictionary (key = player id, value = PlayerStat).  The accumulatorBlock is called for each event.
 +(void)accumulateStatsPerPlayer: (Game*) game inDictionary: (NSMutableDictionary*) statsPerPlayer accumulator: (void (^)(StatsEventDetails* statsEventDetails))accumulatorBlock {

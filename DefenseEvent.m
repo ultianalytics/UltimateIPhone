@@ -110,7 +110,7 @@
 }
 
 - (BOOL) isTheirGoal {
-    return [self isGoal];
+    return self.action == Goal;
 }
 
 - (BOOL) isFinalEventOfPoint {

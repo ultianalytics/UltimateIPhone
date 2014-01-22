@@ -110,7 +110,7 @@
             OffenseEvent* event = (OffenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.receiver fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
-        } else  if (eventDetails.event.action == Callahan) {
+        } else  if (eventDetails.event.action == Callahan && [eventDetails.event isDefense]) {
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];
@@ -198,7 +198,7 @@
 
 +(NSArray*)dsPerPlayer: (Game*) game includeTournament: (BOOL) includeTournament {
     void (^statsAccumulator)(StatsEventDetails* statsEventDetails) = ^(StatsEventDetails* eventDetails) {
-        if (eventDetails.event.action == De || eventDetails.event.action == Callahan) {
+        if ([eventDetails.event isDefense] && (eventDetails.event.action == De || eventDetails.event.action == Callahan)) {
             DefenseEvent* event = (DefenseEvent*)eventDetails.event;
             PlayerStat* playerStat = [Statistics getStatForPlayer:event.defender fromStats:eventDetails.accumulatedStats statType:IntStat];
             playerStat.number = [NSNumber numberWithInt:[playerStat.number intValue] + 1];

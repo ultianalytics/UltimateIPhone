@@ -121,9 +121,7 @@ static TweetQueue* current = nil;
     NSLog(@"Sending tweet %@ to twitter", tweet.message);
     @try {
         // Build a twitter request
-//        TWRequest *postRequest = [[TWRequest alloc] initWithURL: [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
-//                                                     parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"] requestMethod:TWRequestMethodPOST];
-        SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodPOST URL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"]];
+        SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodPOST URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"]];
         // Post the request
         [postRequest setAccount:twitterAccount];
         

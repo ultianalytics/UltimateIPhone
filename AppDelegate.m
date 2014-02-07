@@ -106,7 +106,8 @@ UINavigationController* gameNavController;
     self.window.tintColor = [ColorMaster applicationTintColor];
     application.statusBarStyle = UIStatusBarStyleLightContent;  // Causes light text in status bar
     [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // Causes light text in nav bar
-    [UINavigationBar appearance].backgroundColor = uirgb(50,50,50);
+//    [UINavigationBar appearance].backgroundColor = uirgb(50,50,50);
+    [UINavigationBar appearance].backgroundColor = [UIColor blackColor];
     [UITabBar appearance].backgroundColor = [UIColor blackColor];
     [UITabBar appearance].barTintColor = [UIColor blackColor];
     

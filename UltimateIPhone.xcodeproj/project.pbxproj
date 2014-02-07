@@ -1086,6 +1086,7 @@
 				1AFFE85B15175EB0004B4590 /* sounds */,
 				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
+				1AFFE78215175D4A004B4590 /* Supporting Files */,
 				1A59838C15445D5900E97F09 /* Tests */,
 				1AFFE77A15175D4A004B4590 /* Frameworks */,
 				1AFFE77815175D4A004B4590 /* Products */,
@@ -1123,14 +1124,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1AFFE78115175D4A004B4590 /* UltimateIPhone */ = {
-			isa = PBXGroup;
-			children = (
-				1AFFE78215175D4A004B4590 /* Supporting Files */,
-			);
-			path = UltimateIPhone;
-			sourceTree = "<group>";
-		};
 		1AFFE78215175D4A004B4590 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1141,6 +1134,7 @@
 				1A68891E1578E9C0004A3CDB /* Settings.bundle */,
 			);
 			name = "Supporting Files";
+			path = UltimateIPhone;
 			sourceTree = "<group>";
 		};
 		1AFFE8D015176431004B4590 /* UI */ = {
@@ -1295,7 +1289,6 @@
 				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
 				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
 				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
-				1AFFE78115175D4A004B4590 /* UltimateIPhone */,
 				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
 				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
 			);

@@ -7,7 +7,6 @@
 //
 
 #import "ColorMaster.h"
-#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 
 @implementation ColorMaster
 
@@ -58,46 +57,46 @@ static UIColor* linePlayerImbalanceWarningGirls;
 static UIColor* linePlayerImbalanceWarningBoys;
 
 + (void) initialize {
-    scoreWinColor = RGB(25,102,25);  // shade of green
-    scoreLoseColor = RGB(178,5,0);  // shade of red
+    scoreWinColor = uirgb(25,102,25);  // shade of green
+    scoreLoseColor = uirgb(178,5,0);  // shade of red
     
     // grayish sapphire blue  http://www.perbang.dk/rgb/10131C/
     // darkest to lightest
-    //linePlayerButtonColor7 = RGB(0,6,25);
-    linePlayerButtonColor6 = RGB(25,31,51);
-    linePlayerButtonColor5 = RGB(51,57,76);
-    linePlayerButtonColor4 = RGB(76,82,102);
-    linePlayerButtonColor3 = RGB(102,108,127);
-    linePlayerButtonColor2 = RGB(127,133,153);
-    linePlayerButtonColor1 = RGB(153,159,178);
-    linePlayerButtonColor0 = RGB(178,184,204);
-    //linePlayerButtonColor0 = RGB(204,210,229);
-    //linePlayerButtonColor0 = RGB(229,235,255);
+    //linePlayerButtonColor7 = uirgb(0,6,25);
+    linePlayerButtonColor6 = uirgb(25,31,51);
+    linePlayerButtonColor5 = uirgb(51,57,76);
+    linePlayerButtonColor4 = uirgb(76,82,102);
+    linePlayerButtonColor3 = uirgb(102,108,127);
+    linePlayerButtonColor2 = uirgb(127,133,153);
+    linePlayerButtonColor1 = uirgb(153,159,178);
+    linePlayerButtonColor0 = uirgb(178,184,204);
+    //linePlayerButtonColor0 = uirgb(204,210,229);
+    //linePlayerButtonColor0 = uirgb(229,235,255);
     linePlayerButtonColors = [[NSArray alloc] initWithObjects:linePlayerButtonColor0, linePlayerButtonColor1, linePlayerButtonColor2,linePlayerButtonColor3,linePlayerButtonColor4,linePlayerButtonColor5,linePlayerButtonColor6,nil];
     
-    linePlayerButtonPositionColorLight = RGB(204,178,229);
-    linePlayerButtonPositionColorDark = RGB(128,108,153);
-    linePlayerButtonPointsColorLight = RGB(229,219,153);
-    linePlayerButtonPointsColorDark = RGB(102,94,51);
+    linePlayerButtonPositionColorLight = uirgb(204,178,229);
+    linePlayerButtonPositionColorDark = uirgb(128,108,153);
+    linePlayerButtonPointsColorLight = uirgb(229,219,153);
+    linePlayerButtonPointsColorDark = uirgb(102,94,51);
     
     
-    darkButtonHighColor = RGB(102, 102, 102);
-    darkButtonLowColor = RGB(25, 25, 0);// #191900
+    darkButtonHighColor = uirgb(102, 102, 102);
+    darkButtonLowColor = uirgb(25, 25, 0);// #191900
     
-    massivelyDarkColor = RGB(25, 25, 0);// #191900
-    hugelyColor = RGB(51,51,0); // ##333300
-    veryVeryDarkColor = RGB(76,76,25); // #4C4C19
-    veryDarkColor = RGB(102,102,51); // #666633
-    almostVeryDarkColor = RGB(127,127,76); // #7F7F4C
-    darkerColor = RGB(153,153,102);  // #999966
-    darklightColor = RGB(173,173,132);  // ADAD84
-    darklightestColor = RGB(193,193,162);  // C1C1A2
-    lighterColor = RGB(204,204,153);  // #CCCC99
-    lighterishColor = RGB(232,228,196);  // #CCCC99
-    lightestColor =  RGB(255,255,204);  // #FFFFCC
+    massivelyDarkColor = uirgb(25, 25, 0);// #191900
+    hugelyColor = uirgb(51,51,0); // ##333300
+    veryVeryDarkColor = uirgb(76,76,25); // #4C4C19
+    veryDarkColor = uirgb(102,102,51); // #666633
+    almostVeryDarkColor = uirgb(127,127,76); // #7F7F4C
+    darkerColor = uirgb(153,153,102);  // #999966
+    darklightColor = uirgb(173,173,132);  // ADAD84
+    darklightestColor = uirgb(193,193,162);  // C1C1A2
+    lighterColor = uirgb(204,204,153);  // #CCCC99
+    lighterishColor = uirgb(232,228,196);  // #CCCC99
+    lightestColor =  uirgb(255,255,204);  // #FFFFCC
     
-    alarmingButtonHighColor = RGB(204,76,76);  // #CC4C4C
-    alarmingButtonLowColor = RGB(153,25,25);  // #991919
+    alarmingButtonHighColor = uirgb(204,76,76);  // #CC4C4C
+    alarmingButtonLowColor = uirgb(153,25,25);  // #991919
     
     offenseEventColor = lightestColor;
     defenseEventColor = darkerColor;
@@ -109,8 +108,8 @@ static UIColor* linePlayerImbalanceWarningBoys;
     
     navBarTintColor = veryDarkColor;
     
-    linePlayerImbalanceWarningBoys = RGB(153, 242, 255);  // #99F2FF 
-    linePlayerImbalanceWarningGirls = RGB(255, 178, 242);  // #FFB2F2  
+    linePlayerImbalanceWarningBoys = uirgb(153, 242, 255);  // #99F2FF 
+    linePlayerImbalanceWarningGirls = uirgb(255, 178, 242);  // #FFB2F2  
 
 }
 
@@ -237,7 +236,9 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)applicationTintColor {
-    return [UIColor redColor];
+//    return [UIColor redColor];
+//    return uihex(0x999919);  // ultimate tint green
+    return uirgb(131,187,44); // green
 }
 
 @end

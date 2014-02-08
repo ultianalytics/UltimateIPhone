@@ -110,6 +110,12 @@
 		1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8118A6A10300CE9662 /* 768-female.png */; };
 		1AA37B8418A6A10300CE9662 /* 768-female@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8218A6A10300CE9662 /* 768-female@2x.png */; };
 		1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37B8B18A6B65600CE9662 /* CellishView.m */; };
+		1AA37B9118A6C29D00CE9662 /* player_laying_out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8D18A6C29D00CE9662 /* player_laying_out@2x.png */; };
+		1AA37B9218A6C29D00CE9662 /* player_laying_out.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8E18A6C29D00CE9662 /* player_laying_out.png */; };
+		1AA37B9318A6C29D00CE9662 /* player@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8F18A6C29D00CE9662 /* player@2x.png */; };
+		1AA37B9418A6C29D00CE9662 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9018A6C29D00CE9662 /* player.png */; };
+		1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9518A6C5CB00CE9662 /* player_passing@2x.png */; };
+		1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9618A6C5CB00CE9662 /* player_passing.png */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -470,6 +476,12 @@
 		1AA37B8218A6A10300CE9662 /* 768-female@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "768-female@2x.png"; sourceTree = "<group>"; };
 		1AA37B8A18A6B65600CE9662 /* CellishView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellishView.h; sourceTree = "<group>"; };
 		1AA37B8B18A6B65600CE9662 /* CellishView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellishView.m; sourceTree = "<group>"; };
+		1AA37B8D18A6C29D00CE9662 /* player_laying_out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_laying_out@2x.png"; sourceTree = "<group>"; };
+		1AA37B8E18A6C29D00CE9662 /* player_laying_out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_laying_out.png; sourceTree = "<group>"; };
+		1AA37B8F18A6C29D00CE9662 /* player@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player@2x.png"; sourceTree = "<group>"; };
+		1AA37B9018A6C29D00CE9662 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
+		1AA37B9518A6C5CB00CE9662 /* player_passing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing@2x.png"; sourceTree = "<group>"; };
+		1AA37B9618A6C5CB00CE9662 /* player_passing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_passing.png; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1420,6 +1432,12 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37B9518A6C5CB00CE9662 /* player_passing@2x.png */,
+				1AA37B9618A6C5CB00CE9662 /* player_passing.png */,
+				1AA37B8D18A6C29D00CE9662 /* player_laying_out@2x.png */,
+				1AA37B8E18A6C29D00CE9662 /* player_laying_out.png */,
+				1AA37B8F18A6C29D00CE9662 /* player@2x.png */,
+				1AA37B9018A6C29D00CE9662 /* player.png */,
 				1AA37B8118A6A10300CE9662 /* 768-female.png */,
 				1AA37B8218A6A10300CE9662 /* 768-female@2x.png */,
 				1AA37B7D18A6A0F800CE9662 /* 769-male.png */,
@@ -1584,6 +1602,7 @@
 				1AFFE7F315175E7B004B4590 /* bad_smile.png in Resources */,
 				1AFFE7F415175E7B004B4590 /* beaten.png in Resources */,
 				1AFFE7F515175E7B004B4590 /* big_smile.png in Resources */,
+				1AA37B9218A6C29D00CE9662 /* player_laying_out.png in Resources */,
 				1AFFE7F615175E7B004B4590 /* black_heart.png in Resources */,
 				1AFFE7F715175E7B004B4590 /* catch_trans.gif in Resources */,
 				1AFFE7FC15175E7B004B4590 /* cry.png in Resources */,
@@ -1642,12 +1661,14 @@
 				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
 				1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */,
 				1AEE548C15293B350067F539 /* TwitterController.xib in Resources */,
+				1AA37B9118A6C29D00CE9662 /* player_laying_out@2x.png in Resources */,
 				1AEE549C15293DD30067F539 /* 210-twitterbird.png in Resources */,
 				1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */,
 				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
 				1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */,
 				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
 				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,
+				1AA37B9418A6C29D00CE9662 /* player.png in Resources */,
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
 				1AB332031544F1B500219FFD /* icon.png in Resources */,
 				1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */,
@@ -1678,9 +1699,12 @@
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
 				1A0E6601180074DA003BEB88 /* icon-80.png in Resources */,
+				1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
+				1AA37B9318A6C29D00CE9662 /* player@2x.png in Resources */,
+				1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */,
 				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
 				1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */,
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,

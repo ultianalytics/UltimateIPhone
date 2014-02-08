@@ -25,6 +25,7 @@
 +(UIImage*)getTheirCallahanImage;
 +(UIImage*)getMaleImage;
 +(UIImage*)getFemaleImage;
++(UIImage*)getNeutralGenderImage;
 +(UIImage*)getUnknownImage;
 
 @end

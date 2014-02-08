@@ -175,7 +175,11 @@
     if (isLeaguevinePlayers) {
         cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
     } else {
-        cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
+        if ([Team getCurrentTeam].isMixed) {
+            cell.imageView.image = player.isMale ?[ImageMaster getMaleImage] : [ImageMaster getFemaleImage];
+        } else {
+            cell.imageView.image = [ImageMaster getNeutralGenderImage];
+        }
     }
     
     return cell;

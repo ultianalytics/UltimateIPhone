@@ -59,7 +59,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nickname (required)" minimumFontSize="17" id="38" userLabel="name field">
                         <rect key="frame" x="113" y="5" width="187" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                     </textField>
                 </subviews>
@@ -82,7 +82,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Number (optional)" minimumFontSize="17" id="39" userLabel="number field">
                         <rect key="frame" x="113" y="5" width="187" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     </textField>
                 </subviews>

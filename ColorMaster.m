@@ -173,7 +173,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getActiveGameColor {
-    return activeGameColor;
+    return [self applicationTintColor];
 }
 
 +(UIColor*)getOffenseEventColor {

@@ -118,6 +118,9 @@ UINavigationController* gameNavController;
        NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0]}];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:18.0]} forState:UIControlStateNormal];
+    
+    // table view
+    [UITableView appearance].separatorColor = [ColorMaster separatorColor];
 
 
     

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FUISegmentedControl.h"
 
-@interface UltimateSegmentedControl : FUISegmentedControl
+@interface UltimateSegmentedControl : UISegmentedControl
 
 -(void)setSelection: (NSString*) title;
 -(NSString*)getSelection;

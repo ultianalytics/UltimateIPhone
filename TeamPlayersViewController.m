@@ -31,6 +31,7 @@
 @interface TeamPlayersViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *playersView;
+@property (strong, nonatomic) IBOutlet UIView *leaguevinePlayersView;
 @property (nonatomic, strong) IBOutlet UITableView* playersTableView;
 @property (nonatomic, strong) IBOutlet UILabel* playersTypeLabel;
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playersTypeSegmentedControl;
@@ -75,9 +76,9 @@
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         if ([[Team getCurrentTeam] arePlayersFromLeagueVine]) {
             [self updateLeagueVineRefreshButtonText];
-            y = 111;
+            y = 136;
         } else {
-            y = 54;
+            y = 78;
         }
     }
     CGRect newRect = self.view.bounds;
@@ -109,7 +110,6 @@
 {
     [super viewDidLoad];
     self.addNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName, nil]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

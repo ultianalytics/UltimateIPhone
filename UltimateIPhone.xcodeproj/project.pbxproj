@@ -105,6 +105,11 @@
 		1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A999EF516062B8F0015B891 /* leaguevine_logo.png */; };
 		1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */; };
 		1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */; };
+		1AA37B7F18A6A0F800CE9662 /* 769-male.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B7D18A6A0F800CE9662 /* 769-male.png */; };
+		1AA37B8018A6A0F800CE9662 /* 769-male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B7E18A6A0F800CE9662 /* 769-male@2x.png */; };
+		1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8118A6A10300CE9662 /* 768-female.png */; };
+		1AA37B8418A6A10300CE9662 /* 768-female@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B8218A6A10300CE9662 /* 768-female@2x.png */; };
+		1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37B8B18A6B65600CE9662 /* CellishView.m */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -459,6 +464,12 @@
 		1A999F0916063CDC0015B891 /* LeagueVineTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueVineTeamViewController.h; sourceTree = "<group>"; };
 		1A999F0A16063CDC0015B891 /* LeagueVineTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueVineTeamViewController.m; sourceTree = "<group>"; };
 		1A999F0B16063CDC0015B891 /* LeagueVineTeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueVineTeamViewController.xib; sourceTree = "<group>"; };
+		1AA37B7D18A6A0F800CE9662 /* 769-male.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "769-male.png"; sourceTree = "<group>"; };
+		1AA37B7E18A6A0F800CE9662 /* 769-male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "769-male@2x.png"; sourceTree = "<group>"; };
+		1AA37B8118A6A10300CE9662 /* 768-female.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "768-female.png"; sourceTree = "<group>"; };
+		1AA37B8218A6A10300CE9662 /* 768-female@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "768-female@2x.png"; sourceTree = "<group>"; };
+		1AA37B8A18A6B65600CE9662 /* CellishView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellishView.h; sourceTree = "<group>"; };
+		1AA37B8B18A6B65600CE9662 /* CellishView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellishView.m; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1258,6 +1269,8 @@
 				1AE5C6EF17902BF600B604FE /* UltimateViewController.m */,
 				1A0A2C8D17AE9C9F00035849 /* FlatButton.h */,
 				1A0A2C8E17AE9C9F00035849 /* FlatButton.m */,
+				1AA37B8A18A6B65600CE9662 /* CellishView.h */,
+				1AA37B8B18A6B65600CE9662 /* CellishView.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1407,6 +1420,10 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37B8118A6A10300CE9662 /* 768-female.png */,
+				1AA37B8218A6A10300CE9662 /* 768-female@2x.png */,
+				1AA37B7D18A6A0F800CE9662 /* 769-male.png */,
+				1AA37B7E18A6A0F800CE9662 /* 769-male@2x.png */,
 				1A047EFD171E4D04006DE1C9 /* finishflag.png */,
 				1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */,
 				1AC6613517164CB500DCFF58 /* 137-presentation.png */,
@@ -1563,6 +1580,7 @@
 				1AFFE7ED15175E7B004B4590 /* amazing.png in Resources */,
 				1AFFE7EE15175E7B004B4590 /* anger.png in Resources */,
 				1AFFE7F215175E7B004B4590 /* bad_egg.png in Resources */,
+				1AA37B8018A6A0F800CE9662 /* 769-male@2x.png in Resources */,
 				1AFFE7F315175E7B004B4590 /* bad_smile.png in Resources */,
 				1AFFE7F415175E7B004B4590 /* beaten.png in Resources */,
 				1AFFE7F515175E7B004B4590 /* big_smile.png in Resources */,
@@ -1612,6 +1630,7 @@
 				1AFFE8C315175EB0004B4590 /* unhappy.png in Resources */,
 				1AFFE8C515175EB0004B4590 /* victory.png in Resources */,
 				1AFFE8C615175EB0004B4590 /* what.png in Resources */,
+				1AA37B8418A6A10300CE9662 /* 768-female@2x.png in Resources */,
 				1AFFE8CA15175EB0004B4590 /* WindViewController.xib in Resources */,
 				1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */,
 				1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */,
@@ -1635,6 +1654,7 @@
 				1A80C96E15612067007F03C2 /* man@2x.png in Resources */,
 				1A80C96F15612067007F03C2 /* man.png in Resources */,
 				1A80C97315612192007F03C2 /* woman@2x.png in Resources */,
+				1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */,
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
 				1A80C9761561223C007F03C2 /* icon@2x.png in Resources */,
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
@@ -1646,6 +1666,7 @@
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
+				1AA37B7F18A6A0F800CE9662 /* 769-male.png in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
@@ -1814,6 +1835,7 @@
 				1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */,
 				1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */,
 				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
+				1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */,
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,

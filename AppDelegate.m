@@ -105,11 +105,21 @@ UINavigationController* gameNavController;
 -(void)setupGlobalAppearance: (UIApplication *)application {
     self.window.tintColor = [ColorMaster applicationTintColor];
     application.statusBarStyle = UIStatusBarStyleLightContent;  // Causes light text in status bar
-    [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // Causes light text in nav bar
-//    [UINavigationBar appearance].backgroundColor = uirgb(50,50,50);
-    [UINavigationBar appearance].backgroundColor = [UIColor blackColor];
+    
+    // tab bar
     [UITabBar appearance].backgroundColor = [UIColor blackColor];
     [UITabBar appearance].barTintColor = [UIColor blackColor];
+    
+    // nav bar
+    [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // Causes light text in nav bar
+    [UINavigationBar appearance].backgroundColor = uirgb(50,50,50);
+    [UINavigationBar appearance].backgroundColor = [UIColor blackColor];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [ColorMaster titleBarColor],
+       NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0]}];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:18.0]} forState:UIControlStateNormal];
+
+
     
     
         // TODO...delete commented lines when done converting to iOS7

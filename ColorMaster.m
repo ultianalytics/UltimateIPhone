@@ -236,9 +236,19 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)applicationTintColor {
-//    return [UIColor redColor];
-//    return uihex(0x999919);  // ultimate tint green
-    return uirgb(131,187,44); // green
+    return uirgb(132,188,44); // light green
+}
+
++(UIColor*)titleBarColor {
+    return [self lightBackgroundColor];
+}
+
++(UIColor*)lightBackgroundColor {
+    return uirgb(236, 235, 232);
+}
+
++(UIColor*)separatorColor {
+    return uirgb(213, 212, 216);
 }
 
 @end

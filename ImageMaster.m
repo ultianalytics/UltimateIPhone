@@ -42,8 +42,8 @@ static UIImage* unknownImage = nil;
     ourCallahanImage = [UIImage imageNamed:@"victory.png"];
     theirCallahanImage = [UIImage imageNamed:@"shocked"];
     unknownImage = [UIImage imageNamed:@"hearts.png"];
-    maleImage = [UIImage imageNamed:@"big_smile.png"];
-    femaleImage = [UIImage imageNamed:@"girl.png"];
+    maleImage = [UIImage imageNamed:@"769-male.png"];
+    femaleImage = [UIImage imageNamed:@"768-female.png"];
     cessationImage = [UIImage imageNamed:@"stopwatch1.png"];
     gameoverImage = [UIImage imageNamed:@"finishflag.png"];
 }

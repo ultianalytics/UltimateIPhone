@@ -43,5 +43,8 @@
 +(void)styleAsWhiteLabel: (UILabel*) label size: (CGFloat) size;
 
 +(UIColor*)applicationTintColor;
++(UIColor*)titleBarColor;
++(UIColor*)lightBackgroundColor;
++(UIColor*)separatorColor;
 
 @end

@@ -9,48 +9,13 @@
 #import "UltimateSegmentedControl.h"
 #import "ColorMaster.h"
 
-// private methods definitiosn (using class extenstions)
-@interface UltimateSegmentedControl() 
+@interface UltimateSegmentedControl()
 
 
 @end
 
 @implementation UltimateSegmentedControl
 
-+ (void)initialize {
-    if (self == [UltimateSegmentedControl class]) {
-        UltimateSegmentedControl *appearance = [self appearance];
-        [appearance setCornerRadius:3.0f];
-        [appearance setSelectedColor:[UIColor blackColor]];
-        [appearance setDeselectedColor:[UIColor lightGrayColor]];
-        [appearance setDividerColor:[UIColor whiteColor]];
-        [appearance setSelectedFont:[UIFont boldSystemFontOfSize:15.0]];
-        [appearance setDeselectedFont:[UIFont systemFontOfSize:15.0]];
-        [appearance setSelectedFontColor:[UIColor whiteColor]];
-        [appearance setDeselectedFontColor:[UIColor whiteColor]];
-    }
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    self = [super initWithCoder:decoder];
-    if (self) {
-        [self setup];
-    }
-    return self; 
-}
-
--(void)layoutSubviews {
-    [super layoutSubviews];
-}
 
 -(void)setSelection: (NSString*) selectionTitle {
     // find the segment with this title and set it as the selection
@@ -70,13 +35,6 @@
 -(void)setSelectedSegmentIndex: (NSInteger) selectedSegmentIndex {
     super.selectedSegmentIndex = selectedSegmentIndex;
 }
-
-// private methods
-
--(void)setup {
-    
-}
-
 
 
 

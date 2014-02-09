@@ -8,7 +8,7 @@
 
 #import "StatsViewController.h"
 #import "ColorMaster.h"
-#import "StandardButton.h"
+#import "GreyButton.h"
 #import "Statistics.h"
 #import "PlayerStat.h"
 #import "Game.h"
@@ -152,14 +152,6 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    statTypeTableView.backgroundColor = [ColorMaster getBenchRowColor];
-    playerStatsTableView.backgroundColor = [ColorMaster getBenchRowColor];
-    // Do any additional setup after loading the view from its nib.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updatePlayerStats];
@@ -206,7 +198,6 @@
         cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
-        cell.backgroundColor = [ColorMaster getBenchRowColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UIView* contentView = cell.contentView;
@@ -214,27 +205,26 @@
         for (UIView *view in [contentView subviews]) {
             [view removeFromSuperview];
         }
+        cell.backgroundColor = [UIColor clearColor];
         
         // stat type table
         if (tableView == statTypeTableView) {
             CGRect buttonRectangle = CGRectMake(kButtonMargin, kButtonMargin, 140, kStatTypeRowHieght - (kButtonMargin * 2));
-            StandardButton* button = [[StandardButton alloc] initWithFrame:buttonRectangle];
+            GreyButton* button = [[GreyButton alloc] initWithFrame:buttonRectangle];
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentView addSubview:button];
             
-            // player stats table
+        // player stats table
         } else {
             // (0.) name label
             UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, kStatRowHieght)];
             label.adjustsFontSizeToFitWidth = YES;
             label.font = [UIFont boldSystemFontOfSize: 16];
-            label.backgroundColor = [ColorMaster getBenchRowColor];
             [contentView addSubview:label];
             // (1.) stat label
             label = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 40, kStatRowHieght)];
             [label setTextAlignment:NSTextAlignmentRight];
-            label.textColor = [UIColor blueColor];
-            label.backgroundColor = [ColorMaster getBenchRowColor];
+            label.textColor = [UIColor blackColor];
             [contentView addSubview:label];
         }
     }
@@ -246,7 +236,7 @@
         [statTypeButton setTitle:statType forState:UIControlStateNormal];
         [statTypeButton setSelected: [statType isEqualToString: self.currentStat]];
         
-        // player stats table
+    // player stats table
     } else {
         UILabel* nameLabel = [cell.contentView.subviews objectAtIndex:0];
         UILabel* statLabel = [cell.contentView.subviews objectAtIndex:1];

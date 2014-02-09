@@ -116,6 +116,7 @@
 		1AA37B9418A6C29D00CE9662 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9018A6C29D00CE9662 /* player.png */; };
 		1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9518A6C5CB00CE9662 /* player_passing@2x.png */; };
 		1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9618A6C5CB00CE9662 /* player_passing.png */; };
+		1AA37B9B18A82CEB00CE9662 /* GreyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37B9A18A82CEB00CE9662 /* GreyButton.m */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -482,6 +483,8 @@
 		1AA37B9018A6C29D00CE9662 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
 		1AA37B9518A6C5CB00CE9662 /* player_passing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing@2x.png"; sourceTree = "<group>"; };
 		1AA37B9618A6C5CB00CE9662 /* player_passing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_passing.png; sourceTree = "<group>"; };
+		1AA37B9918A82CEB00CE9662 /* GreyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreyButton.h; sourceTree = "<group>"; };
+		1AA37B9A18A82CEB00CE9662 /* GreyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreyButton.m; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1246,6 +1249,8 @@
 		1AFFE8D415176470004B4590 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37B9918A82CEB00CE9662 /* GreyButton.h */,
+				1AA37B9A18A82CEB00CE9662 /* GreyButton.m */,
 				1AB78D051726B0DE003235AE /* SHSLogsMailer.h */,
 				1AB78D061726B0DE003235AE /* SHSLogsMailer.m */,
 				1A8CC5D517230C2100B8295C /* BufferedNavigationController.h */,
@@ -1798,6 +1803,7 @@
 				1AFFE8BA15175EB0004B4590 /* Statistics.m in Sources */,
 				1AFFE8BB15175EB0004B4590 /* StatsEventDetails.m in Sources */,
 				1AFFE8BC15175EB0004B4590 /* StatsViewController.m in Sources */,
+				1AA37B9B18A82CEB00CE9662 /* GreyButton.m in Sources */,
 				1AFFE8BF15175EB0004B4590 /* Team.m in Sources */,
 				1AFFE8C015175EB0004B4590 /* TeamViewController.m in Sources */,
 				1AFFE8C415175EB0004B4590 /* UPoint.m in Sources */,

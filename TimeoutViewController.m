@@ -26,12 +26,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *takenFirstHalf;
 @property (strong, nonatomic) IBOutlet UILabel *takenSecondHalf;
 @property (strong, nonatomic) IBOutlet UILabel *availableNow;
-@property (strong, nonatomic) IBOutlet UILabel *availableNowLabel;
 @property (strong, nonatomic) IBOutlet UILabel *takenFirstHalfLabel;
 @property (strong, nonatomic) IBOutlet UILabel *takenSecondHalfLabel;
 @property (strong, nonatomic) IBOutlet UIView *actionView;
-@property (strong, nonatomic) IBOutlet DarkButton *timeoutButton;
-@property (strong, nonatomic) IBOutlet RedButton *undoButton;
+@property (strong, nonatomic) IBOutlet UIView *timeoutButtonView;
+@property (strong, nonatomic) IBOutlet UIView *undoButtonView;
 
 @property (strong, nonatomic) TimeoutDetails* timeoutDetails;
 
@@ -69,37 +68,18 @@
     self.quotaFloatersSegmentedControl.selectedSegmentIndex = self.timeoutDetails.quotaFloaters;
     self.takenFirstHalf.text = [NSString stringWithFormat:@"%d", self.timeoutDetails.takenFirstHalf];
     self.takenSecondHalf.text = [NSString stringWithFormat:@"%d", self.timeoutDetails.takenSecondHalf];
-    self.takenFirstHalfLabel.font = is2ndHalf ? [UIFont systemFontOfSize:17] : [UIFont boldSystemFontOfSize:19];
-    self.takenSecondHalfLabel.font = is2ndHalf ? [UIFont boldSystemFontOfSize:19] : [UIFont systemFontOfSize:17];
+    self.takenSecondHalfLabel.font = is2ndHalf ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
     self.availableNow.text = [NSString stringWithFormat:@"%d", self.game.availableTimeouts];
-    self.availableNow.textColor = self.game.availableTimeouts > 0 ? [UIColor whiteColor] : [UIColor redColor];
+    self.availableNow.textColor = self.game.availableTimeouts > 0 ? [UIColor blackColor] : [UIColor redColor];
     
     // hide stuff that is not applicable
     self.actionView.hidden = !hasGameStarted;
-    self.timeoutButton.hidden = !(self.game.availableTimeouts > 0) && hasGameStarted;
-    self.undoButton.hidden = !(self.timeoutDetails.takenFirstHalf > 0 || self.timeoutDetails.takenSecondHalf > 0);
+    self.timeoutButtonView.hidden = !(self.game.availableTimeouts > 0) && hasGameStarted;
+    self.undoButtonView.hidden = !(self.timeoutDetails.takenFirstHalf > 0 || self.timeoutDetails.takenSecondHalf > 0);
     self.takenSecondHalf.hidden = !is2ndHalf;
     self.takenSecondHalfLabel.hidden = self.takenSecondHalf.hidden;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-    [self setQuotaPerHalfSegmentedControl:nil];
-    [self setQuotaFloatersSegmentedControl:nil];
-    [self setTakenFirstHalf:nil];
-    [self setTakenSecondHalf:nil];
-    [self setAvailableNow:nil];
-    [self setTimeoutButton:nil];
-    [self setUndoButton:nil];
-    [self setAvailableNowLabel:nil];
-    [self setTakenFirstHalfLabel:nil];
-    [self setTakenSecondHalfLabel:nil];
-    [self setActionView:nil];
-    [super viewDidUnload];
-}
 
 - (IBAction)quotaPerHalfChanged:(id)sender {
     self.timeoutDetails.quotaPerHalf = self.quotaPerHalfSegmentedControl.selectedSegmentIndex;

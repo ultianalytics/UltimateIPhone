@@ -57,8 +57,8 @@ static UIColor* linePlayerImbalanceWarningGirls;
 static UIColor* linePlayerImbalanceWarningBoys;
 
 + (void) initialize {
-    scoreWinColor = uirgb(25,102,25);  // shade of green
-    scoreLoseColor = uirgb(178,5,0);  // shade of red
+    scoreWinColor = [self applicationTintColor];
+    scoreLoseColor = [UIColor redColor];
     
     // grayish sapphire blue  http://www.perbang.dk/rgb/10131C/
     // darkest to lightest

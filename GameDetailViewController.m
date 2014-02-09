@@ -29,7 +29,7 @@
 #import "GameStartTimeViewController.h"
 
 #define kLowestGamePoint 9
-#define kHeaderHeight 40
+#define kHeaderHeight 50
 
 #define kAlertTitleDeleteGame @"Delete Game"
 #define kAlertLeaguevineStatsNotAllowedWithPrivatePlayers @"Team Not Setup for LV Stats"
@@ -66,8 +66,8 @@
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
 @property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;
-@property (nonatomic, strong) IBOutlet UIButton* deleteButton;
-@property (nonatomic, strong) IBOutlet UIButton* startButton;
+@property (nonatomic, strong) IBOutlet UIView* deleteButtonView;
+@property (nonatomic, strong) IBOutlet UIView* startButtonView;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* initialLine;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gamePointsSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
@@ -116,8 +116,9 @@
     }
     self.gamePointsSegmentedControl.selectedSegmentIndex = segmentIndex;    
     
-    self.deleteButton.hidden = ![self.game hasBeenSaved];
-    self.startButton.hidden = [self.game hasBeenSaved];
+    self.startButtonView.hidden = [self.game hasBeenSaved];
+    self.deleteButtonView.hidden = !self.startButtonView.hidden;
+    
     if ([self.game hasBeenSaved]) {
         UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(actionButtonTapped)];
         self.navigationItem.rightBarButtonItem = navBarActionButton;    
@@ -128,7 +129,6 @@
     [self populateLeaguevineCells];
     
     [self.tableView reloadData];
-    [self addFooterButton];
 }
 
 -(BOOL)verifyOpponentName {
@@ -154,14 +154,6 @@
 
 -(NSString*) getText: (UITextField*) textField {
     return textField.text == nil ? @"" : [textField.text trim];
-}
-
--(void)addFooterButton {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
-    UIButton* footerButton = [self.game hasBeenSaved] ? self.deleteButton : self.startButton;
-    footerButton.frame = CGRectMake(95, 0, footerButton.frame.size.width, footerButton.frame.size.height);
-    [headerView addSubview: footerButton];
-    self.tableView.tableFooterView = headerView;
 }
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
@@ -581,7 +573,7 @@
         dateButton.layer.cornerRadius = 5;
         dateButton.layer.masksToBounds = YES;
         dateButton.titleLabel.font = [UIFont systemFontOfSize:16];
-        [dateButton setTintColor:[ColorMaster darkGrayColor]];
+        [dateButton setTitleColor:[ColorMaster darkGrayColor] forState:UIControlStateNormal];
         dateButton.backgroundColor = [UIColor clearColor];
         [dateButton setTitle:dateText forState:UIControlStateNormal];
         [dateButton addTarget:self action:@selector(dateTimeButtonTapped) forControlEvents:UIControlEventTouchUpInside];

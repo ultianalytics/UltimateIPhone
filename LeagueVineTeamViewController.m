@@ -25,7 +25,7 @@
 @interface LeagueVineTeamViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
-@property (strong, nonatomic) IBOutlet UIButton *clearLeaguevineButton;
+@property (strong, nonatomic) IBOutlet UIView *clearLeaguevineButtonView;
 
 @property (strong, nonatomic) LeaguevineClient* client;
 @property (nonatomic, strong) LeaguevineLeague* league;
@@ -61,22 +61,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.clearLeaguevineButton.hidden = !self.team.leaguevineTeam;
+    self.clearLeaguevineButtonView.hidden = !self.team.leaguevineTeam;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [self refresh];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-
-    [self setClearLeaguevineButton:nil];
-    [super viewDidUnload];
 }
 
 #pragma mark Event handling
@@ -115,7 +104,7 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
@@ -131,12 +120,12 @@
     UIView* headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, kHeaderHeight)];
     headerView.backgroundColor = [UIColor clearColor];
     UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, kHeaderHeight)];
-    headerLabel.font = [UIFont boldSystemFontOfSize:18];
+    headerLabel.font = [UIFont boldSystemFontOfSize:16];
     headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.shadowColor = [UIColor blackColor];
+    headerLabel.textColor = uirgb(134,134,134);
+    headerLabel.shadowColor = [UIColor whiteColor];
     headerLabel.shadowOffset = CGSizeMake(0, 1);
-    headerLabel.text = [NSString stringWithFormat:@"%@:", [self sectionName:section]];
+    headerLabel.text = [self sectionName:section];
     [headerView addSubview:headerLabel];
     return headerView;
 }

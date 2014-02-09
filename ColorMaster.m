@@ -118,7 +118,7 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getSearchBarTintColor {
-    return almostVeryDarkColor;
+    return [self lightBackgroundColor];
 }
 
 +(UIColor*)getNormalButtonHighColor {

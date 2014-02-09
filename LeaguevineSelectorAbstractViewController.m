@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.searchBar.barTintColor = [ColorMaster getSearchBarTintColor];
+//    self.searchBar.barTintColor = [ColorMaster lightBackgroundColor];
     [self showWaitingView];
     [self refresh];
 }

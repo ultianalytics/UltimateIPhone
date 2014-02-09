@@ -351,6 +351,10 @@
     return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kFormCellHeight;
+}
+
 #pragma mark Leaguevine
 
 -(void)handleLeaguevineTeamNeedsSelection {

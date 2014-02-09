@@ -16,6 +16,7 @@
 #define kAnonymousTeam @"Anonymous Team"
 #define STD_ROW_TYPE @"stdRowType"
 #define kSingleSectionGroupedTableSectionHeaderHeight 1
+#define kFormCellHeight 41
 
 typedef struct {
     int ours;

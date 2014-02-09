@@ -47,9 +47,9 @@
                             <rect key="frame" x="0.0" y="220" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <size key="shadowOffset" width="0.0" height="1"/>
                         </label>
                     </subviews>

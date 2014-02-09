@@ -26,8 +26,8 @@
 @interface LeagueVineGameViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
-@property (strong, nonatomic) IBOutlet UIButton *clearLeaguevineButton;
-@property (strong, nonatomic) IBOutlet UIButton *websiteButton;
+@property (strong, nonatomic) IBOutlet UIView *clearLeaguevineButtonView;
+@property (strong, nonatomic) IBOutlet UIView *websiteButtonView;
 
 @property (strong, nonatomic) LeaguevineClient* client;
 @property (nonatomic, strong) LeaguevineTournament* leaguevineTournament;
@@ -62,17 +62,6 @@
 {
     [super viewDidLoad];
     [self refresh];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-
-    [self setClearLeaguevineButton:nil];
-    [super viewDidUnload];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -118,7 +107,7 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:STD_ROW_TYPE];
         cell.backgroundColor = [ColorMaster getFormTableCellColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
@@ -140,10 +129,10 @@
     UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, kHeaderHeight)];
     headerLabel.font = [UIFont boldSystemFontOfSize:18];
     headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.shadowColor = [UIColor blackColor];
+    headerLabel.textColor = uirgb(134,134,134);
+    headerLabel.shadowColor = [UIColor whiteColor];
     headerLabel.shadowOffset = CGSizeMake(0, 1);
-    headerLabel.text = [NSString stringWithFormat:@"%@:", [self sectionName:section]];
+    headerLabel.text = [self sectionName:section];
     [headerView addSubview:headerLabel];
     return headerView;
 }
@@ -250,8 +239,8 @@
     } else {
         [self removeDoneButton];
     }
-    self.clearLeaguevineButton.hidden = !self.game.leaguevineGame;
-    self.websiteButton.hidden = !self.leaguevineGame;
+    self.clearLeaguevineButtonView.hidden = !self.game.leaguevineGame;
+    self.websiteButtonView.hidden = !self.leaguevineGame;
 }
 
 

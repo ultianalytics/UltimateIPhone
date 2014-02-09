@@ -6,10 +6,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LeagueVineGameViewController">
             <connections>
-                <outlet property="clearLeaguevineButton" destination="25" id="26"/>
+                <outlet property="clearLeaguevineButtonView" destination="0ZM-nR-Q5p" id="uKd-jl-HhF"/>
                 <outlet property="mainTableView" destination="4" id="22"/>
                 <outlet property="view" destination="1" id="3"/>
-                <outlet property="websiteButton" destination="28" id="30"/>
+                <outlet property="websiteButtonView" destination="VXn-HL-UGm" id="RWv-Hf-470"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,26 +27,42 @@
                         <outlet property="delegate" destination="-1" id="24"/>
                     </connections>
                 </tableView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="25">
-                    <rect key="frame" x="20" y="256" width="280" height="37"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Clear Leaguevine Linkage">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="clearLeaguevinePressed:" destination="-1" eventType="touchUpInside" id="27"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="28" customClass="DarkButton">
-                    <rect key="frame" x="20" y="315" width="280" height="37"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Leaguevine Website">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="websiteButtonPressed:" destination="-1" eventType="touchUpInside" id="31"/>
-                    </connections>
-                </button>
+                <view hidden="YES" contentMode="scaleToFill" id="0ZM-nR-Q5p" userLabel="Clear linkage button view" customClass="CellishView">
+                    <rect key="frame" x="0.0" y="256" width="320" height="38"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="25">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="Clear Leaguevine Linkage">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="clearLeaguevinePressed:" destination="-1" eventType="touchUpInside" id="27"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" id="VXn-HL-UGm" userLabel="Leaguevine website button view" customClass="CellishView">
+                    <rect key="frame" x="0.0" y="315" width="320" height="38"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="28">
+                            <rect key="frame" x="20" y="1" width="280" height="37"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="Leaguevine Website">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="websiteButtonPressed:" destination="-1" eventType="touchUpInside" id="31"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

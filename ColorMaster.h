@@ -46,5 +46,6 @@
 +(UIColor*)titleBarColor;
 +(UIColor*)lightBackgroundColor;
 +(UIColor*)separatorColor;
++(UIColor*)darkGrayColor;
 
 @end

@@ -53,6 +53,8 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* timeoutsCell;
 
+@property (strong, nonatomic) IBOutlet UIView *footerView;
+
 @property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tournamentOrPubCell;
 @property (strong, nonatomic) IBOutlet UIView *opponentView;
@@ -568,20 +570,20 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([self.game hasBeenSaved]) {
         UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, kHeaderHeight)];
-        headerView.backgroundColor = [UIColor clearColor];
+        headerView.backgroundColor = [ColorMaster lightBackgroundColor];
         
         // start time
         NSString* dateText = self.game.startDateTime ? [self.dateFormat stringFromDate:self.game.startDateTime] : @"Start Time Unknown";
         CGFloat buttonMargin = 5;
         UIButton* dateButton = [[UIButton alloc] initWithFrame:CGRectMake(10, buttonMargin, 190, kHeaderHeight - (buttonMargin * 2))];
         [dateButton.layer setBorderWidth:1.0f];
-        [dateButton.layer setBorderColor:[ColorMaster getSegmentControlDarkTintColor].CGColor];
+        [dateButton.layer setBorderColor:[ColorMaster darkGrayColor].CGColor];
         dateButton.layer.cornerRadius = 5;
         dateButton.layer.masksToBounds = YES;
+        dateButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [dateButton setTintColor:[ColorMaster darkGrayColor]];
         dateButton.backgroundColor = [UIColor clearColor];
-        [ColorMaster styleAsWhiteLabel:dateButton.titleLabel size:16];
         [dateButton setTitle:dateText forState:UIControlStateNormal];
-        [dateButton setTitle:dateText forState:UIControlStateHighlighted];
         [dateButton addTarget:self action:@selector(dateTimeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:dateButton];
         
@@ -611,12 +613,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.rowHeight = 34;
+    self.tableView.rowHeight = kFormCellHeight;
+    self.tableView.tableFooterView = self.footerView;
     
     self.gameTypeSegmentedControl.apportionsSegmentWidthsByContent = YES;
     self.gameTypeSegmentedControl.selectedSegmentIndex = 0;
     self.gamePointsSegmentedControl.apportionsSegmentWidthsByContent = YES;
-    self.initialLine.tintColor = [ColorMaster getNavBarTintColor];    
     
     [self.opposingTeamNameField addTarget:self action:@selector(opponentNameChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.tournamentNameField addTarget:self action:@selector(tournamendNameChanged:) forControlEvents:UIControlEventEditingChanged];

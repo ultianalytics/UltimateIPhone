@@ -251,4 +251,8 @@ static UIColor* linePlayerImbalanceWarningBoys;
     return uirgb(213, 212, 216);
 }
 
++(UIColor*)darkGrayColor {
+    return uirgb(68, 68, 68);
+}
+
 @end

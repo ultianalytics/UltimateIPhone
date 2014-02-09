@@ -22,12 +22,21 @@
 
 @interface TwitterController()
 
+@property (nonatomic, strong) IBOutlet UITableView* twitterTableView;
+@property (nonatomic, strong) IBOutlet UITableView* tweetLogTableView;
+
+@property (nonatomic, strong) IBOutlet UITableViewCell* tweetEveryEventCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* twitterAccountCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* recentTweetsCell;
+@property (nonatomic, strong) IBOutlet UILabel* twitterAccountNameLabel;
+
+@property (nonatomic, strong) IBOutlet UISegmentedControl* autoTweetSegmentedControl;
+
 -(void)populateAccountCell;
 
 @end
 
 @implementation TwitterController
-@synthesize twitterTableView,tweetEveryEventCell, tweetButtonCell, autoTweetSegmentedControl, twitterAccountCell, twitterAccountNameLabel,tweetLogTableView,recentTweetsCell;
 
 + (void)showNoConnectivityAlert {
     UIAlertView *alert = [[UIAlertView alloc] 
@@ -74,7 +83,7 @@
 
 -(void)populateViewFromModel {;
     self.autoTweetSegmentedControl.selectedSegmentIndex = [[Tweeter getCurrent] getAutoTweetLevel];
-    [twitterTableView reloadData];
+    [self.twitterTableView reloadData];
 }
 
 -(void)populateAccountCell {
@@ -89,9 +98,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([[Tweeter getCurrent] getTwitterAccountName]) {
-        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, twitterAccountCell, tweetEveryEventCell, recentTweetsCell, nil];
+        twitterCells = @[self.twitterAccountCell, self.tweetEveryEventCell, self.recentTweetsCell];
     } else {
-        twitterCells = [NSArray arrayWithObjects:tweetButtonCell, tweetEveryEventCell, recentTweetsCell, nil];
+        twitterCells = @[self.tweetEveryEventCell, self.recentTweetsCell];
     }
     return [twitterCells count];
 }
@@ -105,12 +114,16 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kFormCellHeight;
+}
+
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
     UITableViewCell* cell = [twitterCells objectAtIndex:[indexPath row]];
-    if (cell == twitterAccountCell && ![self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
+    if (cell == self.twitterAccountCell && ![self.twitterAccountNameLabel.text isEqualToString: kNoAccountText]) {
         TwitterAccountPickViewController* pickController = [[TwitterAccountPickViewController alloc] init];
         [self.navigationController pushViewController:pickController animated: YES];
-    } else if (cell == recentTweetsCell) {
+    } else if (cell == self.recentTweetsCell) {
         TweetLogViewController* logController = [[TweetLogViewController alloc] init];
         [self.navigationController pushViewController:logController animated:YES];                                
     }
@@ -147,7 +160,6 @@
                                              selector: @selector(populateView)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
                                                object: nil];
-    self.autoTweetSegmentedControl.tintColor = [ColorMaster getNavBarTintColor];
     [self populateView];
 }
 

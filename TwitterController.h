@@ -15,17 +15,6 @@
     UIAlertView* busyView;
 }
 
-@property (nonatomic, strong) IBOutlet UITableView* twitterTableView;
-@property (nonatomic, strong) IBOutlet UITableView* tweetLogTableView;
-
-@property (nonatomic, strong) IBOutlet UITableViewCell* tweetEveryEventCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* tweetButtonCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* twitterAccountCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* recentTweetsCell;
-@property (nonatomic, strong) IBOutlet UILabel* twitterAccountNameLabel;
-
-@property (nonatomic, strong) IBOutlet UISegmentedControl* autoTweetSegmentedControl;
-
 +(void)showNoConnectivityAlert;
 
 -(IBAction)autoTweetChanged: (id) sender;

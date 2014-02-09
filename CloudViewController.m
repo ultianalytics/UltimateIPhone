@@ -329,9 +329,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = [Team getCurrentTeam].cloudId == nil ? 
-    @[self.uploadCell, self.downloadTeamCell, self.userCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell] :
-    @[self.uploadCell, self.downloadTeamCell, self.downloadGameCell, self.userCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
+    cloudCells = @[self.userCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
     return [cloudCells count];
 }
 

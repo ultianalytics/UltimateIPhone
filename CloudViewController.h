@@ -23,9 +23,6 @@
 
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
 
-@property (nonatomic, strong) IBOutlet UITableViewCell* uploadCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* downloadTeamCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* downloadGameCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;

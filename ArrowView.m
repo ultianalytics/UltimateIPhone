@@ -52,8 +52,8 @@
     cosy = cos(slopy);
     siny = sin(slopy);
     
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor blueColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
     
     //draw a line between the 2 endpoint
     CGContextMoveToPoint(context, from.x - length * cosy, from.y - length * siny );

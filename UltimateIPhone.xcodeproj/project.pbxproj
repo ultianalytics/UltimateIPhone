@@ -126,6 +126,10 @@
 		1AA37BB018A8619700CE9662 /* color6DB200Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */; };
 		1AA37BB118A8619700CE9662 /* color7CCC00Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */; };
 		1AA37BB318A904F700CE9662 /* color0F1900Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB218A904F700CE9662 /* color0F1900Radius3.png */; };
+		1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB418A9185100CE9662 /* 19-circle-check.png */; };
+		1AA37BB918A9185100CE9662 /* 19-circle-check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */; };
+		1AA37BBA18A9185100CE9662 /* 26-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB618A9185100CE9662 /* 26-checkmark.png */; };
+		1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -501,6 +505,10 @@
 		1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color6DB200Radius3.png; sourceTree = "<group>"; };
 		1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color7CCC00Radius3.png; sourceTree = "<group>"; };
 		1AA37BB218A904F700CE9662 /* color0F1900Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color0F1900Radius3.png; sourceTree = "<group>"; };
+		1AA37BB418A9185100CE9662 /* 19-circle-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-circle-check.png"; sourceTree = "<group>"; };
+		1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-circle-check@2x.png"; sourceTree = "<group>"; };
+		1AA37BB618A9185100CE9662 /* 26-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark.png"; sourceTree = "<group>"; };
+		1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark@2x.png"; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1447,6 +1455,10 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BB418A9185100CE9662 /* 19-circle-check.png */,
+				1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */,
+				1AA37BB618A9185100CE9662 /* 26-checkmark.png */,
+				1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */,
 				1AA37BB218A904F700CE9662 /* color0F1900Radius3.png */,
 				1AA37BA418A8619700CE9662 /* color1F3300Radius3.png */,
 				1AA37BA518A8619700CE9662 /* color2E4C00Radius3.png */,
@@ -1624,6 +1636,8 @@
 				1AFFE7EB15175E7B004B4590 /* 255-box@2x.png in Resources */,
 				1AFFE7ED15175E7B004B4590 /* amazing.png in Resources */,
 				1AFFE7EE15175E7B004B4590 /* anger.png in Resources */,
+				1AA37BBA18A9185100CE9662 /* 26-checkmark.png in Resources */,
+				1AA37BB918A9185100CE9662 /* 19-circle-check@2x.png in Resources */,
 				1AFFE7F215175E7B004B4590 /* bad_egg.png in Resources */,
 				1AA37B8018A6A0F800CE9662 /* 769-male@2x.png in Resources */,
 				1AFFE7F315175E7B004B4590 /* bad_smile.png in Resources */,
@@ -1703,10 +1717,12 @@
 				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,
 				1AA37B9418A6C29D00CE9662 /* player.png in Resources */,
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
+				1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */,
 				1AB332031544F1B500219FFD /* icon.png in Resources */,
 				1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */,
 				1A80C96E15612067007F03C2 /* man@2x.png in Resources */,
 				1A80C96F15612067007F03C2 /* man.png in Resources */,
+				1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */,
 				1A80C97315612192007F03C2 /* woman@2x.png in Resources */,
 				1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */,
 				1A80C97415612192007F03C2 /* woman.png in Resources */,

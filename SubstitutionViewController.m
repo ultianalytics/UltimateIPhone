@@ -168,10 +168,6 @@
 }
 
 -(void)stylize {
-    [ColorMaster styleAsWhiteLabel:self.playerInLabel size:16];
-    [ColorMaster styleAsWhiteLabel:self.playerOutLabel size:16];
-    self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 -(PlayerSelectionTableViewCell*)createCell {

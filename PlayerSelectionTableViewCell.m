@@ -50,7 +50,7 @@
 
 - (void)setChosen:(BOOL)isChosen {
     self.checkImageView.hidden = !isChosen;
-    self.label.textColor = isChosen ? [UIColor whiteColor] : [UIColor blackColor];
+    self.label.textColor = isChosen ? [UIColor blackColor] : [UIColor darkGrayColor];
 }
 
 -(NSString*)reuseIdentifier {

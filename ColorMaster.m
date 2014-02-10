@@ -189,11 +189,11 @@ static UIColor* linePlayerImbalanceWarningBoys;
 }
 
 +(UIColor*)getLinePlayerPositionColor: (BOOL) dark {
-    return dark ? linePlayerButtonPositionColorDark : linePlayerButtonPositionColorLight;
+    return dark ? [ColorMaster darkGrayColor] : [ColorMaster darkGrayColor];
 }
 
 +(UIColor*)getLinePlayerPointsColor: (BOOL) dark {
-    return dark ? linePlayerButtonPointsColorDark : linePlayerButtonPointsColorLight;
+    return dark ? [UIColor whiteColor] : [UIColor whiteColor];
 }
 
 +(UIColor*)getBenchRowColor {

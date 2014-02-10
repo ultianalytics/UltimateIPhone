@@ -205,6 +205,9 @@ static UIImage* unknownImage = nil;
         case 6:
             return [[UIImage imageNamed:@"color1F3300Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
             break;
+        case 7:
+            return [[UIImage imageNamed:@"color1F3300Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
         default:
             return [[UIImage imageNamed:@"color1F3300Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
             break;

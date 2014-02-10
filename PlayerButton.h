@@ -17,7 +17,7 @@
     id<PlayerButtonListener> __strong listener; 
 }
 
-@property (nonatomic, strong) IBOutlet PlayerButtonActual* button;
+@property (nonatomic, strong) IBOutlet UIButton* button;
 @property (nonatomic, strong) IBOutlet UILabel* nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel* positionLabel;
 @property (nonatomic, strong) IBOutlet UILabel* pointsLabel;

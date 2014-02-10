@@ -125,6 +125,7 @@
 		1AA37BAF18A8619700CE9662 /* color5D9900Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA818A8619700CE9662 /* color5D9900Radius3.png */; };
 		1AA37BB018A8619700CE9662 /* color6DB200Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */; };
 		1AA37BB118A8619700CE9662 /* color7CCC00Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */; };
+		1AA37BB318A904F700CE9662 /* color0F1900Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB218A904F700CE9662 /* color0F1900Radius3.png */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -500,6 +501,7 @@
 		1AA37BA818A8619700CE9662 /* color5D9900Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color5D9900Radius3.png; sourceTree = "<group>"; };
 		1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color6DB200Radius3.png; sourceTree = "<group>"; };
 		1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color7CCC00Radius3.png; sourceTree = "<group>"; };
+		1AA37BB218A904F700CE9662 /* color0F1900Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color0F1900Radius3.png; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1450,6 +1452,7 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BB218A904F700CE9662 /* color0F1900Radius3.png */,
 				1AA37BA418A8619700CE9662 /* color1F3300Radius3.png */,
 				1AA37BA518A8619700CE9662 /* color2E4C00Radius3.png */,
 				1AA37BA618A8619700CE9662 /* color3E6600Radius3.png */,
@@ -1730,6 +1733,7 @@
 				1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */,
 				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
 				1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */,
+				1AA37BB318A904F700CE9662 /* color0F1900Radius3.png in Resources */,
 				1AC93B781629F67200E26007 /* check.png in Resources */,
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,

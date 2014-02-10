@@ -11,6 +11,9 @@
 #import "Team.h"
 #import "PlayerButtonActual.h"
 #import "Player.h"
+#import "ImageMaster.h"
+
+#define NUMBER_OF_BUTTON_COLORS 7
 
 @implementation PlayerButton
 @synthesize button, nameLabel, positionLabel, pointsLabel, genderImage;
@@ -58,9 +61,20 @@
     } else {
         self.pointsLabel.text = [NSString stringWithFormat:@"%.1f", points]; 
     }
-    [self.button setColor: pointFactor];
+    [self setButtonColor: pointFactor];
     self.pointsLabel.textColor = [ColorMaster getLinePlayerPointsColor: pointFactor <= 0.3];
     self.positionLabel.textColor = [ColorMaster getLinePlayerPositionColor: pointFactor <= 0.3];
+}
+
+-(void)setButtonColor: (float) pointsPlayedFactor {
+    int factor = lroundf(pointsPlayedFactor * (float)(NUMBER_OF_BUTTON_COLORS - 1));
+    int normalColorIndex = MIN(MAX(factor, 0), NUMBER_OF_BUTTON_COLORS - 1);
+    int highlightColorIndex = MIN(MAX(factor + 1, 0), NUMBER_OF_BUTTON_COLORS);
+    [self.button setBackgroundImage:[ImageMaster stretchableImageForPlayingTimeFactor:normalColorIndex] forState:UIControlStateNormal];
+    [self.button setBackgroundImage:[ImageMaster stretchableImageForPlayingTimeFactor:highlightColorIndex] forState:UIControlStateHighlighted];
+    self.button.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
+//    [self.button setTitleColor: (factor < 3 ? [UIColor blackColor] : [UIColor whiteColor]) forState:UIControlStateNormal];
+    [self.button setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 -(Player*)getPlayer {

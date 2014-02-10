@@ -12,9 +12,9 @@
 
 @implementation RedButton
 
--(void)layoutSubviews {
-    [super layoutSubviews];
-    self.titleLabel.textColor = [UIColor whiteColor];
+-(void)commonInit {
+    [super commonInit];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.backgroundColor = [UIColor redColor];
 }
 

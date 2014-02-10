@@ -10,17 +10,19 @@
 
 @implementation FlatButton
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-
+        [self commonInit];
     }
     return self;
 }
 
--(void)layoutSubviews {
-    [super layoutSubviews];
+-(void)awakeFromNib {
+    [self commonInit];
+}
+
+-(void)commonInit {
     [self.layer setCornerRadius:3.0f];
 }
 

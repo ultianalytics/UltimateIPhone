@@ -8,7 +8,7 @@
 
 #import "StatsViewController.h"
 #import "ColorMaster.h"
-#import "GreyButton.h"
+#import "ImageMaster.h"
 #import "Statistics.h"
 #import "PlayerStat.h"
 #import "Game.h"
@@ -36,7 +36,7 @@
 #define kPullsOb @"Pulls OB"
 
 #define kStatRowHieght 30
-#define kStatTypeRowHieght 43
+#define kStatTypeRowHieght 37
 #define kButtonMargin 2
 
 #define kIsNotFirstStatsViewUsage @"IsNotFirstStatsViewUsage"
@@ -209,9 +209,15 @@
         
         // stat type table
         if (tableView == statTypeTableView) {
-            CGRect buttonRectangle = CGRectMake(kButtonMargin, kButtonMargin, 140, kStatTypeRowHieght - (kButtonMargin * 2));
-            GreyButton* button = [[GreyButton alloc] initWithFrame:buttonRectangle];
-            [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake(kButtonMargin, kButtonMargin, 140, kStatTypeRowHieght - (kButtonMargin * 2));
+            [button setBackgroundImage:[ImageMaster stretchableWhite100Radius3] forState:UIControlStateNormal];
+            [button setBackgroundImage:[ImageMaster stretchableWhite200Radius3] forState:UIControlStateSelected];
+            button.titleLabel.font = [UIFont systemFontOfSize:16];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [button addTarget:self action:@selector(buttonClicked:) forControlEvents: UIControlEventTouchUpInside];
             [contentView addSubview:button];
             
         // player stats table

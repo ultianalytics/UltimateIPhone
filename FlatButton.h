@@ -10,4 +10,7 @@
 
 @interface FlatButton : UIButton
 
+// for subclasses
+-(void)commonInit;
+
 @end

@@ -173,4 +173,12 @@ static UIImage* unknownImage = nil;
     return cessationImage;
 }
 
++(UIImage*)stretchableWhite100Radius3 {
+    	return [[UIImage imageNamed:@"white100radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+}
+
++(UIImage*)stretchableWhite200Radius3 {
+    return [[UIImage imageNamed:@"white200radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+}
+
 @end

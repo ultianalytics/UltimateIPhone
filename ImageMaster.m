@@ -181,4 +181,36 @@ static UIImage* unknownImage = nil;
     return [[UIImage imageNamed:@"white200radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
 }
 
+// for a number 0-6...answer a button image...lower number is lighter image
++(UIImage*)stretchableImageForPlayingTimeFactor: (int)factor {
+    switch (factor) {
+        case 0:
+            return [[UIImage imageNamed:@"color7CCC00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 1:
+            return [[UIImage imageNamed:@"color6DB200Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 2:
+            return [[UIImage imageNamed:@"color5D9900Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 3:
+            return [[UIImage imageNamed:@"color4D7F00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 4:
+            return [[UIImage imageNamed:@"color3E6600Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 5:
+            return [[UIImage imageNamed:@"color2E4C00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 6:
+            return [[UIImage imageNamed:@"color1F3300Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        default:
+            return [[UIImage imageNamed:@"color1F3300Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+    }
+}
+
+
+
 @end

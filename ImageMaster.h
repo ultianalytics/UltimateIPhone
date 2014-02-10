@@ -29,5 +29,6 @@
 +(UIImage*)getUnknownImage;
 +(UIImage*)stretchableWhite100Radius3;
 +(UIImage*)stretchableWhite200Radius3;
++(UIImage*)stretchableImageForPlayingTimeFactor: (int)factor;
 
 @end

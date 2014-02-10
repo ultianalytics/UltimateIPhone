@@ -118,6 +118,13 @@
 		1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9618A6C5CB00CE9662 /* player_passing.png */; };
 		1AA37BA118A857BC00CE9662 /* white100radius3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37B9F18A857BC00CE9662 /* white100radius3@2x.png */; };
 		1AA37BA218A857BC00CE9662 /* white200radius3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA018A857BC00CE9662 /* white200radius3@2x.png */; };
+		1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA418A8619700CE9662 /* color1F3300Radius3.png */; };
+		1AA37BAC18A8619700CE9662 /* color2E4C00Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA518A8619700CE9662 /* color2E4C00Radius3.png */; };
+		1AA37BAD18A8619700CE9662 /* color3E6600Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA618A8619700CE9662 /* color3E6600Radius3.png */; };
+		1AA37BAE18A8619700CE9662 /* color4D7F00Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA718A8619700CE9662 /* color4D7F00Radius3.png */; };
+		1AA37BAF18A8619700CE9662 /* color5D9900Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA818A8619700CE9662 /* color5D9900Radius3.png */; };
+		1AA37BB018A8619700CE9662 /* color6DB200Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */; };
+		1AA37BB118A8619700CE9662 /* color7CCC00Radius3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -486,6 +493,13 @@
 		1AA37B9618A6C5CB00CE9662 /* player_passing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_passing.png; sourceTree = "<group>"; };
 		1AA37B9F18A857BC00CE9662 /* white100radius3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white100radius3@2x.png"; sourceTree = "<group>"; };
 		1AA37BA018A857BC00CE9662 /* white200radius3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white200radius3@2x.png"; sourceTree = "<group>"; };
+		1AA37BA418A8619700CE9662 /* color1F3300Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color1F3300Radius3.png; sourceTree = "<group>"; };
+		1AA37BA518A8619700CE9662 /* color2E4C00Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color2E4C00Radius3.png; sourceTree = "<group>"; };
+		1AA37BA618A8619700CE9662 /* color3E6600Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color3E6600Radius3.png; sourceTree = "<group>"; };
+		1AA37BA718A8619700CE9662 /* color4D7F00Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color4D7F00Radius3.png; sourceTree = "<group>"; };
+		1AA37BA818A8619700CE9662 /* color5D9900Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color5D9900Radius3.png; sourceTree = "<group>"; };
+		1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color6DB200Radius3.png; sourceTree = "<group>"; };
+		1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color7CCC00Radius3.png; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1436,6 +1450,13 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BA418A8619700CE9662 /* color1F3300Radius3.png */,
+				1AA37BA518A8619700CE9662 /* color2E4C00Radius3.png */,
+				1AA37BA618A8619700CE9662 /* color3E6600Radius3.png */,
+				1AA37BA718A8619700CE9662 /* color4D7F00Radius3.png */,
+				1AA37BA818A8619700CE9662 /* color5D9900Radius3.png */,
+				1AA37BA918A8619700CE9662 /* color6DB200Radius3.png */,
+				1AA37BAA18A8619700CE9662 /* color7CCC00Radius3.png */,
 				1AA37B9F18A857BC00CE9662 /* white100radius3@2x.png */,
 				1AA37BA018A857BC00CE9662 /* white200radius3@2x.png */,
 				1AA37B9518A6C5CB00CE9662 /* player_passing@2x.png */,
@@ -1599,6 +1620,7 @@
 				1AFFE7E615175E7B004B4590 /* 112-group.png in Resources */,
 				1AFFE7E715175E7B004B4590 /* 112-group@2x.png in Resources */,
 				1AFFE7E815175E7B004B4590 /* 122-stats.png in Resources */,
+				1AA37BB118A8619700CE9662 /* color7CCC00Radius3.png in Resources */,
 				1AFFE7E915175E7B004B4590 /* 122-stats@2x.png in Resources */,
 				1AFFE7EA15175E7B004B4590 /* 255-box.png in Resources */,
 				1AFFE7EB15175E7B004B4590 /* 255-box@2x.png in Resources */,
@@ -1631,13 +1653,16 @@
 				1AFFE88F15175EB0004B4590 /* grimace.png in Resources */,
 				1AFFE89015175EB0004B4590 /* haha.png in Resources */,
 				1AFFE89115175EB0004B4590 /* happy.png in Resources */,
+				1AA37BAE18A8619700CE9662 /* color4D7F00Radius3.png in Resources */,
 				1AFFE89215175EB0004B4590 /* horror.png in Resources */,
 				1AFFE89515175EB0004B4590 /* left-arrow.png in Resources */,
 				1AFFE89815175EB0004B4590 /* man.jpg in Resources */,
 				1AFFE89915175EB0004B4590 /* money.png in Resources */,
+				1AA37BAD18A8619700CE9662 /* color3E6600Radius3.png in Resources */,
 				1AFFE89A15175EB0004B4590 /* nothing_to_say.png in Resources */,
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,
+				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
 				1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */,
@@ -1651,6 +1676,7 @@
 				1AFFE8B415175EB0004B4590 /* shocked.png in Resources */,
 				1AFFE8B815175EB0004B4590 /* sounds in Resources */,
 				1AFFE8BD15175EB0004B4590 /* StatsViewController.xib in Resources */,
+				1AA37BB018A8619700CE9662 /* color6DB200Radius3.png in Resources */,
 				1AFFE8BE15175EB0004B4590 /* super_man.png in Resources */,
 				1AFFE8C115175EB0004B4590 /* the_iron_man.png in Resources */,
 				1AFFE8C315175EB0004B4590 /* unhappy.png in Resources */,
@@ -1667,6 +1693,7 @@
 				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
 				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
 				1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */,
+				1AA37BAF18A8619700CE9662 /* color5D9900Radius3.png in Resources */,
 				1AEE548C15293B350067F539 /* TwitterController.xib in Resources */,
 				1AA37B9118A6C29D00CE9662 /* player_laying_out@2x.png in Resources */,
 				1AA37BA118A857BC00CE9662 /* white100radius3@2x.png in Resources */,
@@ -1689,6 +1716,7 @@
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
 				1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */,
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
+				1AA37BAC18A8619700CE9662 /* color2E4C00Radius3.png in Resources */,
 				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
 				1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,

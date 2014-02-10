@@ -266,7 +266,6 @@
 		1AFFE8A015175EB0004B4590 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE83615175EB0004B4590 /* Player.m */; };
 		1AFFE8A115175EB0004B4590 /* PlayerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE83815175EB0004B4590 /* PlayerButton.m */; };
 		1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE83915175EB0004B4590 /* PlayerButton.xib */; };
-		1AFFE8A315175EB0004B4590 /* PlayerButtonActual.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE83B15175EB0004B4590 /* PlayerButtonActual.m */; };
 		1AFFE8A415175EB0004B4590 /* PlayerDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */; };
 		1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */; };
 		1AFFE8A615175EB0004B4590 /* PlayerStat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84115175EB0004B4590 /* PlayerStat.m */; };
@@ -701,8 +700,6 @@
 		1AFFE83715175EB0004B4590 /* PlayerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerButton.h; sourceTree = "<group>"; };
 		1AFFE83815175EB0004B4590 /* PlayerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerButton.m; sourceTree = "<group>"; };
 		1AFFE83915175EB0004B4590 /* PlayerButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerButton.xib; sourceTree = "<group>"; };
-		1AFFE83A15175EB0004B4590 /* PlayerButtonActual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerButtonActual.h; sourceTree = "<group>"; };
-		1AFFE83B15175EB0004B4590 /* PlayerButtonActual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerButtonActual.m; sourceTree = "<group>"; };
 		1AFFE83C15175EB0004B4590 /* PlayerButtonListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerButtonListener.h; sourceTree = "<group>"; };
 		1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDetailsViewController.h; sourceTree = "<group>"; };
 		1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDetailsViewController.m; sourceTree = "<group>"; };
@@ -1359,8 +1356,6 @@
 				1AFFE83715175EB0004B4590 /* PlayerButton.h */,
 				1AFFE83815175EB0004B4590 /* PlayerButton.m */,
 				1AFFE83915175EB0004B4590 /* PlayerButton.xib */,
-				1AFFE83A15175EB0004B4590 /* PlayerButtonActual.h */,
-				1AFFE83B15175EB0004B4590 /* PlayerButtonActual.m */,
 				1AFFE83C15175EB0004B4590 /* PlayerButtonListener.h */,
 				1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */,
 				1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */,
@@ -1825,7 +1820,6 @@
 				1AFFE89E15175EB0004B4590 /* PickPlayersController.m in Sources */,
 				1AFFE8A015175EB0004B4590 /* Player.m in Sources */,
 				1AFFE8A115175EB0004B4590 /* PlayerButton.m in Sources */,
-				1AFFE8A315175EB0004B4590 /* PlayerButtonActual.m in Sources */,
 				1AFFE8A415175EB0004B4590 /* PlayerDetailsViewController.m in Sources */,
 				1AFFE8A615175EB0004B4590 /* PlayerStat.m in Sources */,
 				1AFFE8A715175EB0004B4590 /* PlayerView.m in Sources */,

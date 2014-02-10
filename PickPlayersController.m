@@ -92,7 +92,6 @@
     if (isField) {
         [self clearFieldView];
     } else {
-        self.benchTableView.backgroundColor = [ColorMaster getBenchRowColor];
         benchTableCells = [[NSMutableArray alloc] init];
     }
     
@@ -123,8 +122,7 @@
             } else {
                 tableCell = [[UITableViewCell alloc] init];
                 [tableCell addSubview:rowView];
-                rowView.backgroundColor = [ColorMaster getBenchRowColor];
-                tableCell.backgroundColor = [ColorMaster getBenchRowColor];
+                rowView.backgroundColor = self.benchTableView.backgroundColor;
                 [benchTableCells addObject: tableCell];
             }
         }

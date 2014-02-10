@@ -9,7 +9,6 @@
 #import "PlayerButton.h"
 #import "ColorMaster.h"
 #import "Team.h"
-#import "PlayerButtonActual.h"
 #import "Player.h"
 #import "ImageMaster.h"
 
@@ -17,11 +16,6 @@
 
 @implementation PlayerButton
 @synthesize button, nameLabel, positionLabel, pointsLabel, genderImage;
-
--(void)setButtonFrame: (CGRect) buttonRectangle {
-    super.frame = buttonRectangle;
-    self.frame = buttonRectangle;
-}
 
 -(void)buttonClicked: (id) actualPlayerButton {
     [listener buttonClicked: self isOnField: isOnField];

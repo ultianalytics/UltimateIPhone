@@ -23,7 +23,6 @@
 @property (nonatomic, strong) IBOutlet UILabel* pointsLabel;
 @property (nonatomic, strong) IBOutlet UIImageView* genderImage;
 
--(void)setButtonFrame: (CGRect) buttonRectangle;
 -(void)setClickListener: (id<PlayerButtonListener>) listener;
 -(void)setPlayer: (Player*) player;
 -(void)setPlayer: (Player*) player points: (float) points pointFactor: (float) pointFactor;

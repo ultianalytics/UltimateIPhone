@@ -689,9 +689,9 @@
             self.game.startDateTime = startTimeController.date;
             [self.game save];
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     };
-    [self presentViewController:startTimeController animated:YES completion:nil];
+    [self.navigationController pushViewController:startTimeController animated:YES];
 }
 
 @end

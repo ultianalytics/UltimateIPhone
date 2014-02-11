@@ -23,8 +23,8 @@
 @implementation GameStartTimeViewController
 
 -(void)viewDidLoad {
+    self.title = @"Start Date/Time";
     self.datePicker.date = self.date ? self.date : [NSDate date];
-    [ColorMaster styleAsWhiteLabel:self.viewTitleLabel size:22];
 }
 
 - (IBAction)saveButtonTapped:(id)sender {

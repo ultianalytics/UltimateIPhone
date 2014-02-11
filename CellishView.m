@@ -40,7 +40,9 @@
     frame.size.height = separatorHeight;
     UIView* separator = [[UIView alloc] initWithFrame:frame];
     separator.backgroundColor = [ColorMaster separatorColor];
-    separator.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    separator.autoresizingMask = isTop ?
+        UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin :
+        UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:separator];
 }
 

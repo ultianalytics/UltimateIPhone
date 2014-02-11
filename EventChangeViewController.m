@@ -21,8 +21,12 @@
 #import "LeaguevineEventQueue.h"
 #import "Game.h"
 
+#define kTypeHeightExpansion 40.0f
+
 @interface EventChangeViewController ()
 
+@property (strong, nonatomic) IBOutlet UIView *eventTypeView;
+@property (strong, nonatomic) IBOutlet UIView *eventPlayersView;
 @property (strong, nonatomic) IBOutlet UILabel *pointDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UITableView *player1TableView;
 @property (strong, nonatomic) IBOutlet UITableView *player2TableView;
@@ -147,8 +151,10 @@
         CGFloat tableWidth = tableView.bounds.size.width;
         UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
         footerView.backgroundColor = [UIColor clearColor];
-        DarkButton* footerButton = [[DarkButton alloc] initWithFrame:CGRectMake(0, 10, tableWidth, 34)];
-        footerButton.titleLabel.font = [UIFont boldSystemFontOfSize: 14];
+        UIButton* footerButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        footerButton.frame = CGRectMake(0, 10, tableWidth, 34);
+        footerButton.titleLabel.font = [UIFont fontWithName:@"Arial-ItalicMT" size:12];
+        footerButton.titleLabel.tintColor = [UIColor blackColor];
         [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
         [footerButton addTarget:self action:@selector(showFullTapped) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:footerButton];
@@ -272,12 +278,7 @@
 }
 
 -(void)stylize {
-    [ColorMaster styleAsWhiteLabel:self.pointDescriptionLabel size:14];
-    [ColorMaster styleAsWhiteLabel:self.eventTypeDescriptionLabel size:18];
-    [ColorMaster styleAsWhiteLabel:self.passedToLabel size:18];
-    [ColorMaster styleAsWhiteLabel:self.textFieldLabel size:12];
-    self.player1TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.player2TableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+
 }
 
 -(NSArray*)eligibleActions {
@@ -449,10 +450,15 @@
             }
         }
     }
-
+    self.eventPlayersView.hidden = self.player1TableView.hidden && self.player2TableView.hidden;
+    
+    // resize the type view if don't need extra space
+    if (self.eventActionSegmentedControl.hidden && self.textFieldLabel.hidden && self.textField.hidden) {
+        self.eventTypeView.frameHeight = self.eventTypeView.frameHeight - kTypeHeightExpansion;
+        self.eventPlayersView.frameY = self.eventPlayersView.frameY - kTypeHeightExpansion;
+        self.eventPlayersView.frameHeight = self.eventPlayersView.frameHeight + kTypeHeightExpansion;
+    }
 }
-
-
 
 -(void)configureActionControlFor: (NSArray*)actionTitles initial: (NSString*)initialTitle {
     self.eventActionSegmentedControl.apportionsSegmentWidthsByContent = YES;

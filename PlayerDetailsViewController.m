@@ -171,7 +171,8 @@
     self.tableView.tableFooterView = self.footerView;
     self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     
-    self.nickNameField.delegate = self; 
+    self.nickNameField.delegate = self;
+    self.numberField.delegate = self;
     
     UIBarButtonItem *cancelNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelClicked)];
     self.navigationItem.leftBarButtonItem = cancelNavBarItem;

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FUISegmentedControl.h"
 
 @interface UltimateSegmentedControl : UISegmentedControl
 

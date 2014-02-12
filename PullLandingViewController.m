@@ -49,19 +49,10 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload {
-    [self setStartLabel:nil];
-    [self setEndLabel:nil];
-    [self setHangtimeView:nil];
-    [self setHangtimeValueLabel:nil];
-    [self setWaitingView:nil];
-    [self setHangtimeLabel:nil];
-    [self setLandedButton:nil];
-    [self setLandedNoHangButton:nil];
-    [self setObButton:nil];
-    [self setCancelButton:nil];
-    [super viewDidUnload];
+-(BOOL)prefersStatusBarHidden {
+    return YES;
 }
+
 
 #pragma mark Event handling
 
@@ -105,14 +96,16 @@
 #pragma mark Miscellaneous 
 
 -(void)stylize {
-    [ColorMaster styleAsWhiteLabel:self.startLabel size:18];
-    [ColorMaster styleAsWhiteLabel:self.endLabel size:18];
-    [ColorMaster styleAsWhiteLabel:self.hangtimeLabel size:20];
-    [ColorMaster styleAsWhiteLabel:self.hangtimeValueLabel size:22];
-    self.landedButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    self.landedNoHangButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    self.obButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    self.cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+
+    self.landedNoHangButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc] initWithString:@"Caught/Landed\n(no hang time)"];
+    // set attributes for entire string
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(0, attrStr.length)];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrStr.length)];
+    // smaller font for 2nd line
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:16] range:NSMakeRange(14, 14)];
+    [self.landedNoHangButton setAttributedTitle:attrStr forState:UIControlStateNormal];
+
 }
 
 @end

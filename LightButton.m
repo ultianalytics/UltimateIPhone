@@ -13,8 +13,8 @@
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    self.titleLabel.textColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor blackColor];
+    self.titleLabel.textColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 @end

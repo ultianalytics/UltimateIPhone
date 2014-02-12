@@ -41,23 +41,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;
-    [self stylize];
+    self.choicesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self refresh];
 }
 
-- (void)viewDidUnload {
-    [self setDescriptionLabel:nil];
-    [self setChoicesTable:nil];
-    [self setSaveButton:nil];
-    [self setCancelButton:nil];
-    [self setChoicesView:nil];
-    [super viewDidUnload];
-}
-
--(void)stylize {
-    [ColorMaster styleAsWhiteLabel:self.descriptionLabel size:18];
-    self.choicesTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-}
 
 #pragma mark TableView delegate
 
@@ -91,6 +78,10 @@
     
     [self refresh];
 
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 38.0f;
 }
 
 -(EventSelectTableViewCell*)createCell {

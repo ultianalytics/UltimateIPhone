@@ -50,12 +50,7 @@
 
 - (void)setChosen:(BOOL)isChosen {
     self.checkImageView.hidden = !isChosen;
-    if (isChosen) {
-        [ColorMaster styleAsWhiteLabel: self.label size: self.label.font.pointSize];
-    } else {
-        self.label.textColor = [UIColor blackColor];
-        self.label.shadowOffset = CGSizeZero;
-    }
+    self.label.textColor = isChosen ? [UIColor blackColor] : [UIColor grayColor];
 }
 
 -(NSString*)reuseIdentifier {

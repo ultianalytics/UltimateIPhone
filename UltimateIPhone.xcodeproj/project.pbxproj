@@ -112,6 +112,9 @@
 		1AA37BB918A9185100CE9662 /* 19-circle-check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */; };
 		1AA37BBA18A9185100CE9662 /* 26-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB618A9185100CE9662 /* 26-checkmark.png */; };
 		1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */; };
+		1AA37BC318ABB56800CE9662 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA37BBD18ABB56700CE9662 /* libTestFlight.a */; };
+		1AA37BC418ABB56800CE9662 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBE18ABB56800CE9662 /* README.md */; };
+		1AA37BC518ABB56800CE9662 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBF18ABB56800CE9662 /* release_notes.md */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -240,7 +243,6 @@
 		1AFFE89315175EB0004B4590 /* IBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE82415175EB0004B4590 /* IBView.m */; };
 		1AFFE89415175EB0004B4590 /* ImageMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE82615175EB0004B4590 /* ImageMaster.m */; };
 		1AFFE89515175EB0004B4590 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE82715175EB0004B4590 /* left-arrow.png */; };
-		1AFFE89615175EB0004B4590 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE82815175EB0004B4590 /* libTestFlight.a */; };
 		1AFFE89815175EB0004B4590 /* man.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE82A15175EB0004B4590 /* man.jpg */; };
 		1AFFE89915175EB0004B4590 /* money.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE82B15175EB0004B4590 /* money.png */; };
 		1AFFE89A15175EB0004B4590 /* nothing_to_say.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE82C15175EB0004B4590 /* nothing_to_say.png */; };
@@ -454,6 +456,12 @@
 		1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-circle-check@2x.png"; sourceTree = "<group>"; };
 		1AA37BB618A9185100CE9662 /* 26-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark.png"; sourceTree = "<group>"; };
 		1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark@2x.png"; sourceTree = "<group>"; };
+		1AA37BBD18ABB56700CE9662 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		1AA37BBE18ABB56800CE9662 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		1AA37BBF18ABB56800CE9662 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		1AA37BC018ABB56800CE9662 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		1AA37BC118ABB56800CE9662 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		1AA37BC218ABB56800CE9662 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -636,7 +644,6 @@
 		1AFFE82515175EB0004B4590 /* ImageMaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageMaster.h; sourceTree = "<group>"; };
 		1AFFE82615175EB0004B4590 /* ImageMaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageMaster.m; sourceTree = "<group>"; };
 		1AFFE82715175EB0004B4590 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
-		1AFFE82815175EB0004B4590 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		1AFFE82A15175EB0004B4590 /* man.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = man.jpg; sourceTree = "<group>"; };
 		1AFFE82B15175EB0004B4590 /* money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = money.png; sourceTree = "<group>"; };
 		1AFFE82C15175EB0004B4590 /* nothing_to_say.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nothing_to_say.png; sourceTree = "<group>"; };
@@ -695,7 +702,6 @@
 		1AFFE86715175EB0004B4590 /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
 		1AFFE86815175EB0004B4590 /* TeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamViewController.h; sourceTree = "<group>"; };
 		1AFFE86915175EB0004B4590 /* TeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamViewController.m; sourceTree = "<group>"; };
-		1AFFE86A15175EB0004B4590 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		1AFFE86B15175EB0004B4590 /* the_iron_man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = the_iron_man.png; sourceTree = "<group>"; };
 		1AFFE86E15175EB0004B4590 /* unhappy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unhappy.png; sourceTree = "<group>"; };
 		1AFFE86F15175EB0004B4590 /* UPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPoint.h; sourceTree = "<group>"; };
@@ -722,6 +728,7 @@
 				1A246D2017CA5A8200B8868D /* CoreText.framework in Frameworks */,
 				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
 				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
+				1AA37BC318ABB56800CE9662 /* libTestFlight.a in Frameworks */,
 				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
@@ -734,7 +741,6 @@
 				1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */,
 				1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */,
 				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
-				1AFFE89615175EB0004B4590 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,6 +856,19 @@
 				1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */,
 			);
 			name = LeagueVine;
+			sourceTree = "<group>";
+		};
+		1AA37BBC18ABB56700CE9662 /* TestFlightSDK2.2.1 */ = {
+			isa = PBXGroup;
+			children = (
+				1AA37BBD18ABB56700CE9662 /* libTestFlight.a */,
+				1AA37BBE18ABB56800CE9662 /* README.md */,
+				1AA37BBF18ABB56800CE9662 /* release_notes.md */,
+				1AA37BC018ABB56800CE9662 /* TestFlight+AsyncLogging.h */,
+				1AA37BC118ABB56800CE9662 /* TestFlight+ManualSessions.h */,
+				1AA37BC218ABB56800CE9662 /* TestFlight.h */,
+			);
+			path = TestFlightSDK2.2.1;
 			sourceTree = "<group>";
 		};
 		1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */ = {
@@ -1030,11 +1049,11 @@
 				1AFFE8DE151764E0004B4590 /* Stats */,
 				1AFFE8D015176431004B4590 /* UI */,
 				1A00013B151769AE00600916 /* Sound Player */,
-				1AFFE8D315176457004B4590 /* TestFlightSDK */,
 				1AFFE8DF151765B7004B4590 /* Images */,
 				1AFFE85B15175EB0004B4590 /* sounds */,
 				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
+				1AA37BBC18ABB56700CE9662 /* TestFlightSDK2.2.1 */,
 				1AFFE78215175D4A004B4590 /* Supporting Files */,
 				1A59838C15445D5900E97F09 /* Tests */,
 				1AFFE77A15175D4A004B4590 /* Frameworks */,
@@ -1157,15 +1176,6 @@
 				1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */,
 			);
 			name = Cloud;
-			sourceTree = "<group>";
-		};
-		1AFFE8D315176457004B4590 /* TestFlightSDK */ = {
-			isa = PBXGroup;
-			children = (
-				1AFFE86A15175EB0004B4590 /* TestFlight.h */,
-				1AFFE82815175EB0004B4590 /* libTestFlight.a */,
-			);
-			name = TestFlightSDK;
 			sourceTree = "<group>";
 		};
 		1AFFE8D415176470004B4590 /* Common */ = {
@@ -1577,6 +1587,7 @@
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
+				1AA37BC418ABB56800CE9662 /* README.md in Resources */,
 				1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */,
 				1AFFE8AC15175EB0004B4590 /* PreferencesViewController.xib in Resources */,
 				1AFFE8AD15175EB0004B4590 /* psd-delete-icon.png in Resources */,
@@ -1662,6 +1673,7 @@
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
+				1AA37BC518ABB56800CE9662 /* release_notes.md in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
 			);
@@ -1881,7 +1893,8 @@
 				INSTALL_MODE_FLAG = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/iOS-applications/UltimateIPhone/TestFlightSDK2.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1960,7 +1973,8 @@
 				INSTALL_MODE_FLAG = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/iOS-applications/UltimateIPhone/TestFlightSDK2.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1985,7 +1999,8 @@
 				INSTALL_MODE_FLAG = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/iOS-applications/UltimateIPhone/TestFlightSDK2.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

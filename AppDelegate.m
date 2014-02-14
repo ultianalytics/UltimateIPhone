@@ -121,14 +121,6 @@ UINavigationController* gameNavController;
     
     // table view
     [UITableView appearance].separatorColor = [ColorMaster separatorColor];
-
-
-    
-    
-        // TODO...delete commented lines when done converting to iOS7
-//    [[UITabBar appearance] setSelectedImageTintColor: [ColorMaster getTabBarSelectedImageColor]];
-//    [[UITableView appearance] setSeparatorColor:[ColorMaster getTableListSeparatorColor]];
-//    [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

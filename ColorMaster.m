@@ -176,14 +176,6 @@ static UIColor* linePlayerImbalanceWarningBoys;
     return [self applicationTintColor];
 }
 
-+(UIColor*)getOffenseEventColor {
-    return offenseEventColor;
-}
-
-+(UIColor*)getDefenseEventColor {
-    return defenseEventColor;
-}
-
 +(NSArray*)getLinePlayerButtonColors {
     return linePlayerButtonColors;
 }
@@ -253,6 +245,14 @@ static UIColor* linePlayerImbalanceWarningBoys;
 
 +(UIColor*)darkGrayColor {
     return uirgb(68, 68, 68);
+}
+
++(UIColor*)getOffenseEventColor {
+    return uirgb(255, 255, 255);
+}
+
++(UIColor*)getDefenseEventColor {
+    return uirgb(240, 239, 234);
 }
 
 @end

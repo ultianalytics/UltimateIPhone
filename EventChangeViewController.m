@@ -21,7 +21,7 @@
 #import "LeaguevineEventQueue.h"
 #import "Game.h"
 
-#define kTypeHeightExpansion 40.0f
+#define kTypeHeightExpansion 46.0f
 
 @interface EventChangeViewController ()
 
@@ -321,7 +321,7 @@
                 break;
             }
             case Drop: {
-                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                self.eventTypeDescriptionLabel.text = @"Our Turnover";
                 [self show: self.player2TableView shouldShow: YES animate: animate];
                 [self show: self.passedToLabel shouldShow: YES animate: animate];
                 [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Drop" : nil];
@@ -329,7 +329,7 @@
                 break;                
             }
             case Throwaway: {
-                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                self.eventTypeDescriptionLabel.text = @"Our Turnover";
                 [self show: self.player2TableView shouldShow: NO animate: animate];
                 [self show: self.passedToLabel shouldShow: NO animate: animate];
                 [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Throwaway" : nil];
@@ -337,7 +337,7 @@
                 break;                
             }
             case Stall: {
-                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                self.eventTypeDescriptionLabel.text = @"Our Turnover";
                 [self show: self.player2TableView shouldShow: NO animate: animate];
                 [self show: self.passedToLabel shouldShow: NO animate: animate];
                 [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Stall" : nil];
@@ -345,7 +345,7 @@
                 break;
             }
             case MiscPenalty: {
-                self.eventTypeDescriptionLabel.text = @"Our Turnover:";
+                self.eventTypeDescriptionLabel.text = @"Our Turnover";
                 [self show: self.player2TableView shouldShow: NO animate: animate];
                 [self show: self.passedToLabel shouldShow: NO animate: animate];
                 [self configureActionControlFor:@[@"Drop", @"Throwaway", @"Stall", @"Misc. Penalty"] initial: initial ? @"Misc. Penalty" : nil];
@@ -366,7 +366,7 @@
         [self movePlayer1TableToCenter:YES animate:NO];
         switch (self.event.action) {
             case Pull: {
-                self.eventTypeDescriptionLabel.text = @"Pull:";
+                self.eventTypeDescriptionLabel.text = @"Pull";
                 self.textFieldLabel.text = @"Hang Time:";
                 self.textField.placeholder = @"sec.";
                 [self showTextField: YES animate:NO];
@@ -377,7 +377,7 @@
                 break;                
             }
             case PullOb: {
-                self.eventTypeDescriptionLabel.text = @"Pull:";
+                self.eventTypeDescriptionLabel.text = @"Pull";
                 self.textFieldLabel.text = @"Hang Time:";
                 self.textField.placeholder = @"sec.";
                 [self showTextField: NO animate:NO];
@@ -392,13 +392,13 @@
                 break;                
             }
             case De: {
-                self.eventTypeDescriptionLabel.text = @"Their Turnover:";
+                self.eventTypeDescriptionLabel.text = @"Their Turnover";
                 [self configureActionControlFor:@[@"D", @"Throwaway"] initial: initial ? @"D" : nil];
                 [self show: self.player1TableView shouldShow: YES animate: animate];
                 break;                
             }
             case Throwaway:{
-                self.eventTypeDescriptionLabel.text = @"Their Turnover:";
+                self.eventTypeDescriptionLabel.text = @"Their Turnover";
                 [self configureActionControlFor:@[@"D", @"Throwaway"] initial: initial ? @"Throwaway" : nil];
                 [self show: self.player1TableView shouldShow: NO animate: animate];
                 break;

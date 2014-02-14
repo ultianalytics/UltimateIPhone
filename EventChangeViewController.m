@@ -145,21 +145,26 @@
 }
 
 - (void)addTableFooterView: (UITableView*)tableView {
-    if (self.showingFullTeam) {
-        tableView.tableFooterView = nil;
-    } else {
-        CGFloat tableWidth = tableView.bounds.size.width;
-        UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 50)];
-        footerView.backgroundColor = [UIColor clearColor];
+    CGFloat topMargin = 10;
+    CGFloat buttonHeight = 34;
+    CGFloat tabBarHeight = 50;
+    CGFloat footerHeight = tabBarHeight;
+    if (!self.showingFullTeam) {
+        footerHeight += topMargin + buttonHeight;
+    }
+    CGFloat tableWidth = tableView.bounds.size.width;
+    UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, footerHeight)];
+    footerView.backgroundColor = [UIColor clearColor];
+    if (!self.showingFullTeam) {
         UIButton* footerButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        footerButton.frame = CGRectMake(0, 10, tableWidth, 34);
+        footerButton.frame = CGRectMake(0, topMargin, tableWidth, buttonHeight);
         footerButton.titleLabel.font = [UIFont fontWithName:@"Arial-ItalicMT" size:12];
         footerButton.titleLabel.tintColor = [UIColor blackColor];
         [footerButton setTitle: @"Show Full Team" forState:UIControlStateNormal];
         [footerButton addTarget:self action:@selector(showFullTapped) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:footerButton];
-        tableView.tableFooterView = footerView;
     }
+    tableView.tableFooterView = footerView;
 }
 
 #pragma mark Event Handling

@@ -176,10 +176,11 @@
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         [self.cells addObject:self.gameTypeCell];
     }
-    [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell]];
-    [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell,  self.timeoutsCell, self.windCell]];
+    [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
     if ([self.game hasBeenSaved]) {
-        [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell]];
+        [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell, self.windCell]];
+    } else {
+        [self.cells addObjectsFromArray:@[self.windCell]];
     }
 }
 

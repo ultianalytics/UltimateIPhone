@@ -692,6 +692,7 @@
     
     self.throwAwayButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.throwAwayButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.throwAwayButton setTitle:@"T\nh\nr\no\nw\na\nw\na\ny" forState:UIControlStateNormal];
     
     self.gameOverButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.gameOverButton.titleLabel.textAlignment = NSTextAlignmentCenter;

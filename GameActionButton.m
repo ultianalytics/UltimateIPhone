@@ -7,6 +7,7 @@
 //
 
 #import "GameActionButton.h"
+#import "ColorMaster.h"
 
 
 @implementation GameActionButton
@@ -14,7 +15,7 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     self.titleLabel.textColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = uirgb(51,51,51);
 }
 
 

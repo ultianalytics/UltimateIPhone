@@ -54,8 +54,8 @@
     [self.teamTypeSegmentedControl setSelection: self.team.isMixed ? @"Mixed" : @"Uni"];
     [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];
     [self populateLeagueVineTeamCell];
-    self.teamCopyButton.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
-    self.deleteButton.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
+    self.teamCopyButtonView.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
+    self.deleteButtonView.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
 #ifdef DEBUG
     self.clearCloudIdButton.hidden = NO;
 #endif
@@ -266,18 +266,6 @@
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;
 
-}
-
-- (void)viewDidUnload
-{
-    self.clearCloudIdButton = nil;
-    self.teamCopyButton = nil;
-    [self setLeagueVineCell:nil];
-    [self setLeagueVineDescriptionLabel:nil];
-    [self setCustomFooterView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

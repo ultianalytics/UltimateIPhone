@@ -44,7 +44,7 @@
 
 -(CalloutView*)addNavControllerHelpAvailableCallout {
     CalloutView *calloutView = [[CalloutView alloc] initWithFrame: self.bounds text:@"Tap here at any time to get help on this view." anchor: CGPointTop(self.bounds) width: 150 degrees: 180 connectorLength:80];
-    calloutView.fontOverride = [UIFont systemFontOfSize:22];
+    calloutView.fontOverride = [UIFont systemFontOfSize:14];
     [self addSubview: calloutView];
     return calloutView;
 }

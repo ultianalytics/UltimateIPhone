@@ -208,10 +208,6 @@ static UIColor* linePlayerImbalanceWarningBoys;
     return alarmingButtonLowColor;
 }
 
-+(UIColor*)getSegmentControlLightTintColor {
-    return [UIColor darkGrayColor];
-}
-
 +(UIColor*)getPlayerImbalanceColor: (BOOL)isBoy {
     return isBoy ? linePlayerImbalanceWarningBoys : linePlayerImbalanceWarningGirls;
 }

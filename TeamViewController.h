@@ -31,8 +31,8 @@
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* teamTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playerDisplayTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UILabel *leagueVineDescriptionLabel;
-@property (nonatomic, strong) IBOutlet UIButton* deleteButton;
-@property (nonatomic, strong) IBOutlet UIButton* teamCopyButton;
+@property (nonatomic, strong) IBOutlet UIView* deleteButtonView;
+@property (nonatomic, strong) IBOutlet UIView* teamCopyButtonView;
 @property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
 @property (nonatomic, strong) IBOutlet UIButton *clearCloudIdButton;
 @property (strong, nonatomic) IBOutlet UIView *customFooterView;

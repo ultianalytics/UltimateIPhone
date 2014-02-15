@@ -203,14 +203,7 @@
         
         CGPoint anchor = [self.webView convertPoint:CGPointTop(self.webView.bounds) toView:self.view];
         
-        CalloutView* callout = [calloutsView addCallout:@"blah, blah, blah" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:16]];
-        
-        // customize callout...
-        UILabel *calloutLabel = [[UILabel alloc] init];
-        calloutLabel.textColor = [UIColor whiteColor];
-        calloutLabel.font = [UIFont systemFontOfSize:16];
-        calloutLabel.backgroundColor = [ColorMaster getSegmentControlLightTintColor];
-        callout.textLabel = calloutLabel;
+        [calloutsView addCallout:@"blah, blah, blah" anchor: anchor width: 270 degrees: 180 connectorLength: 200 font: [UIFont systemFontOfSize:14]];
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

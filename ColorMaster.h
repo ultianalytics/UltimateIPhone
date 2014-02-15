@@ -36,7 +36,6 @@
 +(UIColor*)getTableListSeparatorColor;
 +(UIColor*)getAlarmingButtonHighColor;
 +(UIColor*)getAlarmingButtonLowColor;
-+(UIColor*)getSegmentControlLightTintColor;
 
 
 +(UIColor*)getPlayerImbalanceColor: (BOOL)isMaleImbalance;

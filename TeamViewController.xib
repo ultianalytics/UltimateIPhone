@@ -9,14 +9,14 @@
             <connections>
                 <outlet property="clearCloudIdButton" destination="54" id="55"/>
                 <outlet property="customFooterView" destination="71" id="72"/>
-                <outlet property="deleteButton" destination="42" id="48"/>
+                <outlet property="deleteButtonView" destination="FYC-nc-SvN" id="cUT-JL-Dqu"/>
                 <outlet property="displayCell" destination="26" id="34"/>
                 <outlet property="leagueVineCell" destination="62" id="66"/>
                 <outlet property="leagueVineDescriptionLabel" destination="65" id="67"/>
                 <outlet property="nameCell" destination="24" id="32"/>
                 <outlet property="playerDisplayTypeSegmentedControl" destination="29" id="40"/>
                 <outlet property="playersCell" destination="27" id="50"/>
-                <outlet property="teamCopyButton" destination="57" id="60"/>
+                <outlet property="teamCopyButtonView" destination="dPp-7D-LiS" id="4NQ-WY-cvp"/>
                 <outlet property="teamNameField" destination="13" id="15"/>
                 <outlet property="teamTableView" destination="31" id="36"/>
                 <outlet property="teamTypeSegmentedControl" destination="21" id="22"/>
@@ -182,11 +182,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="FYC-nc-SvN" userLabel="Delete View" customClass="CellishView">
+                <view contentMode="scaleToFill" id="FYC-nc-SvN" userLabel="Delete Button View" customClass="CellishView">
                     <rect key="frame" x="0.0" y="68" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="42" userLabel="Delete Button View">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="42" userLabel="Delete Button">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>

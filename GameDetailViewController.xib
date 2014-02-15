@@ -332,7 +332,7 @@
             </tableViewCellContentView>
         </tableViewCell>
         <view contentMode="scaleToFill" id="rTi-09-F91" userLabel="Footer View">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="OO6-7C-qhx" userLabel="Delete Button View" customClass="CellishView">

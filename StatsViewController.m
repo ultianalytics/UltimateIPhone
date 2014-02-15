@@ -152,6 +152,13 @@
 
 #pragma mark - View lifecycle
 
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    // add insets to handle tab bar
+    self.statTypeTableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+    self.playerStatsTableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updatePlayerStats];

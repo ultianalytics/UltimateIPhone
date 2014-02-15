@@ -59,7 +59,7 @@
         }
         
         // (0.) add the opponent label
-        CGRect rect = CGRectMake(5, 10, 240, 30);
+        CGRect rect = CGRectMake(16, 16, 210, 30);
         UILabel* label = [[UILabel alloc] initWithFrame:rect];
         label.backgroundColor = [UIColor clearColor];
         [contentView addSubview:label];
@@ -75,10 +75,10 @@
         label.textColor = [ColorMaster getWinScoreColor];
         
         // (2.) add the tournament/time label
-        rect = CGRectMake(5, 2, 240, 8);
+        rect = CGRectMake(16, 6, 210, 14);
         label = [[UILabel alloc] initWithFrame:rect];
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont systemFontOfSize:10];
+        label.font = [UIFont systemFontOfSize:12];
         [contentView addSubview:label];
     }
    

@@ -59,7 +59,7 @@
 
 - (void)makeSelected: (BOOL) shouldBeSelected {
     isSelected = shouldBeSelected;
-    [self.passerButton setSelected:isSelected];
+    [self.passerButton setIsCurrentPasser:isSelected];
     if (isOffense) {
         BOOL hide = isSelected && !player.isAnonymous;
         self.passPointer.hidden = hide;

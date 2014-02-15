@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ColorButton.h"
+#import "GameActionButton.h"
 
-@interface PasserButton : ColorButton {
+@interface PasserButton : GameActionButton {}
 
-}
+@property (nonatomic) BOOL isLabelStyle;
+@property (nonatomic) BOOL isCurrentPasser;
 
 @end

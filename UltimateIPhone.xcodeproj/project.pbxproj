@@ -115,6 +115,7 @@
 		1AA37BC318ABB56800CE9662 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA37BBD18ABB56700CE9662 /* libTestFlight.a */; };
 		1AA37BC418ABB56800CE9662 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBE18ABB56800CE9662 /* README.md */; };
 		1AA37BC518ABB56800CE9662 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBF18ABB56800CE9662 /* release_notes.md */; };
+		1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -462,6 +463,8 @@
 		1AA37BC018ABB56800CE9662 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		1AA37BC118ABB56800CE9662 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		1AA37BC218ABB56800CE9662 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameActionButton.h; sourceTree = "<group>"; };
+		1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameActionButton.m; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -871,6 +874,56 @@
 			path = TestFlightSDK2.2.1;
 			sourceTree = "<group>";
 		};
+		1AA37BE018AFBC3000CE9662 /* Teams List */ = {
+			isa = PBXGroup;
+			children = (
+				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
+				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
+				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
+			);
+			name = "Teams List";
+			sourceTree = "<group>";
+		};
+		1AA37BE118AFBC5800CE9662 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
+				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
+				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
+		1AA37BE218AFBC7A00CE9662 /* Players List */ = {
+			isa = PBXGroup;
+			children = (
+				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
+				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
+				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
+			);
+			name = "Players List";
+			sourceTree = "<group>";
+		};
+		1AA37BE318AFBCEA00CE9662 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				1A23B8281625900C00EC9D92 /* EventChangeViewController.h */,
+				1A23B8291625900C00EC9D92 /* EventChangeViewController.m */,
+				1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
+		1AA37BE418AFBD6A00CE9662 /* Pull */ = {
+			isa = PBXGroup;
+			children = (
+				1A894CBE16361223008B3990 /* PullLandingViewController.h */,
+				1A894CBF16361223008B3990 /* PullLandingViewController.m */,
+				1A894CC016361223008B3990 /* PullLandingViewController.xib */,
+			);
+			name = Pull;
+			sourceTree = "<group>";
+		};
 		1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1115,14 +1168,19 @@
 				1AF34E7915176A260065A16D /* Stats */,
 				1A00013A1517697500600916 /* Signon */,
 				1AEE549F1529442E0067F539 /* Twitter */,
-				1AFFE8DD151764DB004B4590 /* Active Game */,
-				1AFFE8DC151764D9004B4590 /* Game Detail */,
-				1AFFE8DB151764D6004B4590 /* Game History */,
+				1AFFE8DC151764D9004B4590 /* Game */,
+				1AFFE8DB151764D6004B4590 /* Games List */,
+				1AFFE8DD151764DB004B4590 /* Game Action */,
+				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
-				1AFFE8DA15176486004B4590 /* Event History */,
+				1AA37BE318AFBCEA00CE9662 /* Event */,
+				1AFFE8DA15176486004B4590 /* Event List */,
 				1AFFE8D915176484004B4590 /* Line */,
 				1AFFE8D815176481004B4590 /* Preferences */,
+				1AA37BE118AFBC5800CE9662 /* Player */,
+				1AA37BE218AFBC7A00CE9662 /* Players List */,
 				1AFFE8D71517647F004B4590 /* Team */,
+				1AA37BE018AFBC3000CE9662 /* Teams List */,
 				1AFFE8D61517647C004B4590 /* Wind */,
 			);
 			name = UI;
@@ -1239,18 +1297,9 @@
 		1AFFE8D71517647F004B4590 /* Team */ = {
 			isa = PBXGroup;
 			children = (
-				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
-				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
-				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
 				1AFFE86815175EB0004B4590 /* TeamViewController.h */,
 				1AFFE86915175EB0004B4590 /* TeamViewController.m */,
 				1AFFE8CD151761AA004B4590 /* TeamViewController.xib */,
-				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
-				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
-				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
-				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
-				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
-				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
 			);
 			name = Team;
 			sourceTree = "<group>";
@@ -1282,7 +1331,7 @@
 			name = Line;
 			sourceTree = "<group>";
 		};
-		1AFFE8DA15176486004B4590 /* Event History */ = {
+		1AFFE8DA15176486004B4590 /* Event List */ = {
 			isa = PBXGroup;
 			children = (
 				1AFFE81215175EB0004B4590 /* GameHistoryController.h */,
@@ -1291,24 +1340,21 @@
 				1A59D36F164804BD000EA798 /* GameHistoryHeaderView.h */,
 				1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */,
 				1A59D36D16480487000EA798 /* GameHistoryHeaderView.xib */,
-				1A23B8281625900C00EC9D92 /* EventChangeViewController.h */,
-				1A23B8291625900C00EC9D92 /* EventChangeViewController.m */,
-				1A23B82A1625900C00EC9D92 /* EventChangeViewController.xib */,
 			);
-			name = "Event History";
+			name = "Event List";
 			sourceTree = "<group>";
 		};
-		1AFFE8DB151764D6004B4590 /* Game History */ = {
+		1AFFE8DB151764D6004B4590 /* Games List */ = {
 			isa = PBXGroup;
 			children = (
 				1AFFE81515175EB0004B4590 /* GamesPlayedController.h */,
 				1AFFE81615175EB0004B4590 /* GamesPlayedController.m */,
 				1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */,
 			);
-			name = "Game History";
+			name = "Games List";
 			sourceTree = "<group>";
 		};
-		1AFFE8DC151764D9004B4590 /* Game Detail */ = {
+		1AFFE8DC151764D9004B4590 /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				1AFFE80F15175EB0004B4590 /* GameDetailViewController.h */,
@@ -1318,10 +1364,10 @@
 				1A7587F5172D767700638AD7 /* GameStartTimeViewController.m */,
 				1A7587F7172D768B00638AD7 /* GameStartTimeViewController.xib */,
 			);
-			name = "Game Detail";
+			name = Game;
 			sourceTree = "<group>";
 		};
-		1AFFE8DD151764DB004B4590 /* Active Game */ = {
+		1AFFE8DD151764DB004B4590 /* Game Action */ = {
 			isa = PBXGroup;
 			children = (
 				1AFFE81815175EB0004B4590 /* GameViewController.h */,
@@ -1330,23 +1376,22 @@
 				1AFFE80415175EB0004B4590 /* EventView.h */,
 				1AFFE80515175EB0004B4590 /* EventView.m */,
 				1AFFE80615175EB0004B4590 /* EventView.xib */,
-				1AFFE83015175EB0004B4590 /* PasserButton.h */,
-				1AFFE83115175EB0004B4590 /* PasserButton.m */,
 				1AFFE84215175EB0004B4590 /* PlayerView.h */,
 				1AFFE84315175EB0004B4590 /* PlayerView.m */,
 				1AFFE84415175EB0004B4590 /* PlayerView.xib */,
 				1AFFE7C415175E7B004B4590 /* ActionListener.h */,
-				1A894CBE16361223008B3990 /* PullLandingViewController.h */,
-				1A894CBF16361223008B3990 /* PullLandingViewController.m */,
-				1A894CC016361223008B3990 /* PullLandingViewController.xib */,
 				1A6C82DD16E3C01600B84595 /* ActionDetailsViewController.h */,
 				1A6C82DE16E3C01600B84595 /* ActionDetailsViewController.m */,
 				1A6C82DF16E3C01600B84595 /* ActionDetailsViewController.xib */,
 				1A6C82E416E3C51E00B84595 /* EventSelectTableViewCell.h */,
 				1A6C82E316E3C51E00B84595 /* EventSelectTableViewCell.m */,
 				1A6C82E216E3C51E00B84595 /* EventSelectTableViewCell.xib */,
+				1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */,
+				1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */,
+				1AFFE83015175EB0004B4590 /* PasserButton.h */,
+				1AFFE83115175EB0004B4590 /* PasserButton.m */,
 			);
-			name = "Active Game";
+			name = "Game Action";
 			sourceTree = "<group>";
 		};
 		1AFFE8DE151764E0004B4590 /* Stats */ = {
@@ -1712,6 +1757,7 @@
 				1AFFE7F115175E7B004B4590 /* ArrowView.m in Sources */,
 				1AFFE7F815175E7B004B4590 /* CloudClient.m in Sources */,
 				1AFFE7F915175E7B004B4590 /* ColorButton.m in Sources */,
+				1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */,
 				1AFFE7FA15175E7B004B4590 /* ColorMaster.m in Sources */,
 				1AFFE7FB15175E7B004B4590 /* Constants.m in Sources */,
 				1AFFE7FD15175E7B004B4590 /* DefenseEvent.m in Sources */,

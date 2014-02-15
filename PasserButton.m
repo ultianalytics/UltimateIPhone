@@ -6,27 +6,25 @@
 //
 
 #import "PasserButton.h"
-#import <QuartzCore/QuartzCore.h>
-#import "ColorMaster.h"
 
 @implementation PasserButton
 
-- (void)initCharacteristics {
-    [super initCharacteristics];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
+-(void)setIsLabelStyle:(BOOL)shouldBeLabelStyle {
+    _isLabelStyle = shouldBeLabelStyle;
+    [self setNeedsLayout];
 }
 
-- (void) setSelected: (BOOL) shouldBeSelected {
-    if (shouldBeSelected) {
-        self.highColor = [ColorMaster getPasserButtonSelectedHighColor];  
-        self.lowColor = [ColorMaster getPasserButtonSelectedLowColor];
-    } else {
-        self.highColor = [ColorMaster getPasserButtonHighColor];
-        self.lowColor = [ColorMaster getPasserButtonLowColor];
+-(void)setIsCurrentPasser:(BOOL)isCurrentPasser {
+    _isCurrentPasser = isCurrentPasser;
+   [self setNeedsLayout];
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.isLabelStyle) {
+        self.backgroundColor = [UIColor clearColor];
+        self.titleLabel.textColor = self.isCurrentPasser ? uirgb(134, 134, 134) : [UIColor blackColor];
     }
-    self.borderColor = self.highColor;
-    [super setSelected:shouldBeSelected];
-    [self setNeedsDisplay];
 }
 
 - (NSString* )description {

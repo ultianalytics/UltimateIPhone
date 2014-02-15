@@ -435,9 +435,9 @@
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
     [errorMessageLabel setTextColor: [ColorMaster getPlayerImbalanceColor: isMaleImbalance]];
+    errorMessageLabel.backgroundColor = [UIColor blackColor];
     errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
     errorMessageLabel.alpha = 1;
-    errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
     [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
 }
 
@@ -529,10 +529,10 @@
 }
 
 -(void)displayVerifyLine {
-    [errorMessageLabel setTextColor: [UIColor blackColor]];
+    [errorMessageLabel setTextColor: [UIColor whiteColor]];
+    errorMessageLabel.backgroundColor = [UIColor blackColor];
     errorMessageLabel.text =  @"Verify Line!!";
     errorMessageLabel.alpha = 1;
-    errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
     [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
 }
 

@@ -11,19 +11,5 @@
 
 @implementation UltimateSwitch
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    [self commonInit];
-    return self;
-}
-
--(void)awakeFromNib {
-    [self commonInit];
-}
-
--(void)commonInit {
-    self.onTintColor = [ColorMaster getSegmentControlDarkTintColor];
-}
 
 @end

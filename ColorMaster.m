@@ -212,19 +212,8 @@ static UIColor* linePlayerImbalanceWarningBoys;
     return [UIColor darkGrayColor];
 }
 
-+(UIColor*)getSegmentControlDarkTintColor {
-    return navBarTintColor;
-}
-
 +(UIColor*)getPlayerImbalanceColor: (BOOL)isBoy {
     return isBoy ? linePlayerImbalanceWarningBoys : linePlayerImbalanceWarningGirls;
-}
-
-+(void)styleAsWhiteLabel: (UILabel*) label size: (CGFloat) size {
-    label.font = [UIFont boldSystemFontOfSize:size];
-    label.textColor = [UIColor whiteColor];
-    label.shadowColor = [UIColor blackColor];
-    label.shadowOffset = CGSizeMake(0, 1);
 }
 
 +(UIColor*)applicationTintColor {

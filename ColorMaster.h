@@ -37,11 +37,9 @@
 +(UIColor*)getAlarmingButtonHighColor;
 +(UIColor*)getAlarmingButtonLowColor;
 +(UIColor*)getSegmentControlLightTintColor;
-+(UIColor*)getSegmentControlDarkTintColor;
+
+
 +(UIColor*)getPlayerImbalanceColor: (BOOL)isMaleImbalance;
-
-+(void)styleAsWhiteLabel: (UILabel*) label size: (CGFloat) size;
-
 +(UIColor*)applicationTintColor;
 +(UIColor*)titleBarColor;
 +(UIColor*)lightBackgroundColor;

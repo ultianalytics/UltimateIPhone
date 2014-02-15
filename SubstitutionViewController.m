@@ -225,9 +225,9 @@
 
 - (void)showGenderImbalanceIndicator: (BOOL) isMaleImbalance {
     [self.errorMessageLabel setTextColor: [ColorMaster getPlayerImbalanceColor: isMaleImbalance]];
+    self.errorMessageLabel.backgroundColor = [UIColor blackColor];
     self.errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
     self.errorMessageLabel.alpha = 1;
-    self.errorMessageLabel.backgroundColor = [ColorMaster getSegmentControlDarkTintColor];
     [UIView animateWithDuration:1.5 animations:^{self.errorMessageLabel.alpha = 0;}];
 }
 

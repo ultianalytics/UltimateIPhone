@@ -294,10 +294,6 @@
 
 -(void)styleView {
     self.busyDisplay.layer.cornerRadius = 8.0;
-    self.uploadButton.titleLabel.font = kButtonFont;
-    self.downloadGameButton.titleLabel.font = kButtonFont;    
-    self.downloadTeamButton.titleLabel.font = kButtonFont;    
-    self.signoffButton.titleLabel.font = kButtonFont;    
 }
 
 -(void)populateViewFromModel {

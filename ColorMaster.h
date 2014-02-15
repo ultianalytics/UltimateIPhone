@@ -10,34 +10,14 @@
 
 @interface ColorMaster : NSObject
 
-+(UIColor*)getTabBarSelectedImageColor;
-+(UIColor*)getSearchBarTintColor;
-+(UIColor*)getOffenseEventColor;
-+(UIColor*)getDefenseEventColor;
 +(UIColor*)getWinScoreColor;
 +(UIColor*)getLoseScoreColor;
 +(UIColor*)getActiveGameColor;
-+(UIColor*)getBenchRowColor;
-+(UIColor*)getNavBarTintColor;
-+(UIColor*)getDarkButtonHighColor;
-+(UIColor*)getDarkButtonLowColor;
-+(NSArray*)getLinePlayerButtonColors;
++(UIColor*)getOffenseEventColor;
++(UIColor*)getDefenseEventColor;
 +(UIColor*)getLinePlayerPositionColor: (BOOL) dark;
 +(UIColor*)getLinePlayerPointsColor: (BOOL) dark;
-+(UIColor*)getNormalButtonHighColor;
-+(UIColor*)getNormalButtonLowColor;
-+(UIColor*)getNormalButtonSelectedHighColor;
-+(UIColor*)getNormalButtonSelectedLowColor;
-+(UIColor*)getPasserButtonHighColor;
-+(UIColor*)getPasserButtonLowColor;
-+(UIColor*)getPasserButtonSelectedHighColor;
-+(UIColor*)getPasserButtonSelectedLowColor;
 +(UIColor*)getFormTableCellColor;
-+(UIColor*)getTableListSeparatorColor;
-+(UIColor*)getAlarmingButtonHighColor;
-+(UIColor*)getAlarmingButtonLowColor;
-
-
 +(UIColor*)getPlayerImbalanceColor: (BOOL)isMaleImbalance;
 +(UIColor*)applicationTintColor;
 +(UIColor*)titleBarColor;

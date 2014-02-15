@@ -12,8 +12,8 @@
 @implementation DarkButton
 
 - (void)initCharacteristics {
-    self.highColor = [ColorMaster getDarkButtonHighColor];
-    self.lowColor = [ColorMaster getDarkButtonLowColor];
+    self.highColor = [UIColor darkGrayColor];
+    self.lowColor = [UIColor blackColor];
     self.borderColor = self.highColor;
     self.borderDisabledColor = self.lowDisabledColor;
     self.buttonStyleNormalTextColor = [UIColor whiteColor];

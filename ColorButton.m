@@ -34,10 +34,10 @@
 
 - (void)initCharacteristics {
     self.isLabelStyle = NO;
-    self.highColor = [ColorMaster getNormalButtonHighColor];
-    self.lowColor = [ColorMaster getNormalButtonLowColor];
-    self.highDisabledColor = [ColorMaster getNormalButtonSelectedHighColor];
-    self.lowDisabledColor = [ColorMaster getNormalButtonSelectedLowColor];
+    self.highColor = uirgb(76,82,102);;
+    self.lowColor = uirgb(25,31,51);
+    self.highDisabledColor = uirgb(178,184,204);
+    self.lowDisabledColor = uirgb(127,133,153);
     self.buttonStyleNormalTextColor = [UIColor whiteColor];
     self.buttonStyleHighlightTextColor = [UIColor blackColor];
     self.labelStyleNormalTextColor = [UIColor blackColor];

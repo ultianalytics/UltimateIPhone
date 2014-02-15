@@ -169,7 +169,6 @@
 {
     [super viewDidLoad];
     self.tableView.tableFooterView = self.footerView;
-    self.tableView.separatorColor = [ColorMaster getTableListSeparatorColor];
     
     self.nickNameField.delegate = self;
     self.numberField.delegate = self;

@@ -119,6 +119,9 @@
 		1AA37BE718B1383200CE9662 /* splash-screen-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */; };
 		1AA37BE818B1383200CE9662 /* splash-screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE618B1383200CE9662 /* splash-screen@2x.png */; };
 		1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE918B1385100CE9662 /* Images.xcassets */; };
+		1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */; };
+		1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */; };
+		1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -471,6 +474,9 @@
 		1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-5@2x.png"; sourceTree = "<group>"; };
 		1AA37BE618B1383200CE9662 /* splash-screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen@2x.png"; sourceTree = "<group>"; };
 		1AA37BE918B1385100CE9662 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UltimateIPhone/Images.xcassets; sourceTree = "<group>"; };
+		1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-app-icon@2x.png"; sourceTree = "<group>"; };
+		1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-settings-icon@2x.png"; sourceTree = "<group>"; };
+		1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-spotlight-icon@2x.png"; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1417,6 +1423,9 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */,
+				1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */,
+				1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */,
 				1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */,
 				1AA37BE618B1383200CE9662 /* splash-screen@2x.png */,
 				1AA37BB418A9185100CE9662 /* 19-circle-check.png */,
@@ -1642,6 +1651,7 @@
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
+				1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
 				1AA37BC418ABB56800CE9662 /* README.md in Resources */,
@@ -1669,6 +1679,7 @@
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
+				1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
 				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
 				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
@@ -1719,6 +1730,7 @@
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
 				1A0E6601180074DA003BEB88 /* icon-80.png in Resources */,
 				1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */,
+				1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,

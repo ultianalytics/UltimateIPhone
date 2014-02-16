@@ -116,6 +116,9 @@
 		1AA37BC418ABB56800CE9662 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBE18ABB56800CE9662 /* README.md */; };
 		1AA37BC518ABB56800CE9662 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBF18ABB56800CE9662 /* release_notes.md */; };
 		1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */; };
+		1AA37BE718B1383200CE9662 /* splash-screen-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */; };
+		1AA37BE818B1383200CE9662 /* splash-screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE618B1383200CE9662 /* splash-screen@2x.png */; };
+		1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE918B1385100CE9662 /* Images.xcassets */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -465,6 +468,9 @@
 		1AA37BC218ABB56800CE9662 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameActionButton.h; sourceTree = "<group>"; };
 		1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameActionButton.m; sourceTree = "<group>"; };
+		1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-5@2x.png"; sourceTree = "<group>"; };
+		1AA37BE618B1383200CE9662 /* splash-screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen@2x.png"; sourceTree = "<group>"; };
+		1AA37BE918B1385100CE9662 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UltimateIPhone/Images.xcassets; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1091,6 +1097,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
+				1AA37BE918B1385100CE9662 /* Images.xcassets */,
 				1AC8579815FE2A150070BA24 /* Common */,
 				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
 				1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */,
@@ -1410,6 +1417,8 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */,
+				1AA37BE618B1383200CE9662 /* splash-screen@2x.png */,
 				1AA37BB418A9185100CE9662 /* 19-circle-check.png */,
 				1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */,
 				1AA37BB618A9185100CE9662 /* 26-checkmark.png */,
@@ -1595,6 +1604,7 @@
 				1AA37BB918A9185100CE9662 /* 19-circle-check@2x.png in Resources */,
 				1AFFE7F215175E7B004B4590 /* bad_egg.png in Resources */,
 				1AA37B8018A6A0F800CE9662 /* 769-male@2x.png in Resources */,
+				1AA37BE718B1383200CE9662 /* splash-screen-5@2x.png in Resources */,
 				1AFFE7F315175E7B004B4590 /* bad_smile.png in Resources */,
 				1AFFE7F415175E7B004B4590 /* beaten.png in Resources */,
 				1AFFE7F515175E7B004B4590 /* big_smile.png in Resources */,
@@ -1624,8 +1634,10 @@
 				1AFFE89215175EB0004B4590 /* horror.png in Resources */,
 				1AFFE89515175EB0004B4590 /* left-arrow.png in Resources */,
 				1AFFE89815175EB0004B4590 /* man.jpg in Resources */,
+				1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */,
 				1AFFE89915175EB0004B4590 /* money.png in Resources */,
 				1AA37BAD18A8619700CE9662 /* color3E6600Radius3.png in Resources */,
+				1AA37BE818B1383200CE9662 /* splash-screen@2x.png in Resources */,
 				1AFFE89A15175EB0004B4590 /* nothing_to_say.png in Resources */,
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,
@@ -1925,6 +1937,8 @@
 		1A66EDEE15176F7D00BBD682 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2007,6 +2021,8 @@
 		1AFFE7A415175D4A004B4590 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2032,6 +2048,8 @@
 		1AFFE7A515175D4A004B4590 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;

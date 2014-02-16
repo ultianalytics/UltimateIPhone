@@ -20,6 +20,7 @@
     [self setIsOffense: YES];
     [self makeSelected:NO];
     [self addGestureRecognizers];
+    self.passerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.passerButton.titleLabel.numberOfLines = 1;
     self.passerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.passerButton.titleLabel.minimumScaleFactor = 0.5f;

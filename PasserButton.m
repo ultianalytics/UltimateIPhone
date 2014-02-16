@@ -21,10 +21,11 @@
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    if (self.isLabelStyle) {
+    // displaying as a label always
+//    if (self.isLabelStyle) {
         self.backgroundColor = [UIColor clearColor];
         self.titleLabel.textColor = self.isCurrentPasser ? uirgb(134, 134, 134) : [UIColor blackColor];
-    }
+//    }
 }
 
 - (NSString* )description {

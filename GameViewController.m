@@ -557,6 +557,7 @@
     CGRect buttonRect = self.throwAwayButton.frame;
     buttonRect.size.height = CGRectGetMaxY(self.playerViewTeam.frame) - CGRectGetMinY(self.playerView1.frame);
     self.throwAwayButton.frame = buttonRect;
+    [self.view setNeedsDisplay];
 }
 
 #pragma mark Leaguevine 

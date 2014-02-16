@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "GameActionButton.h"
 
-@interface PasserButton : GameActionButton {}
+@interface PasserButton : FlatButton {}
 
 @property (nonatomic) BOOL isLabelStyle;
 @property (nonatomic) BOOL isCurrentPasser;

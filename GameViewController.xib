@@ -190,7 +190,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.80000000000000004" green="0.78039215689999997" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.81415374090000003" green="0.83605155109999996" blue="0.6316719891" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="auto-tweeting" lineBreakMode="tailTruncation" minimumFontSize="8" id="74" userLabel="Label: Broadcast 1 ">
                             <rect key="frame" x="236" y="-2" width="82" height="14"/>
@@ -207,7 +207,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.80000000000000004" green="0.7803921568627451" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.81415374090000003" green="0.83605155109999996" blue="0.6316719891" alpha="1" colorSpace="calibratedRGB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -215,7 +215,7 @@
                 <view hidden="YES" contentMode="scaleToFill" id="80" userLabel="Detail View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" red="0.80000000000000004" green="0.78039215689999997" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.81415374087591241" green="0.83605155109489049" blue="0.6316719890510949" alpha="1" colorSpace="calibratedRGB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

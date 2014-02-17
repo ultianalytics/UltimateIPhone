@@ -122,6 +122,7 @@
 		1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */; };
 		1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */; };
 		1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */; };
+		1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -477,6 +478,7 @@
 		1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-app-icon@2x.png"; sourceTree = "<group>"; };
 		1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-settings-icon@2x.png"; sourceTree = "<group>"; };
 		1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-spotlight-icon@2x.png"; sourceTree = "<group>"; };
+		1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passer-arrow@2x.png"; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1423,6 +1425,7 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */,
 				1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */,
 				1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */,
 				1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */,
@@ -1596,6 +1599,7 @@
 				1A0E65FD18007356003BEB88 /* icon-120.png in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
+				1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */,
 				1AFFE7E315175E7B004B4590 /* 19-gear@2x.png in Resources */,
 				1AA37BA218A857BC00CE9662 /* white200radius3@2x.png in Resources */,
 				1AFFE7E415175E7B004B4590 /* 63-runner.png in Resources */,

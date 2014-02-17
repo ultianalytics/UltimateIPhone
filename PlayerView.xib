@@ -67,7 +67,7 @@
                         <action selector="thirdButtonClicked:" destination="-1" eventType="touchUpInside" id="21"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="passser-arrow.png" id="25" userLabel="arrow">
+                <imageView userInteractionEnabled="NO" contentMode="center" image="passer-arrow.png" id="25" userLabel="arrow">
                     <rect key="frame" x="94" y="2" width="26" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                 </imageView>
@@ -83,6 +83,6 @@
         </view>
     </objects>
     <resources>
-        <image name="passser-arrow.png" width="26" height="26"/>
+        <image name="passer-arrow.png" width="25" height="6"/>
     </resources>
 </document>

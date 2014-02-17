@@ -122,11 +122,27 @@
                                 <action selector="otherTeamScoreClicked:" destination="-1" eventType="touchUpInside" id="55"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" id="70" userLabel="Hide Receiver View">
+                            <rect key="frame" x="97" y="0.0" width="224" height="399"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap the first passer (player that picked up the disc)" lineBreakMode="tailTruncation" numberOfLines="5" minimumFontSize="10" id="71">
+                                    <rect key="frame" x="49" y="73" width="96" height="146"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                    <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="shadowOffset" width="0.0" height="1"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                         <view contentMode="scaleToFill" id="iZQ-eE-1JQ" userLabel="Footer Background">
                             <rect key="frame" x="0.0" y="400" width="321" height="80"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" id="Eki-et-Xvw">
+                                <view contentMode="scaleToFill" id="Eki-et-Xvw" userLabel="Seperator">
                                     <rect key="frame" x="0.0" y="0.0" width="321" height="1"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.83529411760000005" green="0.83137254900000002" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -190,20 +206,6 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="70" userLabel="Hide Receiver View">
-                            <rect key="frame" x="97" y="0.0" width="224" height="405"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                            <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap the first passer (player that picked up the disc)" lineBreakMode="tailTruncation" numberOfLines="5" minimumFontSize="10" id="71">
-                                    <rect key="frame" x="24" y="73" width="160" height="146"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
                         <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="auto-tweeting" lineBreakMode="tailTruncation" minimumFontSize="8" id="74" userLabel="Label: Broadcast 1 ">
                             <rect key="frame" x="236" y="-2" width="82" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -227,7 +229,7 @@
                 <view hidden="YES" contentMode="scaleToFill" id="80" userLabel="Detail View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.73589347127171756" green="0.86406074720050086" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

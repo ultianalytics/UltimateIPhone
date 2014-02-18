@@ -558,6 +558,7 @@
     buttonRect.size.height = CGRectGetMaxY(self.playerViewTeam.frame) - self.playerView1.frame.origin.y - 3;
     self.throwAwayButton.frame = buttonRect;
     [self.view setNeedsDisplay];
+    self.firstPasserBracketImage.image = [UIImage imageNamed:@"first-passer-bracket-5"];
 }
 
 #pragma mark Leaguevine 

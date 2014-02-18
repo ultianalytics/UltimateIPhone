@@ -42,6 +42,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView* swipeEventsView;
 @property (nonatomic, strong) IBOutlet UIView* hideReceiverView;
+@property (nonatomic, strong) IBOutlet UIImageView* firstPasserBracketImage;
 
 @property (nonatomic, strong) IBOutlet UILabel* broadcast1Label;
 @property (nonatomic, strong) IBOutlet UILabel* broadcast2Label;

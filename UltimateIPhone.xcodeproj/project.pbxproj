@@ -125,6 +125,7 @@
 		1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */; };
 		1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */; };
 		1AA37BF818B2DE7E00CE9662 /* first-passer-bracket@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */; };
+		1AA37BFB18B2E1FC00CE9662 /* GameCessationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BFA18B2E1FC00CE9662 /* GameCessationButton.m */; };
 		1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */; };
 		1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */; };
 		1AAC14911718240200827C51 /* UILabel+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC14901718240200827C51 /* UILabel+Utilities.m */; };
@@ -483,6 +484,8 @@
 		1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passer-arrow@2x.png"; sourceTree = "<group>"; };
 		1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket-5@2x.png"; sourceTree = "<group>"; };
 		1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket@2x.png"; sourceTree = "<group>"; };
+		1AA37BF918B2E1FC00CE9662 /* GameCessationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCessationButton.h; sourceTree = "<group>"; };
+		1AA37BFA18B2E1FC00CE9662 /* GameCessationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCessationButton.m; sourceTree = "<group>"; };
 		1AA95A0A170EF647003B0781 /* LeaguevineWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineWaitingViewController.h; sourceTree = "<group>"; };
 		1AA95A0B170EF647003B0781 /* LeaguevineWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineWaitingViewController.m; sourceTree = "<group>"; };
 		1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaguevineWaitingViewController.xib; sourceTree = "<group>"; };
@@ -1409,6 +1412,8 @@
 				1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */,
 				1AFFE83015175EB0004B4590 /* PasserButton.h */,
 				1AFFE83115175EB0004B4590 /* PasserButton.m */,
+				1AA37BF918B2E1FC00CE9662 /* GameCessationButton.h */,
+				1AA37BFA18B2E1FC00CE9662 /* GameCessationButton.m */,
 			);
 			name = "Game Action";
 			sourceTree = "<group>";
@@ -1805,6 +1810,7 @@
 				1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */,
 				1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */,
 				1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */,
+				1AA37BFB18B2E1FC00CE9662 /* GameCessationButton.m in Sources */,
 				1AFFE89315175EB0004B4590 /* IBView.m in Sources */,
 				1AFFE89415175EB0004B4590 /* ImageMaster.m in Sources */,
 				1AFFE89C15175EB0004B4590 /* OffenseEvent.m in Sources */,

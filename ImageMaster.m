@@ -185,19 +185,19 @@ static UIImage* unknownImage = nil;
 +(UIImage*)stretchableImageForPlayingTimeFactor: (int)factor {
     switch (factor) {
         case 0:
-            return [[UIImage imageNamed:@"color7CCC00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-            break;
-        case 1:
-            return [[UIImage imageNamed:@"color6DB200Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-            break;
-        case 2:
-            return [[UIImage imageNamed:@"color5D9900Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-            break;
-        case 3:
             return [[UIImage imageNamed:@"color4D7F00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
             break;
-        case 4:
+        case 1:
+            return [[UIImage imageNamed:@"color4D7F00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 2:
             return [[UIImage imageNamed:@"color3E6600Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 3:
+            return [[UIImage imageNamed:@"color3E6600Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+            break;
+        case 4:
+            return [[UIImage imageNamed:@"color2E4C00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
             break;
         case 5:
             return [[UIImage imageNamed:@"color2E4C00Radius3.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];

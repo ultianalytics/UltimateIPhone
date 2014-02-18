@@ -13,10 +13,9 @@
 @implementation GameActionButton
 
 -(void)awakeFromNib {
-//    [self setBackgroundImage:[ImageMaster stretchableWhite100Radius3] forState:UIControlStateNormal];
-//    [self setBackgroundImage:[ImageMaster stretchableWhite200Radius3] forState:UIControlStateSelected];
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor whiteColor];
+    [self.layer setCornerRadius:3.0f];
 }
 
 

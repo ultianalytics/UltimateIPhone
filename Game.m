@@ -24,11 +24,13 @@
 #import "PlayerSubstitution.h"
 #import "TimeoutDetails.h"
 #import "GameDescription.h"
+#import "NSDate+Formatting.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
 #define kGameIdKey              @"gameId"
 #define kStartDateTimeKey       @"timestamp"
+#define kStartDateTimeUtcKey    @"timestampUTC"
 #define kOpponentNameKey        @"opponentName"
 #define kTournamentNameKey      @"tournamentName"
 #define kPointsKey              @"points"
@@ -79,6 +81,7 @@ static Game* currentGame = nil;
         [dateFormat setDateFormat:kJsonDateFormat];
         game.startDateTime = [dateFormat dateFromString:startDateAsString];
     }
+    game.startDateTimeUtc = [dict objectForKey:kStartDateTimeUtcKey];
     NSString* pointsArrayJson = [dict objectForKey:kPointsAsJsonKey];
     if (pointsArrayJson) {
         NSError* marshallError;
@@ -145,6 +148,9 @@ static Game* currentGame = nil;
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:kJsonDateFormat];
         [dict setValue: [dateFormat stringFromDate:startDate] forKey:kStartDateTimeKey];
+    }
+    if (self.startDateTimeUtc) {
+        [dict setValue: self.startDateTimeUtc forKey: kStartDateTimeUtcKey];
     }
     Score score;
     if (self.points && [self.points count] > 0) {
@@ -379,6 +385,7 @@ static Game* currentGame = nil;
         self.publishScoreToLeaguevine = [decoder decodeBoolForKey:kLeagueVineScoresPublishKey];
         self.publishStatsToLeaguevine = [decoder decodeBoolForKey:kLeagueVineStatsPublishKey];
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
+        self.startDateTimeUtc = [decoder decodeObjectForKey:kStartDateTimeUtcKey];
     } 
     return self; 
 } 
@@ -399,6 +406,7 @@ static Game* currentGame = nil;
     [encoder encodeBool:self.publishScoreToLeaguevine forKey:kLeagueVineScoresPublishKey];
     [encoder encodeBool:self.publishStatsToLeaguevine forKey:kLeagueVineStatsPublishKey];
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
+    [encoder encodeObject:self.startDateTimeUtc forKey:kStartDateTimeUtcKey];
 } 
 
 
@@ -894,6 +902,10 @@ static Game* currentGame = nil;
 -(CessationEvent*)lastPeriodEnd {
     [self updatePointSummaries];
     return _lastPeriodEnd;
+}
+
+-(NSDate*)gameDate {
+    return self.startDateTimeUtc ? [NSDate dateFromUtcString:self.startDateTimeUtc] : self.startDateTime;
 }
 
 #pragma mark - Leaguevine

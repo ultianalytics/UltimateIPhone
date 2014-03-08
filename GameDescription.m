@@ -8,13 +8,11 @@
 
 #import "GameDescription.h"
 #import "Game.h"
-#import "NSDate+Formatting.h"
 
 #define kGameIdKey              @"gameId"
 #define kOpponentNameKey        @"opponentName"
 #define kTournamentNameKey      @"tournamentName"
 #define kStartDateTimeKey       @"timestamp"
-#define kStartDateTimeUtcKey    @"timestampUTC"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 
 @implementation GameDescription
@@ -25,17 +23,12 @@
     game.gameId = [dict objectForKey:kGameIdKey];
     game.opponent = [dict objectForKey:kOpponentNameKey];
     game.tournamentName = [dict objectForKey:kTournamentNameKey];
-    NSString* utcStartDateAsString = [dict objectForKey:kStartDateTimeUtcKey];
-    if (utcStartDateAsString) {
-        game.startDate = [NSDate dateFromUtcString:utcStartDateAsString];
-    } else {
-        NSString* startDateAsString = [dict objectForKey:kStartDateTimeKey];
-        if (startDateAsString) {
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:kJsonDateFormat];
-            game.startDate = [dateFormat dateFromString:startDateAsString];
-        }
-    }
+    NSString* startDateAsString = [dict objectForKey:kStartDateTimeKey];
+    if (startDateAsString) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:kJsonDateFormat];
+        game.startDate = [dateFormat dateFromString:startDateAsString];
+    }    
     return game;
 }
 

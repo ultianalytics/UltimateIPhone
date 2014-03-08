@@ -25,7 +25,6 @@
 }
 @property (nonatomic, strong) NSString* gameId;
 @property (nonatomic, strong) NSDate* startDateTime;
-@property (nonatomic, strong) NSString* startDateTimeUtc;
 @property (nonatomic, strong) NSString* opponentName;
 @property (nonatomic, strong) NSString* tournamentName;
 @property (nonatomic, strong) NSMutableArray* points;
@@ -104,7 +103,6 @@
 -(int)availableTimeouts;
 -(Action)nextPeriodEnd;
 -(BOOL)isTie;
--(NSDate*)gameDate;
 
 
 @end

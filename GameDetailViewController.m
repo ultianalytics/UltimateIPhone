@@ -27,7 +27,6 @@
 #import "LeaguevineEventQueue.h"
 #import "TimeoutViewController.h"
 #import "GameStartTimeViewController.h"
-#import "NSDate+Formatting.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
@@ -307,7 +306,6 @@
     [self dismissKeyboard];
     if ([self verifyOpponentName]) {
         self.game.startDateTime = [NSDate date];
-        self.game.startDateTimeUtc = [self.game.startDateTime utcString];
         self.game.tournamentName = [self.tournamentNameField.text trim];
         [self.game save];
         [Game setCurrentGame:self.game.gameId];
@@ -568,8 +566,7 @@
         headerView.backgroundColor = [ColorMaster lightBackgroundColor];
         
         // start time
-        NSDate* gameDate = [self.game gameDate];
-        NSString* dateText = gameDate ? [self.dateFormat stringFromDate:gameDate] : @"Start Time Unknown";
+        NSString* dateText = self.game.startDateTime ? [self.dateFormat stringFromDate:self.game.startDateTime] : @"Start Time Unknown";
         CGFloat buttonMargin = 5;
         UIButton* dateButton = [[UIButton alloc] initWithFrame:CGRectMake(10, buttonMargin, 190, kHeaderHeight - (buttonMargin * 2))];
         [dateButton.layer setBorderWidth:1.0f];
@@ -687,11 +684,10 @@
 
 -(void)showDateTimePicker {
     GameStartTimeViewController* startTimeController = [[GameStartTimeViewController alloc] init];
-    startTimeController.date = [self.game gameDate];
+    startTimeController.date = self.game.startDateTime;
     startTimeController.completion = ^(GameStartTimeViewController* startTimeController) {
         if (startTimeController.date) {
             self.game.startDateTime = startTimeController.date;
-            self.game.startDateTimeUtc = [self.game.startDateTime utcString];
             [self.game save];
         }
         [self.navigationController popViewControllerAnimated:YES];

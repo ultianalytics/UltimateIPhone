@@ -16,6 +16,7 @@
 #import "CalloutView.h"
 #import "Constants.h"
 #import "SHSLogsMailer.h"
+#import "UIScrollView+Utilities.h"
 
 #define kIsNotFirstTeamsViewUsage @"IsNotFirstTeamsViewUsage"
 
@@ -128,6 +129,7 @@
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;
     [self addSupportGestureRecognizer];
+    [self.teamsTableView adjustInsetForTabBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -10,6 +10,7 @@
 #import "GameDescription.h"
 #import "ColorMaster.h"
 #import "Constants.h"
+#import "UIScrollView+Utilities.h"
 
 @implementation GameDownloadPickerViewController
 @synthesize gamesTableView,games,selectedGame;
@@ -83,6 +84,7 @@
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerLabel];
     gamesTableView.tableHeaderView = headerView;
+    [gamesTableView adjustInsetForTabBar];
 
 }
 

@@ -10,6 +10,7 @@
 #import "Team.h"
 #import "ColorMaster.h"
 #import "Constants.h"
+#import "UIScrollView+Utilities.h"
 
 @implementation TeamDownloadPickerViewController
 @synthesize teamsTableView,teams,selectedTeam;
@@ -84,6 +85,7 @@
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerLabel];
     teamsTableView.tableHeaderView = headerView;
+    [teamsTableView adjustInsetForTabBar];
 
 }
 

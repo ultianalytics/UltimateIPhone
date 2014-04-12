@@ -21,6 +21,7 @@
 #import "AppDelegate.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
+#import "UIScrollView+Utilities.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
@@ -110,6 +111,7 @@
 {
     [super viewDidLoad];
     self.addNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
+    [self.playersTableView adjustInsetForTabBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated

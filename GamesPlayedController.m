@@ -13,6 +13,7 @@
 #import "Preferences.h"
 #import "GameDetailViewController.h"
 #import "Team.h"
+#import "UIScrollView+Utilities.h"
 
 @implementation GamesPlayedController
 @synthesize gameDescriptions,gamesTableView;
@@ -124,7 +125,8 @@
 {
     [super viewDidLoad];
     UIBarButtonItem *navBarAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddGame)];
-    self.navigationItem.rightBarButtonItem = navBarAddButton; 
+    self.navigationItem.rightBarButtonItem = navBarAddButton;
+    [self.gamesTableView adjustInsetForTabBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

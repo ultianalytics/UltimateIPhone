@@ -238,7 +238,7 @@
         switch (buttonIndex) {
             case 0: 
             {       
-                //NSLog(@"Delete was cancelled by the user");
+                //SHSLog(@"Delete was cancelled by the user");
             }
                 break;
                 

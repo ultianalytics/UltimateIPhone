@@ -48,7 +48,7 @@
 }
 
 - (void)accessPageLoaded {
-    NSLog(@"access page loaded");
+    SHSLog(@"access page loaded");
     NSString* email = [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('email').value"];
     [self.delegate dismissSignonController:YES email:email];
 }
@@ -57,7 +57,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView {
     NSURLRequest* finishedRequest = webView.request;
-    NSLog(@"finished loading URL %@", finishedRequest.URL);
+    SHSLog(@"finished loading URL %@", finishedRequest.URL);
     [self showWebView]; 
     if([finishedRequest.URL.lastPathComponent isEqualToString:[self accessCheckPageUrl]]) {
         [self accessPageLoaded];

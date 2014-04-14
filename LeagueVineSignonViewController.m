@@ -39,7 +39,7 @@
 }
 
 - (void)signonComplete {
-    NSLog(@"signon redirect complete");
+    SHSLog(@"signon redirect complete");
     //NSString* email = [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('email').value"];
     self.finishedBlock(YES,self);
 }
@@ -66,7 +66,7 @@
 */
      
     NSURLRequest* finishedRequest = self.webView.request;
-    NSLog(@"finished loading URL %@", finishedRequest.URL);
+    SHSLog(@"finished loading URL %@", finishedRequest.URL);
     [self showWebView]; 
     if([finishedRequest.URL.absoluteString hasPrefix:REGISTERED_REDIRECT_URI]) {
         NSString* otherInfo = [finishedRequest.URL.absoluteString substringFromIndex:REGISTERED_REDIRECT_URI.length];
@@ -83,7 +83,7 @@
                 NSString* tokenType = [queryStringParams valueForKey:@"token_type"];
                 NSString* expiresIn = [queryStringParams valueForKey:@"expires_in"];
                 NSString* scope = [queryStringParams valueForKey:@"scope"];
-                NSLog(@"Logged into Leaguevine.  token_type is %@ expires_in %@ scope is %@", tokenType, expiresIn, scope);
+                SHSLog(@"Logged into Leaguevine.  token_type is %@ expires_in %@ scope is %@", tokenType, expiresIn, scope);
                 [Preferences getCurrentPreferences].leaguevineToken = token;
                 [[Preferences getCurrentPreferences] save];
                 [self signonComplete];

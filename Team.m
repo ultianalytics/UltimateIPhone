@@ -151,7 +151,7 @@ static Team* currentTeam = nil;
         NSData* jsonData = [leaguevineJson dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary* leaguevineTeamDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error parsing leaguevine JSON");
+            SHSLog(@"Error parsing leaguevine JSON");
         } else {
             team.leaguevineTeam = [LeaguevineTeam fromDictionary: leaguevineTeamDict];
         }
@@ -209,7 +209,7 @@ static Team* currentTeam = nil;
         NSError* marshallError;
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:leaguevineTeamDict options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error creating JSON of leaguevine");
+            SHSLog(@"Error creating JSON of leaguevine");
         } else {
             [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kLeagueVineTeamAsJsonKey];
         }
@@ -298,7 +298,7 @@ static Team* currentTeam = nil;
 		if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error])	//Delete it
 		{
             if (error) {
-                NSLog(@"Delete team file error: %@", error);
+                SHSLog(@"Delete team file error: %@", error);
             }
 		}
 	}

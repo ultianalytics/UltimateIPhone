@@ -37,7 +37,7 @@
 { 
     WindDirectionSwipeRecognizer* swipeRecognizer = (WindDirectionSwipeRecognizer*)recognizer;
     self.game.wind.directionDegrees = [swipeRecognizer getDegrees];
-    //NSLog(@"Swipe - degrees %d", wind.directionDegrees);
+    //SHSLog(@"Swipe - degrees %d", wind.directionDegrees);
     self.directionArrowView.degrees = self.game.wind.directionDegrees;
     [self.directionArrowView setNeedsDisplay];
     [self saveChanges];

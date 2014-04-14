@@ -182,7 +182,7 @@ static AnonymousPlayer* singleAnonymous = nil;
         NSError* marshallError;
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:leaguevinePlayerDict options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error creating JSON of leaguevine");
+            SHSLog(@"Error creating JSON of leaguevine");
         } else {
             self.leaguevinePlayerJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         }
@@ -197,7 +197,7 @@ static AnonymousPlayer* singleAnonymous = nil;
         NSData* jsonData = [self.leaguevinePlayerJson dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary* leaguevinePlayerDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error parsing leaguevine JSON");
+            SHSLog(@"Error parsing leaguevine JSON");
         } else {
             _leaguevinePlayer = [LeaguevinePlayer fromDictionary: leaguevinePlayerDict];
         }

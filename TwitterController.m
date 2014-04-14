@@ -179,14 +179,14 @@
 }
 
 -(void)verifyAccount: (NSDate *) beginVerifyTime {
-    NSLog(@"Verifying Twitter Account Existence");
+    SHSLog(@"Verifying Twitter Account Existence");
     BOOL isVerified = [[Tweeter getCurrent] doesTwitterAccountExist];
     NSTimeInterval elapsedTimeSeconds = [beginVerifyTime timeIntervalSinceNow] * -1;
     if (!isVerified && (elapsedTimeSeconds < kMaxRetryForAccoutSeconds)) {
-        NSLog(@"No Twitter Account...trying again");
+        SHSLog(@"No Twitter Account...trying again");
         [self performSelector:@selector(verifyAccount:) withObject:beginVerifyTime afterDelay:1];
     } else {
-        NSLog(@"Twitter Account Verify quitting...account found or exceeded verify time");
+        SHSLog(@"Twitter Account Verify quitting...account found or exceeded verify time");
         [self populateViewFromModel];
     }
 }

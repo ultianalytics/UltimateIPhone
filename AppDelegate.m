@@ -97,7 +97,7 @@ UINavigationController* gameNavController;
     }
     
     NSString *urlString = [url absoluteString];
-    NSLog(@"app opening via registered URL %@", urlString);
+    SHSLog(@"app opening via registered URL %@", urlString);
 
     return YES;
 }

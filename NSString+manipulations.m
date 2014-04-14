@@ -30,7 +30,7 @@
         if ([keyAndValueArray count] == 2) {
             [paramsDict setObject:[keyAndValueArray objectAtIndex:1] forKey:[keyAndValueArray objectAtIndex:0]];
         } else {
-            NSLog(@"Warning...malformed query string: %@", self);
+            SHSLog(@"Warning...malformed query string: %@", self);
             return nil;
         }
     }

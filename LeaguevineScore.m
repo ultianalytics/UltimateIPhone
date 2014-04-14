@@ -43,7 +43,7 @@
     NSError* error;
     [data writeToFile:filePath options:NSDataWritingAtomic error:&error];
     if(error != nil) {
-        NSLog(@"Failed trying to save leaguevine score: %@", error);
+        SHSLog(@"Failed trying to save leaguevine score: %@", error);
     }
 }
 

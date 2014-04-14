@@ -81,7 +81,7 @@
         [self.playerNameLookup setValue:subName forKey:originalName];
         [self.usedPlayerNames addObject:subName];
     }
-    NSLog(@"Player name substitution.  old=%@, new=%@",originalName, subName);
+    SHSLog(@"Player name substitution.  old=%@, new=%@",originalName, subName);
     return subName;
 }
 
@@ -99,7 +99,7 @@
         [self.tournamentNameLookup setValue:subName forKey:originalName];
         [self.usedTournamentNames addObject:subName];
     }
-    NSLog(@"Tournament name substitution.  old=%@, new=%@",originalName, subName);
+    SHSLog(@"Tournament name substitution.  old=%@, new=%@",originalName, subName);
     return subName;
 }
 
@@ -117,7 +117,7 @@
         [self.opponentNameLookup setValue:subName forKey:originalName];
         [self.usedOpponentNames addObject:subName];
     }
-    NSLog(@"Opponent name substitution.  old=%@, new=%@",originalName, subName);
+    SHSLog(@"Opponent name substitution.  old=%@, new=%@",originalName, subName);
     return subName;
 }
 

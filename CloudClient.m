@@ -16,9 +16,6 @@
 #import "TestFlight.h"
 #import "Reachability.h"
 
-// send nslog output to testflight
-#define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-
 #define kHostHame @"www.ultimate-numbers.com"
 //#define kHostHame @"local.appspot.com:8888"
 //#define kHostHame @"local.appspot.com:8890" // tcp monitor
@@ -174,10 +171,10 @@
     NSData* data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response
                                                      error:&sendError];
-    NSLog(@"URL response: %@",[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
+    SHSLog(@"URL response: %@",[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
     BOOL isSignedOn = response != nil && [response statusCode] == 200;
-    NSLog(@"Http response status code = %d",[response statusCode]);
-    NSLog(@"Is Signed On ? %@",isSignedOn ? @"YES" : @"NO");
+    SHSLog(@"Http response status code = %d",[response statusCode]);
+    SHSLog(@"Is Signed On ? %@",isSignedOn ? @"YES" : @"NO");
     return isSignedOn;
 }
 
@@ -226,10 +223,10 @@
             
             responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
             if (sendError == nil && response != nil && [response statusCode] == 200) {
-                NSLog(@"http GET successful");
+                SHSLog(@"http GET successful");
             } else {
                 *getError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                NSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
+                SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
             }
         } else {
             *getError = sendError;
@@ -252,10 +249,10 @@
         if (!sendError) {
             NSData* objectAsJson = [NSJSONSerialization dataWithJSONObject:objectAsDictionary options:0 error:&marshallError];
             if (marshallError) {
-                NSLog(@"Unable to marshall to JSON: %@", marshallError);
+                SHSLog(@"Unable to marshall to JSON: %@", marshallError);
                 *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: Marshalling userInfo:nil];
             } else {
-                //NSLog(@"Object as JSON = %@",[[NSString alloc] initWithData:objectAsJson encoding:NSASCIIStringEncoding]);
+                //SHSLog(@"Object as JSON = %@",[[NSString alloc] initWithData:objectAsJson encoding:NSASCIIStringEncoding]);
                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [CloudClient getBaseUrl], relativeUrl]];
                 NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
                 [request setHTTPMethod:@"POST"];
@@ -264,10 +261,10 @@
                 
                 responseJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&sendError];
                 if (sendError == nil && response != nil && [response statusCode] == 200) {
-                    NSLog(@"Object upload successful");
+                    SHSLog(@"Object upload successful");
                 } else {
                     *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                    NSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
+                    SHSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
                 } 
             }
         } else {
@@ -297,7 +294,7 @@
 +(void) verifyConnection: (NSError**) error {
     if (![self isConnected]) {
         *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: NotConnectedToInternet userInfo:nil];
-        NSLog(@"Internet connection not available");
+        SHSLog(@"Internet connection not available");
     } else {
         // check the app version to make sure OK with server
         NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
@@ -317,14 +314,14 @@
                 CloudMetaInfo *metaInfo = [CloudMetaInfo fromDictionary:metaInfoAsDictionary];
                 if (!metaInfo.isAppVersionAcceptable) {
                     *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: UnacceptableAppVersion userInfo:[NSDictionary dictionaryWithObject:metaInfo.messageToUser forKey:kCloudErrorExplanationKey]];
-                    NSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
+                    SHSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
                 }
             } else {
                 *error = unmarshallingError;
             }
         } else {
             *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-            NSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *error, response == nil ? 0 :  [response statusCode], sendError);
+            SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *error, response == nil ? 0 :  [response statusCode], sendError);
         }
     }
 }

@@ -21,7 +21,7 @@
 //    NSError* error;
 //    [newArchive updateEntries: @[[ZZArchiveEntry archiveEntryWithDirectoryName:teamsDirectory]] error:&error];
 //    if (error) {
-//        NSLog(@"Unable to create zip");
+//        SHSLog(@"Unable to create zip");
 //        return nil;
 //    } else {
 //        return zipFilePath;

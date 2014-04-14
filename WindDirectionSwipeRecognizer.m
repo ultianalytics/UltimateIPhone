@@ -22,7 +22,7 @@
     CGPoint point0 = [self.touch previousLocationInView:[self view]];
     CGPoint point1 = [self.touch locationInView:[self view]];
     
-    //NSLog(@"Swipe - start location: %f,%f and end location:  %f,%f ", point0.x, point0.y, point1.x, point1.y);
+    //SHSLog(@"Swipe - start location: %f,%f and end location:  %f,%f ", point0.x, point0.y, point1.x, point1.y);
     
     // radius: calculate distance between 2 points (http://www.teacherschoice.com.au/maths_library/analytical%20geometry/alg_15.htm)
     float radius = sqrt(pow((point0.x - point1.x), 2) + pow((point0.y - point1.y), 2));

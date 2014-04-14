@@ -85,7 +85,7 @@ static Game* currentGame = nil;
         NSData* jsonData = [pointsArrayJson dataUsingEncoding:NSUTF8StringEncoding];
         NSArray* arrayOfPointDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error parsing points JSON");
+            SHSLog(@"Error parsing points JSON");
         } else {
             NSMutableArray* points = [[NSMutableArray alloc] init];
             for (NSDictionary* pointDict in arrayOfPointDict) {
@@ -100,7 +100,7 @@ static Game* currentGame = nil;
         NSData* jsonData = [leaguevineJson dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary* leaguevineGameDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error parsing leaguevine JSON");
+            SHSLog(@"Error parsing leaguevine JSON");
         } else {
             game.leaguevineGame = [LeaguevineGame fromDictionary: leaguevineGameDict];
         }
@@ -156,7 +156,7 @@ static Game* currentGame = nil;
         NSError* marshallError;
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:pointDicts options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error creating JSON of points");
+            SHSLog(@"Error creating JSON of points");
         } else {
             [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kPointsAsJsonKey];
         }
@@ -169,7 +169,7 @@ static Game* currentGame = nil;
         NSError* marshallError;
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:leaguevineGameDict options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error creating JSON of leaguevine");
+            SHSLog(@"Error creating JSON of leaguevine");
         } else {
             [dict setValue: [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] forKey:kLeagueVineGameAsJsonKey];
         }
@@ -301,7 +301,7 @@ static Game* currentGame = nil;
         NSError* error;
 		if (![[NSFileManager defaultManager] createDirectoryAtPath:gamesFolderPath withIntermediateDirectories:NO attributes:nil error:&error]) {
             if (error) {
-                NSLog(@"Create directory error: %@", error);
+                SHSLog(@"Create directory error: %@", error);
             }
 		}
 	}
@@ -319,7 +319,7 @@ static Game* currentGame = nil;
     NSError *error;	
 	if ([[NSFileManager defaultManager] fileExistsAtPath:gamesFolder]) {
 		if (![[NSFileManager defaultManager] removeItemAtPath:gamesFolder error:&error]) {
-			NSLog(@"Delete directory error: %@", error);
+			SHSLog(@"Delete directory error: %@", error);
 		}
 	}
 }
@@ -337,7 +337,7 @@ static Game* currentGame = nil;
 		if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error])	//Delete it
 		{
             if (error) {
-                NSLog(@"Delete file error: %@", error);
+                SHSLog(@"Delete file error: %@", error);
             }
 		}
 	}
@@ -966,7 +966,7 @@ static Game* currentGame = nil;
         NSError* marshallError;
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:timeoutDetailsDict options:0 error:&marshallError];
         if (marshallError) {
-            NSLog(@"Error creating JSON of timeout details");
+            SHSLog(@"Error creating JSON of timeout details");
         } else {
             self.timeoutJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         }
@@ -982,7 +982,7 @@ static Game* currentGame = nil;
             NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary* timeoutDetailsDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
             if (marshallError) {
-                NSLog(@"Error parsing leaguevine JSON");
+                SHSLog(@"Error parsing leaguevine JSON");
             } else {
                 _timeoutDetails = [TimeoutDetails fromDictionary: timeoutDetailsDict];
             }

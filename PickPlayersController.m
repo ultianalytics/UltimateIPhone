@@ -540,12 +540,12 @@
 #pragma mark Debugging
 
 -(void)dumpBenchView {
-    NSLog(@".");
-    NSLog(@"************* Current bench view buttons ***************");
-    NSLog(@".");
+    SHSLog(@".");
+    SHSLog(@"************* Current bench view buttons ***************");
+    SHSLog(@".");
     for (int i = 0; i < [self.benchButtons count]; i++) {
         PlayerButton* button = [self.benchButtons objectAtIndex:i];
-        NSLog(@"%@", button);
+        SHSLog(@"%@", button);
     }
 }
 

@@ -134,7 +134,7 @@ static SHSLogger *sharedInstance = nil;
 -(void)switchLogsIfNeeded {
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.currentLogFilePath]) {
         NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:self.currentLogFilePath error:nil];
-        long size = [attributes fileSize];
+        unsigned long long size = [attributes fileSize];
         if (size > kLogFileSize) {
             [self switchLogs];
         }

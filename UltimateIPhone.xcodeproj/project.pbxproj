@@ -48,6 +48,7 @@
 		1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */; };
 		1A5A5D34179971C7002B4AF8 /* LightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A5D3317996D9E002B4AF8 /* LightButton.m */; };
 		1A5D7AF318F99FE600239A22 /* UIScrollView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D7AF218F99FE600239A22 /* UIScrollView+Utilities.m */; };
+		1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D7B4118FC4BF700239A22 /* SHSTeamFileZipper.m */; };
 		1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A68891E1578E9C0004A3CDB /* Settings.bundle */; };
 		1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */; };
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
@@ -382,6 +383,8 @@
 		1A5A5D3317996D9E002B4AF8 /* LightButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LightButton.m; sourceTree = "<group>"; };
 		1A5D7AF118F99FE600239A22 /* UIScrollView+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Utilities.h"; sourceTree = "<group>"; };
 		1A5D7AF218F99FE600239A22 /* UIScrollView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Utilities.m"; sourceTree = "<group>"; };
+		1A5D7B4018FC4BF700239A22 /* SHSTeamFileZipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSTeamFileZipper.h; sourceTree = "<group>"; };
+		1A5D7B4118FC4BF700239A22 /* SHSTeamFileZipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSTeamFileZipper.m; sourceTree = "<group>"; };
 		1A68891E1578E9C0004A3CDB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
@@ -984,6 +987,8 @@
 			children = (
 				1AB78D0217269E40003235AE /* SHSLogger.h */,
 				1AB78D0317269E40003235AE /* SHSLogger.m */,
+				1A5D7B4018FC4BF700239A22 /* SHSTeamFileZipper.h */,
+				1A5D7B4118FC4BF700239A22 /* SHSTeamFileZipper.m */,
 				1AFFE7D915175E7B004B4590 /* Constants.h */,
 				1AFFE7DA15175E7B004B4590 /* Constants.m */,
 				1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */,
@@ -1902,6 +1907,7 @@
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
+				1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */,
 				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,
 				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
 				1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */,

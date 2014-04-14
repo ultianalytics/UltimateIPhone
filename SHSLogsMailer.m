@@ -8,6 +8,7 @@
 
 #import "SHSLogsMailer.h"
 #import "SHSLogger.h"
+#import "SHSTeamFileZipper.h"
 #import <MessageUI/MessageUI.h>
 
 @interface SHSLogsMailer() <MFMailComposeViewControllerDelegate>
@@ -33,7 +34,7 @@ static SHSLogsMailer *sharedInstance = nil;
     return sharedInstance;
 }
 
--(void)presentEmailLogsControllerOn: (UIViewController*)presentingController {
+-(void)presentEmailLogsControllerOn: (UIViewController*)presentingController includeTeamFiles: (BOOL)includeTeamFiles {
     self.presentingController = presentingController;
     MFMailComposeViewController *mailComposeVC = [[MFMailComposeViewController alloc] init];
     mailComposeVC.mailComposeDelegate = self;
@@ -46,6 +47,13 @@ static SHSLogsMailer *sharedInstance = nil;
         NSData *data = [[NSFileManager defaultManager] contentsAtPath:logFilePath];
         NSString* fileName = [logFilePath lastPathComponent];
         [mailComposeVC addAttachmentData:data mimeType:@"text/plain" fileName:fileName];
+    }
+    if (includeTeamFiles) {
+        NSString* zipFilePath = [SHSTeamFileZipper zipTeamAndGameFiles];
+        if (zipFilePath) {
+            NSData *data = [[NSFileManager defaultManager] contentsAtPath:zipFilePath];
+            [mailComposeVC addAttachmentData:data mimeType:@"application/zip" fileName:zipFilePath];
+        }
     }
     
     NSString *emailBody = @"iUltimate log files attached";

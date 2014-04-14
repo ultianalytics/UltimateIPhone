@@ -117,7 +117,7 @@
 }
 
 - (void)supportSwipe:(UISwipeGestureRecognizer*)gestureRecognizer {
-    [[SHSLogsMailer sharedMailer] presentEmailLogsControllerOn:self];
+    [[SHSLogsMailer sharedMailer] presentEmailLogsControllerOn:self includeTeamFiles:YES];
 }
 
 

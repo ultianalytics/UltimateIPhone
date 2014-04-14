@@ -12,6 +12,6 @@
 
 +(SHSLogsMailer*)sharedMailer;
 
--(void)presentEmailLogsControllerOn: (UIViewController*)presentingController;
+-(void)presentEmailLogsControllerOn: (UIViewController*)presentingController includeTeamFiles: (BOOL)includeTeamFiles;
 
 @end

@@ -36,6 +36,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *clearCloudIdButton;
 @property (strong, nonatomic) IBOutlet UIView *customFooterView;
 
++(BOOL)isFirstTeamCreation;
+
 -(IBAction)teamTypeChanged: (id) sender;
 -(IBAction)playerDisplayChanged: (id) sender;
 -(IBAction)deleteClicked: (id) sender;

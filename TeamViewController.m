@@ -34,6 +34,11 @@
 
 @implementation TeamViewController
 
+
++(BOOL)isFirstTeamCreation {
+    return [[Team getCurrentTeam].name isEqualToString:kAnonymousTeam] && [[Team getAllTeamFileNames] count] == 1;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,7 +60,11 @@
     [self.playerDisplayTypeSegmentedControl setSelection: self.team.isDiplayingPlayerNumber ? @"Number" : @"Name"];
     [self populateLeagueVineTeamCell];
     self.teamCopyButtonView.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
-    self.deleteButtonView.visible = [self.team hasBeenSaved] && [self.teamNameField.text isNotEmpty];
+    if ([[self class] isFirstTeamCreation]) {
+        self.deleteButtonView.visible = NO;
+    } else {
+        self.deleteButtonView.visible = [self.team hasBeenSaved];
+    }
 #ifdef DEBUG
     self.clearCloudIdButton.hidden = NO;
 #endif

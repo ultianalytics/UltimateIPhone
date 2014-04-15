@@ -101,7 +101,7 @@
 }
 
 -(BOOL)isFirstTeamCreation {
-    return [[Team getCurrentTeam].name isEqualToString:kAnonymousTeam] && [[Team getAllTeamFileNames] count] == 1;
+    return [TeamViewController isFirstTeamCreation];
 }
 
 #pragma mark - Support Tools

@@ -326,8 +326,9 @@ NSDateFormatter* timeFormatter;
 }
 
 -(NSString*)turnoverTweetMessage:(Event*) event forGame: (Game*) game isUndo: (BOOL) isUndo {
-    NSString* ourTeam = [Team getCurrentTeam].name;
-    NSString* message = [NSString stringWithFormat: @"%@ %@ the disc", ourTeam, event.action == De ? @"steal" : @"lose"];
+    NSString* team = [event isDefense] && [event isThrowaway] ? [game opponentName] : [Team getCurrentTeam].name;
+    NSString* message = [NSString stringWithFormat: @"%@ %@ the disc", team, event.action == De ? @"steal" : @"lose"];
+    
     NSString* cause;
     switch (event.action) {
         case Drop:

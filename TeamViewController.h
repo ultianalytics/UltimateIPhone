@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong) Team* team;
 @property (nonatomic, strong) NSArray* cells;
-@property (nonatomic) BOOL shouldSkipToPlayers;
 
 @property (nonatomic, strong) IBOutlet UITableView* teamTableView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* nameCell;

@@ -173,7 +173,6 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameHistoryViewUsage] && [self.game hasEvents]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameHistoryViewUsage];
         [self performSelector:@selector(displayFirstTimeCallouts) withObject:nil afterDelay:.1];
-        
         return YES;
     } else {
         return NO;

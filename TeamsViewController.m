@@ -63,10 +63,11 @@
     // go to the current team on app start
     if (!isAfterFirstView) {
         isAfterFirstView = YES;
-        TeamViewController* teamController = [[TeamViewController alloc] init];
-        teamController.team = [Team getCurrentTeam];
-        teamController.shouldSkipToPlayers = YES;
-        [self.navigationController pushViewController:teamController animated:NO]; 
+        if ([self isFirstTeamCreation]) {
+            TeamViewController* teamController = [[TeamViewController alloc] init];
+            teamController.team = [Team getCurrentTeam];
+            [self.navigationController pushViewController:teamController animated:NO];
+        }
     }
 }
 
@@ -78,14 +79,6 @@
         isAfterFirstView = NO;
     }
     return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 -(BOOL)showFirstTimeUsageCallouts {
@@ -105,6 +98,10 @@
         return NO;
     }
     
+}
+
+-(BOOL)isFirstTeamCreation {
+    return [[Team getCurrentTeam].name isEqualToString:kAnonymousTeam] && [[Team getAllTeamFileNames] count] == 1;
 }
 
 #pragma mark - Support Tools

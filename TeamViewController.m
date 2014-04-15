@@ -145,16 +145,6 @@
     [self.navigationController pushViewController:playersController animated:animated];
 }
 
--(void)goToBestView {
-    // if we've already started adding players..go back there on app start
-    if (self.shouldSkipToPlayers) {
-        self.shouldSkipToPlayers = NO;
-        if ([self.team.players count] > 0) {
-            [self goToPlayersView: NO];
-        } 
-    }
-}
-
 - (void)handlePlayersCellSelected {
     if ([self saveChanges]) {
         [Team setCurrentTeam: self.team.teamId];
@@ -268,25 +258,17 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self populateViewFromModel];
-    // special case: app is starting and we are pre-loading the stack of views for efficiency (we want user
-    // to land on the players view if they've already been working with a team).  If they arrive on this view
-    // with an existing team that is not the current team then we want to push them back to teams view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     if (![self.team.teamId isEqualToString:[Team getCurrentTeam].teamId] && [self.team hasBeenSaved]) {
         [self.navigationController popViewControllerAnimated:NO];
     } else {
         [self registerForKeyboardNotifications];
-    }
-
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    BOOL showedFirstTimeCallouts = [self showFirstTimeUsageCallouts];
-    if (!showedFirstTimeCallouts) {
-        [self goToBestView];
+        [self showFirstTimeUsageCallouts];
     }
 }
 

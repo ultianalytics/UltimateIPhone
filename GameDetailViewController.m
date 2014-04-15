@@ -30,6 +30,7 @@
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
+#define kEmptyHeaderHeight 30
 
 #define kAlertTitleDeleteGame @"Delete Game"
 #define kAlertLeaguevineStatsNotAllowedWithPrivatePlayers @"Team Not Setup for LV Stats"
@@ -598,7 +599,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [self.game hasBeenSaved] ? kHeaderHeight : 0;
+    return [self.game hasBeenSaved] ? kHeaderHeight : kEmptyHeaderHeight;
 }
 
 #pragma mark - View lifecycle

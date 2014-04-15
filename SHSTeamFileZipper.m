@@ -7,7 +7,7 @@
 //
 
 #import "SHSTeamFileZipper.h"
-//#import <zipzap/zipzap.h>
+#import "SHSDirectoryZipper.h"
 
 #define kZipFileNamePrefixKey  @"ultimate-files-"
 
@@ -15,18 +15,13 @@
 
 // answer the file path of the zipped files
 +(NSString*)zipTeamAndGameFiles {
+    
+    // from/to directories
     NSString* teamsDirectory = [self teamFilesDirectory];
-    NSString *zipFilePath = [self generateZipFilePath];
-//    ZZMutableArchive* newArchive = [ZZMutableArchive archiveWithContentsOfURL:[NSURL fileURLWithPath:zipFilePath]];
-//    NSError* error;
-//    [newArchive updateEntries: @[[ZZArchiveEntry archiveEntryWithDirectoryName:teamsDirectory]] error:&error];
-//    if (error) {
-//        SHSLog(@"Unable to create zip");
-//        return nil;
-//    } else {
-//        return zipFilePath;
-//    }
-    return nil;
+    NSString *zipFilePath = [self generateUniqueFileName];
+    
+    // zip
+    return [SHSDirectoryZipper zipDirectory:teamsDirectory toFileName:zipFilePath];
 }
 
 +(NSString*)teamFilesDirectory {
@@ -36,14 +31,10 @@
     return teamsDirectoryPath;
 }
 
-+(NSString*)generateZipFilePath {
-    return [NSTemporaryDirectory() stringByAppendingPathComponent:[self generateUniqueFileName]];
-}
-
 +(NSString*)generateUniqueFileName {
     CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
     //get the string representation of the UUID
-    return [NSString stringWithFormat:@"%@%@", kZipFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
+    return [NSString stringWithFormat:@"%@%@.zip", kZipFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
 }
 
 @end

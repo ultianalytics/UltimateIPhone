@@ -16,11 +16,9 @@
 #import "TestFlight.h"
 #import "Reachability.h"
 
-#define kHostHame @"www.ultimate-numbers.com"
+#define kHostHame @"www.ultianlytics.com"
 //#define kHostHame @"local.appspot.com:8888"
 //#define kHostHame @"local.appspot.com:8890" // tcp monitor
-//#define [CloudClient getBaseUrl] @"http://www.ultimate-numbers.com"
-//#define [CloudClient getBaseUrl] @"http://local.appspot.com:8888"
 
 // private methods
 @interface CloudClient() 

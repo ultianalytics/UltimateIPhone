@@ -40,7 +40,7 @@ static SHSLogsMailer *sharedInstance = nil;
     mailComposeVC.mailComposeDelegate = self;
     [mailComposeVC setSubject:@"iUltimate Logs"];
     
-    NSArray* recipients = [NSArray arrayWithObject:@"support@ultimate-numbers.com"];
+    NSArray* recipients = [NSArray arrayWithObject:@"support@ultianalytics.com"];
     [mailComposeVC setToRecipients:recipients];
     
     for (NSString* logFilePath in [[SHSLogger sharedLogger] filesInDateAscendingOrder]) {

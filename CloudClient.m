@@ -16,7 +16,7 @@
 #import "TestFlight.h"
 #import "Reachability.h"
 
-#define kHostHame @"www.ultianlytics.com"
+#define kHostHame @"www.ultianalytics.com"
 //#define kHostHame @"local.appspot.com:8888"
 //#define kHostHame @"local.appspot.com:8890" // tcp monitor
 

@@ -28,12 +28,12 @@
 
 -(void)logLeaguevineEvent: (LeaguevineEvent*)event {
     // format: {event-type}/{log-record-version}/{timestamp}/{leaguevine-id}/{game-id}/{UNUSED}/{array-of-LV-player-ids-for-line-change-event}/{description}
-    [self appendToLog:[NSString stringWithFormat:@"%d/%@/%f/%lu/%d/%@/%@/%@\n",
-                       event.leaguevineEventType,
+    [self appendToLog:[NSString stringWithFormat:@"%lu/%@/%f/%lu/%lu/%@/%@/%@\n",
+                       (unsigned long)event.leaguevineEventType,
                        @"V1",
                        event.iUltimateTimestamp,
                        (unsigned long)event.leaguevineEventId,
-                       event.leaguevineGameId,
+                       (unsigned long)event.leaguevineGameId,
                        @"",  // unused
                        [self lineChangePlayersAsString:event],
                        [event crudDescription]]];

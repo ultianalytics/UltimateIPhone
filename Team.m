@@ -314,7 +314,7 @@ static Team* currentTeam = nil;
 
 -(Player*) getPlayer: (NSString*) playerName {
     Player* lookupPlayer = [[Player alloc] initName:playerName];
-    int index = [self.players indexOfObject:lookupPlayer];
+    NSUInteger index = [self.players indexOfObject:lookupPlayer];
     return index == NSNotFound ? nil : [self.players objectAtIndex:index];
 }
 

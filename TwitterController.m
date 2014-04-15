@@ -55,7 +55,7 @@
             [TweetViewController alertNoAccount: nil];
         } 
     }
-    AutoTweetLevel level = self.autoTweetSegmentedControl.selectedSegmentIndex;
+    AutoTweetLevel level = (int)self.autoTweetSegmentedControl.selectedSegmentIndex;
     if (level != NoAutoTweet && [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
         [TwitterController showNoConnectivityAlert];
         self.autoTweetSegmentedControl.selectedSegmentIndex = NoAutoTweet;

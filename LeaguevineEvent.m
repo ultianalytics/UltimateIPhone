@@ -80,15 +80,15 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeInt:self.leaguevineGameId forKey:kGameId];
-    [encoder encodeInt:self.leaguevineEventId forKey:kEventId];
-    [encoder encodeInt:self.leaguevineEventType forKey:kEventType];
-    [encoder encodeInt:self.leaguevinePlayer1Id forKey:kPlayer1Id];
-    [encoder encodeInt:self.leaguevinePlayer2Id forKey:kPlayer2Id];
-    [encoder encodeInt:self.leaguevinePlayer3Id forKey:kPlayer3Id];
-    [encoder encodeInt:self.leaguevinePlayer1TeamId forKey:kPlayer1TeamId];
-    [encoder encodeInt:self.leaguevinePlayer2TeamId forKey:kPlayer2TeamId];
-    [encoder encodeInt:self.leaguevinePlayer3TeamId forKey:kPlayer3TeamId];
+    [encoder encodeInt:(int)self.leaguevineGameId forKey:kGameId];
+    [encoder encodeInt:(int)self.leaguevineEventId forKey:kEventId];
+    [encoder encodeInt:(int)self.leaguevineEventType forKey:kEventType];
+    [encoder encodeInt:(int)self.leaguevinePlayer1Id forKey:kPlayer1Id];
+    [encoder encodeInt:(int)self.leaguevinePlayer2Id forKey:kPlayer2Id];
+    [encoder encodeInt:(int)self.leaguevinePlayer3Id forKey:kPlayer3Id];
+    [encoder encodeInt:(int)self.leaguevinePlayer1TeamId forKey:kPlayer1TeamId];
+    [encoder encodeInt:(int)self.leaguevinePlayer2TeamId forKey:kPlayer2TeamId];
+    [encoder encodeInt:(int)self.leaguevinePlayer3TeamId forKey:kPlayer3TeamId];
     [encoder encodeObject:self.latestLine forKey:kLineChange];
     [encoder encodeDouble:self.iUltimateTimestamp forKey:kTimestamp];
     [encoder encodeDouble:self.leaguevineTimestamp forKey:kLeaguevineTimestamp];    
@@ -97,7 +97,7 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat: @"LeaguevineEvent \"%@\" type=%d iUltimateTimestamp=%f, leaguevineEventId=%d, leaguevineGameId=%d, leaguevinePlayer1Id=%d, leaguevinePlayer2Id=%d, leaguevinePlayer3Id=%d, leaguevinePlayer1TeamId=%d, leaguevinePlayer2TeamId=%d, leaguevinePlayer3TeamId=%d, latestLine=%@", self.eventDescription, self.leaguevineEventType, self.iUltimateTimestamp, self.leaguevineEventId, self.leaguevineGameId, self.leaguevinePlayer1Id, self.leaguevinePlayer2Id, self.leaguevinePlayer3Id, self.leaguevinePlayer1TeamId, self.leaguevinePlayer2TeamId, self.leaguevinePlayer3TeamId, self.latestLine];
+    return [NSString stringWithFormat: @"LeaguevineEvent \"%@\" type=%lu iUltimateTimestamp=%f, leaguevineEventId=%lu, leaguevineGameId=%lu, leaguevinePlayer1Id=%lu, leaguevinePlayer2Id=%lu, leaguevinePlayer3Id=%lu, leaguevinePlayer1TeamId=%lu, leaguevinePlayer2TeamId=%lu, leaguevinePlayer3TeamId=%lu, latestLine=%@", self.eventDescription, (unsigned long)self.leaguevineEventType, self.iUltimateTimestamp, (unsigned long)self.leaguevineEventId, (unsigned long)self.leaguevineGameId, (unsigned long)self.leaguevinePlayer1Id, (unsigned long)self.leaguevinePlayer2Id, (unsigned long)self.leaguevinePlayer3Id, (unsigned long)self.leaguevinePlayer1TeamId, (unsigned long)self.leaguevinePlayer2TeamId, (unsigned long)self.leaguevinePlayer3TeamId, self.latestLine];
 }
 
 -(BOOL)isAdd {

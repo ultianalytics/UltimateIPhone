@@ -110,7 +110,7 @@
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
 
-    cell.textLabel.text = item ? [item listDescription] : [NSString stringWithFormat: @"%@ not selected", [self sectionName:indexPath.section]];
+    cell.textLabel.text = item ? [item listDescription] : [NSString stringWithFormat: @"%@ not selected", [self sectionName:(int)indexPath.section]];
     cell.textLabel.textColor = item ? [UIColor blackColor] : [UIColor grayColor];
     
     return cell;
@@ -125,7 +125,7 @@
     headerLabel.textColor = uirgb(134,134,134);
     headerLabel.shadowColor = [UIColor whiteColor];
     headerLabel.shadowOffset = CGSizeMake(0, 1);
-    headerLabel.text = [self sectionName:section];
+    headerLabel.text = [self sectionName:(int)section];
     [headerView addSubview:headerLabel];
     return headerView;
 }

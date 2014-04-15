@@ -85,7 +85,7 @@
     if (isTooLong) {
         [SoundPlayer playKeyIgnored];
     } else {
-        [self updateCharCount: newLength];
+        [self updateCharCount: (int)newLength];
     }
     return !isTooLong;
 }
@@ -146,7 +146,7 @@
 {
     [super viewWillAppear:animated];
     self.tweetTextView.text = initialText ? initialText : @"";
-    [self updateCharCount: [self.tweetTextView.text length]];
+    [self updateCharCount: (int)[self.tweetTextView.text length]];
     [self populateViewFromModel];
     [self.tweetTextView becomeFirstResponder]; // makes the text view "in focus" and shows the keyboard
 }

@@ -224,7 +224,7 @@
     
     NSMutableArray* leaguevinePlayerIds = [NSMutableArray array];
     for (Player* player in players) {
-        NSUInteger playerId = player.leaguevinePlayer.playerId;
+        int playerId = player.leaguevinePlayer.playerId;
         if (playerId) {
             [leaguevinePlayerIds addObject:[NSNumber numberWithInt:playerId]];
         }

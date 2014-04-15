@@ -111,7 +111,7 @@
     } 
     
     // kTimeBasedGame is last segment in UI 
-    int segmentIndex = self.game.gamePoint == kTimeBasedGame ? self.gamePointsSegmentedControl.numberOfSegments - 1 : (self.game.gamePoint - kLowestGamePoint) / 2;      
+    int segmentIndex = self.game.gamePoint == kTimeBasedGame ? (int)self.gamePointsSegmentedControl.numberOfSegments - 1 : (self.game.gamePoint - kLowestGamePoint) / 2;
     if (segmentIndex < 0) {
         segmentIndex = 0;
     }
@@ -221,7 +221,7 @@
 -(IBAction)gamePointChanged: (id) sender {
     [self dismissKeyboard];
     // "time" is last segment in UI but is 0 in game
-    int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex == (self.gamePointsSegmentedControl.numberOfSegments - 1)) ? kTimeBasedGame : (self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint;
+    int gamePoint = (self.gamePointsSegmentedControl.selectedSegmentIndex == (self.gamePointsSegmentedControl.numberOfSegments - 1)) ? kTimeBasedGame : ((int)self.gamePointsSegmentedControl.selectedSegmentIndex *2) + kLowestGamePoint;
     [Preferences getCurrentPreferences].gamePoint = gamePoint;
     [[Preferences getCurrentPreferences] save];
     self.game.gamePoint = gamePoint;

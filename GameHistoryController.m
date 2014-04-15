@@ -45,15 +45,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self.game getPointAtMostRecentIndex:section] getNumberOfEvents];
+    return [[self.game getPointAtMostRecentIndex:(int)section] getNumberOfEvents];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger section = [indexPath section];
     NSUInteger row = [indexPath row];
     
-    UPoint* point = [self.game getPointAtMostRecentIndex:section];
-    Event* event = [point getEventAtMostRecentIndex:row];
+    UPoint* point = [self.game getPointAtMostRecentIndex:(int)section];
+    Event* event = [point getEventAtMostRecentIndex:(int)row];
     
     
     static NSString* OffenseRowType = @"OffenseRow";
@@ -76,12 +76,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UPoint* point = [self.game getPointAtMostRecentIndex:[indexPath section]];
-    Event* event = [point getEventAtMostRecentIndex:[indexPath row]];
+    UPoint* point = [self.game getPointAtMostRecentIndex:(int)[indexPath section]];
+    Event* event = [point getEventAtMostRecentIndex:(int)[indexPath row]];
     
     EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
     changeController.event = event;
-    changeController.pointDescription = [self.game getPointNameAtMostRecentIndex:[indexPath section]];
+    changeController.pointDescription = [self.game getPointNameAtMostRecentIndex:(int)[indexPath section]];
     changeController.playersInPoint = point.line;
     NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
     changeController.completion = ^{

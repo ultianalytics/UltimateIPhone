@@ -61,7 +61,7 @@
 }
 
 -(void)setButtonColor: (float) pointsPlayedFactor {
-    int factor = lroundf(pointsPlayedFactor * (float)(NUMBER_OF_BUTTON_COLORS - 1));
+    int factor = (int)lroundf(pointsPlayedFactor * (float)(NUMBER_OF_BUTTON_COLORS - 1));
     int normalColorIndex = MIN(MAX(factor, 0), NUMBER_OF_BUTTON_COLORS - 1);
     int highlightColorIndex = MIN(MAX(factor + 1, 0), NUMBER_OF_BUTTON_COLORS);
     [self.button setBackgroundImage:[ImageMaster stretchableImageForPlayingTimeFactor:normalColorIndex] forState:UIControlStateNormal];

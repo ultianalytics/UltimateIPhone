@@ -15,7 +15,7 @@
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setValue: self.isOline ? @"O" : @"D" forKey:kLineTypeProperty];
     [dict setValue: [NSNumber numberWithBool:self.isFinished] forKey:kIsFinishedProperty];
-    [dict setValue: [NSNumber numberWithInt:self.elapsedSeconds ] forKey:kElapsedTimeProperty];
+    [dict setValue: [NSNumber numberWithInt:(int)self.elapsedSeconds ] forKey:kElapsedTimeProperty];
     
     NSMutableDictionary* scoreDict = [[NSMutableDictionary alloc] init];
     [dict setValue: scoreDict forKey:kScoreProperty];

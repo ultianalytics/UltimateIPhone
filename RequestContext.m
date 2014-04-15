@@ -37,7 +37,7 @@
     if (self) {
         self.requestData = aRequestData;
         self.responseData = aResponseData;
-        self.error = requestError.code;
+        self.error = (int)requestError.code;
         self.errorExplanation = [requestError.userInfo objectForKey:kCloudErrorExplanationKey];
     }
     return self;
@@ -63,7 +63,7 @@
 
 
 - (id)initWithReqError: (NSError *) requestError {
-    self = [self initWithReqErrorCode: requestError.code];
+    self = [self initWithReqErrorCode: (int)requestError.code];
     if (self) {
         self.errorExplanation = [requestError.userInfo objectForKey:kCloudErrorExplanationKey];
     }

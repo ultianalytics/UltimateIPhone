@@ -58,14 +58,14 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeInt:self.team1Score forKey:kTeam1Score];
-    [encoder encodeInt:self.team2Score forKey:kTeam2Score];
+    [encoder encodeInt:(int)self.team1Score forKey:kTeam1Score];
+    [encoder encodeInt:(int)self.team2Score forKey:kTeam2Score];
     [encoder encodeBool:self.final forKey:kFinal];
-    [encoder encodeInt:self.gameId forKey:kGameId];
+    [encoder encodeInt:(int)self.gameId forKey:kGameId];
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat: @"LeaguevineScore gameId=%d,final=%@, team1Score=%d, team2Score=%d", self.gameId, self.final ? @"YES" : @"NO", self.team1Score, self.team2Score];
+    return [NSString stringWithFormat: @"LeaguevineScore gameId=%lu,final=%@, team1Score=%lu, team2Score=%lu", (unsigned long)self.gameId, self.final ? @"YES" : @"NO", (unsigned long)self.team1Score, (unsigned long)self.team2Score];
 }
 
 

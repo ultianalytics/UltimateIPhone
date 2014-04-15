@@ -33,8 +33,8 @@
 }
 
 -(void)setInfoForGame: (Game*)game section: (NSInteger)section {
-    NSString* pointName = [game getPointNameAtMostRecentIndex:section];
-    UPoint* point = [game getPointAtMostRecentIndex:section];
+    NSString* pointName = [game getPointNameAtMostRecentIndex:(int)section];
+    UPoint* point = [game getPointAtMostRecentIndex:(int)section];
     PointSummary* summary = point.summary;
     BOOL isOline = [game isPointOline: point];
     

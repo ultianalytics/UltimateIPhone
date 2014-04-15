@@ -84,7 +84,7 @@
 
 -(Event*)getEventAtMostRecentIndex: (int) index {
     // events are stored in ascending order but we are being asked for an index in descending order
-    int eventCount = [self.events count];
+    int eventCount = (int)[self.events count];
     if (eventCount > 0) {
         return [self.events objectAtIndex:(eventCount - index - 1)];
     } else {
@@ -102,7 +102,7 @@
 
 -(Event*)getLastPlayEvent {
     if ([self.events count] > 0) {
-        for (int i = [self.events count] - 1; i >= 0; i--) {
+        for (int i = (int)[self.events count] - 1; i >= 0; i--) {
             Event* evt = [self.events objectAtIndex:i];
             if ([evt isPlayEvent]) {
                 return evt;
@@ -113,7 +113,7 @@
 }
 
 -(NSEnumerator*)getLastEvents: (int) number {
-    int numberToReturn = MIN(number, [self.events count]);
+    int numberToReturn = MIN(number, (int)[self.events count]);
     NSArray* lastEvents = [self.events subarrayWithRange: NSMakeRange ([self.events count] - numberToReturn, numberToReturn)];
     return [lastEvents reverseObjectEnumerator];
 }
@@ -137,7 +137,7 @@
 }
 
 -(int)getNumberOfEvents {
-    return [self.events count];
+    return (int)[self.events count];
 }
 
 + (UPoint*) fromDictionary:(NSDictionary*) dict {

@@ -79,7 +79,7 @@
 -(void) loadPlayerButtons {
     self.fieldButtons = [self initializePlayersViewCount: 7 players: 
                          [[Game getCurrentGame] currentLineSorted] isField: true];
-    self.benchButtons = [self initializePlayersViewCount: [[Team getCurrentTeam].players count] players: [self getCurrentTeamPlayers] isField: false];
+    self.benchButtons = [self initializePlayersViewCount: (int)[[Team getCurrentTeam].players count] players: [self getCurrentTeamPlayers] isField: false];
 }
 
 - (void) loadPlayerStats {
@@ -196,7 +196,7 @@
 }
 
 -(PlayerButton*) findBenchButton: (Player*) player {
-     int playerCount = [[Team getCurrentTeam].players count];
+     int playerCount = (int)[[Team getCurrentTeam].players count];
      for (int i = 0; i < playerCount; i++) {
          PlayerButton* button = [self.benchButtons objectAtIndex:i];
          if ([[button getPlayerName] isEqualToString: player.name]) {

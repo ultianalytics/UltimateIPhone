@@ -82,7 +82,7 @@
 
 
 - (IBAction)quotaPerHalfChanged:(id)sender {
-    self.timeoutDetails.quotaPerHalf = self.quotaPerHalfSegmentedControl.selectedSegmentIndex;
+    self.timeoutDetails.quotaPerHalf = (int)self.quotaPerHalfSegmentedControl.selectedSegmentIndex;
     [self populateView];
     [self saveTimeoutDetails];
     [Preferences getCurrentPreferences].timeoutsPerHalf = self.timeoutDetails.quotaPerHalf;
@@ -90,7 +90,7 @@
 }
 
 - (IBAction)floatersChanged:(id)sender {
-    self.timeoutDetails.quotaFloaters = self.quotaFloatersSegmentedControl.selectedSegmentIndex;
+    self.timeoutDetails.quotaFloaters = (int)self.quotaFloatersSegmentedControl.selectedSegmentIndex;
     [self populateView];
     [self saveTimeoutDetails];
     [Preferences getCurrentPreferences].timeoutFloaters = self.timeoutDetails.quotaFloaters;

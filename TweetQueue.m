@@ -113,7 +113,7 @@ static TweetQueue* current = nil;
     }
     int newestTweetTime = ((Tweet*)[recentTweets objectAtIndex:[recentTweets count] - 1]).time;
     int oldestTweetTime = ((Tweet*)[recentTweets objectAtIndex:0]).time;                                                  
-    int perHour = (3600 / (newestTweetTime - oldestTweetTime)) * [recentTweets count];
+    int perHour = (3600 / (newestTweetTime - oldestTweetTime)) * (int)[recentTweets count];
     return perHour;
 }
 
@@ -136,7 +136,7 @@ static TweetQueue* current = nil;
 //                 DebugLog(@"Tweet rejected by Twitter: %@", tweet.message);
              } else {
                  tweet.status = TweetFailed;
-                 tweet.error = [NSString stringWithFormat:@"ERROR %d ", [urlResponse statusCode]];
+                 tweet.error = [NSString stringWithFormat:@"ERROR %ld ", (long)[urlResponse statusCode]];
 //                 DebugLog(@"Tweet error %@ when sending to Twitter: %@", tweet.error, tweet.message);
              }
          }];

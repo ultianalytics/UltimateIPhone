@@ -479,7 +479,7 @@ static Game* currentGame = nil;
     NSEnumerator* enumerator = [points reverseObjectEnumerator];
     UPoint* point;
     while ((point = [enumerator nextObject]) && [list count] < numberToRetrieve) {
-        NSEnumerator* enumerator = [point getLastEvents: numberToRetrieve - [list count]];
+        NSEnumerator* enumerator = [point getLastEvents: numberToRetrieve - (int)[list count]];
         id event;
         while ((event = [enumerator nextObject])) {
             [list addObject:event];
@@ -504,7 +504,7 @@ static Game* currentGame = nil;
 }
 
 -(int)getNumberOfPoints {
-    return [[self points] count];
+    return (int)[[self points] count];
 }
 
 -(NSString*)getPointNameAtMostRecentIndex: (int) index {
@@ -523,7 +523,7 @@ static Game* currentGame = nil;
 
 -(UPoint*)getPointAtMostRecentIndex: (int) index {
     // points are stored in ascending order but we are being asked for an index in descending order
-    int count = [self.points count];
+    int count = (int)[self.points count];
     if (count > 0) {
         return [self.points objectAtIndex:(count - index - 1)];
     } else {

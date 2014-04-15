@@ -52,12 +52,11 @@ static SHSLogsMailer *sharedInstance = nil;
         NSString* zipFilePath = [SHSTeamFileZipper zipTeamAndGameFiles];
         if (zipFilePath) {
             NSData *data = [[NSFileManager defaultManager] contentsAtPath:zipFilePath];
-            NSString* zipFileName = [zipFilePath lastPathComponent];
-            [mailComposeVC addAttachmentData:data mimeType:@"application/zip" fileName:zipFileName];
+            [mailComposeVC addAttachmentData:data mimeType:@"application/zip" fileName:zipFilePath];
         }
     }
     
-    NSString *emailBody = @"iUltimate log and team files attached";
+    NSString *emailBody = @"iUltimate log files attached";
     [mailComposeVC setMessageBody:emailBody isHTML:NO];
     [self.presentingController presentViewController:mailComposeVC animated:YES completion: nil];
 }

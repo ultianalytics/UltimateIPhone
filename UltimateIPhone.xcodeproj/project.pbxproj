@@ -49,8 +49,6 @@
 		1A5A5D34179971C7002B4AF8 /* LightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A5D3317996D9E002B4AF8 /* LightButton.m */; };
 		1A5D7AF318F99FE600239A22 /* UIScrollView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D7AF218F99FE600239A22 /* UIScrollView+Utilities.m */; };
 		1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D7B4118FC4BF700239A22 /* SHSTeamFileZipper.m */; };
-		1A5D7B4F18FC90C700239A22 /* libzipzap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5D7B4C18FC907800239A22 /* libzipzap.a */; };
-		1A5D7B5218FCAAA700239A22 /* SHSDirectoryZipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D7B5018FCAAA700239A22 /* SHSDirectoryZipper.m */; };
 		1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A68891E1578E9C0004A3CDB /* Settings.bundle */; };
 		1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */; };
 		1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B265D15250E0D00C119A5 /* TweetQueue.m */; };
@@ -310,30 +308,6 @@
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1A5D7B4918FC907800239A22 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5D7B4318FC907700239A22 /* zipzap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D899CF82162C5EC100112F49;
-			remoteInfo = "zipzap (OS X)";
-		};
-		1A5D7B4B18FC907800239A22 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5D7B4318FC907700239A22 /* zipzap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D899CFB0162C5EEB00112F49;
-			remoteInfo = "zipzap (iOS)";
-		};
-		1A5D7B4D18FC907800239A22 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5D7B4318FC907700239A22 /* zipzap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D899CF96162C5EC100112F49;
-			remoteInfo = zipzapTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDownloadPickerViewController.xib; sourceTree = "<group>"; };
 		1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDownloadPickerViewController.m; sourceTree = "<group>"; };
@@ -411,9 +385,6 @@
 		1A5D7AF218F99FE600239A22 /* UIScrollView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Utilities.m"; sourceTree = "<group>"; };
 		1A5D7B4018FC4BF700239A22 /* SHSTeamFileZipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSTeamFileZipper.h; sourceTree = "<group>"; };
 		1A5D7B4118FC4BF700239A22 /* SHSTeamFileZipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSTeamFileZipper.m; sourceTree = "<group>"; };
-		1A5D7B4318FC907700239A22 /* zipzap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = zipzap.xcodeproj; path = zipzap/zipzap.xcodeproj; sourceTree = "<group>"; };
-		1A5D7B5018FCAAA700239A22 /* SHSDirectoryZipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSDirectoryZipper.m; sourceTree = "<group>"; };
-		1A5D7B5118FCAAA700239A22 /* SHSDirectoryZipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSDirectoryZipper.h; sourceTree = "<group>"; };
 		1A68891E1578E9C0004A3CDB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1A6A9B03163C4B2500E534B0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1A6B265C15250E0D00C119A5 /* TweetQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetQueue.h; sourceTree = "<group>"; };
@@ -784,7 +755,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A5D7B4F18FC90C700239A22 /* libzipzap.a in Frameworks */,
 				1A246D2017CA5A8200B8868D /* CoreText.framework in Frameworks */,
 				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
 				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
@@ -894,16 +864,6 @@
 				1A59839415445D5900E97F09 /* Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		1A5D7B4418FC907700239A22 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1A5D7B4A18FC907800239A22 /* libzipzap.a */,
-				1A5D7B4C18FC907800239A22 /* libzipzap.a */,
-				1A5D7B4E18FC907800239A22 /* zipzapTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		1A999EF816062E990015B891 /* LeagueVine */ = {
@@ -1029,8 +989,6 @@
 				1AB78D0317269E40003235AE /* SHSLogger.m */,
 				1A5D7B4018FC4BF700239A22 /* SHSTeamFileZipper.h */,
 				1A5D7B4118FC4BF700239A22 /* SHSTeamFileZipper.m */,
-				1A5D7B5118FCAAA700239A22 /* SHSDirectoryZipper.h */,
-				1A5D7B5018FCAAA700239A22 /* SHSDirectoryZipper.m */,
 				1AFFE7D915175E7B004B4590 /* Constants.h */,
 				1AFFE7DA15175E7B004B4590 /* Constants.m */,
 				1A74B0BD1707D7EB00D667F1 /* UniqueTimestampGenerator.h */,
@@ -1164,7 +1122,6 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
-				1A5D7B4318FC907700239A22 /* zipzap.xcodeproj */,
 				1AA37BE918B1385100CE9662 /* Images.xcassets */,
 				1AC8579815FE2A150070BA24 /* Common */,
 				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
@@ -1647,42 +1604,12 @@
 			mainGroup = 1AFFE76C15175D49004B4590;
 			productRefGroup = 1AFFE77815175D4A004B4590 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 1A5D7B4418FC907700239A22 /* Products */;
-					ProjectRef = 1A5D7B4318FC907700239A22 /* zipzap.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1AFFE77615175D4A004B4590 /* UltimateIPhone */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		1A5D7B4A18FC907800239A22 /* libzipzap.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libzipzap.a;
-			remoteRef = 1A5D7B4918FC907800239A22 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A5D7B4C18FC907800239A22 /* libzipzap.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libzipzap.a;
-			remoteRef = 1A5D7B4B18FC907800239A22 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A5D7B4E18FC907800239A22 /* zipzapTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = zipzapTests.xctest;
-			remoteRef = 1A5D7B4D18FC907800239A22 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1AFFE77515175D4A004B4590 /* Resources */ = {
@@ -1948,7 +1875,6 @@
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,
 				1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */,
 				1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */,
-				1A5D7B5218FCAAA700239A22 /* SHSDirectoryZipper.m in Sources */,
 				1A4C42FB160D5FA90067BB96 /* LeaguevineLeague.m in Sources */,
 				1A4C42FF160D5FC20067BB96 /* LeaguevineTeam.m in Sources */,
 				1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */,
@@ -2069,11 +1995,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"../zipzap/**",
-				);
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
 				LIBRARY_SEARCH_PATHS = (
@@ -2165,11 +2086,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"../zipzap/**",
-				);
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
 				LIBRARY_SEARCH_PATHS = (
@@ -2198,11 +2114,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"../zipzap/**",
-				);
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
 				LIBRARY_SEARCH_PATHS = (

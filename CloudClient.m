@@ -224,7 +224,7 @@
                 SHSLog(@"http GET successful");
             } else {
                 *getError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
+                SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %ld, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
             }
         } else {
             *getError = sendError;
@@ -262,7 +262,7 @@
                     SHSLog(@"Object upload successful");
                 } else {
                     *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                    SHSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
+                    SHSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %ld, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
                 } 
             }
         } else {
@@ -319,7 +319,7 @@
             }
         } else {
             *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-            SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *error, response == nil ? 0 :  [response statusCode], sendError);
+            SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %ld, More Info = %@", *error, response == nil ? 0 :  [response statusCode], sendError);
         }
     }
 }

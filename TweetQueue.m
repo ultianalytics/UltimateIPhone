@@ -130,14 +130,14 @@ static TweetQueue* current = nil;
          {
              if ([urlResponse statusCode] == 200) {
                  tweet.status = TweetSent;
-//                 DebugLog(@"Tweet successful: %@", tweet.message);
+//                 DLog(@"Tweet successful: %@", tweet.message);
              } else if ([urlResponse statusCode] == 403) {
                  tweet.status = TweetIgnored;
-//                 DebugLog(@"Tweet rejected by Twitter: %@", tweet.message);
+//                 DLog(@"Tweet rejected by Twitter: %@", tweet.message);
              } else {
                  tweet.status = TweetFailed;
                  tweet.error = [NSString stringWithFormat:@"ERROR %ld ", (long)[urlResponse statusCode]];
-//                 DebugLog(@"Tweet error %@ when sending to Twitter: %@", tweet.error, tweet.message);
+//                 DLog(@"Tweet error %@ when sending to Twitter: %@", tweet.error, tweet.message);
              }
          }];
     }

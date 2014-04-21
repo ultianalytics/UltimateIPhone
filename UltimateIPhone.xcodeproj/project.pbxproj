@@ -141,6 +141,11 @@
 		1AB78D0417269E40003235AE /* SHSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D0317269E40003235AE /* SHSLogger.m */; };
 		1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D061726B0DE003235AE /* SHSLogsMailer.m */; };
 		1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB78D081726B1E0003235AE /* MessageUI.framework */; };
+		1ABC74CA190414F000D60660 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C0190414F000D60660 /* ioapi.c */; };
+		1ABC74CB190414F000D60660 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C2190414F000D60660 /* mztools.c */; };
+		1ABC74CC190414F000D60660 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C4190414F000D60660 /* unzip.c */; };
+		1ABC74CD190414F000D60660 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C6190414F000D60660 /* zip.c */; };
+		1ABC74CE190414F000D60660 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C9190414F000D60660 /* SSZipArchive.m */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
 		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
 		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
@@ -516,6 +521,17 @@
 		1AB78D051726B0DE003235AE /* SHSLogsMailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogsMailer.h; sourceTree = "<group>"; };
 		1AB78D061726B0DE003235AE /* SHSLogsMailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSLogsMailer.m; sourceTree = "<group>"; };
 		1AB78D081726B1E0003235AE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1ABC74BF190414F000D60660 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		1ABC74C0190414F000D60660 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		1ABC74C1190414F000D60660 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		1ABC74C2190414F000D60660 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		1ABC74C3190414F000D60660 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		1ABC74C4190414F000D60660 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		1ABC74C5190414F000D60660 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		1ABC74C6190414F000D60660 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		1ABC74C7190414F000D60660 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		1ABC74C8190414F000D60660 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		1ABC74C9190414F000D60660 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
 		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
@@ -975,6 +991,32 @@
 			name = "Categories on Apple Classes";
 			sourceTree = "<group>";
 		};
+		1ABC74BD190414F000D60660 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				1ABC74BE190414F000D60660 /* minizip */,
+				1ABC74C8190414F000D60660 /* SSZipArchive.h */,
+				1ABC74C9190414F000D60660 /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		1ABC74BE190414F000D60660 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				1ABC74BF190414F000D60660 /* crypt.h */,
+				1ABC74C0190414F000D60660 /* ioapi.c */,
+				1ABC74C1190414F000D60660 /* ioapi.h */,
+				1ABC74C2190414F000D60660 /* mztools.c */,
+				1ABC74C3190414F000D60660 /* mztools.h */,
+				1ABC74C4190414F000D60660 /* unzip.c */,
+				1ABC74C5190414F000D60660 /* unzip.h */,
+				1ABC74C6190414F000D60660 /* zip.c */,
+				1ABC74C7190414F000D60660 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
 		1AC6612F17164AE400DCFF58 /* Timeout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1146,6 +1188,7 @@
 				1AA37BBC18ABB56700CE9662 /* TestFlightSDK2.2.1 */,
 				1AFFE78215175D4A004B4590 /* Supporting Files */,
 				1A59838C15445D5900E97F09 /* Tests */,
+				1ABC74BD190414F000D60660 /* SSZipArchive */,
 				1AFFE77A15175D4A004B4590 /* Frameworks */,
 				1AFFE77815175D4A004B4590 /* Products */,
 			);
@@ -1804,6 +1847,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ABC74CA190414F000D60660 /* ioapi.c in Sources */,
 				1A3A559517A6966A002B3C84 /* TweetLogTableViewCell.m in Sources */,
 				1A5A5D34179971C7002B4AF8 /* LightButton.m in Sources */,
 				1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */,
@@ -1836,6 +1880,7 @@
 				1AFFE8A415175EB0004B4590 /* PlayerDetailsViewController.m in Sources */,
 				1AFFE8A615175EB0004B4590 /* PlayerStat.m in Sources */,
 				1AFFE8A715175EB0004B4590 /* PlayerView.m in Sources */,
+				1ABC74CD190414F000D60660 /* zip.c in Sources */,
 				1AFFE8A915175EB0004B4590 /* PointSummary.m in Sources */,
 				1AFFE8AA15175EB0004B4590 /* Preferences.m in Sources */,
 				1AFFE8AB15175EB0004B4590 /* PreferencesViewController.m in Sources */,
@@ -1863,10 +1908,12 @@
 				1AEAE9EA152D1D80008574C2 /* TeamDescription.m in Sources */,
 				1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */,
 				1A30994215307E7D00DDC9CD /* TeamDownloadPickerViewController.m in Sources */,
+				1ABC74CE190414F000D60660 /* SSZipArchive.m in Sources */,
 				1AF1B76B153B0CE100E1A826 /* RequestContext.m in Sources */,
 				1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */,
 				1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */,
 				1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */,
+				1ABC74CB190414F000D60660 /* mztools.c in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
@@ -1875,6 +1922,7 @@
 				1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */,
 				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 				1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */,
+				1ABC74CC190414F000D60660 /* unzip.c in Sources */,
 				1A4C42B71609DA4F0067BB96 /* LeaguevineClient.m in Sources */,
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,

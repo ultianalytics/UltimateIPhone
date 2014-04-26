@@ -16,7 +16,8 @@
 #import "TestFlight.h"
 #import "Reachability.h"
 
-#define kHostHame @"www.ultianalytics.com"
+#define kHostHame @"www.ultimate-numbers.com"
+#define kWebHostHame @"www.ultianalytics.com"
 //#define kHostHame @"local.appspot.com:8888"
 //#define kHostHame @"local.appspot.com:8890" // tcp monitor
 
@@ -224,7 +225,7 @@
                 SHSLog(@"http GET successful");
             } else {
                 *getError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %ld, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
+                SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *getError, response == nil ? 0 :  [response statusCode], sendError);
             }
         } else {
             *getError = sendError;
@@ -262,7 +263,7 @@
                     SHSLog(@"Object upload successful");
                 } else {
                     *uploadError = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-                    SHSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %ld, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
+                    SHSLog(@"Failed to send.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *uploadError, response == nil ? 0 :  [response statusCode], sendError);
                 } 
             }
         } else {
@@ -282,6 +283,10 @@
 
 +(NSString*) getBaseUrl {
     return [NSString stringWithFormat:@"http://%@", kHostHame];
+}
+
++(NSString*) getBaseWebUrl {
+    return [NSString stringWithFormat:@"http://%@", kWebHostHame];
 }
 
 +(BOOL)isConnected {
@@ -319,14 +324,14 @@
             }
         } else {
             *error = [NSError errorWithDomain:[CloudClient getBaseUrl] code: [CloudClient errorCodeFromResponse: response error: sendError] userInfo:nil];
-            SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %ld, More Info = %@", *error, response == nil ? 0 :  [response statusCode], sendError);
+            SHSLog(@"Failed http GET request.  Returning error %@.  The HTTP status code was = %d, More Info = %@", *error, response == nil ? 0 :  [response statusCode], sendError);
         }
     }
 }
 
 +(NSString*) getWebsiteURL: (Team*) team {
     if (team.cloudId != nil && ![team.cloudId isEqualToString: @""]) {
-        return [NSString stringWithFormat:@"%@/team/%@/main", [CloudClient getBaseUrl], team.cloudId];
+        return [NSString stringWithFormat:@"%@/team/%@/main", [CloudClient getBaseWebUrl], team.cloudId];
     }
     return nil;
 }

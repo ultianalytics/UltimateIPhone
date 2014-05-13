@@ -2054,7 +2054,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/iOS-applications/UltimateIPhone/TestFlightSDK2.2.1",
+					"$(SRCROOT)/TestFlightSDK2.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2145,7 +2145,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/iOS-applications/UltimateIPhone/TestFlightSDK2.2.1",
+					"$(SRCROOT)/TestFlightSDK2.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2173,7 +2173,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/iOS-applications/UltimateIPhone/TestFlightSDK2.2.1",
+					"$(SRCROOT)/TestFlightSDK2.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

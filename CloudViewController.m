@@ -249,10 +249,10 @@
         }
     } else {
         NSString* teamId = (NSString*)requestContext.responseData;
-        if (![Team isCurrentTeam:teamId]) {
-            [Team setCurrentTeam:teamId];
-            [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-        }
+        [Team setCurrentTeam:nil];
+        [Team setCurrentTeam:teamId];
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetTeamTab];
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         [self populateViewFromModel];
         [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)];            
     }

@@ -82,6 +82,7 @@
 		[delegate zipArchiveWillUnzipArchiveAtPath:path zipInfo:globalInfo];
 	}
 	if ([delegate respondsToSelector:@selector(zipArchiveProgressEvent:total:)]) {
+        #pragma clang diagnostic ignored "-Wconversion"
 		[delegate zipArchiveProgressEvent:currentPosition total:fileSize];
 	}
 

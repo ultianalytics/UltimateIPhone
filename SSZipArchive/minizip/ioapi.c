@@ -191,7 +191,8 @@ static long ZCALLBACK fseek64_file_func (voidpf  opaque, voidpf stream, ZPOS64_T
     default: return -1;
     }
     ret = 0;
-
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+#pragma clang diagnostic ignored "-Wconversion"
     if(fseeko64((FILE *)stream, offset, fseek_origin) != 0)
                         ret = -1;
 

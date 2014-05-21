@@ -115,9 +115,6 @@
 		1AA37BB918A9185100CE9662 /* 19-circle-check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */; };
 		1AA37BBA18A9185100CE9662 /* 26-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB618A9185100CE9662 /* 26-checkmark.png */; };
 		1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */; };
-		1AA37BC318ABB56800CE9662 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA37BBD18ABB56700CE9662 /* libTestFlight.a */; };
-		1AA37BC418ABB56800CE9662 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBE18ABB56800CE9662 /* README.md */; };
-		1AA37BC518ABB56800CE9662 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BBF18ABB56800CE9662 /* release_notes.md */; };
 		1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */; };
 		1AA37BE718B1383200CE9662 /* splash-screen-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */; };
 		1AA37BE818B1383200CE9662 /* splash-screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE618B1383200CE9662 /* splash-screen@2x.png */; };
@@ -481,12 +478,6 @@
 		1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-circle-check@2x.png"; sourceTree = "<group>"; };
 		1AA37BB618A9185100CE9662 /* 26-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark.png"; sourceTree = "<group>"; };
 		1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark@2x.png"; sourceTree = "<group>"; };
-		1AA37BBD18ABB56700CE9662 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		1AA37BBE18ABB56800CE9662 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		1AA37BBF18ABB56800CE9662 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		1AA37BC018ABB56800CE9662 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		1AA37BC118ABB56800CE9662 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		1AA37BC218ABB56800CE9662 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameActionButton.h; sourceTree = "<group>"; };
 		1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameActionButton.m; sourceTree = "<group>"; };
 		1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-5@2x.png"; sourceTree = "<group>"; };
@@ -777,7 +768,6 @@
 				1A246D2017CA5A8200B8868D /* CoreText.framework in Frameworks */,
 				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
 				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
-				1AA37BC318ABB56800CE9662 /* libTestFlight.a in Frameworks */,
 				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
@@ -905,19 +895,6 @@
 				1AA95A0C170EF647003B0781 /* LeaguevineWaitingViewController.xib */,
 			);
 			name = LeagueVine;
-			sourceTree = "<group>";
-		};
-		1AA37BBC18ABB56700CE9662 /* TestFlightSDK2.2.1 */ = {
-			isa = PBXGroup;
-			children = (
-				1AA37BBD18ABB56700CE9662 /* libTestFlight.a */,
-				1AA37BBE18ABB56800CE9662 /* README.md */,
-				1AA37BBF18ABB56800CE9662 /* release_notes.md */,
-				1AA37BC018ABB56800CE9662 /* TestFlight+AsyncLogging.h */,
-				1AA37BC118ABB56800CE9662 /* TestFlight+ManualSessions.h */,
-				1AA37BC218ABB56800CE9662 /* TestFlight.h */,
-			);
-			path = TestFlightSDK2.2.1;
 			sourceTree = "<group>";
 		};
 		1AA37BE018AFBC3000CE9662 /* Teams List */ = {
@@ -1185,7 +1162,6 @@
 				1AFFE85B15175EB0004B4590 /* sounds */,
 				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
-				1AA37BBC18ABB56700CE9662 /* TestFlightSDK2.2.1 */,
 				1AFFE78215175D4A004B4590 /* Supporting Files */,
 				1A59838C15445D5900E97F09 /* Tests */,
 				1ABC74BD190414F000D60660 /* SSZipArchive */,
@@ -1728,7 +1704,6 @@
 				1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
-				1AA37BC418ABB56800CE9662 /* README.md in Resources */,
 				1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */,
 				1AFFE8AC15175EB0004B4590 /* PreferencesViewController.xib in Resources */,
 				1AFFE8AD15175EB0004B4590 /* psd-delete-icon.png in Resources */,
@@ -1817,7 +1792,6 @@
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
-				1AA37BC518ABB56800CE9662 /* release_notes.md in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
 			);

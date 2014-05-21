@@ -13,7 +13,6 @@
 #import "Preferences.h"
 #import "CloudMetaInfo.h"
 #import "Scrubber.h"
-#import "TestFlight.h"
 #import "Reachability.h"
 
 #define kHostHame @"www.ultimate-numbers.com"

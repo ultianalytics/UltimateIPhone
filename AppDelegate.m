@@ -12,7 +12,6 @@
 #import "GameViewController.h"
 #import "GamesPlayedController.h"
 #import "PreferencesViewController.h"
-#import "TestFlight.h"
 #import "CloudViewController.h"
 #import "TwitterController.h"
 #import "ColorMaster.h"
@@ -30,8 +29,6 @@ UINavigationController* gameNavController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // start up test flight SDK
-    [TestFlight takeOff:@"d8b09015-d74c-461d-993c-e7e378ebbeb5"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

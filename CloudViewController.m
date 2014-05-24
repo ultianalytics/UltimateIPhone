@@ -302,7 +302,7 @@
     self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
-    NSString* adminURL = [NSString stringWithFormat:@"%@/team/admin", [CloudClient getBaseUrl]];
+    NSString* adminURL = [NSString stringWithFormat:@"%@/team/admin", [CloudClient getBaseWebUrl]];
     self.adminSiteLabel.text = adminURL;
     self.userUnknownLabel.hidden = userid != nil;
     self.userLabel.hidden = userid == nil;
@@ -348,7 +348,7 @@
             NSString* adminUrl = self.adminSiteLabel.text;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
         } else if (cell == self.privacyPolicyCell) {
-            NSString* privacyPolicyUrl = [NSString stringWithFormat: @"%@/privacy.html", [CloudClient getBaseUrl]];
+            NSString* privacyPolicyUrl = [NSString stringWithFormat: @"%@/privacy.html", [CloudClient getBaseWebUrl]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
         }
     }

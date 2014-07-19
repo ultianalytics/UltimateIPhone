@@ -12,11 +12,13 @@
 #import "Team.h"
 #import "Scrubber.h"
 #import "LeaguevinePlayer.h"
+#import "NSDictionary+JSON.h"
 
 #define kNameKey        @"name"
 #define kPositionKey    @"position"
 #define kSexKey         @"sex"
 #define kIsMaleKey      @"male"
+#define kIsAbsentKey    @"absent"
 #define kNumberKey      @"number"
 #define kLeagueVinePlayerJsonKey      @"leaguevinePlayer"
 
@@ -73,6 +75,7 @@ static AnonymousPlayer* singleAnonymous = nil;
     player.position = [positionString isEqualToString:@"Cutter"] ? Cutter : [positionString isEqualToString:@"Handler"] ? Handler : Any;
     NSNumber* isMaleNumber = [dict valueForKey:kIsMaleKey];
     player.isMale = [isMaleNumber boolValue];
+    player.isAbsent = [dict boolForJsonProperty:kIsAbsentKey defaultValue:NO];
     player.number = [dict valueForKey:kNumberKey];
     player.leaguevinePlayerJson = [dict valueForKey:kLeagueVinePlayerJsonKey];
     
@@ -99,7 +102,8 @@ static AnonymousPlayer* singleAnonymous = nil;
     if (self = [super init]) { 
         self.name = [decoder decodeObjectForKey:kNameKey]; 
         self.position = [decoder decodeIntForKey:kPositionKey]; 
-        self.isMale = [decoder decodeBoolForKey:kSexKey]; 
+        self.isMale = [decoder decodeBoolForKey:kSexKey];
+        self.isAbsent = [decoder decodeBoolForKey:kIsAbsentKey];
         self.number = [decoder decodeObjectForKey:kNumberKey];
         self.leaguevinePlayerJson = [decoder decodeObjectForKey:kLeagueVinePlayerJsonKey];
     } 
@@ -109,7 +113,8 @@ static AnonymousPlayer* singleAnonymous = nil;
 - (void)encodeWithCoder:(NSCoder *)encoder { 
     [encoder encodeObject:self.name forKey:kNameKey]; 
     [encoder encodeInt:self.position forKey:kPositionKey]; 
-    [encoder encodeBool:self.isMale forKey:kSexKey]; 
+    [encoder encodeBool:self.isMale forKey:kSexKey];
+    [encoder encodeBool:self.isAbsent forKey:kIsAbsentKey];
     [encoder encodeObject:self.number forKey:kNumberKey];
     [encoder encodeObject:self.leaguevinePlayerJson forKey:kLeagueVinePlayerJsonKey];
 } 
@@ -120,6 +125,7 @@ static AnonymousPlayer* singleAnonymous = nil;
     [dict setValue: playerName forKey:kNameKey];
     [dict setValue: (self.position == Any ? @"Any" : self.position == Cutter ? @"Cutter" : @"Handler") forKey:kPositionKey];
     [dict setValue: [NSNumber numberWithBool:self.isMale ] forKey:kIsMaleKey];
+    [dict setValue: [NSNumber numberWithBool:self.isAbsent ] forKey:kIsAbsentKey];
     [dict setValue: self.number forKey:kNumberKey];
     [dict setValue: self.leaguevinePlayerJson forKey:kLeagueVinePlayerJsonKey];
     

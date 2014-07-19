@@ -21,6 +21,7 @@ typedef enum {
 @property (nonatomic, strong) NSString* number;
 @property (nonatomic) Position position;
 @property (nonatomic) BOOL isMale;
+@property (nonatomic) BOOL isAbsent;
 @property (nonatomic, strong) LeaguevinePlayer* leaguevinePlayer;
 
 +(Player*)getAnonymous;

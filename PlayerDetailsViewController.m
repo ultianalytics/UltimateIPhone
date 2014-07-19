@@ -31,12 +31,14 @@
         self.nickNameField.text = self.player.name;
         self.numberField.text = self.player.number;
         [self.positionControl setSelection: self.player.position == Any ? @"Any" : self.player.position == Handler ? @"Handler" : @"Cutter" ];
-        [self.sexControl setSelection: self.player.isMale ? @"Male" : @"Female"];        
+        [self.sexControl setSelection: self.player.isMale ? @"Male" : @"Female"];
+        [self.statusControl setSelection: self.player.isAbsent ? @"Absent" : @"Playing"];
     } else {
         self.nickNameField.text = nil;
         self.numberField.text = nil;
         [self.positionControl setSelection: @"Cutter"];
         [self.sexControl setSelection: @"Male"];
+        [self.statusControl setSelection: @"Playing"];
     }
 }
 
@@ -46,6 +48,7 @@
     NSString* selectedPosition = [self.positionControl getSelection];
     self.player.position = [selectedPosition isEqualToString:@"Any"] ? Any : [selectedPosition isEqualToString:@"Handler"] ? Handler : Cutter;
     self.player.isMale = [[self.sexControl getSelection] isEqualToString:@"Male"] ? YES : NO;
+    self.player.isAbsent = [[self.statusControl getSelection] isEqualToString:@"Absent"] ? YES : NO;
 }
 
 -(IBAction)addAnotherClicked: (id) sender{
@@ -181,6 +184,7 @@
     
     self.saveAndAddButton.hidden = player != nil;
     self.deleteButton.hidden = player == nil;
+
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -213,7 +217,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cells = [NSArray arrayWithObjects:nameTableCell, numberTableCell, positionTableCell, genderTableCell, nil];
+    cells = [NSArray arrayWithObjects:self.nameTableCell, self.numberTableCell, self.positionTableCell, self.genderTableCell, self.absentTableCell, nil];
     return [cells count];
 }
 

@@ -26,6 +26,7 @@
 +(UIImage*)getMaleImage;
 +(UIImage*)getFemaleImage;
 +(UIImage*)getNeutralGenderImage;
++(UIImage*)getNeutralGenderAbsentImage;
 +(UIImage*)getUnknownImage;
 +(UIImage*)stretchableWhite100Radius3;
 +(UIImage*)stretchableWhite200Radius3;

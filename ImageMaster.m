@@ -25,6 +25,7 @@ static UIImage* theirCallahanImage = nil;
 static UIImage* maleImage = nil;
 static UIImage* femaleImage = nil;
 static UIImage* neutralGenderImage = nil;
+static UIImage* neutralGenderAbsentImage = nil;
 static UIImage* cessationImage = nil;
 static UIImage* gameoverImage = nil;
 static UIImage* unknownImage = nil;
@@ -46,6 +47,7 @@ static UIImage* unknownImage = nil;
     maleImage = [UIImage imageNamed:@"769-male.png"];
     femaleImage = [UIImage imageNamed:@"768-female.png"];
     neutralGenderImage = [UIImage imageNamed:@"player_passing.png"];
+    neutralGenderAbsentImage = [UIImage imageNamed:@"player_passing_absent.png"];
     cessationImage = [UIImage imageNamed:@"stopwatch1.png"];
     gameoverImage = [UIImage imageNamed:@"finishflag.png"];
 }
@@ -155,6 +157,10 @@ static UIImage* unknownImage = nil;
 
 +(UIImage*)getNeutralGenderImage {
     return neutralGenderImage;
+}
+
++(UIImage*)getNeutralGenderAbsentImage {
+    return neutralGenderAbsentImage;
 }
 
 +(UIImage*)getCessationImage {

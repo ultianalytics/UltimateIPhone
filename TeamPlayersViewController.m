@@ -177,7 +177,7 @@
     if (isLeaguevinePlayers) {
         cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
     } else {
-        cell.imageView.image = [ImageMaster getNeutralGenderImage];
+        cell.imageView.image = player.isAbsent ? [ImageMaster getNeutralGenderAbsentImage] : [ImageMaster getNeutralGenderImage];
     }
     
     return cell;

@@ -106,10 +106,10 @@ static Game* currentGame = nil;
         }
     }
     game.timeoutJson = [dict objectForKey:kTimeoutDetailsJsonKey];
-//    NSDictionary* windDict = [dict objectForKey:kPointsAsJsonKey];
-//    if (windDict) {
-//        game.wind = [Wind fromDictionary:windDict];
-//    }
+    NSDictionary* windDict = [dict objectForKey:kWindKey];
+    if (windDict) {
+        game.wind = [Wind fromDictionary:windDict];
+    }
     return game;
 }
 

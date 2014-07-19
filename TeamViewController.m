@@ -85,7 +85,8 @@
 -(BOOL)saveChanges {
     if ([self verifyTeamName]) {
         [self populateModelFromView];
-        [self.team save];  
+        [self.team save];
+        [Team setCurrentTeam:nil];
         [Team setCurrentTeam:self.team.teamId];
         self.team = [Team getCurrentTeam];
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];

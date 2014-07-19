@@ -26,6 +26,7 @@
 #import "PlayerSubstitution.h"
 #import "UIView+Convenience.h"
 #import "LeaguevineEventQueue.h"
+#import "NSArray+Utilities.h"
 
 #define kIsNotFirstPickPlayerViewUsage @"IsNotFirstPickPlayerViewUsage"
 #define kSetHalfimeText @"Halftime"
@@ -79,7 +80,8 @@
 -(void) loadPlayerButtons {
     self.fieldButtons = [self initializePlayersViewCount: 7 players: 
                          [[Game getCurrentGame] currentLineSorted] isField: true];
-    self.benchButtons = [self initializePlayersViewCount: (int)[[Team getCurrentTeam].players count] players: [self getCurrentTeamPlayers] isField: false];
+    NSArray* currentPlayers = [self getCurrentTeamPlayers];
+    self.benchButtons = [self initializePlayersViewCount: (int)[currentPlayers count] players: currentPlayers isField: false];
 }
 
 - (void) loadPlayerStats {
@@ -196,7 +198,7 @@
 }
 
 -(PlayerButton*) findBenchButton: (Player*) player {
-     int playerCount = (int)[[Team getCurrentTeam].players count];
+     int playerCount = (int)[[self getCurrentTeamPlayers]  count];
      for (int i = 0; i < playerCount; i++) {
          PlayerButton* button = [self.benchButtons objectAtIndex:i];
          if ([[button getPlayerName] isEqualToString: player.name]) {
@@ -430,7 +432,10 @@
 }
 
 - (NSArray*) getCurrentTeamPlayers {
-    return [[Team getCurrentTeam].players sortedArrayUsingSelector:@selector(compare:)];
+    NSArray* activePlayers = [[Team getCurrentTeam].players filter:^BOOL(id player) {
+        return ![player isAbsent];
+    }];
+    return [activePlayers sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {

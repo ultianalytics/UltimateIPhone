@@ -369,16 +369,18 @@ static Team* currentTeam = nil;
     int maleCount = 0;
     int femaleCount = 0;
     for (Player* player in  self.players) {
-        if (self.isMixed) {
-            if (player.isMale && maleCount < 4) {
+        if (!player.isAbsent) {
+            if (self.isMixed) {
+                if (player.isMale && maleCount < 4) {
+                    [line addObject:player];
+                    maleCount++;
+                } else if (!player.isMale && femaleCount < 4) {
+                    [line addObject:player];
+                    femaleCount++;
+                }
+            } else {
                 [line addObject:player];
-                maleCount++;
-            } else if (!player.isMale && femaleCount < 4) {
-                [line addObject:player];
-                femaleCount++;
             }
-        } else {
-            [line addObject:player];
         }
         
         if ([line count] >= 7) {

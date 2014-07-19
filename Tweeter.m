@@ -267,7 +267,8 @@ NSDateFormatter* timeFormatter;
         message = [NSString stringWithFormat: @"New game was a boo-boo...never mind."];
     } else {
         NSString* windDescription = game.wind && game.wind.mph ? [NSString stringWithFormat: @" Wind: %dmph.", game.wind.mph] : @"";
-        message = [NSString stringWithFormat:@"New game vs. %@.  Game point: %d. %@", game.opponentName, game.gamePoint, windDescription];
+        NSString* gamePointDescription = [game isTimeBasedEnd] ? @"" : [NSString stringWithFormat:@"  Game point: %d.", game.gamePoint];
+        message = [NSString stringWithFormat:@"New game vs. %@.%@ %@", game.opponentName, gamePointDescription, windDescription];
     }
     return message;
 }

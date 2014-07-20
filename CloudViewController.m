@@ -11,6 +11,7 @@
 #import "WebViewSignonController.h"
 #import "TeamDownloadPickerViewController.h"
 #import "GameDownloadPickerViewController.h"
+#import "GameUploadPickerViewController.h"
 #import "Team.h"
 #import "Game.h"
 #import "Scrubber.h"
@@ -28,6 +29,7 @@
 @interface CloudViewController() 
 
 @property (nonatomic, strong) CalloutsContainerView *usageCallouts;
+@property (nonatomic, strong) NSArray *gameIdsToUpload;
 
 @end
 
@@ -56,7 +58,7 @@
 }
 
 -(IBAction)uploadButtonClicked: (id) sender {
-    [self startUpload];
+    [self goGameUploadPickerView];
 }
 
 #pragma mark - Navigation
@@ -73,10 +75,21 @@
     [self.navigationController pushViewController:teamDownloadController animated: YES];
 }
 
--(void)goGamePickerView: (NSArray*) games {
+-(void)goGameDownloadPickerView: (NSArray*) games {
     gameDownloadController = [[GameDownloadPickerViewController alloc] init];
     gameDownloadController.games = games;
     [self.navigationController pushViewController:gameDownloadController animated: YES];
+}
+
+-(void)goGameUploadPickerView {
+    self.gameIdsToUpload = [NSArray array];
+    GameUploadPickerViewController* gameUploadController = [[GameUploadPickerViewController alloc] init];
+    gameUploadController.dismissBlock = ^(NSArray* selectedGameIds) {
+        [self.navigationController popViewControllerAnimated:YES];
+        self.gameIdsToUpload = selectedGameIds;
+        [self startUpload];
+    };
+    [self.navigationController pushViewController:gameUploadController animated: YES];
 }
 
 #pragma mark - Upload Team/Games
@@ -88,7 +101,7 @@
 
 -(void)uploadToServer {
     NSError* uploadError = nil;
-    [CloudClient uploadTeam:[Team getCurrentTeam] withGames:[ Game getAllGameFileNames:[Team getCurrentTeam].teamId] error: &uploadError];
+    [CloudClient uploadTeam:[Team getCurrentTeam] withGames:self.self.gameIdsToUpload error: &uploadError];
     [self performSelectorOnMainThread:@selector(handleUploadCompletion:) withObject: uploadError waitUntilDone:NO];
 }
 
@@ -175,7 +188,7 @@
         }
     } else {
         NSArray* games = (NSArray*)requestContext.responseData;
-        [self goGamePickerView: games];
+        [self goGameDownloadPickerView: games];
     } 
 }
 
@@ -317,6 +330,7 @@
 #endif
     
 }
+
 
 #pragma mark - Table handling
 

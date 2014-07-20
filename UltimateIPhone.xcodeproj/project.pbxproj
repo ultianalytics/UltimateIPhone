@@ -312,6 +312,8 @@
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
+		38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */; };
+		38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -764,6 +766,9 @@
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
+		38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerViewController.h; sourceTree = "<group>"; };
+		38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerViewController.m; sourceTree = "<group>"; };
+		38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameUploadPickerViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1098,6 +1103,9 @@
 				1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */,
 				1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */,
 				1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */,
+				38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */,
+				38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */,
+				38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */,
 				1AF1B769153B0CE100E1A826 /* RequestContext.h */,
 				1AF1B76A153B0CE100E1A826 /* RequestContext.m */,
 			);
@@ -1770,6 +1778,7 @@
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
 				1AA37BAC18A8619700CE9662 /* color2E4C00Radius3.png in Resources */,
 				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
+				38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */,
 				1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
@@ -1913,6 +1922,7 @@
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,
 				1A4C42D8160C87C70067BB96 /* LeaguevineResponseMeta.m in Sources */,
 				1A4C42E9160C97650067BB96 /* NSDictionary+JSON.m in Sources */,
+				38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */,
 				1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */,
 				1A5D7C0C18FCC6BE00239A22 /* SHSDirectoryZipper.m in Sources */,
 				1A4C42FB160D5FA90067BB96 /* LeaguevineLeague.m in Sources */,

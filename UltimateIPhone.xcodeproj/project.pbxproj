@@ -310,6 +310,8 @@
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
+		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
+		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -760,6 +762,8 @@
 		1AFFE8CC151761AA004B4590 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
+		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
+		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1470,6 +1474,8 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */,
+				38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */,
 				1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */,
 				1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */,
 				1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */,
@@ -1769,6 +1775,7 @@
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
+				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
 				1AA37B7F18A6A0F800CE9662 /* 769-male.png in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
@@ -1778,6 +1785,7 @@
 				1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */,
 				1AA37BB318A904F700CE9662 /* color0F1900Radius3.png in Resources */,
 				1AC93B781629F67200E26007 /* check.png in Resources */,
+				38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */,
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,

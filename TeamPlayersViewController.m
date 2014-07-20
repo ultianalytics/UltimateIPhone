@@ -179,6 +179,7 @@
     } else {
         cell.imageView.image = player.isAbsent ? [ImageMaster getNeutralGenderAbsentImage] : [ImageMaster getNeutralGenderImage];
     }
+    cell.textLabel.textColor = player.isAbsent ? uirgb(160, 160, 160) : [UIColor blackColor];
     
     return cell;
 }

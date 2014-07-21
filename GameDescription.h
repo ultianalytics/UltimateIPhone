@@ -16,6 +16,7 @@
 @property (nonatomic) Score score;
 @property (nonatomic, strong) NSString* formattedScore;
 @property (nonatomic, strong) NSString* tournamentName;
+@property (nonatomic) NSTimeInterval lastSaveGMT;
 
 +(GameDescription*) fromDictionary:(NSDictionary*) dict;
 

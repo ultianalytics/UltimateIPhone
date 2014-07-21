@@ -40,6 +40,7 @@
 @property (nonatomic, strong) TimeoutDetails* timeoutDetails;
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
 @property (nonatomic, readonly) int periodsComplete;
+@property (nonatomic, readonly) NSTimeInterval lastSaveGMT;
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;

@@ -314,6 +314,7 @@
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
 		38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */; };
 		38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */; };
+		38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -769,6 +770,8 @@
 		38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerViewController.h; sourceTree = "<group>"; };
 		38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerViewController.m; sourceTree = "<group>"; };
 		38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameUploadPickerViewController.xib; sourceTree = "<group>"; };
+		38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDownloadTracker.h; sourceTree = "<group>"; };
+		38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDownloadTracker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1302,6 +1305,8 @@
 				1AFFE7D415175E7B004B4590 /* CloudClient.m */,
 				1AACE07915974D87004C03A1 /* CloudMetaInfo.h */,
 				1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */,
+				38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */,
+				38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -1966,6 +1971,7 @@
 				1AD1231B17088D0400B89BC1 /* DDFileReader.m in Sources */,
 				1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */,
 				1ACED4DD170BB8220041AA23 /* LeaguevineScore.m in Sources */,
+				38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */,
 				1ACED4E0170D945A0041AA23 /* LeagueVinePlayerNameTransformer.m in Sources */,
 				1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */,
 				1AC6613317164B1800DCFF58 /* TimeoutViewController.m in Sources */,

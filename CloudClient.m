@@ -14,6 +14,7 @@
 #import "CloudMetaInfo.h"
 #import "Scrubber.h"
 #import "Reachability.h"
+#import "UploadDownloadTracker.h"
 
 #define kHostHame @"www.ultimate-numbers.com"
 #define kWebHostHame @"www.ultianalytics.com"
@@ -65,6 +66,9 @@
     NSMutableDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
     [gameAsDict setValue:team.cloudId forKey:kTeamIdKey];
     [CloudClient upload: gameAsDict relativeUrl: @"/rest/mobile/game" error: &error];
+    if (!error) {
+        [UploadDownloadTracker updateLastUploadOrDownloadTime:game.lastSaveGMT forGameId:game.gameId inTeamId:team.teamId];
+    }
     *uploadError = error;
 }
 

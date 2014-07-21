@@ -45,6 +45,7 @@
 #define kLeagueVineStatsPublishKey   @"pubStatsToLeaguevine"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 #define kTimeoutDetailsJsonKey      @"timeoutDetailsJson"
+#define klastSaveKey            @"lastSave"
 
 static Game* currentGame = nil;
 
@@ -52,6 +53,7 @@ static Game* currentGame = nil;
 
 @property (nonatomic, strong) NSString* timeoutJson;
 @property (nonatomic, strong) CessationEvent* lastPeriodEnd; // transient
+@property (nonatomic) NSTimeInterval lastSaveGMT;
 
 @end
 
@@ -268,6 +270,7 @@ static Game* currentGame = nil;
         gameDesc.opponent = game.opponentName;
         gameDesc.score = [game getScore];
         gameDesc.formattedScore = [NSString stringWithFormat:@"%d-%d", gameDesc.score.ours, gameDesc.score.theirs];
+        gameDesc.lastSaveGMT = game.lastSaveGMT;
         [descriptions addObject:gameDesc];
         NSString* tournament = game.tournamentName;
         gameDesc.tournamentName = tournament == nil ? nil : [tournament stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -379,6 +382,7 @@ static Game* currentGame = nil;
         self.publishScoreToLeaguevine = [decoder decodeBoolForKey:kLeagueVineScoresPublishKey];
         self.publishStatsToLeaguevine = [decoder decodeBoolForKey:kLeagueVineStatsPublishKey];
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
+        self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
     } 
     return self; 
 } 
@@ -399,6 +403,7 @@ static Game* currentGame = nil;
     [encoder encodeBool:self.publishScoreToLeaguevine forKey:kLeagueVineScoresPublishKey];
     [encoder encodeBool:self.publishStatsToLeaguevine forKey:kLeagueVineStatsPublishKey];
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
+    [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
 } 
 
 
@@ -412,6 +417,7 @@ static Game* currentGame = nil;
 }
 
 -(void)save {
+    [self updatelastSaveGMT];
     NSMutableData *data = [[NSMutableData alloc] init]; 
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] 
                                  initForWritingWithMutableData:data]; 
@@ -1008,6 +1014,11 @@ static Game* currentGame = nil;
     } else {
         return totalAvailableFirstHalf - self.timeoutDetails.takenFirstHalf;
     }
+}
+
+-(void)updatelastSaveGMT {
+    NSTimeInterval timeZoneOffset = [[NSTimeZone defaultTimeZone] secondsFromGMT];
+    self.lastSaveGMT = [[NSDate date] timeIntervalSince1970] - timeZoneOffset;
 }
 
 @end

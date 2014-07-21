@@ -8,6 +8,8 @@
 
 #import "GameUploadPickerViewController.h"
 #import "GameDescription.h"
+#import "UploadDownloadTracker.h"
+#import "Team.h"
 
 @interface GameUploadPickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -93,14 +95,26 @@
 
 -(void)initSelectedGamesSet {
     self.selectedGameIds = [NSMutableSet set];
-    // TODO...add games that have not been uploaded since last save
+    NSString* teamId = [Team getCurrentTeam].teamId;
+    for (GameDescription* gameDescription in self.gameDescriptions) {
+        NSTimeInterval lastUploadOrDownloadTime = [UploadDownloadTracker lastUploadOrDownloadForGameId:gameDescription.gameId inTeamId:teamId];
+        if (gameDescription.lastSaveGMT == -1 || (gameDescription.lastSaveGMT != lastUploadOrDownloadTime)) {
+            [self.selectedGameIds addObject:gameDescription.gameId];
+        };
+    }
 }
 
 -(void)updateCellImage: (UITableViewCell*) cell forGame:  (GameDescription*) game {
     BOOL isSelectedGame = [self.selectedGameIds containsObject:game.gameId];
     cell.imageView.image = isSelectedGame ? [UIImage imageNamed:@"checkbox-checked"] : [UIImage imageNamed:@"checkbox-unchecked"];
-    self.uploadButton.enabled = [self.selectedGameIds count] > 0;
-    
+    [self updateUploadButton];
+}
+
+-(void)updateUploadButton {
+    BOOL hasSelections = [self.selectedGameIds count] > 0;
+    self.uploadButton.enabled = hasSelections;
+    NSString* buttonText = hasSelections ? [NSString stringWithFormat:@"Upload %lu Game%@", (unsigned long)[self.selectedGameIds count], [self.selectedGameIds count] == 1 ? @"" : @"s"]: @"No Games Selected";
+    [self.uploadButton setTitle:buttonText forState:UIControlStateNormal];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "Player.h"
 #import "LeaguevineTeam.h"
 #import "NSDictionary+JSON.h"
+#import "UploadDownloadTracker.h"
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"
@@ -289,6 +290,9 @@ static Team* currentTeam = nil;
     
     // delete the associated games
     [Game deleteAllGamesForTeam:self.teamId];
+    
+    // delete the upload/download tracker
+    [UploadDownloadTracker deleteTrackerForTeamId:self.teamId];
     
     // delete the team
     NSString *path = [Team getFilePath:self.teamId];

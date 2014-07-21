@@ -41,6 +41,18 @@
     return [tracker lastUploadOrDownloadForGameId:gameId];
 }
 
++(void)deleteTrackerForTeamId: (NSString*)teamId {
+    NSString *path = [[self class] getFilePath:teamId];
+    NSError *error;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path])	{	//Does file exist?
+        if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error]) {	//Delete it
+            if (error) {
+                SHSLog(@"Delete upload/download tracker file error: %@", error);
+            }
+        }
+    }
+}
+
 #pragma mark - Upload/Download tracking - private
 
 -(NSTimeInterval)lastUploadOrDownloadForGameId: (NSString*)gameId {

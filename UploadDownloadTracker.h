@@ -12,5 +12,6 @@
 
 +(void)updateLastUploadOrDownloadTime: (NSTimeInterval)timestamp forGameId: (NSString*)gameId inTeamId: (NSString*)teamId;
 +(NSTimeInterval)lastUploadOrDownloadForGameId: (NSString*)gameId  inTeamId: (NSString*)teamId;
++(void)deleteTrackerForTeamId: (NSString*)teamId;
 
 @end

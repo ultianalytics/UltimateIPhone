@@ -157,6 +157,7 @@
     *getError = sendError == nil ? unmarshallingError : sendError;
     if(!unmarshallingError && !sendError) {
         [game save];
+        [UploadDownloadTracker updateLastUploadOrDownloadTime:game.lastSaveGMT forGameId:game.gameId inTeamId:[Team getCurrentTeam].teamId];
     }
 }
 

@@ -15,5 +15,6 @@
 
 -(void)resetTeamTab;
 -(void)resetGameTab;
+-(void)resetCloudTab;
 
 @end

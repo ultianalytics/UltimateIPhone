@@ -19,10 +19,15 @@
 #import "Reachability.h"
 #import "BufferedNavigationController.h"
 
-@implementation AppDelegate
+@interface AppDelegate ()
 
-UINavigationController* teamNavController;
-UINavigationController* gameNavController;
+@property (nonatomic, strong) UINavigationController* cloudNavController;
+@property (nonatomic, strong) UINavigationController* teamNavController;
+@property (nonatomic, strong) UINavigationController* gameNavController;
+
+@end
+
+@implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
@@ -36,18 +41,18 @@ UINavigationController* gameNavController;
      
     // Tab 1: team
     TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-    teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
-    UIViewController *viewController1 = teamNavController;
+    self.teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
+    UIViewController *viewController1 = self.teamNavController;
 
     // Tab 2: game
     GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
-    gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
-    UIViewController *viewController2 = gameNavController;
+    self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
+    UIViewController *viewController2 = self.gameNavController;
     
     // Tab 3: cloud
     CloudViewController* cloudController = [[CloudViewController alloc] init];
-    UINavigationController* cloudNavController = [[BufferedNavigationController alloc] initWithRootViewController:cloudController];
-    UIViewController* viewController3 = cloudNavController;
+    self.cloudNavController = [[BufferedNavigationController alloc] initWithRootViewController:cloudController];
+    UIViewController* viewController3 = self.cloudNavController;
     
     // Tab 4: twitter
     TwitterController* twitterController = [[TwitterController alloc] init];
@@ -80,12 +85,16 @@ UINavigationController* gameNavController;
 }
 
 -(void)resetTeamTab {
-    [teamNavController popToRootViewControllerAnimated:NO];
+    [self.teamNavController popToRootViewControllerAnimated:NO];
     [self resetGameTab];
 }
 
 -(void)resetGameTab {
-    [gameNavController popToRootViewControllerAnimated:NO];
+    [self.gameNavController popToRootViewControllerAnimated:NO];
+}
+
+-(void)resetCloudTab {
+    [self.cloudNavController popToRootViewControllerAnimated:NO];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

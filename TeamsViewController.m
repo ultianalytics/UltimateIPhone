@@ -186,6 +186,7 @@
     if (![teamDescription.teamId isEqualToString:[Team getCurrentTeam].teamId]) {
         [Team setCurrentTeam:teamDescription.teamId];
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetCloudTab];
     }
     [self goToTeamView: [Team getCurrentTeam] animated: YES];
 }

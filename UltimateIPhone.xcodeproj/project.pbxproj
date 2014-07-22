@@ -116,8 +116,6 @@
 		1AA37BBA18A9185100CE9662 /* 26-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB618A9185100CE9662 /* 26-checkmark.png */; };
 		1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */; };
 		1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */; };
-		1AA37BE718B1383200CE9662 /* splash-screen-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */; };
-		1AA37BE818B1383200CE9662 /* splash-screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE618B1383200CE9662 /* splash-screen@2x.png */; };
 		1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE918B1385100CE9662 /* Images.xcassets */; };
 		1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */; };
 		1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */; };
@@ -486,8 +484,6 @@
 		1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "26-checkmark@2x.png"; sourceTree = "<group>"; };
 		1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameActionButton.h; sourceTree = "<group>"; };
 		1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameActionButton.m; sourceTree = "<group>"; };
-		1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-5@2x.png"; sourceTree = "<group>"; };
-		1AA37BE618B1383200CE9662 /* splash-screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen@2x.png"; sourceTree = "<group>"; };
 		1AA37BE918B1385100CE9662 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UltimateIPhone/Images.xcassets; sourceTree = "<group>"; };
 		1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-app-icon@2x.png"; sourceTree = "<group>"; };
 		1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-settings-icon@2x.png"; sourceTree = "<group>"; };
@@ -1495,8 +1491,6 @@
 				1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */,
 				1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */,
 				1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */,
-				1AA37BE518B1383100CE9662 /* splash-screen-5@2x.png */,
-				1AA37BE618B1383200CE9662 /* splash-screen@2x.png */,
 				1AA37BB418A9185100CE9662 /* 19-circle-check.png */,
 				1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */,
 				1AA37BB618A9185100CE9662 /* 26-checkmark.png */,
@@ -1684,7 +1678,6 @@
 				1AA37BB918A9185100CE9662 /* 19-circle-check@2x.png in Resources */,
 				1AFFE7F215175E7B004B4590 /* bad_egg.png in Resources */,
 				1AA37B8018A6A0F800CE9662 /* 769-male@2x.png in Resources */,
-				1AA37BE718B1383200CE9662 /* splash-screen-5@2x.png in Resources */,
 				1AFFE7F315175E7B004B4590 /* bad_smile.png in Resources */,
 				1AA37BF818B2DE7E00CE9662 /* first-passer-bracket@2x.png in Resources */,
 				1AFFE7F415175E7B004B4590 /* beaten.png in Resources */,
@@ -1718,7 +1711,6 @@
 				1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */,
 				1AFFE89915175EB0004B4590 /* money.png in Resources */,
 				1AA37BAD18A8619700CE9662 /* color3E6600Radius3.png in Resources */,
-				1AA37BE818B1383200CE9662 /* splash-screen@2x.png in Resources */,
 				1AFFE89A15175EB0004B4590 /* nothing_to_say.png in Resources */,
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,

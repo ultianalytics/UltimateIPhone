@@ -51,7 +51,7 @@ static TweetQueue* current = nil;
 
 -(void)addTweet: (Tweet*) tweet {
     @synchronized(recentTweets) {
-        SHSLog(@"Tweet %@ added to queue", tweet.message);
+//        SHSLog(@"Tweet %@ added to queue", tweet.message);
         [self sendTweet: tweet];
     }
 }
@@ -118,7 +118,7 @@ static TweetQueue* current = nil;
 }
 
 -(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount {
-    SHSLog(@"Sending tweet %@ to twitter", tweet.message);
+//    SHSLog(@"Sending tweet %@ to twitter", tweet.message);
     @try {
         // Build a twitter request
         SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodPOST URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:tweet.message forKey:@"status"]];
@@ -143,7 +143,7 @@ static TweetQueue* current = nil;
     }
     @catch (NSException *exception) {
         NSString* exceptionCaught = [NSString stringWithFormat:@"Exception: %@-%@", [exception name], [exception reason]];
-        SHSLog(@"Exception caught: %@", exceptionCaught);
+//        SHSLog(@"Exception caught: %@", exceptionCaught);
         tweet.status = TweetFailed;
         tweet.error = exceptionCaught;
     }

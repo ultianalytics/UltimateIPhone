@@ -58,7 +58,11 @@
 }
 
 -(IBAction)uploadButtonClicked: (id) sender {
-    [self goGameUploadPickerView];
+    if ([[Team getCurrentTeam] hasGames]) {
+        [self goGameUploadPickerView];
+    } else {
+        [self showNoGamesToUploadAlert];
+    }
 }
 
 #pragma mark - Navigation
@@ -119,6 +123,16 @@
         [self populateViewFromModel];
         [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)];
     }
+}
+
+-(void)showNoGamesToUploadAlert {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"No Games for Team"
+                          message: [NSString stringWithFormat: @"The %@ team has zero games.  You must first add a game before uploading", [Team getCurrentTeam].name]
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
 }
 
 #pragma mark - Download Team descriptions (for picking one to download)

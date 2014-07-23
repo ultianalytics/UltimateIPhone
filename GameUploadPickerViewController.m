@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Game Upload";
+    self.title = @"Games Upload";
     [self.tableView reloadData];
 }
 

@@ -450,7 +450,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstCloudViewUsage];
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
-        [calloutsView addCallout:@"If you would like to keep your team statistics private, you can set a password on your team website and only share it with your teammates.\n\nTo set the password, go to Admin website after you upload your team for the first time." anchor: CGPointTop(self.view.bounds) width: 250 degrees: 180 connectorLength: 150 font:[UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"If you would like to keep your team statistics private, you can set a password on your team website and only share it with your teammates.\n\nTo set the password, go to Admin website after you upload your team for the first time." anchor: CGPointTop(self.view.bounds) width: 250 degrees: 180 connectorLength: 110 font:[UIFont systemFontOfSize:14]];
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

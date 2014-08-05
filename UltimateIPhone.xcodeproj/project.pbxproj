@@ -13,10 +13,6 @@
 		1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */; };
 		1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFD171E4D04006DE1C9 /* finishflag.png */; };
 		1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C8E17AE9C9F00035849 /* FlatButton.m */; };
-		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
-		1A0E65FD18007356003BEB88 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E65FC18007356003BEB88 /* icon-120.png */; };
-		1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E65FE180074CD003BEB88 /* icon-58.png */; };
-		1A0E6601180074DA003BEB88 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E6600180074DA003BEB88 /* icon-80.png */; };
 		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
 		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
 		1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A209AB917177A5400BF9D6A /* TimeoutDetails.m */; };
@@ -81,7 +77,6 @@
 		1A80C96F15612067007F03C2 /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C96D15612067007F03C2 /* man.png */; };
 		1A80C97315612192007F03C2 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97115612192007F03C2 /* woman@2x.png */; };
 		1A80C97415612192007F03C2 /* woman.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97215612192007F03C2 /* woman.png */; };
-		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
 		1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A894CBF16361223008B3990 /* PullLandingViewController.m */; };
 		1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A894CC016361223008B3990 /* PullLandingViewController.xib */; };
 		1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8C5F0017B519E300601D21 /* Social.framework */; };
@@ -117,9 +112,6 @@
 		1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */; };
 		1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */; };
 		1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE918B1385100CE9662 /* Images.xcassets */; };
-		1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */; };
-		1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */; };
-		1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */; };
 		1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */; };
 		1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */; };
 		1AA37BF818B2DE7E00CE9662 /* first-passer-bracket@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */; };
@@ -132,7 +124,6 @@
 		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */; };
-		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AB78D0417269E40003235AE /* SHSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D0317269E40003235AE /* SHSLogger.m */; };
 		1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D061726B0DE003235AE /* SHSLogsMailer.m */; };
 		1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB78D081726B1E0003235AE /* MessageUI.framework */; };
@@ -325,10 +316,6 @@
 		1A047EFD171E4D04006DE1C9 /* finishflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finishflag.png; sourceTree = "<group>"; };
 		1A0A2C8D17AE9C9F00035849 /* FlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlatButton.h; sourceTree = "<group>"; };
 		1A0A2C8E17AE9C9F00035849 /* FlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatButton.m; sourceTree = "<group>"; };
-		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
-		1A0E65FC18007356003BEB88 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
-		1A0E65FE180074CD003BEB88 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-58.png"; sourceTree = "<group>"; };
-		1A0E6600180074DA003BEB88 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-80.png"; sourceTree = "<group>"; };
 		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
 		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
 		1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstitutionViewController.m; sourceTree = "<group>"; };
@@ -443,7 +430,6 @@
 		1A80C96D15612067007F03C2 /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		1A80C97115612192007F03C2 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
 		1A80C97215612192007F03C2 /* woman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman.png; sourceTree = "<group>"; };
-		1A80C9751561223C007F03C2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		1A894CBE16361223008B3990 /* PullLandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullLandingViewController.h; sourceTree = "<group>"; };
 		1A894CBF16361223008B3990 /* PullLandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullLandingViewController.m; sourceTree = "<group>"; };
 		1A894CC016361223008B3990 /* PullLandingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullLandingViewController.xib; sourceTree = "<group>"; };
@@ -485,9 +471,6 @@
 		1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameActionButton.h; sourceTree = "<group>"; };
 		1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameActionButton.m; sourceTree = "<group>"; };
 		1AA37BE918B1385100CE9662 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UltimateIPhone/Images.xcassets; sourceTree = "<group>"; };
-		1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-app-icon@2x.png"; sourceTree = "<group>"; };
-		1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-settings-icon@2x.png"; sourceTree = "<group>"; };
-		1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-spotlight-icon@2x.png"; sourceTree = "<group>"; };
 		1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passer-arrow@2x.png"; sourceTree = "<group>"; };
 		1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket-5@2x.png"; sourceTree = "<group>"; };
 		1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket@2x.png"; sourceTree = "<group>"; };
@@ -508,7 +491,6 @@
 		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
 		1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePlayer.h; sourceTree = "<group>"; };
 		1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePlayer.m; sourceTree = "<group>"; };
-		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1AB78D0217269E40003235AE /* SHSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogger.h; sourceTree = "<group>"; };
 		1AB78D0317269E40003235AE /* SHSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSLogger.m; sourceTree = "<group>"; };
 		1AB78D051726B0DE003235AE /* SHSLogsMailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogsMailer.h; sourceTree = "<group>"; };
@@ -1488,9 +1470,6 @@
 				1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */,
 				1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */,
 				1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */,
-				1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */,
-				1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */,
-				1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */,
 				1AA37BB418A9185100CE9662 /* 19-circle-check.png */,
 				1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */,
 				1AA37BB618A9185100CE9662 /* 26-checkmark.png */,
@@ -1532,12 +1511,6 @@
 				1A80C97215612192007F03C2 /* woman.png */,
 				1A80C96C15612067007F03C2 /* man@2x.png */,
 				1A80C96D15612067007F03C2 /* man.png */,
-				1A0A6C4F1556B5740041C962 /* icon-AppStore.png */,
-				1AB332011544F1B500219FFD /* icon.png */,
-				1A80C9751561223C007F03C2 /* icon@2x.png */,
-				1A0E65FC18007356003BEB88 /* icon-120.png */,
-				1A0E6600180074DA003BEB88 /* icon-80.png */,
-				1A0E65FE180074CD003BEB88 /* icon-58.png */,
 				1AEE549A15293DD30067F539 /* 210-twitterbird.png */,
 				1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */,
 				1AE66A091521EA9B000965B5 /* tweet-button.png */,
@@ -1657,7 +1630,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A3A559617A6967C002B3C84 /* TweetLogTableViewCell.xib in Resources */,
-				1A0E65FD18007356003BEB88 /* icon-120.png in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
 				1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */,
@@ -1715,7 +1687,6 @@
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
-				1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
 				1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */,
@@ -1742,7 +1713,6 @@
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
-				1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
 				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
 				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
@@ -1761,15 +1731,12 @@
 				1AA37B9418A6C29D00CE9662 /* player.png in Resources */,
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
 				1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */,
-				1AB332031544F1B500219FFD /* icon.png in Resources */,
-				1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */,
 				1A80C96E15612067007F03C2 /* man@2x.png in Resources */,
 				1A80C96F15612067007F03C2 /* man.png in Resources */,
 				1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */,
 				1A80C97315612192007F03C2 /* woman@2x.png in Resources */,
 				1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */,
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
-				1A80C9761561223C007F03C2 /* icon@2x.png in Resources */,
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
 				1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */,
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
@@ -1795,9 +1762,7 @@
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
-				1A0E6601180074DA003BEB88 /* icon-80.png in Resources */,
 				1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */,
-				1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
@@ -1805,7 +1770,6 @@
 				1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */,
 				1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */,
 				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
-				1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */,
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
@@ -2045,6 +2009,7 @@
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2052,6 +2017,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -2135,6 +2101,7 @@
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2142,6 +2109,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2162,12 +2130,14 @@
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

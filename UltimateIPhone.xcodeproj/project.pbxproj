@@ -304,6 +304,8 @@
 		38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */; };
 		38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */; };
 		38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */; };
+		38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */; };
+		38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -750,6 +752,9 @@
 		38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameUploadPickerViewController.xib; sourceTree = "<group>"; };
 		38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDownloadTracker.h; sourceTree = "<group>"; };
 		38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDownloadTracker.m; sourceTree = "<group>"; };
+		38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsMasterDetailViewController.h; sourceTree = "<group>"; };
+		38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsMasterDetailViewController.m; sourceTree = "<group>"; };
+		38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamsMasterDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -889,16 +894,6 @@
 			name = LeagueVine;
 			sourceTree = "<group>";
 		};
-		1AA37BE018AFBC3000CE9662 /* Teams List */ = {
-			isa = PBXGroup;
-			children = (
-				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
-				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
-				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
-			);
-			name = "Teams List";
-			sourceTree = "<group>";
-		};
 		1AA37BE118AFBC5800CE9662 /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -956,6 +951,8 @@
 				1AAC14901718240200827C51 /* UILabel+Utilities.m */,
 				1A5D7AF118F99FE600239A22 /* UIScrollView+Utilities.h */,
 				1A5D7AF218F99FE600239A22 /* UIScrollView+Utilities.m */,
+				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
+				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
 			);
 			name = "Categories on Apple Classes";
 			sourceTree = "<group>";
@@ -1231,7 +1228,6 @@
 				1AA37BE118AFBC5800CE9662 /* Player */,
 				1AA37BE218AFBC7A00CE9662 /* Players List */,
 				1AFFE8D71517647F004B4590 /* Team */,
-				1AA37BE018AFBC3000CE9662 /* Teams List */,
 				1AFFE8D61517647C004B4590 /* Wind */,
 			);
 			name = UI;
@@ -1321,8 +1317,6 @@
 				1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */,
 				1A6C82DA16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.h */,
 				1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */,
-				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
-				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
 				1AE5C6EE17902BF600B604FE /* UltimateViewController.h */,
 				1AE5C6EF17902BF600B604FE /* UltimateViewController.m */,
 				1A0A2C8D17AE9C9F00035849 /* FlatButton.h */,
@@ -1350,9 +1344,15 @@
 		1AFFE8D71517647F004B4590 /* Team */ = {
 			isa = PBXGroup;
 			children = (
+				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
+				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
+				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
 				1AFFE86815175EB0004B4590 /* TeamViewController.h */,
 				1AFFE86915175EB0004B4590 /* TeamViewController.m */,
 				1AFFE8CD151761AA004B4590 /* TeamViewController.xib */,
+				38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */,
+				38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */,
+				38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */,
 			);
 			name = Team;
 			sourceTree = "<group>";
@@ -1629,6 +1629,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */,
 				1A3A559617A6967C002B3C84 /* TweetLogTableViewCell.xib in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
@@ -1919,6 +1920,7 @@
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
 				1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */,
+				38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */,
 				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,
 				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
 				1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */,

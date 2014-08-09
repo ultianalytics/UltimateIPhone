@@ -39,6 +39,8 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.teamsViewController = [[TeamsViewController alloc] init];
     self.teamViewController = [[TeamViewController alloc] init];
+    self.teamsViewController.detailController = self.teamViewController;
+    
     self.teamsViewController.edgesForExtendedLayout = UIRectEdgeNone;
     self.teamViewController.edgesForExtendedLayout = UIRectEdgeNone;
     

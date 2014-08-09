@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) Team* team;
 @property (nonatomic, strong) NSArray* cells;
+@property (strong, nonatomic) void (^teamChangedBlock)(Team* team);
+@property (nonatomic) BOOL isModalAddMode;
 
 @property (nonatomic, strong) IBOutlet UITableView* teamTableView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* nameCell;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
+#import "TeamViewController.h"
 
 @class Team;
 
@@ -17,7 +18,7 @@
     BOOL isAfterFirstView;
 }
 
-@property (nonatomic, strong) IBOutlet UITableView* teamsTableView;
+@property (nonatomic, strong) TeamViewController* detailController; // only used in iPad
 
 -(void)retrieveTeamDescriptions;
 -(void)goToAddTeam;

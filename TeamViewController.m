@@ -43,7 +43,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Team", @"Team");
+
     }
     return self;
 }
@@ -78,7 +78,14 @@
 
 -(void)saveAndContinue {
     if ([self saveChanges]) {
-        [self goToPlayersView:YES];
+        if (IS_IPHONE) {
+            [self goToPlayersView:YES];
+        } else {
+            [self notifyChangeListener];
+            if (self.isModalAddMode) {
+                [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
     }
 }
 
@@ -162,7 +169,6 @@
     }
 }
 
-#pragma mark Event handlers
 
 -(IBAction)nameChanged: (id) sender {
     
@@ -189,6 +195,9 @@
     [Team setCurrentTeam:teamCopy.teamId];
     self.team = teamCopy;
     [self populateViewFromModel];
+    if (IS_IPAD) {
+        [self notifyChangeListener];
+    }
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Team Copied"
                           message:@"The team (and all players) have been copied and saved.  Consider entering a better team name before leaving this view."
@@ -246,7 +255,11 @@
             {
                 [self.team delete];
                 [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-                [self.navigationController popViewControllerAnimated:YES];
+                if (IS_IPHONE) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [self notifyChangeListener];
+                }
             }
                 break;
         }
@@ -258,6 +271,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = [self.team hasBeenSaved]  ? @"Team" : @"New Team";
     self.teamTableView.tableFooterView = self.customFooterView;
     self.clearCloudIdButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.clearCloudIdButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -265,6 +279,10 @@
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;
+    if (self.isModalAddMode) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        self.navigationItem.leftBarButtonItem = cancelBarItem;
+    }
 
 }
 
@@ -307,7 +325,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!self.cells) {
-        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.leagueVineCell, self.playersCell, nil];
+        if (self.isModalAddMode) {
+            self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, nil];
+        } else {
+            self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.leagueVineCell, self.playersCell, nil];
+        }
     }
     return [self.cells count];
 }
@@ -418,6 +440,23 @@
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     self.teamTableView.contentInset = contentInsets;
     self.teamTableView.scrollIndicatorInsets = contentInsets;
+}
+
+#pragma mark - iPad only (Master/Detail UX)
+
+-(void)notifyChangeListener {
+    if (self.teamChangedBlock) {
+        self.teamChangedBlock(self.team);
+    }
+}
+
+-(void)setTeam:(Team *)team {
+    _team = team;
+    [self populateViewFromModel];
+}
+
+-(void)cancelModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

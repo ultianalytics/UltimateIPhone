@@ -271,7 +271,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = [self.team hasBeenSaved]  ? @"Team" : @"New Team";
+    self.title = self.isModalAddMode ? @"New Team" : @"Team";
     self.teamTableView.tableFooterView = self.customFooterView;
     self.clearCloudIdButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.clearCloudIdButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -380,9 +380,16 @@
         [self saveChanges];
         [self.navigationController popViewControllerAnimated:YES];
     };
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];
-    [self.navigationController pushViewController:leagueController animated:YES];
+    if (IS_IPAD) {
+        leagueController.isModalMode = YES;
+        UINavigationController* leagueNavController = [[UINavigationController alloc] initWithRootViewController:leagueController];
+        leagueNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:leagueNavController animated:YES completion:nil];
+    } else {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+        [self.navigationController pushViewController:leagueController animated:YES];
+    }
 }
 
 -(void)populateLeagueVineTeamCell {
@@ -458,5 +465,6 @@
 -(void)cancelModalDialog {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 @end

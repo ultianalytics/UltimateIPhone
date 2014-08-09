@@ -16,5 +16,6 @@
 
 @property (strong, nonatomic) Team* team;
 @property (strong, nonatomic) void (^selectedBlock)(LeaguevineTeam* item);
+@property (nonatomic) BOOL isModalMode;
 
 @end

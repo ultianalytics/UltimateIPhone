@@ -62,6 +62,10 @@
 {
     [super viewDidLoad];
     self.clearLeaguevineButtonView.hidden = !self.team.leaguevineTeam;
+    if (self.isModalMode) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(closeModalDialog)];
+        self.navigationItem.leftBarButtonItem = cancelBarItem;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -76,11 +80,17 @@
         self.leaguevineTeam.season = self.season;
         self.selectedBlock(self.leaguevineTeam);
     }
+    if (self.isModalMode) {
+        [self closeModalDialog];
+    }
 }
 
 - (IBAction)clearLeaguevinePressed:(id)sender {
     if (self.selectedBlock) {
         self.selectedBlock(nil);
+    }
+    if (self.isModalMode) {
+        [self closeModalDialog];
     }
 }
 
@@ -252,6 +262,12 @@
     } else {
         [self removeDoneButton];
     }
+}
+
+#pragma mark - IPad special behavior (opening modally) 
+
+-(void)closeModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 

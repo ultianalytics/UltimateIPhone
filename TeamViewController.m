@@ -14,6 +14,7 @@
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "TeamPlayersViewController.h"
+#import "PlayersMasterDetailViewController.h"
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
 #import "NSString+manipulations.h"
@@ -156,10 +157,15 @@
 }
 
 -(void)goToPlayersView: (BOOL) animated {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];
-    TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
-    [self.navigationController pushViewController:playersController animated:animated];
+    if (IS_IPAD) {
+        PlayersMasterDetailViewController* playersController = [[PlayersMasterDetailViewController alloc] init];
+        [self presentViewController:playersController animated:YES completion:nil];
+    } else {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+        TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
+        [self.navigationController pushViewController:playersController animated:animated];
+    }
 }
 
 - (void)handlePlayersCellSelected {

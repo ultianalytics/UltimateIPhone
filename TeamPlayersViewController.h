@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
+#import "PlayerDetailsViewController.h"
 
 @interface TeamPlayersViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) PlayerDetailsViewController *detailsViewController;
 
 -(void)goToAddItem;
 

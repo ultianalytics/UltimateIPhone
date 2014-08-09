@@ -306,6 +306,8 @@
 		38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */; };
 		38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */; };
 		38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */; };
+		38FD2FDC199686D700CE83BB /* PlayersMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */; };
+		38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -755,6 +757,9 @@
 		38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsMasterDetailViewController.h; sourceTree = "<group>"; };
 		38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsMasterDetailViewController.m; sourceTree = "<group>"; };
 		38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamsMasterDetailViewController.xib; sourceTree = "<group>"; };
+		38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersMasterDetailViewController.h; sourceTree = "<group>"; };
+		38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersMasterDetailViewController.m; sourceTree = "<group>"; };
+		38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayersMasterDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -897,21 +902,17 @@
 		1AA37BE118AFBC5800CE9662 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
-				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
-				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
-			);
-			name = Player;
-			sourceTree = "<group>";
-		};
-		1AA37BE218AFBC7A00CE9662 /* Players List */ = {
-			isa = PBXGroup;
-			children = (
 				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
 				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
 				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
+				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
+				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
+				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
+				38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */,
+				38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */,
+				38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */,
 			);
-			name = "Players List";
+			name = Player;
 			sourceTree = "<group>";
 		};
 		1AA37BE318AFBCEA00CE9662 /* Event */ = {
@@ -1226,7 +1227,6 @@
 				1AFFE8D915176484004B4590 /* Line */,
 				1AFFE8D815176481004B4590 /* Preferences */,
 				1AA37BE118AFBC5800CE9662 /* Player */,
-				1AA37BE218AFBC7A00CE9662 /* Players List */,
 				1AFFE8D71517647F004B4590 /* Team */,
 				1AFFE8D61517647C004B4590 /* Wind */,
 			);
@@ -1770,6 +1770,7 @@
 				1AA37B9318A6C29D00CE9662 /* player@2x.png in Resources */,
 				1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */,
 				1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */,
+				38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */,
 				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
@@ -1857,6 +1858,7 @@
 				1AE66A1115227490000965B5 /* Tweeter.m in Sources */,
 				1AE66A1C15233217000965B5 /* TweetViewController.m in Sources */,
 				1AE66A2215235315000965B5 /* TwitterAccountPickViewController.m in Sources */,
+				38FD2FDC199686D700CE83BB /* PlayersMasterDetailViewController.m in Sources */,
 				1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */,
 				1A6B266215250FC400C119A5 /* Tweet.m in Sources */,
 				1AEE548B15293B350067F539 /* TwitterController.m in Sources */,

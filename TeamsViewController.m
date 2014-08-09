@@ -74,24 +74,11 @@
     }];
 }
 
--(void)goToBestView {
-    // go to the current team on app start
-    if (!isAfterFirstView) {
-        isAfterFirstView = YES;
-        if ([self isFirstTeamCreation]) {
-            TeamViewController* teamController = [[TeamViewController alloc] init];
-            teamController.team = [Team getCurrentTeam];
-            [self.navigationController pushViewController:teamController animated:NO];
-        }
-    }
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"My Teams", @"My Teams");
-        isAfterFirstView = NO;
     }
     return self;
 }
@@ -191,7 +178,11 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self goToBestView];
+    if (IS_IPHONE) {
+        TeamViewController* teamController = [[TeamViewController alloc] init];
+        teamController.team = [Team getCurrentTeam];
+        [self.navigationController pushViewController:teamController animated:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

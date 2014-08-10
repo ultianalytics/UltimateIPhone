@@ -310,6 +310,8 @@
 		38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */; };
 		38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */; };
 		38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */; };
+		38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE31997F30800CE83BB /* left-caret-green.png */; };
+		38FD2FE61997F30800CE83BB /* left-caret-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -765,6 +767,8 @@
 		38FD2FDE1996FF4E00CE83BB /* GamesMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesMasterDetailViewController.h; sourceTree = "<group>"; };
 		38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesMasterDetailViewController.m; sourceTree = "<group>"; };
 		38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamesMasterDetailViewController.xib; sourceTree = "<group>"; };
+		38FD2FE31997F30800CE83BB /* left-caret-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-caret-green.png"; sourceTree = "<group>"; };
+		38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-caret-green@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1348,15 +1352,15 @@
 		1AFFE8D71517647F004B4590 /* Team */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */,
+				38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */,
+				38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */,
 				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
 				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
 				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
 				1AFFE86815175EB0004B4590 /* TeamViewController.h */,
 				1AFFE86915175EB0004B4590 /* TeamViewController.m */,
 				1AFFE8CD151761AA004B4590 /* TeamViewController.xib */,
-				38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */,
-				38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */,
-				38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */,
 			);
 			name = Team;
 			sourceTree = "<group>";
@@ -1465,6 +1469,8 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2FE31997F30800CE83BB /* left-caret-green.png */,
+				38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */,
 				38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */,
 				38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */,
 				1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */,
@@ -1758,6 +1764,7 @@
 				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
 				1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */,
 				1AA37BB318A904F700CE9662 /* color0F1900Radius3.png in Resources */,
+				38FD2FE61997F30800CE83BB /* left-caret-green@2x.png in Resources */,
 				1AC93B781629F67200E26007 /* check.png in Resources */,
 				38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */,
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
@@ -1777,6 +1784,7 @@
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
+				38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
 				38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */,
 			);

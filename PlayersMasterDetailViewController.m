@@ -39,7 +39,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.playersViewController = [[TeamPlayersViewController alloc] init];
     self.playerViewController = [[PlayerDetailsViewController alloc] init];
-    self.playersViewController.detailsViewController = self.playerViewController;
+    self.playersViewController.detailController = self.playerViewController;
     
     self.playersViewController.edgesForExtendedLayout = UIRectEdgeNone;
     self.playerViewController.edgesForExtendedLayout = UIRectEdgeNone;

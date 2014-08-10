@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by james on 1/21/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2014 Summit Hill Software. All rights reserved.
 //
 
 #import "PlayerDetailsViewController.h"
@@ -14,20 +14,41 @@
 #import "UltimateSegmentedControl.h"
 #import "AppDelegate.h"
 
+@interface PlayerDetailsViewController ()
+
+@property (nonatomic, strong) IBOutlet UITextField* nickNameField;
+@property (nonatomic, strong) IBOutlet UITextField* numberField;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* positionControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* sexControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* statusControl;
+
+@property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (nonatomic, strong) IBOutlet UIButton* saveAndAddButton;
+@property (nonatomic, strong) IBOutlet UIButton* deleteButton;
+
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UITableViewCell* nameTableCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* numberTableCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* positionTableCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* genderTableCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* absentTableCell;
+
+@end
+
 @implementation PlayerDetailsViewController
-@synthesize player,nickNameField,numberField,positionControl,sexControl,saveAndAddButton,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
+@synthesize nickNameField,numberField,positionControl,sexControl,saveAndAddButton,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Player", @"Player");
+
     }
     return self;
 }
 
 -(void)populateViewFromModel {
-    if (player) {
+    if (self.player) {
         self.nickNameField.text = self.player.name;
         self.numberField.text = self.player.number;
         [self.positionControl setSelection: self.player.position == Any ? @"Any" : self.player.position == Handler ? @"Handler" : @"Cutter" ];
@@ -40,6 +61,8 @@
         [self.sexControl setSelection: @"Male"];
         [self.statusControl setSelection: @"Playing"];
     }
+    self.saveAndAddButton.hidden = self.player != nil;
+    self.deleteButton.hidden = self.player == nil;
 }
 
 -(void)populateModelFromView {
@@ -55,25 +78,46 @@
     if ([self verifyPlayer]) {
         [self addPlayer];
         self.player = nil;
-        [self populateViewFromModel];
+        if (IS_IPAD) {
+            [self notifyChangeListener];
+        }
     }
 }
 -(IBAction)deleteClicked: (id) sender {
     [self deletePlayer];
-    [self returnToTeamView];
+    if (IS_IPAD) {
+        [self notifyChangeListener];
+    } else {
+        [self returnToTeamView];
+    }
 }
 -(void)okClicked {
     if ([self verifyPlayer]) {
-        if (player) {
+        if (self.player) {
             [self updatePlayer];
+            if (IS_IPAD) {
+                [self notifyChangeListener];
+            } else {
+                [self returnToTeamView];
+            }
         } else {
             [self addPlayer];
+            if (IS_IPAD) {
+                [self notifyChangeListener];
+                [self cancelModalDialog];
+            } else {
+                [self returnToTeamView];
+            }
         }
-        [self returnToTeamView];
-    } 
+
+    }
 }
 -(void)cancelClicked {
-    [self returnToTeamView];
+    if (IS_IPAD) {
+        [self cancelModalDialog];
+    } else {
+        [self returnToTeamView];
+    }
 }
 -(void)returnToTeamView {
     [self.navigationController popViewControllerAnimated:YES];
@@ -145,9 +189,9 @@
 }
 
 -(void)addPlayer {
-    self.player = [[Player alloc] init];
+    _player = [[Player alloc] init];
     [self populateModelFromView];
-    [[Team getCurrentTeam] addPlayer:player];
+    [[Team getCurrentTeam] addPlayer:self.player];
     [self saveTeam];
 }
 
@@ -157,13 +201,18 @@
 }
 
 -(void)deletePlayer {
-    [[Team getCurrentTeam] removePlayer:player];
+    [[Team getCurrentTeam] removePlayer:self.player];
     [self saveTeam];
 }
 
 -(void)saveTeam {
     [[Team getCurrentTeam] save];
     [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+}
+
+-(void)setPlayer:(Player *)player {
+    _player = player;
+    [self populateViewFromModel];
 }
 
 #pragma mark - View lifecycle
@@ -176,31 +225,21 @@
     self.nickNameField.delegate = self;
     self.numberField.delegate = self;
     
-    UIBarButtonItem *cancelNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelClicked)];
-    self.navigationItem.leftBarButtonItem = cancelNavBarItem;
+    if (IS_IPHONE || self.isModalAddMode) {
+        UIBarButtonItem *cancelNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelClicked)];
+        self.navigationItem.leftBarButtonItem = cancelNavBarItem;
+    }
     
     UIBarButtonItem *saveNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(okClicked)];
     self.navigationItem.rightBarButtonItem = saveNavBarItem;    
     
-    self.saveAndAddButton.hidden = player != nil;
-    self.deleteButton.hidden = player == nil;
+    self.title = self.isModalAddMode ? @"New Player" : @"Player";
 
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self populateViewFromModel];
-}
-
-- (void)viewDidUnload
-{
-    [self setFooterView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -208,7 +247,6 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
 
 #pragma mark = Table Source/Delegate
 
@@ -253,6 +291,19 @@
     } else {
         return true;
     }
+}
+
+
+#pragma mark - iPad only (Master/Detail UX)
+
+-(void)notifyChangeListener {
+    if (self.playerChangedBlock) {
+        self.playerChangedBlock(self.player);
+    }
+}
+
+-(void)cancelModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

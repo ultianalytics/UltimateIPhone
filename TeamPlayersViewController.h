@@ -12,7 +12,7 @@
 
 @interface TeamPlayersViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) PlayerDetailsViewController *detailsViewController;
+@property (nonatomic, strong) PlayerDetailsViewController* detailController; // only used in iPad
 
 -(void)goToAddItem;
 

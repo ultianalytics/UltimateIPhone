@@ -1,5 +1,5 @@
 //
-//  PlayersMasterDetailViewController.h
+//  GamesMasterDetailViewController.h
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 8/8/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayersMasterDetailViewController : UIViewController
+@interface GamesMasterDetailViewController : UIViewController
 
 @end

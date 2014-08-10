@@ -1,5 +1,5 @@
 //
-//  TeamsMasterDetailViewController.m
+//  PlayersMasterDetailViewController.m
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 8/8/14.

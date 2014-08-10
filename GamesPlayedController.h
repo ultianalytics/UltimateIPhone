@@ -7,8 +7,11 @@
 //
 
 #import "UltimateViewController.h"
+#import "GameDetailViewController.h"
 
 @interface GamesPlayedController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) GameDetailViewController* detailController; // only used in iPad
 
 @property (nonatomic, strong) NSArray* gameDescriptions;
 @property (nonatomic, strong) IBOutlet UITableView* gamesTableView;

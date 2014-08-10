@@ -308,6 +308,8 @@
 		38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */; };
 		38FD2FDC199686D700CE83BB /* PlayersMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */; };
 		38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */; };
+		38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */; };
+		38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -760,6 +762,9 @@
 		38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersMasterDetailViewController.h; sourceTree = "<group>"; };
 		38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersMasterDetailViewController.m; sourceTree = "<group>"; };
 		38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayersMasterDetailViewController.xib; sourceTree = "<group>"; };
+		38FD2FDE1996FF4E00CE83BB /* GamesMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesMasterDetailViewController.h; sourceTree = "<group>"; };
+		38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesMasterDetailViewController.m; sourceTree = "<group>"; };
+		38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamesMasterDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -902,15 +907,15 @@
 		1AA37BE118AFBC5800CE9662 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */,
+				38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */,
+				38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */,
 				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
 				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
 				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
 				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
 				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
 				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
-				38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */,
-				38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */,
-				38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -1218,7 +1223,6 @@
 				1AF34E7915176A260065A16D /* Stats */,
 				1AEE549F1529442E0067F539 /* Twitter */,
 				1AFFE8DC151764D9004B4590 /* Game */,
-				1AFFE8DB151764D6004B4590 /* Games List */,
 				1AFFE8DD151764DB004B4590 /* Game Action */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
@@ -1397,19 +1401,15 @@
 			name = "Event List";
 			sourceTree = "<group>";
 		};
-		1AFFE8DB151764D6004B4590 /* Games List */ = {
-			isa = PBXGroup;
-			children = (
-				1AFFE81515175EB0004B4590 /* GamesPlayedController.h */,
-				1AFFE81615175EB0004B4590 /* GamesPlayedController.m */,
-				1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */,
-			);
-			name = "Games List";
-			sourceTree = "<group>";
-		};
 		1AFFE8DC151764D9004B4590 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2FDE1996FF4E00CE83BB /* GamesMasterDetailViewController.h */,
+				38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */,
+				38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */,
+				1AFFE81515175EB0004B4590 /* GamesPlayedController.h */,
+				1AFFE81615175EB0004B4590 /* GamesPlayedController.m */,
+				1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */,
 				1AFFE80F15175EB0004B4590 /* GameDetailViewController.h */,
 				1AFFE81015175EB0004B4590 /* GameDetailViewController.m */,
 				1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */,
@@ -1778,6 +1778,7 @@
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
+				38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1920,6 +1921,7 @@
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
+				38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
 				1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */,
 				38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */,

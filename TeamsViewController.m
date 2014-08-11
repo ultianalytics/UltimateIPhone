@@ -152,6 +152,12 @@
     [[SHSLogsMailer sharedMailer] presentEmailLogsControllerOn:self includeTeamFiles:YES];
 }
 
+-(void)reset {
+    [self retrieveTeamDescriptions];
+    [self.teamsTableView reloadData];
+    [self selectCurrentTeamAnimated: NO];
+}
+
 
 #pragma mark - View lifecycle
 
@@ -163,9 +169,7 @@
     [self addSupportGestureRecognizer];
     [self.teamsTableView adjustInsetForTabBar];
     if (IS_IPAD) {
-        [self retrieveTeamDescriptions];
-        [self.teamsTableView reloadData];
-        [self selectCurrentTeamAnimated: NO];
+        [self reset];
     }
 }
 

@@ -55,4 +55,11 @@
     [super viewDidAppear:animated];
 }
 
+-(void)reset {
+    if (self.presentedViewController) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    [self.teamsViewController reset];
+}
+
 @end

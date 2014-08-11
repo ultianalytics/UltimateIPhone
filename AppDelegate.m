@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) UINavigationController* cloudNavController;
 @property (nonatomic, strong) UINavigationController* iPhoneTeamNavController;
-@property (nonatomic, strong) UINavigationController* iPadTeamsMasterDetailController;
+@property (nonatomic, strong) TeamsMasterDetailViewController* iPadTeamsMasterDetailController;
 @property (nonatomic, strong) UINavigationController* gameNavController;
 
 @end
@@ -52,9 +52,8 @@
         self.iPhoneTeamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
         viewController1 = self.iPhoneTeamNavController;
     } else {
-        TeamsMasterDetailViewController* teamsMasterDetailController = [[TeamsMasterDetailViewController alloc] init];
-        self.iPadTeamsMasterDetailController = [[UINavigationController alloc] initWithRootViewController:teamsMasterDetailController];
-        viewController1 = teamsMasterDetailController;
+        self.iPadTeamsMasterDetailController = [[TeamsMasterDetailViewController alloc] init];
+        viewController1 = self.iPadTeamsMasterDetailController;
     }
 
     // Tab 2: game
@@ -101,7 +100,7 @@
     if (IS_IPHONE) {
         [self.iPhoneTeamNavController popToRootViewControllerAnimated:NO];
     } else {
-        // TODO...ask the master detail to reset itself.
+        [self.iPadTeamsMasterDetailController reset];
     }
     [self resetGameTab];
 }

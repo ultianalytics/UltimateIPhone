@@ -10,4 +10,6 @@
 
 @interface TeamsMasterDetailViewController : UIViewController
 
+-(void)reset;
+
 @end

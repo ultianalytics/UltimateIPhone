@@ -22,5 +22,6 @@
 -(void)retrieveTeamDescriptions;
 -(void)goToAddTeam;
 -(void)goToTeamView: (Team*) team animated: (BOOL) animated;
+-(void)reset;
 
 @end

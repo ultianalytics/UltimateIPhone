@@ -13,8 +13,10 @@
 @interface TeamPlayersViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) PlayerDetailsViewController* detailController; // only used in iPad
+@property (strong, nonatomic) void (^playersChangedBlock)();
 
 -(void)goToAddItem;
+- (void)refresh;
 
 @end
 

@@ -124,10 +124,17 @@
     }];
 }
 
+- (void)refresh {
+    [self retrievePlayers];
+    [self updateViewAnimated: NO];
+    if ([self.players count] > 0) {
+        [self selectPlayer:self.players[0] animated: NO];
+    }
+}
+
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.addNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
     [self.playersTableView adjustInsetForTabBar];
@@ -139,14 +146,13 @@
             [self selectPlayer:self.players[0] animated:NO];
         }
     }
+    self.title = IS_IPAD ? [Team getCurrentTeam].name : [NSString stringWithFormat:@"%@: %@", @"Players",[Team getCurrentTeam].name];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.title = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Players", @"Players"),[Team getCurrentTeam].name];
-    [self retrievePlayers];
-    [self updateViewAnimated: NO];
+    [self refresh];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -256,8 +262,11 @@
     __typeof(self) __weak weakSelf = self;
     detailController.playerChangedBlock = ^(Player* player) {
         [weakSelf retrievePlayers];
-        [weakSelf.playersTableView reloadData];
-        [weakSelf selectPlayer: player animated: NO];
+        if ([self.players count] > 0) {
+            [weakSelf.playersTableView reloadData];
+            [weakSelf selectPlayer: player animated: NO];
+        }
+        [weakSelf notifyPlayersChangedListener];
     };
 }
 
@@ -278,6 +287,12 @@
 
 -(void)returnToTeam {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)notifyPlayersChangedListener {
+    if (self.playersChangedBlock) {
+        self.playersChangedBlock();
+    }
 }
 
 #pragma mark - Leaguevine
@@ -348,6 +363,7 @@
         [[Team getCurrentTeam] save];
         [self updateViewAnimated:YES];
     }
+    [self notifyPlayersChangedListener];
 }
 
 -(void)dismissWaitingViewWithSuccess: (BOOL)success {

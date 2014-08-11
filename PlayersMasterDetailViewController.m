@@ -8,19 +8,29 @@
 
 #import "PlayersMasterDetailViewController.h"
 #import "UIViewController+Additions.h"
+#import "UIView+Convenience.h"
 #import "TeamPlayersViewController.h"
 #import "PlayerDetailsViewController.h"
+#import "Team.h"
 
 @interface PlayersMasterDetailViewController ()
 
-@property (weak, nonatomic) IBOutlet UIView *playersListSubView;
-@property (weak, nonatomic) IBOutlet UIView *playerDetailSubView;
+// master/detail
+@property (weak, nonatomic) IBOutlet UIView *masterDetailView;
+@property (weak, nonatomic) IBOutlet UIView *masterSubView;
+@property (weak, nonatomic) IBOutlet UIView *detailSubView;
 
-@property (strong, nonatomic) TeamPlayersViewController *playersViewController;
-@property (strong, nonatomic) PlayerDetailsViewController *playerViewController;
+// list only
+@property (weak, nonatomic) IBOutlet UIView *listOnlyView;
 
-@property (strong, nonatomic) UINavigationController *playersNavController;
-@property (strong, nonatomic) UINavigationController *playerNavController;
+@property (strong, nonatomic) TeamPlayersViewController *masterViewController;
+@property (strong, nonatomic) PlayerDetailsViewController *detailViewController;
+@property (strong, nonatomic) TeamPlayersViewController *listOnlyViewController;
+
+
+@property (strong, nonatomic) UINavigationController *masterNavController;
+@property (strong, nonatomic) UINavigationController *detailNavController;
+@property (strong, nonatomic) UINavigationController *listOnlyNavController;
 
 @end
 
@@ -36,23 +46,66 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.playersViewController = [[TeamPlayersViewController alloc] init];
-    self.playerViewController = [[PlayerDetailsViewController alloc] init];
-    self.playersViewController.detailController = self.playerViewController;
-    
-    self.playersViewController.edgesForExtendedLayout = UIRectEdgeNone;
-    self.playerViewController.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    self.playersNavController = [[UINavigationController alloc] initWithRootViewController:self.playersViewController];
-    self.playerNavController = [[UINavigationController alloc] initWithRootViewController:self.playerViewController];
-    
-    [self addChildViewController:self.playersNavController inSubView:self.playersListSubView];
-    [self addChildViewController:self.playerNavController inSubView:self.playerDetailSubView];
+    [self configureMasterDetailView];
+    [self configureListOnlyView];
+    [self updateViewConfig];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
+
+- (void)configureMasterDetailView {
+    self.masterViewController = [[TeamPlayersViewController alloc] init];
+    self.detailViewController = [[PlayerDetailsViewController alloc] init];
+    self.masterViewController.detailController = self.detailViewController;
+    __typeof(self) __weak weakSelf = self;
+    self.masterViewController.playersChangedBlock = ^{
+        [weakSelf updateViewConfig];
+    };
+    
+    self.masterViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    self.detailViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.masterNavController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+    self.detailNavController = [[UINavigationController alloc] initWithRootViewController:self.detailViewController];
+    
+    [self addChildViewController:self.masterNavController inSubView:self.masterSubView];
+    [self addChildViewController:self.detailNavController inSubView:self.detailSubView];
+}
+
+- (void)configureListOnlyView {
+    self.listOnlyViewController = [[TeamPlayersViewController alloc] init];
+    __typeof(self) __weak weakSelf = self;
+    self.listOnlyViewController.playersChangedBlock = ^{
+        [weakSelf updateViewConfig];
+    };
+    
+    self.listOnlyViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.listOnlyNavController = [[UINavigationController alloc] initWithRootViewController:self.listOnlyViewController];
+    
+    [self addChildViewController:self.listOnlyNavController inSubView:self.listOnlyView];
+}
+
+- (void)updateViewConfig {
+    Team* team = [Team getCurrentTeam];
+    BOOL useListOnlyView =  (team.isLeaguevineTeam && team.arePlayersFromLeagueVine) || ![team hasPlayers];
+    if ((useListOnlyView && self.listOnlyView.hidden) || (!useListOnlyView && self.listOnlyView.visible))  {
+        // TODO...animate this
+        self.listOnlyView.visible = useListOnlyView;
+        self.masterDetailView.visible = !useListOnlyView;
+        [self refreshListController];
+    }
+}
+
+- (void)refreshListController {
+    if (self.masterDetailView.visible) {
+        [self.masterViewController refresh];
+    } else {
+        [self.listOnlyViewController refresh];
+    }
+}
+
 
 @end

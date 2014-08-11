@@ -48,6 +48,7 @@
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(NSString*)shortName;
 -(BOOL)hasGames;
+-(BOOL)hasPlayers;
 -(BOOL)arePlayersFromLeagueVine;
 
 // private

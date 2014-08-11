@@ -95,8 +95,8 @@
         // TODO...animate this
         self.listOnlyView.visible = useListOnlyView;
         self.masterDetailView.visible = !useListOnlyView;
-        [self refreshListController];
     }
+    [self refreshListController];
 }
 
 - (void)refreshListController {

@@ -18,10 +18,48 @@
 @implementation GamesPlayedController
 @synthesize gameDescriptions,gamesTableView;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"Games", @"Games");
+    }
+    return self;
+}
+
 -(void)goToAddGame {
-    GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
-    gameStartController.game = [[Game alloc] init];
-    [self.navigationController pushViewController:gameStartController animated:YES]; 
+    [self goToGameAsNew:YES];
+}
+
+-(void)goToGameAsNew: (BOOL)isNew {
+    Game* game = isNew ? [[Game alloc] init] : [Game getCurrentGame];
+    if (IS_IPAD) {
+        if (isNew) {
+            GameDetailViewController* addGameController = [[GameDetailViewController alloc] init];
+            addGameController.game= game;
+            addGameController.isModalAddMode = YES;
+            [self registerDetailControllerListener:addGameController];
+            UINavigationController* addGameNavController = [[UINavigationController alloc] initWithRootViewController:addGameController];
+            addGameNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentViewController:addGameNavController animated:YES completion:nil];
+        } else {
+            [self selectCurrentGameAnimated: NO];
+        }
+    } else {
+        GameDetailViewController* gameSummaryController = [[GameDetailViewController alloc] init];
+        gameSummaryController.game = game;
+        [self.navigationController pushViewController:gameSummaryController animated:YES];
+    }
+}
+
+-(void)reset {
+    [self retrieveGameDescriptions];
+    if (![Game getCurrentGameId] && [self.gameDescriptions count] > 0) {
+        [Game setCurrentGame:[self.gameDescriptions[0] gameId]];
+    }
+    [self.gamesTableView reloadData];
+    if (IS_IPAD) {
+        [self selectCurrentGameAnimated: NO];
+    }
 }
 
 -(void)retrieveGameDescriptions {
@@ -29,14 +67,7 @@
     self.gameDescriptions = [Game retrieveGameDescriptionsForCurrentTeam];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Games", @"Games");
-    }
-    return self;
-}
+#pragma mark - Table delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.gameDescriptions count];
@@ -102,45 +133,35 @@
     NSUInteger row = [indexPath row]; 
     GameDescription* gameDesc = [self.gameDescriptions objectAtIndex:row];
     
-    GameDetailViewController* gameSummaryController = [[GameDetailViewController alloc] init];
     if (![gameDesc.gameId isEqualToString: [Game getCurrentGameId]]) {
         [Game setCurrentGame:gameDesc.gameId];
     }
-    gameSummaryController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:gameSummaryController animated:YES];
-} 
-
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
     
-    // Release any cached data, images, etc that aren't in use.
+    if (IS_IPAD) {
+        [self.gamesTableView reloadData];  // reload to display current team in correct color
+    }
+    
+    [self goToGameAsNew:NO];
 }
+
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", @"Games",[Team getCurrentTeam].name];
     UIBarButtonItem *navBarAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddGame)];
     self.navigationItem.rightBarButtonItem = navBarAddButton;
     [self.gamesTableView adjustInsetForTabBar];
+    if (IS_IPAD) {
+        [self reset];
+    }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", @"Games",[Team getCurrentTeam].name];
-    [self retrieveGameDescriptions];
-    [self.gamesTableView reloadData];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+-(void)viewDidAppear:(BOOL)animated {
+    if (IS_IPHONE) {
+        [self reset];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -148,5 +169,57 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+#pragma mark - iPad (Master/Detail UX)
+
+-(void)setDetailController:(GameDetailViewController *)detailController {
+    _detailController = detailController;
+    [self registerDetailControllerListener: detailController];
+}
+
+-(void)selectCurrentGameAnimated: (BOOL)animated {
+    if ([self.gameDescriptions count] > 0) {
+        NSString* gameId = [Game getCurrentGame].gameId;
+        int gameIndex = 0;
+        for (int row = 0; row < [self.gameDescriptions count]; row++) {
+            if ([[self.gameDescriptions[row] gameId] isEqualToString:gameId]) {
+                gameIndex = row;
+                break;
+            }
+        }
+        [self.gamesTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:gameIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        if (![self.detailController.game.gameId isEqualToString:gameId]) {
+            self.detailController.game = [Game getCurrentGame];
+        }
+    }
+}
+
+-(void)registerDetailControllerListener:(GameDetailViewController *)detailController {
+    __typeof(self) __weak weakSelf = self;
+    detailController.gameChangedBlock = ^(CRUD crud) {
+        GameDescription* existingGameDescription = nil;
+        int existingGameDescriptonIndex = 0;
+        if (crud == CRUDUpdate) {
+            NSString* currentGameId = [Game getCurrentGameId];
+            for (GameDescription* gameDescription in self.gameDescriptions) {
+                if ([gameDescription.gameId isEqualToString:currentGameId]) {
+                    existingGameDescription = gameDescription;
+                    break;
+                }
+                existingGameDescriptonIndex++;
+            }
+            [existingGameDescription populateFromGame:[Game getCurrentGame] usingDateFormatter:[GameDescription startDateFormatter]];
+            [self.gamesTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:existingGameDescriptonIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        } else {
+            [weakSelf reset];
+        }
+        if (crud == CRUDAdd) {
+            [self dismissViewControllerAnimated:NO completion:^{
+                [self.detailController goToActionView];
+            }];
+        }
+    };
+}
+
 
 @end

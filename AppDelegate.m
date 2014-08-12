@@ -11,6 +11,7 @@
 #import "TeamsMasterDetailViewController.h"
 #import "TeamViewController.h"
 #import "GameViewController.h"
+#import "GamesMasterDetailViewController.h"
 #import "GamesPlayedController.h"
 #import "PreferencesViewController.h"
 #import "CloudViewController.h"
@@ -45,8 +46,9 @@
     
     [self setupGlobalAppearance: application];
     
+    UIViewController *viewController1, *viewController2, *viewController3, *viewController4;
+    
     // Tab 1: team
-    UIViewController *viewController1;
     if (IS_IPHONE) {
         TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
         self.iPhoneTeamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
@@ -57,19 +59,25 @@
     }
 
     // Tab 2: game
-    GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
-    self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
-    UIViewController *viewController2 = self.gameNavController;
+    if (IS_IPHONE) {
+        GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
+        self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
+    } else {
+        GamesMasterDetailViewController* gameController = [[GamesMasterDetailViewController alloc] init];
+        self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
+        self.gameNavController.navigationBar.hidden = YES;
+    }
+    viewController2 = self.gameNavController;
     
     // Tab 3: cloud
     CloudViewController* cloudController = [[CloudViewController alloc] init];
     self.cloudNavController = [[BufferedNavigationController alloc] initWithRootViewController:cloudController];
-    UIViewController* viewController3 = self.cloudNavController;
+    viewController3 = self.cloudNavController;
     
     // Tab 4: twitter
     TwitterController* twitterController = [[TwitterController alloc] init];
     UINavigationController* twitterNavController = [[BufferedNavigationController alloc] initWithRootViewController:twitterController];
-    UIViewController *viewController4 = twitterNavController;
+    viewController4 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,nil];

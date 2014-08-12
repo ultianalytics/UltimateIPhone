@@ -17,6 +17,5 @@
 @property (nonatomic, strong) IBOutlet UITableView* gamesTableView;
 
 -(void)retrieveGameDescriptions;
--(void)goToAddGame;
 
 @end

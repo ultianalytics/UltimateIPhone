@@ -81,12 +81,16 @@
 
 -(void)goToActionView {
     GameViewController* gameController = [[GameViewController alloc] init];
-    [self.navigationController pushViewController:gameController animated:YES]; 
+    UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
+    [topNavigationController pushViewController:gameController animated:YES];
 }
 
 -(void)saveChanges {
     if ([self.game hasBeenSaved]) {
-        [self.game save];  
+        [self.game save];
+        if (IS_IPAD) {
+            [self notifyChangeListenerOfCRUD: CRUDUpdate];
+        }
     }
 }
 
@@ -247,7 +251,11 @@
     if ([alertView.title isEqualToString:kAlertTitleDeleteGame]) {
         if (buttonIndex == 1) {  // delete
             [self.game delete];
-            [self.navigationController popViewControllerAnimated:YES];
+            if (IS_IPAD) {
+                [self notifyChangeListenerOfCRUD:CRUDDelete];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsStartingWithGameInProgress] ||
                [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
@@ -282,18 +290,7 @@
 
 
 -(IBAction) deleteClicked: (id) sender {
-    // uncomment to post all of the games stats to LV when click the DELETE button
-//    [[LeaguevineEventQueue sharedQueue] submitAllGameStats:self.game];
-//    UIAlertView *alertx = [[UIAlertView alloc]
-//                          initWithTitle: @"All LV events submitted"
-//                          message: @"All events submitted"
-//                          delegate: nil
-//                          cancelButtonTitle: @"OK"
-//                          otherButtonTitles: nil];
-//    [alertx show];
-//    return;
-    
-    // Show the confirmation.
+
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: kAlertTitleDeleteGame
                           message: @"Are you sure you want to delete this game?"
@@ -313,7 +310,11 @@
         self.game = [Game getCurrentGame];
         [self upateViewTitle];
         [self logLeaguevinePostingStatus];
-        [self goToActionView];
+        if (IS_IPAD) {
+            [self notifyChangeListenerOfCRUD:CRUDAdd];
+        } else {
+            [self goToActionView];
+        }
     }
 }
 
@@ -618,6 +619,10 @@
     [self.tournamentNameField addTarget:self action:@selector(tournamendNameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.opposingTeamNameField.delegate = self; 
     self.tournamentNameField.delegate = self;
+    if (self.isModalAddMode) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        self.navigationItem.leftBarButtonItem = cancelBarItem;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -694,6 +699,23 @@
         [self.navigationController popViewControllerAnimated:YES];
     };
     [self.navigationController pushViewController:startTimeController animated:YES];
+}
+
+#pragma mark - iPad only (Master/Detail UX)
+
+-(void)notifyChangeListenerOfCRUD: (CRUD) crud {
+    if (self.gameChangedBlock) {
+        self.gameChangedBlock(crud);
+    }
+}
+
+-(void)setGame:(Game *)game {
+    _game = game;
+    [self populateUIFromModel];
+}
+
+-(void)cancelModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

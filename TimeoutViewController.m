@@ -125,7 +125,9 @@
 
 -(void)saveTimeoutDetails {
     self.game.timeoutDetails = self.timeoutDetails;
-    [self.game save];
+    if ([self.game hasBeenSaved]) {
+        [self.game save];
+    }
 }
 
 #pragma Prompting

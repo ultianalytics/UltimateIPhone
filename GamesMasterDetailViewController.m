@@ -40,6 +40,7 @@
     self.gamesViewController = [[GamesPlayedController alloc] init];
     self.gameViewController = [[GameDetailViewController alloc] init];
     self.gamesViewController.detailController = self.gameViewController;
+    self.gameViewController.topViewController = self;
     
     self.gamesViewController.edgesForExtendedLayout = UIRectEdgeNone;
     self.gameViewController.edgesForExtendedLayout = UIRectEdgeNone;
@@ -49,6 +50,11 @@
     
     [self addChildViewController:self.gamesNavController inSubView:self.gamesListSubView];
     [self addChildViewController:self.gameNavController inSubView:self.gameDetailSubView];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated {

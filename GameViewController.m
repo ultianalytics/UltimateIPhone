@@ -729,6 +729,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     if (![Game hasCurrentGame]) {
         GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
         gameStartController.game = [[Game alloc] init];

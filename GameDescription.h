@@ -19,5 +19,7 @@
 @property (nonatomic) NSTimeInterval lastSaveGMT;
 
 +(GameDescription*) fromDictionary:(NSDictionary*) dict;
++(NSDateFormatter*)startDateFormatter;
+-(void)populateFromGame: (Game*)game usingDateFormatter: (NSDateFormatter*)dateFormat;
 
 @end

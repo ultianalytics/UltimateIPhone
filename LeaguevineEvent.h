@@ -8,12 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
-    CRUDAdd=0,
-    CRUDUpdate,   // line changes are always update
-    CRUDDelete
-} CRUD;
-
 #define kLineChangeEventType 888
 
 @interface LeaguevineEvent : NSObject

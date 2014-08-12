@@ -44,8 +44,6 @@
     self.date = self.datePicker.date;
 }
 
-
-
 - (void)viewDidUnload {
     [self setViewTitleLabel:nil];
     [super viewDidUnload];

@@ -259,21 +259,12 @@ static Game* currentGame = nil;
 +(NSArray*)retrieveGameDescriptionsForCurrentTeam {
     NSMutableArray* descriptions = [[NSMutableArray alloc] init];
     NSArray* fileNames = [Game getAllGameFileNames: [Team getCurrentTeam].teamId];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    NSDateFormatter *dateFormat = [GameDescription startDateFormatter];
     for (NSString* gameId in fileNames) {
         Game* game = [self readGame:gameId forTeam:[Team getCurrentTeam].teamId mergePlayersWithCurrentTeam:NO];
         GameDescription* gameDesc = [[GameDescription alloc] init];
-        gameDesc.gameId = game.gameId;
-        gameDesc.startDate = game.startDateTime;
-        gameDesc.formattedStartDate = [dateFormat stringFromDate:game.startDateTime];
-        gameDesc.opponent = game.opponentName;
-        gameDesc.score = [game getScore];
-        gameDesc.formattedScore = [NSString stringWithFormat:@"%d-%d", gameDesc.score.ours, gameDesc.score.theirs];
-        gameDesc.lastSaveGMT = game.lastSaveGMT;
+        [gameDesc populateFromGame:game usingDateFormatter:dateFormat];
         [descriptions addObject:gameDesc];
-        NSString* tournament = game.tournamentName;
-        gameDesc.tournamentName = tournament == nil ? nil : [tournament stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     // sort
     NSArray* gameDescriptions = [descriptions sortedArrayUsingComparator:^(id a, id b) {

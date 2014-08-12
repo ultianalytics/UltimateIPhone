@@ -32,4 +32,22 @@
     return game;
 }
 
++(NSDateFormatter*)startDateFormatter {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    return dateFormat;
+}
+
+-(void)populateFromGame: (Game*)game usingDateFormatter: (NSDateFormatter*)dateFormat {
+    self.gameId = game.gameId;
+    self.startDate = game.startDateTime;
+    self.formattedStartDate = [dateFormat stringFromDate:game.startDateTime];
+    self.opponent = game.opponentName;
+    self.score = [game getScore];
+    self.formattedScore = [NSString stringWithFormat:@"%d-%d", self.score.ours, self.score.theirs];
+    self.lastSaveGMT = game.lastSaveGMT;
+    NSString* tournament = game.tournamentName;
+    self.tournamentName = tournament == nil ? nil : [tournament stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 @end

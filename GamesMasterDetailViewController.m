@@ -14,14 +14,21 @@
 @interface GamesMasterDetailViewController ()
 
 
-@property (weak, nonatomic) IBOutlet UIView *gamesListSubView;
-@property (weak, nonatomic) IBOutlet UIView *gameDetailSubView;
+// master/detail
+@property (weak, nonatomic) IBOutlet UIView *masterDetailView;
+@property (weak, nonatomic) IBOutlet UIView *masterSubView;
+@property (weak, nonatomic) IBOutlet UIView *detailSubView;
 
-@property (strong, nonatomic) GamesViewController *gamesViewController;
-@property (strong, nonatomic) GameDetailViewController *gameViewController;
+// list only
+@property (weak, nonatomic) IBOutlet UIView *listOnlyView;
 
-@property (strong, nonatomic) UINavigationController *gamesNavController;
-@property (strong, nonatomic) UINavigationController *gameNavController;
+@property (strong, nonatomic) GamesViewController *masterViewController;
+@property (strong, nonatomic) GameDetailViewController *detailViewController;
+@property (strong, nonatomic) GamesViewController *listOnlyViewController;
+
+@property (strong, nonatomic) UINavigationController *masterNavController;
+@property (strong, nonatomic) UINavigationController *detailNavController;
+@property (strong, nonatomic) UINavigationController *listOnlyNavController;
 
 @end
 
@@ -39,25 +46,29 @@
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GamesViewController" bundle:nil];
-    self.gamesViewController  = [gamesStoryboard instantiateInitialViewController];
-    self.gameViewController = [[GameDetailViewController alloc] init];
-    self.gamesViewController.detailController = self.gameViewController;
-    self.gameViewController.topViewController = self;
+    self.masterViewController  = [gamesStoryboard instantiateInitialViewController];
+    self.detailViewController = [[GameDetailViewController alloc] init];
+    self.masterViewController.detailController = self.detailViewController;
+    self.detailViewController.topViewController = self;
+    self.listOnlyViewController  = [gamesStoryboard instantiateInitialViewController];
     
-    self.gamesViewController.edgesForExtendedLayout = UIRectEdgeNone;
-    self.gameViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    self.detailViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    self.masterViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    self.listOnlyViewController.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.gamesNavController = [[UINavigationController alloc] initWithRootViewController:self.gamesViewController];
-    self.gameNavController = [[UINavigationController alloc] initWithRootViewController:self.gameViewController];
+    self.masterNavController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+    self.detailNavController = [[UINavigationController alloc] initWithRootViewController:self.detailViewController];
+    self.listOnlyNavController = [[UINavigationController alloc] initWithRootViewController:self.listOnlyViewController];
     
-    [self addChildViewController:self.gamesNavController inSubView:self.gamesListSubView];
-    [self addChildViewController:self.gameNavController inSubView:self.gameDetailSubView];
+    [self addChildViewController:self.masterNavController inSubView:self.masterSubView];
+    [self addChildViewController:self.detailNavController inSubView:self.detailSubView];
+    [self addChildViewController:self.listOnlyNavController inSubView:self.listOnlyView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    [self.gamesViewController reset];
+    [self.masterViewController reset];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

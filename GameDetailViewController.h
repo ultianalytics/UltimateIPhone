@@ -20,7 +20,7 @@ typedef enum {
 }
 
 @property (nonatomic, strong) Game* game;
-@property (nonatomic, strong) UIViewController* topViewController;
+@property (nonatomic, weak) UIViewController* topViewController;
 
 /* iPAD only stuff */
 @property (strong, nonatomic) void (^gameChangedBlock)(CRUD crud);

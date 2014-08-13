@@ -51,10 +51,6 @@
     [self updateViewConfig];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 - (void)configureMasterDetailView {
     self.masterViewController = [[TeamPlayersViewController alloc] init];
     self.detailViewController = [[PlayerDetailsViewController alloc] init];

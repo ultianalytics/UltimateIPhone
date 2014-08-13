@@ -15,9 +15,17 @@
 #import "Team.h"
 #import "UIScrollView+Utilities.h"
 #import "GameTableViewCell.h"
+#import "GameViewController.h"
+
+@interface GamesViewController ()
+
+@property (nonatomic, strong) NSArray* gameDescriptions;
+@property (nonatomic, strong) IBOutlet UITableView* gamesTableView;
+@property (nonatomic, strong) IBOutlet UILabel* noGamesLabel;
+
+@end
 
 @implementation GamesViewController
-@synthesize gameDescriptions,gamesTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,14 +61,20 @@
 }
 
 -(void)reset {
+    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", @"Games",[Team getCurrentTeam].name];
     [self retrieveGameDescriptions];
-    if (![Game getCurrentGameId] && [self.gameDescriptions count] > 0) {
-        [Game setCurrentGame:[self.gameDescriptions[0] gameId]];
+    BOOL hasGames = [self.gameDescriptions count] > 0;
+    if (hasGames) {
+        if (![Game getCurrentGameId]) {
+            [Game setCurrentGame:[self.gameDescriptions[0] gameId]];
+        }
+        [self.gamesTableView reloadData];
+        if (IS_IPAD) {
+            [self selectCurrentGameAnimated: NO];
+        }
     }
-    [self.gamesTableView reloadData];
-    if (IS_IPAD) {
-        [self selectCurrentGameAnimated: NO];
-    }
+    self.gamesTableView.hidden = !hasGames;
+    self.noGamesLabel.hidden = hasGames;
 }
 
 -(void)retrieveGameDescriptions {
@@ -112,7 +126,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = [NSString stringWithFormat:@"%@: %@", @"Games",[Team getCurrentTeam].name];
     UIBarButtonItem *navBarAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddGame)];
     self.navigationItem.rightBarButtonItem = navBarAddButton;
     [self.gamesTableView adjustInsetForTabBar];
@@ -175,13 +188,27 @@
             [self.gamesTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:existingGameDescriptonIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
         } else {
             [weakSelf reset];
+            [weakSelf notifyGamesChangedListener];
         }
         if (crud == CRUDAdd) {
             [self dismissViewControllerAnimated:NO completion:^{
-                [self.detailController goToActionView];
+                if (self.detailController) {
+                   [self.detailController goToActionView];
+                } else {
+                    GameViewController* gameController = [[GameViewController alloc] init];
+                    UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
+                    [topNavigationController pushViewController:gameController animated:YES];
+                }
+
             }];
         }
     };
+}
+
+-(void)notifyGamesChangedListener {
+    if (self.gamesChangedBlock) {
+        self.gamesChangedBlock();
+    }
 }
 
 

@@ -11,10 +11,10 @@
 
 @interface GamesViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) GameDetailViewController* detailController; // only used in iPad
-
-@property (nonatomic, strong) NSArray* gameDescriptions;
-@property (nonatomic, strong) IBOutlet UITableView* gamesTableView;
+// only used in iPad
+@property (nonatomic, weak) UIViewController* topViewController;
+@property (nonatomic, strong) GameDetailViewController* detailController;
+@property (nonatomic, strong) void (^gamesChangedBlock)(); 
 
 -(void)reset;
 

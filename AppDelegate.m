@@ -12,7 +12,7 @@
 #import "TeamViewController.h"
 #import "GameViewController.h"
 #import "GamesMasterDetailViewController.h"
-#import "GamesPlayedController.h"
+#import "GamesViewController.h"
 #import "PreferencesViewController.h"
 #import "CloudViewController.h"
 #import "TwitterController.h"
@@ -60,7 +60,8 @@
 
     // Tab 2: game
     if (IS_IPHONE) {
-        GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
+        UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GamesViewController" bundle:nil];
+        GamesViewController* gameController  = [gamesStoryboard instantiateInitialViewController];
         self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
     } else {
         GamesMasterDetailViewController* gameController = [[GamesMasterDetailViewController alloc] init];

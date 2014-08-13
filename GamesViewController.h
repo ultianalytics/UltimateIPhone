@@ -1,5 +1,5 @@
 //
-//  GamesPlayedController.h
+//  GamesViewController.h
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/10/12.
@@ -9,7 +9,7 @@
 #import "UltimateViewController.h"
 #import "GameDetailViewController.h"
 
-@interface GamesPlayedController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GamesViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) GameDetailViewController* detailController; // only used in iPad
 

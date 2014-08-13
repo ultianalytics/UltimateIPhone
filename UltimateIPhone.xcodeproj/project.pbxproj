@@ -235,8 +235,6 @@
 		1AFFE88515175EB0004B4590 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */; };
 		1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81315175EB0004B4590 /* GameHistoryController.m */; };
 		1AFFE88715175EB0004B4590 /* GameHistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81415175EB0004B4590 /* GameHistoryController.xib */; };
-		1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81615175EB0004B4590 /* GamesPlayedController.m */; };
-		1AFFE88915175EB0004B4590 /* GamesPlayedController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */; };
 		1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81915175EB0004B4590 /* GameViewController.m */; };
 		1AFFE88C15175EB0004B4590 /* girl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81C15175EB0004B4590 /* girl.png */; };
 		1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81D15175EB0004B4590 /* goal_trans.gif */; };
@@ -298,6 +296,9 @@
 		1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE87A15175EB0004B4590 /* woman.jpg */; };
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
+		38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */; };
+		38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B1C199BB4AF001DCDDE /* GamesViewController.m */; };
+		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
@@ -659,9 +660,6 @@
 		1AFFE81215175EB0004B4590 /* GameHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryController.h; sourceTree = "<group>"; };
 		1AFFE81315175EB0004B4590 /* GameHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryController.m; sourceTree = "<group>"; };
 		1AFFE81415175EB0004B4590 /* GameHistoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameHistoryController.xib; sourceTree = "<group>"; };
-		1AFFE81515175EB0004B4590 /* GamesPlayedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesPlayedController.h; sourceTree = "<group>"; };
-		1AFFE81615175EB0004B4590 /* GamesPlayedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesPlayedController.m; sourceTree = "<group>"; };
-		1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamesPlayedController.xib; sourceTree = "<group>"; };
 		1AFFE81815175EB0004B4590 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		1AFFE81915175EB0004B4590 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		1AFFE81C15175EB0004B4590 /* girl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = girl.png; sourceTree = "<group>"; };
@@ -750,6 +748,11 @@
 		1AFFE87A15175EB0004B4590 /* woman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = woman.jpg; sourceTree = "<group>"; };
 		1AFFE8CC151761AA004B4590 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
+		38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GamesViewController.storyboard; sourceTree = "<group>"; };
+		38672B1C199BB4AF001DCDDE /* GamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesViewController.m; sourceTree = "<group>"; };
+		38672B1D199BB4AF001DCDDE /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
+		38672B1F199BBD2D001DCDDE /* GameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTableViewCell.h; sourceTree = "<group>"; };
+		38672B20199BBD2D001DCDDE /* GameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTableViewCell.m; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
@@ -1411,9 +1414,11 @@
 				38FD2FDE1996FF4E00CE83BB /* GamesMasterDetailViewController.h */,
 				38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */,
 				38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */,
-				1AFFE81515175EB0004B4590 /* GamesPlayedController.h */,
-				1AFFE81615175EB0004B4590 /* GamesPlayedController.m */,
-				1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */,
+				38672B1D199BB4AF001DCDDE /* GamesViewController.h */,
+				38672B1C199BB4AF001DCDDE /* GamesViewController.m */,
+				38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */,
+				38672B1F199BBD2D001DCDDE /* GameTableViewCell.h */,
+				38672B20199BBD2D001DCDDE /* GameTableViewCell.m */,
 				1AFFE80F15175EB0004B4590 /* GameDetailViewController.h */,
 				1AFFE81015175EB0004B4590 /* GameDetailViewController.m */,
 				1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */,
@@ -1676,7 +1681,6 @@
 				1AFFE88115175EB0004B4590 /* female_symbol.png in Resources */,
 				1AFFE88515175EB0004B4590 /* GameDetailViewController.xib in Resources */,
 				1AFFE88715175EB0004B4590 /* GameHistoryController.xib in Resources */,
-				1AFFE88915175EB0004B4590 /* GamesPlayedController.xib in Resources */,
 				1AFFE88C15175EB0004B4590 /* girl.png in Resources */,
 				1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */,
 				1AFFE88E15175EB0004B4590 /* greedy.png in Resources */,
@@ -1736,6 +1740,7 @@
 				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
 				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,
 				1AA37B9418A6C29D00CE9662 /* player.png in Resources */,
+				38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */,
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
 				1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */,
 				1A80C96E15612067007F03C2 /* man@2x.png in Resources */,
@@ -1817,6 +1822,7 @@
 				1ABC74CA190414F000D60660 /* ioapi.c in Sources */,
 				1A3A559517A6966A002B3C84 /* TweetLogTableViewCell.m in Sources */,
 				1A5A5D34179971C7002B4AF8 /* LightButton.m in Sources */,
+				38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */,
 				1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */,
 				1AFFE78815175D4A004B4590 /* main.m in Sources */,
 				1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */,
@@ -1834,7 +1840,6 @@
 				1AFFE88315175EB0004B4590 /* GameDescription.m in Sources */,
 				1AFFE88415175EB0004B4590 /* GameDetailViewController.m in Sources */,
 				1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */,
-				1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */,
 				1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */,
 				1AA37BFB18B2E1FC00CE9662 /* GameCessationButton.m in Sources */,
 				1AFFE89315175EB0004B4590 /* IBView.m in Sources */,
@@ -1881,6 +1886,7 @@
 				1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */,
 				1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */,
 				1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */,
+				38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */,
 				1ABC74CB190414F000D60660 /* mztools.c in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,

@@ -1,12 +1,12 @@
 //
-//  GamesPlayedController.m
+//  GamesViewController.m
 //  Ultimate
 //
 //  Created by Jim Geppert on 2/10/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 Summit Hill Software. All rights reserved.
 //
 
-#import "GamesPlayedController.h"
+#import "GamesViewController.h"
 #import "Game.h"
 #import "GameDescription.h"
 #import "ColorMaster.h"
@@ -14,8 +14,9 @@
 #import "GameDetailViewController.h"
 #import "Team.h"
 #import "UIScrollView+Utilities.h"
+#import "GameTableViewCell.h"
 
-@implementation GamesPlayedController
+@implementation GamesViewController
 @synthesize gameDescriptions,gamesTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -78,53 +79,15 @@
     
     GameDescription* game = [self.gameDescriptions objectAtIndex:row];
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:STD_ROW_TYPE];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        UIView* contentView = cell.contentView;
-        // remove the normal views
-        for (UIView *view in [contentView subviews]) {
-            [view removeFromSuperview];
-        }
-        
-        // (0.) add the opponent label
-        CGRect rect = CGRectMake(16, 16, 210, 30);
-        UILabel* label = [[UILabel alloc] initWithFrame:rect];
-        label.backgroundColor = [UIColor clearColor];
-        [contentView addSubview:label];
-        label.font = [UIFont boldSystemFontOfSize:18];
-        
-        // (1.) add the score label
-        rect = CGRectMake(225, 10, 55, 30);
-        label = [[UILabel alloc] initWithFrame:rect];
-        label.backgroundColor = [UIColor clearColor];
-        [contentView addSubview:label];
-        label.font = [UIFont boldSystemFontOfSize:18];
-        label.textAlignment = NSTextAlignmentRight;
-        label.textColor = [ColorMaster getWinScoreColor];
-        
-        // (2.) add the tournament/time label
-        rect = CGRectMake(16, 6, 210, 14);
-        label = [[UILabel alloc] initWithFrame:rect];
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont systemFontOfSize:12];
-        [contentView addSubview:label];
-    }
-   
-    UILabel* opponentLabel = [cell.contentView.subviews objectAtIndex:0];
-    UILabel* scoreLabel = [cell.contentView.subviews objectAtIndex:1];
-    UILabel* tournamentAndTimeLabel = [cell.contentView.subviews objectAtIndex:2];
+    GameTableViewCell* cell = (GameTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GameCell"];
+
+    cell.opponentLabel.text = [NSString stringWithFormat: @"vs. %@", game.opponent];
+    cell.gameInfoLabel.text = game.tournamentName == nil? game.formattedStartDate : [NSString stringWithFormat:@"%@, %@", game.formattedStartDate, game.tournamentName];
+    cell.scoreLabel.text = game.formattedScore;
     
-    opponentLabel.text = [NSString stringWithFormat: @"vs. %@", game.opponent];
-    opponentLabel.textColor = [game.gameId isEqualToString:[Preferences getCurrentPreferences].currentGameFileName] ? 
-        [ColorMaster getActiveGameColor] : [UIColor blackColor];
-    scoreLabel.text = game.formattedScore;
-    scoreLabel.textColor = game.score.ours == game.score.theirs ? [UIColor blackColor] : 
+    cell.opponentLabel.textColor = [game.gameId isEqualToString:[Preferences getCurrentPreferences].currentGameFileName] ? [ColorMaster getActiveGameColor] : [UIColor blackColor];
+    cell.scoreLabel.textColor = game.score.ours == game.score.theirs ? [UIColor blackColor] :
         (game.score.ours > game.score.theirs ? [ColorMaster getWinScoreColor] :  [ColorMaster getLoseScoreColor]);
-    tournamentAndTimeLabel.text = game.tournamentName == nil? game.formattedStartDate : [NSString stringWithFormat:@"%@, %@", game.formattedStartDate, game.tournamentName];
     
     return cell;
 }

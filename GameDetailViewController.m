@@ -711,6 +711,7 @@
 
 -(void)setGame:(Game *)game {
     _game = game;
+    [self.navigationController popToRootViewControllerAnimated:YES];
     [self populateUIFromModel];
 }
 

@@ -8,7 +8,7 @@
 
 #import "GamesMasterDetailViewController.h"
 #import "UIViewController+Additions.h"
-#import "GamesPlayedController.h"
+#import "GamesViewController.h"
 #import "GameDetailViewController.h"
 
 @interface GamesMasterDetailViewController ()
@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *gamesListSubView;
 @property (weak, nonatomic) IBOutlet UIView *gameDetailSubView;
 
-@property (strong, nonatomic) GamesPlayedController *gamesViewController;
+@property (strong, nonatomic) GamesViewController *gamesViewController;
 @property (strong, nonatomic) GameDetailViewController *gameViewController;
 
 @property (strong, nonatomic) UINavigationController *gamesNavController;
@@ -37,7 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.gamesViewController = [[GamesPlayedController alloc] init];
+    UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GamesViewController" bundle:nil];
+    self.gamesViewController  = [gamesStoryboard instantiateInitialViewController];
     self.gameViewController = [[GameDetailViewController alloc] init];
     self.gamesViewController.detailController = self.gameViewController;
     self.gameViewController.topViewController = self;

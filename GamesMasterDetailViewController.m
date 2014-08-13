@@ -13,6 +13,7 @@
 
 @interface GamesMasterDetailViewController ()
 
+
 @property (weak, nonatomic) IBOutlet UIView *gamesListSubView;
 @property (weak, nonatomic) IBOutlet UIView *gameDetailSubView;
 
@@ -56,6 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    [self.gamesViewController reset];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

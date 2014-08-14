@@ -127,7 +127,7 @@
                         </view>
                         <view alpha="0.94999999999999996" contentMode="scaleToFill" id="Htq-fE-E50" userLabel="Busy Display">
                             <rect key="frame" x="60" y="142" width="200" height="100"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Talking to Website..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="glY-sj-gMe">
                                     <rect key="frame" x="0.0" y="6" width="200" height="42"/>

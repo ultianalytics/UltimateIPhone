@@ -25,6 +25,8 @@
 @property (nonatomic, strong) IBOutlet UITableView* teamsTableView;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
+@property (nonatomic) BOOL hasAppearedPreviously;
+
 @end
 
 @implementation TeamsViewController
@@ -102,10 +104,6 @@
     
 }
 
--(BOOL)isFirstTeamCreation {
-    return [TeamViewController isFirstTeamCreation];
-}
-
 #pragma mark - iPad (Master/Detail UX)
 
 -(void)setDetailController:(TeamViewController *)detailController {
@@ -155,14 +153,15 @@
 -(void)reset {
     [self retrieveTeamDescriptions];
     [self.teamsTableView reloadData];
-    [self selectCurrentTeamAnimated: NO];
+    if (IS_IPAD) {
+        [self selectCurrentTeamAnimated: NO];
+    }
 }
 
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;
@@ -176,13 +175,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (IS_IPHONE) {
-        [self retrieveTeamDescriptions];
-        [self.teamsTableView reloadData];
+        [self reset];
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    if (IS_IPHONE) {
+    // if the app is starting go to the current team view (don't make the user pick the only team they probably have)
+    if (IS_IPHONE && !self.hasAppearedPreviously) {
+        self.hasAppearedPreviously = YES;
         TeamViewController* teamController = [[TeamViewController alloc] init];
         teamController.team = [Team getCurrentTeam];
         [self.navigationController pushViewController:teamController animated:NO];

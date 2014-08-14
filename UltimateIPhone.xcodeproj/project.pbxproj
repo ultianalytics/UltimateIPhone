@@ -299,11 +299,12 @@
 		38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */; };
 		38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B1C199BB4AF001DCDDE /* GamesViewController.m */; };
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
+		38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */; };
+		38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
 		38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */; };
-		38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */; };
 		38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */; };
 		38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */; };
 		38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */; };
@@ -753,12 +754,14 @@
 		38672B1D199BB4AF001DCDDE /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
 		38672B1F199BBD2D001DCDDE /* GameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTableViewCell.h; sourceTree = "<group>"; };
 		38672B20199BBD2D001DCDDE /* GameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTableViewCell.m; sourceTree = "<group>"; };
+		38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameUploadPickerViewController.storyboard; sourceTree = "<group>"; };
+		38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerTableViewCell.h; sourceTree = "<group>"; };
+		38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerTableViewCell.m; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerViewController.h; sourceTree = "<group>"; };
 		38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerViewController.m; sourceTree = "<group>"; };
-		38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameUploadPickerViewController.xib; sourceTree = "<group>"; };
 		38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDownloadTracker.h; sourceTree = "<group>"; };
 		38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDownloadTracker.m; sourceTree = "<group>"; };
 		38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsMasterDetailViewController.h; sourceTree = "<group>"; };
@@ -1085,18 +1088,20 @@
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */,
-				1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */,
-				1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */,
 				1AE669F515215485000965B5 /* CloudViewController.h */,
 				1AE669F615215485000965B5 /* CloudViewController.m */,
 				1AE669F715215485000965B5 /* CloudViewController.xib */,
+				1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */,
+				1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */,
+				1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */,
 				1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */,
 				1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */,
 				1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */,
 				38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */,
 				38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */,
-				38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */,
+				38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */,
+				38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */,
+				38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */,
 				1AF1B769153B0CE100E1A826 /* RequestContext.h */,
 				1AF1B76A153B0CE100E1A826 /* RequestContext.m */,
 			);
@@ -1754,12 +1759,12 @@
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
 				1AA37BAC18A8619700CE9662 /* color2E4C00Radius3.png in Resources */,
 				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
-				38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */,
 				1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
+				38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */,
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
 				1AA37B7F18A6A0F800CE9662 /* 769-male.png in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
@@ -1825,6 +1830,7 @@
 				38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */,
 				1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */,
 				1AFFE78815175D4A004B4590 /* main.m in Sources */,
+				38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */,
 				1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */,
 				1AFFE7F015175E7B004B4590 /* AppDelegate.m in Sources */,
 				1AFFE7F115175E7B004B4590 /* ArrowView.m in Sources */,

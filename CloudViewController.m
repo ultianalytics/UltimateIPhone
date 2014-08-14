@@ -87,12 +87,15 @@
 
 -(void)goGameUploadPickerView {
     self.gameIdsToUpload = [NSArray array];
-    GameUploadPickerViewController* gameUploadController = [[GameUploadPickerViewController alloc] init];
+   
+    UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GameUploadPickerViewController" bundle:nil];
+    GameUploadPickerViewController* gameUploadController  = [gamesStoryboard instantiateInitialViewController];
     gameUploadController.dismissBlock = ^(NSArray* selectedGameIds) {
         [self.navigationController popViewControllerAnimated:YES];
         self.gameIdsToUpload = selectedGameIds;
         [self startUpload];
     };
+    
     [self.navigationController pushViewController:gameUploadController animated: YES];
 }
 

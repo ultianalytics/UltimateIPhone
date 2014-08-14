@@ -18,7 +18,6 @@
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
 #import "NSString+manipulations.h"
-#import "LeagueVineSignonViewController.h"
 #import "LeagueVineTeamViewController.h"
 #import "LeaguevineTeam.h"
 #import "CalloutsContainerView.h"

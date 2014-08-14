@@ -389,12 +389,13 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+    UINavigationController* lvNavController = [[UINavigationController alloc] initWithRootViewController:lvController];
     lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
         [signonController dismissViewControllerAnimated:YES completion:^{
             completion(isSignedOn);
         }];
     };
-    [self presentViewController:lvController animated:YES completion:nil];
+    [self presentViewController:lvNavController animated:YES completion:nil];
 }
 
 - (void)leaguevinePublishChanged {

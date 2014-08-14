@@ -42,4 +42,36 @@
     
 }
 
+
+- (CGFloat)calcKeyboardOrigin:(NSNotification *)uiKeyboardWillShowNotification {
+	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+	BOOL isPortrait = orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown;
+	CGFloat windowHeight = isPortrait ? self.view.window.frame.size.height : self.view.window.frame.size.width;
+    
+	CGRect keyboardBeginFrame = [[[uiKeyboardWillShowNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+	CGFloat keyboardHeight = isPortrait ? keyboardBeginFrame.size.height : keyboardBeginFrame.size.width;
+    
+	CGRect viewFrame = [self.view convertRect:self.view.frame toView:nil];
+	CGFloat viewMaxInWindowCoord;
+    
+	switch (orientation) {
+		case UIInterfaceOrientationPortrait:
+			viewMaxInWindowCoord = CGRectGetMaxY(viewFrame);
+	        break;
+		case UIInterfaceOrientationPortraitUpsideDown:
+			viewMaxInWindowCoord = (windowHeight - (viewFrame.size.height + viewFrame.origin.y)) + viewFrame.size.height;
+	        break;
+		case UIInterfaceOrientationLandscapeLeft:
+			viewMaxInWindowCoord = CGRectGetMaxX(viewFrame);
+	        break;
+		default:
+			viewMaxInWindowCoord = (windowHeight - (viewFrame.size.width + viewFrame.origin.x)) + viewFrame.size.width;
+	        break;
+	}
+    
+	CGFloat keyboardHeightWithinView = viewMaxInWindowCoord - (windowHeight - keyboardHeight);
+	CGFloat keyboardOriginInView = CGRectGetMaxY(self.view.frame) - keyboardHeightWithinView;
+	return keyboardOriginInView;
+}
+
 @end

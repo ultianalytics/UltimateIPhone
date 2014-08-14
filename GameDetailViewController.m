@@ -27,6 +27,7 @@
 #import "LeaguevineEventQueue.h"
 #import "TimeoutViewController.h"
 #import "GameStartTimeViewController.h"
+#import "UIViewController+Additions.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
@@ -658,10 +659,12 @@
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-    // make the view port smaller so the user can scroll up to click the start button
-    CGFloat keyboardHeight = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    // make the view port smaller so the user can scroll up to see all of the view
+    CGFloat keyboardY = [self calcKeyboardOrigin:aNotification];
+    CGFloat tableBottom = CGRectGetMaxY(self.tableView.frame);
+    CGFloat newBottomInset = MAX(tableBottom - keyboardY, 0);
     
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0);
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, newBottomInset, 0.0);
     self.tableView.contentInset = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
 }

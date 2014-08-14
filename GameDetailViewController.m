@@ -53,15 +53,12 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* timeoutsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* opponentRegularCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* opponentLeaguevineCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePubCell;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
-
-@property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentOrPubCell;
-@property (strong, nonatomic) IBOutlet UIView *opponentView;
-@property (strong, nonatomic) IBOutlet UIView *tournamentView;
-@property (strong, nonatomic) IBOutlet UIView *leaguevineOpponentView;
-@property (strong, nonatomic) IBOutlet UIView *leaguevinePublishView;
 
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
@@ -78,6 +75,14 @@
 
 @implementation GameDetailViewController
 
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.dateFormat = [[NSDateFormatter alloc] init];
+        [self.dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    }
+    return self;
+}
 
 -(void)goToActionView {
     GameViewController* gameController = [[GameViewController alloc] init];
@@ -161,32 +166,52 @@
     return textField.text == nil ? @"" : [textField.text trim];
 }
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.dateFormat = [[NSDateFormatter alloc] init];
-        [self.dateFormat setDateFormat:@"EEE MMM d h:mm a"];
-    }
-    return self;
+-(void)upateViewTitle {
+    self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
 }
 
--(void)upateViewTitle {
-        self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
-}
+#pragma mark - Cell configuring
 
 -(void)configureCells {
+    BOOL needsLeaguevineModeTransition = [self isTableConfiguredForLeaguevineMode] && ![self isLeaguevineMode];
+    
     self.cells = [NSMutableArray array];
     
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         [self.cells addObject:self.gameTypeCell];
     }
-    [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+    if ([self isLeaguevineMode]) {
+        [self.cells addObjectsFromArray:@[self.opponentLeaguevineCell, self.leaguevinePubCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+    } else {
+        [self.cells addObjectsFromArray:@[self.opponentRegularCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+    }
     if ([self.game hasBeenSaved]) {
         [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell, self.windCell]];
     } else {
         [self.cells addObjectsFromArray:@[self.windCell]];
     }
+    
+    // animate transitions from/to leaguevine mode
+    if (needsLeaguevineModeTransition) {
+        NSArray* cellsToTransition = @[[NSIndexPath indexPathForRow:1 inSection:0], [NSIndexPath indexPathForRow:2 inSection:0]];
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:cellsToTransition withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertRowsAtIndexPaths:cellsToTransition withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
+}
+
+-(BOOL)isLeaguevineMode {
+    return ([self.game isLeaguevineGame] || [self isLeaguevineType]);
+}
+
+-(BOOL)isTableConfiguredForLeaguevineMode {
+    for (UITableViewCell* cell in self.cells) {
+        if (cell == self.opponentLeaguevineCell) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Event Handlers
@@ -500,35 +525,8 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell* cell = [self.cells objectAtIndex:[indexPath row]];
-    if (cell == self.opponentCell) {
-        if ([self.game isLeaguevineGame] || [self isLeaguevineType]) {
-            [self transitionCell:cell fromSubview:self.opponentView toView:self.leaguevineOpponentView];
-        } else {
-            [self transitionCell:cell fromSubview:self.leaguevineOpponentView toView:self.opponentView];
-        }
-    } else if (cell == self.tournamentOrPubCell) {
-        if ([self.game isLeaguevineGame] || [self isLeaguevineType]) {
-            [self transitionCell:cell fromSubview:self.tournamentView toView:self.leaguevinePublishView];
-        } else {
-            [self transitionCell:cell fromSubview:self.leaguevinePublishView toView:self.tournamentView];
-        }
-    }
-
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
-}
-
--(void)transitionCell: (UITableViewCell*) cell fromSubview: (UIView*)fromView toView: (UIView*)toView {
-    [cell addSubview:toView];
-    [UIView animateWithDuration:.3 delay:0 options:0 animations:^{
-        fromView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.4 delay:0 options:0 animations:^{
-            toView.alpha = 1;
-        } completion:^(BOOL finished) {
-            [fromView removeFromSuperview];
-        }];
-    }];
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -551,7 +549,7 @@
         TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
         timeoutController.game = self.game;
         [self.navigationController pushViewController:timeoutController animated:YES];
-    } else if (cell == self.opponentCell && [self isLeaguevineType]) {
+    } else if (cell == self.opponentLeaguevineCell) {
         LeagueVineGameViewController* leaguevineController = [[LeagueVineGameViewController alloc] init];
         leaguevineController.team = [Team getCurrentTeam];
         leaguevineController.game = self.game;
@@ -635,17 +633,6 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)viewDidUnload
-{
-    [self setOpponentView:nil];
-    [self setTournamentView:nil];
-    [self setLeaguevineOpponentView:nil];
-    [self setLeaguevinePublishView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

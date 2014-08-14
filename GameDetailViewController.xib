@@ -17,19 +17,17 @@
                 <outlet property="initialLine" destination="40" id="45"/>
                 <outlet property="initialLineCell" destination="37" id="47"/>
                 <outlet property="leaguevineGameLabel" destination="77" id="83"/>
-                <outlet property="leaguevineOpponentView" destination="97" id="103"/>
-                <outlet property="leaguevinePublishView" destination="98" id="104"/>
-                <outlet property="opponentCell" destination="11" id="99"/>
-                <outlet property="opponentView" destination="96" id="101"/>
+                <outlet property="leaguevinePubCell" destination="Pn4-CL-NgV" id="5XE-PF-PJy"/>
+                <outlet property="opponentLeaguevineCell" destination="aU1-b7-omu" id="uqc-52-vxo"/>
+                <outlet property="opponentRegularCell" destination="11" id="K7u-m3-iJa"/>
                 <outlet property="opposingTeamNameField" destination="13" id="27"/>
                 <outlet property="pubToLeaguevineSegmentedControl" destination="91" id="92"/>
                 <outlet property="startButtonView" destination="0z4-xw-PaM" id="JyR-Nc-4oU"/>
                 <outlet property="statsCell" destination="56" id="58"/>
                 <outlet property="tableView" destination="4" id="36"/>
                 <outlet property="timeoutsCell" destination="106" id="108"/>
+                <outlet property="tournamentCell" destination="14" id="fkP-bN-3m7"/>
                 <outlet property="tournamentNameField" destination="16" id="28"/>
-                <outlet property="tournamentOrPubCell" destination="14" id="100"/>
-                <outlet property="tournamentView" destination="94" id="102"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="windCell" destination="17" id="24"/>
                 <outlet property="windLabel" destination="19" id="29"/>
@@ -54,103 +52,6 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
             <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
-        </view>
-        <view contentMode="scaleToFill" id="94" userLabel="Private Game - Tournament">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tournament" lineBreakMode="tailTruncation" minimumFontSize="10" id="15">
-                    <rect key="frame" x="10" y="9" width="107" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tournament (optional)" minimumFontSize="17" id="16">
-                    <rect key="frame" x="141" y="5" width="161" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
-                    <connections>
-                        <action selector="tournamendNameChanged:" destination="-1" eventType="valueChanged" id="63"/>
-                    </connections>
-                </textField>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-        </view>
-        <view contentMode="scaleToFill" id="96" userLabel="Private Game - Opponent">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Opponent" lineBreakMode="tailTruncation" minimumFontSize="10" id="12">
-                    <rect key="frame" x="10" y="10" width="97" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Opponent (required)" minimumFontSize="17" id="13">
-                    <rect key="frame" x="141" y="5" width="161" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
-                    <connections>
-                        <action selector="opponentNameChanged:" destination="-1" eventType="valueChanged" id="62"/>
-                    </connections>
-                </textField>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-        </view>
-        <view contentMode="scaleToFill" id="97" userLabel="Leaguevine Game - Selection">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Vs." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="74">
-                    <rect key="frame" x="10" y="10" width="30" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NOT SET" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="77">
-                    <rect key="frame" x="58" y="10" width="224" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="chevron.png" id="105">
-                    <rect key="frame" x="290" y="13" width="10" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-        </view>
-        <view contentMode="scaleToFill" id="98" userLabel="Leaguevine Game - Publishing">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Leaguevine pub" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="86">
-                    <rect key="frame" x="10" y="10" width="130" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="91" customClass="UltimateSegmentedControl">
-                    <rect key="frame" x="163" y="5" width="144" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <segments>
-                        <segment title="None"/>
-                        <segment title="Scores"/>
-                        <segment title="Stats"/>
-                    </segments>
-                    <connections>
-                        <action selector="pubToLeaguevineChanged:" destination="-1" eventType="valueChanged" id="93"/>
-                    </connections>
-                </segmentedControl>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
         </view>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="69" userLabel="Cell - Private/Leaguevine">
             <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
@@ -186,14 +87,50 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="11" id="Ua3-aD-C6h">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Opponent" lineBreakMode="tailTruncation" minimumFontSize="10" id="12">
+                        <rect key="frame" x="10" y="10" width="97" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Opponent (required)" minimumFontSize="17" id="13">
+                        <rect key="frame" x="141" y="5" width="161" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                        <connections>
+                            <action selector="opponentNameChanged:" destination="-1" eventType="valueChanged" id="62"/>
+                        </connections>
+                    </textField>
+                </subviews>
             </tableViewCellContentView>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="34" id="14" userLabel="Cell - Tournament or Pub">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="34" id="14" userLabel="Cell - Tournament">
             <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="14" id="Rmg-Xi-zcG">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tournament" lineBreakMode="tailTruncation" minimumFontSize="10" id="15">
+                        <rect key="frame" x="10" y="9" width="107" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tournament (optional)" minimumFontSize="17" id="16">
+                        <rect key="frame" x="141" y="5" width="161" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                        <connections>
+                            <action selector="tournamendNameChanged:" destination="-1" eventType="valueChanged" id="63"/>
+                        </connections>
+                    </textField>
+                </subviews>
             </tableViewCellContentView>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="17" userLabel="Cell - Wind">
@@ -331,6 +268,59 @@
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="aU1-b7-omu" userLabel="Cell - Leaguvine Opponent">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aU1-b7-omu" id="m8m-aN-H7B">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Vs." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="74">
+                        <rect key="frame" x="10" y="10" width="30" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NOT SET" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="77">
+                        <rect key="frame" x="25" y="10" width="224" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Pn4-CL-NgV" userLabel="Cell - Leaguevine Pub">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pn4-CL-NgV" id="Gxt-TW-otm">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Leaguevine pub" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="86">
+                        <rect key="frame" x="10" y="10" width="130" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </label>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="91" customClass="UltimateSegmentedControl">
+                        <rect key="frame" x="163" y="5" width="144" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <segments>
+                            <segment title="None"/>
+                            <segment title="Scores"/>
+                            <segment title="Stats"/>
+                        </segments>
+                        <connections>
+                            <action selector="pubToLeaguevineChanged:" destination="-1" eventType="valueChanged" id="93"/>
+                        </connections>
+                    </segmentedControl>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
         <view contentMode="scaleToFill" id="rTi-09-F91" userLabel="Footer View">
             <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -378,7 +368,4 @@
             <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
         </view>
     </objects>
-    <resources>
-        <image name="chevron.png" width="10" height="13"/>
-    </resources>
 </document>

@@ -301,7 +301,6 @@
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
 		38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */; };
 		38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */; };
-		38B2CE59199FB722008BE91B /* PlayerButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE58199FB722008BE91B /* PlayerButton.xib */; };
 		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
@@ -760,7 +759,6 @@
 		38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerTableViewCell.h; sourceTree = "<group>"; };
 		38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerTableViewCell.m; sourceTree = "<group>"; };
 		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
-		38B2CE58199FB722008BE91B /* PlayerButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerButton.xib; sourceTree = "<group>"; };
 		38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "female-symbol-small@2x.png"; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
@@ -1402,7 +1400,6 @@
 				1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */,
 				1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */,
 				1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */,
-				38B2CE58199FB722008BE91B /* PlayerButton.xib */,
 			);
 			name = Line;
 			sourceTree = "<group>";
@@ -1761,7 +1758,6 @@
 				1A80C96F15612067007F03C2 /* man.png in Resources */,
 				1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */,
 				1A80C97315612192007F03C2 /* woman@2x.png in Resources */,
-				38B2CE59199FB722008BE91B /* PlayerButton.xib in Resources */,
 				1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */,
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,

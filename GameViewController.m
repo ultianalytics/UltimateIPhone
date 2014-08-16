@@ -81,6 +81,7 @@
             }
         }];
     };
+    pullLandingVC.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:pullLandingVC animated:YES completion:nil];
 }
 

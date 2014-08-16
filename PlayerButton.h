@@ -11,7 +11,7 @@
 @class PlayerButtonActual;
 @class Player;
 
-@interface PlayerButton : IBView {
+@interface PlayerButton : UIView {
     Player* __strong _player;
     BOOL isOnField;
     id<PlayerButtonListener> __strong listener; 

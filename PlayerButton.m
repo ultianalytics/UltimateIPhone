@@ -15,7 +15,6 @@
 #define NUMBER_OF_BUTTON_COLORS 7
 
 @implementation PlayerButton
-@synthesize button, nameLabel, positionLabel, pointsLabel, genderImage;
 
 -(void)buttonClicked: (id) actualPlayerButton {
     [listener buttonClicked: self isOnField: isOnField];
@@ -67,7 +66,6 @@
     [self.button setBackgroundImage:[ImageMaster stretchableImageForPlayingTimeFactor:normalColorIndex] forState:UIControlStateNormal];
     [self.button setBackgroundImage:[ImageMaster stretchableImageForPlayingTimeFactor:highlightColorIndex] forState:UIControlStateHighlighted];
     self.button.titleLabel.font = [UIFont boldSystemFontOfSize: 16];
-//    [self.button setTitleColor: (factor < 3 ? [UIColor blackColor] : [UIColor whiteColor]) forState:UIControlStateNormal];
     [self.button setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
 }
 
@@ -80,7 +78,7 @@
 }
 
 - (NSString* )description {
-    return [NSString stringWithFormat:@"PlayerButton player = %@, player name = %@, isOnField = %@", [_player description], [self getPlayerName], isOnField ? @"YES" : @"NO"];
+    return [NSString stringWithFormat:@"PlayerButton player = %@, player name = %@, isOnField = %@\n%@", [_player description], [self getPlayerName], isOnField ? @"YES" : @"NO", [super description]];
 }
 
 

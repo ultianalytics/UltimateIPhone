@@ -97,12 +97,12 @@
         benchTableCells = [[NSMutableArray alloc] init];
     }
     
-    int maxColumns = 4;
-    int leftSlackMargin = 1;
+    int maxButtonsPerRow = IS_IPAD ? 6 : 4;
     int buttonMargin = 2;
-    int buttonWidth = 77;
+    int buttonWidth = (self.view.boundsWidth - ((maxButtonsPerRow + 1) * buttonMargin)) / maxButtonsPerRow;
+    int leftSlackMargin = (self.view.boundsWidth - ((maxButtonsPerRow + 1) * buttonMargin) - (maxButtonsPerRow * buttonWidth)) / 2;
     int buttonHeight = 40;
-    int rowWidth = leftSlackMargin + (maxColumns * (buttonWidth + buttonMargin));
+    int rowWidth = self.view.boundsWidth;
     int rowHeight = buttonHeight + buttonMargin;
     
     int y = buttonMargin;
@@ -111,7 +111,7 @@
     UIView* rowView = nil;
     UITableViewCell* tableCell = nil;
     for (int i = 0; i <numberOfButtons; i++) {
-        if (columnCount >= maxColumns) {
+        if (columnCount >= maxButtonsPerRow) {
             columnCount = 0;
             x = buttonMargin + leftSlackMargin;
             y = y + buttonMargin + buttonHeight;
@@ -129,9 +129,9 @@
             }
         }
         CGRect buttonRectangle = CGRectMake(x, 0, buttonWidth, buttonHeight);
-        PlayerButton* button = [[PlayerButton alloc] init];
+        PlayerButton* button = [self createPlayerButton];
         [button setOnField:isField];
-        [button setFrame:buttonRectangle];
+        button.frame = buttonRectangle;
         [self setPlayer: i < [players count] ? [players objectAtIndex:i] : nil inButton: button];
         [button setClickListener: self];
         [buttons addObject:button];
@@ -146,7 +146,12 @@
     return buttons;
 }
 
-#pragma mark Field <--> Bench 
+-(PlayerButton*)createPlayerButton {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([PlayerButton class]) owner:nil options:nil];
+    return (PlayerButton*)nibViews[0];
+}
+
+#pragma mark Field <--> Bench
 
 -(void)updateBenchView {
     NSArray* allPlayers = [self getCurrentTeamPlayers];

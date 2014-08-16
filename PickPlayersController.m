@@ -247,6 +247,9 @@
     [super viewDidLoad];
     self.substitutionsView.hidden = YES;
     self.benchTableView.rowHeight = 41;
+    if (IS_IPAD) {
+        [self addDoneButton];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -539,6 +542,17 @@
     errorMessageLabel.text =  @"Verify Line!!";
     errorMessageLabel.alpha = 1;
     [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+}
+
+#pragma mark iPad only
+
+-(void)addDoneButton {
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(closeModalDialog)];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+}
+
+-(void)closeModalDialog {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

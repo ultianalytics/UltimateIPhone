@@ -432,9 +432,15 @@
 
 -(void) goToPlayersOnFieldView {
     PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
-    pickPlayersController.hidesBottomBarWhenPushed = YES;
     pickPlayersController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:pickPlayersController animated:YES];
+    if (IS_IPAD) {
+        UINavigationController* pickGamesNavController = [[UINavigationController alloc] initWithRootViewController:pickPlayersController];
+        pickGamesNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:pickGamesNavController animated:YES completion:nil];
+    } else {
+        pickPlayersController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:pickPlayersController animated:YES];
+    }
 }
 
 -(void) goToTimeoutView {

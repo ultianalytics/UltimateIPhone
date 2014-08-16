@@ -14,6 +14,10 @@
 @property (nonatomic) CGFloat frameY;
 @property (nonatomic) CGFloat frameHeight;
 @property (nonatomic) CGFloat frameWidth;
+@property (nonatomic) CGFloat boundsX;
+@property (nonatomic) CGFloat boundsY;
+@property (nonatomic) CGFloat boundsHeight;
+@property (nonatomic) CGFloat boundsWidth;
 @property (nonatomic) BOOL visible;
 
 @end

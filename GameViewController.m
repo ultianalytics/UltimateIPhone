@@ -778,20 +778,15 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-    if (![Game hasCurrentGame]) {
-        GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
-        gameStartController.game = [[Game alloc] init];
-        gameStartController.navigationItem.hidesBackButton = YES;
-        [self.navigationController pushViewController:gameStartController animated:YES];
-    } else {
-        Game* game = [Game getCurrentGame];
-        [self setOffense: [game arePlayingOffense]];
-        [self updateEventViews];
-        [self updateNavBarTitle];
-        [[Game getCurrentGame] save];
-        [self updateViewFromGame:[Game getCurrentGame]];
-        [self updateAutoTweetingNotice];
-    }
+
+    Game* game = [Game getCurrentGame];
+    [self setOffense: [game arePlayingOffense]];
+    [self updateEventViews];
+    [self updateNavBarTitle];
+    [[Game getCurrentGame] save];
+    [self updateViewFromGame:[Game getCurrentGame]];
+    [self updateAutoTweetingNotice];
+
     NSString* timeoutButtonText = [NSString stringWithFormat:@"Timeouts (%d free)", [[Game getCurrentGame] availableTimeouts]];
     [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateNormal];
     [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateHighlighted];    

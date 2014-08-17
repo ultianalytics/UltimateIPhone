@@ -338,6 +338,7 @@
         [self logLeaguevinePostingStatus];
         if (IS_IPAD) {
             [self notifyChangeListenerOfCRUD:CRUDAdd];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
             [self goToActionView];
         }
@@ -698,12 +699,6 @@
     if (self.gameChangedBlock) {
         self.gameChangedBlock(crud);
     }
-}
-
--(void)setGame:(Game *)game {
-    _game = game;
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self populateUIFromModel];
 }
 
 -(void)cancelModalDialog {

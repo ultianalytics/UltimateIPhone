@@ -66,4 +66,8 @@
     return uirgb(240, 239, 234);
 }
 
++(UIColor*)actionBackgroundColor {
+    return uirgb(216, 215, 200);  // sort of mouse grey
+}
+
 @end

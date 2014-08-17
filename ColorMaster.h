@@ -24,5 +24,6 @@
 +(UIColor*)lightBackgroundColor;
 +(UIColor*)separatorColor;
 +(UIColor*)darkGrayColor;
++(UIColor*)actionBackgroundColor;
 
 @end

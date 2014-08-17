@@ -30,7 +30,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Games", @"Games");
+        
     }
     return self;
 }
@@ -132,6 +132,10 @@
     if (IS_IPAD) {
         [self reset];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.title = NSLocalizedString(@"Games", @"Games");
 }
 
 -(void)viewDidAppear:(BOOL)animated {

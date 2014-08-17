@@ -50,11 +50,45 @@
 
 @interface GameViewController()
 
+@property (nonatomic, strong) IBOutlet UIView *normalView;
+@property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
+
+// action sub view
+@property (nonatomic, strong) IBOutlet UIView* actionView;
+@property (nonatomic, strong) IBOutlet UILabel* playerLabel;
+@property (nonatomic, strong) IBOutlet UILabel* receiverLabel;
+@property (nonatomic, strong) IBOutlet UIButton* throwAwayButton;
+@property (nonatomic, strong) IBOutlet UIButton* otherTeamScoreButton;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView1;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView2;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView3;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView4;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView5;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView6;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView7;
+@property (nonatomic, strong) IBOutlet PlayerView* playerViewTeam;
+@property (nonatomic, strong) IBOutlet UIView* hideReceiverView;
+@property (nonatomic, strong) IBOutlet UIImageView* firstPasserBracketImage;
+
+// recent events
+@property (nonatomic, strong) IBOutlet UIButton* removeEventButton;
+@property (nonatomic, strong) IBOutlet EventView* eventView1;
+@property (nonatomic, strong) IBOutlet EventView* eventView2;
+@property (nonatomic, strong) IBOutlet EventView* eventView3;
+@property (nonatomic, strong) IBOutlet UIView* swipeEventsView;
+
+// game buttons
+@property (nonatomic, strong) IBOutlet UIButton* timeoutButton;
+@property (nonatomic, strong) IBOutlet UIButton* gameOverButton;
+
+// broadcasting labels
+@property (nonatomic, strong) IBOutlet UILabel* broadcast1Label;
+@property (nonatomic, strong) IBOutlet UILabel* broadcast2Label;
+
+@property (nonatomic, strong) NSMutableArray* playerViews;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 @property (nonatomic, strong) LeaguevineClient *leaguevineClient;
-@property (nonatomic, strong) IBOutlet UIView *normalView;
-@property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
 @property (nonatomic, strong) ActionDetailsViewController* detailsController;
 
 @end
@@ -678,6 +712,13 @@
     
     // use a smaller font for nav title
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName, nil]];
+    
+    // add the action view
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"GameActionView" owner:self options:nil];
+    self.actionView = (UIView*)nibViews[0];
+    [self.view addSubview:self.actionView];
+    self.actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+    self.hideReceiverView.backgroundColor = [ColorMaster actionBackgroundColor];
     
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
     for (PlayerView* playerView in self.playerViews) {

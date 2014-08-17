@@ -580,29 +580,7 @@
     [navBar addSubview:button];
 }
 
--(void)resizeForLongDisplay {
-    // resize and repositon the player views to take advantage of the extra space
-    CGFloat extraHeight = (568 - 480) / 8; // iphone 5 length - iphone 4 length / number of player views
-    CGFloat addedHeight = 0;
-    for (PlayerView* playerView in self.playerViews) {
-        CGRect pvRect = playerView.frame;
-        CGFloat idealViewHeight = pvRect.size.height + extraHeight;
-        idealViewHeight = MIN(idealViewHeight, 40.0f);
-        pvRect.size.height = idealViewHeight;
-        pvRect.origin.y = pvRect.origin.y + addedHeight;
-        playerView.frame = pvRect;
-        addedHeight += extraHeight;
-    }
-    
-    // resize the throwaway button to match the margins of the first and last buttons
-    CGRect buttonRect = self.throwAwayButton.frame;
-    buttonRect.size.height = CGRectGetMaxY(self.playerViewTeam.frame) - self.playerView1.frame.origin.y - 3;
-    self.throwAwayButton.frame = buttonRect;
-    [self.view setNeedsDisplay];
-    self.firstPasserBracketImage.image = [UIImage imageNamed:@"first-passer-bracket-5"];
-}
-
-#pragma mark Leaguevine 
+#pragma mark Leaguevine
 
 -(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
     [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
@@ -714,7 +692,12 @@
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName, nil]];
     
     // add the action view
-    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"GameActionView" owner:self options:nil];
+    NSString* actionViewNib = @"GameActionView";
+    if ([UIScreen mainScreen].bounds.size.height > 480) {
+        actionViewNib = @"GameActionView_iPhone_320x568";
+    }
+    [self.actionView removeFromSuperview];
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
     self.actionView = (UIView*)nibViews[0];
     [self.view addSubview:self.actionView];
     self.actionView.backgroundColor = [ColorMaster actionBackgroundColor];
@@ -723,10 +706,6 @@
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
     for (PlayerView* playerView in self.playerViews) {
         playerView.actionListener = self;
-    }
-    
-    if ([UIScreen mainScreen].bounds.size.height > 480) {
-        [self resizeForLongDisplay];
     }
     
     // TODO...comment to turn off long press when long press handling done

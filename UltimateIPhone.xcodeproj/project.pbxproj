@@ -234,7 +234,6 @@
 		1AFFE88415175EB0004B4590 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81015175EB0004B4590 /* GameDetailViewController.m */; };
 		1AFFE88515175EB0004B4590 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */; };
 		1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81315175EB0004B4590 /* GameHistoryController.m */; };
-		1AFFE88715175EB0004B4590 /* GameHistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81415175EB0004B4590 /* GameHistoryController.xib */; };
 		1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81915175EB0004B4590 /* GameViewController.m */; };
 		1AFFE88C15175EB0004B4590 /* girl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81C15175EB0004B4590 /* girl.png */; };
 		1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81D15175EB0004B4590 /* goal_trans.gif */; };
@@ -307,6 +306,8 @@
 		38B2CE6C19A16FFB008BE91B /* GameViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */; };
 		38B2CE7019A17628008BE91B /* PlayerView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */; };
 		38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */; };
+		38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */; };
+		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
@@ -666,7 +667,6 @@
 		1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDetailViewController.xib; sourceTree = "<group>"; };
 		1AFFE81215175EB0004B4590 /* GameHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryController.h; sourceTree = "<group>"; };
 		1AFFE81315175EB0004B4590 /* GameHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryController.m; sourceTree = "<group>"; };
-		1AFFE81415175EB0004B4590 /* GameHistoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameHistoryController.xib; sourceTree = "<group>"; };
 		1AFFE81815175EB0004B4590 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		1AFFE81915175EB0004B4590 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		1AFFE81C15175EB0004B4590 /* girl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = girl.png; sourceTree = "<group>"; };
@@ -770,6 +770,9 @@
 		38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameViewController~ipad.xib"; sourceTree = "<group>"; };
 		38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PlayerView~ipad.xib"; sourceTree = "<group>"; };
 		38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameActionView~ipad.xib"; sourceTree = "<group>"; };
+		38B2CE7519A25BD7008BE91B /* GameHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryTableViewCell.h; sourceTree = "<group>"; };
+		38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryTableViewCell.m; sourceTree = "<group>"; };
+		38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameHistoryController.storyboard; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
@@ -1419,7 +1422,9 @@
 			children = (
 				1AFFE81215175EB0004B4590 /* GameHistoryController.h */,
 				1AFFE81315175EB0004B4590 /* GameHistoryController.m */,
-				1AFFE81415175EB0004B4590 /* GameHistoryController.xib */,
+				38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */,
+				38B2CE7519A25BD7008BE91B /* GameHistoryTableViewCell.h */,
+				38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */,
 				1A59D36F164804BD000EA798 /* GameHistoryHeaderView.h */,
 				1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */,
 				1A59D36D16480487000EA798 /* GameHistoryHeaderView.xib */,
@@ -1706,7 +1711,6 @@
 				1AFFE88015175EB0004B4590 /* eyes_droped.png in Resources */,
 				1AFFE88115175EB0004B4590 /* female_symbol.png in Resources */,
 				1AFFE88515175EB0004B4590 /* GameDetailViewController.xib in Resources */,
-				1AFFE88715175EB0004B4590 /* GameHistoryController.xib in Resources */,
 				1AFFE88C15175EB0004B4590 /* girl.png in Resources */,
 				1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */,
 				1AFFE88E15175EB0004B4590 /* greedy.png in Resources */,
@@ -1742,6 +1746,7 @@
 				1AFFE8BE15175EB0004B4590 /* super_man.png in Resources */,
 				1AFFE8C115175EB0004B4590 /* the_iron_man.png in Resources */,
 				1AFFE8C315175EB0004B4590 /* unhappy.png in Resources */,
+				38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */,
 				1AFFE8C515175EB0004B4590 /* victory.png in Resources */,
 				1AFFE8C615175EB0004B4590 /* what.png in Resources */,
 				1AA37B8418A6A10300CE9662 /* 768-female@2x.png in Resources */,
@@ -1964,6 +1969,7 @@
 				1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */,
 				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
 				1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */,
+				38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */,
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1bm-ui-6L1">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--Game History Controller-->
+        <scene sceneID="r46-vl-fzc">
+            <objects>
+                <viewController id="1bm-ui-6L1" customClass="GameHistoryController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DJw-OF-QMW"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qy9-0S-wdn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mJA-Dc-7aQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YEl-aI-jyi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventCell" id="Xsh-Hc-IrS" customClass="GameHistoryTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xsh-Hc-IrS" id="wS2-JP-jGa">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25000000000000006" translatesAutoresizingMaskIntoConstraints="NO" id="lkM-jg-iFj" userLabel="Description Label">
+                                                    <rect key="frame" x="70" y="11" width="217" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChA-Zk-9sV" userLabel="Undo Button" customClass="RedButton">
+                                                    <rect key="frame" x="167" y="7" width="60" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="Y4c-Qk-X4p"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Undo">
+                                                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="undoButtonTapped:" destination="Xsh-Hc-IrS" eventType="touchUpInside" id="hd9-Ck-caH"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="lkM-jg-iFj" secondAttribute="bottom" constant="11" id="2iQ-Dw-Abp"/>
+                                                <constraint firstItem="lkM-jg-iFj" firstAttribute="leading" secondItem="wS2-JP-jGa" secondAttribute="leading" constant="70" id="Bbf-Le-Gs4"/>
+                                                <constraint firstItem="lkM-jg-iFj" firstAttribute="top" secondItem="wS2-JP-jGa" secondAttribute="top" constant="11" id="IzX-7r-m1m"/>
+                                                <constraint firstAttribute="trailing" secondItem="lkM-jg-iFj" secondAttribute="trailing" id="XA8-oN-gRo"/>
+                                                <constraint firstAttribute="bottom" secondItem="ChA-Zk-9sV" secondAttribute="bottom" constant="6" id="avd-av-1zT"/>
+                                                <constraint firstAttribute="trailing" secondItem="ChA-Zk-9sV" secondAttribute="trailing" constant="60" id="btA-pm-Vu7"/>
+                                                <constraint firstItem="ChA-Zk-9sV" firstAttribute="top" secondItem="wS2-JP-jGa" secondAttribute="top" constant="7" id="xPH-Z2-Ghu"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptionLabel" destination="lkM-jg-iFj" id="VS9-7g-8Qf"/>
+                                            <outlet property="undoButton" destination="ChA-Zk-9sV" id="gFG-pL-uhY"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="1bm-ui-6L1" id="VIj-w6-saG"/>
+                                    <outlet property="delegate" destination="1bm-ui-6L1" id="060-wh-1U1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="YEl-aI-jyi" secondAttribute="trailing" id="6iB-M4-7FW"/>
+                            <constraint firstItem="Qy9-0S-wdn" firstAttribute="top" secondItem="YEl-aI-jyi" secondAttribute="bottom" id="79i-IJ-1XM"/>
+                            <constraint firstItem="YEl-aI-jyi" firstAttribute="top" secondItem="mJA-Dc-7aQ" secondAttribute="top" id="TTg-lI-c8a"/>
+                            <constraint firstItem="YEl-aI-jyi" firstAttribute="leading" secondItem="mJA-Dc-7aQ" secondAttribute="leading" id="xrf-Ws-DSB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="eventTableView" destination="YEl-aI-jyi" id="ntK-Dk-use"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uw4-eL-m8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="62" y="80"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

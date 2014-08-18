@@ -545,7 +545,8 @@
         statsController.game = self.game;
         [self.navigationController pushViewController:statsController animated:YES];
     } else if (cell == self.eventsCell) {
-        GameHistoryController* eventsController = [[GameHistoryController alloc] init];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
+        GameHistoryController* eventsController   = [storyboard instantiateInitialViewController];
         eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
     } else if (cell == self.timeoutsCell) {

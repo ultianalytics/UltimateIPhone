@@ -27,42 +27,42 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="11" userLabel="Player View 1" customClass="PlayerView">
-                    <rect key="frame" x="5" y="40" width="280" height="44"/>
+                    <rect key="frame" x="5" y="40" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="8" userLabel="Player View 2" customClass="PlayerView">
-                    <rect key="frame" x="5" y="90" width="280" height="44"/>
+                    <rect key="frame" x="5" y="90" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="12" userLabel="Player View 3" customClass="PlayerView">
-                    <rect key="frame" x="5" y="140" width="280" height="44"/>
+                    <rect key="frame" x="5" y="140" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="13" userLabel="Player View 4" customClass="PlayerView">
-                    <rect key="frame" x="5" y="190" width="280" height="44"/>
+                    <rect key="frame" x="5" y="190" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="14" userLabel="Player View 5" customClass="PlayerView">
-                    <rect key="frame" x="5" y="240" width="280" height="44"/>
+                    <rect key="frame" x="5" y="240" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="15" userLabel="Player View 6" customClass="PlayerView">
-                    <rect key="frame" x="5" y="290" width="280" height="44"/>
+                    <rect key="frame" x="5" y="290" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="17" userLabel="Player View 7" customClass="PlayerView">
-                    <rect key="frame" x="5" y="340" width="280" height="44"/>
+                    <rect key="frame" x="5" y="340" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="51" userLabel="Player View Anonymous" customClass="PlayerView">
-                    <rect key="frame" x="5" y="390" width="280" height="44"/>
+                    <rect key="frame" x="5" y="390" width="400" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>

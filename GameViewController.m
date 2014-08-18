@@ -85,11 +85,15 @@
 @property (nonatomic, strong) IBOutlet UILabel* broadcast1Label;
 @property (nonatomic, strong) IBOutlet UILabel* broadcast2Label;
 
+// events view controller subview (ipad only)
+@property (nonatomic, strong) IBOutlet UIView* eventsSubView;
+
 @property (nonatomic, strong) NSMutableArray* playerViews;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 @property (nonatomic, strong) LeaguevineClient *leaguevineClient;
 @property (nonatomic, strong) ActionDetailsViewController* detailsController;
+@property (nonatomic, strong) GameHistoryController* eventsViewController;
 
 @end
 
@@ -288,6 +292,19 @@
         [playerView update:game];
     }
     [self updateGameOverButtonForTimeBasedGame];
+    [self.eventsViewController refresh];
+}
+
+-(GameHistoryController*)createEventsViewController {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
+    GameHistoryController* historyController = [storyboard instantiateInitialViewController];
+    historyController.embeddedUndoButtonMode = YES;
+    __typeof(self) __weak weakSelf = self;
+    historyController.game = [Game getCurrentGame];
+    historyController.embeddedUndoTappedBlock = ^{
+        [weakSelf removeEventClicked: nil];
+    };
+    return historyController;
 }
 
 
@@ -489,8 +506,7 @@
 }
 
 -(void) goToHistoryView: (BOOL) curl {
-    GameHistoryController* historyController = [[GameHistoryController alloc] init];
-    historyController.game = [Game getCurrentGame];
+    GameHistoryController* historyController   = [self createEventsViewController];
     if (curl) {
         historyController.isCurlAnimation = YES;
         [UIView beginAnimations:@"animation" context:nil];
@@ -737,6 +753,10 @@
     
     self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     
+    if (IS_IPAD) {
+        self.eventsViewController = [self createEventsViewController];
+        [self addChildViewController:self.eventsViewController inSubView:self.eventsSubView];
+    }
     [self updateEventViews];
 
     // iphone transitions to another view to show details....ipad opens a modal

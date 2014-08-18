@@ -54,7 +54,7 @@
 @property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
 
 // action sub view
-@property (nonatomic, strong) IBOutlet UIView* actionView;
+@property (nonatomic, strong) IBOutlet UIView* actionSubView;
 @property (nonatomic, strong) IBOutlet UILabel* playerLabel;
 @property (nonatomic, strong) IBOutlet UILabel* receiverLabel;
 @property (nonatomic, strong) IBOutlet UIButton* throwAwayButton;
@@ -203,7 +203,8 @@
 }
 
 -(void)setThrowAwayButtonPosition {
-    CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(-100.0, 0.0);
+    CGFloat offsetOnDefense = IS_IPAD ? -168.0 : -100.0;
+    CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(offsetOnDefense, 0.0);
     self.throwAwayButton.transform = transform;
 }
 
@@ -693,14 +694,13 @@
     
     // add the action view
     NSString* actionViewNib = @"GameActionView";
-    if ([UIScreen mainScreen].bounds.size.height > 480) {
+    if (IS_IPHONE && [UIScreen mainScreen].bounds.size.height > 480) {
         actionViewNib = @"GameActionView_iPhone_320x568";
     }
-    [self.actionView removeFromSuperview];
     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
-    self.actionView = (UIView*)nibViews[0];
-    [self.view addSubview:self.actionView];
-    self.actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+    UIView* actionView = (UIView*)nibViews[0];
+    [self.actionSubView addSubview:actionView];
+    actionView.backgroundColor = [ColorMaster actionBackgroundColor];
     self.hideReceiverView.backgroundColor = [ColorMaster actionBackgroundColor];
     
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
@@ -738,8 +738,11 @@
     self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     
     [self updateEventViews];
-    
-    [self initializeDetailSelectionView];
+
+    // iphone transitions to another view to show details....ipad opens a modal
+    if (IS_IPHONE) {
+        [self initializeDetailSelectionView];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(updateAutoTweetingNotice)

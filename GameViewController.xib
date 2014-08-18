@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController">
             <connections>
-                <outlet property="actionView" destination="a4f-J8-c9x" id="Tbj-6X-TLa"/>
+                <outlet property="actionSubView" destination="a4f-J8-c9x" id="2pV-Q5-8sX"/>
                 <outlet property="broadcast1Label" destination="74" id="78"/>
                 <outlet property="broadcast2Label" destination="77" id="79"/>
                 <outlet property="detailSelectionView" destination="80" id="84"/>

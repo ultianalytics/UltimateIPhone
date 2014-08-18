@@ -50,8 +50,13 @@
 
 @interface GameViewController()
 
+// iphone only
 @property (nonatomic, strong) IBOutlet UIView *normalView;
 @property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
+
+// ipad only
+@property (nonatomic, strong) IBOutlet UIView *topOrLeftView;
+@property (nonatomic, strong) IBOutlet UIView *bottomOrRightView;
 
 // action sub view
 @property (nonatomic, strong) IBOutlet UIView* actionSubView;
@@ -87,6 +92,8 @@
 
 // events view controller subview (ipad only)
 @property (nonatomic, strong) IBOutlet UIView* eventsSubView;
+
+@property (nonatomic, strong) IBOutlet UILabel* noEventsLabel;
 
 @property (nonatomic, strong) NSMutableArray* playerViews;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
@@ -292,7 +299,12 @@
         [playerView update:game];
     }
     [self updateGameOverButtonForTimeBasedGame];
-    [self.eventsViewController refresh];
+    BOOL hasEvents = [[Game getCurrentGame] hasEvents];
+    if (hasEvents) {
+        [self.eventsViewController refresh];
+    }
+    self.noEventsLabel.hidden = hasEvents;
+    self.eventsSubView.hidden = !hasEvents;
 }
 
 -(GameHistoryController*)createEventsViewController {
@@ -793,6 +805,8 @@
     [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateNormal];
     [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateHighlighted];    
     [self addInfoButtton];
+    
+    [self configureForOrientation:self.interfaceOrientation];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -817,11 +831,25 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    if (IS_IPAD) {
+        [self configureForOrientation:toInterfaceOrientation];
+    }
+}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+- (void)configureForOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+        toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        self.topOrLeftView.frame = CGRectMake(0, 0, 500, 648);
+        self.bottomOrRightView.frame = CGRectMake(520, 0, 504, 648);
+        // shift action view to left
+        self.actionSubView.transform = CGAffineTransformMakeTranslation(-120.0, 0.0);
+    } else {
+        self.topOrLeftView.frame = CGRectMake(0, 0, 768, 580);
+        self.bottomOrRightView.frame = CGRectMake(0, 580, 768, 331);
+        // shift action view to normal position
+        self.actionSubView.transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+    }
 }
 
 #pragma mark AlertView delegate

@@ -273,6 +273,12 @@
     [self toggleFirstTimeUsageCallouts];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    if (self.controllerClosedBlock) {
+        self.controllerClosedBlock();
+    }
+}
+
 - (void)didMoveToParentViewController:(UIViewController *)parent {
     // parent is nil if this view controller was removed (back button pressed)
     if (!parent && [self.game isLeaguevineGame] &&  self.game.publishStatsToLeaguevine) {

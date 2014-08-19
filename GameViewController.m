@@ -290,6 +290,17 @@
     self.navigationItem.title = navBarTitle;
 }
 
+-(void) refreshView {
+    Game* game = [Game getCurrentGame];
+    [self setOffense: [game arePlayingOffense]];
+    [self updateEventViews];
+    [self updateNavBarTitle];
+    [[Game getCurrentGame] save];
+    [self updateViewFromGame:[Game getCurrentGame]];
+    [self updateAutoTweetingNotice];
+    [self updateTimeoutsButton];
+}
+
 -(void) updateViewFromGame: (Game*) game {
     if (!isOffense) {
         self.otherTeamScoreButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
@@ -307,6 +318,12 @@
     self.eventsSubView.hidden = !hasEvents;
 }
 
+-(void)updateTimeoutsButton {
+    NSString* timeoutButtonText = [NSString stringWithFormat:@"Timeouts\n(%d free)", [[Game getCurrentGame] availableTimeouts]];
+    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateNormal];
+    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateHighlighted];
+}
+
 -(GameHistoryController*)createEventsViewController {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
     GameHistoryController* historyController = [storyboard instantiateInitialViewController];
@@ -318,7 +335,6 @@
     };
     return historyController;
 }
-
 
 #pragma mark ActionListener
 
@@ -498,6 +514,10 @@
     PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
     pickPlayersController.game = [Game getCurrentGame];
     if (IS_IPAD) {
+        __typeof(self) __weak weakSelf = self;
+        pickPlayersController.controllerClosedBlock = ^{
+            [weakSelf refreshView];
+        };
         UINavigationController* pickGamesNavController = [[UINavigationController alloc] initWithRootViewController:pickPlayersController];
         pickGamesNavController.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:pickGamesNavController animated:YES completion:nil];
@@ -789,26 +809,14 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [self addInfoButtton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-
-    Game* game = [Game getCurrentGame];
-    [self setOffense: [game arePlayingOffense]];
-    [self updateEventViews];
-    [self updateNavBarTitle];
-    [[Game getCurrentGame] save];
-    [self updateViewFromGame:[Game getCurrentGame]];
-    [self updateAutoTweetingNotice];
-
-    NSString* timeoutButtonText = [NSString stringWithFormat:@"Timeouts (%d free)", [[Game getCurrentGame] availableTimeouts]];
-    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateNormal];
-    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateHighlighted];    
-    [self addInfoButtton];
-    
+    [self refreshView];
     [self configureForOrientation:self.interfaceOrientation];
 }
 

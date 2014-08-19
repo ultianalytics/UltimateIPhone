@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="benchTableView" destination="33" id="36"/>
                 <outlet property="clearButton" destination="27" id="45"/>
+                <outlet property="errorMessageLabel" destination="v6E-Rq-FSK" id="aaE-IS-XZT"/>
                 <outlet property="fieldView" destination="17" id="26"/>
                 <outlet property="lastLineButton" destination="18" id="31"/>
                 <outlet property="substitutionButton" destination="43" id="46"/>
@@ -81,6 +82,13 @@
                                 <action selector="clearClicked:" destination="-1" eventType="touchUpInside" id="29"/>
                             </connections>
                         </button>
+                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v6E-Rq-FSK" userLabel="Error Message Label">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>

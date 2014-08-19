@@ -457,7 +457,12 @@
     errorMessageLabel.backgroundColor = [UIColor blackColor];
     errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
     errorMessageLabel.alpha = 1;
-    [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+    errorMessageLabel.hidden = NO;
+    [UIView animateWithDuration:1.5 animations:^{
+        errorMessageLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        errorMessageLabel.hidden = YES;
+    }];
 }
 
 

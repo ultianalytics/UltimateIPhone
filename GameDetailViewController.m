@@ -171,6 +171,19 @@
     self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
 }
 
+-(void)setGame:(Game *)game {
+    _game = game;
+    if (IS_IPAD) {
+        [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+            [self populateUIFromModel];
+        } completion:nil];
+    } else {
+        [self populateUIFromModel];
+    }
+}
+
+
+
 #pragma mark - Cell configuring
 
 -(void)configureCells {

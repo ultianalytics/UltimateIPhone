@@ -771,10 +771,7 @@
     }
     [self updateEventViews];
 
-    // iphone transitions to another view to show details....ipad opens a modal
-    if (IS_IPHONE) {
-        [self initializeDetailSelectionView];
-    }
+    [self initializeDetailSelectionViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(updateAutoTweetingNotice)
@@ -884,9 +881,15 @@
 
 #pragma mark Detail Selection View
 
--(void)initializeDetailSelectionView {
+-(void)initializeDetailSelectionViewController {
     self.detailsController = [[ActionDetailsViewController alloc] init];
-    [self addChildViewController:self.detailsController inSubView:self.detailSelectionView];
+    // iphone uses a child controller to show the details VC.  ipad presents it modally.
+    if (IS_IPAD) {
+        self.detailsController.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.detailsController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    } else {
+        [self addChildViewController:self.detailsController inSubView:self.detailSelectionView];
+    }
     GameViewController* __weak weakSelf = self;
     self.detailsController.cancelBlock = ^{
         [weakSelf showDetailSelectionView:NO];
@@ -894,16 +897,24 @@
 }
 
 -(void)showDetailSelectionView: (BOOL) show {
-    if (show) {
-        [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-        }];
+    if (IS_IPAD) {
+        if (show) {
+            [self presentViewController:self.detailsController animated:YES completion:nil];
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     } else {
-        [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-        }];
+        if (show) {
+            [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+            }];
+        } else {
+            [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+            }];
+        }
     }
 }
 
-#pragma mark Callouts 
+#pragma mark Callouts
 
 -(BOOL)isFirstTimeGameViewUsage {
     return ![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage];

@@ -102,7 +102,7 @@
         
         CGPoint anchor = [self.webView convertPoint:CGPointTop(self.webView.bounds) toView:self.view];
         
-        [calloutsView addCallout:@"This app uses Google App Engine™ to store your team data so you must signon to a Google account (Gmail™) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account for this app.\n\n              - Tap to dismiss -" anchor: anchor width: 270 degrees: 180 connectorLength: 120 font: [UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"This app uses Google for signon so you must signon to a Google account (e.g., Gmail™) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account for this app.\n\n              - Tap to dismiss -" anchor: anchor width: 270 degrees: 180 connectorLength: 120 font: [UIFont systemFontOfSize:14]];
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
@@ -149,7 +149,9 @@
 {
     [super viewDidLoad];
     [self initializeCancelButton];
-    self.title = NSLocalizedString(@"Cloud Signon", @"Cloud Signon"); 
+    self.title = @"Google Signon";
+    UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonTapped)];
+    self.navigationItem.leftBarButtonItem = cancelBarItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

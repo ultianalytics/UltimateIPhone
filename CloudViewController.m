@@ -68,9 +68,10 @@
 #pragma mark - Navigation
 
 -(void)goSignonView{
-    WebViewSignonController *signonController = [[WebViewSignonController alloc] init];
+    WebViewSignonController* signonController = [[WebViewSignonController alloc] init];
+    UINavigationController* signonNavController = [[UINavigationController alloc] initWithRootViewController:signonController];
     signonController.delegate = self;
-    [self presentViewController:signonController animated:YES completion:nil];
+    [self presentViewController:signonNavController animated:YES completion:nil];
 }
 
 -(void)goTeamPickerView: (NSArray*) teams {

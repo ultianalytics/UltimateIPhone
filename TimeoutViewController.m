@@ -49,6 +49,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Team Timeouts";
+    if (IS_IPAD) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Done" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        self.navigationItem.rightBarButtonItem = cancelBarItem;
+    }
     [self populateView];
 }
 
@@ -189,6 +193,10 @@
     }
     [self saveTimeoutDetails];
     [self populateView];
+}
+
+-(void)cancelModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 

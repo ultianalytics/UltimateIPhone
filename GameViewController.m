@@ -510,7 +510,13 @@
 -(void) goToTimeoutView {
     TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
     timeoutController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:timeoutController animated:YES];
+    if (IS_IPAD) {
+        UINavigationController* timeoutNavController = [[UINavigationController alloc] initWithRootViewController:timeoutController];
+        timeoutNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:timeoutNavController animated:YES completion:nil];
+    } else {
+        [self.navigationController pushViewController:timeoutController animated:YES];
+    }
 }
 
 -(void) goToHistoryViewRight {

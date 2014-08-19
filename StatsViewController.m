@@ -157,6 +157,10 @@
     // add insets to handle tab bar
     self.statTypeTableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     self.playerStatsTableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+    if (IS_IPAD) {
+        // shift the players table over a bit to it doesn't look so empty in the view
+        self.playerStatsTableView.transform = CGAffineTransformMakeTranslation(120.0, 0.0);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

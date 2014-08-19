@@ -174,9 +174,14 @@
 -(void)setGame:(Game *)game {
     _game = game;
     if (IS_IPAD) {
-        [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+        if (self.navigationController.visibleViewController == self) {
+            [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                [self populateUIFromModel];
+            } completion:nil];
+        } else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
             [self populateUIFromModel];
-        } completion:nil];
+        }
     } else {
         [self populateUIFromModel];
     }

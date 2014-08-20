@@ -327,7 +327,6 @@
 -(GameHistoryController*)createEventsViewController {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
     GameHistoryController* historyController = [storyboard instantiateInitialViewController];
-    historyController.embeddedMode = YES;
     __typeof(self) __weak weakSelf = self;
     historyController.game = [Game getCurrentGame];
     historyController.embeddedUndoTappedBlock = ^{
@@ -793,6 +792,7 @@
     
     if (IS_IPAD) {
         self.eventsViewController = [self createEventsViewController];
+        self.eventsViewController.embeddedMode = YES;
         [self addChildViewController:self.eventsViewController inSubView:self.eventsSubView];
     }
     [self updateEventViews];

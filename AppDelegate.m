@@ -24,7 +24,7 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UINavigationController* cloudNavController;
-@property (nonatomic, strong) UINavigationController* iPhoneTeamNavController;
+@property (nonatomic, strong) UINavigationController* teamNavController;
 @property (nonatomic, strong) TeamsMasterDetailViewController* iPadTeamsMasterDetailController;
 @property (nonatomic, strong) UINavigationController* gameNavController;
 
@@ -51,11 +51,13 @@
     // Tab 1: team
     if (IS_IPHONE) {
         TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-        self.iPhoneTeamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
-        viewController1 = self.iPhoneTeamNavController;
+        self.teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
+        viewController1 = self.teamNavController;
     } else {
         self.iPadTeamsMasterDetailController = [[TeamsMasterDetailViewController alloc] init];
-        viewController1 = self.iPadTeamsMasterDetailController;
+        self.teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:self.iPadTeamsMasterDetailController];
+        self.teamNavController.navigationBar.hidden = YES;
+        viewController1 = self.teamNavController;
     }
 
     // Tab 2: game
@@ -106,9 +108,8 @@
 }
 
 -(void)resetTeamTab {
-    if (IS_IPHONE) {
-        [self.iPhoneTeamNavController popToRootViewControllerAnimated:NO];
-    } else {
+    [self.teamNavController popToRootViewControllerAnimated:NO];
+    if (IS_IPAD) {
         [self.iPadTeamsMasterDetailController reset];
     }
     [self resetGameTab];

@@ -52,36 +52,40 @@
 }
 
 - (void)configureMasterDetailView {
-    self.masterViewController = [[TeamPlayersViewController alloc] init];
+    self.masterViewController = [self createTeamsListViewController];
     self.detailViewController = [[PlayerDetailsViewController alloc] init];
-    self.masterViewController.detailController = self.detailViewController;
-    __typeof(self) __weak weakSelf = self;
-    self.masterViewController.playersChangedBlock = ^{
-        [weakSelf updateViewConfig];
-    };
-    
-    self.masterViewController.edgesForExtendedLayout = UIRectEdgeNone;
     self.detailViewController.edgesForExtendedLayout = UIRectEdgeNone;
+
+    self.masterViewController.detailController = self.detailViewController;
     
     self.masterNavController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+    self.masterNavController.navigationBar.translucent = NO;
     self.detailNavController = [[UINavigationController alloc] initWithRootViewController:self.detailViewController];
+    self.detailNavController.navigationBar.translucent = NO;
     
     [self addChildViewController:self.masterNavController inSubView:self.masterSubView];
     [self addChildViewController:self.detailNavController inSubView:self.detailSubView];
 }
 
 - (void)configureListOnlyView {
-    self.listOnlyViewController = [[TeamPlayersViewController alloc] init];
-    __typeof(self) __weak weakSelf = self;
-    self.listOnlyViewController.playersChangedBlock = ^{
-        [weakSelf updateViewConfig];
-    };
-    
-    self.listOnlyViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    self.listOnlyViewController = [self createTeamsListViewController];
     
     self.listOnlyNavController = [[UINavigationController alloc] initWithRootViewController:self.listOnlyViewController];
     
     [self addChildViewController:self.listOnlyNavController inSubView:self.listOnlyView];
+}
+
+- (TeamPlayersViewController*)createTeamsListViewController {
+    TeamPlayersViewController* viewController = [[TeamPlayersViewController alloc] init];
+    viewController.edgesForExtendedLayout = UIRectEdgeNone;
+    __typeof(self) __weak weakSelf = self;
+    viewController.playersChangedBlock = ^{
+        [weakSelf updateViewConfig];
+    };
+    viewController.backRequestedBlock = ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
+    return viewController;
 }
 
 - (void)updateViewConfig {

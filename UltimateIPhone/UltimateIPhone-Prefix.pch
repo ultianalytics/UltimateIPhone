@@ -27,6 +27,8 @@
 #define IS_IPAD UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone
 
+#define STD_ROW_TYPE @"stdRowType"
+
 typedef enum {
     CRUDAdd=0,
     CRUDUpdate, 

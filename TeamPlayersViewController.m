@@ -286,7 +286,9 @@
 }
 
 -(void)returnToTeam {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.backRequestedBlock) {
+        self.backRequestedBlock();
+    }
 }
 
 -(void)notifyPlayersChangedListener {

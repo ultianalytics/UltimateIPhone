@@ -20,6 +20,7 @@
 @property (nonatomic, strong) Team* team;
 @property (nonatomic, strong) NSArray* cells;
 @property (strong, nonatomic) void (^teamChangedBlock)(Team* team);
+@property (strong, nonatomic) void (^playersViewRequestedBlock)();
 @property (nonatomic) BOOL isModalAddMode;
 
 @end

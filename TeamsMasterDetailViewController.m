@@ -10,6 +10,7 @@
 #import "UIViewController+Additions.h"
 #import "TeamsViewController.h"
 #import "TeamViewController.h"
+#import "PlayersMasterDetailViewController.h"
 
 @interface TeamsMasterDetailViewController ()
 
@@ -49,6 +50,7 @@
     
     [self addChildViewController:self.teamsNavController inSubView:self.teamsListSubView];
     [self addChildViewController:self.teamNavController inSubView:self.teamDetailSubView];
+    [self registerPlayerViewRequestHandler];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -60,6 +62,14 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     [self.teamsViewController reset];
+}
+
+-(void)registerPlayerViewRequestHandler {
+    __typeof(self) __weak weakSelf = self;
+    self.teamViewController.playersViewRequestedBlock = ^{
+        PlayersMasterDetailViewController* playersController = [[PlayersMasterDetailViewController alloc] init];
+        [weakSelf.navigationController pushViewController:playersController animated:YES];
+    };
 }
 
 @end

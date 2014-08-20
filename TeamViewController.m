@@ -175,8 +175,9 @@
 
 -(void)goToPlayersView: (BOOL) animated {
     if (IS_IPAD) {
-        PlayersMasterDetailViewController* playersController = [[PlayersMasterDetailViewController alloc] init];
-        [self presentViewController:playersController animated:YES completion:nil];
+        if (self.playersViewRequestedBlock) {
+            self.playersViewRequestedBlock();
+        }
     } else {
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
         [[self navigationItem] setBackBarButtonItem:backButton];

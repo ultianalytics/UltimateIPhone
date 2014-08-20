@@ -60,7 +60,7 @@
     cell.backgroundColor = [event isOffense] ? [ColorMaster getOffenseEventColor] : [ColorMaster getDefenseEventColor];
     cell.imageView.image = [ImageMaster getImageForEvent: event];
     cell.descriptionLabel.text = [event getDescription];
-    cell.undoButton.visible = section == 0 && row == 0 && self.embeddedUndoButtonMode;
+    cell.undoButton.visible = section == 0 && row == 0 && self.embeddedMode;
     if (cell.undoButton.visible) {
         cell.delegate = self;
     }
@@ -77,13 +77,19 @@
     changeController.playersInPoint = point.line;
     NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
     changeController.completion = ^{
-        [self.navigationController popViewControllerAnimated:YES];
         [self.game save];
         [self.eventTableView reloadData];
         [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
     };
     
-    [self.navigationController pushViewController:changeController animated:YES];
+    if (self.embeddedMode) {
+        changeController.modalMode = YES;
+        UINavigationController* navChangeController = [[UINavigationController alloc] initWithRootViewController:changeController];
+        navChangeController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:navChangeController animated:YES completion:nil];
+    } else {
+        [self.navigationController pushViewController:changeController animated:YES];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

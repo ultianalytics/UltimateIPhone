@@ -327,7 +327,7 @@
 -(GameHistoryController*)createEventsViewController {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
     GameHistoryController* historyController = [storyboard instantiateInitialViewController];
-    historyController.embeddedUndoButtonMode = YES;
+    historyController.embeddedMode = YES;
     __typeof(self) __weak weakSelf = self;
     historyController.game = [Game getCurrentGame];
     historyController.embeddedUndoTappedBlock = ^{

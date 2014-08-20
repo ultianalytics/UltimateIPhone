@@ -14,7 +14,7 @@
 @interface GameHistoryController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) Game* game;
 @property (nonatomic) BOOL isCurlAnimation;
-@property (nonatomic) BOOL embeddedUndoButtonMode;
+@property (nonatomic) BOOL embeddedMode;
 @property (strong, nonatomic) void (^embeddedUndoTappedBlock)();
 
 -(void)refresh;

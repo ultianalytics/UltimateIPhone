@@ -14,5 +14,6 @@
 @interface TimeoutViewController : UltimateViewController
 
 @property (nonatomic, strong) Game* game;
+@property (nonatomic) BOOL modalMode;
 
 @end

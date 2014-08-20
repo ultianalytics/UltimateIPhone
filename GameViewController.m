@@ -530,6 +530,7 @@
     TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
     timeoutController.game = [Game getCurrentGame];
     if (IS_IPAD) {
+        timeoutController.modalMode = YES;
         UINavigationController* timeoutNavController = [[UINavigationController alloc] initWithRootViewController:timeoutController];
         timeoutNavController.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:timeoutNavController animated:YES completion:nil];

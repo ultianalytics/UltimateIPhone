@@ -439,7 +439,7 @@
     CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
     
     CGPoint anchor = CGPointBottom([self.leagueVineCell convertRect:self.leagueVineCell.bounds toView:self.view]);
-    [calloutsView addCallout:@"Connect your team to Leaguevine if you would like scores posted there as games progress." anchor: anchor width: 200 degrees: 180 connectorLength: 60 font: [UIFont systemFontOfSize:14]];
+    [calloutsView addCallout:@"Connect your team to Leaguevine if you would like scores posted there as games progress." anchor: anchor width: 200 degrees: 180 connectorLength: 60 font: [UIFont systemFontOfSize:16]];
     
     self.firstTimeUsageCallouts = calloutsView;
     [self.view addSubview:calloutsView];

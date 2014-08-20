@@ -81,6 +81,7 @@
     CGFloat textLabelHeight = [self preferredLabelHeightForWidth:textLabelWidth];
     textLabelHeight = textLabelHeight + kTextViewContentSizeBottomInset + kTextViewContentSizeTopInset;
     self.textLabel.frame = CGRectMake(0,0, textLabelWidth, textLabelHeight);
+    self.textLabel.frame = CGRectIntegral(self.textLabel.frame);
     [self addSubview:self.textLabel];
     [self calcConnectorLineBaseWidth];
     return CGSizeMake(textLabelWidth, textLabelHeight);
@@ -95,6 +96,7 @@
 -(void)positionTextView {
     CGPoint midPoint = [self calcPointOnCirle:self.anchor radius:self.connectorLength degrees:self.degreesFromNorth];
     self.textLabel.center = midPoint;
+    self.textLabel.frame = CGRectIntegral(self.textLabel.frame);
 }
 
 -(CGPoint)calcPointOnCirle: (CGPoint) centerPoint radius: (float) radius degrees: (float) degrees {

@@ -156,4 +156,9 @@
         [self.actionListener actionLongPress: Goal targetPlayer: self.player fromView: self];
     }
 }
+
+-(CGPoint)dButtonCenter {
+    return self.firstButton.center;
+}
+
 @end

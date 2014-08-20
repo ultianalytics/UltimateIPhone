@@ -95,6 +95,7 @@
 
 -(void)saveAndContinue {
     if ([self saveChanges]) {
+        [self dismissKeyboard];
         if (IS_IPHONE) {
             [self goToPlayersView:YES];
         } else {

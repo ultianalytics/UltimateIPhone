@@ -157,7 +157,7 @@
     }
 }
 
--(CGPoint)dButtonCenter {
+-(CGPoint)firstButtonCenter {
     return self.firstButton.center;
 }
 

@@ -10,7 +10,7 @@
 #define CGPointTop(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect))
 #define CGPointBottom(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect))
 #define CGPointRight(rect) CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect))
-#define CGPointLeft(rect) CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect))
+#define CGPointLeft(rect) CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect))
 
 #define CGPointMid(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
 

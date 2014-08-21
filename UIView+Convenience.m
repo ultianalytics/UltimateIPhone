@@ -51,6 +51,24 @@
     return self.frame.size.height;
 }
 
+- (CGFloat)frameRight {
+	return self.frameX + self.frameWidth;
+}
+
+- (void)setFrameRight:(CGFloat)newRight {
+	CGRect rect = self.frame;
+	rect.origin.x = newRight - rect.size.width;
+	self.frame = rect;
+}
+
+- (CGFloat)frameBottom {
+	return self.frameY + self.frameHeight;
+}
+
+- (void)setFrameBottom:(CGFloat)newBottom {
+	self.frameY = newBottom - self.frameHeight;
+}
+
 -(void)setBoundsX: (CGFloat) x {
     CGRect rect = self.bounds;
     rect.origin.x = x;

@@ -36,7 +36,7 @@
 - (BOOL)isSelected;
 - (void)update: (Game*) game;
 - (void) setNeedToSelectPasser: (BOOL) needToSelectPasser;
-- (CGPoint)dButtonCenter;
+- (CGPoint)firstButtonCenter;
 
 
 @end

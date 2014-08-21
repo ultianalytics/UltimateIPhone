@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "GameViewController.h"
 #import "PickPlayersController.h"
 #import "GameHistoryController.h"
@@ -34,7 +35,8 @@
 #import "TimeoutViewController.h"
 #import "LeaguevineEventQueue.h"
 #import "LeaguevinePostingLog.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UIView+Convenience.h"
+
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
 #define kNotifyNewGameAlertTitle @"Game Over?"
@@ -284,6 +286,7 @@
 }
 
 - (void)updateNavBarTitle {
+    
     Score score = [[Game getCurrentGame] getScore];
     NSString* leaderDescription = score.ours == score.theirs ? @"" : score.ours > score.theirs    ? @", us" :  @", them";
     NSString* navBarTitle = [NSString stringWithFormat:@"%@ (%d-%d%@)", NSLocalizedString(@"Action", @"Action"), score.ours, score.theirs, leaderDescription];
@@ -626,13 +629,21 @@
     [alert show];
 }
 
--(void) addInfoButtton {
+-(void) addInfoButton {
+    int buttonTag = 989898;
     UIView *navBar = self.navigationController.navigationBar;
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, navBar.frame.size.height)];
-    button.center = [navBar convertPoint:navBar.center fromView:navBar.superview];
-    button.backgroundColor = [UIColor clearColor];
-    [button addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [navBar addSubview:button];
+    if (![navBar viewWithTag:buttonTag]) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 0)];
+        button.center = navBar.center;  // move to center of nav bar
+        button.frameY = 0;
+        button.frameHeight = navBar.frameHeight;
+        button.tag = 98989;
+
+        button.backgroundColor = [UIColor clearColor];  // should sit over the title transparently
+        
+        [button addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [navBar addSubview:button];
+    }
 }
 
 #pragma mark Leaguevine
@@ -762,7 +773,6 @@
         playerView.actionListener = self;
     }
     
-    // TODO...comment to turn off long press when long press handling done
     UILongPressGestureRecognizer* turnoverLongPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(turnoverButtonLongPress:)];
     [self.throwAwayButton addGestureRecognizer:turnoverLongPressRecognizer];
     
@@ -810,13 +820,13 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-    [self addInfoButtton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [self addInfoButton];
     [self refreshView];
     [self configureForOrientation:self.interfaceOrientation];
 }
@@ -964,12 +974,15 @@
         
         UIFont *textFont = [UIFont systemFontOfSize:14];
         if ([[Game getCurrentGame] hasEvents]) {
-            // undo button
-            [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
-            // recents list
-            [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
+            if (IS_IPHONE) {
+                // undo button
+                [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
+                // recents list
+                [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
+            }
             // long press
-            [calloutsView addCallout:@"Press and hold to see other options for an action." anchor: CGPointMake(140, 100) width: 100 degrees: 270 connectorLength: 80 font: textFont];
+            CGPoint anchor = [self.view convertPoint:CGPointLeft(self.playerView2.firstButton.frame) fromView:self.playerView2];
+            [calloutsView addCallout:@"Press and hold action buttons to see other options." anchor: anchor width: 90 degrees: 270 connectorLength: 70 font: textFont];
         }
         // line button
         CGPoint anchor = CGPointTopRight(self.view.bounds);
@@ -997,7 +1010,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasUserSeenDeLongPressCallout];
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
 
-        CGPoint anchor = [self.playerView3 convertPoint:[self.playerView3 dButtonCenter] toView:self.view];
+        CGPoint anchor = [self.playerView3 convertPoint:[self.playerView3 firstButtonCenter] toView:self.view];
         [calloutsView addCallout:@"Did you know?\nYou can record a Callahan by tap-and-holding the D button." anchor: anchor width: 120 degrees: 110 connectorLength: 95 font: [UIFont systemFontOfSize:14]];
         
         self.infoCalloutsView = calloutsView;

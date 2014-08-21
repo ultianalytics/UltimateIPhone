@@ -46,6 +46,7 @@
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 #define kTimeoutDetailsJsonKey      @"timeoutDetailsJson"
 #define klastSaveKey            @"lastSave"
+#define kIsPositionalKey            @"positional"
 
 static Game* currentGame = nil;
 
@@ -111,6 +112,10 @@ static Game* currentGame = nil;
     NSDictionary* windDict = [dict objectForKey:kWindKey];
     if (windDict) {
         game.wind = [Wind fromDictionary:windDict];
+    }
+    NSNumber* isPositional = [dict objectForKey:kIsPositionalKey];
+    if (isPositional) {
+        game.isPositional = [isPositional boolValue];
     }
     return game;
 }
@@ -180,6 +185,7 @@ static Game* currentGame = nil;
     [dict setValue: [NSNumber numberWithInt:score.theirs] forKey:kScoreTheirsProperty];
     [dict setValue: [wind asDictionary] forKey: kWindKey];
     [dict setValue: self.timeoutJson forKey: kTimeoutDetailsJsonKey];
+    [dict setValue: [NSNumber numberWithBool:self.isPositional] forKey:kIsPositionalKey];
     
     return dict;
 }
@@ -374,6 +380,7 @@ static Game* currentGame = nil;
         self.publishStatsToLeaguevine = [decoder decodeBoolForKey:kLeagueVineStatsPublishKey];
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
         self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
+        self.isPositional = [decoder decodeBoolForKey:kIsPositionalKey];
     } 
     return self; 
 } 
@@ -395,6 +402,7 @@ static Game* currentGame = nil;
     [encoder encodeBool:self.publishStatsToLeaguevine forKey:kLeagueVineStatsPublishKey];
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
     [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
+    [encoder encodeBool:self.isPositional forKey:kIsPositionalKey];
 } 
 
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class Player;
+@class Player, EventPosition;
 typedef enum {
     Catch,
     Drop,
@@ -40,6 +40,7 @@ typedef enum {
 @property (nonatomic) NSTimeInterval timestamp;
 @property (nonatomic, strong) NSMutableDictionary* details;
 @property BOOL isHalftimeCause;
+@property (nonatomic, strong) EventPosition* position;
 
 + (Event*) fromDictionary:(NSDictionary*) dict;
 

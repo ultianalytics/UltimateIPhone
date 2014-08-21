@@ -12,9 +12,11 @@
 #import "CessationEvent.h"
 #import "Team.h"
 #import "Game.h"
+#import "EventPosition.h"
 
 #define kTimestampKey     @"timestamp"
 #define kIsHalftimeCauseKey     @"halftimeCause"
+#define kPositionKey     @"pos"
 
 @interface  Event()
 
@@ -43,6 +45,10 @@
         event.isHalftimeCause = [isCauseOfHalftime boolValue];
     }
     event.details = [dict objectForKey:kDetailsKey];
+    NSDictionary* positionDict = [dict objectForKey:kPositionKey];
+    if (positionDict) {
+        event.position = [EventPosition fromDictionary:positionDict];
+    }
     return event;
 }
 
@@ -62,6 +68,9 @@
     if (_details && [_details count] > 0) {
         [dict setValue:self.details forKey:kDetailsKey];
     }
+    if (self.position) {
+        [dict setValue:[self.position asDictionary] forKey:kPositionKey];
+    }
     return dict;
 }
 
@@ -74,6 +83,9 @@
     if (_details && [_details count] > 0) {
         [encoder encodeObject:self.details forKey:kDetailsKey];
     }
+    if (self.position) {
+        [encoder encodeObject:self.position forKey:kPositionKey];
+    }
 } 
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -82,6 +94,7 @@
         self.timestamp = [decoder decodeDoubleForKey:kTimestampKey];
         self.details = [decoder decodeObjectForKey:kDetailsKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
+        self.position = [decoder decodeObjectForKey:kPositionKey];
         [self ensureValid];
     } 
     return self; 
@@ -93,6 +106,7 @@
     evt.timestamp  = self.timestamp;
     evt.details = [[self.details copyWithZone:zone] mutableCopy];
     evt.isHalftimeCause = self.isHalftimeCause;
+    evt.position = self.position;
     return evt;
 }
 

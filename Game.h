@@ -41,6 +41,7 @@
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
 @property (nonatomic, readonly) int periodsComplete;
 @property (nonatomic, readonly) NSTimeInterval lastSaveGMT;
+@property (nonatomic) BOOL isPositional;
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;

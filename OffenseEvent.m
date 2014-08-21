@@ -10,6 +10,7 @@
 #import "Team.h"
 #import "Player.h"
 #import "Scrubber.h"
+#import "EventPosition.h"
 
 @implementation OffenseEvent
 
@@ -100,6 +101,9 @@
         NSString *receiverName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.receiver.name isMale:self.receiver.isMale] : self.receiver.name;
         [dict setValue: receiverName forKey:kReceiverKey];
     }
+    if (self.pointStartPosition) {
+        [dict setValue:[self.pointStartPosition asDictionary] forKey:kPointStartPositionKey];
+    }
     return dict;
 }
 
@@ -123,22 +127,31 @@
         action = Callahan;
     }
     
-    return [[OffenseEvent alloc]
+    OffenseEvent* offenseEvent = [[OffenseEvent alloc]
         initPasser: [Team getPlayerNamed:[dict valueForKey:kPasserKey]]
         action: action 
         receiver: [Team getPlayerNamed:[dict valueForKey:kReceiverKey]]];
+    
+    NSDictionary* pointStartPosition = [dict objectForKey:kPointStartPositionKey];
+    if (pointStartPosition) {
+        offenseEvent.pointStartPosition = [EventPosition fromDictionary:pointStartPosition];
+    }
+    
+    return offenseEvent;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder { 
     [super encodeWithCoder: encoder];
     [encoder encodeObject: self.passer forKey:kPasserKey]; 
-    [encoder encodeObject: self.receiver forKey:kReceiverKey]; 
+    [encoder encodeObject: self.receiver forKey:kReceiverKey];
+    [encoder encodeObject: self.pointStartPosition forKey:kPointStartPositionKey];
 } 
 
 - (id)initWithCoder:(NSCoder *)decoder { 
     self = [super initWithCoder:decoder];
     self.passer = [decoder decodeObjectForKey:kPasserKey];
     self.receiver = [decoder decodeObjectForKey:kReceiverKey];
+    self.pointStartPosition = [decoder decodeObjectForKey:kPointStartPositionKey];
     [self ensureValid];
     return self; 
 } 
@@ -147,6 +160,7 @@
     OffenseEvent* evt = [super copyWithZone:nil];
     evt.receiver = self.receiver;
     evt.passer = self.passer;
+    evt.pointStartPosition = self.pointStartPosition;
     return evt;
 }
 

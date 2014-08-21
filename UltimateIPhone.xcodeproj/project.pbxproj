@@ -308,6 +308,7 @@
 		38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */; };
 		38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */; };
 		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
+		38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B39B6219A64FC90008F0C9 /* EventPosition.m */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
@@ -773,6 +774,8 @@
 		38B2CE7519A25BD7008BE91B /* GameHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryTableViewCell.h; sourceTree = "<group>"; };
 		38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryTableViewCell.m; sourceTree = "<group>"; };
 		38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameHistoryController.storyboard; sourceTree = "<group>"; };
+		38B39B6119A64FC90008F0C9 /* EventPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPosition.h; sourceTree = "<group>"; };
+		38B39B6219A64FC90008F0C9 /* EventPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPosition.m; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
@@ -1283,6 +1286,8 @@
 				1AFFE7DD15175E7B004B4590 /* DefenseEvent.m */,
 				1A047EF2171E2881006DE1C9 /* CessationEvent.h */,
 				1A047EF3171E2881006DE1C9 /* CessationEvent.m */,
+				38B39B6119A64FC90008F0C9 /* EventPosition.h */,
+				38B39B6219A64FC90008F0C9 /* EventPosition.m */,
 				1AFFE80B15175EB0004B4590 /* Game.h */,
 				1AFFE80C15175EB0004B4590 /* Game.m */,
 				1AFFE80D15175EB0004B4590 /* GameDescription.h */,
@@ -1958,6 +1963,7 @@
 				1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */,
 				1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */,
 				1A7994E4161736CD00E77FC5 /* NSDate+Utilities.m in Sources */,
+				38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */,
 				1A8D1312161D9C7A001CFD9C /* UltimateSwitch.m in Sources */,
 				1A23B82B1625900C00EC9D92 /* EventChangeViewController.m in Sources */,
 				1ACC07991627A9EB0038F934 /* PlayerSelectionTableViewCell.m in Sources */,

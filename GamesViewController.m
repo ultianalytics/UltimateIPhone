@@ -100,8 +100,8 @@
     cell.scoreLabel.text = game.formattedScore;
     
     cell.opponentLabel.textColor = [game.gameId isEqualToString:[Preferences getCurrentPreferences].currentGameFileName] ? [ColorMaster getActiveGameColor] : [UIColor blackColor];
-    cell.scoreLabel.textColor = game.score.ours == game.score.theirs ? [UIColor blackColor] :
-        (game.score.ours > game.score.theirs ? [ColorMaster getWinScoreColor] :  [ColorMaster getLoseScoreColor]);
+    cell.scoreLabel.textColor = game.score.ours == game.score.theirs ? [UIColor grayColor] :
+        (game.score.ours > game.score.theirs ? [UIColor blackColor] :  [ColorMaster getLoseScoreColor]);
     
     return cell;
 }

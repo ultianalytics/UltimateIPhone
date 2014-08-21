@@ -14,6 +14,7 @@
 -(void) loadViewsFromBundle {
 	NSString *class_name = NSStringFromClass([self class]);
 	UIView *mainSubView = [[[NSBundle mainBundle] loadNibNamed:class_name owner:self options:nil] lastObject];
+    mainSubView.frame = self.bounds;
 	[self addSubview:mainSubView];
     self.backgroundColor = [UIColor clearColor];
     [self initUI];

@@ -8,20 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
+#import "TeamViewController.h"
 
 @class Team;
 
 @interface TeamsViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSArray* teamDescriptions;
-    BOOL isAfterFirstView;
 }
 
-@property (nonatomic, strong) IBOutlet UITableView* teamsTableView;
+@property (nonatomic, strong) TeamViewController* detailController; // only used in iPad
 
 -(void)retrieveTeamDescriptions;
 -(void)goToAddTeam;
--(void)goToBestView;
 -(void)goToTeamView: (Team*) team animated: (BOOL) animated;
+-(void)reset;
 
 @end

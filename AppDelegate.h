@@ -13,6 +13,8 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
++ (AppDelegate *)instance;
+
 -(void)resetTeamTab;
 -(void)resetGameTab;
 -(void)resetCloudTab;

@@ -14,19 +14,36 @@
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "TeamPlayersViewController.h"
+#import "PlayersMasterDetailViewController.h"
 #import "AppDelegate.h"
 #import "UltimateSegmentedControl.h"
 #import "NSString+manipulations.h"
-#import "LeagueVineSignonViewController.h"
 #import "LeagueVineTeamViewController.h"
 #import "LeaguevineTeam.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
 #import "UIView+Convenience.h"
+#import "UIViewController+Additions.h"
 
 #define kIsNotFirstGameDetailViewUsage @"IsNotFirstGameDetailViewUsage"
 
 @interface TeamViewController()
+
+@property (nonatomic, strong) IBOutlet UITableView* teamTableView;
+@property (nonatomic, strong) IBOutlet UITableViewCell* nameCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* typeCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* displayCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* playersCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leagueVineCell;
+@property (nonatomic, strong) IBOutlet UITextField* teamNameField;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* teamTypeSegmentedControl;
+@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playerDisplayTypeSegmentedControl;
+@property (nonatomic, strong) IBOutlet UILabel *leagueVineDescriptionLabel;
+@property (nonatomic, strong) IBOutlet UIView* deleteButtonView;
+@property (nonatomic, strong) IBOutlet UIView* teamCopyButtonView;
+@property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
+@property (nonatomic, strong) IBOutlet UIButton *clearCloudIdButton;
+@property (strong, nonatomic) IBOutlet UIView *customFooterView;
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 
@@ -43,7 +60,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Team", @"Team");
+
     }
     return self;
 }
@@ -78,7 +95,15 @@
 
 -(void)saveAndContinue {
     if ([self saveChanges]) {
-        [self goToPlayersView:YES];
+        [self dismissKeyboard];
+        if (IS_IPHONE) {
+            [self goToPlayersView:YES];
+        } else {
+            [self notifyChangeListener];
+            if (self.isModalAddMode) {
+                [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
     }
 }
 
@@ -149,10 +174,16 @@
 }
 
 -(void)goToPlayersView: (BOOL) animated {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];
-    TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
-    [self.navigationController pushViewController:playersController animated:animated];
+    if (IS_IPAD) {
+        if (self.playersViewRequestedBlock) {
+            self.playersViewRequestedBlock();
+        }
+    } else {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+        TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
+        [self.navigationController pushViewController:playersController animated:animated];
+    }
 }
 
 - (void)handlePlayersCellSelected {
@@ -162,7 +193,6 @@
     }
 }
 
-#pragma mark Event handlers
 
 -(IBAction)nameChanged: (id) sender {
     
@@ -189,6 +219,9 @@
     [Team setCurrentTeam:teamCopy.teamId];
     self.team = teamCopy;
     [self populateViewFromModel];
+    if (IS_IPAD) {
+        [self notifyChangeListener];
+    }
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Team Copied"
                           message:@"The team (and all players) have been copied and saved.  Consider entering a better team name before leaving this view."
@@ -246,7 +279,11 @@
             {
                 [self.team delete];
                 [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-                [self.navigationController popViewControllerAnimated:YES];
+                if (IS_IPHONE) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [self notifyChangeListener];
+                }
             }
                 break;
         }
@@ -258,6 +295,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = self.isModalAddMode ? @"New Team" : @"Team";
     self.teamTableView.tableFooterView = self.customFooterView;
     self.clearCloudIdButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.clearCloudIdButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -265,6 +303,10 @@
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
     UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;
+    if (self.isModalAddMode) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        self.navigationItem.leftBarButtonItem = cancelBarItem;
+    }
 
 }
 
@@ -307,7 +349,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!self.cells) {
-        self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.leagueVineCell, self.playersCell, nil];
+        if (self.isModalAddMode) {
+            self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, nil];
+        } else {
+            self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.leagueVineCell, self.playersCell, nil];
+        }
     }
     return [self.cells count];
 }
@@ -358,9 +404,16 @@
         [self saveChanges];
         [self.navigationController popViewControllerAnimated:YES];
     };
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];
-    [self.navigationController pushViewController:leagueController animated:YES];
+    if (IS_IPAD) {
+        leagueController.isModalMode = YES;
+        UINavigationController* leagueNavController = [[UINavigationController alloc] initWithRootViewController:leagueController];
+        leagueNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:leagueNavController animated:YES completion:nil];
+    } else {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+        [self.navigationController pushViewController:leagueController animated:YES];
+    }
 }
 
 -(void)populateLeagueVineTeamCell {
@@ -387,7 +440,7 @@
     CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
     
     CGPoint anchor = CGPointBottom([self.leagueVineCell convertRect:self.leagueVineCell.bounds toView:self.view]);
-    [calloutsView addCallout:@"Connect your team to Leaguevine if you would like scores posted there as games progress." anchor: anchor width: 200 degrees: 180 connectorLength: 60 font: [UIFont systemFontOfSize:14]];
+    [calloutsView addCallout:@"Connect your team to Leaguevine if you would like scores posted there as games progress." anchor: anchor width: 200 degrees: 180 connectorLength: 60 font: [UIFont systemFontOfSize:16]];
     
     self.firstTimeUsageCallouts = calloutsView;
     [self.view addSubview:calloutsView];
@@ -405,10 +458,12 @@
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-    // make the view port smaller so the user can scroll up to click the start button
-    CGFloat keyboardHeight = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    // make the view port smaller so the user can scroll up to see all of the view
+    CGFloat keyboardY = [self calcKeyboardOrigin:aNotification];
+    CGFloat tableBottom = CGRectGetMaxY(self.teamTableView.frame);
+    CGFloat newBottomInset = MAX(tableBottom - keyboardY, 0);
     
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0);
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, newBottomInset, 0.0);
     self.teamTableView.contentInset = contentInsets;
     self.teamTableView.scrollIndicatorInsets = contentInsets;
 }
@@ -419,5 +474,23 @@
     self.teamTableView.contentInset = contentInsets;
     self.teamTableView.scrollIndicatorInsets = contentInsets;
 }
+
+#pragma mark - iPad only (Master/Detail UX)
+
+-(void)notifyChangeListener {
+    if (self.teamChangedBlock) {
+        self.teamChangedBlock(self.team);
+    }
+}
+
+-(void)setTeam:(Team *)team {
+    _team = team;
+    [self populateViewFromModel];
+}
+
+-(void)cancelModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

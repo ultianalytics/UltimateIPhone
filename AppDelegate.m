@@ -8,9 +8,11 @@
 
 #import "AppDelegate.h"
 #import "TeamsViewController.h"
+#import "TeamsMasterDetailViewController.h"
 #import "TeamViewController.h"
 #import "GameViewController.h"
-#import "GamesPlayedController.h"
+#import "GamesMasterDetailViewController.h"
+#import "GamesViewController.h"
 #import "PreferencesViewController.h"
 #import "CloudViewController.h"
 #import "TwitterController.h"
@@ -23,6 +25,7 @@
 
 @property (nonatomic, strong) UINavigationController* cloudNavController;
 @property (nonatomic, strong) UINavigationController* teamNavController;
+@property (nonatomic, strong) TeamsMasterDetailViewController* iPadTeamsMasterDetailController;
 @property (nonatomic, strong) UINavigationController* gameNavController;
 
 @end
@@ -32,32 +35,52 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 
++ (AppDelegate *)instance {
+	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self setupGlobalAppearance: application];
-     
+    
+    UIViewController *viewController1, *viewController2, *viewController3, *viewController4;
+    
     // Tab 1: team
-    TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
-    self.teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
-    UIViewController *viewController1 = self.teamNavController;
+    if (IS_IPHONE) {
+        TeamsViewController* teamController = [[TeamsViewController alloc] initWithNibName:@"TeamsViewController" bundle:nil];
+        self.teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:teamController];
+        viewController1 = self.teamNavController;
+    } else {
+        self.iPadTeamsMasterDetailController = [[TeamsMasterDetailViewController alloc] init];
+        self.teamNavController = [[BufferedNavigationController alloc] initWithRootViewController:self.iPadTeamsMasterDetailController];
+        self.teamNavController.navigationBar.hidden = YES;
+        viewController1 = self.teamNavController;
+    }
 
     // Tab 2: game
-    GamesPlayedController* gameController = [[GamesPlayedController alloc] init];
-    self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
-    UIViewController *viewController2 = self.gameNavController;
+    if (IS_IPHONE) {
+        UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GamesViewController" bundle:nil];
+        GamesViewController* gameController  = [gamesStoryboard instantiateInitialViewController];
+        self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
+    } else {
+        GamesMasterDetailViewController* gameController = [[GamesMasterDetailViewController alloc] init];
+        self.gameNavController = [[BufferedNavigationController alloc] initWithRootViewController:gameController];
+        self.gameNavController.navigationBar.hidden = YES;
+    }
+    viewController2 = self.gameNavController;
     
     // Tab 3: cloud
     CloudViewController* cloudController = [[CloudViewController alloc] init];
     self.cloudNavController = [[BufferedNavigationController alloc] initWithRootViewController:cloudController];
-    UIViewController* viewController3 = self.cloudNavController;
+    viewController3 = self.cloudNavController;
     
     // Tab 4: twitter
     TwitterController* twitterController = [[TwitterController alloc] init];
     UINavigationController* twitterNavController = [[BufferedNavigationController alloc] initWithRootViewController:twitterController];
-    UIViewController *viewController4 = twitterNavController;
+    viewController4 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,nil];
@@ -86,6 +109,9 @@
 
 -(void)resetTeamTab {
     [self.teamNavController popToRootViewControllerAnimated:NO];
+    if (IS_IPAD) {
+        [self.iPadTeamsMasterDetailController reset];
+    }
     [self resetGameTab];
 }
 
@@ -118,10 +144,8 @@
     
     // nav bar
     [UINavigationBar appearance].barStyle = UIBarStyleBlack;  // Causes light text in nav bar
-    [UINavigationBar appearance].backgroundColor = uirgb(50,50,50);
     [UINavigationBar appearance].backgroundColor = [UIColor blackColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [ColorMaster titleBarColor],
-       NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [ColorMaster titleBarColor],NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0]}];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:18.0]} forState:UIControlStateNormal];
     

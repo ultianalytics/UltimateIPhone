@@ -68,9 +68,10 @@
 #pragma mark - Navigation
 
 -(void)goSignonView{
-    WebViewSignonController *signonController = [[WebViewSignonController alloc] init];
+    WebViewSignonController* signonController = [[WebViewSignonController alloc] init];
+    UINavigationController* signonNavController = [[UINavigationController alloc] initWithRootViewController:signonController];
     signonController.delegate = self;
-    [self presentViewController:signonController animated:YES completion:nil];
+    [self presentViewController:signonNavController animated:YES completion:nil];
 }
 
 -(void)goTeamPickerView: (NSArray*) teams {
@@ -87,12 +88,15 @@
 
 -(void)goGameUploadPickerView {
     self.gameIdsToUpload = [NSArray array];
-    GameUploadPickerViewController* gameUploadController = [[GameUploadPickerViewController alloc] init];
+   
+    UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GameUploadPickerViewController" bundle:nil];
+    GameUploadPickerViewController* gameUploadController  = [gamesStoryboard instantiateInitialViewController];
     gameUploadController.dismissBlock = ^(NSArray* selectedGameIds) {
         [self.navigationController popViewControllerAnimated:YES];
         self.gameIdsToUpload = selectedGameIds;
         [self startUpload];
     };
+    
     [self.navigationController pushViewController:gameUploadController animated: YES];
 }
 

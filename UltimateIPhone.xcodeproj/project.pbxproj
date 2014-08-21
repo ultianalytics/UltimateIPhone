@@ -13,10 +13,6 @@
 		1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFB171E4CE7006DE1C9 /* stopwatch1.png */; };
 		1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A047EFD171E4D04006DE1C9 /* finishflag.png */; };
 		1A0A2C8F17AE9C9F00035849 /* FlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C8E17AE9C9F00035849 /* FlatButton.m */; };
-		1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A6C4F1556B5740041C962 /* icon-AppStore.png */; };
-		1A0E65FD18007356003BEB88 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E65FC18007356003BEB88 /* icon-120.png */; };
-		1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E65FE180074CD003BEB88 /* icon-58.png */; };
-		1A0E6601180074DA003BEB88 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0E6600180074DA003BEB88 /* icon-80.png */; };
 		1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */; };
 		1A1B84FD1644588E008EF261 /* SubstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */; };
 		1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A209AB917177A5400BF9D6A /* TimeoutDetails.m */; };
@@ -81,7 +77,6 @@
 		1A80C96F15612067007F03C2 /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C96D15612067007F03C2 /* man.png */; };
 		1A80C97315612192007F03C2 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97115612192007F03C2 /* woman@2x.png */; };
 		1A80C97415612192007F03C2 /* woman.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C97215612192007F03C2 /* woman.png */; };
-		1A80C9761561223C007F03C2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A80C9751561223C007F03C2 /* icon@2x.png */; };
 		1A894CC116361223008B3990 /* PullLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A894CBF16361223008B3990 /* PullLandingViewController.m */; };
 		1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A894CC016361223008B3990 /* PullLandingViewController.xib */; };
 		1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8C5F0017B519E300601D21 /* Social.framework */; };
@@ -117,9 +112,6 @@
 		1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BB718A9185100CE9662 /* 26-checkmark@2x.png */; };
 		1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */; };
 		1AA37BEA18B1385100CE9662 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BE918B1385100CE9662 /* Images.xcassets */; };
-		1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */; };
-		1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */; };
-		1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */; };
 		1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */; };
 		1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */; };
 		1AA37BF818B2DE7E00CE9662 /* first-passer-bracket@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */; };
@@ -132,7 +124,6 @@
 		1AAD229B164212170007C2EE /* PlayerSubstitution.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD229A164212170007C2EE /* PlayerSubstitution.m */; };
 		1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAFDE391574F199005EA598 /* NSString+manipulations.m */; };
 		1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */; };
-		1AB332031544F1B500219FFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB332011544F1B500219FFD /* icon.png */; };
 		1AB78D0417269E40003235AE /* SHSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D0317269E40003235AE /* SHSLogger.m */; };
 		1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB78D061726B0DE003235AE /* SHSLogsMailer.m */; };
 		1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB78D081726B1E0003235AE /* MessageUI.framework */; };
@@ -243,9 +234,6 @@
 		1AFFE88415175EB0004B4590 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81015175EB0004B4590 /* GameDetailViewController.m */; };
 		1AFFE88515175EB0004B4590 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */; };
 		1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81315175EB0004B4590 /* GameHistoryController.m */; };
-		1AFFE88715175EB0004B4590 /* GameHistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81415175EB0004B4590 /* GameHistoryController.xib */; };
-		1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81615175EB0004B4590 /* GamesPlayedController.m */; };
-		1AFFE88915175EB0004B4590 /* GamesPlayedController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */; };
 		1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE81915175EB0004B4590 /* GameViewController.m */; };
 		1AFFE88C15175EB0004B4590 /* girl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81C15175EB0004B4590 /* girl.png */; };
 		1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE81D15175EB0004B4590 /* goal_trans.gif */; };
@@ -307,12 +295,32 @@
 		1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE87A15175EB0004B4590 /* woman.jpg */; };
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
+		38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */; };
+		38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B1C199BB4AF001DCDDE /* GamesViewController.m */; };
+		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
+		38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */; };
+		38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */; };
+		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
+		38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6119A0F77B008BE91B /* GameActionView.xib */; };
+		38B2CE6419A11D65008BE91B /* GameActionView_iPhone_320x568.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6319A11D65008BE91B /* GameActionView_iPhone_320x568.xib */; };
+		38B2CE6C19A16FFB008BE91B /* GameViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */; };
+		38B2CE7019A17628008BE91B /* PlayerView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */; };
+		38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */; };
+		38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */; };
+		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
 		38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */; };
-		38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */; };
 		38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */; };
+		38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */; };
+		38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */; };
+		38FD2FDC199686D700CE83BB /* PlayersMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */; };
+		38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */; };
+		38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */; };
+		38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */; };
+		38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE31997F30800CE83BB /* left-caret-green.png */; };
+		38FD2FE61997F30800CE83BB /* left-caret-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -325,10 +333,6 @@
 		1A047EFD171E4D04006DE1C9 /* finishflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finishflag.png; sourceTree = "<group>"; };
 		1A0A2C8D17AE9C9F00035849 /* FlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlatButton.h; sourceTree = "<group>"; };
 		1A0A2C8E17AE9C9F00035849 /* FlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatButton.m; sourceTree = "<group>"; };
-		1A0A6C4F1556B5740041C962 /* icon-AppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-AppStore.png"; sourceTree = "<group>"; };
-		1A0E65FC18007356003BEB88 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
-		1A0E65FE180074CD003BEB88 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-58.png"; sourceTree = "<group>"; };
-		1A0E6600180074DA003BEB88 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-80.png"; sourceTree = "<group>"; };
 		1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubstitutionViewController.xib; sourceTree = "<group>"; };
 		1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutionViewController.h; sourceTree = "<group>"; };
 		1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstitutionViewController.m; sourceTree = "<group>"; };
@@ -443,7 +447,6 @@
 		1A80C96D15612067007F03C2 /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		1A80C97115612192007F03C2 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
 		1A80C97215612192007F03C2 /* woman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman.png; sourceTree = "<group>"; };
-		1A80C9751561223C007F03C2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		1A894CBE16361223008B3990 /* PullLandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullLandingViewController.h; sourceTree = "<group>"; };
 		1A894CBF16361223008B3990 /* PullLandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullLandingViewController.m; sourceTree = "<group>"; };
 		1A894CC016361223008B3990 /* PullLandingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullLandingViewController.xib; sourceTree = "<group>"; };
@@ -485,9 +488,6 @@
 		1AA37BDD18AFBB6600CE9662 /* GameActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameActionButton.h; sourceTree = "<group>"; };
 		1AA37BDE18AFBB6600CE9662 /* GameActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameActionButton.m; sourceTree = "<group>"; };
 		1AA37BE918B1385100CE9662 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UltimateIPhone/Images.xcassets; sourceTree = "<group>"; };
-		1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-app-icon@2x.png"; sourceTree = "<group>"; };
-		1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-settings-icon@2x.png"; sourceTree = "<group>"; };
-		1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-spotlight-icon@2x.png"; sourceTree = "<group>"; };
 		1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passer-arrow@2x.png"; sourceTree = "<group>"; };
 		1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket-5@2x.png"; sourceTree = "<group>"; };
 		1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket@2x.png"; sourceTree = "<group>"; };
@@ -508,7 +508,6 @@
 		1AAFDE391574F199005EA598 /* NSString+manipulations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+manipulations.m"; sourceTree = "<group>"; };
 		1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevinePlayer.h; sourceTree = "<group>"; };
 		1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevinePlayer.m; sourceTree = "<group>"; };
-		1AB332011544F1B500219FFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1AB78D0217269E40003235AE /* SHSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogger.h; sourceTree = "<group>"; };
 		1AB78D0317269E40003235AE /* SHSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSLogger.m; sourceTree = "<group>"; };
 		1AB78D051726B0DE003235AE /* SHSLogsMailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSLogsMailer.h; sourceTree = "<group>"; };
@@ -668,10 +667,6 @@
 		1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDetailViewController.xib; sourceTree = "<group>"; };
 		1AFFE81215175EB0004B4590 /* GameHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryController.h; sourceTree = "<group>"; };
 		1AFFE81315175EB0004B4590 /* GameHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryController.m; sourceTree = "<group>"; };
-		1AFFE81415175EB0004B4590 /* GameHistoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameHistoryController.xib; sourceTree = "<group>"; };
-		1AFFE81515175EB0004B4590 /* GamesPlayedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesPlayedController.h; sourceTree = "<group>"; };
-		1AFFE81615175EB0004B4590 /* GamesPlayedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesPlayedController.m; sourceTree = "<group>"; };
-		1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamesPlayedController.xib; sourceTree = "<group>"; };
 		1AFFE81815175EB0004B4590 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		1AFFE81915175EB0004B4590 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		1AFFE81C15175EB0004B4590 /* girl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = girl.png; sourceTree = "<group>"; };
@@ -760,14 +755,42 @@
 		1AFFE87A15175EB0004B4590 /* woman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = woman.jpg; sourceTree = "<group>"; };
 		1AFFE8CC151761AA004B4590 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
+		38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GamesViewController.storyboard; sourceTree = "<group>"; };
+		38672B1C199BB4AF001DCDDE /* GamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesViewController.m; sourceTree = "<group>"; };
+		38672B1D199BB4AF001DCDDE /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
+		38672B1F199BBD2D001DCDDE /* GameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTableViewCell.h; sourceTree = "<group>"; };
+		38672B20199BBD2D001DCDDE /* GameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTableViewCell.m; sourceTree = "<group>"; };
+		38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameUploadPickerViewController.storyboard; sourceTree = "<group>"; };
+		38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerTableViewCell.h; sourceTree = "<group>"; };
+		38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerTableViewCell.m; sourceTree = "<group>"; };
+		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "female-symbol-small@2x.png"; sourceTree = "<group>"; };
+		38B2CE6119A0F77B008BE91B /* GameActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView.xib; sourceTree = "<group>"; };
+		38B2CE6319A11D65008BE91B /* GameActionView_iPhone_320x568.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_320x568.xib; sourceTree = "<group>"; };
+		38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameViewController~ipad.xib"; sourceTree = "<group>"; };
+		38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PlayerView~ipad.xib"; sourceTree = "<group>"; };
+		38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameActionView~ipad.xib"; sourceTree = "<group>"; };
+		38B2CE7519A25BD7008BE91B /* GameHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryTableViewCell.h; sourceTree = "<group>"; };
+		38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryTableViewCell.m; sourceTree = "<group>"; };
+		38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameHistoryController.storyboard; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerViewController.h; sourceTree = "<group>"; };
 		38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerViewController.m; sourceTree = "<group>"; };
-		38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameUploadPickerViewController.xib; sourceTree = "<group>"; };
 		38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDownloadTracker.h; sourceTree = "<group>"; };
 		38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDownloadTracker.m; sourceTree = "<group>"; };
+		38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsMasterDetailViewController.h; sourceTree = "<group>"; };
+		38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsMasterDetailViewController.m; sourceTree = "<group>"; };
+		38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamsMasterDetailViewController.xib; sourceTree = "<group>"; };
+		38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersMasterDetailViewController.h; sourceTree = "<group>"; };
+		38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersMasterDetailViewController.m; sourceTree = "<group>"; };
+		38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayersMasterDetailViewController.xib; sourceTree = "<group>"; };
+		38FD2FDE1996FF4E00CE83BB /* GamesMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesMasterDetailViewController.h; sourceTree = "<group>"; };
+		38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesMasterDetailViewController.m; sourceTree = "<group>"; };
+		38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamesMasterDetailViewController.xib; sourceTree = "<group>"; };
+		38FD2FE31997F30800CE83BB /* left-caret-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-caret-green.png"; sourceTree = "<group>"; };
+		38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-caret-green@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -907,34 +930,20 @@
 			name = LeagueVine;
 			sourceTree = "<group>";
 		};
-		1AA37BE018AFBC3000CE9662 /* Teams List */ = {
-			isa = PBXGroup;
-			children = (
-				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
-				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
-				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
-			);
-			name = "Teams List";
-			sourceTree = "<group>";
-		};
 		1AA37BE118AFBC5800CE9662 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2FD9199686D700CE83BB /* PlayersMasterDetailViewController.h */,
+				38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */,
+				38FD2FDB199686D700CE83BB /* PlayersMasterDetailViewController.xib */,
+				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
+				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
+				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
 				1AFFE83D15175EB0004B4590 /* PlayerDetailsViewController.h */,
 				1AFFE83E15175EB0004B4590 /* PlayerDetailsViewController.m */,
 				1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */,
 			);
 			name = Player;
-			sourceTree = "<group>";
-		};
-		1AA37BE218AFBC7A00CE9662 /* Players List */ = {
-			isa = PBXGroup;
-			children = (
-				1A7B4278152DBBF400CA839E /* TeamPlayersViewController.h */,
-				1A7B4279152DBBF400CA839E /* TeamPlayersViewController.m */,
-				1A7B427A152DBBF400CA839E /* TeamPlayersViewController.xib */,
-			);
-			name = "Players List";
 			sourceTree = "<group>";
 		};
 		1AA37BE318AFBCEA00CE9662 /* Event */ = {
@@ -974,6 +983,8 @@
 				1AAC14901718240200827C51 /* UILabel+Utilities.m */,
 				1A5D7AF118F99FE600239A22 /* UIScrollView+Utilities.h */,
 				1A5D7AF218F99FE600239A22 /* UIScrollView+Utilities.m */,
+				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
+				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
 			);
 			name = "Categories on Apple Classes";
 			sourceTree = "<group>";
@@ -1093,18 +1104,20 @@
 		1AE669EF1521534B000965B5 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */,
-				1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */,
-				1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */,
 				1AE669F515215485000965B5 /* CloudViewController.h */,
 				1AE669F615215485000965B5 /* CloudViewController.m */,
 				1AE669F715215485000965B5 /* CloudViewController.xib */,
+				1A0124F3153BDA3200C2DDC0 /* GameDownloadPickerViewController.h */,
+				1A0124F2153BDA3200C2DDC0 /* GameDownloadPickerViewController.m */,
+				1A0124F1153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib */,
 				1A30993F15307E7D00DDC9CD /* TeamDownloadPickerViewController.h */,
 				1A30994015307E7D00DDC9CD /* TeamDownloadPickerViewController.m */,
 				1A30994115307E7D00DDC9CD /* TeamDownloadPickerViewController.xib */,
 				38EAE2B9197C064F002F2A2D /* GameUploadPickerViewController.h */,
 				38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */,
-				38EAE2BB197C064F002F2A2D /* GameUploadPickerViewController.xib */,
+				38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */,
+				38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */,
+				38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */,
 				1AF1B769153B0CE100E1A826 /* RequestContext.h */,
 				1AF1B76A153B0CE100E1A826 /* RequestContext.m */,
 			);
@@ -1194,6 +1207,7 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38B2CE54199F9DA4008BE91B /* Reveal.framework */,
 				1A246D1F17CA5A8200B8868D /* CoreText.framework */,
 				1A8C5F0017B519E300601D21 /* Social.framework */,
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
@@ -1238,7 +1252,6 @@
 				1AF34E7915176A260065A16D /* Stats */,
 				1AEE549F1529442E0067F539 /* Twitter */,
 				1AFFE8DC151764D9004B4590 /* Game */,
-				1AFFE8DB151764D6004B4590 /* Games List */,
 				1AFFE8DD151764DB004B4590 /* Game Action */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
@@ -1247,9 +1260,7 @@
 				1AFFE8D915176484004B4590 /* Line */,
 				1AFFE8D815176481004B4590 /* Preferences */,
 				1AA37BE118AFBC5800CE9662 /* Player */,
-				1AA37BE218AFBC7A00CE9662 /* Players List */,
 				1AFFE8D71517647F004B4590 /* Team */,
-				1AA37BE018AFBC3000CE9662 /* Teams List */,
 				1AFFE8D61517647C004B4590 /* Wind */,
 			);
 			name = UI;
@@ -1339,8 +1350,6 @@
 				1ACC079B1627AA070038F934 /* PlayerSelectionTableViewCell.xib */,
 				1A6C82DA16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.h */,
 				1A6C82DB16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m */,
-				1A6C82EA16E3C8B600B84595 /* UIViewController+Additions.h */,
-				1A6C82EB16E3C8B600B84595 /* UIViewController+Additions.m */,
 				1AE5C6EE17902BF600B604FE /* UltimateViewController.h */,
 				1AE5C6EF17902BF600B604FE /* UltimateViewController.m */,
 				1A0A2C8D17AE9C9F00035849 /* FlatButton.h */,
@@ -1368,6 +1377,12 @@
 		1AFFE8D71517647F004B4590 /* Team */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */,
+				38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */,
+				38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */,
+				1AEAE9E3152D1C88008574C2 /* TeamsViewController.h */,
+				1AEAE9E4152D1C88008574C2 /* TeamsViewController.m */,
+				1AEAE9E5152D1C88008574C2 /* TeamsViewController.xib */,
 				1AFFE86815175EB0004B4590 /* TeamViewController.h */,
 				1AFFE86915175EB0004B4590 /* TeamViewController.m */,
 				1AFFE8CD151761AA004B4590 /* TeamViewController.xib */,
@@ -1407,7 +1422,9 @@
 			children = (
 				1AFFE81215175EB0004B4590 /* GameHistoryController.h */,
 				1AFFE81315175EB0004B4590 /* GameHistoryController.m */,
-				1AFFE81415175EB0004B4590 /* GameHistoryController.xib */,
+				38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */,
+				38B2CE7519A25BD7008BE91B /* GameHistoryTableViewCell.h */,
+				38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */,
 				1A59D36F164804BD000EA798 /* GameHistoryHeaderView.h */,
 				1A59D370164804BD000EA798 /* GameHistoryHeaderView.m */,
 				1A59D36D16480487000EA798 /* GameHistoryHeaderView.xib */,
@@ -1415,19 +1432,17 @@
 			name = "Event List";
 			sourceTree = "<group>";
 		};
-		1AFFE8DB151764D6004B4590 /* Games List */ = {
-			isa = PBXGroup;
-			children = (
-				1AFFE81515175EB0004B4590 /* GamesPlayedController.h */,
-				1AFFE81615175EB0004B4590 /* GamesPlayedController.m */,
-				1AFFE81715175EB0004B4590 /* GamesPlayedController.xib */,
-			);
-			name = "Games List";
-			sourceTree = "<group>";
-		};
 		1AFFE8DC151764D9004B4590 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				38FD2FDE1996FF4E00CE83BB /* GamesMasterDetailViewController.h */,
+				38FD2FDF1996FF4E00CE83BB /* GamesMasterDetailViewController.m */,
+				38FD2FE01996FF4E00CE83BB /* GamesMasterDetailViewController.xib */,
+				38672B1D199BB4AF001DCDDE /* GamesViewController.h */,
+				38672B1C199BB4AF001DCDDE /* GamesViewController.m */,
+				38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */,
+				38672B1F199BBD2D001DCDDE /* GameTableViewCell.h */,
+				38672B20199BBD2D001DCDDE /* GameTableViewCell.m */,
 				1AFFE80F15175EB0004B4590 /* GameDetailViewController.h */,
 				1AFFE81015175EB0004B4590 /* GameDetailViewController.m */,
 				1AFFE81115175EB0004B4590 /* GameDetailViewController.xib */,
@@ -1444,12 +1459,17 @@
 				1AFFE81815175EB0004B4590 /* GameViewController.h */,
 				1AFFE81915175EB0004B4590 /* GameViewController.m */,
 				1AFFE8CC151761AA004B4590 /* GameViewController.xib */,
+				38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */,
+				38B2CE6119A0F77B008BE91B /* GameActionView.xib */,
+				38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */,
+				38B2CE6319A11D65008BE91B /* GameActionView_iPhone_320x568.xib */,
 				1AFFE80415175EB0004B4590 /* EventView.h */,
 				1AFFE80515175EB0004B4590 /* EventView.m */,
 				1AFFE80615175EB0004B4590 /* EventView.xib */,
 				1AFFE84215175EB0004B4590 /* PlayerView.h */,
 				1AFFE84315175EB0004B4590 /* PlayerView.m */,
 				1AFFE84415175EB0004B4590 /* PlayerView.xib */,
+				38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */,
 				1AFFE7C415175E7B004B4590 /* ActionListener.h */,
 				1A6C82DD16E3C01600B84595 /* ActionDetailsViewController.h */,
 				1A6C82DE16E3C01600B84595 /* ActionDetailsViewController.m */,
@@ -1483,14 +1503,14 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */,
+				38FD2FE31997F30800CE83BB /* left-caret-green.png */,
+				38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */,
 				38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */,
 				38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */,
 				1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */,
 				1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */,
 				1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */,
-				1AA37BEB18B13EBF00CE9662 /* iphone-app-icon@2x.png */,
-				1AA37BEC18B13EBF00CE9662 /* iphone-settings-icon@2x.png */,
-				1AA37BED18B13EBF00CE9662 /* iphone-spotlight-icon@2x.png */,
 				1AA37BB418A9185100CE9662 /* 19-circle-check.png */,
 				1AA37BB518A9185100CE9662 /* 19-circle-check@2x.png */,
 				1AA37BB618A9185100CE9662 /* 26-checkmark.png */,
@@ -1532,12 +1552,6 @@
 				1A80C97215612192007F03C2 /* woman.png */,
 				1A80C96C15612067007F03C2 /* man@2x.png */,
 				1A80C96D15612067007F03C2 /* man.png */,
-				1A0A6C4F1556B5740041C962 /* icon-AppStore.png */,
-				1AB332011544F1B500219FFD /* icon.png */,
-				1A80C9751561223C007F03C2 /* icon@2x.png */,
-				1A0E65FC18007356003BEB88 /* icon-120.png */,
-				1A0E6600180074DA003BEB88 /* icon-80.png */,
-				1A0E65FE180074CD003BEB88 /* icon-58.png */,
 				1AEE549A15293DD30067F539 /* 210-twitterbird.png */,
 				1AEE549B15293DD30067F539 /* 210-twitterbird@2x.png */,
 				1AE66A091521EA9B000965B5 /* tweet-button.png */,
@@ -1656,8 +1670,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */,
 				1A3A559617A6967C002B3C84 /* TweetLogTableViewCell.xib in Resources */,
-				1A0E65FD18007356003BEB88 /* icon-120.png in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
 				1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */,
@@ -1692,12 +1706,11 @@
 				1AFFE80115175E7B004B4590 /* electric_shock.png in Resources */,
 				1AFFE87D15175EB0004B4590 /* EventView.xib in Resources */,
 				1AFFE87E15175EB0004B4590 /* exciting.png in Resources */,
+				38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */,
 				1AFFE87F15175EB0004B4590 /* eyes_droped 2.png in Resources */,
 				1AFFE88015175EB0004B4590 /* eyes_droped.png in Resources */,
 				1AFFE88115175EB0004B4590 /* female_symbol.png in Resources */,
 				1AFFE88515175EB0004B4590 /* GameDetailViewController.xib in Resources */,
-				1AFFE88715175EB0004B4590 /* GameHistoryController.xib in Resources */,
-				1AFFE88915175EB0004B4590 /* GamesPlayedController.xib in Resources */,
 				1AFFE88C15175EB0004B4590 /* girl.png in Resources */,
 				1AFFE88D15175EB0004B4590 /* goal_trans.gif in Resources */,
 				1AFFE88E15175EB0004B4590 /* greedy.png in Resources */,
@@ -1715,7 +1728,6 @@
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
-				1AA37BEE18B13EBF00CE9662 /* iphone-app-icon@2x.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
 				1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */,
@@ -1730,9 +1742,11 @@
 				1AFFE8B815175EB0004B4590 /* sounds in Resources */,
 				1AFFE8BD15175EB0004B4590 /* StatsViewController.xib in Resources */,
 				1AA37BB018A8619700CE9662 /* color6DB200Radius3.png in Resources */,
+				38B2CE6C19A16FFB008BE91B /* GameViewController~ipad.xib in Resources */,
 				1AFFE8BE15175EB0004B4590 /* super_man.png in Resources */,
 				1AFFE8C115175EB0004B4590 /* the_iron_man.png in Resources */,
 				1AFFE8C315175EB0004B4590 /* unhappy.png in Resources */,
+				38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */,
 				1AFFE8C515175EB0004B4590 /* victory.png in Resources */,
 				1AFFE8C615175EB0004B4590 /* what.png in Resources */,
 				1AA37B8418A6A10300CE9662 /* 768-female@2x.png in Resources */,
@@ -1740,9 +1754,9 @@
 				1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */,
 				1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */,
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
+				38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */,
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
-				1AA37BEF18B13EBF00CE9662 /* iphone-settings-icon@2x.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
 				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
 				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
@@ -1759,59 +1773,61 @@
 				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
 				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,
 				1AA37B9418A6C29D00CE9662 /* player.png in Resources */,
+				38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */,
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
 				1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */,
-				1AB332031544F1B500219FFD /* icon.png in Resources */,
-				1A0A6C501556B5740041C962 /* icon-AppStore.png in Resources */,
 				1A80C96E15612067007F03C2 /* man@2x.png in Resources */,
 				1A80C96F15612067007F03C2 /* man.png in Resources */,
 				1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */,
 				1A80C97315612192007F03C2 /* woman@2x.png in Resources */,
 				1AA37B8318A6A10300CE9662 /* 768-female.png in Resources */,
 				1A80C97415612192007F03C2 /* woman.png in Resources */,
-				1A80C9761561223C007F03C2 /* icon@2x.png in Resources */,
 				1A68891F1578E9C0004A3CDB /* Settings.bundle in Resources */,
 				1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */,
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
 				1AA37BAC18A8619700CE9662 /* color2E4C00Radius3.png in Resources */,
 				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
-				38EAE2BD197C064F002F2A2D /* GameUploadPickerViewController.xib in Resources */,
 				1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
+				38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */,
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
 				1AA37B7F18A6A0F800CE9662 /* 769-male.png in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
+				38B2CE6419A11D65008BE91B /* GameActionView_iPhone_320x568.xib in Resources */,
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
 				1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */,
 				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
 				1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */,
 				1AA37BB318A904F700CE9662 /* color0F1900Radius3.png in Resources */,
+				38FD2FE61997F30800CE83BB /* left-caret-green@2x.png in Resources */,
 				1AC93B781629F67200E26007 /* check.png in Resources */,
 				38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */,
 				1A894CC216361223008B3990 /* PullLandingViewController.xib in Resources */,
 				1A6A9B04163C4B2500E534B0 /* Default-568h@2x.png in Resources */,
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
-				1A0E6601180074DA003BEB88 /* icon-80.png in Resources */,
 				1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */,
-				1AA37BF018B13EBF00CE9662 /* iphone-spotlight-icon@2x.png in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
 				1AA37B9318A6C29D00CE9662 /* player@2x.png in Resources */,
 				1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */,
 				1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */,
+				38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */,
 				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
-				1A0E65FF180074CD003BEB88 /* icon-58.png in Resources */,
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
+				38B2CE7019A17628008BE91B /* PlayerView~ipad.xib in Resources */,
+				38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */,
+				38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
+				38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1842,8 +1858,10 @@
 				1ABC74CA190414F000D60660 /* ioapi.c in Sources */,
 				1A3A559517A6966A002B3C84 /* TweetLogTableViewCell.m in Sources */,
 				1A5A5D34179971C7002B4AF8 /* LightButton.m in Sources */,
+				38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */,
 				1AE5C6F7179033EB00B604FE /* UltimateViewController.m in Sources */,
 				1AFFE78815175D4A004B4590 /* main.m in Sources */,
+				38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */,
 				1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */,
 				1AFFE7F015175E7B004B4590 /* AppDelegate.m in Sources */,
 				1AFFE7F115175E7B004B4590 /* ArrowView.m in Sources */,
@@ -1859,7 +1877,6 @@
 				1AFFE88315175EB0004B4590 /* GameDescription.m in Sources */,
 				1AFFE88415175EB0004B4590 /* GameDetailViewController.m in Sources */,
 				1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */,
-				1AFFE88815175EB0004B4590 /* GamesPlayedController.m in Sources */,
 				1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */,
 				1AA37BFB18B2E1FC00CE9662 /* GameCessationButton.m in Sources */,
 				1AFFE89315175EB0004B4590 /* IBView.m in Sources */,
@@ -1892,6 +1909,7 @@
 				1AE66A1115227490000965B5 /* Tweeter.m in Sources */,
 				1AE66A1C15233217000965B5 /* TweetViewController.m in Sources */,
 				1AE66A2215235315000965B5 /* TwitterAccountPickViewController.m in Sources */,
+				38FD2FDC199686D700CE83BB /* PlayersMasterDetailViewController.m in Sources */,
 				1A6B265E15250E0D00C119A5 /* TweetQueue.m in Sources */,
 				1A6B266215250FC400C119A5 /* Tweet.m in Sources */,
 				1AEE548B15293B350067F539 /* TwitterController.m in Sources */,
@@ -1905,6 +1923,7 @@
 				1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */,
 				1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */,
 				1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */,
+				38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */,
 				1ABC74CB190414F000D60660 /* mztools.c in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
@@ -1950,11 +1969,14 @@
 				1A59D371164804BD000EA798 /* GameHistoryHeaderView.m in Sources */,
 				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
 				1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */,
+				38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */,
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
+				38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
 				1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */,
+				38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */,
 				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,
 				1A74B0B9170603C300D667F1 /* LeaguevineEventQueue.m in Sources */,
 				1A74B0BC17073D6800D667F1 /* LeaguevinePostOperation.m in Sources */,
@@ -2039,12 +2061,14 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2052,6 +2076,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -2129,19 +2154,27 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2156,18 +2189,21 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UltimateIPhone/UltimateIPhone-Prefix.pch";
 				INFOPLIST_FILE = "UltimateIPhone/UltimateIPhone-Info.plist";
 				INSTALL_MODE_FLAG = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

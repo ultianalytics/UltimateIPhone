@@ -175,7 +175,11 @@
         return;
     }
     [self commitChanges];
-    self.completion();
+    [self close];
+}
+
+-(void)cancelPressed {
+    [self close];
 }
 
 - (IBAction)eventActionChanged:(id)sender {
@@ -238,6 +242,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.modalMode) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelPressed)];
+        self.navigationItem.leftBarButtonItem = cancelBarItem;
+    }
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;
     [self stylize];
     self.pointDescriptionLabel.text = [NSString stringWithFormat: @"Point: %@",[self.pointDescription lowercaseString]];
@@ -251,20 +259,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
-    [self setPlayer1TableView:nil];
-    [self setPlayer2TableView:nil];
-    [self setPointDescriptionLabel:nil];
-    [self setPointDescriptionLabel:nil];
-    [self setEventTypeDescriptionLabel:nil];
-    [self setPassedToLabel:nil];
-    [self setEventActionSegmentedControl:nil];
-    [self setPassedToLabel:nil];
-    [self setButtonTest:nil];
-    [self setTextField:nil];
-    [self setTextFieldLabel:nil];
-    [super viewDidUnload];
-}
 
 #pragma mark Misc
 
@@ -598,6 +592,17 @@
     return hangtimeMs;
 }
 
+-(void)close {
+    if (self.completion) {
+        self.completion();
+    }
+    if (self.modalMode) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark TextField delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -636,7 +641,7 @@
     if (alertView == self.hangtimeAlertView) {
         if (buttonIndex == 1) {
             [self commitChanges];
-            self.completion();
+            [self close];
         }
     }
 

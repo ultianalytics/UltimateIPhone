@@ -21,11 +21,12 @@
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
 #import "GameHistoryHeaderView.h"
+#import "GameHistoryTableViewCell.h"
 #import "UIView+Convenience.h"
 
 #define kIsNotFirstGameHistoryViewUsage @"IsNotFirstGameHistoryViewUsage"
 
-@interface GameHistoryController()
+@interface GameHistoryController() <GameHistoryTableViewCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
 @property (nonatomic) CGFloat headerHeight;
@@ -55,23 +56,14 @@
     UPoint* point = [self.game getPointAtMostRecentIndex:(int)section];
     Event* event = [point getEventAtMostRecentIndex:(int)row];
     
-    
-    static NSString* OffenseRowType = @"OffenseRow";
-    static NSString* DefenseRowType = @"DefenseRow";
-    NSString* rowType = [event isOffense] ? OffenseRowType : DefenseRowType;
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: rowType];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:rowType];
-        UIColor* color = [event isOffense] ? [ColorMaster getOffenseEventColor] : [ColorMaster getDefenseEventColor];
-        cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.adjustsFontSizeToFitWidth = YES;
-        cell.backgroundColor = color;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+    GameHistoryTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"EventCell"];
+    cell.backgroundColor = [event isOffense] ? [ColorMaster getOffenseEventColor] : [ColorMaster getDefenseEventColor];
     cell.imageView.image = [ImageMaster getImageForEvent: event];
-    cell.textLabel.text = [event getDescription];
+    cell.descriptionLabel.text = [event getDescription];
+    cell.undoButton.visible = section == 0 && row == 0 && self.embeddedMode;
+    if (cell.undoButton.visible) {
+        cell.delegate = self;
+    }
     return cell;
 }
 
@@ -85,13 +77,19 @@
     changeController.playersInPoint = point.line;
     NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
     changeController.completion = ^{
-        [self.navigationController popViewControllerAnimated:YES];
         [self.game save];
         [self.eventTableView reloadData];
         [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
     };
     
-    [self.navigationController pushViewController:changeController animated:YES];
+    if (self.embeddedMode) {
+        changeController.modalMode = YES;
+        UINavigationController* navChangeController = [[UINavigationController alloc] initWithRootViewController:changeController];
+        navChangeController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:navChangeController animated:YES completion:nil];
+    } else {
+        [self.navigationController pushViewController:changeController animated:YES];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -198,6 +196,13 @@
     }
 }
 
+#pragma mark - Cell delegate
+
+-(void)undoButtonTapped {
+    if (self.embeddedUndoTappedBlock) {
+        self.embeddedUndoTappedBlock();
+    }
+}
 
 #pragma mark - Miscellaneous
 
@@ -208,6 +213,14 @@
     [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.navigationController.view cache:NO];
     [self.navigationController popViewControllerAnimated:NO];
     [UIView commitAnimations];
+}
+
+-(void)refresh {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.eventTableView duration:0.1f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+            [self.eventTableView reloadData];
+        } completion:nil];
+    });
 }
 
 @end

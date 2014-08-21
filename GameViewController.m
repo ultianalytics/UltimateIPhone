@@ -50,12 +50,57 @@
 
 @interface GameViewController()
 
+// iphone only
+@property (nonatomic, strong) IBOutlet UIView *normalView;
+@property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
+
+// ipad only
+@property (nonatomic, strong) IBOutlet UIView *topOrLeftView;
+@property (nonatomic, strong) IBOutlet UIView *bottomOrRightView;
+
+// action sub view
+@property (nonatomic, strong) IBOutlet UIView* actionSubView;
+@property (nonatomic, strong) IBOutlet UILabel* playerLabel;
+@property (nonatomic, strong) IBOutlet UILabel* receiverLabel;
+@property (nonatomic, strong) IBOutlet UIButton* throwAwayButton;
+@property (nonatomic, strong) IBOutlet UIButton* otherTeamScoreButton;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView1;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView2;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView3;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView4;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView5;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView6;
+@property (nonatomic, strong) IBOutlet PlayerView* playerView7;
+@property (nonatomic, strong) IBOutlet PlayerView* playerViewTeam;
+@property (nonatomic, strong) IBOutlet UIView* hideReceiverView;
+@property (nonatomic, strong) IBOutlet UIImageView* firstPasserBracketImage;
+
+// recent events
+@property (nonatomic, strong) IBOutlet UIButton* removeEventButton;
+@property (nonatomic, strong) IBOutlet EventView* eventView1;
+@property (nonatomic, strong) IBOutlet EventView* eventView2;
+@property (nonatomic, strong) IBOutlet EventView* eventView3;
+@property (nonatomic, strong) IBOutlet UIView* swipeEventsView;
+
+// game buttons
+@property (nonatomic, strong) IBOutlet UIButton* timeoutButton;
+@property (nonatomic, strong) IBOutlet UIButton* gameOverButton;
+
+// broadcasting labels
+@property (nonatomic, strong) IBOutlet UILabel* broadcast1Label;
+@property (nonatomic, strong) IBOutlet UILabel* broadcast2Label;
+
+// events view controller subview (ipad only)
+@property (nonatomic, strong) IBOutlet UIView* eventsSubView;
+
+@property (nonatomic, strong) IBOutlet UILabel* noEventsLabel;
+
+@property (nonatomic, strong) NSMutableArray* playerViews;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 @property (nonatomic, strong) LeaguevineClient *leaguevineClient;
-@property (nonatomic, strong) IBOutlet UIView *normalView;
-@property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
 @property (nonatomic, strong) ActionDetailsViewController* detailsController;
+@property (nonatomic, strong) GameHistoryController* eventsViewController;
 
 @end
 
@@ -81,6 +126,7 @@
             }
         }];
     };
+    pullLandingVC.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:pullLandingVC animated:YES completion:nil];
 }
 
@@ -168,7 +214,8 @@
 }
 
 -(void)setThrowAwayButtonPosition {
-    CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(-100.0, 0.0);
+    CGFloat offsetOnDefense = IS_IPAD ? -168.0 : -100.0;
+    CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(offsetOnDefense, 0.0);
     self.throwAwayButton.transform = transform;
 }
 
@@ -243,6 +290,17 @@
     self.navigationItem.title = navBarTitle;
 }
 
+-(void) refreshView {
+    Game* game = [Game getCurrentGame];
+    [self setOffense: [game arePlayingOffense]];
+    [self updateEventViews];
+    [self updateNavBarTitle];
+    [[Game getCurrentGame] save];
+    [self updateViewFromGame:[Game getCurrentGame]];
+    [self updateAutoTweetingNotice];
+    [self updateTimeoutsButton];
+}
+
 -(void) updateViewFromGame: (Game*) game {
     if (!isOffense) {
         self.otherTeamScoreButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
@@ -252,8 +310,30 @@
         [playerView update:game];
     }
     [self updateGameOverButtonForTimeBasedGame];
+    BOOL hasEvents = [[Game getCurrentGame] hasEvents];
+    if (hasEvents) {
+        [self.eventsViewController refresh];
+    }
+    self.noEventsLabel.hidden = hasEvents;
+    self.eventsSubView.hidden = !hasEvents;
 }
 
+-(void)updateTimeoutsButton {
+    NSString* timeoutButtonText = [NSString stringWithFormat:@"Timeouts\n(%d free)", [[Game getCurrentGame] availableTimeouts]];
+    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateNormal];
+    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateHighlighted];
+}
+
+-(GameHistoryController*)createEventsViewController {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
+    GameHistoryController* historyController = [storyboard instantiateInitialViewController];
+    __typeof(self) __weak weakSelf = self;
+    historyController.game = [Game getCurrentGame];
+    historyController.embeddedUndoTappedBlock = ^{
+        [weakSelf removeEventClicked: nil];
+    };
+    return historyController;
+}
 
 #pragma mark ActionListener
 
@@ -431,15 +511,32 @@
 
 -(void) goToPlayersOnFieldView {
     PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
-    pickPlayersController.hidesBottomBarWhenPushed = YES;
     pickPlayersController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:pickPlayersController animated:YES];
+    if (IS_IPAD) {
+        __typeof(self) __weak weakSelf = self;
+        pickPlayersController.controllerClosedBlock = ^{
+            [weakSelf refreshView];
+        };
+        UINavigationController* pickGamesNavController = [[UINavigationController alloc] initWithRootViewController:pickPlayersController];
+        pickGamesNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:pickGamesNavController animated:YES completion:nil];
+    } else {
+        pickPlayersController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:pickPlayersController animated:YES];
+    }
 }
 
 -(void) goToTimeoutView {
     TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
     timeoutController.game = [Game getCurrentGame];
-    [self.navigationController pushViewController:timeoutController animated:YES];
+    if (IS_IPAD) {
+        timeoutController.modalMode = YES;
+        UINavigationController* timeoutNavController = [[UINavigationController alloc] initWithRootViewController:timeoutController];
+        timeoutNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:timeoutNavController animated:YES completion:nil];
+    } else {
+        [self.navigationController pushViewController:timeoutController animated:YES];
+    }
 }
 
 -(void) goToHistoryViewRight {
@@ -447,8 +544,7 @@
 }
 
 -(void) goToHistoryView: (BOOL) curl {
-    GameHistoryController* historyController = [[GameHistoryController alloc] init];
-    historyController.game = [Game getCurrentGame];
+    GameHistoryController* historyController   = [self createEventsViewController];
     if (curl) {
         historyController.isCurlAnimation = YES;
         [UIView beginAnimations:@"animation" context:nil];
@@ -539,29 +635,7 @@
     [navBar addSubview:button];
 }
 
--(void)resizeForLongDisplay {
-    // resize and repositon the player views to take advantage of the extra space
-    CGFloat extraHeight = (568 - 480) / 8; // iphone 5 length - iphone 4 length / number of player views
-    CGFloat addedHeight = 0;
-    for (PlayerView* playerView in self.playerViews) {
-        CGRect pvRect = playerView.frame;
-        CGFloat idealViewHeight = pvRect.size.height + extraHeight;
-        idealViewHeight = MIN(idealViewHeight, 40.0f);
-        pvRect.size.height = idealViewHeight;
-        pvRect.origin.y = pvRect.origin.y + addedHeight;
-        playerView.frame = pvRect;
-        addedHeight += extraHeight;
-    }
-    
-    // resize the throwaway button to match the margins of the first and last buttons
-    CGRect buttonRect = self.throwAwayButton.frame;
-    buttonRect.size.height = CGRectGetMaxY(self.playerViewTeam.frame) - self.playerView1.frame.origin.y - 3;
-    self.throwAwayButton.frame = buttonRect;
-    [self.view setNeedsDisplay];
-    self.firstPasserBracketImage.image = [UIImage imageNamed:@"first-passer-bracket-5"];
-}
-
-#pragma mark Leaguevine 
+#pragma mark Leaguevine
 
 -(void)notifyLeaguevineOfScoreIsFinal: (BOOL)isFinal {
     [self.leaguevineClient postGameScore:[Game getCurrentGame].leaguevineGame score:[[Game getCurrentGame] getScore] isFinal:isFinal completion: ^(LeaguevineInvokeStatus status, id result) {
@@ -672,13 +746,20 @@
     // use a smaller font for nav title
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName, nil]];
     
+    // add the action view
+    NSString* actionViewNib = @"GameActionView";
+    if (IS_IPHONE && [UIScreen mainScreen].bounds.size.height > 480) {
+        actionViewNib = @"GameActionView_iPhone_320x568";
+    }
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
+    UIView* actionView = (UIView*)nibViews[0];
+    [self.actionSubView addSubview:actionView];
+    actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+    self.hideReceiverView.backgroundColor = [ColorMaster actionBackgroundColor];
+    
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];
     for (PlayerView* playerView in self.playerViews) {
         playerView.actionListener = self;
-    }
-    
-    if ([UIScreen mainScreen].bounds.size.height > 480) {
-        [self resizeForLongDisplay];
     }
     
     // TODO...comment to turn off long press when long press handling done
@@ -710,9 +791,14 @@
     
     self.removeEventButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     
+    if (IS_IPAD) {
+        self.eventsViewController = [self createEventsViewController];
+        self.eventsViewController.embeddedMode = YES;
+        [self addChildViewController:self.eventsViewController inSubView:self.eventsSubView];
+    }
     [self updateEventViews];
-    
-    [self initializeDetailSelectionView];
+
+    [self initializeDetailSelectionViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(updateAutoTweetingNotice)
@@ -724,29 +810,15 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [self addInfoButtton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (![Game hasCurrentGame]) {
-        GameDetailViewController* gameStartController = [[GameDetailViewController alloc] init];
-        gameStartController.game = [[Game alloc] init];
-        gameStartController.navigationItem.hidesBackButton = YES;
-        [self.navigationController pushViewController:gameStartController animated:YES];
-    } else {
-        Game* game = [Game getCurrentGame];
-        [self setOffense: [game arePlayingOffense]];
-        [self updateEventViews];
-        [self updateNavBarTitle];
-        [[Game getCurrentGame] save];
-        [self updateViewFromGame:[Game getCurrentGame]];
-        [self updateAutoTweetingNotice];
-    }
-    NSString* timeoutButtonText = [NSString stringWithFormat:@"Timeouts (%d free)", [[Game getCurrentGame] availableTimeouts]];
-    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateNormal];
-    [self.timeoutButton setTitle:timeoutButtonText forState:UIControlStateHighlighted];    
-    [self addInfoButtton];
+    self.navigationController.navigationBarHidden = NO;
+    [self refreshView];
+    [self configureForOrientation:self.interfaceOrientation];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -771,11 +843,25 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    if (IS_IPAD) {
+        [self configureForOrientation:toInterfaceOrientation];
+    }
+}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+- (void)configureForOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+        toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        self.topOrLeftView.frame = CGRectMake(0, 0, 500, 648);
+        self.bottomOrRightView.frame = CGRectMake(520, 0, 504, 648);
+        // shift action view to left
+        self.actionSubView.transform = CGAffineTransformMakeTranslation(-120.0, 0.0);
+    } else {
+        self.topOrLeftView.frame = CGRectMake(0, 0, 768, 580);
+        self.bottomOrRightView.frame = CGRectMake(0, 580, 768, 331);
+        // shift action view to normal position
+        self.actionSubView.transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+    }
 }
 
 #pragma mark AlertView delegate
@@ -810,9 +896,15 @@
 
 #pragma mark Detail Selection View
 
--(void)initializeDetailSelectionView {
+-(void)initializeDetailSelectionViewController {
     self.detailsController = [[ActionDetailsViewController alloc] init];
-    [self addChildViewController:self.detailsController inSubView:self.detailSelectionView];
+    // iphone uses a child controller to show the details VC.  ipad presents it modally.
+    if (IS_IPAD) {
+        self.detailsController.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.detailsController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    } else {
+        [self addChildViewController:self.detailsController inSubView:self.detailSelectionView];
+    }
     GameViewController* __weak weakSelf = self;
     self.detailsController.cancelBlock = ^{
         [weakSelf showDetailSelectionView:NO];
@@ -820,16 +912,24 @@
 }
 
 -(void)showDetailSelectionView: (BOOL) show {
-    if (show) {
-        [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-        }];
+    if (IS_IPAD) {
+        if (show) {
+            [self presentViewController:self.detailsController animated:YES completion:nil];
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     } else {
-        [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-        }];
+        if (show) {
+            [UIView transitionFromView:self.normalView toView:self.detailSelectionView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+            }];
+        } else {
+            [UIView transitionFromView:self.detailSelectionView toView:self.normalView duration:.3 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+            }];
+        }
     }
 }
 
-#pragma mark Callouts 
+#pragma mark Callouts
 
 -(BOOL)isFirstTimeGameViewUsage {
     return ![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameViewUsage];
@@ -897,7 +997,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasUserSeenDeLongPressCallout];
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
 
-        CGPoint anchor = CGPointMake(155,70);
+        CGPoint anchor = [self.playerView3 convertPoint:[self.playerView3 dButtonCenter] toView:self.view];
         [calloutsView addCallout:@"Did you know?\nYou can record a Callahan by tap-and-holding the D button." anchor: anchor width: 120 degrees: 110 connectorLength: 95 font: [UIFont systemFontOfSize:14]];
         
         self.infoCalloutsView = calloutsView;
@@ -913,7 +1013,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasUserSeenThrowawayLongPressCallout];
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
-        CGPoint anchor = CGPointMake(300,70);
+        CGPoint anchor = CGPointMake(CGRectGetMaxX([self.playerView3 convertRect:self.playerView3.frame toView:self.view]), self.throwAwayButton.center.y);
         [calloutsView addCallout:@"Did you know?\nYou can record other turnover types by tap-and-holding the Throwaway button." anchor: anchor width: 140 degrees: 250 connectorLength: 125 font: [UIFont systemFontOfSize:14]];
         
         self.infoCalloutsView = calloutsView;

@@ -27,6 +27,7 @@
 #import "LeaguevineEventQueue.h"
 #import "TimeoutViewController.h"
 #import "GameStartTimeViewController.h"
+#import "UIViewController+Additions.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
@@ -53,15 +54,12 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* eventsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* gameTypeCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* timeoutsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* opponentRegularCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* opponentLeaguevineCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePubCell;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
-
-@property (nonatomic, strong) IBOutlet UITableViewCell* opponentCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* tournamentOrPubCell;
-@property (strong, nonatomic) IBOutlet UIView *opponentView;
-@property (strong, nonatomic) IBOutlet UIView *tournamentView;
-@property (strong, nonatomic) IBOutlet UIView *leaguevineOpponentView;
-@property (strong, nonatomic) IBOutlet UIView *leaguevinePublishView;
 
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
@@ -78,15 +76,27 @@
 
 @implementation GameDetailViewController
 
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.dateFormat = [[NSDateFormatter alloc] init];
+        [self.dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    }
+    return self;
+}
 
 -(void)goToActionView {
     GameViewController* gameController = [[GameViewController alloc] init];
-    [self.navigationController pushViewController:gameController animated:YES]; 
+    UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
+    [topNavigationController pushViewController:gameController animated:YES];
 }
 
 -(void)saveChanges {
     if ([self.game hasBeenSaved]) {
-        [self.game save];  
+        [self.game save];
+        if (IS_IPAD) {
+            [self notifyChangeListenerOfCRUD: CRUDUpdate];
+        }
     }
 }
 
@@ -157,32 +167,70 @@
     return textField.text == nil ? @"" : [textField.text trim];
 }
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.dateFormat = [[NSDateFormatter alloc] init];
-        [self.dateFormat setDateFormat:@"EEE MMM d h:mm a"];
-    }
-    return self;
+-(void)upateViewTitle {
+    self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
 }
 
--(void)upateViewTitle {
-        self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
+-(void)setGame:(Game *)game {
+    _game = game;
+    if (IS_IPAD) {
+        if (self.navigationController.visibleViewController == self) {
+            [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                [self populateUIFromModel];
+            } completion:nil];
+        } else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self populateUIFromModel];
+        }
+    } else {
+        [self populateUIFromModel];
+    }
 }
+
+
+
+#pragma mark - Cell configuring
 
 -(void)configureCells {
+    BOOL needsLeaguevineModeTransition = [self isTableConfiguredForLeaguevineMode] && ![self isLeaguevineMode];
+    
     self.cells = [NSMutableArray array];
     
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         [self.cells addObject:self.gameTypeCell];
     }
-    [self.cells addObjectsFromArray:@[self.opponentCell, self.tournamentOrPubCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+    if ([self isLeaguevineMode]) {
+        [self.cells addObjectsFromArray:@[self.opponentLeaguevineCell, self.leaguevinePubCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+    } else {
+        [self.cells addObjectsFromArray:@[self.opponentRegularCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+    }
     if ([self.game hasBeenSaved]) {
         [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell, self.windCell]];
     } else {
         [self.cells addObjectsFromArray:@[self.windCell]];
     }
+    
+    // animate transitions from/to leaguevine mode
+    if (needsLeaguevineModeTransition) {
+        NSArray* cellsToTransition = @[[NSIndexPath indexPathForRow:1 inSection:0], [NSIndexPath indexPathForRow:2 inSection:0]];
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:cellsToTransition withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertRowsAtIndexPaths:cellsToTransition withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
+}
+
+-(BOOL)isLeaguevineMode {
+    return ([self.game isLeaguevineGame] || [self isLeaguevineType]);
+}
+
+-(BOOL)isTableConfiguredForLeaguevineMode {
+    for (UITableViewCell* cell in self.cells) {
+        if (cell == self.opponentLeaguevineCell) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Event Handlers
@@ -247,7 +295,11 @@
     if ([alertView.title isEqualToString:kAlertTitleDeleteGame]) {
         if (buttonIndex == 1) {  // delete
             [self.game delete];
-            [self.navigationController popViewControllerAnimated:YES];
+            if (IS_IPAD) {
+                [self notifyChangeListenerOfCRUD:CRUDDelete];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsStartingWithGameInProgress] ||
                [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
@@ -282,18 +334,7 @@
 
 
 -(IBAction) deleteClicked: (id) sender {
-    // uncomment to post all of the games stats to LV when click the DELETE button
-//    [[LeaguevineEventQueue sharedQueue] submitAllGameStats:self.game];
-//    UIAlertView *alertx = [[UIAlertView alloc]
-//                          initWithTitle: @"All LV events submitted"
-//                          message: @"All events submitted"
-//                          delegate: nil
-//                          cancelButtonTitle: @"OK"
-//                          otherButtonTitles: nil];
-//    [alertx show];
-//    return;
-    
-    // Show the confirmation.
+
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: kAlertTitleDeleteGame
                           message: @"Are you sure you want to delete this game?"
@@ -313,7 +354,12 @@
         self.game = [Game getCurrentGame];
         [self upateViewTitle];
         [self logLeaguevinePostingStatus];
-        [self goToActionView];
+        if (IS_IPAD) {
+            [self notifyChangeListenerOfCRUD:CRUDAdd];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            [self goToActionView];
+        }
     }
 }
 
@@ -363,12 +409,13 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
+    UINavigationController* lvNavController = [[UINavigationController alloc] initWithRootViewController:lvController];
     lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
         [signonController dismissViewControllerAnimated:YES completion:^{
             completion(isSignedOn);
         }];
     };
-    [self presentViewController:lvController animated:YES completion:nil];
+    [self presentViewController:lvNavController animated:YES completion:nil];
 }
 
 - (void)leaguevinePublishChanged {
@@ -499,35 +546,8 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell* cell = [self.cells objectAtIndex:[indexPath row]];
-    if (cell == self.opponentCell) {
-        if ([self.game isLeaguevineGame] || [self isLeaguevineType]) {
-            [self transitionCell:cell fromSubview:self.opponentView toView:self.leaguevineOpponentView];
-        } else {
-            [self transitionCell:cell fromSubview:self.leaguevineOpponentView toView:self.opponentView];
-        }
-    } else if (cell == self.tournamentOrPubCell) {
-        if ([self.game isLeaguevineGame] || [self isLeaguevineType]) {
-            [self transitionCell:cell fromSubview:self.tournamentView toView:self.leaguevinePublishView];
-        } else {
-            [self transitionCell:cell fromSubview:self.leaguevinePublishView toView:self.tournamentView];
-        }
-    }
-
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
-}
-
--(void)transitionCell: (UITableViewCell*) cell fromSubview: (UIView*)fromView toView: (UIView*)toView {
-    [cell addSubview:toView];
-    [UIView animateWithDuration:.3 delay:0 options:0 animations:^{
-        fromView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.4 delay:0 options:0 animations:^{
-            toView.alpha = 1;
-        } completion:^(BOOL finished) {
-            [fromView removeFromSuperview];
-        }];
-    }];
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -543,14 +563,15 @@
         statsController.game = self.game;
         [self.navigationController pushViewController:statsController animated:YES];
     } else if (cell == self.eventsCell) {
-        GameHistoryController* eventsController = [[GameHistoryController alloc] init];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
+        GameHistoryController* eventsController   = [storyboard instantiateInitialViewController];
         eventsController.game = self.game;
         [self.navigationController pushViewController:eventsController animated:YES];
     } else if (cell == self.timeoutsCell) {
         TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
         timeoutController.game = self.game;
         [self.navigationController pushViewController:timeoutController animated:YES];
-    } else if (cell == self.opponentCell && [self isLeaguevineType]) {
+    } else if (cell == self.opponentLeaguevineCell) {
         LeagueVineGameViewController* leaguevineController = [[LeagueVineGameViewController alloc] init];
         leaguevineController.team = [Team getCurrentTeam];
         leaguevineController.game = self.game;
@@ -618,6 +639,10 @@
     [self.tournamentNameField addTarget:self action:@selector(tournamendNameChanged:) forControlEvents:UIControlEventEditingChanged];
     self.opposingTeamNameField.delegate = self; 
     self.tournamentNameField.delegate = self;
+    if (self.isModalAddMode) {
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        self.navigationItem.leftBarButtonItem = cancelBarItem;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -630,17 +655,6 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)viewDidUnload
-{
-    [self setOpponentView:nil];
-    [self setTournamentView:nil];
-    [self setLeaguevineOpponentView:nil];
-    [self setLeaguevinePublishView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -665,10 +679,12 @@
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-    // make the view port smaller so the user can scroll up to click the start button
-    CGFloat keyboardHeight = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    // make the view port smaller so the user can scroll up to see all of the view
+    CGFloat keyboardY = [self calcKeyboardOrigin:aNotification];
+    CGFloat tableBottom = CGRectGetMaxY(self.tableView.frame);
+    CGFloat newBottomInset = MAX(tableBottom - keyboardY, 0);
     
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0);
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, newBottomInset, 0.0);
     self.tableView.contentInset = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
 }
@@ -694,6 +710,18 @@
         [self.navigationController popViewControllerAnimated:YES];
     };
     [self.navigationController pushViewController:startTimeController animated:YES];
+}
+
+#pragma mark - iPad only (Master/Detail UX)
+
+-(void)notifyChangeListenerOfCRUD: (CRUD) crud {
+    if (self.gameChangedBlock) {
+        self.gameChangedBlock(crud);
+    }
+}
+
+-(void)cancelModalDialog {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

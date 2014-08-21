@@ -97,12 +97,12 @@
         benchTableCells = [[NSMutableArray alloc] init];
     }
     
-    int maxColumns = 4;
-    int leftSlackMargin = 1;
+    int maxButtonsPerRow = IS_IPAD ? 6 : 4;
     int buttonMargin = 2;
-    int buttonWidth = 77;
+    int buttonWidth = (self.view.boundsWidth - ((maxButtonsPerRow + 1) * buttonMargin)) / maxButtonsPerRow;
+    int leftSlackMargin = (self.view.boundsWidth - ((maxButtonsPerRow + 1) * buttonMargin) - (maxButtonsPerRow * buttonWidth)) / 2;
     int buttonHeight = 40;
-    int rowWidth = leftSlackMargin + (maxColumns * (buttonWidth + buttonMargin));
+    int rowWidth = self.view.boundsWidth;
     int rowHeight = buttonHeight + buttonMargin;
     
     int y = buttonMargin;
@@ -111,7 +111,7 @@
     UIView* rowView = nil;
     UITableViewCell* tableCell = nil;
     for (int i = 0; i <numberOfButtons; i++) {
-        if (columnCount >= maxColumns) {
+        if (columnCount >= maxButtonsPerRow) {
             columnCount = 0;
             x = buttonMargin + leftSlackMargin;
             y = y + buttonMargin + buttonHeight;
@@ -129,9 +129,9 @@
             }
         }
         CGRect buttonRectangle = CGRectMake(x, 0, buttonWidth, buttonHeight);
-        PlayerButton* button = [[PlayerButton alloc] init];
+        PlayerButton* button = [self createPlayerButton];
         [button setOnField:isField];
-        [button setFrame:buttonRectangle];
+        button.frame = buttonRectangle;
         [self setPlayer: i < [players count] ? [players objectAtIndex:i] : nil inButton: button];
         [button setClickListener: self];
         [buttons addObject:button];
@@ -146,7 +146,12 @@
     return buttons;
 }
 
-#pragma mark Field <--> Bench 
+-(PlayerButton*)createPlayerButton {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([PlayerButton class]) owner:nil options:nil];
+    return (PlayerButton*)nibViews[0];
+}
+
+#pragma mark Field <--> Bench
 
 -(void)updateBenchView {
     NSArray* allPlayers = [self getCurrentTeamPlayers];
@@ -247,6 +252,9 @@
     [super viewDidLoad];
     self.substitutionsView.hidden = YES;
     self.benchTableView.rowHeight = 41;
+    if (IS_IPAD) {
+        [self addDoneButton];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -263,6 +271,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self toggleFirstTimeUsageCallouts];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    if (self.controllerClosedBlock) {
+        self.controllerClosedBlock();
+    }
 }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent {
@@ -443,7 +457,12 @@
     errorMessageLabel.backgroundColor = [UIColor blackColor];
     errorMessageLabel.text = isMaleImbalance ? @" too many males" : @" too many females";
     errorMessageLabel.alpha = 1;
-    [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+    errorMessageLabel.hidden = NO;
+    [UIView animateWithDuration:1.5 animations:^{
+        errorMessageLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        errorMessageLabel.hidden = YES;
+    }];
 }
 
 
@@ -539,6 +558,17 @@
     errorMessageLabel.text =  @"Verify Line!!";
     errorMessageLabel.alpha = 1;
     [UIView animateWithDuration:1.5 animations:^{errorMessageLabel.alpha = 0;}];
+}
+
+#pragma mark iPad only
+
+-(void)addDoneButton {
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(closeModalDialog)];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+}
+
+-(void)closeModalDialog {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

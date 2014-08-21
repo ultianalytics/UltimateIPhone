@@ -19,29 +19,8 @@
 
 @property (nonatomic, strong) Team* team;
 @property (nonatomic, strong) NSArray* cells;
-
-@property (nonatomic, strong) IBOutlet UITableView* teamTableView;
-@property (nonatomic, strong) IBOutlet UITableViewCell* nameCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* typeCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* displayCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* playersCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* leagueVineCell;
-@property (nonatomic, strong) IBOutlet UITextField* teamNameField;
-@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* teamTypeSegmentedControl;
-@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* playerDisplayTypeSegmentedControl;
-@property (nonatomic, strong) IBOutlet UILabel *leagueVineDescriptionLabel;
-@property (nonatomic, strong) IBOutlet UIView* deleteButtonView;
-@property (nonatomic, strong) IBOutlet UIView* teamCopyButtonView;
-@property (nonatomic, strong) IBOutlet UIAlertView* deleteAlertView;
-@property (nonatomic, strong) IBOutlet UIButton *clearCloudIdButton;
-@property (strong, nonatomic) IBOutlet UIView *customFooterView;
-
-+(BOOL)isFirstTeamCreation;
-
--(IBAction)teamTypeChanged: (id) sender;
--(IBAction)playerDisplayChanged: (id) sender;
--(IBAction)deleteClicked: (id) sender;
--(IBAction)copyClicked:(id)sender;
--(IBAction)clearCloudIdClicked:(id)sender;
+@property (strong, nonatomic) void (^teamChangedBlock)(Team* team);
+@property (strong, nonatomic) void (^playersViewRequestedBlock)();
+@property (nonatomic) BOOL isModalAddMode;
 
 @end

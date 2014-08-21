@@ -3,7 +3,7 @@
 //  UltimateIPhone
 //
 //  Created by Jim Geppert on 4/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 
 #import "TeamsViewController.h"
@@ -22,7 +22,10 @@
 
 @interface TeamsViewController()
 
+@property (nonatomic, strong) IBOutlet UITableView* teamsTableView;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
+
+@property (nonatomic) BOOL hasAppearedPreviously;
 
 @end
 
@@ -42,9 +45,23 @@
 }
 
 -(void)goToTeamView: (Team*) team animated: (BOOL) animated {
-    TeamViewController* teamController = [[TeamViewController alloc] init];
-    teamController.team = team;
-    [self.navigationController pushViewController:teamController animated:animated]; 
+    if (IS_IPAD) {
+        if ([team hasBeenSaved]) {
+            [self selectCurrentTeamAnimated: NO];
+        } else {
+            TeamViewController* addTeamController = [[TeamViewController alloc] init];
+            addTeamController.team = team;
+            addTeamController.isModalAddMode = YES;
+            [self registerDetailControllerListener:addTeamController];
+            UINavigationController* addTeamNavController = [[UINavigationController alloc] initWithRootViewController:addTeamController];
+            addTeamNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentViewController:addTeamNavController animated:YES completion:nil];
+        }
+    } else {
+        TeamViewController* teamController = [[TeamViewController alloc] init];
+        teamController.team = team;
+        [self.navigationController pushViewController:teamController animated:animated];
+    }
 }
 
 
@@ -59,24 +76,11 @@
     }];
 }
 
--(void)goToBestView {
-    // go to the current team on app start
-    if (!isAfterFirstView) {
-        isAfterFirstView = YES;
-        if ([self isFirstTeamCreation]) {
-            TeamViewController* teamController = [[TeamViewController alloc] init];
-            teamController.team = [Team getCurrentTeam];
-            [self.navigationController pushViewController:teamController animated:NO];
-        }
-    }
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"My Teams", @"My Teams");
-        isAfterFirstView = NO;
     }
     return self;
 }
@@ -100,8 +104,37 @@
     
 }
 
--(BOOL)isFirstTeamCreation {
-    return [TeamViewController isFirstTeamCreation];
+#pragma mark - iPad (Master/Detail UX)
+
+-(void)setDetailController:(TeamViewController *)detailController {
+    _detailController = detailController;
+    [self registerDetailControllerListener: detailController];
+}
+
+-(void)selectCurrentTeamAnimated: (BOOL)animated {
+    if (teamDescriptions) {
+        NSString* teamId = [Team getCurrentTeam].teamId;
+        int teamIndex = 0;
+        for (int row = 0; row < [teamDescriptions count]; row++) {
+            if ([[teamDescriptions[row] teamId] isEqualToString:teamId]) {
+                teamIndex = row;
+                break;
+            }
+        }
+        [self.teamsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:teamIndex inSection:0] animated:animated scrollPosition:UITableViewScrollPositionTop];
+        if (![self.detailController.team.teamId isEqualToString:teamId]) {
+            self.detailController.team = [Team getCurrentTeam];
+        }
+    }
+}
+
+-(void)registerDetailControllerListener:(TeamViewController *)detailController {
+    __typeof(self) __weak weakSelf = self;
+    detailController.teamChangedBlock = ^(Team* team) {
+        [weakSelf retrieveTeamDescriptions];
+        [weakSelf.teamsTableView reloadData];
+        [weakSelf selectCurrentTeamAnimated: NO];
+    };
 }
 
 #pragma mark - Support Tools
@@ -117,26 +150,43 @@
     [[SHSLogsMailer sharedMailer] presentEmailLogsControllerOn:self includeTeamFiles:YES];
 }
 
+-(void)reset {
+    [self retrieveTeamDescriptions];
+    [self.teamsTableView reloadData];
+    if (IS_IPAD) {
+        [self selectCurrentTeamAnimated: NO];
+    }
+}
+
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addTeamClicked)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;
     [self addSupportGestureRecognizer];
     [self.teamsTableView adjustInsetForTabBar];
+    if (IS_IPAD) {
+        [self reset];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self retrieveTeamDescriptions];
-    [self.teamsTableView reloadData];
+    if (IS_IPHONE) {
+        [self reset];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self goToBestView];
+    // if the app is starting go to the current team view (don't make the user pick the only team they probably have)
+    if (IS_IPHONE && !self.hasAppearedPreviously) {
+        self.hasAppearedPreviously = YES;
+        TeamViewController* teamController = [[TeamViewController alloc] init];
+        teamController.team = [Team getCurrentTeam];
+        [self.navigationController pushViewController:teamController animated:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -170,7 +220,9 @@
         cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleSubtitle
                 reuseIdentifier:STD_ROW_TYPE];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        if (IS_IPHONE) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
@@ -187,6 +239,9 @@
         [Team setCurrentTeam:teamDescription.teamId];
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetCloudTab];
+    }
+    if (IS_IPAD) {
+        [self.teamsTableView reloadData];  // reload to display current team in correct color
     }
     [self goToTeamView: [Team getCurrentTeam] animated: YES];
 }

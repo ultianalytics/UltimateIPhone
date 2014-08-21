@@ -3,7 +3,7 @@
 //  Ultimate
 //
 //  Created by james on 1/21/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2014 Summit Hill Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -17,22 +17,8 @@
 }
 
 @property (nonatomic, strong) Player* player;
-@property (nonatomic, strong) IBOutlet UITextField* nickNameField;
-@property (nonatomic, strong) IBOutlet UITextField* numberField;
-@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* positionControl;
-@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* sexControl;
-@property (nonatomic, strong) IBOutlet UltimateSegmentedControl* statusControl;
-
-@property (strong, nonatomic) IBOutlet UIView *footerView;
-@property (nonatomic, strong) IBOutlet UIButton* saveAndAddButton;
-@property (nonatomic, strong) IBOutlet UIButton* deleteButton;
-
-@property (nonatomic, strong) IBOutlet UITableView* tableView;
-@property (nonatomic, strong) IBOutlet UITableViewCell* nameTableCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* numberTableCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* positionTableCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* genderTableCell;
-@property (nonatomic, strong) IBOutlet UITableViewCell* absentTableCell;
+@property (strong, nonatomic) void (^playerChangedBlock)(Player* player);
+@property (nonatomic) BOOL isModalAddMode;
 
 -(IBAction)addAnotherClicked: (id) sender;
 -(IBAction)deleteClicked: (id) sender;

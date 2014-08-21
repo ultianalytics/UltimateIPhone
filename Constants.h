@@ -14,7 +14,6 @@
 #define kMaxTeamNameLength 50
 #define kNoAccountText @"NO TWITTER ACCOUNT"
 #define kAnonymousTeam @"Anonymous Team"
-#define STD_ROW_TYPE @"stdRowType"
 #define kSingleSectionGroupedTableSectionHeaderHeight 1
 #define kFormCellHeight 41
 

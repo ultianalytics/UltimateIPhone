@@ -9,7 +9,7 @@
 #import "UIView+Convenience.h"
 
 @implementation UIView (Convenience)
-@dynamic frameX, frameY, frameHeight, frameWidth, visible;
+@dynamic frameX, frameY, frameHeight, frameWidth, boundsX, boundsY, boundsHeight, boundsWidth, visible;
 
 -(void)setFrameX: (CGFloat) x {
     CGRect rect = self.frame;
@@ -51,6 +51,45 @@
     return self.frame.size.height;
 }
 
+-(void)setBoundsX: (CGFloat) x {
+    CGRect rect = self.bounds;
+    rect.origin.x = x;
+    self.bounds = rect;
+}
+
+-(CGFloat)boundsX {
+    return self.bounds.origin.x;
+}
+
+-(void)setBoundsY: (CGFloat) y {
+    CGRect rect = self.bounds;
+    rect.origin.y = y;
+    self.bounds = rect;
+}
+
+-(CGFloat)boundsY {
+    return self.bounds.origin.y;
+}
+
+-(void)setBoundsWidth: (CGFloat) width {
+    CGRect rect = self.bounds;
+    rect.size.width = width;
+    self.bounds = rect;
+}
+
+-(CGFloat)boundsWidth {
+    return self.bounds.size.width;
+}
+
+-(void)setBoundsHeight: (CGFloat) height {
+    CGRect rect = self.bounds;
+    rect.size.height = height;
+    self.bounds = rect;
+}
+
+-(CGFloat)boundsHeight {
+    return self.bounds.size.height;
+}
 -(BOOL)visible {
     return !self.hidden;
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="5056"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GamesMasterDetailViewController">
+            <connections>
+                <outlet property="detailSubView" destination="fQu-P8-fqk" id="3Fg-VY-D4e"/>
+                <outlet property="listOnlyView" destination="wlH-3g-IKf" id="mzu-Ge-VkO"/>
+                <outlet property="masterDetailView" destination="XFY-uU-7g6" id="qi6-pd-dPc"/>
+                <outlet property="masterSubView" destination="3zE-eS-VBF" id="AVD-zQ-e6h"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" userLabel="Main View">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlH-3g-IKf" userLabel="List Only View">
+                    <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFY-uU-7g6" userLabel="Master/Detail View">
+                    <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zE-eS-VBF" userLabel="Games List View">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="1004"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="300" id="qVm-CA-zZN"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wnp-cv-WFZ" userLabel="Separator">
+                            <rect key="frame" x="300" y="0.0" width="1" height="1004"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="SXS-aj-QiE"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQu-P8-fqk" userLabel="Game Detail View">
+                            <rect key="frame" x="301" y="0.0" width="467" height="1004"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="fQu-P8-fqk" firstAttribute="leading" secondItem="wnp-cv-WFZ" secondAttribute="trailing" id="0P2-PR-Wze"/>
+                        <constraint firstAttribute="bottom" secondItem="fQu-P8-fqk" secondAttribute="bottom" id="QPN-tC-i3V"/>
+                        <constraint firstItem="3zE-eS-VBF" firstAttribute="leading" secondItem="XFY-uU-7g6" secondAttribute="leading" id="YQP-04-y3N"/>
+                        <constraint firstAttribute="trailing" secondItem="fQu-P8-fqk" secondAttribute="trailing" id="eCl-My-45a"/>
+                        <constraint firstItem="fQu-P8-fqk" firstAttribute="top" secondItem="XFY-uU-7g6" secondAttribute="top" id="jio-aX-wgx"/>
+                        <constraint firstItem="3zE-eS-VBF" firstAttribute="top" secondItem="XFY-uU-7g6" secondAttribute="top" id="lbz-Yy-xsI"/>
+                        <constraint firstItem="wnp-cv-WFZ" firstAttribute="leading" secondItem="3zE-eS-VBF" secondAttribute="trailing" id="o2c-G6-ghs"/>
+                        <constraint firstAttribute="bottom" secondItem="wnp-cv-WFZ" secondAttribute="bottom" id="oEF-T6-GE9"/>
+                        <constraint firstItem="wnp-cv-WFZ" firstAttribute="top" secondItem="XFY-uU-7g6" secondAttribute="top" id="rZy-Zy-3N7"/>
+                        <constraint firstAttribute="bottom" secondItem="3zE-eS-VBF" secondAttribute="bottom" id="yjY-b1-64E"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="XFY-uU-7g6" secondAttribute="trailing" id="1oA-Yd-2zk"/>
+                <constraint firstItem="XFY-uU-7g6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="80O-Qz-Kjq"/>
+                <constraint firstAttribute="bottom" secondItem="XFY-uU-7g6" secondAttribute="bottom" id="EFJ-zo-QE6"/>
+                <constraint firstItem="wlH-3g-IKf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="Usg-BM-3yY"/>
+                <constraint firstAttribute="trailing" secondItem="wlH-3g-IKf" secondAttribute="trailing" id="WmT-d4-EpX"/>
+                <constraint firstAttribute="bottom" secondItem="wlH-3g-IKf" secondAttribute="bottom" id="Yv5-b7-SE5"/>
+                <constraint firstItem="XFY-uU-7g6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="ev0-8J-Kxk"/>
+                <constraint firstItem="wlH-3g-IKf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rhE-m4-6UA"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+        </view>
+    </objects>
+</document>

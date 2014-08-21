@@ -10,6 +10,7 @@
 #import "GameDescription.h"
 #import "UploadDownloadTracker.h"
 #import "Team.h"
+#import "GameUploadPickerTableViewCell.h"
 
 @interface GameUploadPickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -25,18 +26,11 @@
 
 #pragma mark - Lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self initGamesList];
-        [self initSelectedGamesSet];
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self initGamesList];
+    [self initSelectedGamesSet];
     self.title = @"Games Upload";
     [self.tableView reloadData];
 }
@@ -62,15 +56,9 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GameDescription* game = [self.gameDescriptions objectAtIndex:[indexPath row]];
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: STD_ROW_TYPE];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleSubtitle
-                reuseIdentifier:STD_ROW_TYPE];
-    }
-    
-    cell.textLabel.text = [NSString stringWithFormat: @"vs. %@", game.opponent];
-    cell.detailTextLabel.text = game.tournamentName == nil? game.formattedStartDate : [NSString stringWithFormat:@"%@, %@", game.formattedStartDate, game.tournamentName];
+    GameUploadPickerTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"GameCell"];
+    cell.opponentLabel.text = [NSString stringWithFormat: @"vs. %@", game.opponent];
+    cell.otherInfoLabel.text = game.tournamentName == nil? game.formattedStartDate : [NSString stringWithFormat:@"%@, %@", game.formattedStartDate, game.tournamentName];
     [self updateCellImage:cell forGame:game];
     
     return cell;
@@ -83,7 +71,7 @@
     } else {
         [self.selectedGameIds addObject:game.gameId];
     }
-    [self updateCellImage:[self.tableView cellForRowAtIndexPath:indexPath] forGame:game];
+    [self updateCellImage:(GameUploadPickerTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath] forGame:game];
 }
 
 
@@ -104,9 +92,9 @@
     }
 }
 
--(void)updateCellImage: (UITableViewCell*) cell forGame:  (GameDescription*) game {
+-(void)updateCellImage: (GameUploadPickerTableViewCell*) cell forGame:  (GameDescription*) game {
     BOOL isSelectedGame = [self.selectedGameIds containsObject:game.gameId];
-    cell.imageView.image = isSelectedGame ? [UIImage imageNamed:@"checkbox-checked"] : [UIImage imageNamed:@"checkbox-unchecked"];
+    cell.checkedImageView.image = isSelectedGame ? [UIImage imageNamed:@"checkbox-checked"] : [UIImage imageNamed:@"checkbox-unchecked"];
     [self updateUploadButton];
 }
 

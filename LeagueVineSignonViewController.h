@@ -12,12 +12,5 @@
 @interface LeagueVineSignonViewController : UltimateViewController <UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) void (^finishedBlock)(BOOL isSignedOn, LeagueVineSignonViewController* signonController);
-@property (strong, nonatomic) IBOutlet UIView *containerView;
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
-@property (strong, nonatomic) IBOutlet UIView *coverView;
-@property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
-@property (strong, nonatomic) IBOutlet UILabel *busyLabel;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *webBusySpinner;
 
 @end

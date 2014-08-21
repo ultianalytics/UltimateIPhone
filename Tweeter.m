@@ -281,7 +281,6 @@ NSDateFormatter* timeFormatter;
         NSString* windDescription = game.wind && game.wind.mph ? [NSString stringWithFormat: @" Wind: %dmph.", game.wind.mph] : @"";
         NSString* gamePointDescription = [game isTimeBasedEnd] ? @"" : [NSString stringWithFormat:@"  Game point: %d.", game.gamePoint];
         message = [NSString stringWithFormat:@"New game in progress vs. %@. %@ %@ Current score: %@.", game.opponentName, gamePointDescription, windDescription, [self getGameScoreDescription:game]];
-
     }
     return message;
 }

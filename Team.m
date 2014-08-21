@@ -406,6 +406,10 @@ static Team* currentTeam = nil;
     return [[Game getAllGameFileNames:self.teamId] count] > 0;
 }
 
+-(BOOL)hasPlayers {
+    return [self.players count] > 0;
+}
+
 -(void)setLeaguevineTeam:(LeaguevineTeam *)leaguevineTeam {
     // ignore setting to same
     if (_leaguevineTeam && _leaguevineTeam.itemId == leaguevineTeam.itemId) {

@@ -22,6 +22,7 @@
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
 #import "UIScrollView+Utilities.h"
+#import "PlayerDetailsViewController.h"
 
 #define kAlertErrorTitle @"Error talking to Leaguevine"
 #define kAlertPrivateToLeagueVineTitle @"Players will be deleted!"
@@ -40,6 +41,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *noResultsFoundLabel;
 @property (strong, nonatomic) IBOutlet UILabel *leaguevinePlayersDownloadedLabel;
 
+@property (strong, nonatomic) NSArray* players;
+
 @property (strong, nonatomic) UIBarButtonItem *addNavBarItem;
 @property (strong, nonatomic) LeaguevineWaitingViewController* waitingViewController;
 
@@ -50,11 +53,19 @@
 @end
 
 @implementation TeamPlayersViewController
-@synthesize playersTableView;
 
 -(void)goToAddItem {
-    PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
-    [self.navigationController pushViewController:playerController animated:YES];
+    if (IS_IPHONE) {
+        PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
+        [self.navigationController pushViewController:playerController animated:YES];
+    } else {
+        PlayerDetailsViewController* addPlayerController = [[PlayerDetailsViewController alloc] init];
+        addPlayerController.isModalAddMode = YES;
+        [self registerDetailControllerListener:addPlayerController];
+        UINavigationController* addPlayerNavController = [[UINavigationController alloc] initWithRootViewController:addPlayerController];
+        addPlayerNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:addPlayerNavController animated:YES completion:nil];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -91,7 +102,7 @@
         self.playersTableView.frame = newRect;
     }
     [self.playersTableView reloadData];
-    self.noResultsFoundLabel.hidden = [[Team getCurrentTeam].players count] > 0;
+    self.noResultsFoundLabel.hidden = [self.players count] > 0;
     [self updateAddButton];
 }
 
@@ -105,26 +116,48 @@
     self.navigationItem.rightBarButtonItem = ![[Team getCurrentTeam] isLeaguevineTeam] || ![[Team getCurrentTeam] arePlayersFromLeagueVine] ? self.addNavBarItem : nil;
 }
 
+-(void)retrievePlayers {
+    self.players = [[Team getCurrentTeam].players sortedArrayUsingComparator:^(id a, id b) {
+        NSString* playerNameA = ((Player*)a).name;
+        NSString* playerNameB = ((Player*)b).name;
+        return [playerNameA caseInsensitiveCompare:playerNameB];
+    }];
+}
+
+- (void)refresh {
+    [self retrievePlayers];
+    [self updateViewAnimated: NO];
+    if ([self.players count] > 0) {
+        [self selectPlayer:self.players[0] animated: NO];
+    }
+}
+
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.addNavBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(goToAddItem)];
     [self.playersTableView adjustInsetForTabBar];
+    [self retrievePlayers];
+    if (IS_IPAD) {
+        [self addReturnToTeamBackButton];
+        [self.playersTableView reloadData];
+        if ([self.players count] > 0) {
+            [self selectPlayer:self.players[0] animated:NO];
+        }
+    }
+    self.title = IS_IPAD ? [Team getCurrentTeam].name : [NSString stringWithFormat:@"%@: %@", @"Players",[Team getCurrentTeam].name];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.title = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Players", @"Players"),[Team getCurrentTeam].name];
-    [[Team getCurrentTeam] sortPlayers];
-    [self updateViewAnimated: NO];
+    [self refresh];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
-        if (!([[Team getCurrentTeam].players count] > 0) && ![[Team getCurrentTeam] arePlayersFromLeagueVine]) {
+        if (!([self.players count] > 0) && ![[Team getCurrentTeam] arePlayersFromLeagueVine]) {
             if (!self.hasShownLVPlayerStatsCallout) {
                 [self showUseLeaguevinePlayersIfWantPlayersStats];
                 self.hasShownLVPlayerStatsCallout = YES;
@@ -150,13 +183,13 @@
 #pragma mark - Table Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[Team getCurrentTeam] players] count];
+    return [self.players count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row = [indexPath row];
     
-    Player* player = [[[Team getCurrentTeam] players] objectAtIndex:row];
+    Player* player = [self.players objectAtIndex:row];
     NSString* primaryName = player.name;
     if (player.number != nil && ![player.number isEqualToString:@""]) {
         primaryName = [NSString stringWithFormat:@"%@ (%@)", primaryName, player.number];
@@ -173,7 +206,7 @@
     }
     
     cell.textLabel.text = primaryName;
-    cell.accessoryType = isLeaguevinePlayers ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = isLeaguevinePlayers || IS_IPAD ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     if (isLeaguevinePlayers) {
         cell.detailTextLabel.text = [NSString stringWithFormat: @"%@ %@", player.leaguevinePlayer.firstName, player.leaguevinePlayer.lastName];
     } else {
@@ -185,13 +218,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = [indexPath row];
-    NSArray* players = [Team getCurrentTeam].players;
-    Player* player = [players objectAtIndex:row];
-    
-    PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
-    playerController.player = player;
-    [self.navigationController pushViewController:playerController animated:YES];
+    Player* player = [self.players objectAtIndex:[indexPath row]];
+    if (IS_IPAD) {
+        self.detailController.player = player;
+    } else {
+        PlayerDetailsViewController* playerController = [[PlayerDetailsViewController alloc] init];
+        playerController.player = player;
+        [self.navigationController pushViewController:playerController animated:YES];
+    }
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -200,6 +234,67 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return kSingleSectionGroupedTableSectionHeaderHeight;
+}
+
+
+#pragma mark - iPad (Master/Detail UX)
+
+-(void)setDetailController:(PlayerDetailsViewController *)detailController {
+    _detailController = detailController;
+    [self registerDetailControllerListener: detailController];
+}
+
+-(void)selectPlayer: (Player*) player animated: (BOOL)animated {
+    if ([self.players count] > 0) {
+        int playerIndex = 0;
+        for (int row = 0; row < [self.players count]; row++) {
+            if ([[self.players[row] name] isEqualToString:player.name]) {
+                playerIndex = row;
+                break;
+            }
+        }
+        self.detailController.player = self.players[playerIndex];
+        [self.playersTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:playerIndex inSection:0] animated:animated scrollPosition:UITableViewScrollPositionTop];
+    }
+}
+
+-(void)registerDetailControllerListener:(PlayerDetailsViewController *)detailController {
+    __typeof(self) __weak weakSelf = self;
+    detailController.playerChangedBlock = ^(Player* player) {
+        [weakSelf retrievePlayers];
+        if ([self.players count] > 0) {
+            [weakSelf.playersTableView reloadData];
+            [weakSelf selectPlayer: player animated: NO];
+        }
+        [weakSelf notifyPlayersChangedListener];
+    };
+}
+
+-(void)addReturnToTeamBackButton {
+    // create a custom view (a button)
+    UIImage* backCaretImage = [UIImage imageNamed:@"left-caret-green"];
+    UIButton* backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 70, backCaretImage.size.height)];
+    [backButton setImage:backCaretImage forState:UIControlStateNormal];
+    [backButton setTitle:@" Team" forState:UIControlStateNormal];
+    [backButton setTitleColor:[ColorMaster applicationTintColor] forState:UIControlStateNormal];
+    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backButton addTarget:self action:@selector(returnToTeam) forControlEvents:UIControlEventTouchUpInside];
+    
+    // add the button to the nav bar
+    UIBarButtonItem* backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+}
+
+-(void)returnToTeam {
+    if (self.backRequestedBlock) {
+        self.backRequestedBlock();
+    }
+}
+
+-(void)notifyPlayersChangedListener {
+    if (self.playersChangedBlock) {
+        self.playersChangedBlock();
+    }
 }
 
 #pragma mark - Leaguevine
@@ -226,10 +321,11 @@
 - (void)handleLeagueViewRetrievalResponse:(LeaguevineInvokeStatus)status result:(id)arrayOfLVPlayers {
     if (self.waitingViewController) {  // nil if cancelled
         if (status == LeaguevineInvokeOK) {
-            NSMutableArray* updatedPlayers = [NSMutableArray arrayWithArray: [Team getCurrentTeam].players];
+            NSMutableArray* updatedPlayers = [NSMutableArray arrayWithArray: self.players];
             [[LeagueVinePlayerNameTransformer transformer]  updatePlayers:updatedPlayers playersFromLeaguevine:arrayOfLVPlayers];
             [Team getCurrentTeam].players = updatedPlayers;
             [[Team getCurrentTeam] save];
+            [self retrievePlayers];
             [self updateViewAnimated:NO];
             [self dismissWaitingViewWithSuccess:YES];
             [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
@@ -241,7 +337,7 @@
 }
 
 -(void)updateLeagueVineRefreshButtonText {
-    [self.leagueVineTeamRefresh setTitle:[[Team getCurrentTeam].players count] > 0 ? @"Refresh" : @"Download Players" forState:UIControlStateNormal];
+    [self.leagueVineTeamRefresh setTitle:[self.players count] > 0 ? @"Refresh" : @"Download Players" forState:UIControlStateNormal];
 }
 
 -(void)brieflyShowLeaguvineDownloadSuccessMessage {
@@ -263,12 +359,13 @@
         [self refreshPlayersFromLeagueVine];
     } else {
         [Team getCurrentTeam].arePlayersFromLeagueVine = NO;
-        for (Player* player in [Team getCurrentTeam].players) {
+        for (Player* player in self.players) {
             player.leaguevinePlayer = nil;
         }
         [[Team getCurrentTeam] save];
         [self updateViewAnimated:YES];
     }
+    [self notifyPlayersChangedListener];
 }
 
 -(void)dismissWaitingViewWithSuccess: (BOOL)success {
@@ -314,7 +411,7 @@
             return;
         }
     }
-    if ([[Team getCurrentTeam].players count] > 0) {
+    if ([self.players count] > 0) {
         if (self.playersTypeSegmentedControl.selectedSegmentIndex == 1) {
             [self alertTransitionToLeaguevinePlayers];
         } else {

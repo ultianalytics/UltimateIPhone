@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSMutableArray* benchButtons;
 @property (nonatomic, strong) NSDictionary* pointsPerPlayer;
 @property (nonatomic, strong) NSDictionary* pointFactorPerPlayer;
+@property (strong, nonatomic) void (^controllerClosedBlock)();
 
 +(void)halftimeWarning;
 

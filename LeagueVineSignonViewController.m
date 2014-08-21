@@ -21,6 +21,13 @@
 
 @interface LeagueVineSignonViewController ()
 
+@property (strong, nonatomic) IBOutlet UIView *containerView;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet UIView *coverView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (strong, nonatomic) IBOutlet UILabel *busyLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *webBusySpinner;
+
 @property (nonatomic, strong) CalloutsContainerView *usageCallouts;
 @property (nonatomic) BOOL hasDisplayedUsageCallouts;
 
@@ -110,11 +117,6 @@
     return self;
 }
 
--(void)initializeCancelButton {
-    self.cancelButton.target = self;
-    self.cancelButton.action = @selector(cancelButtonTapped);
-}
-
 #pragma mark - Event handling
 
 -(void)cancelButtonTapped {
@@ -165,8 +167,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initializeCancelButton];
-    self.title = NSLocalizedString(@"Leaguevine Signon", @"Leaguevine Signon"); 
+    self.title = NSLocalizedString(@"Leaguevine Signon", @"Leaguevine Signon");
+    UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonTapped)];
+    self.navigationItem.leftBarButtonItem = cancelBarItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -175,17 +178,6 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    self.finishedBlock = nil;
-    [self setWebView:nil];
-    [self setCancelButton:nil];
-    [self setNavigationBar:nil];
-    [self setCoverView:nil];
-    [self setBusyLabel:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

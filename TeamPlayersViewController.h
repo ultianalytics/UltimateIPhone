@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
+#import "PlayerDetailsViewController.h"
 
 @interface TeamPlayersViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) PlayerDetailsViewController* detailController; // only used in iPad
+@property (nonatomic, strong) void (^playersChangedBlock)();  // only used in iPad
+@property (nonatomic, strong) void (^backRequestedBlock)();  // only used in iPad
+
 -(void)goToAddItem;
+- (void)refresh;
 
 @end
 

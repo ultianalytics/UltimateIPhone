@@ -58,6 +58,7 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* opponentLeaguevineCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePubCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* positionalEventsCell;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 
@@ -71,6 +72,7 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gamePointsSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* pubToLeaguevineSegmentedControl;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* positionalEventsSegmentedControl;
 
 @end
 
@@ -137,6 +139,8 @@
     
     self.gameTypeSegmentedControl.selectedSegmentIndex = [self.game isLeaguevineGame] ? 1 : 0;
     
+    self.positionalEventsSegmentedControl.selectedSegmentIndex = self.game.isPositional ? 1 : 0;
+    
     [self populateLeaguevineCells];
     
     [self.tableView reloadData];
@@ -200,10 +204,15 @@
         [self.cells addObject:self.gameTypeCell];
     }
     if ([self isLeaguevineMode]) {
-        [self.cells addObjectsFromArray:@[self.opponentLeaguevineCell, self.leaguevinePubCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+        [self.cells addObjectsFromArray:@[self.opponentLeaguevineCell, self.leaguevinePubCell]];
     } else {
-        [self.cells addObjectsFromArray:@[self.opponentRegularCell, self.tournamentCell, self.initialLineCell, self.gamePointsCell,  self.timeoutsCell]];
+        [self.cells addObjectsFromArray:@[self.opponentRegularCell, self.tournamentCell]];
     }
+    [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell]];
+    if (IS_IPAD) {
+        [self.cells addObject:self.positionalEventsCell];
+    }
+    [self.cells addObjectsFromArray:@[self.timeoutsCell]];
     if ([self.game hasBeenSaved]) {
         [self.cells addObjectsFromArray:@[self.statsCell, self.eventsCell, self.windCell]];
     } else {
@@ -288,6 +297,12 @@
 
 - (IBAction)pubToLeaguevineChanged:(id)sender {
     [self leaguevinePublishChanged];
+}
+
+- (IBAction)positionalEventsChanged:(id)sender {
+    BOOL shouldBePositional = self.positionalEventsSegmentedControl.selectedSegmentIndex == 1;
+    self.game.isPositional = shouldBePositional;
+    [self saveChanges];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

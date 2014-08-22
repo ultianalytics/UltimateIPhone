@@ -16,6 +16,7 @@
 #import "StatsViewController.h"
 #import "GameHistoryController.h"
 #import "GameViewController.h"
+#import "GamePositionalViewController.h"
 #import "Wind.h"
 #import "NSString+manipulations.h"
 #import "Constants.h"
@@ -88,7 +89,7 @@
 }
 
 -(void)goToActionView {
-    GameViewController* gameController = [[GameViewController alloc] init];
+    GameViewController* gameController = self.game.isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
     UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
     [topNavigationController pushViewController:gameController animated:YES];
 }

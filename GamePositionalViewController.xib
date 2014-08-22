@@ -30,7 +30,7 @@
                     <subviews>
                         <view contentMode="scaleToFill" id="Pgf-H5-rtI" userLabel="Field View">
                             <rect key="frame" x="0.0" y="0.0" width="768" height="580"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="fHk-v1-KAb" userLabel="Action View">

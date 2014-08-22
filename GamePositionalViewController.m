@@ -48,13 +48,6 @@
     }
 }
 
-#pragma mark - Drawing field
-
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-    [super drawLayer:layer inContext:ctx];
-    // TODO-DO draw the field lines
-}
-
 #pragma mark - Miscellaneous
 
 - (void)showActionView: (BOOL)show {

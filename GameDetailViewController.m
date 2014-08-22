@@ -89,7 +89,7 @@
 }
 
 -(void)goToActionView {
-    GameViewController* gameController = self.game.isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
+    GameViewController* gameController = IS_IPAD && self.game.isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
     UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
     [topNavigationController pushViewController:gameController animated:YES];
 }

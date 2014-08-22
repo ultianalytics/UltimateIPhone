@@ -18,4 +18,9 @@
     BOOL isOffense;
 }
 
+
+// SUBCLASS Support
+@property (nonatomic, strong, readonly) UIView* actionSubView;
+
+
 @end

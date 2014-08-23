@@ -29,6 +29,8 @@
 
 #define STD_ROW_TYPE @"stdRowType"
 
+#define NSStringFromBOOL(bool) (bool ? @"YES" : @"NO")
+
 typedef enum {
     CRUDAdd=0,
     CRUDUpdate, 

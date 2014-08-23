@@ -300,6 +300,7 @@
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
+		384C2D8A19A8C3BD00EE8290 /* GameFieldEventPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */; };
 		38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */; };
 		38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B1C199BB4AF001DCDDE /* GamesViewController.m */; };
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
@@ -769,6 +770,8 @@
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
 		384C2D8019A7F68B00EE8290 /* GameFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldView.h; sourceTree = "<group>"; };
 		384C2D8119A7F68B00EE8290 /* GameFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldView.m; sourceTree = "<group>"; };
+		384C2D8819A8C3BD00EE8290 /* GameFieldEventPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldEventPointView.h; sourceTree = "<group>"; };
+		384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldEventPointView.m; sourceTree = "<group>"; };
 		38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GamesViewController.storyboard; sourceTree = "<group>"; };
 		38672B1C199BB4AF001DCDDE /* GamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesViewController.m; sourceTree = "<group>"; };
 		38672B1D199BB4AF001DCDDE /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
@@ -1643,6 +1646,8 @@
 				384C2D7719A775F800EE8290 /* GameFieldViewController.xib */,
 				384C2D8019A7F68B00EE8290 /* GameFieldView.h */,
 				384C2D8119A7F68B00EE8290 /* GameFieldView.m */,
+				384C2D8819A8C3BD00EE8290 /* GameFieldEventPointView.h */,
+				384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */,
 			);
 			name = Positional;
 			sourceTree = "<group>";
@@ -1989,6 +1994,7 @@
 				1A4C4326160F6BEF0067BB96 /* LeaguevineItem.m in Sources */,
 				1A4C432F160FDDCC0067BB96 /* LeagueVineSelectorSeasonViewController.m in Sources */,
 				1A4C4330160FDDCC0067BB96 /* LeagueVineSelectorTeamViewController.m in Sources */,
+				384C2D8A19A8C3BD00EE8290 /* GameFieldEventPointView.m in Sources */,
 				1A7A89271611D50700CAB5EF /* LeaguevineTournament.m in Sources */,
 				1A7A893A1613233300CAB5EF /* LeaguevineGame.m in Sources */,
 				1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */,

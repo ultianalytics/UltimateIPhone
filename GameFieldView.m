@@ -7,9 +7,14 @@
 //
 
 #import "GameFieldView.h"
-#import "UIViewController+Additions.h"
 #import "UIView+Convenience.h"
 #import "EventPosition.h"
+#import "GameFieldEventPointView.h"
+#import "Event.h"
+#import "OffenseEvent.h"
+#import "Player.h"
+
+#define kPointViewWidth 20.0f
 
 @interface GameFieldView ()
 
@@ -18,12 +23,78 @@
 @property (nonatomic) CGRect endzone0Rect;
 @property (nonatomic) CGRect endzone100Rect;
 
-@property (nonatomic, strong) UIButton* lastSavedEventButton;
-@property (nonatomic, strong) UIButton* previousSavedEventButton;
+@property (nonatomic, strong) GameFieldEventPointView* potentialEventView;
+@property (nonatomic, strong) GameFieldEventPointView* lastSavedEventView;
+@property (nonatomic, strong) GameFieldEventPointView* previousSavedEventView;
 
 @end
 
 @implementation GameFieldView
+
+#pragma mark - Initialization
+
+-(void)commonInit {
+    [self addTapRecognizer];
+    self.fieldBorderColor = [UIColor whiteColor];  // default border color
+    self.endzonePercent = .15; // default endzone percent
+    self.potentialEventView = [self createPointView];
+    [self addSubview:self.potentialEventView];
+    self.lastSavedEventView = [self createPointView];
+    [self addSubview:self.lastSavedEventView];
+    self.previousSavedEventView = [self createPointView];
+    [self addSubview:self.previousSavedEventView];
+    [self.layer setNeedsDisplay];
+}
+
+-(void)addTapRecognizer {
+    UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self addGestureRecognizer: tapRecognizer];
+}
+
+-(GameFieldEventPointView*)createPointView {
+    GameFieldEventPointView* view = [[GameFieldEventPointView alloc] initWithFrame:CGRectMake(0, 0, kPointViewWidth, kPointViewWidth)];
+    view.hidden = YES;
+    __typeof(self) __weak weakSelf = self;
+    view.tappedBlock = ^(CGPoint pointViewTapPoint, GameFieldEventPointView* pointView) {
+        CGPoint tapPoint = [weakSelf convertPoint:pointViewTapPoint fromView:pointView];
+        [weakSelf handleTap:tapPoint];
+    };
+    return view;
+}
+
+#pragma mark - Touch handling
+
+- (void)viewTapped:(UIGestureRecognizer *)gestureRecognizer {
+    [self handleTap:[gestureRecognizer locationInView:self]];
+}
+
+- (void)handleTap:(CGPoint) tapPoint {
+    EventPosition* eventPosition = [self calculatePosition:tapPoint];
+    
+    // test code...
+    LOG_POINT(@"tap point", tapPoint);
+    NSLog(@"event position=%@", eventPosition);
+    self.lastSavedEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Throwaway];
+    self.lastSavedEvent.position = eventPosition;
+    [self resetPointViews];
+}
+
+#pragma mark - Event Point Views
+
+-(void)resetPointViews {
+    if (self.lastSavedEvent) {
+        self.lastSavedEventView.center = [self calculatePoint:self.lastSavedEvent.position];
+    }
+    if (self.previousSavedEvent) {
+        self.previousSavedEventView.center = [self calculatePoint:self.previousSavedEvent.position];
+    }
+    self.lastSavedEventView.hidden = self.lastSavedEvent == nil;
+    self.previousSavedEventView.hidden = self.previousSavedEvent == nil;
+    self.potentialEventView.hidden = YES;
+}
+
+
+#pragma mark - UIView overrides
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -32,14 +103,6 @@
     }
     return self;
 }
-
--(void)commonInit {
-    self.fieldBorderColor = [UIColor whiteColor];  // default border color
-    self.endzonePercent = .15; // default endzone percent
-    [self.layer setNeedsDisplay];
-}
-
-#pragma mark - UIView overrides
 
 -(void)awakeFromNib {
     [self commonInit];
@@ -56,6 +119,7 @@
     CGFloat lineWidth = 2;
     
     CGContextSaveGState(context);
+    
     CGContextSetStrokeColorWithColor(context, self.fieldBorderColor.CGColor);
     CGContextSetLineWidth(context, lineWidth);
     
@@ -80,6 +144,8 @@
     CGContextMoveToPoint(context, x, self.endzone100Rect.origin.y);
     CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone100Rect));
     CGContextStrokePath(context);
+    
+    CGContextRestoreGState(context);
 
 }
 
@@ -107,13 +173,13 @@
 }
 
 -(EventPosition*)calculatePosition: (CGPoint)point inRect: (CGRect)rect area: (EventPositionArea)area {
-    CGFloat x = ceilf(point.x - rect.origin.x / rect.size.width);
-    CGFloat y = ceilf(point.y / rect.size.height);
-    return [EventPosition positionWithOrientation:self.orientation inArea:area x:x y:y];
+    CGFloat x = (point.x - rect.origin.x) / rect.size.width;
+    CGFloat y = point.y / rect.size.height;
+    return [EventPosition positionInArea:area x:x y:y inverted:self.inverted];
 }
 
 -(CGPoint)calculatePoint: (EventPosition*)position {
-    BOOL flipNeeded = position.orientation != self.orientation;
+    BOOL flipNeeded = position.inverted != self.inverted;
     EventPositionArea area = position.area;
     CGFloat positionX = position.x;
     CGFloat positionY = position.y;
@@ -134,15 +200,15 @@
         positionX = 1 - positionX;
         positionY = 1 - positionY;
     }
-    CGFloat y = ceilf(positionY / self.fieldRect.size.height);
+    CGFloat y = roundf(positionY * self.fieldRect.size.height);
     if (area == EventPositionAreaField) {
-        CGFloat x = ceilf(self.endzone0Rect.size.width * positionX);
+        CGFloat x = roundf(CGRectGetMaxX(self.endzone0Rect) + (self.fieldRect.size.width * positionX));
         return CGPointMake(x, y);
     } else if (area == EventPositionArea0Endzone) {
-        CGFloat x = self.fieldRect.origin.x + ceilf(self.fieldRect.size.width * positionX);
+        CGFloat x = roundf(self.endzone0Rect.size.width * positionX);
         return CGPointMake(x, y);
     } else if (area == EventPositionArea100Endzone) {
-        CGFloat x = self.endzone100Rect.origin.x + ceilf(self.endzone100Rect.size.width * positionX);
+        CGFloat x = CGRectGetMaxX(self.fieldRect) + (self.endzone100Rect.size.width * positionX);
         return CGPointMake(x, y);
     } else {
         return CGPointMake(0, 0);

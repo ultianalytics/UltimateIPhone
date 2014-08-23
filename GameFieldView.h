@@ -16,6 +16,8 @@
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
 @property (nonatomic, strong) Event* lastSavedEvent;
 @property (nonatomic, strong) Event* previousSavedEvent;
-@property (nonatomic) EventOrientation orientation;
+@property (nonatomic) BOOL inverted;
+
+- (void)handleTap:(CGPoint) tapPoint;
 
 @end

@@ -8,15 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-/* 
- a position's orientation is simply a way of handling the user flipping the view while recording events,
- i.e., he/she goes to the other side of the field to record
- */
-typedef enum {
-  EventOrientationNormal = 0,
-  EventOrientationInverse
-} EventOrientation;
-
 typedef enum {
     EventPositionAreaField = 0,
     EventPositionArea0Endzone,
@@ -27,16 +18,13 @@ typedef enum {
 
 /*
     x and y are relative factors on the field.
-    .0 to 1.0 = a position within the normal field
-    negative values are in one endzone (or out of bounds)
-    likewise, values > 1.0 are in the other endzone (or out of bounds)
  */
 @property (nonatomic) float x;
 @property (nonatomic) float y;
-@property (nonatomic) EventOrientation orientation;
+@property (nonatomic) BOOL inverted; //  a position's "inverted" is simply a way of handling the user flipping the view while recording events, i.e., he/she goes to the other side of the field to record
 @property (nonatomic) EventPositionArea area;
 
-+(EventPosition*)positionWithOrientation: (EventOrientation)eventOrientation inArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y;
++(EventPosition*)positionInArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y inverted: (BOOL)isInverted;
 +(EventPosition*)fromDictionary:(NSDictionary*) dict;
 -(NSDictionary*) asDictionary;
 

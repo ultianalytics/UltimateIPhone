@@ -10,16 +10,18 @@
 
 #define kEventPositionX             @"x"
 #define kEventPositionY             @"y"
-#define kEventPositionOrientation   @"orientation"
+#define kEventPositionInverted      @"inverted"
+#define kEventPositionArea          @"area"
 
 @implementation EventPosition
 
-+(EventPosition*)positionWithOrientation: (EventOrientation)eventOrientation inArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y {
+
++(EventPosition*)positionInArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y inverted: (BOOL)isInverted {
     EventPosition* position = [[EventPosition alloc] init];
     position.x = x;
     position.y = y;
     position.area = area;
-    position.orientation = eventOrientation;
+    position.inverted = isInverted;
     return position;
 }
 
@@ -27,7 +29,8 @@
     if (self = [super init]) {
         self.x = [decoder decodeFloatForKey:kEventPositionX];
         self.y = [decoder decodeFloatForKey:kEventPositionY];
-        self.orientation = [decoder decodeIntForKey:kEventPositionOrientation];
+        self.inverted = [decoder decodeBoolForKey:kEventPositionInverted];
+        self.area = [decoder decodeIntForKey:kEventPositionArea];
     }
     return self;
 }
@@ -35,7 +38,8 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeFloat:self.x forKey:kEventPositionX];
     [encoder encodeFloat:self.y forKey:kEventPositionY];
-    [encoder encodeInt:self.orientation forKey:kEventPositionOrientation];
+    [encoder encodeBool:self.inverted forKey:kEventPositionInverted];
+    [encoder encodeInt:self.inverted forKey:kEventPositionArea];
 }
 
 +(EventPosition*)fromDictionary:(NSDictionary*) dict {
@@ -48,9 +52,13 @@
     if (y) {
         position.y = [y floatValue];
     }
-    NSNumber* orientation = [dict objectForKey:kEventPositionOrientation];
-    if (orientation) {
-        position.orientation = [orientation intValue];
+    NSNumber* inverted = [dict objectForKey:kEventPositionInverted];
+    if (inverted) {
+        position.inverted = [inverted boolValue];
+    }
+    NSString* area = [dict objectForKey:kEventPositionArea];
+    if (area) {
+        position.area = [self areaFromString:area];
     }
     return position;
 }
@@ -59,9 +67,42 @@
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setValue: [NSNumber numberWithFloat:self.x ] forKey:kEventPositionX];
     [dict setValue: [NSNumber numberWithFloat:self.y ] forKey:kEventPositionY];
-    [dict setValue: [NSNumber numberWithInt:self.orientation ] forKey:kEventPositionOrientation];
+    [dict setValue: [NSNumber numberWithBool:self.inverted] forKey:kEventPositionInverted];
+    [dict setValue: [self areaAsString] forKey:kEventPositionArea];
     return dict;
 }
 
+-(NSString*)areaAsString {
+    switch (self.area) {
+        case EventPositionAreaField:
+            return @"field";
+            break;
+        case EventPositionArea0Endzone:
+            return @"0endzone";
+            break;
+        case EventPositionArea100Endzone:
+            return @"100endzone";
+            break;
+         default:
+            return @"field";
+            break;
+    }
+}
+
++(EventPositionArea)areaFromString: (NSString*) areaAsString {
+    if ([areaAsString isEqualToString:@"field"]) {
+        return EventPositionAreaField;
+    } else if ([areaAsString isEqualToString:@"0endzone"]) {
+        return EventPositionArea0Endzone;
+    } else if ([areaAsString isEqualToString:@"100endzone"]) {
+        return EventPositionArea100Endzone;
+    } else {
+        return EventPositionAreaField;
+    }
+}
+
+-(NSString*)description {
+    return [NSString stringWithFormat:@"EventPosition in area: %@, x: %f, y: %f, inverted=%@", [self areaAsString], self.x, self.y, NSStringFromBOOL(self.inverted)];
+}
 
 @end

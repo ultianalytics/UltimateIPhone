@@ -12,8 +12,7 @@
 @implementation IBView
 
 -(void) loadViewsFromBundle {
-	NSString *class_name = NSStringFromClass([self class]);
-	UIView *mainSubView = [[[NSBundle mainBundle] loadNibNamed:class_name owner:self options:nil] lastObject];
+	UIView *mainSubView = [[[NSBundle mainBundle] loadNibNamed:[self nibName] owner:self options:nil] lastObject];
     mainSubView.frame = self.bounds;
 	[self addSubview:mainSubView];
     self.backgroundColor = [UIColor clearColor];
@@ -35,6 +34,10 @@
         // Initialization code.
     }
     return self;
+}
+
+-(NSString*)nibName {
+    return NSStringFromClass([self class]);;
 }
 
 -(void)initUI {

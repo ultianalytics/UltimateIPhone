@@ -338,6 +338,18 @@
     return historyController;
 }
 
+-(void)configureActionView {
+    // add the action view
+    NSString* actionViewNib = @"GameActionView";
+    if (IS_IPHONE && [UIScreen mainScreen].bounds.size.height > 480) {
+        actionViewNib = @"GameActionView_iPhone_320x568";
+    }
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
+    UIView* actionView = (UIView*)nibViews[0];
+    [self.actionSubView addSubview:actionView];
+    actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+}
+
 #pragma mark ActionListener
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
@@ -757,15 +769,7 @@
     // use a smaller font for nav title
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName, nil]];
     
-    // add the action view
-    NSString* actionViewNib = @"GameActionView";
-    if (IS_IPHONE && [UIScreen mainScreen].bounds.size.height > 480) {
-        actionViewNib = @"GameActionView_iPhone_320x568";
-    }
-    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
-    UIView* actionView = (UIView*)nibViews[0];
-    [self.actionSubView addSubview:actionView];
-    actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+    [self configureActionView];
     self.hideReceiverView.backgroundColor = [ColorMaster actionBackgroundColor];
     
     self.playerViews = [[NSMutableArray alloc] initWithObjects:self.playerView1, self.playerView2,self.playerView3,self.playerView4,self.playerView5,self.playerView6,self.playerView7,self.playerViewTeam,nil];

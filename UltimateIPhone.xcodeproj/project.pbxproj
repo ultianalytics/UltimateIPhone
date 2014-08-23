@@ -260,7 +260,7 @@
 		1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE83F15175EB0004B4590 /* PlayerDetailsViewController.xib */; };
 		1AFFE8A615175EB0004B4590 /* PlayerStat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84115175EB0004B4590 /* PlayerStat.m */; };
 		1AFFE8A715175EB0004B4590 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84315175EB0004B4590 /* PlayerView.m */; };
-		1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE84415175EB0004B4590 /* PlayerView.xib */; };
+		1AFFE8A815175EB0004B4590 /* PlayerView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE84415175EB0004B4590 /* PlayerView~iphone.xib */; };
 		1AFFE8A915175EB0004B4590 /* PointSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84615175EB0004B4590 /* PointSummary.m */; };
 		1AFFE8AA15175EB0004B4590 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84815175EB0004B4590 /* Preferences.m */; };
 		1AFFE8AB15175EB0004B4590 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE84A15175EB0004B4590 /* PreferencesViewController.m */; };
@@ -295,12 +295,12 @@
 		1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE87A15175EB0004B4590 /* woman.jpg */; };
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
-		384C2D7819A775F800EE8290 /* GameFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7619A775F800EE8290 /* GameFieldViewController.m */; };
-		384C2D7919A775F800EE8290 /* GameFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7719A775F800EE8290 /* GameFieldViewController.xib */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
 		384C2D8A19A8C3BD00EE8290 /* GameFieldEventPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */; };
+		384C2D8C19A9569000EE8290 /* GameActionView_positional.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D8B19A9569000EE8290 /* GameActionView_positional.xib */; };
+		384C2D8F19A956C700EE8290 /* PlayerPositionalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8E19A956C700EE8290 /* PlayerPositionalView.m */; };
 		38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */; };
 		38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B1C199BB4AF001DCDDE /* GamesViewController.m */; };
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
@@ -712,7 +712,7 @@
 		1AFFE84115175EB0004B4590 /* PlayerStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerStat.m; sourceTree = "<group>"; };
 		1AFFE84215175EB0004B4590 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
 		1AFFE84315175EB0004B4590 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
-		1AFFE84415175EB0004B4590 /* PlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerView.xib; sourceTree = "<group>"; };
+		1AFFE84415175EB0004B4590 /* PlayerView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PlayerView~iphone.xib"; sourceTree = "<group>"; };
 		1AFFE84515175EB0004B4590 /* PointSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSummary.h; sourceTree = "<group>"; };
 		1AFFE84615175EB0004B4590 /* PointSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointSummary.m; sourceTree = "<group>"; };
 		1AFFE84715175EB0004B4590 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
@@ -762,9 +762,6 @@
 		1AFFE87A15175EB0004B4590 /* woman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = woman.jpg; sourceTree = "<group>"; };
 		1AFFE8CC151761AA004B4590 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
-		384C2D7519A775F800EE8290 /* GameFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldViewController.h; sourceTree = "<group>"; };
-		384C2D7619A775F800EE8290 /* GameFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldViewController.m; sourceTree = "<group>"; };
-		384C2D7719A775F800EE8290 /* GameFieldViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFieldViewController.xib; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -772,6 +769,9 @@
 		384C2D8119A7F68B00EE8290 /* GameFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldView.m; sourceTree = "<group>"; };
 		384C2D8819A8C3BD00EE8290 /* GameFieldEventPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldEventPointView.h; sourceTree = "<group>"; };
 		384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldEventPointView.m; sourceTree = "<group>"; };
+		384C2D8B19A9569000EE8290 /* GameActionView_positional.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_positional.xib; sourceTree = "<group>"; };
+		384C2D8D19A956C700EE8290 /* PlayerPositionalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPositionalView.h; sourceTree = "<group>"; };
+		384C2D8E19A956C700EE8290 /* PlayerPositionalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerPositionalView.m; sourceTree = "<group>"; };
 		38672B1A199BB3FD001DCDDE /* GamesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GamesViewController.storyboard; sourceTree = "<group>"; };
 		38672B1C199BB4AF001DCDDE /* GamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesViewController.m; sourceTree = "<group>"; };
 		38672B1D199BB4AF001DCDDE /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
@@ -1490,7 +1490,7 @@
 				1AFFE80615175EB0004B4590 /* EventView.xib */,
 				1AFFE84215175EB0004B4590 /* PlayerView.h */,
 				1AFFE84315175EB0004B4590 /* PlayerView.m */,
-				1AFFE84415175EB0004B4590 /* PlayerView.xib */,
+				1AFFE84415175EB0004B4590 /* PlayerView~iphone.xib */,
 				38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */,
 				1AFFE7C415175E7B004B4590 /* ActionListener.h */,
 				1A6C82DD16E3C01600B84595 /* ActionDetailsViewController.h */,
@@ -1641,13 +1641,13 @@
 				384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */,
 				384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */,
 				384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */,
-				384C2D7519A775F800EE8290 /* GameFieldViewController.h */,
-				384C2D7619A775F800EE8290 /* GameFieldViewController.m */,
-				384C2D7719A775F800EE8290 /* GameFieldViewController.xib */,
 				384C2D8019A7F68B00EE8290 /* GameFieldView.h */,
 				384C2D8119A7F68B00EE8290 /* GameFieldView.m */,
 				384C2D8819A8C3BD00EE8290 /* GameFieldEventPointView.h */,
 				384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */,
+				384C2D8B19A9569000EE8290 /* GameActionView_positional.xib */,
+				384C2D8D19A956C700EE8290 /* PlayerPositionalView.h */,
+				384C2D8E19A956C700EE8290 /* PlayerPositionalView.m */,
 			);
 			name = Positional;
 			sourceTree = "<group>";
@@ -1711,6 +1711,7 @@
 			files = (
 				38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */,
 				1A3A559617A6967C002B3C84 /* TweetLogTableViewCell.xib in Resources */,
+				384C2D8C19A9569000EE8290 /* GameActionView_positional.xib in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
 				1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */,
@@ -1770,7 +1771,7 @@
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
-				1AFFE8A815175EB0004B4590 /* PlayerView.xib in Resources */,
+				1AFFE8A815175EB0004B4590 /* PlayerView~iphone.xib in Resources */,
 				1AFFE8AC15175EB0004B4590 /* PreferencesViewController.xib in Resources */,
 				1AFFE8AD15175EB0004B4590 /* psd-delete-icon.png in Resources */,
 				1AFFE8AE15175EB0004B4590 /* red_heart.png in Resources */,
@@ -1783,7 +1784,6 @@
 				1AFFE8BD15175EB0004B4590 /* StatsViewController.xib in Resources */,
 				1AA37BB018A8619700CE9662 /* color6DB200Radius3.png in Resources */,
 				38B2CE6C19A16FFB008BE91B /* GameViewController~ipad.xib in Resources */,
-				384C2D7919A775F800EE8290 /* GameFieldViewController.xib in Resources */,
 				1AFFE8BE15175EB0004B4590 /* super_man.png in Resources */,
 				1AFFE8C115175EB0004B4590 /* the_iron_man.png in Resources */,
 				1AFFE8C315175EB0004B4590 /* unhappy.png in Resources */,
@@ -1911,6 +1911,7 @@
 				1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */,
 				1AFFE7FA15175E7B004B4590 /* ColorMaster.m in Sources */,
 				1AFFE7FB15175E7B004B4590 /* Constants.m in Sources */,
+				384C2D8F19A956C700EE8290 /* PlayerPositionalView.m in Sources */,
 				1AFFE7FD15175E7B004B4590 /* DefenseEvent.m in Sources */,
 				1AFFE87B15175EB0004B4590 /* Event.m in Sources */,
 				1AFFE87C15175EB0004B4590 /* EventView.m in Sources */,
@@ -1933,7 +1934,6 @@
 				1ABC74CD190414F000D60660 /* zip.c in Sources */,
 				1AFFE8A915175EB0004B4590 /* PointSummary.m in Sources */,
 				384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */,
-				384C2D7819A775F800EE8290 /* GameFieldViewController.m in Sources */,
 				1AFFE8AA15175EB0004B4590 /* Preferences.m in Sources */,
 				1AFFE8AB15175EB0004B4590 /* PreferencesViewController.m in Sources */,
 				1AFFE8AF15175EB0004B4590 /* RedButton.m in Sources */,

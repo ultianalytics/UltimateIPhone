@@ -11,7 +11,7 @@
                 <outlet property="broadcast1Label" destination="PDd-Pt-1lA" id="xvH-fB-VZi"/>
                 <outlet property="broadcast2Label" destination="Xvi-tb-wGI" id="OYO-aS-q1K"/>
                 <outlet property="eventsSubView" destination="XYS-GE-pHb" id="jWH-IW-uFt"/>
-                <outlet property="fieldSubView" destination="Pgf-H5-rtI" id="3Cm-bg-B3y"/>
+                <outlet property="fieldView" destination="P4W-Ek-UsM" id="s3T-zi-RNb"/>
                 <outlet property="gameOverButton" destination="LHA-vH-M3T" id="YKQ-02-uga"/>
                 <outlet property="noEventsLabel" destination="fbl-eH-Nr6" id="pnM-S3-z6P"/>
                 <outlet property="timeoutButton" destination="1Fv-fr-kvc" id="fMb-Eg-jab"/>
@@ -31,11 +31,18 @@
                         <view contentMode="scaleToFill" id="Pgf-H5-rtI" userLabel="Field View">
                             <rect key="frame" x="0.0" y="0.0" width="768" height="480"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" id="P4W-Ek-UsM" userLabel="Field" customClass="GameFieldView">
+                                    <rect key="frame" x="20" y="20" width="728" height="440"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="fHk-v1-KAb" userLabel="Action View">
-                            <rect key="frame" x="146" y="30" width="460" height="440"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="146" y="30" width="320" height="375"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>

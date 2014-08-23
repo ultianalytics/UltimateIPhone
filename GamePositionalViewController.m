@@ -7,14 +7,14 @@
 //
 
 #import "GamePositionalViewController.h"
-#import "GameFieldViewController.h"
 #import "UIViewController+Additions.h"
 #import "UIView+Convenience.h"
+#import "GameFieldView.h"
+#import "ColorMaster.h"
 
 @interface GamePositionalViewController ()
 
-@property (nonatomic, weak) IBOutlet UIView *fieldSubView;
-@property (nonatomic, strong) GameFieldViewController* fieldViewController;
+@property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
 
 @end
 
@@ -32,9 +32,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fieldViewController = [[GameFieldViewController alloc] init];
-    [self addChildViewController:self.fieldViewController inSubView:self.fieldSubView];
-    [self showActionView:NO];
+    __typeof(self) __weak weakSelf = self;
+    self.fieldView.positionTappedBlock = ^(EventPosition* position) {
+        [weakSelf showActionView:YES];
+    };
+    [self showActionView: NO];
+
 }
 
 #pragma mark - Superclass Overrides
@@ -46,6 +49,15 @@
     } else {
 
     }
+}
+
+-(void)configureActionView {
+    // add the action view
+    NSString* actionViewNib = @"GameActionView_positional";
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
+    UIView* actionView = (UIView*)nibViews[0];
+    [self.actionSubView addSubview:actionView];
+    actionView.backgroundColor = [ColorMaster actionBackgroundColor];
 }
 
 #pragma mark - Miscellaneous

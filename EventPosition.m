@@ -14,6 +14,15 @@
 
 @implementation EventPosition
 
++(EventPosition*)positionWithOrientation: (EventOrientation)eventOrientation inArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y {
+    EventPosition* position = [[EventPosition alloc] init];
+    position.x = x;
+    position.y = y;
+    position.area = area;
+    position.orientation = eventOrientation;
+    return position;
+}
+
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
         self.x = [decoder decodeFloatForKey:kEventPositionX];

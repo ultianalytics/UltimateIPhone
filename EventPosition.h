@@ -17,6 +17,12 @@ typedef enum {
   EventOrientationInverse
 } EventOrientation;
 
+typedef enum {
+    EventPositionAreaField = 0,
+    EventPositionArea0Endzone,
+    EventPositionArea100Endzone
+} EventPositionArea;
+
 @interface EventPosition : NSObject
 
 /*
@@ -28,7 +34,9 @@ typedef enum {
 @property (nonatomic) float x;
 @property (nonatomic) float y;
 @property (nonatomic) EventOrientation orientation;
+@property (nonatomic) EventPositionArea area;
 
++(EventPosition*)positionWithOrientation: (EventOrientation)eventOrientation inArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y;
 +(EventPosition*)fromDictionary:(NSDictionary*) dict;
 -(NSDictionary*) asDictionary;
 

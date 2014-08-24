@@ -17,6 +17,10 @@
 @interface GamePositionalViewController ()
 
 @property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
+@property (nonatomic, strong) IBOutlet UIView* actionViewContainer;
+@property (nonatomic, strong) IBOutlet UIView* topViewOverlay;
+@property (nonatomic, strong) IBOutlet UIView* bottomViewOverlay;
+@property (nonatomic, strong) IBOutlet UIButton* cancelButton;
 
 @end
 
@@ -34,11 +38,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     __typeof(self) __weak weakSelf = self;
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
-        [weakSelf showActionView:YES forPoint:[weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view]];
+        [weakSelf showActionViewForPoint:[weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view]];
     };
-    [self showActionView: NO forPoint:CGPointMake(0, 0)];
+    [self hideActionView];
 }
 
 #pragma mark - Superclass Overrides
@@ -50,6 +55,10 @@
     } else {
 
     }
+}
+
+-(void)eventActionSelected {
+    [self hideActionView];
 }
 
 -(CGFloat)throwawayButtonOffsetOnDefense {
@@ -65,9 +74,16 @@
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
 }
 
+#pragma mark - Event Handlers
+
+- (IBAction)cancelButtonTapped:(id)sender {
+    [self hideActionView];
+}
+
 #pragma mark - Miscellaneous
 
-- (void)showActionView: (BOOL)show forPoint: (CGPoint) eventPoint {
+- (void)showActionViewForPoint: (CGPoint) eventPoint {
+    self.actionViewContainer.center = self.fieldView.center;  // center vertically in the field view
     if (eventPoint.x != 0 && eventPoint.y != 0) {
         BOOL isLeft = eventPoint.x < (self.view.boundsWidth / 2.0f);
         CGFloat distanceFromPointToActionView = 40;
@@ -75,13 +91,20 @@
         if (isLeft) {
             x = eventPoint.x + distanceFromPointToActionView;
         } else {
-            x = eventPoint.x - self.actionSubView.frameWidth - distanceFromPointToActionView;
+            x = eventPoint.x - self.actionViewContainer.frameWidth - distanceFromPointToActionView;
         }
-        self.actionSubView.frameX = x;
+        self.actionViewContainer.frameX = x;
     }
     
-    self.actionSubView.visible = show;
-    
+    self.topViewOverlay.visible = YES;
+    self.bottomViewOverlay.visible = YES;
+    self.actionViewContainer.visible = YES;
+}
+
+- (void)hideActionView {
+    self.topViewOverlay.hidden = YES;
+    self.bottomViewOverlay.hidden = YES;
+    self.actionViewContainer.hidden = YES;
 }
 
 @end

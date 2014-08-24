@@ -153,6 +153,7 @@
     }
     [self updateViewFromGame:[Game getCurrentGame]];
     [self notifyLeaguevineOfNewEvent:event];
+    [self eventActionSelected];
 }
 
 -(void)updateEventViews {
@@ -1043,6 +1044,12 @@
         [self.infoCalloutsView slide: YES animated: NO];
         [self.infoCalloutsView slide: NO animated: YES];
     }
+}
+
+#pragma mark - Subclass support
+
+-(void)eventActionSelected {
+    // no-op...subclasses can re-implement
 }
 
 @end

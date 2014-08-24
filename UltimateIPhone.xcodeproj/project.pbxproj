@@ -1477,7 +1477,6 @@
 		1AFFE8DD151764DB004B4590 /* Game Action */ = {
 			isa = PBXGroup;
 			children = (
-				384C2D7F19A7F60700EE8290 /* Positional */,
 				1AFFE81815175EB0004B4590 /* GameViewController.h */,
 				1AFFE81915175EB0004B4590 /* GameViewController.m */,
 				1AFFE8CC151761AA004B4590 /* GameViewController.xib */,
@@ -1505,6 +1504,7 @@
 				1AFFE83115175EB0004B4590 /* PasserButton.m */,
 				1AA37BF918B2E1FC00CE9662 /* GameCessationButton.h */,
 				1AA37BFA18B2E1FC00CE9662 /* GameCessationButton.m */,
+				384C2D7F19A7F60700EE8290 /* Positional */,
 			);
 			name = "Game Action";
 			sourceTree = "<group>";

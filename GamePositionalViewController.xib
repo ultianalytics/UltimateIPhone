@@ -6,16 +6,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GamePositionalViewController">
             <connections>
-                <outlet property="actionSubView" destination="fHk-v1-KAb" id="5K4-fg-WSK"/>
+                <outlet property="actionSubView" destination="qgk-91-QKV" id="CaN-zC-hwG"/>
+                <outlet property="actionViewContainer" destination="fHk-v1-KAb" id="dPi-6t-ONr"/>
                 <outlet property="bottomOrRightView" destination="ofW-zR-MVS" id="ynO-Ab-32J"/>
+                <outlet property="bottomViewOverlay" destination="h0w-8u-Zoq" id="xPg-WO-Nah"/>
                 <outlet property="broadcast1Label" destination="PDd-Pt-1lA" id="xvH-fB-VZi"/>
                 <outlet property="broadcast2Label" destination="Xvi-tb-wGI" id="OYO-aS-q1K"/>
+                <outlet property="cancelButton" destination="6fr-r4-FaW" id="XBZ-cB-2c3"/>
                 <outlet property="eventsSubView" destination="XYS-GE-pHb" id="jWH-IW-uFt"/>
                 <outlet property="fieldView" destination="P4W-Ek-UsM" id="s3T-zi-RNb"/>
                 <outlet property="gameOverButton" destination="LHA-vH-M3T" id="YKQ-02-uga"/>
                 <outlet property="noEventsLabel" destination="fbl-eH-Nr6" id="pnM-S3-z6P"/>
                 <outlet property="timeoutButton" destination="1Fv-fr-kvc" id="fMb-Eg-jab"/>
                 <outlet property="topOrLeftView" destination="jVz-di-qkX" id="J5F-5i-0bG"/>
+                <outlet property="topViewOverlay" destination="9fJ-WZ-jPb" id="G0m-35-z69"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hj5-c2-fIy"/>
             </connections>
         </placeholder>
@@ -40,9 +44,38 @@
                             </subviews>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="fHk-v1-KAb" userLabel="Action View">
-                            <rect key="frame" x="146" y="30" width="320" height="375"/>
+                        <view hidden="YES" contentMode="scaleToFill" id="9fJ-WZ-jPb" userLabel="Overlay">
+                            <rect key="frame" x="0.0" y="-215" width="768" height="911"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="fHk-v1-KAb" userLabel="Action View Container">
+                            <rect key="frame" x="146" y="30" width="330" height="406"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" id="qgk-91-QKV" userLabel="Action Sub View">
+                                    <rect key="frame" x="0.0" y="0.0" width="330" height="375"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </view>
+                                <view contentMode="scaleToFill" id="Jev-Fg-xfo" userLabel="Button(s) View">
+                                    <rect key="frame" x="0.0" y="375" width="330" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6fr-r4-FaW" userLabel="Cancel Button" customClass="GameActionButton">
+                                            <rect key="frame" x="13" y="0.0" width="304" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Cancel">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="HXf-0F-mPj"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.84705882349999995" green="0.84313725490000002" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
@@ -106,6 +139,11 @@
                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" id="h0w-8u-Zoq" userLabel="Overlay">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="431"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>

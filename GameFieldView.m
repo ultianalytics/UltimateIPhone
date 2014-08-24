@@ -75,8 +75,8 @@
     }
     
     // test code...
-    LOG_POINT(@"tap point", tapPoint);
-    NSLog(@"event position=%@", eventPosition);
+//    LOG_POINT(@"tap point", tapPoint);
+//    NSLog(@"event position=%@", eventPosition);
     self.lastSavedEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Throwaway];
     self.lastSavedEvent.position = eventPosition;
     [self resetPointViews];

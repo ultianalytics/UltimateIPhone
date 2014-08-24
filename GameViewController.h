@@ -13,6 +13,7 @@
 @class EventView;
 @class PlayerView;
 @class Game;
+@class GameHistoryController;
 
 @interface GameViewController : UltimateViewController <ActionListener, UIAlertViewDelegate> {
     BOOL isOffense;
@@ -21,6 +22,9 @@
 
 // SUBCLASS Support
 @property (nonatomic, strong, readonly) UIView* actionSubView;
+@property (nonatomic, strong, readonly) UIView *topOrLeftView;
+@property (nonatomic, strong, readonly) UIView *bottomOrRightView;
+@property (nonatomic, strong, readonly) GameHistoryController* eventsViewController;
 
 
 @end

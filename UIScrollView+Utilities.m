@@ -13,7 +13,7 @@
 
 -(void)adjustInsetForTabBar {
     // adjust the bottom inset to handle being under the tab bar
-    self.contentInset = UIEdgeInsetsMake(self.contentInset.top,self.contentInset.left,49.f,self.contentInset.right);
+    self.contentInset = UIEdgeInsetsMake(self.contentInset.top,self.contentInset.left, IS_IPAD ? 56.f : 49.f,self.contentInset.right);
 }
 
 

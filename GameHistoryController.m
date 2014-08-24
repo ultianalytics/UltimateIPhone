@@ -23,6 +23,7 @@
 #import "GameHistoryHeaderView.h"
 #import "GameHistoryTableViewCell.h"
 #import "UIView+Convenience.h"
+#import "UIScrollView+Utilities.h"
 
 #define kIsNotFirstGameHistoryViewUsage @"IsNotFirstGameHistoryViewUsage"
 
@@ -221,6 +222,10 @@
             [self.eventTableView reloadData];
         } completion:nil];
     });
+}
+
+-(void)adjustInsetForTabBar {
+    [self.eventTableView adjustInsetForTabBar];
 }
 
 @end

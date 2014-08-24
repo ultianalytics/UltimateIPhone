@@ -11,6 +11,7 @@
 #import "UIView+Convenience.h"
 #import "GameFieldView.h"
 #import "ColorMaster.h"
+#import "GameHistoryController.h"
 
 #define kActionViewMargin 20;
 
@@ -20,7 +21,9 @@
 @property (nonatomic, strong) IBOutlet UIView* actionViewContainer;
 @property (nonatomic, strong) IBOutlet UIView* topViewOverlay;
 @property (nonatomic, strong) IBOutlet UIView* bottomViewOverlay;
+@property (nonatomic, strong) IBOutlet UIView* eventsViewContainer;
 @property (nonatomic, strong) IBOutlet UIButton* cancelButton;
+@property (nonatomic, strong) IBOutlet UIView* buttonsView;
 
 @end
 
@@ -43,6 +46,7 @@
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
         [weakSelf showActionViewForPoint:[weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view]];
     };
+    [self.eventsViewController adjustInsetForTabBar];
     [self hideActionView];
 }
 
@@ -55,6 +59,8 @@
     } else {
 
     }
+    self.bottomOrRightView.frameWidth = self.view.boundsWidth;
+    self.bottomOrRightView.frameHeight = self.view.boundsHeight - self.topOrLeftView.frameHeight;
 }
 
 -(void)eventActionSelected {

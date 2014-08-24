@@ -18,5 +18,6 @@
 @property (strong, nonatomic) void (^embeddedUndoTappedBlock)();
 
 -(void)refresh;
+-(void)adjustInsetForTabBar;
 
 @end

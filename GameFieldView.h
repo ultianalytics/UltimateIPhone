@@ -18,7 +18,7 @@
 @property (nonatomic, strong) Event* previousSavedEvent;
 @property (nonatomic) BOOL inverted;
 
-@property (strong, nonatomic) void (^positionTappedBlock)(EventPosition* position);
+@property (strong, nonatomic) void (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint);
 
 - (void)handleTap:(CGPoint) tapPoint;
 

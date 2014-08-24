@@ -12,6 +12,8 @@
 #import "GameFieldView.h"
 #import "ColorMaster.h"
 
+#define kActionViewMargin 20;
+
 @interface GamePositionalViewController ()
 
 @property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
@@ -33,11 +35,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     __typeof(self) __weak weakSelf = self;
-    self.fieldView.positionTappedBlock = ^(EventPosition* position) {
-        [weakSelf showActionView:YES];
+    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
+        [weakSelf showActionView:YES forPoint:[weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view]];
     };
-    [self showActionView: NO];
-
+    [self showActionView: NO forPoint:CGPointMake(0, 0)];
 }
 
 #pragma mark - Superclass Overrides
@@ -51,6 +52,10 @@
     }
 }
 
+-(CGFloat)throwawayButtonOffsetOnDefense {
+    return -100.0;
+}
+
 -(void)configureActionView {
     // add the action view
     NSString* actionViewNib = @"GameActionView_positional";
@@ -62,8 +67,18 @@
 
 #pragma mark - Miscellaneous
 
-- (void)showActionView: (BOOL)show {
-    // todo...position relative to current event
+- (void)showActionView: (BOOL)show forPoint: (CGPoint) eventPoint {
+    if (eventPoint.x != 0 && eventPoint.y != 0) {
+        BOOL isLeft = eventPoint.x < (self.view.boundsWidth / 2.0f);
+        CGFloat distanceFromPointToActionView = 40;
+        CGFloat x;
+        if (isLeft) {
+            x = eventPoint.x + distanceFromPointToActionView;
+        } else {
+            x = eventPoint.x - self.actionSubView.frameWidth - distanceFromPointToActionView;
+        }
+        self.actionSubView.frameX = x;
+    }
     
     self.actionSubView.visible = show;
     

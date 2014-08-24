@@ -216,9 +216,13 @@
 }
 
 -(void)setThrowAwayButtonPosition {
-    CGFloat offsetOnDefense = IS_IPAD ? -168.0 : -100.0;
+    CGFloat offsetOnDefense = [self throwawayButtonOffsetOnDefense];
     CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(offsetOnDefense, 0.0);
     self.throwAwayButton.transform = transform;
+}
+
+-(CGFloat)throwawayButtonOffsetOnDefense {
+    return IS_IPAD ? -168.0 : -100.0;
 }
 
 - (void) populatePlayers {

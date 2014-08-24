@@ -71,7 +71,7 @@
 - (void)handleTap:(CGPoint) tapPoint {
     EventPosition* eventPosition = [self calculatePosition:tapPoint];
     if (self.positionTappedBlock) {
-        self.positionTappedBlock(eventPosition);
+        self.positionTappedBlock(eventPosition, tapPoint);
     }
     
     // test code...

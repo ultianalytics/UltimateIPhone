@@ -12,14 +12,15 @@
 
 @interface GameFieldView : UIView
 
+// view configuration
 @property (nonatomic, strong) UIColor* fieldBorderColor;
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
-@property (nonatomic, strong) Event* lastSavedEvent;
-@property (nonatomic, strong) Event* previousSavedEvent;
 @property (nonatomic) BOOL inverted;
 
 @property (strong, nonatomic) void (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint);
+@property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;
 
-- (void)handleTap:(CGPoint) tapPoint;
+-(void)handleTap:(CGPoint) tapPoint;
+-(void)updateForCurrentEvents;
 
 @end

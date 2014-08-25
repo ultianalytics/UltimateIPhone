@@ -133,6 +133,7 @@
 }
 
 -(void) addEvent: (Event*) event {
+    [self addEventProperties:event];
     [[Game getCurrentGame] addEvent: event];  
     [self updateEventViews];
     [self refreshTitle: event];
@@ -154,6 +155,10 @@
     [self updateViewFromGame:[Game getCurrentGame]];
     [self notifyLeaguevineOfNewEvent:event];
     [self eventActionSelected];
+}
+
+-(void) addEventProperties: (Event*) event {
+    // no-op...subclasses can implement
 }
 
 -(void)updateEventViews {

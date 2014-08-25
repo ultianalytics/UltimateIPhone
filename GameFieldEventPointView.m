@@ -61,4 +61,11 @@
     CGContextRestoreGState(context);
 }
 
+#pragma mark - Misc
+
+-(void)setPointColor:(UIColor *)pointColor {
+    _pointColor = pointColor;
+    [self setNeedsDisplay];
+}
+
 @end

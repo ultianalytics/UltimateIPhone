@@ -50,6 +50,10 @@
     [self hideActionView];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self.fieldView updateForCurrentEvents];
+}
+
 #pragma mark - Superclass Overrides
 
 - (void)configureForOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -65,6 +69,7 @@
 
 -(void)eventActionSelected {
     [self hideActionView];
+    [self.fieldView updateForCurrentEvents];
 }
 
 -(CGFloat)throwawayButtonOffsetOnDefense {
@@ -82,6 +87,10 @@
     UIView* actionView = (UIView*)nibViews[0];
     [self.actionSubView addSubview:actionView];
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+}
+
+-(void) addEventProperties: (Event*) event {
+    event.position = self.fieldView.potentialEventPosition;
 }
 
 #pragma mark - Event Handlers

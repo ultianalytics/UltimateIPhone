@@ -13,6 +13,9 @@
 #import "Event.h"
 #import "OffenseEvent.h"
 #import "Player.h"
+#import "Game.h"
+#import "UPoint.h"
+#import "ColorMaster.h"
 
 #define kPointViewWidth 20.0f
 
@@ -23,9 +26,10 @@
 @property (nonatomic) CGRect endzone0Rect;
 @property (nonatomic) CGRect endzone100Rect;
 
-@property (nonatomic, strong) GameFieldEventPointView* potentialEventView;
 @property (nonatomic, strong) GameFieldEventPointView* lastSavedEventView;
 @property (nonatomic, strong) GameFieldEventPointView* previousSavedEventView;
+@property (nonatomic, strong) GameFieldEventPointView* potentialEventView;
+@property (nonatomic, strong) EventPosition* potentialEventPosition;
 
 @end
 
@@ -38,6 +42,7 @@
     self.fieldBorderColor = [UIColor whiteColor];  // default border color
     self.endzonePercent = .15; // default endzone percent
     self.potentialEventView = [self createPointView];
+    self.potentialEventView.pointColor = [ColorMaster applicationTintColor];
     [self addSubview:self.potentialEventView];
     self.lastSavedEventView = [self createPointView];
     [self addSubview:self.lastSavedEventView];
@@ -74,28 +79,49 @@
         self.positionTappedBlock(eventPosition, tapPoint);
     }
     
-    // test code...
-//    LOG_POINT(@"tap point", tapPoint);
-//    NSLog(@"event position=%@", eventPosition);
-    self.lastSavedEvent = [[OffenseEvent alloc] initPasser:[Player getAnonymous] action:Throwaway];
-    self.lastSavedEvent.position = eventPosition;
-    [self resetPointViews];
+    [self updatePointViews:eventPosition];
 }
 
 #pragma mark - Event Point Views
 
--(void)resetPointViews {
-    if (self.lastSavedEvent) {
-        self.lastSavedEventView.center = [self calculatePoint:self.lastSavedEvent.position];
-    }
-    if (self.previousSavedEvent) {
-        self.previousSavedEventView.center = [self calculatePoint:self.previousSavedEvent.position];
-    }
-    self.lastSavedEventView.hidden = self.lastSavedEvent == nil;
-    self.previousSavedEventView.hidden = self.previousSavedEvent == nil;
-    self.potentialEventView.hidden = YES;
+-(void)updateForCurrentEvents {
+    [self updatePointViews:nil];
 }
 
+-(void)updatePointViews: (EventPosition*)potentialEventPosition {
+    // potential event
+    if (potentialEventPosition) {
+        self.potentialEventPosition = potentialEventPosition;
+        [self updatePointViewLocation:self.potentialEventView toPosition:potentialEventPosition];
+    }
+    self.potentialEventView.hidden = potentialEventPosition == nil;
+    
+    // last event
+    Event* lastEvent = [self getLastPointEvent];
+    if (lastEvent && lastEvent.position != nil) {
+        self.lastSavedEventView.pointColor = self.potentialEventView.visible ? [UIColor lightGrayColor] : [ColorMaster applicationTintColor];
+        self.lastSavedEventView.event = lastEvent;
+        [self updatePointViewLocation:self.lastSavedEventView toPosition:lastEvent.position];
+        self.lastSavedEventView.visible = YES;
+    } else {
+        self.lastSavedEventView.visible = NO;
+    }
+    
+    // previous event
+    Event* previousEvent = [self getPreviousPointEvent];
+    if (self.potentialEventView.hidden && previousEvent && previousEvent.position != nil) {
+        self.previousSavedEventView.event = previousEvent;
+        [self updatePointViewLocation:self.previousSavedEventView toPosition:previousEvent.position];
+        self.previousSavedEventView.visible = YES;
+    } else {
+        self.previousSavedEventView.visible = NO;
+    }
+    
+}
+
+-(void)updatePointViewLocation: (GameFieldEventPointView*)pointView toPosition: (EventPosition*)eventPosition {
+    pointView.center = [self calculatePoint:eventPosition];
+}
 
 #pragma mark - UIView overrides
 
@@ -217,5 +243,28 @@
         return CGPointMake(0, 0);
     }
 }
+
+#pragma mark - Event retrieval
+
+-(Event*)getLastPointEvent {
+    return [[Game getCurrentGame] getLastEvent];
+}
+
+-(Event*)getPreviousPointEvent {
+    NSArray* lastPointEvents = [[Game getCurrentGame] getCurrentPointLastEvents:2];
+    if ([lastPointEvents count] > 1) {
+        return lastPointEvents[1];
+    } else {
+        return nil;
+    }
+}
+
+-(BOOL)currentPointHasEvents {
+    UPoint* currentPoint = [[Game getCurrentGame] getCurrentPoint];
+    return currentPoint != nil && ![currentPoint isFinished];
+}
+
+
+
 
 @end

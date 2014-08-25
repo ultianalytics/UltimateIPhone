@@ -493,6 +493,20 @@ static Game* currentGame = nil;
     return list;
 }
 
+-(NSArray*)getCurrentPointLastEvents: (int) numberToRetrieve {
+    UPoint* point = [self getCurrentPoint];
+    if (point) {
+        NSMutableArray* events = [NSMutableArray array];
+        NSEnumerator* enumerator = [point.events reverseObjectEnumerator];
+        while ((point = [enumerator nextObject]) && [events count] < numberToRetrieve) {
+            [events addObject:point];
+        }
+        return events;
+    } else {
+        return @[];
+    }
+}
+
 -(void)addPoint: (UPoint*) point {
     [self.points addObject: point];
     [self clearPointSummaries];

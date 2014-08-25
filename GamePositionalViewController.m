@@ -71,6 +71,10 @@
     return -100.0;
 }
 
+-(BOOL)calloutsAllowed {
+    return NO;
+}
+
 -(void)configureActionView {
     // add the action view
     NSString* actionViewNib = @"GameActionView_positional";

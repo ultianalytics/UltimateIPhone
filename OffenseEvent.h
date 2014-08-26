@@ -12,13 +12,11 @@
 
 #define kPasserKey        @"passer"
 #define kReceiverKey        @"receiver"
-#define kPointStartPositionKey     @"pointStartPosition"
 
 @interface OffenseEvent : Event
 
 @property (nonatomic, strong) Player* passer;
 @property (nonatomic, strong) Player* receiver;
-@property (nonatomic, strong) EventPosition* pointStartPosition; // only on first event of point when receiving
 
 +(OffenseEvent*)eventFromDictionary:(NSDictionary*) dict;
 

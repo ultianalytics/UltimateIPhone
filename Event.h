@@ -20,6 +20,9 @@ typedef enum {
     Stall,
     MiscPenalty,
     
+    BeginPull,
+    PickupDisc,
+    
     EndOfFirstQuarter,
     Halftime,
     EndOfThirdQuarter,
@@ -41,6 +44,7 @@ typedef enum {
 @property (nonatomic, strong) NSMutableDictionary* details;
 @property BOOL isHalftimeCause;
 @property (nonatomic, strong) EventPosition* position;
+@property (nonatomic, strong) EventPosition* beginPosition; // only for pull events or events occurring after pull or turnover
 
 + (Event*) fromDictionary:(NSDictionary*) dict;
 
@@ -48,6 +52,7 @@ typedef enum {
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName;
 - (BOOL) isCessationEvent;
 - (BOOL) isPlayEvent;
+- (BOOL) isBeginEvent;
 - (BOOL) isOffense;
 - (BOOL) isDefense;
 - (BOOL) isGoal;

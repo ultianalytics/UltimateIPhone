@@ -17,6 +17,7 @@
 #define kTimestampKey     @"timestamp"
 #define kIsHalftimeCauseKey     @"halftimeCause"
 #define kPositionKey     @"pos"
+#define kBeginPositionKey     @"posBegin"
 
 @interface  Event()
 
@@ -49,6 +50,10 @@
     if (positionDict) {
         event.position = [EventPosition fromDictionary:positionDict];
     }
+    NSDictionary* beginPosition = [dict objectForKey:kBeginPositionKey];
+    if (beginPosition) {
+        event.beginPosition = [EventPosition fromDictionary:beginPosition];
+    }
     return event;
 }
 
@@ -71,6 +76,9 @@
     if (self.position) {
         [dict setValue:[self.position asDictionary] forKey:kPositionKey];
     }
+    if (self.beginPosition) {
+        [dict setValue:[self.beginPosition asDictionary] forKey:kBeginPositionKey];
+    }
     return dict;
 }
 
@@ -86,7 +94,10 @@
     if (self.position) {
         [encoder encodeObject:self.position forKey:kPositionKey];
     }
-} 
+    if (self.beginPosition) {
+        [encoder encodeObject:self.beginPosition forKey:kBeginPositionKey];
+    }
+}
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) { 
@@ -95,6 +106,7 @@
         self.details = [decoder decodeObjectForKey:kDetailsKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
         self.position = [decoder decodeObjectForKey:kPositionKey];
+        self.beginPosition = [decoder decodeObjectForKey:kBeginPositionKey];
         [self ensureValid];
     } 
     return self; 
@@ -107,6 +119,7 @@
     evt.details = [[self.details copyWithZone:zone] mutableCopy];
     evt.isHalftimeCause = self.isHalftimeCause;
     evt.position = self.position;
+    evt.beginPosition = self.beginPosition;
     return evt;
 }
 
@@ -175,10 +188,13 @@
     return NO;
 }
 
+- (BOOL) isBeginEvent {
+    return NO;
+}
+
 - (BOOL) isPlayEvent {
     return NO;    
 }
-
 
 - (NSString*)description {
     return [self getDescription];

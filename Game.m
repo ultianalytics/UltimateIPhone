@@ -382,7 +382,7 @@ static Game* currentGame = nil;
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
         self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
         self.isPositional = [decoder decodeBoolForKey:kIsPositionalKey];
-        self.ephemeralBeginEvent = [decoder decodeObjectForKey:kBeginEventK];
+        self.positionalBeginEvent = [decoder decodeObjectForKey:kBeginEventK];
     } 
     return self; 
 } 
@@ -405,7 +405,7 @@ static Game* currentGame = nil;
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
     [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
     [encoder encodeBool:self.isPositional forKey:kIsPositionalKey];
-    [encoder encodeObject:self.ephemeralBeginEvent forKey:kBeginEventK];
+    [encoder encodeObject:self.positionalBeginEvent forKey:kBeginEventK];
 } 
 
 
@@ -441,7 +441,7 @@ static Game* currentGame = nil;
 }
 
 -(void)addEvent: (Event*) event{
-    self.ephemeralBeginEvent = nil;
+    self.positionalBeginEvent = nil;
     if ([self getCurrentPoint] == nil || [[self getCurrentPoint] isFinished]) {
         UPoint* newPoint = [[UPoint alloc] init];
         [self addPoint: newPoint];
@@ -462,7 +462,7 @@ static Game* currentGame = nil;
 }
 
 -(void)removeLastEvent {
-    self.ephemeralBeginEvent = nil;
+    self.positionalBeginEvent = nil;
     if ([self getCurrentPoint] != nil) {
         Event* lastEvent = [self getLastEvent];
         [self tweetEvent: lastEvent point: [self getCurrentPoint] isUndo: YES];

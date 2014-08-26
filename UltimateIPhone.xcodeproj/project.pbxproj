@@ -296,6 +296,8 @@
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
 		381BC44519AC447000CD8C20 /* BeginEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC44419AC447000CD8C20 /* BeginEvent.m */; };
+		381BC44919ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC44719ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.m */; };
+		381BC44A19ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381BC44819ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.xib */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -765,6 +767,9 @@
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
 		381BC44319AC447000CD8C20 /* BeginEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeginEvent.h; sourceTree = "<group>"; };
 		381BC44419AC447000CD8C20 /* BeginEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeginEvent.m; sourceTree = "<group>"; };
+		381BC44619ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeginEventPlayerPickerViewController.h; sourceTree = "<group>"; };
+		381BC44719ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeginEventPlayerPickerViewController.m; sourceTree = "<group>"; };
+		381BC44819ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeginEventPlayerPickerViewController.xib; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1653,6 +1658,9 @@
 				384C2D8B19A9569000EE8290 /* GameActionView_positional.xib */,
 				384C2D8D19A956C700EE8290 /* PlayerPositionalView.h */,
 				384C2D8E19A956C700EE8290 /* PlayerPositionalView.m */,
+				381BC44619ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.h */,
+				381BC44719ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.m */,
+				381BC44819ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.xib */,
 			);
 			name = Positional;
 			sourceTree = "<group>";
@@ -1771,6 +1779,7 @@
 				1AA37BAD18A8619700CE9662 /* color3E6600Radius3.png in Resources */,
 				1AFFE89A15175EB0004B4590 /* nothing_to_say.png in Resources */,
 				1AFFE89B15175EB0004B4590 /* nothing.png in Resources */,
+				381BC44A19ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.xib in Resources */,
 				384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */,
 				1AFFE89F15175EB0004B4590 /* PickPlayersController.xib in Resources */,
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
@@ -2039,6 +2048,7 @@
 				1ACED4DD170BB8220041AA23 /* LeaguevineScore.m in Sources */,
 				38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */,
 				1ACED4E0170D945A0041AA23 /* LeagueVinePlayerNameTransformer.m in Sources */,
+				381BC44919ACD2DC00CD8C20 /* BeginEventPlayerPickerViewController.m in Sources */,
 				1AA95A0D170EF647003B0781 /* LeaguevineWaitingViewController.m in Sources */,
 				1AC6613317164B1800DCFF58 /* TimeoutViewController.m in Sources */,
 				1A209ABA17177A5400BF9D6A /* TimeoutDetails.m in Sources */,

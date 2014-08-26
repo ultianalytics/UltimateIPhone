@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="actionSubView" destination="qgk-91-QKV" id="CaN-zC-hwG"/>
                 <outlet property="actionViewContainer" destination="fHk-v1-KAb" id="dPi-6t-ONr"/>
+                <outlet property="beginEventPlayerPickerSubview" destination="4mh-CX-KK0" id="ajR-dO-HEg"/>
                 <outlet property="bottomOrRightView" destination="ofW-zR-MVS" id="ynO-Ab-32J"/>
                 <outlet property="bottomViewOverlay" destination="h0w-8u-Zoq" id="xPg-WO-Nah"/>
                 <outlet property="broadcast1Label" destination="PDd-Pt-1lA" id="xvH-fB-VZi"/>
@@ -79,6 +80,11 @@
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="4mh-CX-KK0" userLabel="BeginEvent Player Picker SubView">
+                            <rect key="frame" x="500" y="30" width="160" height="406"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

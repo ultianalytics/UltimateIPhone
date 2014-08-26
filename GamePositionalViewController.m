@@ -12,6 +12,9 @@
 #import "GameFieldView.h"
 #import "ColorMaster.h"
 #import "GameHistoryController.h"
+#import "BeginEventPlayerPickerViewController.h"
+#import "Game.h"
+#import "BeginEvent.h"
 
 #define kActionViewMargin 20;
 
@@ -24,6 +27,8 @@
 @property (nonatomic, strong) IBOutlet UIView* eventsViewContainer;
 @property (nonatomic, strong) IBOutlet UIButton* cancelButton;
 @property (nonatomic, strong) IBOutlet UIView* buttonsView;
+@property (nonatomic, strong) IBOutlet BeginEventPlayerPickerViewController* beginEventPlayerPickerViewController;
+@property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
 
 @end
 
@@ -41,10 +46,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configureBeginEventPlayerPickerView];
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     __typeof(self) __weak weakSelf = self;
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
-        [weakSelf showActionViewForPoint:[weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view]];
+        CGPoint pointInMyView = [weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view];
+        if ([[Game getCurrentGame] needsPositionalBegin]) {
+            [weakSelf showBeginEventPlayerPickerViewForPoint:pointInMyView isPull:NO];
+        } else {
+            [weakSelf showActionViewForPoint:pointInMyView];
+        }
     };
     [self.eventsViewController adjustInsetForTabBar];
     [self hideActionView];
@@ -80,8 +91,9 @@
     return NO;
 }
 
+#pragma mark - ActionView (who/what for event)
+
 -(void)configureActionView {
-    // add the action view
     NSString* actionViewNib = @"GameActionView_positional";
     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
     UIView* actionView = (UIView*)nibViews[0];
@@ -89,8 +101,41 @@
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
 }
 
--(void) addEventProperties: (Event*) event {
-    event.position = self.fieldView.potentialEventPosition;
+- (void)showActionViewForPoint: (CGPoint) eventPoint {
+    [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:eventPoint];
+}
+
+- (void)hideActionView {
+    [self hideChooserView:self.actionViewContainer];
+}
+
+#pragma mark - BeginEvent player picker (who for the ephemeral "begin" event)
+
+-(void)configureBeginEventPlayerPickerView {
+    self.beginEventPlayerPickerViewController = [[BeginEventPlayerPickerViewController alloc] init];
+    __typeof(self) __weak weakSelf = self;
+    self.beginEventPlayerPickerViewController.doneRequestedBlock = ^(Player* player) {
+        [weakSelf hideBeginEventPlayerPickerView];
+        if (player) {
+            BOOL isPullBegin = ![Game getCurrentGame].isPointInProgress;
+            BeginEvent* beginEvent = [BeginEvent eventWithAction: (isPullBegin ? BeginPull : PickupDisc) andPlayer:player];
+            beginEvent.position = weakSelf.fieldView.potentialEventPosition;
+            [Game getCurrentGame].positionalBeginEvent = beginEvent;
+        }
+        [weakSelf.fieldView updateForCurrentEvents];
+    };
+    [self addChildViewController:self.beginEventPlayerPickerViewController inSubView:self.beginEventPlayerPickerSubview];
+}
+
+-(void)showBeginEventPlayerPickerViewForPoint:(CGPoint) eventPoint isPull: (BOOL)isPull {
+    self.beginEventPlayerPickerViewController.line = [Game getCurrentGame].currentLineSorted;
+    self.beginEventPlayerPickerViewController.instructions = isPull ? @"Pick player who is pulling" : @"Pick player who picked up the disc";
+    [self.beginEventPlayerPickerViewController refresh];
+    [self repositionAndShowChooserView:self.beginEventPlayerPickerSubview adjacentToEventAt:eventPoint];
+}
+
+-(void)hideBeginEventPlayerPickerView {
+    [self hideChooserView:self.beginEventPlayerPickerSubview];
 }
 
 #pragma mark - Event Handlers
@@ -101,8 +146,13 @@
 
 #pragma mark - Miscellaneous
 
-- (void)showActionViewForPoint: (CGPoint) eventPoint {
-    self.actionViewContainer.center = self.fieldView.center;  // center vertically in the field view
+-(void) addEventProperties: (Event*) event {
+    event.position = self.fieldView.potentialEventPosition;
+    event.beginPosition = [Game getCurrentGame].positionalBeginEvent.position;  // only some events will have begin position
+}
+
+- (void)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
+    chooserView.center = self.fieldView.center;  // center vertically in the field view
     if (eventPoint.x != 0 && eventPoint.y != 0) {
         BOOL isLeft = eventPoint.x < (self.view.boundsWidth / 2.0f);
         CGFloat distanceFromPointToActionView = 40;
@@ -110,20 +160,20 @@
         if (isLeft) {
             x = eventPoint.x + distanceFromPointToActionView;
         } else {
-            x = eventPoint.x - self.actionViewContainer.frameWidth - distanceFromPointToActionView;
+            x = eventPoint.x - chooserView.frameWidth - distanceFromPointToActionView;
         }
-        self.actionViewContainer.frameX = x;
+        chooserView.frameX = x;
     }
-    
     self.topViewOverlay.visible = YES;
     self.bottomViewOverlay.visible = YES;
-    self.actionViewContainer.visible = YES;
+    chooserView.visible = YES;
 }
 
-- (void)hideActionView {
+- (void)hideChooserView: (UIView*)chooserView {
     self.topViewOverlay.hidden = YES;
     self.bottomViewOverlay.hidden = YES;
-    self.actionViewContainer.hidden = YES;
+    chooserView.hidden = YES;
 }
+
 
 @end

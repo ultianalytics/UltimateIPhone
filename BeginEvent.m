@@ -105,10 +105,20 @@
 
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName {
     switch (self.action) {
-        case BeginPull:
-            return @"Pull Begin";
-        default:
-            return @"Pickup Disc";
+        case BeginPull: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ pull begin", (teamName == nil ? @"Our" : teamName)];
+            } else {
+                return [NSString stringWithFormat:@"Pull begin from %@", self.player.name];
+            }
+        }
+        default: {
+            if (self.isAnonymous) {
+                return [NSString stringWithFormat:@"%@ disk pickup", (teamName == nil ? @"Our" : teamName)];
+            } else {
+                return [NSString stringWithFormat:@"Disk pick up by %@", self.player.name];
+            }
+        }
     }
 }
 

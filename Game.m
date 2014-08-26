@@ -47,6 +47,7 @@
 #define kTimeoutDetailsJsonKey      @"timeoutDetailsJson"
 #define klastSaveKey            @"lastSave"
 #define kIsPositionalKey            @"positional"
+#define kBeginEventK            @"beginEvent"
 
 static Game* currentGame = nil;
 
@@ -381,6 +382,7 @@ static Game* currentGame = nil;
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
         self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
         self.isPositional = [decoder decodeBoolForKey:kIsPositionalKey];
+        self.ephemeralBeginEvent = [decoder decodeObjectForKey:kBeginEventK];
     } 
     return self; 
 } 
@@ -403,6 +405,7 @@ static Game* currentGame = nil;
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
     [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
     [encoder encodeBool:self.isPositional forKey:kIsPositionalKey];
+    [encoder encodeObject:self.ephemeralBeginEvent forKey:kBeginEventK];
 } 
 
 

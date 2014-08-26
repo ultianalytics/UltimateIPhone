@@ -16,6 +16,7 @@
 @class Wind;
 @class LeaguevineGame;
 @class TimeoutDetails;
+@class BeginEvent;
 
 #define kDefaultGamePoint 15
 #define kTimeBasedGame    1000
@@ -42,6 +43,7 @@
 @property (nonatomic, readonly) int periodsComplete;
 @property (nonatomic, readonly) NSTimeInterval lastSaveGMT;
 @property (nonatomic) BOOL isPositional;
+@property (nonatomic, strong) BeginEvent* ephemeralBeginEvent;  // server transient
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;

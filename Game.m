@@ -441,6 +441,7 @@ static Game* currentGame = nil;
 }
 
 -(void)addEvent: (Event*) event{
+    self.ephemeralBeginEvent = nil;
     if ([self getCurrentPoint] == nil || [[self getCurrentPoint] isFinished]) {
         UPoint* newPoint = [[UPoint alloc] init];
         [self addPoint: newPoint];
@@ -461,6 +462,7 @@ static Game* currentGame = nil;
 }
 
 -(void)removeLastEvent {
+    self.ephemeralBeginEvent = nil;
     if ([self getCurrentPoint] != nil) {
         Event* lastEvent = [self getLastEvent];
         [self tweetEvent: lastEvent point: [self getCurrentPoint] isUndo: YES];
@@ -682,6 +684,27 @@ static Game* currentGame = nil;
 -(BOOL)canNextPointBePull {
     Event* lastEvent = [self getLastEvent];
     return lastEvent == nil ? YES : [lastEvent isGoal] || [lastEvent isPeriodEnd];
+}
+
+-(BOOL)needsPositionalBegin {
+    if (self.isPositional) {
+        if (self.positionalBeginEvent) {
+            return NO;
+        }
+        UPoint* currentPoint = [self getCurrentPoint];
+        if (!currentPoint || [currentPoint isFinished]) {
+            return YES;
+        } else {
+            Event* lastPointEvent = [currentPoint getLastEvent];
+            if (lastPointEvent) {
+                return [lastPointEvent isTurnover] || [lastPointEvent isPull];
+            } else {
+                return YES;
+            }
+        }
+        return YES;
+    }
+    return NO;
 }
 
 -(BOOL)isNextPointAfterPeriodEndOline {

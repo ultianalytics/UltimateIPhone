@@ -43,7 +43,7 @@
 @property (nonatomic, readonly) int periodsComplete;
 @property (nonatomic, readonly) NSTimeInterval lastSaveGMT;
 @property (nonatomic) BOOL isPositional;
-@property (nonatomic, strong) BeginEvent* ephemeralBeginEvent;  // server transient
+@property (nonatomic, strong) BeginEvent* positionalBeginEvent;  // server transient
 
 +(Game*)getCurrentGame;
 +(NSString*)getCurrentGameId;
@@ -89,6 +89,7 @@
 -(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBeDLinePull;
 -(BOOL)canNextPointBePull;
+-(BOOL)needsPositionalBegin;
 -(NSSet*)getPlayers;
 -(BOOL)isHalftime;
 -(BOOL)isAfterHalftime;

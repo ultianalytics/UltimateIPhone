@@ -17,7 +17,7 @@
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
 @property (nonatomic) BOOL inverted;
 
-@property (strong, nonatomic) void (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint);
+@property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint);
 @property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;
 
 -(void)handleTap:(CGPoint) tapPoint;

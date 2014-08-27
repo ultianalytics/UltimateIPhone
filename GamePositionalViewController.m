@@ -52,7 +52,7 @@
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     __typeof(self) __weak weakSelf = self;
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
-        [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
+        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
     };
     [self.eventsViewController adjustInsetForTabBar];
     [self hideActionView];
@@ -114,13 +114,7 @@
     self.beginEventPlayerPickerViewController = [[BeginEventPlayerPickerViewController alloc] init];
     __typeof(self) __weak weakSelf = self;
     self.beginEventPlayerPickerViewController.doneRequestedBlock = ^(Player* player) {
-        [weakSelf hidePickupDiscPlayerPickerView];
-        if (player) {
-            OffenseEvent* pickupEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:player];
-            pickupEvent.position = weakSelf.fieldView.potentialEventPosition;
-            [Game getCurrentGame].positionalPickupEvent = pickupEvent;
-        }
-        [weakSelf.fieldView updateForCurrentEvents];
+        [weakSelf handlePickupPlayerChosen: player];
     };
     [self addChildViewController:self.beginEventPlayerPickerViewController inSubView:self.beginEventPlayerPickerSubview];
 }
@@ -140,22 +134,39 @@
 
 - (IBAction)cancelButtonTapped:(id)sender {
     [self hideActionView];
+    [self.fieldView updateForCurrentEvents];
 }
 
 #pragma mark - Miscellaneous
 
--(void)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {
+-(BOOL)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {
     CGPoint pointInMyView = [self.fieldView convertPoint:fieldPoint toView:self.view];
     if ([[Game getCurrentGame] needsPositionalBegin]) {
         if (self.isOffense) {
             [self showPickupDiscPlayerPickerViewForPoint:pointInMyView];
+            return YES; // show potential event
         } else {
-            [Game getCurrentGame].positionalPickupEvent = [[DefenseEvent alloc] initPickupDisc];
+            Event* pickupEvent = [[DefenseEvent alloc] initPickupDisc];
+            pickupEvent.position = position;
+            [Game getCurrentGame].positionalPickupEvent = pickupEvent;
+            [self.fieldView updateForCurrentEvents];
+            return NO;  // do not show potential event
         }
     } else {
         [self showActionViewForPoint:pointInMyView];
+        return YES; // show potential event
     }
 }
+
+-(void)handlePickupPlayerChosen: (Player*) player { // if player is nil then the user cancelled choice
+    [self hidePickupDiscPlayerPickerView];
+    if (player) {
+        OffenseEvent* pickupEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:player];
+        pickupEvent.position = self.fieldView.potentialEventPosition;
+        [Game getCurrentGame].positionalPickupEvent = pickupEvent;
+    }
+    [self.fieldView updateForCurrentEvents];
+};
 
 -(void) addEventProperties: (Event*) event {
     event.position = self.fieldView.potentialEventPosition;

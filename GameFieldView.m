@@ -77,10 +77,9 @@
 - (void)handleTap:(CGPoint) tapPoint {
     EventPosition* eventPosition = [self calculatePosition:tapPoint];
     if (self.positionTappedBlock) {
-        self.positionTappedBlock(eventPosition, tapPoint);
+        BOOL shouldDisplayPotentialEvent = self.positionTappedBlock(eventPosition, tapPoint);
+        [self updatePointViews: shouldDisplayPotentialEvent ? eventPosition : nil];
     }
-    
-    [self updatePointViews:eventPosition];
 }
 
 #pragma mark - Event Point Views

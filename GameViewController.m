@@ -52,6 +52,8 @@
 
 @interface GameViewController()
 
+@property (nonatomic) BOOL isOffense;
+
 // iphone only
 @property (nonatomic, strong) IBOutlet UIView *normalView;
 @property (nonatomic, strong) IBOutlet UIView *detailSelectionView;
@@ -139,7 +141,7 @@
     [self refreshTitle: event];
     [[Game getCurrentGame] save]; 
     if ([event causesDirectionChange]) {
-        [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
+        self.isOffense = [[Game getCurrentGame] arePlayingOffense];
         if ([event isGoal] && [self shouldPublishScoresToLeaguevine]) {
             [self notifyLeaguevineOfScoreIsFinal:NO];
         }
@@ -202,30 +204,29 @@
     }
 }
 
--(void) setOffense: (BOOL) shouldBeOnOffense {
-    isOffense = shouldBeOnOffense;
-    self.receiverLabel.hidden = !isOffense;
-    self.otherTeamScoreButton.hidden = isOffense;
+-(void)setIsOffense:(BOOL)shouldBeOnOffense {
+    _isOffense = shouldBeOnOffense;
+    self.receiverLabel.hidden = !_isOffense;
+    self.otherTeamScoreButton.hidden = _isOffense;
     [self setNeedToSelectPasser: NO];
-    [self.playerLabel setText: isOffense ? @"Passer" : @"Defender"];
-    [self.playerView1 setIsOffense:isOffense];
-    [self.playerView2 setIsOffense:isOffense];
-    [self.playerView3 setIsOffense:isOffense];
-    [self.playerView4 setIsOffense:isOffense];
-    [self.playerView5 setIsOffense:isOffense];
-    [self.playerView6 setIsOffense:isOffense];
-    [self.playerView7 setIsOffense:isOffense];
-    [self.playerViewTeam setIsOffense:isOffense];
+    [self.playerLabel setText: _isOffense ? @"Passer" : @"Defender"];
+    [self.playerView1 setIsOffense:_isOffense];
+    [self.playerView2 setIsOffense:_isOffense];
+    [self.playerView3 setIsOffense:_isOffense];
+    [self.playerView4 setIsOffense:_isOffense];
+    [self.playerView5 setIsOffense:_isOffense];
+    [self.playerView6 setIsOffense:_isOffense];
+    [self.playerView7 setIsOffense:_isOffense];
+    [self.playerViewTeam setIsOffense:_isOffense];
     self.throwAwayButton.hidden = NO;
     [self setThrowAwayButtonPosition];
     [self populatePlayers];
     [self initializeSelected];
-     
 }
 
 -(void)setThrowAwayButtonPosition {
     CGFloat offsetOnDefense = [self throwawayButtonOffsetOnDefense];
-    CGAffineTransform transform = isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(offsetOnDefense, 0.0);
+    CGAffineTransform transform = self.isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(offsetOnDefense, 0.0);
     self.throwAwayButton.transform = transform;
 }
 
@@ -256,7 +257,7 @@
 }
 
 - (void) initializeSelected {
-    if (isOffense) {
+    if (self.isOffense) {
         PlayerView* previousSelected = [self findSelectedPlayerView];
         if (previousSelected) {
             [previousSelected makeSelected:NO];
@@ -307,7 +308,7 @@
 
 -(void) refreshView {
     Game* game = [Game getCurrentGame];
-    [self setOffense: [game arePlayingOffense]];
+    self.isOffense = [game arePlayingOffense];
     [self updateEventViews];
     [self updateNavBarTitle];
     [[Game getCurrentGame] save];
@@ -317,7 +318,7 @@
 }
 
 -(void) updateViewFromGame: (Game*) game {
-    if (!isOffense) {
+    if (!self.isOffense) {
         self.otherTeamScoreButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
         self.throwAwayButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
     }
@@ -365,7 +366,7 @@
 #pragma mark ActionListener
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
-    if (isOffense) {
+    if (self.isOffense) {
         PlayerView* oldSelected = [self findSelectedPlayerView];
         if (oldSelected) {
             [oldSelected makeSelected:NO];
@@ -385,7 +386,7 @@
 }
 
 - (void) passerSelected: (Player*) player view: (PlayerView*) view {
-    if (isOffense) {
+    if (self.isOffense) {
         [self setNeedToSelectPasser: NO];
         [self showDidYouKnow];
     }
@@ -407,7 +408,7 @@
     if (action == Pull) {
         [self handlePullBegin: player];
     } else {
-        if (isOffense) {
+        if (self.isOffense) {
             PlayerView* oldSelected = [self findSelectedPlayerView];
             if (oldSelected) {
                 [oldSelected makeSelected:NO];
@@ -439,7 +440,7 @@
 
 -(void)turnoverButtonLongPress: (UIGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        if (isOffense) {
+        if (self.isOffense) {
             PlayerView* oldSelected = [self findSelectedPlayerView];
             if (oldSelected) {
                 [oldSelected makeSelected:NO];
@@ -476,7 +477,7 @@
     [self refreshTitle: lastEventBefore];
     [[Game getCurrentGame] save];
     if ([lastEventBefore causesDirectionChange]) {
-        [self setOffense: [[Game getCurrentGame] arePlayingOffense]];
+        self.isOffense = [[Game getCurrentGame] arePlayingOffense];
         if ([lastEventAfter causesLineChange]) {
             [self goToPlayersOnFieldView];
         }
@@ -487,7 +488,7 @@
 }
 
 -(IBAction)throwAwayButtonClicked: (id) sender {
-    if (isOffense) {
+    if (self.isOffense) {
         PlayerView* oldSelected = [self findSelectedPlayerView];
         if (oldSelected) {
             [oldSelected makeSelected:NO];
@@ -503,7 +504,7 @@
 }
 
 -(IBAction)switchSidesClicked: (id) sender {
-    [self setOffense: !isOffense];
+    self.isOffense = !self.isOffense;
 }
 
 -(IBAction) gameOverButtonClicked: (id) sender {
@@ -1019,9 +1020,9 @@
 
 -(void)showDidYouKnow {
     if ([self calloutsAllowed]) {
-        if (isOffense && ![[Game getCurrentGame] hasEvents] && !self.throwAwayButton.hidden) {
+        if (self.isOffense && ![[Game getCurrentGame] hasEvents] && !self.throwAwayButton.hidden) {
             [self showThrowawayPressCallout];
-        } else if (!isOffense && [[Game getCurrentGame] hasOneEvent]) {
+        } else if (!self.isOffense && [[Game getCurrentGame] hasOneEvent]) {
             [self showDeLongPressCallout];
         }
     }

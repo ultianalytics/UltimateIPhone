@@ -15,9 +15,9 @@
 @class Game;
 @class GameHistoryController;
 
-@interface GameViewController : UltimateViewController <ActionListener, UIAlertViewDelegate> {
-    BOOL isOffense;
-}
+@interface GameViewController : UltimateViewController <ActionListener, UIAlertViewDelegate> {}
+
+@property (nonatomic, readonly) BOOL isOffense;
 
 
 // SUBCLASS Support

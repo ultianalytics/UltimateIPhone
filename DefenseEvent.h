@@ -20,6 +20,7 @@
 
 -(id) initAction: (Action)anAction;
 -(id) initDefender: (Player*)aDefender action: (Action)anAction;
+-(id) initPickupDisc;
 
 
 @end

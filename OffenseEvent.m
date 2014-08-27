@@ -33,6 +33,15 @@
     return self;
 }
 
+-(id) initPickupDiscWithPlayer: (Player*)aPasser {
+    self = [super init];
+    if (self) {
+        self.passer = aPasser;
+        self.action = PickupDisc;
+    }
+    return self;
+}
+
 -(void)useSharedPlayers {
     self.passer = [Player replaceWithSharedPlayer: self.passer];
     self.receiver = [Player replaceWithSharedPlayer: self.receiver];
@@ -91,6 +100,10 @@
             [dict setValue: @"Callahan" forKey:kActionKey];
             break;
         }
+        case PickupDisc: {
+            [dict setValue: @"PickupDisc" forKey:kActionKey];
+            break;
+        }
         default: {
         }
     }
@@ -120,8 +133,10 @@
         action = Stall;
     } else if ([dictAction isEqualToString: @"MiscPenalty"]) {
         action = MiscPenalty;
-    }else if ([dictAction isEqualToString: @"Callahan"]) {
+    } else if ([dictAction isEqualToString: @"Callahan"]) {
         action = Callahan;
+    } else if ([dictAction isEqualToString: @"PickupDisc"]) {
+        action = PickupDisc;
     }
     
     OffenseEvent* offenseEvent = [[OffenseEvent alloc]
@@ -199,6 +214,9 @@
         }
         case Callahan:{
             return self.isAnonymous ?  [NSString stringWithFormat:@"%@ callahan'd", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ callahan'd", self.passer.name];
+        }
+        case PickupDisc:{
+            return self.isAnonymous ?  [NSString stringWithFormat:@"%@ pick up", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ picked up", self.passer.name];
         }
         default:
             return @"";

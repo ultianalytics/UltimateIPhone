@@ -14,8 +14,8 @@
 #import "GameHistoryController.h"
 #import "BeginEventPlayerPickerViewController.h"
 #import "Game.h"
-#import "BeginEvent.h"
 #import "PlayerView.h"
+#import "OffenseEvent.h"
 
 #define kActionViewMargin 20;
 
@@ -47,13 +47,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureBeginEventPlayerPickerView];
+    [self configurePickupDiskPlayerPickerView];
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     __typeof(self) __weak weakSelf = self;
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
         CGPoint pointInMyView = [weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view];
         if ([[Game getCurrentGame] needsPositionalBegin]) {
-            [weakSelf showBeginEventPlayerPickerViewForPoint:pointInMyView isPull:NO];
+            [weakSelf showPickupDiscPlayerPickerViewForPoint:pointInMyView];
         } else {
             [weakSelf showActionViewForPoint:pointInMyView];
         }
@@ -112,32 +112,31 @@
     [self hideChooserView:self.actionViewContainer];
 }
 
-#pragma mark - BeginEvent player picker (who for the ephemeral "begin" event)
+#pragma mark - Pickup Disc player picker
 
--(void)configureBeginEventPlayerPickerView {
+-(void)configurePickupDiskPlayerPickerView {
     self.beginEventPlayerPickerViewController = [[BeginEventPlayerPickerViewController alloc] init];
     __typeof(self) __weak weakSelf = self;
     self.beginEventPlayerPickerViewController.doneRequestedBlock = ^(Player* player) {
-        [weakSelf hideBeginEventPlayerPickerView];
+        [weakSelf hidePickupDiscPlayerPickerView];
         if (player) {
-            BOOL isPullBegin = ![Game getCurrentGame].isPointInProgress;
-            BeginEvent* beginEvent = [BeginEvent eventWithAction: (isPullBegin ? BeginPull : PickupDisc) andPlayer:player];
-            beginEvent.position = weakSelf.fieldView.potentialEventPosition;
-            [Game getCurrentGame].positionalBeginEvent = beginEvent;
+            OffenseEvent* pickupEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:player];
+            pickupEvent.position = weakSelf.fieldView.potentialEventPosition;
+            [Game getCurrentGame].positionalPickupEvent = pickupEvent;
         }
         [weakSelf.fieldView updateForCurrentEvents];
     };
     [self addChildViewController:self.beginEventPlayerPickerViewController inSubView:self.beginEventPlayerPickerSubview];
 }
 
--(void)showBeginEventPlayerPickerViewForPoint:(CGPoint) eventPoint isPull: (BOOL)isPull {
+-(void)showPickupDiscPlayerPickerViewForPoint:(CGPoint) eventPoint {
     self.beginEventPlayerPickerViewController.line = [Game getCurrentGame].currentLineSorted;
-    self.beginEventPlayerPickerViewController.instructions = isPull ? @"Pick player who is pulling" : @"Pick player who picked up the disc";
+    self.beginEventPlayerPickerViewController.instructions = @"Pick player who picked up the disc";
     [self.beginEventPlayerPickerViewController refresh];
     [self repositionAndShowChooserView:self.beginEventPlayerPickerSubview adjacentToEventAt:eventPoint];
 }
 
--(void)hideBeginEventPlayerPickerView {
+-(void)hidePickupDiscPlayerPickerView {
     [self hideChooserView:self.beginEventPlayerPickerSubview];
 }
 
@@ -151,7 +150,7 @@
 
 -(void) addEventProperties: (Event*) event {
     event.position = self.fieldView.potentialEventPosition;
-    event.beginPosition = [Game getCurrentGame].positionalBeginEvent.position;  // only some events will have begin position
+    event.beginPosition = [Game getCurrentGame].positionalPickupEvent.position;  // only some events will have begin position
 }
 
 - (void)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
@@ -179,7 +178,7 @@
 }
 
 - (void)updateActionViewForSelectedPasser {
-    Player* playerToSelect = [Game getCurrentGame].positionalBeginEvent.player;
+    Player* playerToSelect = [Game getCurrentGame].positionalPickupEvent.playerOne;
     if (!playerToSelect) {
         Event* lastEvent = [[Game getCurrentGame] getLastEvent];
         if (lastEvent.isOffense) {

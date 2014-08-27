@@ -16,7 +16,6 @@
 #import "Game.h"
 #import "UPoint.h"
 #import "ColorMaster.h"
-#import "BeginEvent.h"
 
 #define kPointViewWidth 20.0f
 
@@ -248,9 +247,9 @@
 #pragma mark - Event retrieval
 
 -(Event*)getLastPointEvent {
-    BeginEvent* beginEvent = [Game getCurrentGame].positionalBeginEvent;
-    if (beginEvent) {
-        return beginEvent;
+    Event* pickupEvent = [Game getCurrentGame].positionalPickupEvent;
+    if (pickupEvent) {
+        return pickupEvent;
     } else {
         return [[Game getCurrentGame] getLastEvent];
     }
@@ -258,7 +257,7 @@
 
 -(Event*)getPreviousPointEvent {
     // if there is a begin event then the previous event is actually the last event
-    if ([Game getCurrentGame].positionalBeginEvent) {
+    if ([Game getCurrentGame].positionalPickupEvent) {
         return [[Game getCurrentGame] getLastEvent];
     }
     

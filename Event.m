@@ -188,8 +188,8 @@
     return NO;
 }
 
-- (BOOL) isBeginEvent {
-    return NO;
+- (BOOL) isPickupDisc {
+    return self.action == PickupDisc;
 }
 
 - (BOOL) isPlayEvent {

@@ -47,7 +47,7 @@
 #define kTimeoutDetailsJsonKey      @"timeoutDetailsJson"
 #define klastSaveKey            @"lastSave"
 #define kIsPositionalKey            @"positional"
-#define kBeginEventK            @"beginEvent"
+#define kPickupDiscKey            @"pickupDiscEvent"
 
 static Game* currentGame = nil;
 
@@ -382,7 +382,7 @@ static Game* currentGame = nil;
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
         self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
         self.isPositional = [decoder decodeBoolForKey:kIsPositionalKey];
-        self.positionalBeginEvent = [decoder decodeObjectForKey:kBeginEventK];
+        self.positionalPickupEvent = [decoder decodeObjectForKey:kPickupDiscKey];
     } 
     return self; 
 } 
@@ -405,7 +405,7 @@ static Game* currentGame = nil;
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
     [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
     [encoder encodeBool:self.isPositional forKey:kIsPositionalKey];
-    [encoder encodeObject:self.positionalBeginEvent forKey:kBeginEventK];
+    [encoder encodeObject:self.positionalPickupEvent forKey:kPickupDiscKey];
 } 
 
 
@@ -441,7 +441,7 @@ static Game* currentGame = nil;
 }
 
 -(void)addEvent: (Event*) event{
-    self.positionalBeginEvent = nil;
+    self.positionalPickupEvent = nil;
     if ([self getCurrentPoint] == nil || [[self getCurrentPoint] isFinished]) {
         UPoint* newPoint = [[UPoint alloc] init];
         [self addPoint: newPoint];
@@ -462,7 +462,7 @@ static Game* currentGame = nil;
 }
 
 -(void)removeLastEvent {
-    self.positionalBeginEvent = nil;
+    self.positionalPickupEvent = nil;
     if ([self getCurrentPoint] != nil) {
         Event* lastEvent = [self getLastEvent];
         [self tweetEvent: lastEvent point: [self getCurrentPoint] isUndo: YES];
@@ -688,7 +688,7 @@ static Game* currentGame = nil;
 
 -(BOOL)needsPositionalBegin {
     if (self.isPositional) {
-        if (self.positionalBeginEvent) {
+        if (self.positionalPickupEvent) {
             return NO;
         }
         UPoint* currentPoint = [self getCurrentPoint];

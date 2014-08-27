@@ -19,8 +19,6 @@ typedef enum {
     PullOb,
     Stall,
     MiscPenalty,
-    
-    BeginPull,
     PickupDisc,
     
     EndOfFirstQuarter,
@@ -52,7 +50,7 @@ typedef enum {
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName;
 - (BOOL) isCessationEvent;
 - (BOOL) isPlayEvent;
-- (BOOL) isBeginEvent;
+- (BOOL) isPickupDisc;
 - (BOOL) isOffense;
 - (BOOL) isDefense;
 - (BOOL) isGoal;

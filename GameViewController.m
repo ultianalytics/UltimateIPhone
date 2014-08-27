@@ -194,10 +194,12 @@
 }
 
 - (void) setNeedToSelectPasser: (BOOL) needToSelectPasser {
-    for (PlayerView* playerView in self.playerViews) {
-        [playerView setNeedToSelectPasser: needToSelectPasser];
+    if (![[Game getCurrentGame] isPositional]) {
+        for (PlayerView* playerView in self.playerViews) {
+            [playerView setNeedToSelectPasser: needToSelectPasser];
+        }
+        self.hideReceiverView.hidden = !needToSelectPasser;
     }
-    self.hideReceiverView.hidden = !needToSelectPasser;
 }
 
 -(void) setOffense: (BOOL) shouldBeOnOffense {

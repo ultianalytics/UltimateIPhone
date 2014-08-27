@@ -15,6 +15,7 @@
 #import "BeginEventPlayerPickerViewController.h"
 #import "Game.h"
 #import "BeginEvent.h"
+#import "PlayerView.h"
 
 #define kActionViewMargin 20;
 
@@ -59,6 +60,7 @@
     };
     [self.eventsViewController adjustInsetForTabBar];
     [self hideActionView];
+    self.hideReceiverView.hidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -102,6 +104,7 @@
 }
 
 - (void)showActionViewForPoint: (CGPoint) eventPoint {
+    [self updateActionViewForSelectedPasser];
     [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:eventPoint];
 }
 
@@ -175,5 +178,27 @@
     chooserView.hidden = YES;
 }
 
+- (void)updateActionViewForSelectedPasser {
+    Player* playerToSelect = [Game getCurrentGame].positionalBeginEvent.player;
+    if (!playerToSelect) {
+        Event* lastEvent = [[Game getCurrentGame] getLastEvent];
+        if (lastEvent.isOffense) {
+            playerToSelect = lastEvent.playerTwo;
+        } 
+    }
+    BOOL playerSelected = NO;
+    if (playerToSelect) {
+        for (int i = 0; i < 7; i++) {
+            PlayerView* playerView = self.playerViews[i];
+            if ([playerView.player.name isEqualToString:playerToSelect.name]) {
+                [playerView makeSelected: YES];
+                playerSelected = YES;
+            } else {
+                [playerView makeSelected: NO];
+            }
+        }
+    }
+    [self.playerViews[7] makeSelected:!playerSelected]; // pick anon if nobody else fits
+}
 
 @end

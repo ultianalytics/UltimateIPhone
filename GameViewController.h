@@ -24,7 +24,9 @@
 @property (nonatomic, strong, readonly) UIView* actionSubView;
 @property (nonatomic, strong, readonly) UIView *topOrLeftView;
 @property (nonatomic, strong, readonly) UIView *bottomOrRightView;
+@property (nonatomic, strong, readonly) UIView* hideReceiverView;
 @property (nonatomic, strong, readonly) GameHistoryController* eventsViewController;
+@property (nonatomic, strong, readonly) NSMutableArray* playerViews;
 
 
 @end

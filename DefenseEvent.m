@@ -172,6 +172,35 @@
     }
 }
 
+-(NSString*)positionalDescription {
+    
+    switch(self.action) {
+        case Pull: {
+            return [NSString stringWithFormat:@"PULL LANDED\n%@", self.isAnonymous ? @" " : self.defender.name];
+        }
+        case PullOb: {
+            return [NSString stringWithFormat:@"PULL OB\n%@", self.isAnonymous ? @" " : self.defender.name];
+        }
+        case Goal: {
+            return [NSString stringWithFormat:@"THEIR GOAL\n "];
+        }
+        case Throwaway:{
+            return [NSString stringWithFormat:@"THROWAWAY\n "];
+        }
+        case De: {
+            return [NSString stringWithFormat:@"D\n%@", self.isAnonymous ? @" " : self.defender.name];
+        }
+        case Callahan: {
+            return [NSString stringWithFormat:@"CALLAHAN\n%@", self.isAnonymous ? @" " : self.defender.name];
+        }
+        case PickupDisc:{
+            return [NSString stringWithFormat:@"PICK UP\n "];
+        }
+        default:
+            return @"";
+    }
+}
+
 - (BOOL) isNextEventOffense {
     return ![self isCallahan] && ([self isTurnover] || [self isGoal]);
 }

@@ -205,6 +205,10 @@
     return nil;
 }
 
+- (NSString*)positionalDescription {
+    return @"";
+}
+
 - (NSString*)getDescription {
     return [self getDescription:[Team getCurrentTeam].shortName opponent:[Game getCurrentGame].shortOpponentName];
 }

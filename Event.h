@@ -47,6 +47,7 @@ typedef enum {
 + (Event*) fromDictionary:(NSDictionary*) dict;
 
 - (NSString*)getDescription;
+- (NSString*)positionalDescription;
 - (NSString*)getDescription: (NSString*) teamName opponent: (NSString*) opponentName;
 - (BOOL) isCessationEvent;
 - (BOOL) isPlayEvent;

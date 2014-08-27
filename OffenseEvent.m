@@ -223,6 +223,37 @@
     }
 }
 
+-(NSString*)positionalDescription {
+    switch(self.action) {
+        case Catch: {
+            return [NSString stringWithFormat:@"CATCH\n%@", self.isAnonymous ? @" " : self.receiver.name];
+        }
+        case Drop: {
+            return [NSString stringWithFormat:@"DROP\n%@", self.isAnonymous ? @" " : self.receiver.name];
+        }
+        case Throwaway:{
+            return [NSString stringWithFormat:@"THROWAWAY\n%@", self.isAnonymous ? @" " : self.passer.name];
+        }
+        case Stall:{
+            return [NSString stringWithFormat:@"STALL\n%@", self.isAnonymous ? @" " : self.passer.name];
+        }
+        case MiscPenalty:{
+            return [NSString stringWithFormat:@"PENALTY\n%@", self.isAnonymous ? @" " : self.passer.name];
+        }
+        case Goal: {
+            return [NSString stringWithFormat:@"GOAL\n%@", self.isAnonymous ? @" " : self.receiver.name];
+        }
+        case Callahan:{
+            return [NSString stringWithFormat:@"CALLAHAN\n%@", self.isAnonymous ? @" " : self.passer.name];
+        }
+        case PickupDisc:{
+            return [NSString stringWithFormat:@"PICK UP\n%@", self.isAnonymous ? @" " : self.passer.name];
+        }
+        default:
+            return @"";
+    }
+}
+
 - (BOOL) isOffense {
     return YES;
 }

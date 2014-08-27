@@ -12,8 +12,11 @@
 
 #define kNonEmphasizedPositionInset 4
 #define kEmphasizedPositionInnerCircleInset 8
+#define kTextLabelHeight 34
 
 @interface GameFieldEventPointView()
+
+@property (strong, nonatomic) UILabel* textLabel;
 
 @end
 
@@ -24,6 +27,15 @@
 -(void)commonInit {
     [self addTapRecognizer];
     self.backgroundColor = [UIColor clearColor];
+    [self createLabel];
+}
+
+-(void)createLabel {
+    self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, kTextLabelHeight)];
+    [self addSubview: self.textLabel];
+    self.textLabel.font = [UIFont systemFontOfSize:12];
+    self.textLabel.numberOfLines = 0;
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 -(void)addTapRecognizer {
@@ -55,6 +67,11 @@
     [self commonInit];
 }
 
+-(void)layoutSubviews {
+    CGFloat verticalCenter = self.boundsHeight + kTextLabelHeight / 2;
+    CGFloat horizontalCenter = self.boundsWidth / 2;
+    self.textLabel.center = CGPointMake(horizontalCenter, verticalCenter);
+}
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -83,12 +100,22 @@
 
 -(void)setIsOurEvent:(BOOL)isOurEvent {
     _isOurEvent = isOurEvent;
+    self.textLabel.textColor = [self dotColor];
     [self setNeedsDisplay];
 }
 
 -(void)setIsEmphasizedEvent:(BOOL)isEmphasizedEvent {
     _isEmphasizedEvent = isEmphasizedEvent;
     [self setNeedsDisplay];
+}
+
+-(void)setEvent:(Event *)event {
+    _event = event;
+    [self updateText];
+}
+
+-(void)updateText {
+    self.textLabel.text = [self.event positionalDescription];
 }
 
 -(UIColor*)dotColor {

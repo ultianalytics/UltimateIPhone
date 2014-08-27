@@ -299,9 +299,4 @@
     }
 }
 
--(BOOL)currentPointHasEvents {
-    UPoint* currentPoint = [[Game getCurrentGame] getCurrentPoint];
-    return currentPoint != nil && ![currentPoint isFinished];
-}
-
 @end

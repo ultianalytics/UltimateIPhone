@@ -76,7 +76,7 @@
     self.bottomOrRightView.frameHeight = self.view.boundsHeight - self.topOrLeftView.frameHeight;
 }
 
--(void)eventActionSelected {
+-(void)eventsUpdated {
     [self hideActionView];
     [self.fieldView updateForCurrentEvents];
 }

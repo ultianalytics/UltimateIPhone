@@ -12,6 +12,7 @@
 #import "GameFieldEventPointView.h"
 #import "Event.h"
 #import "OffenseEvent.h"
+#import "DefenseEvent.h"
 #import "Player.h"
 #import "Game.h"
 #import "UPoint.h"
@@ -43,12 +44,16 @@
     self.endzonePercent = .15; // default endzone percent
     self.potentialEventView = [self createPointView];
     self.potentialEventView.isEmphasizedEvent = YES;
-    [self addSubview:self.potentialEventView];
+ 
     self.lastSavedEventView = [self createPointView];
-    [self addSubview:self.lastSavedEventView];
+
     self.previousSavedEventView = [self createPointView];
     self.previousSavedEventView.isEmphasizedEvent = NO;
+
     [self addSubview:self.previousSavedEventView];
+    [self addSubview:self.lastSavedEventView];
+    [self addSubview:self.potentialEventView];
+    
     [self.layer setNeedsDisplay];
 }
 
@@ -114,7 +119,7 @@
     Event* previousEvent = [self getPreviousPointEvent];
     if (self.potentialEventView.hidden && previousEvent && previousEvent.position != nil) {
         self.previousSavedEventView.event = previousEvent;
-        self.previousSavedEventView.isOurEvent = [lastEvent isOffense];
+        self.previousSavedEventView.isOurEvent = [previousEvent isOffense];
         [self updatePointViewLocation:self.previousSavedEventView toPosition:previousEvent.position];
         self.previousSavedEventView.visible = YES;
     } else {
@@ -255,17 +260,38 @@
     if (pickupEvent) {
         return pickupEvent;
     } else {
-        return [[Game getCurrentGame] getLastEvent];
+        return [[Game getCurrentGame] getInProgressPointLastEvent];
     }
 }
 
 -(Event*)getPreviousPointEvent {
-    // if there is a begin event then the previous event is actually the last event
-    if ([Game getCurrentGame].positionalPickupEvent) {
-        return [[Game getCurrentGame] getLastEvent];
+    Event* lastEvent = [[Game getCurrentGame] getInProgressPointLastEvent];
+    
+    // if no last event then there can't be a previous
+    if (!lastEvent) {
+        return nil;
     }
     
-    NSArray* lastPointEvents = [[Game getCurrentGame] getCurrentPointLastEvents:2];
+    // if the game has a pickup event then the previous is actually the last event
+    if ([Game getCurrentGame].positionalPickupEvent) {
+        return [[Game getCurrentGame] getInProgressPointLastEvent];
+    }
+    
+    // if the last event is an event with a begin position then create a temporary pickup event with that position
+    if (lastEvent.beginPosition) {
+        if (lastEvent.isOffense) {
+            OffenseEvent* event = [[OffenseEvent alloc] initPickupDiscWithPlayer:lastEvent.playerOne];
+            event.position = lastEvent.beginPosition;
+            return event;
+        } else {
+            DefenseEvent* event = [[DefenseEvent alloc] initPickupDisc];
+            event.position = lastEvent.beginPosition;
+            return event;
+        }
+    }
+    
+    // dullsville...the normal scenario
+    NSArray* lastPointEvents = [[Game getCurrentGame] getInProgressPointLastEvents:2];
     if ([lastPointEvents count] > 1) {
         return lastPointEvents[1];
     } else {

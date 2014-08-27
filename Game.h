@@ -67,7 +67,8 @@
 -(void)removeLastEvent;
 -(Event*)getLastEvent;
 -(NSArray*)getLastEvents: (int) numberToRetrieve;
--(NSArray*)getCurrentPointLastEvents: (int) numberToRetrieve;
+-(Event*)getInProgressPointLastEvent;
+-(NSArray*)getInProgressPointLastEvents: (int) numberToRetrieve;
 -(UPoint*)getCurrentPoint;
 -(int)getNumberOfPoints;
 -(NSArray*)getPointNamesInMostRecentOrder;

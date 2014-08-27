@@ -156,7 +156,7 @@
     }
     [self updateViewFromGame:[Game getCurrentGame]];
     [self notifyLeaguevineOfNewEvent:event];
-    [self eventActionSelected];
+    [self eventsUpdated];
 }
 
 -(void) addEventProperties: (Event*) event {
@@ -485,6 +485,7 @@
     [self initializeSelected];
     [self updateViewFromGame:[Game getCurrentGame]];
     [self notifyLeaguevineOfRemovedEvent:lastEventBefore];
+    [self eventsUpdated];
 }
 
 -(IBAction)throwAwayButtonClicked: (id) sender {
@@ -1062,7 +1063,7 @@
 
 #pragma mark - Subclass support
 
--(void)eventActionSelected {
+-(void)eventsUpdated {
     // no-op...subclasses can re-implement
 }
 

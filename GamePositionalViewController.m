@@ -16,6 +16,7 @@
 #import "Game.h"
 #import "PlayerView.h"
 #import "OffenseEvent.h"
+#import "DefenseEvent.h"
 
 #define kActionViewMargin 20;
 
@@ -51,12 +52,7 @@
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     __typeof(self) __weak weakSelf = self;
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
-        CGPoint pointInMyView = [weakSelf.fieldView convertPoint:fieldPoint toView:weakSelf.view];
-        if ([[Game getCurrentGame] needsPositionalBegin]) {
-            [weakSelf showPickupDiscPlayerPickerViewForPoint:pointInMyView];
-        } else {
-            [weakSelf showActionViewForPoint:pointInMyView];
-        }
+        [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
     };
     [self.eventsViewController adjustInsetForTabBar];
     [self hideActionView];
@@ -147,6 +143,19 @@
 }
 
 #pragma mark - Miscellaneous
+
+-(void)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {
+    CGPoint pointInMyView = [self.fieldView convertPoint:fieldPoint toView:self.view];
+    if ([[Game getCurrentGame] needsPositionalBegin]) {
+        if (self.isOffense) {
+            [self showPickupDiscPlayerPickerViewForPoint:pointInMyView];
+        } else {
+            [Game getCurrentGame].positionalPickupEvent = [[DefenseEvent alloc] initPickupDisc];
+        }
+    } else {
+        [self showActionViewForPoint:pointInMyView];
+    }
+}
 
 -(void) addEventProperties: (Event*) event {
     event.position = self.fieldView.potentialEventPosition;

@@ -12,7 +12,8 @@
 @interface GameFieldEventPointView : UIView
 
 @property (nonatomic, strong) Event* event;
-@property (nonatomic, strong) UIColor* pointColor;
+@property (nonatomic) BOOL isOurEvent;
+@property (nonatomic) BOOL isEmphasizedEvent;
 @property (strong, nonatomic) void (^tappedBlock)(CGPoint tapPoint, GameFieldEventPointView* pointView);
 
 

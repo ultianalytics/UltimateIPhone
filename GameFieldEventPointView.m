@@ -8,6 +8,14 @@
 
 #import "GameFieldEventPointView.h"
 #import "UIView+Convenience.h"
+#import "ColorMaster.h"
+
+#define kNonEmphasizedPositionInset 4
+#define kEmphasizedPositionInnerCircleInset 8
+
+@interface GameFieldEventPointView()
+
+@end
 
 @implementation GameFieldEventPointView
 
@@ -16,7 +24,6 @@
 -(void)commonInit {
     [self addTapRecognizer];
     self.backgroundColor = [UIColor clearColor];
-    self.pointColor = [UIColor lightGrayColor]; // default color
 }
 
 -(void)addTapRecognizer {
@@ -53,19 +60,41 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     
-    // draw a dot as large as the view
-    CGContextSetFillColorWithColor(context, self.pointColor.CGColor);
-    CGContextAddEllipseInRect(context, CGRectMake(0,0, self.boundsWidth, self.boundsWidth));
+    // draw the dot
+    CGFloat origin = self.isEmphasizedEvent ? 0 : kNonEmphasizedPositionInset;
+    CGFloat diameter = self.isEmphasizedEvent ? self.boundsWidth : self.boundsWidth - kNonEmphasizedPositionInset * 2;
+    CGContextSetFillColorWithColor(context, [self dotColor].CGColor);
+    CGContextAddEllipseInRect(context, CGRectMake(origin,origin, diameter, diameter));
     CGContextFillPath(context);
+    
+    // if emphasized draw an inner dot
+    if (self.isEmphasizedEvent) {
+        CGFloat origin = kEmphasizedPositionInnerCircleInset;
+        CGFloat diameter = self.boundsWidth - kEmphasizedPositionInnerCircleInset * 2;
+        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+        CGContextAddEllipseInRect(context, CGRectMake(origin,origin, diameter, diameter));
+        CGContextFillPath(context);
+    }
     
     CGContextRestoreGState(context);
 }
 
 #pragma mark - Misc
 
--(void)setPointColor:(UIColor *)pointColor {
-    _pointColor = pointColor;
+-(void)setIsOurEvent:(BOOL)isOurEvent {
+    _isOurEvent = isOurEvent;
     [self setNeedsDisplay];
 }
+
+-(void)setIsEmphasizedEvent:(BOOL)isEmphasizedEvent {
+    _isEmphasizedEvent = isEmphasizedEvent;
+    [self setNeedsDisplay];
+}
+
+-(UIColor*)dotColor {
+    return self.isOurEvent ? [ColorMaster applicationTintColor] : [UIColor redColor];
+}
+
+
 
 @end

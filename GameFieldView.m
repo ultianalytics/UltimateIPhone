@@ -17,7 +17,7 @@
 #import "UPoint.h"
 #import "ColorMaster.h"
 
-#define kPointViewWidth 20.0f
+#define kPointViewWidth 30.0f
 
 @interface GameFieldView ()
 
@@ -42,11 +42,12 @@
     self.fieldBorderColor = [UIColor whiteColor];  // default border color
     self.endzonePercent = .15; // default endzone percent
     self.potentialEventView = [self createPointView];
-    self.potentialEventView.pointColor = [ColorMaster applicationTintColor];
+    self.potentialEventView.isEmphasizedEvent = YES;
     [self addSubview:self.potentialEventView];
     self.lastSavedEventView = [self createPointView];
     [self addSubview:self.lastSavedEventView];
     self.previousSavedEventView = [self createPointView];
+    self.previousSavedEventView.isEmphasizedEvent = NO;
     [self addSubview:self.previousSavedEventView];
     [self.layer setNeedsDisplay];
 }
@@ -89,17 +90,20 @@
 }
 
 -(void)updatePointViews: (EventPosition*)potentialEventPosition {
+    Event* lastEvent = [self getLastPointEvent];
+    
     // potential event
     if (potentialEventPosition) {
         self.potentialEventPosition = potentialEventPosition;
         [self updatePointViewLocation:self.potentialEventView toPosition:potentialEventPosition];
+        self.potentialEventView.isOurEvent =  [[Game getCurrentGame] arePlayingOffense];
     }
     self.potentialEventView.hidden = potentialEventPosition == nil;
     
     // last event
-    Event* lastEvent = [self getLastPointEvent];
     if (lastEvent && lastEvent.position != nil) {
-        self.lastSavedEventView.pointColor = self.potentialEventView.visible ? [UIColor lightGrayColor] : [ColorMaster applicationTintColor];
+        self.lastSavedEventView.isEmphasizedEvent = !self.potentialEventView.visible;
+        self.lastSavedEventView.isOurEvent = [lastEvent isOffense];
         self.lastSavedEventView.event = lastEvent;
         [self updatePointViewLocation:self.lastSavedEventView toPosition:lastEvent.position];
         self.lastSavedEventView.visible = YES;
@@ -111,6 +115,7 @@
     Event* previousEvent = [self getPreviousPointEvent];
     if (self.potentialEventView.hidden && previousEvent && previousEvent.position != nil) {
         self.previousSavedEventView.event = previousEvent;
+        self.previousSavedEventView.isOurEvent = [lastEvent isOffense];
         [self updatePointViewLocation:self.previousSavedEventView toPosition:previousEvent.position];
         self.previousSavedEventView.visible = YES;
     } else {
@@ -273,8 +278,5 @@
     UPoint* currentPoint = [[Game getCurrentGame] getCurrentPoint];
     return currentPoint != nil && ![currentPoint isFinished];
 }
-
-
-
 
 @end

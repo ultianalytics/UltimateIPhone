@@ -110,18 +110,6 @@
     return self.action == De || self.action == Throwaway || self.action == Callahan;
 }
 
-- (BOOL) isPull {
-    return self.action == Pull || self.action == PullOb;
-}
-
-- (BOOL) isPullIb {
-    return self.action == Pull;
-}
-
-- (BOOL) isPullOb {
-    return self.action == PullOb;
-}
-
 - (BOOL) isCallahan {
     return self.action == Callahan;
 }

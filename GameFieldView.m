@@ -111,7 +111,8 @@
     if (potentialEventPosition) {
         self.potentialEventPosition = potentialEventPosition;
         [self updatePointViewLocation:self.potentialEventView toPosition:potentialEventPosition];
-        self.potentialEventView.isOurEvent =  [self.game arePlayingOffense] ||
+        self.potentialEventView.isOurEvent =
+            ([self.game isPointInProgress] && [self.game arePlayingOffense])||
             (![self.game isPointInProgress] && ![self.game isCurrentlyOline]);
     }
     self.potentialEventView.hidden = potentialEventPosition == nil;

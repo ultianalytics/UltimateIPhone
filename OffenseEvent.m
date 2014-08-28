@@ -238,6 +238,12 @@
         case PullBegin:{
             return opponentName == nil ? @"Opponent Pull Begin" : [NSString stringWithFormat:@"%@ Pull Begin", opponentName];
         }
+        case Pull:{
+            return opponentName == nil ? @"Opponent Pull" : [NSString stringWithFormat:@"%@ Pull", opponentName];
+        }
+        case PullOb:{
+            return opponentName == nil ? @"Opponent OB Pull" : [NSString stringWithFormat:@"%@ OB Pull", opponentName];
+        }
         default:
             return @"";
     }
@@ -271,6 +277,12 @@
         }
         case PullBegin:{
             return [NSString stringWithFormat:@"PULL BEGIN\n "];
+        }
+        case Pull:{
+            return [NSString stringWithFormat:@"PULL LANDED\n "];
+        }
+        case PullOb:{
+            return [NSString stringWithFormat:@"PULL OB\n "];
         }
         default:
             return @"";

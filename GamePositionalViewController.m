@@ -224,7 +224,12 @@
     [self hidePullLandingPickerView];
     Player* player = self.game.positionalPickupEvent.playerOne;
     if (action != None) {
-        DefenseEvent* pullEvent = [[DefenseEvent alloc] initDefender:player action:action];
+        Event* pullEvent;
+        if ([self.game.positionalPickupEvent isDefense]) {
+            pullEvent = [[DefenseEvent alloc] initDefender:player action:action];
+        } else {
+            pullEvent = [[OffenseEvent alloc] initOpponentPull:action];
+        }
         pullEvent.position = self.fieldView.potentialEventPosition;
         [self addEvent:pullEvent];
     }

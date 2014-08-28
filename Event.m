@@ -165,15 +165,15 @@
 }
 
 - (BOOL) isPull {
-    return NO;
+    return self.action == Pull || self.action == PullOb;
 }
 
 - (BOOL) isPullIb {
-    return NO;
+    return self.action == Pull;
 }
 
 - (BOOL) isPullOb {
-    return NO;
+    return self.action == PullOb;
 }
 
 - (BOOL) isCallahan {

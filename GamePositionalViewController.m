@@ -102,7 +102,6 @@
     [self.actionSubView addSubview:actionView];
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
     [self hideActionView];
-    self.hideReceiverView.hidden = YES;
 }
 
 - (void)showActionViewForPoint: (CGPoint) eventPoint {

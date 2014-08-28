@@ -42,10 +42,19 @@
     return self;
 }
 
--(id) initPullBegin {
+-(id) initOpponentPullBegin {
     self = [super init];
     if (self) {
         self.action = PullBegin;
+    }
+    return self;
+}
+
+-(id) initOpponentPull: (Action)pullOrPullOb {
+    NSAssert(pullOrPullOb == Pull || pullOrPullOb == PullOb, @"Can't make an opponent pull with this action");
+    self = [super init];
+    if (self) {
+        self.action = pullOrPullOb;
     }
     return self;
 }

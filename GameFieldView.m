@@ -302,15 +302,22 @@
     
     // if the last event is an event with a begin position then create a temporary pickup event with that position
     if (lastEvent.beginPosition) {
-        if (lastEvent.isOffense) {
-            OffenseEvent* event = [[OffenseEvent alloc] initPickupDiscWithPlayer:lastEvent.playerOne];
-            event.position = lastEvent.beginPosition;
-            return event;
+        Event* event;
+        if ([lastEvent isPull]) {
+            if (lastEvent.isDefense) {
+                event = [[DefenseEvent alloc] initPullBegin:lastEvent.playerOne];
+            } else {
+                event = [[OffenseEvent alloc] initOpponentPullBegin];
+            }
         } else {
-            DefenseEvent* event = [[DefenseEvent alloc] initPickupDisc];
-            event.position = lastEvent.beginPosition;
-            return event;
+            if (lastEvent.isOffense) {
+                event = [[OffenseEvent alloc] initPickupDiscWithPlayer:lastEvent.playerOne];
+            } else {
+                event = [[DefenseEvent alloc] initPickupDisc];
+            }
         }
+        event.position = lastEvent.beginPosition;
+        return event;
     }
     
     // dullsville...the normal scenario

@@ -23,7 +23,8 @@
 -(id) initPasser: (Player*)aPasser action: (Action)anAction;
 -(id) initPasser: (Player*)aPasser action: (Action)anAction receiver: (Player*)aReceiver;
 -(id) initPickupDiscWithPlayer: (Player*)aPasser;
--(id) initPullBegin;
+-(id) initOpponentPullBegin;
+-(id) initOpponentPull: (Action)pullOrPullOb;
 -(BOOL)isPasserAnonymous;
 -(BOOL)isReceiverAnonymous;
 

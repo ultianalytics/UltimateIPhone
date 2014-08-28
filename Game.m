@@ -704,7 +704,7 @@ static Game* currentGame = nil;
         if (![self isPointInProgress]) {
             return YES;
         } else {
-            return [self getLastEvent].isTurnover;
+            return [self getLastEvent].isTurnover || [[self getLastEvent] isPull];
         }
     }
     return NO;

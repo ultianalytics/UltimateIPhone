@@ -184,7 +184,7 @@
         } else {
             // pull
             if (self.isOffense) {
-                Event* pickupEvent = [[OffenseEvent alloc] initPullBegin];
+                Event* pickupEvent = [[OffenseEvent alloc] initOpponentPullBegin];
                 pickupEvent.position = position;
                 self.game.positionalPickupEvent = pickupEvent;
                 [self.fieldView updateForCurrentEvents];

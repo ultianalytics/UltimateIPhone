@@ -51,7 +51,7 @@
 }
 
 -(id) initOpponentPull: (Action)pullOrPullOb {
-    NSAssert(pullOrPullOb == Pull || pullOrPullOb == PullOb, @"Can't make an opponent pull with this action");
+    NSAssert(pullOrPullOb == OpponentPull || pullOrPullOb == OpponentPullOb, @"Can't make an opponent pull with this action");
     self = [super init];
     if (self) {
         self.action = pullOrPullOb;
@@ -121,6 +121,18 @@
             [dict setValue: @"PickupDisc" forKey:kActionKey];
             break;
         }
+        case PullBegin: {
+            [dict setValue: @"PullBegin" forKey:kActionKey];
+            break;
+        }
+        case OpponentPull: {
+            [dict setValue: @"OpponentPull" forKey:kActionKey];
+            break;
+        }
+        case OpponentPullOb: {
+            [dict setValue: @"OpponentPullOb" forKey:kActionKey];
+            break;
+        }
         default: {
         }
     }
@@ -154,6 +166,12 @@
         action = Callahan;
     } else if ([dictAction isEqualToString: @"PickupDisc"]) {
         action = PickupDisc;
+    } else if ([dictAction isEqualToString: @"PullBegin"]) {
+        action = PullBegin;
+    } else if ([dictAction isEqualToString: @"OpponentPull"]) {
+        action = OpponentPull;
+    } else if ([dictAction isEqualToString: @"OpponentPullOb"]) {
+        action = OpponentPullOb;
     }
     
     OffenseEvent* offenseEvent = [[OffenseEvent alloc]
@@ -238,10 +256,10 @@
         case PullBegin:{
             return opponentName == nil ? @"Opponent Pull Begin" : [NSString stringWithFormat:@"%@ Pull Begin", opponentName];
         }
-        case Pull:{
+        case OpponentPull:{
             return opponentName == nil ? @"Opponent Pull" : [NSString stringWithFormat:@"%@ Pull", opponentName];
         }
-        case PullOb:{
+        case OpponentPullOb:{
             return opponentName == nil ? @"Opponent OB Pull" : [NSString stringWithFormat:@"%@ OB Pull", opponentName];
         }
         default:
@@ -278,10 +296,10 @@
         case PullBegin:{
             return [NSString stringWithFormat:@"PULL BEGIN\n "];
         }
-        case Pull:{
+        case OpponentPull:{
             return [NSString stringWithFormat:@"PULL LANDED\n "];
         }
-        case PullOb:{
+        case OpponentPullOb:{
             return [NSString stringWithFormat:@"PULL OB\n "];
         }
         default:
@@ -302,7 +320,7 @@
 }
 
 - (BOOL) isNextEventOffense {
-    return self.action == Catch || self.action == Callahan;
+    return self.action == Catch || self.action == Callahan || [self isOpponentPull];
 }
 
 - (NSArray*) getPlayers {

@@ -23,8 +23,11 @@ typedef enum {
     MiscPenalty,
     
     // positional only
-    PickupDisc,
-    PullBegin,
+    OpponentPull,
+    OpponentPullOb,
+    OpponentCatch,
+    PickupDisc,  // ephemeral
+    PullBegin,   // ephemeral
     
     // cessation
     EndOfFirstQuarter,
@@ -70,6 +73,10 @@ typedef enum {
 - (BOOL) isPull;
 - (BOOL) isPullIb;
 - (BOOL) isPullOb;
+- (BOOL) isOpponentPull;
+- (BOOL) isOpponentPullIb ;
+- (BOOL) isOpponentPullOb;
+- (BOOL) isOpponentCatch;
 - (BOOL) isCallahan;
 - (BOOL) isThrowaway;
 - (BOOL) isOffenseThrowaway;

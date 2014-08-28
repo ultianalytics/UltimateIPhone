@@ -228,7 +228,8 @@
         if ([self.game.positionalPickupEvent isDefense]) {
             pullEvent = [[DefenseEvent alloc] initDefender:player action:action];
         } else {
-            pullEvent = [[OffenseEvent alloc] initOpponentPull:action];
+            Action opponentAction = action == Pull ? OpponentPull : OpponentPullOb;
+            pullEvent = [[OffenseEvent alloc] initOpponentPull:opponentAction];
         }
         pullEvent.position = self.fieldView.potentialEventPosition;
         [self addEvent:pullEvent];

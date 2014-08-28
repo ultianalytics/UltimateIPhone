@@ -142,7 +142,7 @@
 }
 
 -(BOOL)isOurEvent:(Event*) event {
-    if ([event isPull] || [event isPullBegin]) {
+    if ([event isPull] || [event isOpponentPull] || [event isPullBegin]) {
         return [event isDefense];
     } else {
         return [event isOffense];
@@ -304,7 +304,7 @@
     // if the last event is an event with a begin position then create a temporary pickup event with that position
     if (lastEvent.beginPosition) {
         Event* event;
-        if ([lastEvent isPull]) {
+        if ([lastEvent isPull] || [lastEvent isOpponentPull]) {
             if (lastEvent.isDefense) {
                 event = [[DefenseEvent alloc] initPullBegin:lastEvent.playerOne];
             } else {

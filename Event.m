@@ -176,6 +176,22 @@
     return self.action == PullOb;
 }
 
+- (BOOL) isOpponentPull {
+    return self.action == OpponentPull || self.action == OpponentPullOb;
+}
+
+- (BOOL) isOpponentPullIb {
+    return self.action == OpponentPull;
+}
+
+- (BOOL) isOpponentPullOb {
+    return self.action == OpponentPullOb;
+}
+
+- (BOOL) isOpponentCatch {
+    return self.action == OpponentCatch;
+}
+
 - (BOOL) isCallahan {
     return NO;
 }

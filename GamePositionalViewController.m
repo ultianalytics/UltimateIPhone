@@ -12,11 +12,12 @@
 #import "GameFieldView.h"
 #import "ColorMaster.h"
 #import "GameHistoryController.h"
-#import "BeginEventPlayerPickerViewController.h"
 #import "Game.h"
 #import "PlayerView.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
+#import "PickPlayerForEventViewController.h"
+#import "Player.h"
 
 #define kActionViewMargin 20;
 
@@ -29,7 +30,7 @@
 @property (nonatomic, strong) IBOutlet UIView* eventsViewContainer;
 @property (nonatomic, strong) IBOutlet UIButton* cancelButton;
 @property (nonatomic, strong) IBOutlet UIView* buttonsView;
-@property (nonatomic, strong) IBOutlet BeginEventPlayerPickerViewController* beginEventPlayerPickerViewController;
+@property (nonatomic, strong) IBOutlet PickPlayerForEventViewController* beginEventPlayerPickerViewController;
 @property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
 
 @end
@@ -108,10 +109,12 @@
     [self hideChooserView:self.actionViewContainer];
 }
 
-#pragma mark - Pickup Disc player picker
+#pragma mark - Pickup Disc, Pick Puller player picker
 
 -(void)configurePickupDiskPlayerPickerView {
-    self.beginEventPlayerPickerViewController = [[BeginEventPlayerPickerViewController alloc] init];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"PickPlayerForEventViewController" bundle:nil];
+    self.beginEventPlayerPickerViewController  = [storyboard instantiateInitialViewController];
     __typeof(self) __weak weakSelf = self;
     self.beginEventPlayerPickerViewController.doneRequestedBlock = ^(Player* player) {
         [weakSelf handlePickupPlayerChosen: player];
@@ -119,9 +122,10 @@
     [self addChildViewController:self.beginEventPlayerPickerViewController inSubView:self.beginEventPlayerPickerSubview];
 }
 
--(void)showPickupDiscPlayerPickerViewForPoint:(CGPoint) eventPoint {
+-(void)showPickupDiscPlayerPickerViewForPoint:(CGPoint) eventPoint isPull: (BOOL) isPull {
     self.beginEventPlayerPickerViewController.line = [Game getCurrentGame].currentLineSorted;
-    self.beginEventPlayerPickerViewController.instructions = @"Pick player who picked up the disc";
+    self.beginEventPlayerPickerViewController.instructions = @"Player who picked up disc?";
+    self.beginEventPlayerPickerViewController.allowCancel = !isPull;
     [self.beginEventPlayerPickerViewController refresh];
     [self repositionAndShowChooserView:self.beginEventPlayerPickerSubview adjacentToEventAt:eventPoint];
 }
@@ -143,7 +147,7 @@
     CGPoint pointInMyView = [self.fieldView convertPoint:fieldPoint toView:self.view];
     if ([[Game getCurrentGame] needsPositionalBegin]) {
         if (self.isOffense) {
-            [self showPickupDiscPlayerPickerViewForPoint:pointInMyView];
+            [self showPickupDiscPlayerPickerViewForPoint:pointInMyView isPull:NO];
             return YES; // show potential event
         } else {
             Event* pickupEvent = [[DefenseEvent alloc] initPickupDisc];

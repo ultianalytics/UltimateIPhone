@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 @class Player, EventPosition;
 typedef enum {
+    None,
+    
     Catch,
     Drop,
     Goal,

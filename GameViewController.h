@@ -28,5 +28,7 @@
 @property (nonatomic, strong, readonly) GameHistoryController* eventsViewController;
 @property (nonatomic, strong, readonly) NSMutableArray* playerViews;
 
+-(void) addEvent: (Event*) event;
+
 
 @end

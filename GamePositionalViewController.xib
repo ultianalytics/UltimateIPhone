@@ -20,6 +20,7 @@
                 <outlet property="fieldView" destination="P4W-Ek-UsM" id="s3T-zi-RNb"/>
                 <outlet property="gameOverButton" destination="LHA-vH-M3T" id="YKQ-02-uga"/>
                 <outlet property="noEventsLabel" destination="fbl-eH-Nr6" id="pnM-S3-z6P"/>
+                <outlet property="pullLandSubview" destination="wt8-dc-lks" id="x2V-39-A6h"/>
                 <outlet property="timeoutButton" destination="1Fv-fr-kvc" id="fMb-Eg-jab"/>
                 <outlet property="topOrLeftView" destination="jVz-di-qkX" id="J5F-5i-0bG"/>
                 <outlet property="topViewOverlay" destination="9fJ-WZ-jPb" id="G0m-35-z69"/>
@@ -53,7 +54,7 @@
                             <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         </view>
                         <view contentMode="scaleToFill" id="fHk-v1-KAb" userLabel="Action View Container">
-                            <rect key="frame" x="146" y="30" width="330" height="406"/>
+                            <rect key="frame" x="36" y="30" width="330" height="406"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="qgk-91-QKV" userLabel="Action Sub View">
@@ -82,7 +83,12 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view hidden="YES" contentMode="scaleToFill" id="4mh-CX-KK0" userLabel="BeginEvent Player Picker SubView">
-                            <rect key="frame" x="500" y="30" width="160" height="406"/>
+                            <rect key="frame" x="393" y="30" width="160" height="406"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="wt8-dc-lks">
+                            <rect key="frame" x="582" y="30" width="150" height="270"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>

@@ -297,6 +297,8 @@
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
 		381BC44F19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */; };
 		381BC45219AF4F8000CD8C20 /* PickPlayerForEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */; };
+		381BC45919AF8B3C00CD8C20 /* PullLandPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC45719AF8B3C00CD8C20 /* PullLandPickerViewController.m */; };
+		381BC45A19AF8B3C00CD8C20 /* PullLandPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381BC45819AF8B3C00CD8C20 /* PullLandPickerViewController.xib */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -767,6 +769,9 @@
 		381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PickPlayerForEventViewController.storyboard; sourceTree = "<group>"; };
 		381BC45019AF4F8000CD8C20 /* PickPlayerForEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPlayerForEventViewController.h; sourceTree = "<group>"; };
 		381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPlayerForEventViewController.m; sourceTree = "<group>"; };
+		381BC45619AF8B3C00CD8C20 /* PullLandPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullLandPickerViewController.h; sourceTree = "<group>"; };
+		381BC45719AF8B3C00CD8C20 /* PullLandPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullLandPickerViewController.m; sourceTree = "<group>"; };
+		381BC45819AF8B3C00CD8C20 /* PullLandPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullLandPickerViewController.xib; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1656,6 +1661,9 @@
 				381BC45019AF4F8000CD8C20 /* PickPlayerForEventViewController.h */,
 				381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */,
 				381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */,
+				381BC45619AF8B3C00CD8C20 /* PullLandPickerViewController.h */,
+				381BC45719AF8B3C00CD8C20 /* PullLandPickerViewController.m */,
+				381BC45819AF8B3C00CD8C20 /* PullLandPickerViewController.xib */,
 			);
 			name = Positional;
 			sourceTree = "<group>";
@@ -1839,6 +1847,7 @@
 				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
 				1A6B4FE315F04BCE000F0B5C /* undo.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
+				381BC45A19AF8B3C00CD8C20 /* PullLandPickerViewController.xib in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
@@ -2003,6 +2012,7 @@
 				1A4C4326160F6BEF0067BB96 /* LeaguevineItem.m in Sources */,
 				1A4C432F160FDDCC0067BB96 /* LeagueVineSelectorSeasonViewController.m in Sources */,
 				1A4C4330160FDDCC0067BB96 /* LeagueVineSelectorTeamViewController.m in Sources */,
+				381BC45919AF8B3C00CD8C20 /* PullLandPickerViewController.m in Sources */,
 				384C2D8A19A8C3BD00EE8290 /* GameFieldEventPointView.m in Sources */,
 				1A7A89271611D50700CAB5EF /* LeaguevineTournament.m in Sources */,
 				1A7A893A1613233300CAB5EF /* LeaguevineGame.m in Sources */,

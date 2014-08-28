@@ -14,10 +14,12 @@
 #import "GameHistoryController.h"
 #import "Game.h"
 #import "PlayerView.h"
+#import "Event.h"
 #import "OffenseEvent.h"
 #import "DefenseEvent.h"
 #import "PickPlayerForEventViewController.h"
 #import "Player.h"
+#import "PullLandPickerViewController.h"
 
 #define kActionViewMargin 20;
 
@@ -32,6 +34,8 @@
 @property (nonatomic, strong) IBOutlet UIView* buttonsView;
 @property (nonatomic, strong) IBOutlet PickPlayerForEventViewController* beginEventPlayerPickerViewController;
 @property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
+@property (nonatomic, strong) IBOutlet PullLandPickerViewController* pullLandingViewController;
+@property (nonatomic, strong) IBOutlet UIView* pullLandSubview;
 
 @property (nonatomic, strong) Game* game;
 
@@ -53,14 +57,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configurePickupDiskPlayerPickerView];
-    [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    __typeof(self) __weak weakSelf = self;
-    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
-        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
-    };
+    [self configurePullLandingView];
+    [self configureFieldView];
     [self.eventsViewController adjustInsetForTabBar];
-    [self hideActionView];
-    self.hideReceiverView.hidden = YES;
+    [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -101,6 +101,8 @@
     UIView* actionView = (UIView*)nibViews[0];
     [self.actionSubView addSubview:actionView];
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+    [self hideActionView];
+    self.hideReceiverView.hidden = YES;
 }
 
 - (void)showActionViewForPoint: (CGPoint) eventPoint {
@@ -137,10 +139,30 @@
     [self hideChooserView:self.beginEventPlayerPickerSubview];
 }
 
+#pragma mark - Pull landing chooser
+
+-(void)configurePullLandingView {
+    self.pullLandingViewController = [[PullLandPickerViewController alloc] init];
+    __typeof(self) __weak weakSelf = self;
+    self.pullLandingViewController.doneRequestedBlock = ^(Action action) {
+        [weakSelf handlePullLandingChosen:action];
+    };
+    [self addChildViewController:self.pullLandingViewController inSubView:self.pullLandSubview];
+}
+
+-(void)showPullLandingPickerViewForPoint:(CGPoint) eventPoint {
+    [self repositionAndShowChooserView:self.pullLandSubview adjacentToEventAt:eventPoint];
+}
+
+-(void)hidePullLandingPickerView {
+    [self hideChooserView:self.pullLandSubview];
+}
+
 #pragma mark - Event Handlers
 
 - (IBAction)cancelButtonTapped:(id)sender {
     [self hideActionView];
+    [self hidePullLandingPickerView];
     [self.fieldView updateForCurrentEvents];
 }
 
@@ -173,7 +195,11 @@
             }
         }
     } else {
-        [self showActionViewForPoint:pointInMyView];
+        if ([self.game.positionalPickupEvent isPullBegin]) {
+            [self showPullLandingPickerViewForPoint:pointInMyView];
+        } else {
+            [self showActionViewForPoint:pointInMyView];
+        }
         return YES; // show potential event
     }
 }
@@ -190,6 +216,17 @@
             pickupEvent.position = self.fieldView.potentialEventPosition;
             self.game.positionalPickupEvent = pickupEvent;
         }
+    }
+    [self.fieldView updateForCurrentEvents];
+};
+            
+-(void)handlePullLandingChosen: (Action) action {
+    [self hidePullLandingPickerView];
+    Player* player = self.game.positionalPickupEvent.playerOne;
+    if (action != None) {
+        DefenseEvent* pullEvent = [[DefenseEvent alloc] initDefender:player action:action];
+        pullEvent.position = self.fieldView.potentialEventPosition;
+        [self addEvent:pullEvent];
     }
     [self.fieldView updateForCurrentEvents];
 };
@@ -250,6 +287,13 @@
 
 -(Game*)game {
     return [Game getCurrentGame];
+}
+
+- (void)configureFieldView {
+    __typeof(self) __weak weakSelf = self;
+    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
+        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
+    };
 }
 
 

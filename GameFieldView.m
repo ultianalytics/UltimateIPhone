@@ -31,28 +31,24 @@
 @property (nonatomic, strong) GameFieldEventPointView* previousSavedEventView;
 @property (nonatomic, strong) GameFieldEventPointView* potentialEventView;
 @property (nonatomic, strong) EventPosition* potentialEventPosition;
+@property (nonatomic, strong) UILabel* messageLabel;
+
+@property (nonatomic, strong) Game* game;
 
 @end
 
 @implementation GameFieldView
+@dynamic game;
 
 #pragma mark - Initialization
 
 -(void)commonInit {
     [self addTapRecognizer];
-    self.fieldBorderColor = [UIColor whiteColor];  // default border color
     self.endzonePercent = .15; // default endzone percent
-    self.potentialEventView = [self createPointView];
-    self.potentialEventView.isEmphasizedEvent = YES;
- 
-    self.lastSavedEventView = [self createPointView];
+    self.fieldBorderColor = [UIColor whiteColor];  // default border color
 
-    self.previousSavedEventView = [self createPointView];
-    self.previousSavedEventView.isEmphasizedEvent = NO;
-
-    [self addSubview:self.previousSavedEventView];
-    [self addSubview:self.lastSavedEventView];
-    [self addSubview:self.potentialEventView];
+    [self addPointViews];
+    [self addMessageView];
     
     [self.layer setNeedsDisplay];
 }
@@ -89,8 +85,23 @@
 
 #pragma mark - Event Point Views
 
+-(void)addPointViews {
+    self.potentialEventView = [self createPointView];
+    self.potentialEventView.isEmphasizedEvent = YES;
+    
+    self.lastSavedEventView = [self createPointView];
+    
+    self.previousSavedEventView = [self createPointView];
+    self.previousSavedEventView.isEmphasizedEvent = NO;
+    
+    [self addSubview:self.previousSavedEventView];
+    [self addSubview:self.lastSavedEventView];
+    [self addSubview:self.potentialEventView];
+}
+
 -(void)updateForCurrentEvents {
     [self updatePointViews:nil];
+    self.message = [self.game isPointInProgress] || self.game.positionalPickupEvent ? nil : @"Tap the field where the pull will be initiated";
 }
 
 -(void)updatePointViews: (EventPosition*)potentialEventPosition {
@@ -100,14 +111,15 @@
     if (potentialEventPosition) {
         self.potentialEventPosition = potentialEventPosition;
         [self updatePointViewLocation:self.potentialEventView toPosition:potentialEventPosition];
-        self.potentialEventView.isOurEvent =  [[Game getCurrentGame] arePlayingOffense];
+        self.potentialEventView.isOurEvent =  [self.game arePlayingOffense] ||
+            (![self.game isPointInProgress] && ![self.game isCurrentlyOline]);
     }
     self.potentialEventView.hidden = potentialEventPosition == nil;
     
     // last event
     if (lastEvent && lastEvent.position != nil) {
         self.lastSavedEventView.isEmphasizedEvent = !self.potentialEventView.visible;
-        self.lastSavedEventView.isOurEvent = [lastEvent isOffense];
+        self.lastSavedEventView.isOurEvent = [self isOurEvent:lastEvent];
         self.lastSavedEventView.event = lastEvent;
         [self updatePointViewLocation:self.lastSavedEventView toPosition:lastEvent.position];
         self.lastSavedEventView.visible = YES;
@@ -119,13 +131,21 @@
     Event* previousEvent = [self getPreviousPointEvent];
     if (self.potentialEventView.hidden && previousEvent && previousEvent.position != nil) {
         self.previousSavedEventView.event = previousEvent;
-        self.previousSavedEventView.isOurEvent = [previousEvent isOffense];
+        self.previousSavedEventView.isOurEvent = [self isOurEvent:previousEvent];
         [self updatePointViewLocation:self.previousSavedEventView toPosition:previousEvent.position];
         self.previousSavedEventView.visible = YES;
     } else {
         self.previousSavedEventView.visible = NO;
     }
     
+}
+
+-(BOOL)isOurEvent:(Event*) event {
+    if ([event isPull] || [event isPullBegin]) {
+        return [event isDefense];
+    } else {
+        return [event isOffense];
+    }
 }
 
 -(void)updatePointViewLocation: (GameFieldEventPointView*)pointView toPosition: (EventPosition*)eventPosition {
@@ -149,6 +169,9 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     [self calculateFieldRectangles];
+    if (self.message) {
+        self.messageLabel.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    }
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
@@ -256,16 +279,16 @@
 #pragma mark - Event retrieval
 
 -(Event*)getLastPointEvent {
-    Event* pickupEvent = [Game getCurrentGame].positionalPickupEvent;
+    Event* pickupEvent = self.game.positionalPickupEvent;
     if (pickupEvent) {
         return pickupEvent;
     } else {
-        return [[Game getCurrentGame] getInProgressPointLastEvent];
+        return [self.game getInProgressPointLastEvent];
     }
 }
 
 -(Event*)getPreviousPointEvent {
-    Event* lastEvent = [[Game getCurrentGame] getInProgressPointLastEvent];
+    Event* lastEvent = [self.game getInProgressPointLastEvent];
     
     // if no last event then there can't be a previous
     if (!lastEvent) {
@@ -273,8 +296,8 @@
     }
     
     // if the game has a pickup event then the previous is actually the last event
-    if ([Game getCurrentGame].positionalPickupEvent) {
-        return [[Game getCurrentGame] getInProgressPointLastEvent];
+    if (self.game.positionalPickupEvent) {
+        return [self.game getInProgressPointLastEvent];
     }
     
     // if the last event is an event with a begin position then create a temporary pickup event with that position
@@ -291,12 +314,36 @@
     }
     
     // dullsville...the normal scenario
-    NSArray* lastPointEvents = [[Game getCurrentGame] getInProgressPointLastEvents:2];
+    NSArray* lastPointEvents = [self.game getInProgressPointLastEvents:2];
     if ([lastPointEvents count] > 1) {
         return lastPointEvents[1];
     } else {
         return nil;
     }
+}
+
+#pragma mark - Message
+
+-(void)addMessageView {
+    self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
+    self.messageLabel.numberOfLines = 0;
+    self.messageLabel.textAlignment = NSTextAlignmentCenter;
+    self.messageLabel.textColor = [UIColor whiteColor];
+    self.messageLabel.hidden = YES;
+    [self addSubview:self.messageLabel];
+}
+
+-(void)setMessage:(NSString *)message {
+    _message = message;
+    self.messageLabel.text = message;
+    self.messageLabel.hidden = message ? NO : YES;
+    [self setNeedsLayout];
+}
+
+#pragma mark - Misc.
+
+-(Game*)game {
+    return [Game getCurrentGame];
 }
 
 @end

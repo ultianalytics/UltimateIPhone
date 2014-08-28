@@ -42,6 +42,14 @@
     return self;
 }
 
+-(id) initPullBegin {
+    self = [super init];
+    if (self) {
+        self.action = PullBegin;
+    }
+    return self;
+}
+
 -(void)useSharedPlayers {
     self.passer = [Player replaceWithSharedPlayer: self.passer];
     self.receiver = [Player replaceWithSharedPlayer: self.receiver];
@@ -218,6 +226,9 @@
         case PickupDisc:{
             return self.isAnonymous ?  [NSString stringWithFormat:@"%@ pick up", (teamName == nil ? @"Our" : teamName)] : [NSString stringWithFormat:@"%@ picked up", self.passer.name];
         }
+        case PullBegin:{
+            return opponentName == nil ? @"Opponent Pull Begin" : [NSString stringWithFormat:@"%@ Pull Begin", opponentName];
+        }
         default:
             return @"";
     }
@@ -248,6 +259,9 @@
         }
         case PickupDisc:{
             return [NSString stringWithFormat:@"PICK UP\n%@", self.isAnonymous ? @" " : self.passer.name];
+        }
+        case PullBegin:{
+            return [NSString stringWithFormat:@"PULL BEGIN\n "];
         }
         default:
             return @"";

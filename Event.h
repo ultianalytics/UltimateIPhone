@@ -19,8 +19,12 @@ typedef enum {
     PullOb,
     Stall,
     MiscPenalty,
-    PickupDisc,
     
+    // positional only
+    PickupDisc,
+    PullBegin,
+    
+    // cessation
     EndOfFirstQuarter,
     Halftime,
     EndOfThirdQuarter,
@@ -52,6 +56,7 @@ typedef enum {
 - (BOOL) isCessationEvent;
 - (BOOL) isPlayEvent;
 - (BOOL) isPickupDisc;
+- (BOOL) isPullBegin;
 - (BOOL) isOffense;
 - (BOOL) isDefense;
 - (BOOL) isGoal;

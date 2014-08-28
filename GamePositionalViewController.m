@@ -33,9 +33,12 @@
 @property (nonatomic, strong) IBOutlet PickPlayerForEventViewController* beginEventPlayerPickerViewController;
 @property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
 
+@property (nonatomic, strong) Game* game;
+
 @end
 
 @implementation GamePositionalViewController
+@dynamic game;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -123,8 +126,8 @@
 }
 
 -(void)showPickupDiscPlayerPickerViewForPoint:(CGPoint) eventPoint isPull: (BOOL) isPull {
-    self.beginEventPlayerPickerViewController.line = [Game getCurrentGame].currentLineSorted;
-    self.beginEventPlayerPickerViewController.instructions = @"Player who picked up disc?";
+    self.beginEventPlayerPickerViewController.line = self.game.currentLineSorted;
+    self.beginEventPlayerPickerViewController.instructions = isPull ? @"Player who will pull?" : @"Player who picked up disc?";
     self.beginEventPlayerPickerViewController.allowCancel = !isPull;
     [self.beginEventPlayerPickerViewController refresh];
     [self repositionAndShowChooserView:self.beginEventPlayerPickerSubview adjacentToEventAt:eventPoint];
@@ -141,20 +144,33 @@
     [self.fieldView updateForCurrentEvents];
 }
 
-#pragma mark - Miscellaneous
-
 -(BOOL)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {
     CGPoint pointInMyView = [self.fieldView convertPoint:fieldPoint toView:self.view];
-    if ([[Game getCurrentGame] needsPositionalBegin]) {
-        if (self.isOffense) {
-            [self showPickupDiscPlayerPickerViewForPoint:pointInMyView isPull:NO];
-            return YES; // show potential event
+    if ([self.game needsPositionalBegin]) {
+        if ([self.game isPointInProgress]) {
+            // turnover
+            if (self.isOffense) {
+                [self showPickupDiscPlayerPickerViewForPoint:pointInMyView isPull:NO];
+                return YES; // show potential event
+            } else {
+                Event* pickupEvent = [[DefenseEvent alloc] initPickupDisc];
+                pickupEvent.position = position;
+                self.game.positionalPickupEvent = pickupEvent;
+                [self.fieldView updateForCurrentEvents];
+                return NO;  // do not show potential event
+            }
         } else {
-            Event* pickupEvent = [[DefenseEvent alloc] initPickupDisc];
-            pickupEvent.position = position;
-            [Game getCurrentGame].positionalPickupEvent = pickupEvent;
-            [self.fieldView updateForCurrentEvents];
-            return NO;  // do not show potential event
+            // pull
+            if (self.isOffense) {
+                Event* pickupEvent = [[OffenseEvent alloc] initPullBegin];
+                pickupEvent.position = position;
+                self.game.positionalPickupEvent = pickupEvent;
+                [self.fieldView updateForCurrentEvents];
+                return NO;  // do not show potential event
+            } else {
+                [self showPickupDiscPlayerPickerViewForPoint:pointInMyView isPull:YES];
+                return YES; // show potential event
+            }
         }
     } else {
         [self showActionViewForPoint:pointInMyView];
@@ -165,16 +181,24 @@
 -(void)handlePickupPlayerChosen: (Player*) player { // if player is nil then the user cancelled choice
     [self hidePickupDiscPlayerPickerView];
     if (player) {
-        OffenseEvent* pickupEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:player];
-        pickupEvent.position = self.fieldView.potentialEventPosition;
-        [Game getCurrentGame].positionalPickupEvent = pickupEvent;
+        if ([self.game isPointInProgress]) {
+            OffenseEvent* pickupEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:player];
+            pickupEvent.position = self.fieldView.potentialEventPosition;
+            self.game.positionalPickupEvent = pickupEvent;
+        } else {
+            DefenseEvent* pickupEvent = [[DefenseEvent alloc] initPullBegin:player];
+            pickupEvent.position = self.fieldView.potentialEventPosition;
+            self.game.positionalPickupEvent = pickupEvent;
+        }
     }
     [self.fieldView updateForCurrentEvents];
 };
 
+#pragma mark - Miscellaneous
+
 -(void) addEventProperties: (Event*) event {
     event.position = self.fieldView.potentialEventPosition;
-    event.beginPosition = [Game getCurrentGame].positionalPickupEvent.position;  // only some events will have begin position
+    event.beginPosition = self.game.positionalPickupEvent.position;  // only some events will have begin position
 }
 
 - (void)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
@@ -202,9 +226,9 @@
 }
 
 - (void)updateActionViewForSelectedPasser {
-    Player* playerToSelect = [Game getCurrentGame].positionalPickupEvent.playerOne;
+    Player* playerToSelect = self.game.positionalPickupEvent.playerOne;
     if (!playerToSelect) {
-        Event* lastEvent = [[Game getCurrentGame] getLastEvent];
+        Event* lastEvent = [self.game getLastEvent];
         if (lastEvent.isOffense) {
             playerToSelect = lastEvent.playerTwo;
         } 
@@ -223,5 +247,11 @@
     }
     [self.playerViews[7] makeSelected:!playerSelected]; // pick anon if nobody else fits
 }
+
+-(Game*)game {
+    return [Game getCurrentGame];
+}
+
+
 
 @end

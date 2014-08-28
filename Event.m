@@ -192,6 +192,10 @@
     return self.action == PickupDisc;
 }
 
+- (BOOL) isPullBegin {
+    return self.action == PullBegin;
+}
+
 - (BOOL) isPlayEvent {
     return NO;    
 }

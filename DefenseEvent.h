@@ -21,6 +21,7 @@
 -(id) initAction: (Action)anAction;
 -(id) initDefender: (Player*)aDefender action: (Action)anAction;
 -(id) initPickupDisc;
+-(id) initPullBegin: (Player*)puller;
 
 
 @end

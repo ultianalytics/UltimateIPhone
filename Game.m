@@ -701,18 +701,11 @@ static Game* currentGame = nil;
         if (self.positionalPickupEvent) {
             return NO;
         }
-        UPoint* currentPoint = [self getCurrentPoint];
-        if (!currentPoint || [currentPoint isFinished]) {
+        if (![self isPointInProgress]) {
             return YES;
         } else {
-            Event* lastPointEvent = [currentPoint getLastEvent];
-            if (lastPointEvent) {
-                return [lastPointEvent isTurnover] || [lastPointEvent isPull];
-            } else {
-                return YES;
-            }
+            return [self getLastEvent].isTurnover;
         }
-        return YES;
     }
     return NO;
 }

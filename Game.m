@@ -64,6 +64,25 @@ static Game* currentGame = nil;
 @synthesize timeoutDetails=_timeoutDetails;
 @synthesize periodsComplete=_periodsComplete;
 
+#pragma mark - Initialization
+
+-(id) init  {
+    self = [super init];
+    if (self) {
+        self.gameId = [Game generateUniqueFileName];
+        self.points = [[NSMutableArray alloc] init];
+        self.lastDLine = [[NSArray alloc] init];
+        self.lastOLine = [[NSArray alloc] init];
+        self.wind = [[Wind alloc] init];
+        self.gamePoint = [Preferences getCurrentPreferences].gamePoint;
+        arePointSummariesValid = NO;
+        self.currentLine = [[Team getCurrentTeam] defaultLine];
+    }
+    return self;
+}
+
+#pragma mark - JSON conversion
+
 +(Game*) fromDictionary:(NSDictionary*) dict {
     Game* game = [[Game alloc] init];
     game.gameId = [dict objectForKey:kGameIdKey];
@@ -119,20 +138,6 @@ static Game* currentGame = nil;
         game.isPositional = [isPositional boolValue];
     }
     return game;
-}
-
--(NSString*)opponentName {
-    if (self.leaguevineGame) {
-        return [self.leaguevineGame opponentDescription];
-    }
-    return _opponentName;
-}
-
--(NSString*)tournamentName {
-    if (self.leaguevineGame) {
-        return self.leaguevineGame.tournament.name;
-    }
-    return _tournamentName;
 }
 
 -(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub {
@@ -191,6 +196,24 @@ static Game* currentGame = nil;
     return dict;
 }
 
+
+#pragma mark - Current game
+
+-(NSString*)opponentName {
+    if (self.leaguevineGame) {
+        return [self.leaguevineGame opponentDescription];
+    }
+    return _opponentName;
+}
+
+-(NSString*)tournamentName {
+    if (self.leaguevineGame) {
+        return self.leaguevineGame.tournament.name;
+    }
+    return _tournamentName;
+}
+
+
 // return nil if no current game
 +(Game*)getCurrentGame {
     @synchronized(self) {
@@ -221,6 +244,8 @@ static Game* currentGame = nil;
     [Preferences getCurrentPreferences].currentGameFileName = currentGame.gameId;
     [[Preferences getCurrentPreferences] save];
 }
+
+#pragma mark - CRUD
 
 +(Game*)readGame: (NSString*) gameId {
     return [self readGame:gameId forTeam:[Team getCurrentTeam].teamId mergePlayersWithCurrentTeam:YES];
@@ -344,20 +369,43 @@ static Game* currentGame = nil;
 	}
 }
 
--(id) init  {
-    self = [super init];
-    if (self) {
-        self.gameId = [Game generateUniqueFileName];
-        self.points = [[NSMutableArray alloc] init];
-        self.lastDLine = [[NSArray alloc] init];
-        self.lastOLine = [[NSArray alloc] init];
-        self.wind = [[Wind alloc] init];
-        self.gamePoint = [Preferences getCurrentPreferences].gamePoint;
-        arePointSummariesValid = NO;
-        self.currentLine = [[Team getCurrentTeam] defaultLine];
+-(void)save {
+    [self updatelastSaveGMT];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc]
+                                 initForWritingWithMutableData:data];
+    [archiver encodeObject: self forKey:kGameKey];
+    [archiver finishEncoding];
+    BOOL success = [data writeToFile:[Game getFilePath:self.gameId team: [Team getCurrentTeam].teamId]atomically:YES];
+    if (!success) {
+        [NSException raise:@"Failed trying to save game" format:@"failed saving game"];
     }
-    return self;
 }
+
+-(BOOL)hasBeenSaved {
+    NSString* filePath = [Game getFilePath: gameId team:[Team getCurrentTeam].teamId];
+	return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+}
+
+-(void)delete {
+    [Game delete: self.gameId];
+}
+
+- (void)mergePlayersWithCurrentTeam {
+    for (UPoint* point in points) {
+        [point useSharedPlayers];
+    }
+    self.currentLine = [Player replaceAllWithSharedPlayer: self.currentLine];
+    self.lastDLine = [Player replaceAllWithSharedPlayer: self.lastDLine];
+    self.lastOLine = [Player replaceAllWithSharedPlayer: self.lastOLine];
+}
+
+-(void)updatelastSaveGMT {
+    NSTimeInterval timeZoneOffset = [[NSTimeZone defaultTimeZone] secondsFromGMT];
+    self.lastSaveGMT = [[NSDate date] timeIntervalSince1970] - timeZoneOffset;
+}
+
+#pragma mark - Object Encode/Decode
 
 - (id)initWithCoder:(NSCoder *)decoder { 
     if (self = [super init]) { 
@@ -408,37 +456,7 @@ static Game* currentGame = nil;
     [encoder encodeObject:self.positionalPickupEvent forKey:kPickupDiscKey];
 } 
 
-
-- (void)mergePlayersWithCurrentTeam {
-    for (UPoint* point in points) {
-        [point useSharedPlayers];
-    }
-    self.currentLine = [Player replaceAllWithSharedPlayer: self.currentLine];
-    self.lastDLine = [Player replaceAllWithSharedPlayer: self.lastDLine];
-    self.lastOLine = [Player replaceAllWithSharedPlayer: self.lastOLine];
-}
-
--(void)save {
-    [self updatelastSaveGMT];
-    NSMutableData *data = [[NSMutableData alloc] init]; 
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] 
-                                 initForWritingWithMutableData:data]; 
-    [archiver encodeObject: self forKey:kGameKey]; 
-    [archiver finishEncoding]; 
-    BOOL success = [data writeToFile:[Game getFilePath:self.gameId team: [Team getCurrentTeam].teamId]atomically:YES]; 
-    if (!success) {
-        [NSException raise:@"Failed trying to save game" format:@"failed saving game"];
-    }
-}
-
--(BOOL)hasBeenSaved {
-    NSString* filePath = [Game getFilePath: gameId team:[Team getCurrentTeam].teamId]; 
-	return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-}
-
--(void)delete {
-    [Game delete: self.gameId];
-}
+#pragma mark - Events
 
 -(void)addEvent: (Event*) event{
     self.positionalPickupEvent = nil;
@@ -522,6 +540,8 @@ static Game* currentGame = nil;
     return [NSArray array];
 }
 
+#pragma mark - Points
+
 -(void)addPoint: (UPoint*) point {
     [self.points addObject: point];
     [self clearPointSummaries];
@@ -565,12 +585,6 @@ static Game* currentGame = nil;
     }
 }
 
--(Score)getScoreAtMostRecentIndex: (int) index {
-    [self updatePointSummaries];
-    UPoint* point = [self getPointAtMostRecentIndex:index];
-    return point.summary.score;
-}
-
 -(NSArray*)getPointNamesInMostRecentOrder {
     [self updatePointSummaries];
     NSMutableArray* names = [[NSMutableArray alloc] init];
@@ -588,6 +602,63 @@ static Game* currentGame = nil;
     } else {
         return [self.points lastObject];
     }
+}
+
+#pragma mark - Line / Players
+
+-(NSMutableArray*)currentLineSorted {
+    if ([Team getCurrentTeam].isDiplayingPlayerNumber ) {
+        [self.currentLine sortUsingComparator:^(id a, id b) {
+            int first = ((Player*)a).number.intValue;
+            int second = ((Player*)b).number.intValue;
+            return first == second ? NSOrderedSame : first < second ? NSOrderedAscending : NSOrderedDescending;
+        }];
+    } else {
+        [self.currentLine sortUsingComparator:^(id a, id b) {
+            NSString *first = ((Player*)a).name;
+            NSString *second = ((Player*)b).name;
+            return [first caseInsensitiveCompare:second];
+        }];
+    }
+    return self.currentLine;
+}
+
+-(void)clearCurrentLine {
+    if (self.currentLine != nil) {
+        [self.currentLine removeAllObjects];
+    }
+}
+
+-(void)resetCurrentLine {
+    if (self.currentLine) {
+        self.currentLine = [NSMutableArray arrayWithArray:self.currentLine];
+    }
+}
+
+-(void)makeCurrentLineLastLine: (BOOL) useOline {
+    self.currentLine = [[NSMutableArray alloc] initWithArray: useOline ?
+                        self.lastOLine : self.lastDLine];
+}
+
+-(NSSet*)getPlayers {
+    NSMutableSet* players = [[NSMutableSet alloc] init];
+    for (UPoint* point in self.points) {
+        for (Event* event in point.events) {
+            [players addObjectsFromArray: [event getPlayers]];
+        }
+    }
+    [players addObjectsFromArray:self.lastOLine];
+    [players addObjectsFromArray:self.lastDLine];
+    [players addObjectsFromArray:self.currentLine];
+    return players;
+}
+
+#pragma mark - Game progress
+
+-(Score)getScoreAtMostRecentIndex: (int) index {
+    [self updatePointSummaries];
+    UPoint* point = [self getPointAtMostRecentIndex:index];
+    return point.summary.score;
 }
 
 -(BOOL)arePlayingOffense {
@@ -636,40 +707,6 @@ static Game* currentGame = nil;
         return [self createScoreForOurs: 0 theirs: 0];
     }
     return [self getCurrentPoint].summary.score;
-}
-
--(NSMutableArray*)currentLineSorted {
-    if ([Team getCurrentTeam].isDiplayingPlayerNumber ) {
-        [self.currentLine sortUsingComparator:^(id a, id b) {
-            int first = ((Player*)a).number.intValue;
-            int second = ((Player*)b).number.intValue;
-            return first == second ? NSOrderedSame : first < second ? NSOrderedAscending : NSOrderedDescending;
-        }];
-    } else {
-        [self.currentLine sortUsingComparator:^(id a, id b) {
-            NSString *first = ((Player*)a).name;
-            NSString *second = ((Player*)b).name;
-            return [first caseInsensitiveCompare:second];
-        }];
-    }
-    return self.currentLine;
-}
-
--(void)clearCurrentLine {
-    if (self.currentLine != nil) {
-        [self.currentLine removeAllObjects];
-    }
-}
-
--(void)resetCurrentLine {
-    if (self.currentLine) {
-        self.currentLine = [NSMutableArray arrayWithArray:self.currentLine];
-    }
-}
-
--(void)makeCurrentLineLastLine: (BOOL) useOline {
-    self.currentLine = [[NSMutableArray alloc] initWithArray: useOline ? 
-        self.lastOLine : self.lastDLine];
 }
 
 -(BOOL)canNextPointBeDLinePull {
@@ -739,19 +776,6 @@ static Game* currentGame = nil;
 -(BOOL)isPointInProgress {
     Event* lastEvent = self.getLastEvent;
     return lastEvent && ![lastEvent isGoal] && ![lastEvent isPeriodEnd];
-}
-
--(NSSet*)getPlayers {
-    NSMutableSet* players = [[NSMutableSet alloc] init];
-    for (UPoint* point in self.points) {
-        for (Event* event in point.events) {
-            [players addObjectsFromArray: [event getPlayers]];
-        }
-    }
-    [players addObjectsFromArray:self.lastOLine];
-    [players addObjectsFromArray:self.lastDLine];
-    [players addObjectsFromArray:self.currentLine];
-    return players;
 }
 
 -(BOOL)isNextEventImmediatelyAfterHalftime {
@@ -849,13 +873,34 @@ static Game* currentGame = nil;
     gamePoint = newGamePoint;
 }
 
--(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo {
-    if ([[point getEvents] count] == 1) {
-        [[Tweeter getCurrent] tweetFirstEventOfPoint:event forGame:self point:point isUndo:isUndo];
+-(BOOL)isTimeBasedEnd {
+    return gamePoint == kTimeBasedGame;
+}
+
+-(BOOL)doesGameAppearDone {
+    if (self.isTimeBasedEnd) {
+        return [self getLastEvent].action == GameOver;
+    // have we reached the end point and leader has >= 2 lead?        
     } else {
-        [[Tweeter getCurrent] tweetEvent:event forGame:self point:point isUndo:isUndo];
+        [self updatePointSummaries];
+        Score score = [self getScore];
+        int highScore = MAX(score.ours, score.theirs);
+        int lowScore = MIN(score.ours, score.theirs);
+        return (highScore >= self.gamePoint) && (highScore >= lowScore + 2);
     }
 }
+
+-(int)periodsComplete {
+    [self updatePointSummaries];
+    return _periodsComplete;
+}
+
+-(CessationEvent*)lastPeriodEnd {
+    [self updatePointSummaries];
+    return _lastPeriodEnd;
+}
+
+#pragma mark - Point Summaries
 
 -(void)updatePointSummaries {
     if (!arePointSummariesValid) {
@@ -877,7 +922,7 @@ static Game* currentGame = nil;
                 } else if ([point isTheirPoint]) {
                     score.theirs++;
                 }
-            } 
+            }
             point.summary.score = [self createScoreForOurs:score.ours theirs:score.theirs];
             if (self.isTimeBasedEnd) {
                 point.summary.isAfterHalftime = periodEndCount > 2;
@@ -907,52 +952,6 @@ static Game* currentGame = nil;
 
 -(void)clearPointSummaries {
     arePointSummariesValid = NO;
-}
-
--(BOOL)isTimeBasedEnd {
-    return gamePoint == kTimeBasedGame;
-}
-
--(BOOL)doesGameAppearDone {
-    if (self.isTimeBasedEnd) {
-        return [self getLastEvent].action == GameOver;
-    // have we reached the end point and leader has >= 2 lead?        
-    } else {
-        [self updatePointSummaries];
-        Score score = [self getScore];
-        int highScore = MAX(score.ours, score.theirs);
-        int lowScore = MIN(score.ours, score.theirs);
-        return (highScore >= self.gamePoint) && (highScore >= lowScore + 2);
-    }
-}
-
--(NSString*)shortOpponentName {
-    if ([self.opponentName length] > 20) {
-        return [NSString stringWithFormat: @"%@...", [self.opponentName substringToIndex: 17]];
-    } else {
-        return self.opponentName;
-    }
-}
-
--(int)periodsComplete {
-    [self updatePointSummaries];
-    return _periodsComplete;
-}
-
--(CessationEvent*)lastPeriodEnd {
-    [self updatePointSummaries];
-    return _lastPeriodEnd;
-}
-
-#pragma mark - Leaguevine
-
--(BOOL)isLeaguevineGame {
-    return self.leaguevineGame != nil;
-}
-
--(void)setLeaguevineGame:(LeaguevineGame *)leaguevineGame {
-    _leaguevineGame = leaguevineGame;
-    self.publishScoreToLeaguevine = NO;  // reset publish
 }
 
 #pragma mark - Substitutions
@@ -997,13 +996,6 @@ static Game* currentGame = nil;
     return YES;
 }
 
--(BOOL)publishStatsToLeaguevine {
-    return (self.leaguevineGame) && _publishStatsToLeaguevine;
-}
-
--(BOOL)publishScoresToLeaguevine {
-    return (self.leaguevineGame) && _publishScoreToLeaguevine;
-}
 
 #pragma mark - Timeouts 
 
@@ -1058,9 +1050,44 @@ static Game* currentGame = nil;
     }
 }
 
--(void)updatelastSaveGMT {
-    NSTimeInterval timeZoneOffset = [[NSTimeZone defaultTimeZone] secondsFromGMT];
-    self.lastSaveGMT = [[NSDate date] timeIntervalSince1970] - timeZoneOffset;
+#pragma mark - Tweeting
+
+-(void)tweetEvent: (Event*) event point: (UPoint*) point isUndo: (BOOL) isUndo {
+    if ([[point getEvents] count] == 1) {
+        [[Tweeter getCurrent] tweetFirstEventOfPoint:event forGame:self point:point isUndo:isUndo];
+    } else {
+        [[Tweeter getCurrent] tweetEvent:event forGame:self point:point isUndo:isUndo];
+    }
+}
+
+#pragma mark - Leaguevine
+
+-(BOOL)isLeaguevineGame {
+    return self.leaguevineGame != nil;
+}
+
+-(void)setLeaguevineGame:(LeaguevineGame *)leaguevineGame {
+    _leaguevineGame = leaguevineGame;
+    self.publishScoreToLeaguevine = NO;  // reset publish
+}
+
+-(BOOL)publishStatsToLeaguevine {
+    return (self.leaguevineGame) && _publishStatsToLeaguevine;
+}
+
+-(BOOL)publishScoresToLeaguevine {
+    return (self.leaguevineGame) && _publishScoreToLeaguevine;
+}
+
+#pragma mark - Miscellaneous
+
+
+-(NSString*)shortOpponentName {
+    if ([self.opponentName length] > 20) {
+        return [NSString stringWithFormat: @"%@...", [self.opponentName substringToIndex: 17]];
+    } else {
+        return self.opponentName;
+    }
 }
 
 @end

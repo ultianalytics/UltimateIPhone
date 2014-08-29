@@ -4,8 +4,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GamePositionalViewController">
             <connections>
+                <outlet property="otherTeamCatchButton" destination="wo6-0f-pau" id="xY9-Ic-M03"/>
                 <outlet property="otherTeamScoreButton" destination="53" id="WFo-Tf-P4J"/>
                 <outlet property="playerLabel" destination="9" id="old-KQ-bUg"/>
                 <outlet property="playerView1" destination="11" id="2kz-Co-beY"/>
@@ -78,11 +79,32 @@
                         <action selector="throwAwayButtonClicked:" destination="-1" eventType="touchUpInside" id="42"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53" userLabel="Other Team Score Button" customClass="GameActionButton">
-                    <rect key="frame" x="248" y="165" width="60" height="56"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAs-fG-6vL" userLabel="Other Team Throwaway Button" customClass="GameActionButton">
+                    <rect key="frame" x="20" y="311" width="104" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Score">
+                    <state key="normal" title="Throwaway">
+                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wo6-0f-pau" userLabel="Other Team Catch Button" customClass="GameActionButton">
+                    <rect key="frame" x="20" y="23" width="104" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Catch">
+                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="otherTeamCatchTapped:" destination="-1" eventType="touchUpInside" id="ObX-FX-G6D"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53" userLabel="Other Team Score Button" customClass="GameActionButton">
+                    <rect key="frame" x="20" y="165" width="104" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Goal">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

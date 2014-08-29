@@ -67,6 +67,7 @@
 @property (nonatomic, strong) IBOutlet UILabel* playerLabel;
 @property (nonatomic, strong) IBOutlet UILabel* receiverLabel;
 @property (nonatomic, strong) IBOutlet UIButton* throwAwayButton;
+@property (nonatomic, strong) IBOutlet UIButton* otherTeamThrowAwayButton;
 @property (nonatomic, strong) IBOutlet UIButton* otherTeamScoreButton;
 @property (nonatomic, strong) IBOutlet PlayerView* playerView1;
 @property (nonatomic, strong) IBOutlet PlayerView* playerView2;
@@ -218,20 +219,10 @@
     [self.playerView6 setIsOffense:_isOffense];
     [self.playerView7 setIsOffense:_isOffense];
     [self.playerViewTeam setIsOffense:_isOffense];
-    self.throwAwayButton.hidden = NO;
-    [self setThrowAwayButtonPosition];
+    self.throwAwayButton.visible = _isOffense;
+    self.otherTeamThrowAwayButton.hidden = self.throwAwayButton.visible;
     [self populatePlayers];
     [self initializeSelected];
-}
-
--(void)setThrowAwayButtonPosition {
-    CGFloat offsetOnDefense = [self throwawayButtonOffsetOnDefense];
-    CGAffineTransform transform = self.isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(offsetOnDefense, 0.0);
-    self.throwAwayButton.transform = transform;
-}
-
--(CGFloat)throwawayButtonOffsetOnDefense {
-    return IS_IPAD ? -168.0 : -100.0;
 }
 
 - (void) populatePlayers {
@@ -318,9 +309,11 @@
 }
 
 -(void) updateViewFromGame: (Game*) game {
+    self.throwAwayButton.visible = self.isOffense;
+    self.otherTeamThrowAwayButton.hidden = self.throwAwayButton.visible;
     if (!self.isOffense) {
         self.otherTeamScoreButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
-        self.throwAwayButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
+        self.otherTeamThrowAwayButton.hidden = [game canNextPointBeDLinePull] ? YES : NO;
     }
     for (PlayerView* playerView in playerViews) {
         [playerView update:game];
@@ -794,6 +787,9 @@
     UILongPressGestureRecognizer* turnoverLongPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(turnoverButtonLongPress:)];
     [self.throwAwayButton addGestureRecognizer:turnoverLongPressRecognizer];
     
+    UILongPressGestureRecognizer* otherTeamTurnoverLongPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(turnoverButtonLongPress:)];
+    [self.otherTeamThrowAwayButton addGestureRecognizer:otherTeamTurnoverLongPressRecognizer];
+    
     UISwipeGestureRecognizer* swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moreEventsSwipe:)];
     [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
     [self.swipeEventsView addGestureRecognizer:swipeRecognizer];
@@ -804,6 +800,10 @@
     self.throwAwayButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.throwAwayButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.throwAwayButton setTitle:@"T\nh\nr\no\nw\na\nw\na\ny" forState:UIControlStateNormal];
+    
+    self.otherTeamThrowAwayButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.otherTeamThrowAwayButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.otherTeamThrowAwayButton setTitle:@"T\nh\nr\no\nw\na\nw\na\ny" forState:UIControlStateNormal];
     
     self.gameOverButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.gameOverButton.titleLabel.textAlignment = NSTextAlignmentCenter;

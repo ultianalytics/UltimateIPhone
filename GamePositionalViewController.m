@@ -25,6 +25,7 @@
 
 @interface GamePositionalViewController ()
 
+@property (nonatomic, strong) IBOutlet UIButton* otherTeamCatchButton;
 @property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
 @property (nonatomic, strong) IBOutlet UIView* actionViewContainer;
 @property (nonatomic, strong) IBOutlet UIView* topViewOverlay;
@@ -85,10 +86,6 @@
     [self.fieldView updateForCurrentEvents];
 }
 
--(CGFloat)throwawayButtonOffsetOnDefense {
-    return -100.0;
-}
-
 -(BOOL)calloutsAllowed {
     return NO;
 }
@@ -101,11 +98,13 @@
     UIView* actionView = (UIView*)nibViews[0];
     [self.actionSubView addSubview:actionView];
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
+    [self.otherTeamThrowAwayButton setTitle:@"Throwaway" forState:UIControlStateNormal];
     [self hideActionView];
 }
 
 - (void)showActionViewForPoint: (CGPoint) eventPoint {
     [self updateActionViewForSelectedPasser];
+    [self updateActionViewLayoutForOffenseOrDefense];
     [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:eventPoint];
 }
 
@@ -163,6 +162,11 @@
     [self hideActionView];
     [self hidePullLandingPickerView];
     [self.fieldView updateForCurrentEvents];
+}
+
+-(IBAction)otherTeamCatchTapped: (id) sender {
+    DefenseEvent* event = [[DefenseEvent alloc] initOpponentCatch];
+    [self addEvent: event];
 }
 
 -(BOOL)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {
@@ -288,6 +292,10 @@
         }
     }
     [self.playerViews[7] makeSelected:!playerSelected]; // pick anon if nobody else fits
+}
+
+-(void)updateActionViewLayoutForOffenseOrDefense {
+    self.otherTeamCatchButton.hidden = self.isOffense;
 }
 
 -(Game*)game {

@@ -319,12 +319,7 @@
         [playerView update:game];
     }
     [self updateGameOverButtonForTimeBasedGame];
-    BOOL hasEvents = [[Game getCurrentGame] hasEvents];
-    if (hasEvents) {
-        [self.eventsViewController refresh];
-    }
-    self.noEventsLabel.hidden = hasEvents;
-    self.eventsSubView.hidden = !hasEvents;
+    [self.eventsViewController refresh];
 }
 
 -(void)updateTimeoutsButton {

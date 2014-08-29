@@ -19,7 +19,6 @@
                 <outlet property="eventsViewContainer" destination="Oo2-sz-Ycp" id="tYR-wV-pqq"/>
                 <outlet property="fieldView" destination="P4W-Ek-UsM" id="s3T-zi-RNb"/>
                 <outlet property="gameOverButton" destination="LHA-vH-M3T" id="YKQ-02-uga"/>
-                <outlet property="noEventsLabel" destination="fbl-eH-Nr6" id="pnM-S3-z6P"/>
                 <outlet property="pullLandSubview" destination="wt8-dc-lks" id="x2V-39-A6h"/>
                 <outlet property="timeoutButton" destination="1Fv-fr-kvc" id="fMb-Eg-jab"/>
                 <outlet property="topOrLeftView" destination="jVz-di-qkX" id="J5F-5i-0bG"/>
@@ -87,7 +86,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="wt8-dc-lks">
+                        <view hidden="YES" contentMode="scaleToFill" id="wt8-dc-lks" userLabel="Pull Landing SubView">
                             <rect key="frame" x="582" y="30" width="150" height="270"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -135,14 +134,6 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
-                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Events For This Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fbl-eH-Nr6" userLabel="No Events Label">
-                                    <rect key="frame" x="0.0" y="0.0" width="632" height="411"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>

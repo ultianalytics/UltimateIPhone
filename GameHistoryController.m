@@ -30,6 +30,7 @@
 @interface GameHistoryController() <GameHistoryTableViewCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
+@property (strong, nonatomic) IBOutlet UILabel *noEventsLabel;
 @property (nonatomic) CGFloat headerHeight;
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
@@ -43,7 +44,11 @@
 #pragma mark Table delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.game getNumberOfPoints];
+    int numberOfPoints = [self.game getNumberOfPoints];
+    if (numberOfPoints == 0 && self.game.positionalPickupEvent) {
+        numberOfPoints++;
+    }
+    return numberOfPoints;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -126,14 +131,6 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -141,6 +138,7 @@
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(popWithCurl)];
         self.navigationItem.leftBarButtonItem = settingsButton;
     }
+    self.noEventsLabel.hidden = [self hasEvents];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -217,11 +215,15 @@
 }
 
 -(void)refresh {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:self.eventTableView duration:0.1f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-            [self.eventTableView reloadData];
-        } completion:nil];
-    });
+    BOOL hasEvents = [self hasEvents];
+    if (hasEvents) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView transitionWithView:self.eventTableView duration:0.1f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                [self.eventTableView reloadData];
+            } completion:nil];
+        });
+    }
+    self.noEventsLabel.hidden = hasEvents;
 }
 
 -(void)adjustInsetForTabBar {
@@ -240,6 +242,10 @@
     } else {
         return [point getEventAtMostRecentIndex:indexPath.row];
     }
+}
+
+-(BOOL)hasEvents {
+    return[[Game getCurrentGame] hasEvents] || [Game getCurrentGame].positionalPickupEvent;
 }
 
 @end

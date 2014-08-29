@@ -71,17 +71,30 @@
                                     <outlet property="delegate" destination="1bm-ui-6L1" id="060-wh-1U1"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Events For This Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjh-yF-3xc" userLabel="No Events View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.84313725490000002" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YEl-aI-jyi" secondAttribute="trailing" id="6iB-M4-7FW"/>
                             <constraint firstItem="Qy9-0S-wdn" firstAttribute="top" secondItem="YEl-aI-jyi" secondAttribute="bottom" id="79i-IJ-1XM"/>
+                            <constraint firstItem="Qy9-0S-wdn" firstAttribute="top" secondItem="Zjh-yF-3xc" secondAttribute="bottom" id="LFh-yz-Cri"/>
+                            <constraint firstAttribute="trailing" secondItem="Zjh-yF-3xc" secondAttribute="trailing" id="NZ0-LC-OA1"/>
                             <constraint firstItem="YEl-aI-jyi" firstAttribute="top" secondItem="mJA-Dc-7aQ" secondAttribute="top" id="TTg-lI-c8a"/>
+                            <constraint firstItem="Zjh-yF-3xc" firstAttribute="leading" secondItem="mJA-Dc-7aQ" secondAttribute="leading" id="fBv-wy-T1Q"/>
+                            <constraint firstItem="Zjh-yF-3xc" firstAttribute="top" secondItem="mJA-Dc-7aQ" secondAttribute="top" id="jMw-51-Wvq"/>
                             <constraint firstItem="YEl-aI-jyi" firstAttribute="leading" secondItem="mJA-Dc-7aQ" secondAttribute="leading" id="xrf-Ws-DSB"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="eventTableView" destination="YEl-aI-jyi" id="ntK-Dk-use"/>
+                        <outlet property="noEventsLabel" destination="Zjh-yF-3xc" id="iab-9q-rgH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uw4-eL-m8R" userLabel="First Responder" sceneMemberID="firstResponder"/>

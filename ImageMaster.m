@@ -22,6 +22,13 @@ static UIImage* pullObImage = nil;
 static UIImage* deImage = nil;
 static UIImage* ourCallahanImage = nil;
 static UIImage* theirCallahanImage = nil;
+
+static UIImage* opponentPullImage = nil;
+static UIImage* opponentPullObImage = nil;
+static UIImage* opponentCatchImage = nil;
+static UIImage* pullBeginImage = nil;
+static UIImage* pickupDiskImage = nil;
+
 static UIImage* maleImage = nil;
 static UIImage* femaleImage = nil;
 static UIImage* neutralGenderImage = nil;
@@ -43,6 +50,11 @@ static UIImage* unknownImage = nil;
     deImage = [UIImage imageNamed:@"electric_shock.png"];
     ourCallahanImage = [UIImage imageNamed:@"victory.png"];
     theirCallahanImage = [UIImage imageNamed:@"shocked"];
+    opponentPullImage = [UIImage imageNamed:@"amazing"];
+    opponentPullObImage = [UIImage imageNamed:@"secret-smile"];
+    opponentCatchImage = [UIImage imageNamed:@"scorn"];
+    pullBeginImage = [UIImage imageNamed:@"bad_smile"];
+    pickupDiskImage = [UIImage imageNamed:@"bad_egg"];
     unknownImage = [UIImage imageNamed:@"hearts.png"];
     maleImage = [UIImage imageNamed:@"769-male.png"];
     femaleImage = [UIImage imageNamed:@"768-female.png"];
@@ -93,6 +105,16 @@ static UIImage* unknownImage = nil;
             return [ImageMaster getFinishImage];
         case Timeout:
             return [ImageMaster getTimeoutImage];
+        case OpponentCatch:
+            return [ImageMaster getOpponentCatchImage];
+        case OpponentPull:
+            return [ImageMaster getOpponentPullImage];
+        case OpponentPullOb:
+            return [ImageMaster getOpponentPullOBImage];
+        case PickupDisc:
+            return [ImageMaster getPickupDiscImage];
+        case PullBegin:
+            return [ImageMaster getPullBeginImage];
         default:
             return [ImageMaster getUnknownImage];
     }
@@ -141,6 +163,26 @@ static UIImage* unknownImage = nil;
 
 +(UIImage*)getTheirCallahanImage {
     return theirCallahanImage;
+}
+
++(UIImage*)getOpponentPullImage {
+    return opponentPullImage;
+}
+
++(UIImage*)getOpponentPullOBImage {
+    return opponentPullObImage;
+}
+
++(UIImage*)getOpponentCatchImage {
+    return opponentCatchImage;
+}
+
++(UIImage*)getPullBeginImage {
+    return pullBeginImage;
+}
+
++(UIImage*)getPickupDiscImage {
+    return pickupDiskImage;
 }
 
 +(UIImage*)getUnknownImage {

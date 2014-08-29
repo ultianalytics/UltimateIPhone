@@ -655,12 +655,6 @@ static Game* currentGame = nil;
 
 #pragma mark - Game progress
 
--(Score)getScoreAtMostRecentIndex: (int) index {
-    [self updatePointSummaries];
-    UPoint* point = [self getPointAtMostRecentIndex:index];
-    return point.summary.score;
-}
-
 -(BOOL)arePlayingOffense {
     [self updatePointSummaries];
     if ([self getCurrentPoint] == nil) {
@@ -699,14 +693,6 @@ static Game* currentGame = nil;
 -(UPoint*)findPreviousPoint: (UPoint*) pointParam {
     [self updatePointSummaries];
     return pointParam.summary.previousPoint;
-}
-
--(Score)getScore {
-    [self updatePointSummaries];
-    if ([self getCurrentPoint] == nil) {
-        return [self createScoreForOurs: 0 theirs: 0];
-    }
-    return [self getCurrentPoint].summary.score;
 }
 
 -(BOOL)canNextPointBeDLinePull {
@@ -851,23 +837,6 @@ static Game* currentGame = nil;
     }
 }
 
--(int)getLeadingScore {
-    Score score = [self getScore];
-    return MAX(score.ours, score.theirs);
-}
-
--(Score)createScoreForOurs: (int) ours theirs: (int) theirs {
-    Score score;
-    score.ours = ours;
-    score.theirs = theirs;
-    return score;
-}
-
--(BOOL)isTie {
-    Score score = [self getScore];
-    return score.ours == score.theirs;
-}
-
 -(void)setGamePoint:(int)newGamePoint {
     [self clearPointSummaries];
     gamePoint = newGamePoint;
@@ -898,6 +867,39 @@ static Game* currentGame = nil;
 -(CessationEvent*)lastPeriodEnd {
     [self updatePointSummaries];
     return _lastPeriodEnd;
+}
+
+#pragma mark - Score
+
+-(Score)getScore {
+    [self updatePointSummaries];
+    if ([self getCurrentPoint] == nil) {
+        return [self createScoreForOurs: 0 theirs: 0];
+    }
+    return [self getCurrentPoint].summary.score;
+}
+
+-(int)getLeadingScore {
+    Score score = [self getScore];
+    return MAX(score.ours, score.theirs);
+}
+
+-(Score)createScoreForOurs: (int) ours theirs: (int) theirs {
+    Score score;
+    score.ours = ours;
+    score.theirs = theirs;
+    return score;
+}
+
+-(BOOL)isTie {
+    Score score = [self getScore];
+    return score.ours == score.theirs;
+}
+
+-(Score)getScoreAtMostRecentIndex: (int) index {
+    [self updatePointSummaries];
+    UPoint* point = [self getPointAtMostRecentIndex:index];
+    return point.summary.score;
 }
 
 #pragma mark - Point Summaries

@@ -44,11 +44,7 @@
 @property (nonatomic) BOOL isPositional;
 @property (nonatomic, strong) Event* positionalPickupEvent;  // server transient
 
-+(Game*)getCurrentGame;
-+(NSString*)getCurrentGameId;
-+(BOOL)isCurrentGame: (NSString*) gameId;
-+(BOOL)hasCurrentGame;
-+(void)setCurrentGame: (NSString*) gameId;
+// CRUD
 +(Game*)readGame: (NSString*) gameId;
 +(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId;
 +(NSArray*)retrieveGameDescriptionsForCurrentTeam;
@@ -56,11 +52,18 @@
 +(NSString*)getFilePath: (NSString*) gameId team: (NSString *) teamId;
 +(NSString*)generateUniqueFileName;
 +(void)deleteAllGamesForTeam: (NSString*) teamId;
-+(Game*) fromDictionary:(NSDictionary*) dict;
-
 -(void)save;
 -(BOOL)hasBeenSaved;
 -(void)delete;
+
+// CURRENT GAME
++(Game*)getCurrentGame;
++(NSString*)getCurrentGameId;
++(BOOL)isCurrentGame: (NSString*) gameId;
++(BOOL)hasCurrentGame;
++(void)setCurrentGame: (NSString*) gameId;
+
+// EVENTS
 -(void)addEvent: (Event*) event;
 -(BOOL)hasEvents;
 -(BOOL)hasOneEvent;
@@ -69,46 +72,64 @@
 -(NSArray*)getLastEvents: (int) numberToRetrieve;
 -(Event*)getInProgressPointLastEvent;
 -(NSArray*)getInProgressPointLastEvents: (int) numberToRetrieve;
+
+// POINTS
 -(UPoint*)getCurrentPoint;
 -(int)getNumberOfPoints;
 -(NSArray*)getPointNamesInMostRecentOrder;
 -(NSString*)getPointNameForScore: (Score) score isMostRecent: (BOOL) isMostRecent;
 -(UPoint*)getPointAtMostRecentIndex: (int) index;
--(Score)getScore;
--(Score)getScoreAtMostRecentIndex: (int) index;
 -(NSString*)getPointNameAtMostRecentIndex: (int) index;
+-(UPoint*)findPreviousPoint: (UPoint*) point;
+
+// LINE/PLAYERS
 -(NSMutableArray*)currentLineSorted;
 -(void)resetCurrentLine;
 -(void)clearCurrentLine;
+-(void)makeCurrentLineLastLine: (BOOL) useOline;
+-(NSSet*)getPlayers;
+
+// GAME PROGRESS
 -(BOOL)arePlayingOffense;
 -(BOOL)isPointOline: (UPoint*) point;
 -(BOOL)isFirstPoint: (UPoint*) point;
 -(BOOL)isCurrentlyOline;
 -(BOOL)isPointInProgress;
--(UPoint*)findPreviousPoint: (UPoint*) point;
--(void)makeCurrentLineLastLine: (BOOL) useOline; 
 -(BOOL)canNextPointBeDLinePull;
 -(BOOL)canNextPointBePull;
 -(BOOL)needsPositionalBegin;
--(NSSet*)getPlayers;
 -(BOOL)isHalftime;
 -(BOOL)isAfterHalftime;
 -(BOOL)isAfterHalftimeStarted;
 -(BOOL)isNextEventImmediatelyAfterHalftime;
 -(BOOL)wasLastPointPull;
--(int)getLeadingScore;
--(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(BOOL)isTimeBasedEnd;
 -(void)clearPointSummaries;
 -(BOOL)doesGameAppearDone;
--(BOOL)isLeaguevineGame;
--(NSString*)shortOpponentName;
+-(Action)nextPeriodEnd;
+
+// SCORE
+-(Score)getScore;
+-(Score)getScoreAtMostRecentIndex: (int) index;
+-(int)getLeadingScore;
+-(BOOL)isTie;
+
+// SUBSTITUTIONS
 -(void)addSubstitution: (PlayerSubstitution*)substitution;
 -(BOOL)removeLastSubstitutionForCurrentPoint;
 -(NSArray*)substitutionsForCurrentPoint;
--(int)availableTimeouts;
--(Action)nextPeriodEnd;
--(BOOL)isTie;
 
+// TIMEOUTS
+-(int)availableTimeouts;
+
+// JSON
++(Game*) fromDictionary:(NSDictionary*) dict;
+-(NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
+
+// LEAGUEVINE
+-(BOOL)isLeaguevineGame;
+
+// MISC
+-(NSString*)shortOpponentName;
 
 @end

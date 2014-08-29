@@ -37,6 +37,7 @@
 @property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
 @property (nonatomic, strong) IBOutlet PullLandPickerViewController* pullLandingViewController;
 @property (nonatomic, strong) IBOutlet UIView* pullLandSubview;
+@property (nonatomic, strong) IBOutlet UIView* actionViewPlayerButtons;
 
 @property (nonatomic, strong) Game* game;
 
@@ -296,6 +297,12 @@
 
 -(void)updateActionViewLayoutForOffenseOrDefense {
     self.otherTeamCatchButton.hidden = self.isOffense;
+
+    // if defense, move the buttons over to make room for the team-level buttons
+    CGFloat playerButtonsOffsetOnDefense = 139;
+    CGAffineTransform transform = self.isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(playerButtonsOffsetOnDefense, 0.0);
+    self.actionViewPlayerButtons.transform = transform;
+
 }
 
 -(Game*)game {

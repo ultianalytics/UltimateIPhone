@@ -32,6 +32,7 @@
 
 
 -(NSTimeInterval)uniqueTimeIntervalSinceReferenceDateSeconds {
+    // NOTE: reference time GMT time since 1/1/2001 epoch time is GMT since 1/1/1970.  The difference is 978307200 seconds.
     NSTimeInterval newTimestamp = MAX(ceil([NSDate timeIntervalSinceReferenceDate]),self.lastEventTimeIntervalSinceReferenceDateSeconds);
     while (newTimestamp == self.lastEventTimeIntervalSinceReferenceDateSeconds) {
         newTimestamp = newTimestamp + 2;  // increment by 2 so that insertions can be made for special events

@@ -62,6 +62,7 @@
     [self configureFieldView];
     [self.eventsViewController adjustInsetForTabBar];
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.otherTeamThrowAwayButton setTitle:@"Throwaway" forState:UIControlStateNormal];  // override vertical style used by superclass
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -98,7 +99,6 @@
     UIView* actionView = (UIView*)nibViews[0];
     [self.actionSubView addSubview:actionView];
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
-    [self.otherTeamThrowAwayButton setTitle:@"Throwaway" forState:UIControlStateNormal];
     [self hideActionView];
 }
 

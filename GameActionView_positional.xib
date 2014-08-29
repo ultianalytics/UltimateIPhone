@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="otherTeamCatchButton" destination="wo6-0f-pau" id="xY9-Ic-M03"/>
                 <outlet property="otherTeamScoreButton" destination="53" id="WFo-Tf-P4J"/>
+                <outlet property="otherTeamThrowAwayButton" destination="wAs-fG-6vL" id="98D-OO-BZe"/>
                 <outlet property="playerLabel" destination="9" id="old-KQ-bUg"/>
                 <outlet property="playerView1" destination="11" id="2kz-Co-beY"/>
                 <outlet property="playerView2" destination="8" id="CxR-SB-yCD"/>
@@ -80,16 +81,19 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAs-fG-6vL" userLabel="Other Team Throwaway Button" customClass="GameActionButton">
-                    <rect key="frame" x="20" y="311" width="104" height="56"/>
+                    <rect key="frame" x="13" y="314" width="104" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Throwaway">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="throwAwayButtonClicked:" destination="-1" eventType="touchUpInside" id="5pF-8y-z3V"/>
+                    </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wo6-0f-pau" userLabel="Other Team Catch Button" customClass="GameActionButton">
-                    <rect key="frame" x="20" y="23" width="104" height="56"/>
+                    <rect key="frame" x="13" y="23" width="104" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Catch">
@@ -101,7 +105,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53" userLabel="Other Team Score Button" customClass="GameActionButton">
-                    <rect key="frame" x="20" y="165" width="104" height="56"/>
+                    <rect key="frame" x="13" y="165" width="104" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Goal">

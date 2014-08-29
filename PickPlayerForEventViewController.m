@@ -41,8 +41,6 @@
 -(void)refresh {
     self.instructionsLabel.text = self.instructions;
     [self.playersTableView reloadData];
-    self.playersTableView.rowHeight = self.allowCancel ? 38 : 44;
-    self.cancelButton.hidden = !self.allowCancel;
 }
 
 #pragma mark - Table delegate

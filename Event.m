@@ -278,6 +278,10 @@
     return NO;
 }
 
+- (BOOL)isPositionalOnly {
+    return self.action == OpponentCatch || self.action == PickupDisc || self.action == PullBegin || [self isOpponentPull];
+}
+
 -(void)setAction:(Action)action {
     _action = action;
     [self ensureValid];

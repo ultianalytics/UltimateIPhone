@@ -55,6 +55,14 @@
     return self;
 }
 
+-(id) initOpponentCatch {
+    self = [super init];
+    if (self) {
+        self.action = OpponentCatch;
+    }
+    return self;
+}
+
 -(void)useSharedPlayers {
     self.defender = [Player replaceWithSharedPlayer: self.defender];
 }
@@ -73,7 +81,7 @@
 
 +(DefenseEvent*)eventFromDictionary:(NSDictionary*) dict {
     NSString* dictAction = [dict valueForKey:kActionKey];
-    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : [dictAction isEqualToString: @"Throwaway"] ? Throwaway : [dictAction isEqualToString: @"PullOb"] ? PullOb : [dictAction isEqualToString: @"PickupDisc"] ? PickupDisc : Callahan ;
+    Action action = [dictAction isEqualToString: @"D"] ? De :  [dictAction isEqualToString: @"Pull"] ? Pull : [dictAction isEqualToString: @"Goal"] ? Goal : [dictAction isEqualToString: @"Throwaway"] ? Throwaway : [dictAction isEqualToString: @"PullOb"] ? PullOb : [dictAction isEqualToString: @"PickupDisc"] ? PickupDisc : [dictAction isEqualToString: @"OpponentCatch"] ? OpponentCatch : Callahan ;
     return [[DefenseEvent alloc] 
             initDefender: [Team getPlayerNamed:[dict valueForKey:kDefenderKey]]
             action: action];
@@ -82,7 +90,7 @@
 - (NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub  {
     NSMutableDictionary* dict = [super asDictionaryWithScrubbing: shouldScrub];
     [dict setValue: @"Defense" forKey:kEventTypeProperty];
-    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : self.action == PullOb ? @"PullOb" : self.action == PickupDisc ? @"PickupDisc" : @"Callahan" forKey:kActionKey];
+    [dict setValue: self.action == De ? @"D" :  self.action == Pull ? @"Pull" : self.action == Goal ? @"Goal" : self.action == Throwaway ? @"Throwaway" : self.action == PullOb ? @"PullOb" : self.action == PickupDisc ? @"PickupDisc" : self.action == OpponentCatch ? @"OpponentCatch" : @"Callahan" forKey:kActionKey];
     NSString *defenderName = shouldScrub ? [[Scrubber currentScrubber] substitutePlayerName:self.defender.name isMale:self.defender.isMale] : self.defender.name;
     [dict setValue: defenderName forKey:kDefenderKey];
     return dict;
@@ -167,6 +175,9 @@
         case PullBegin:{
             return self.isAnonymous ? [NSString stringWithFormat:@"%@ Pull", (teamName == nil ? @"Our" : teamName)] :[NSString stringWithFormat:@"Pull by %@", self.defender.name];    
         }
+        case OpponentCatch:{
+            return opponentName == nil ? @"Opponent catch" : [NSString stringWithFormat:@"%@ catch", opponentName];
+        }
         default:
             return @"";
     }
@@ -198,6 +209,9 @@
         }
         case PullBegin:{
             return [NSString stringWithFormat:@"PULL BY\n%@", self.isAnonymous ? @" " : self.defender.name];
+        }
+        case OpponentCatch:{
+            return [NSString stringWithFormat:@"CATCH\n "];
         }
         default:
             return @"";

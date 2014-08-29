@@ -92,6 +92,7 @@ typedef enum {
 - (void)useSharedPlayers;
 - (NSMutableDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 - (BOOL)isAnonymous;
+- (BOOL)isPositionalOnly;
 
 // subclass support
 -(void)setDetailIntValue:(int)value forKey:(NSString *)key;

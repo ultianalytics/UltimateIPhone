@@ -83,6 +83,18 @@
     self.bottomOrRightView.frameHeight = self.view.boundsHeight - self.topOrLeftView.frameHeight;
 }
 
+-(Event*)removeLastEvent {
+    if (self.game.positionalPickupEvent) {
+        Event* lastEventBefore =  self.game.positionalPickupEvent;
+        self.game.positionalPickupEvent = nil;
+        return lastEventBefore;
+    } else {
+        Event* lastEventBefore = [[Game getCurrentGame] getLastEvent];
+        [[Game getCurrentGame] removeLastEvent];
+        return lastEventBefore;
+    }
+}
+
 -(void)eventsUpdated {
     [self hideActionView];
     [self.fieldView updateForCurrentEvents];
@@ -181,7 +193,7 @@
             } else {
                 Event* pickupEvent = [[DefenseEvent alloc] initPickupDisc];
                 pickupEvent.position = position;
-                self.game.positionalPickupEvent = pickupEvent;
+                [self updateGameWithBeginEvent: pickupEvent];
                 [self.fieldView updateForCurrentEvents];
                 return NO;  // do not show potential event
             }
@@ -190,7 +202,7 @@
             if (self.isOffense) {
                 Event* pickupEvent = [[OffenseEvent alloc] initOpponentPullBegin];
                 pickupEvent.position = position;
-                self.game.positionalPickupEvent = pickupEvent;
+                [self updateGameWithBeginEvent: pickupEvent];
                 [self.fieldView updateForCurrentEvents];
                 return NO;  // do not show potential event
             } else {
@@ -214,11 +226,11 @@
         if ([self.game isPointInProgress]) {
             OffenseEvent* pickupEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:player];
             pickupEvent.position = self.fieldView.potentialEventPosition;
-            self.game.positionalPickupEvent = pickupEvent;
+            [self updateGameWithBeginEvent: pickupEvent];
         } else {
             DefenseEvent* pickupEvent = [[DefenseEvent alloc] initPullBegin:player];
             pickupEvent.position = self.fieldView.potentialEventPosition;
-            self.game.positionalPickupEvent = pickupEvent;
+            [self updateGameWithBeginEvent: pickupEvent];
         }
     }
     [self.fieldView updateForCurrentEvents];
@@ -314,6 +326,11 @@
     self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
         return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
     };
+}
+
+-(void)updateGameWithBeginEvent:(Event *)event {
+    self.game.positionalPickupEvent = event;
+    [self.eventsViewController refresh];
 }
 
 

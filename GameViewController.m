@@ -356,6 +356,12 @@
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
 }
 
+-(Event*)removeLastEvent {
+    Event* lastEventBefore = [[Game getCurrentGame] getLastEvent];
+    [[Game getCurrentGame] removeLastEvent];
+    return lastEventBefore;
+}
+
 #pragma mark ActionListener
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
@@ -463,8 +469,7 @@
 #pragma mark Event Handlers
 
 -(IBAction)removeEventClicked: (id) sender {
-    Event* lastEventBefore = [[Game getCurrentGame] getLastEvent];
-    [[Game getCurrentGame] removeLastEvent];
+    Event* lastEventBefore = [self removeLastEvent];
     [self updateEventViews];
     Event* lastEventAfter = [[Game getCurrentGame] getLastEvent];
     [self refreshTitle: lastEventBefore];
@@ -523,6 +528,10 @@
 -(IBAction)otherTeamScoreClicked: (id) sender {
     DefenseEvent* event = [[DefenseEvent alloc] initAction:Goal];
     [self addEvent: event];
+}
+
+-(void)undoButtonTapped {
+    
 }
 
 - (void)moreEventsSwipe:(UISwipeGestureRecognizer *)recognizer {

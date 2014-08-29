@@ -47,21 +47,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self.game getPointAtMostRecentIndex:(int)section] getNumberOfEvents];
+    int number = [[self.game getPointAtMostRecentIndex:(int)section] getNumberOfEvents];
+    if ((section == 0) && self.game.positionalPickupEvent) {
+        number++;
+    }
+    return number;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger section = [indexPath section];
-    NSUInteger row = [indexPath row];
-    
-    UPoint* point = [self.game getPointAtMostRecentIndex:(int)section];
-    Event* event = [point getEventAtMostRecentIndex:(int)row];
+    Event* event = [self getEventForIndex:indexPath];
     
     GameHistoryTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"EventCell"];
     cell.backgroundColor = [event isOffense] ? [ColorMaster getOffenseEventColor] : [ColorMaster getDefenseEventColor];
     cell.imageView.image = [ImageMaster getImageForEvent: event];
     cell.descriptionLabel.text = [event getDescription];
-    cell.undoButton.visible = section == 0 && row == 0 && self.embeddedMode;
+    cell.undoButton.visible = indexPath.section == 0 && indexPath.row == 0 && self.embeddedMode;
     if (cell.undoButton.visible) {
         cell.delegate = self;
     }
@@ -69,8 +69,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UPoint* point = [self.game getPointAtMostRecentIndex:(int)[indexPath section]];
-    Event* event = [point getEventAtMostRecentIndex:(int)[indexPath row]];
+    UPoint* point = [self.game getPointAtMostRecentIndex:indexPath.section];
+    Event* event = [self getEventForIndex:indexPath];
     
     EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
     changeController.event = event;
@@ -226,6 +226,20 @@
 
 -(void)adjustInsetForTabBar {
     [self.eventTableView adjustInsetForTabBar];
+}
+
+-(Event*)getEventForIndex: (NSIndexPath *)indexPath {
+    UPoint* point = [self.game getPointAtMostRecentIndex:indexPath.section];
+    if ((indexPath.section == 0) && self.game.positionalPickupEvent) {
+        // first row is the begin (pickup or pull start) event...others are normal events
+        if (indexPath.row == 0) {
+            return self.game.positionalPickupEvent;
+        } else {
+            return [point getEventAtMostRecentIndex:indexPath.row - 1];
+        }
+    } else {
+        return [point getEventAtMostRecentIndex:indexPath.row];
+    }
 }
 
 @end

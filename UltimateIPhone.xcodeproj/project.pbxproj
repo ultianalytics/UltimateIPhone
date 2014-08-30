@@ -1282,6 +1282,7 @@
 				1AEE549F1529442E0067F539 /* Twitter */,
 				1AFFE8DC151764D9004B4590 /* Game */,
 				1AFFE8DD151764DB004B4590 /* Game Action */,
+				384C2D7F19A7F60700EE8290 /* Game Action - Positional */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
 				1AA37BE318AFBCEA00CE9662 /* Event */,
@@ -1514,7 +1515,6 @@
 				1AFFE83115175EB0004B4590 /* PasserButton.m */,
 				1AA37BF918B2E1FC00CE9662 /* GameCessationButton.h */,
 				1AA37BFA18B2E1FC00CE9662 /* GameCessationButton.m */,
-				384C2D7F19A7F60700EE8290 /* Positional */,
 			);
 			name = "Game Action";
 			sourceTree = "<group>";
@@ -1645,7 +1645,7 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		384C2D7F19A7F60700EE8290 /* Positional */ = {
+		384C2D7F19A7F60700EE8290 /* Game Action - Positional */ = {
 			isa = PBXGroup;
 			children = (
 				384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */,
@@ -1665,7 +1665,7 @@
 				381BC45719AF8B3C00CD8C20 /* PullLandPickerViewController.m */,
 				381BC45819AF8B3C00CD8C20 /* PullLandPickerViewController.xib */,
 			);
-			name = Positional;
+			name = "Game Action - Positional";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

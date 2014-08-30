@@ -34,6 +34,7 @@
 @property (nonatomic, strong) UILabel* messageLabel;
 
 @property (nonatomic, strong) Game* game;
+@property (nonatomic) BOOL gameNeedsSaveDueToDrag;
 
 @end
 
@@ -44,6 +45,7 @@
 
 -(void)commonInit {
     [self addTapRecognizer];
+    [self addDragPressRecognizer];
     self.endzonePercent = .15; // default endzone percent
     self.fieldBorderColor = [UIColor whiteColor];  // default border color
 
@@ -55,6 +57,11 @@
 
 -(void)addTapRecognizer {
     UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self addGestureRecognizer: tapRecognizer];
+}
+
+-(void)addDragPressRecognizer {
+    UIPanGestureRecognizer* tapRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewDragged:)];
     [self addGestureRecognizer: tapRecognizer];
 }
 
@@ -75,12 +82,36 @@
     [self handleTap:[gestureRecognizer locationInView:self]];
 }
 
+- (void)viewDragged:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        self.gameNeedsSaveDueToDrag = NO;
+    }
+    CGPoint dragPoint = [((UIPanGestureRecognizer*)gestureRecognizer) locationInView:self];
+    BOOL pointViewDragged = [self handleDrag:dragPoint ofView:self.lastSavedEventView];
+    if (!pointViewDragged) {
+        [self handleDrag:dragPoint ofView:self.previousSavedEventView];
+    }
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded && self.gameNeedsSaveDueToDrag) {
+        [self.game save];
+    }
+}
+
 - (void)handleTap:(CGPoint) tapPoint {
     EventPosition* eventPosition = [self calculatePosition:tapPoint];
     if (self.positionTappedBlock) {
         BOOL shouldDisplayPotentialEvent = self.positionTappedBlock(eventPosition, tapPoint);
         [self updatePointViews: shouldDisplayPotentialEvent ? eventPosition : nil];
     }
+}
+
+- (BOOL)handleDrag:(CGPoint) dragPoint ofView: (GameFieldEventPointView*)pointView {
+    if (CGRectContainsPoint(pointView.frame, dragPoint)) {
+        pointView.event.position = [self calculatePosition:dragPoint];
+        pointView.center = [self calculatePoint:pointView.event.position];
+        self.gameNeedsSaveDueToDrag = YES;
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Event Point Views

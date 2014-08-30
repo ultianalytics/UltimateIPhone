@@ -33,11 +33,12 @@
 @property (nonatomic, strong) IBOutlet UIView* eventsViewContainer;
 @property (nonatomic, strong) IBOutlet UIButton* cancelButton;
 @property (nonatomic, strong) IBOutlet UIView* buttonsView;
-@property (nonatomic, strong) IBOutlet PickPlayerForEventViewController* beginEventPlayerPickerViewController;
+@property (nonatomic, strong) PickPlayerForEventViewController* beginEventPlayerPickerViewController;
 @property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
-@property (nonatomic, strong) IBOutlet PullLandPickerViewController* pullLandingViewController;
+@property (nonatomic, strong) PullLandPickerViewController* pullLandingViewController;
 @property (nonatomic, strong) IBOutlet UIView* pullLandSubview;
 @property (nonatomic, strong) IBOutlet UIView* actionViewPlayerButtons;
+@property (nonatomic, strong) IBOutlet UIButton* flipSidesButton;
 
 @property (nonatomic, strong) Game* game;
 
@@ -180,6 +181,14 @@
 -(IBAction)otherTeamCatchTapped: (id) sender {
     DefenseEvent* event = [[DefenseEvent alloc] initOpponentCatch];
     [self addEvent: event];
+}
+
+-(IBAction)flipSidesTapped: (id) sender {
+    self.fieldView.inverted = !self.fieldView.inverted;
+    [self.fieldView updateForCurrentEvents];
+    [UIView transitionWithView:self.fieldView duration:0.5f options:UIViewAnimationOptionTransitionFlipFromTop animations:^(void) {
+        // no-op
+    } completion:nil];
 }
 
 -(BOOL)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {

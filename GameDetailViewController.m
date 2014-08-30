@@ -88,111 +88,6 @@
     return self;
 }
 
--(void)goToActionView {
-    GameViewController* gameController = IS_IPAD && self.game.isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
-    UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
-    [topNavigationController pushViewController:gameController animated:YES];
-}
-
--(void)saveChanges {
-    if ([self.game hasBeenSaved]) {
-        [self.game save];
-        if (IS_IPAD) {
-            [self notifyChangeListenerOfCRUD: CRUDUpdate];
-        }
-    }
-}
-
--(void)dismissKeyboard {
-    [self.opposingTeamNameField resignFirstResponder];
-    [self.tournamentNameField resignFirstResponder];
-}
-
--(void)populateUIFromModel {
-   [self upateViewTitle];
- 
-    self.opposingTeamNameField.text = self.game.opponentName;
-    self.tournamentNameField.text = [self.game hasBeenSaved] ? self.game.tournamentName : [Preferences getCurrentPreferences].tournamentName;
-    
-    self.initialLine.selectedSegmentIndex = self.game.isFirstPointOline ? 0 : 1;
-    
-    if (self.game.gamePoint == 0) {
-        self.game.gamePoint = [Preferences getCurrentPreferences].gamePoint;
-        if (self.game.gamePoint == 0) {
-            self.game.gamePoint = kDefaultGamePoint;
-        }
-    } 
-    
-    // kTimeBasedGame is last segment in UI 
-    int segmentIndex = self.game.gamePoint == kTimeBasedGame ? (int)self.gamePointsSegmentedControl.numberOfSegments - 1 : (self.game.gamePoint - kLowestGamePoint) / 2;
-    if (segmentIndex < 0) {
-        segmentIndex = 0;
-    }
-    self.gamePointsSegmentedControl.selectedSegmentIndex = segmentIndex;    
-    
-    self.startButtonView.hidden = [self.game hasBeenSaved];
-    self.deleteButtonView.hidden = !self.startButtonView.hidden;
-    
-    if ([self.game hasBeenSaved]) {
-        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(actionButtonTapped)];
-        self.navigationItem.rightBarButtonItem = navBarActionButton;    
-    }
-    
-    self.gameTypeSegmentedControl.selectedSegmentIndex = [self.game isLeaguevineGame] ? 1 : 0;
-    
-    self.positionalEventsSegmentedControl.selectedSegmentIndex = self.game.isPositional ? 1 : 0;
-    
-    [self populateLeaguevineCells];
-    
-    [self.tableView reloadData];
-}
-
--(BOOL)verifyOpponentName {
-    if (self.game.leaguevineGame) {
-        return YES;
-    }
-    NSString* opponentName = [self getText: self.opposingTeamNameField];
-    NSString* message = [self isLeaguevineType] ? @"Leaguevine game selection required" : @"Opponent required";
-    if ([opponentName isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Invalid Opponent" 
-                              message:message
-                              delegate:self 
-                              cancelButtonTitle:@"Try Again" 
-                              otherButtonTitles:nil]; 
-        [alert show];
-        return NO;
-    } else {
-        return YES;
-    } 
-}
-
-
--(NSString*) getText: (UITextField*) textField {
-    return textField.text == nil ? @"" : [textField.text trim];
-}
-
--(void)upateViewTitle {
-    self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
-}
-
--(void)setGame:(Game *)game {
-    _game = game;
-    if (IS_IPAD) {
-        if (self.navigationController.visibleViewController == self) {
-            [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-                [self populateUIFromModel];
-            } completion:nil];
-        } else {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [self populateUIFromModel];
-        }
-    } else {
-        [self populateUIFromModel];
-    }
-}
-
-
 
 #pragma mark - Cell configuring
 
@@ -250,11 +145,15 @@
 }
 
 -(void)actionButtonTapped {
-    if ([[Game getCurrentGame] isTimeBasedEnd] && [self.game doesGameAppearDone]) {
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kAlertOpeningFinishedGame message:@"This game is over.  You can correct events without re-opening it by using the Events view.\n\nDo you really want to re-open this game?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-        [alertView show];
+    if (IS_IPHONE && [Game getCurrentGame].isPositional) {
+        [self showPositionalGameNotAllowedOnIPhoneAlert];
     } else {
-        [self goToActionView];
+        if ([[Game getCurrentGame] isTimeBasedEnd] && [self.game doesGameAppearDone]) {
+            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:kAlertOpeningFinishedGame message:@"This game is over.  You can correct events without re-opening it by using the Events view.\n\nDo you really want to re-open this game?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            [alertView show];
+        } else {
+            [self goToActionView];
+        }
     }
 }
 
@@ -738,6 +637,122 @@
 
 -(void)cancelModalDialog {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Misc
+
+-(void)goToActionView {
+    GameViewController* gameController = IS_IPAD && self.game.isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
+    UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
+    [topNavigationController pushViewController:gameController animated:YES];
+}
+
+-(void)saveChanges {
+    if ([self.game hasBeenSaved]) {
+        [self.game save];
+        if (IS_IPAD) {
+            [self notifyChangeListenerOfCRUD: CRUDUpdate];
+        }
+    }
+}
+
+-(void)dismissKeyboard {
+    [self.opposingTeamNameField resignFirstResponder];
+    [self.tournamentNameField resignFirstResponder];
+}
+
+-(void)populateUIFromModel {
+    [self upateViewTitle];
+    
+    self.opposingTeamNameField.text = self.game.opponentName;
+    self.tournamentNameField.text = [self.game hasBeenSaved] ? self.game.tournamentName : [Preferences getCurrentPreferences].tournamentName;
+    
+    self.initialLine.selectedSegmentIndex = self.game.isFirstPointOline ? 0 : 1;
+    
+    if (self.game.gamePoint == 0) {
+        self.game.gamePoint = [Preferences getCurrentPreferences].gamePoint;
+        if (self.game.gamePoint == 0) {
+            self.game.gamePoint = kDefaultGamePoint;
+        }
+    }
+    
+    // kTimeBasedGame is last segment in UI
+    int segmentIndex = self.game.gamePoint == kTimeBasedGame ? (int)self.gamePointsSegmentedControl.numberOfSegments - 1 : (self.game.gamePoint - kLowestGamePoint) / 2;
+    if (segmentIndex < 0) {
+        segmentIndex = 0;
+    }
+    self.gamePointsSegmentedControl.selectedSegmentIndex = segmentIndex;
+    
+    self.startButtonView.hidden = [self.game hasBeenSaved];
+    self.deleteButtonView.hidden = !self.startButtonView.hidden;
+    
+    if ([self.game hasBeenSaved]) {
+        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(actionButtonTapped)];
+        self.navigationItem.rightBarButtonItem = navBarActionButton;
+    }
+    
+    self.gameTypeSegmentedControl.selectedSegmentIndex = [self.game isLeaguevineGame] ? 1 : 0;
+    
+    self.positionalEventsSegmentedControl.selectedSegmentIndex = self.game.isPositional ? 1 : 0;
+    
+    [self populateLeaguevineCells];
+    
+    [self.tableView reloadData];
+}
+
+-(BOOL)verifyOpponentName {
+    if (self.game.leaguevineGame) {
+        return YES;
+    }
+    NSString* opponentName = [self getText: self.opposingTeamNameField];
+    NSString* message = [self isLeaguevineType] ? @"Leaguevine game selection required" : @"Opponent required";
+    if ([opponentName isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Invalid Opponent"
+                              message:message
+                              delegate:self
+                              cancelButtonTitle:@"Try Again"
+                              otherButtonTitles:nil];
+        [alert show];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+
+-(NSString*) getText: (UITextField*) textField {
+    return textField.text == nil ? @"" : [textField.text trim];
+}
+
+-(void)upateViewTitle {
+    self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
+}
+
+-(void)setGame:(Game *)game {
+    _game = game;
+    if (IS_IPAD) {
+        if (self.navigationController.visibleViewController == self) {
+            [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                [self populateUIFromModel];
+            } completion:nil];
+        } else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self populateUIFromModel];
+        }
+    } else {
+        [self populateUIFromModel];
+    }
+}
+
+-(void)showPositionalGameNotAllowedOnIPhoneAlert {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Cannot Open Positional Game"
+                          message: @"This game was created on an iPad with positional data.  These types of games can only be opened on an iPad."
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
 }
 
 @end

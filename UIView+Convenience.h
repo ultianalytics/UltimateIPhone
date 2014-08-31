@@ -22,4 +22,6 @@
 @property (nonatomic) CGFloat boundsWidth;
 @property (nonatomic) BOOL visible;
 
+-(CGFloat)distanceBetweenPoint: (CGPoint)p1 andPoint:(CGPoint)p2;
+
 @end

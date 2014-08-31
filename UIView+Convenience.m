@@ -116,4 +116,10 @@
     self.hidden = !visbile;
 }
 
+-(CGFloat)distanceBetweenPoint: (CGPoint)p1 andPoint:(CGPoint)p2 {
+    CGFloat xDistance = (p2.x - p1.x);
+    CGFloat yDistance = (p2.y - p1.y);
+    return sqrt((xDistance * xDistance) + (yDistance * yDistance));
+}
+
 @end

@@ -34,7 +34,8 @@
 @property (nonatomic, strong) UILabel* messageLabel;
 
 @property (nonatomic, strong) Game* game;
-@property (nonatomic) BOOL gameNeedsSaveDueToDrag;
+@property (nonatomic) BOOL eventHasBeenMoved;
+@property (nonatomic) CGPoint initialDragPoint;
 
 @end
 
@@ -83,16 +84,22 @@
 }
 
 - (void)viewDragged:(UIGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.gameNeedsSaveDueToDrag = NO;
-    }
     CGPoint dragPoint = [((UIPanGestureRecognizer*)gestureRecognizer) locationInView:self];
-    BOOL pointViewDragged = [self handleDrag:dragPoint ofView:self.lastSavedEventView];
-    if (!pointViewDragged) {
-        [self handleDrag:dragPoint ofView:self.previousSavedEventView];
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        self.initialDragPoint = dragPoint;
+        self.eventHasBeenMoved = NO;
     }
-    if (gestureRecognizer.state == UIGestureRecognizerStateEnded && self.gameNeedsSaveDueToDrag) {
-        [self.game save];
+    BOOL eventWasDragged = [self handlePossibleDragOfEvent:self.lastSavedEventView atPoint:dragPoint];
+    if (!eventWasDragged) {
+        [self handlePossibleDragOfEvent:self.previousSavedEventView atPoint:dragPoint];
+    }
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        if (self.eventHasBeenMoved) {
+            [self.game save];
+        // we weren't moving an event consider a short drag a tap
+        } else if ([self distanceBetweenPoint:dragPoint andPoint:self.initialDragPoint] < 20) {
+            [self handleTap:dragPoint];
+        }
     }
 }
 
@@ -104,11 +111,11 @@
     }
 }
 
-- (BOOL)handleDrag:(CGPoint) dragPoint ofView: (GameFieldEventPointView*)pointView {
-    if (CGRectContainsPoint(pointView.frame, dragPoint)) {
-        pointView.event.position = [self calculatePosition:dragPoint];
-        pointView.center = [self calculatePoint:pointView.event.position];
-        self.gameNeedsSaveDueToDrag = YES;
+- (BOOL)handlePossibleDragOfEvent: (GameFieldEventPointView*)eventView atPoint:  (CGPoint) dragPoint{
+    if (CGRectContainsPoint(eventView.frame, dragPoint)) {
+        eventView.event.position = [self calculatePosition:dragPoint];
+        eventView.center = [self calculatePoint:eventView.event.position];
+        self.eventHasBeenMoved = YES;
         return YES;
     }
     return NO;

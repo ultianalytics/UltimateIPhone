@@ -33,7 +33,7 @@
 -(void)createLabel {
     self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, kTextLabelHeight)];
     [self addSubview: self.textLabel];
-    self.textLabel.font = [UIFont systemFontOfSize:12];
+    self.textLabel.font = [UIFont boldSystemFontOfSize:12];
     self.textLabel.numberOfLines = 0;
     self.textLabel.textAlignment = NSTextAlignmentCenter;
 }

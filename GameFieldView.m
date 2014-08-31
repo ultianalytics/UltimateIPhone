@@ -15,8 +15,10 @@
 #import "DefenseEvent.h"
 #import "Player.h"
 #import "Game.h"
+#import "Team.h"
 #import "UPoint.h"
 #import "ColorMaster.h"
+#import "PlayDirectionView.h"
 
 #define kPointViewWidth 30.0f
 
@@ -37,6 +39,9 @@
 @property (nonatomic) BOOL eventHasBeenMoved;
 @property (nonatomic) CGPoint initialDragPoint;
 
+@property (nonatomic, strong) PlayDirectionView* ourTeamDirectionView;
+@property (nonatomic, strong) PlayDirectionView* theirTeamDirectionView;
+
 @end
 
 @implementation GameFieldView
@@ -52,6 +57,7 @@
 
     [self addPointViews];
     [self addMessageView];
+    [self addDirectionViews];
     
     [self.layer setNeedsDisplay];
 }
@@ -139,6 +145,7 @@
 
 -(void)updateForCurrentEvents {
     [self updatePointViews:nil];
+    [self updateDirectionArrows];
     self.message = [self.game isPointInProgress] || self.game.positionalPickupEvent ? nil : @"Tap the field where the pull will be initiated";
 }
 
@@ -211,6 +218,7 @@
     if (self.message) {
         self.messageLabel.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     }
+    [self layoutDirectionViews];
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
@@ -384,6 +392,39 @@
     self.messageLabel.text = message;
     self.messageLabel.hidden = message ? NO : YES;
     [self setNeedsLayout];
+}
+
+#pragma mark - Direction Arrows
+
+-(PlayDirectionView*)createPlayDirectionView {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([PlayDirectionView class]) owner:nil options:nil];
+    return (PlayDirectionView *)nibViews[0];
+}
+
+-(void)addDirectionViews {
+    self.ourTeamDirectionView = [self createPlayDirectionView];
+    [self addSubview:self.ourTeamDirectionView];
+    self.ourTeamDirectionView.isOurTeam = YES;
+    self.ourTeamDirectionView.teamName = [Team getCurrentTeam].name;
+    
+    self.theirTeamDirectionView = [self createPlayDirectionView];
+    [self addSubview:self.theirTeamDirectionView];
+    self.theirTeamDirectionView.isOurTeam = NO;
+    self.theirTeamDirectionView.teamName = [Game getCurrentGame].opponentName;
+}
+
+
+-(void)layoutDirectionViews {
+    CGFloat viewHeight = self.ourTeamDirectionView.frameHeight;
+    self.ourTeamDirectionView.frame = CGRectMake(0, -viewHeight, self.boundsWidth, viewHeight);
+    self.theirTeamDirectionView.frame = CGRectMake(0, self.boundsHeight, self.boundsWidth, viewHeight);
+}
+
+-(void)updateDirectionArrows {
+    BOOL isOurTeamLeft = YES;  // todo...add correct logic here
+    
+    self.ourTeamDirectionView.isLeft = isOurTeamLeft;
+    self.theirTeamDirectionView.isLeft = !isOurTeamLeft;
 }
 
 #pragma mark - Misc.

@@ -18,9 +18,10 @@
                 <outlet property="eventsSubView" destination="XYS-GE-pHb" id="jWH-IW-uFt"/>
                 <outlet property="eventsViewContainer" destination="Oo2-sz-Ycp" id="tYR-wV-pqq"/>
                 <outlet property="fieldView" destination="P4W-Ek-UsM" id="s3T-zi-RNb"/>
-                <outlet property="gameOverButton" destination="LHA-vH-M3T" id="YKQ-02-uga"/>
+                <outlet property="flipSidesButton" destination="LHA-vH-M3T" id="IvB-av-Nis"/>
+                <outlet property="gameOverButton" destination="1Fv-fr-kvc" id="qdk-YL-UY9"/>
                 <outlet property="pullLandSubview" destination="wt8-dc-lks" id="x2V-39-A6h"/>
-                <outlet property="timeoutButton" destination="1Fv-fr-kvc" id="fMb-Eg-jab"/>
+                <outlet property="timeoutButton" destination="Wc1-W6-YhM" id="m9r-JL-voe"/>
                 <outlet property="topOrLeftView" destination="jVz-di-qkX" id="J5F-5i-0bG"/>
                 <outlet property="topViewOverlay" destination="9fJ-WZ-jPb" id="G0m-35-z69"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hj5-c2-fIy"/>
@@ -105,31 +106,31 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wc1-W6-YhM" customClass="GameCessationButton">
                                     <rect key="frame" x="14" y="14" width="108" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Flip Sides">
+                                    <state key="normal" title="Timeout">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="flipSidesTapped:" destination="-1" eventType="touchUpInside" id="A12-BR-oQO"/>
+                                        <action selector="timeoutButtonClicked:" destination="-1" eventType="touchUpInside" id="rMg-VC-zPr"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Fv-fr-kvc" customClass="GameCessationButton">
                                     <rect key="frame" x="14" y="64" width="108" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Timeout">
+                                    <state key="normal" title="Game Over">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="timeoutButtonClicked:" destination="-1" eventType="touchUpInside" id="CFg-vX-FdB"/>
+                                        <action selector="gameOverButtonClicked:" destination="-1" eventType="touchUpInside" id="NLA-Wm-VwT"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LHA-vH-M3T" customClass="GameCessationButton">
                                     <rect key="frame" x="14" y="114" width="108" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Game Over">
+                                    <state key="normal" title="Flip Sides">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="gameOverButtonClicked:" destination="-1" eventType="touchUpInside" id="dzo-qQ-j3s"/>
+                                        <action selector="flipSidesTapped:" destination="-1" eventType="touchUpInside" id="jQ8-5z-24W"/>
                                     </connections>
                                 </button>
                             </subviews>

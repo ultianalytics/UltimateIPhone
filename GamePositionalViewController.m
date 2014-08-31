@@ -22,8 +22,9 @@
 #import "PullLandPickerViewController.h"
 
 #define kActionViewMargin 20;
+#define kFlipSidesConfirmAlert 1;
 
-@interface GamePositionalViewController ()
+@interface GamePositionalViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton* otherTeamCatchButton;
 @property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
@@ -184,6 +185,18 @@
 }
 
 -(IBAction)flipSidesTapped: (id) sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Are you sure?"
+                          message: @"You should only \"Flip Sides\" if YOU (the stats keeper) switches the side of the field you are recording stats from."
+                          delegate: self
+                          cancelButtonTitle: @"Cancel"
+                          otherButtonTitles: @"Continue", nil];
+    alert.tag = kFlipSidesConfirmAlert;
+    [alert show];
+}
+
+-(void)handleFlipSides {
     self.fieldView.inverted = !self.fieldView.inverted;
     [self.fieldView updateForCurrentEvents];
     [UIView transitionWithView:self.fieldView duration:0.5f options:UIViewAnimationOptionTransitionFlipFromTop animations:^(void) {
@@ -261,6 +274,14 @@
     }
     [self.fieldView updateForCurrentEvents];
 };
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 1 && buttonIndex == 1) {
+        [self handleFlipSides];
+    }
+}
 
 #pragma mark - Miscellaneous
 

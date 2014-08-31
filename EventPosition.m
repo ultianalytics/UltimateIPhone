@@ -101,6 +101,17 @@
     }
 }
 
+-(BOOL)isCloserToEndzoneZero {
+    switch (self.area) {
+        case EventPositionArea0Endzone:
+            return YES;
+        case EventPositionArea100Endzone:
+            return NO;
+        default:
+            return self.x < .5;
+    }
+}
+
 -(NSString*)description {
     return [NSString stringWithFormat:@"EventPosition in area: %@, x: %f, y: %f, inverted=%@", [self areaAsString], self.x, self.y, NSStringFromBOOL(self.inverted)];
 }

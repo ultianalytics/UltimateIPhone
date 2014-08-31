@@ -39,8 +39,7 @@
 @property (nonatomic) BOOL eventHasBeenMoved;
 @property (nonatomic) CGPoint initialDragPoint;
 
-@property (nonatomic, strong) PlayDirectionView* ourTeamDirectionView;
-@property (nonatomic, strong) PlayDirectionView* theirTeamDirectionView;
+@property (nonatomic, strong) PlayDirectionView* directionView;
 
 @end
 
@@ -57,7 +56,7 @@
 
     [self addPointViews];
     [self addMessageView];
-    [self addDirectionViews];
+    [self addDirectionView];
     
     [self.layer setNeedsDisplay];
 }
@@ -156,9 +155,7 @@
     if (potentialEventPosition) {
         self.potentialEventPosition = potentialEventPosition;
         [self updatePointViewLocation:self.potentialEventView toPosition:potentialEventPosition];
-        self.potentialEventView.isOurEvent =
-            ([self.game isPointInProgress] && [self.game arePlayingOffense])||
-            (![self.game isPointInProgress] && ![self.game isCurrentlyOline]);
+        self.potentialEventView.isOurEvent = [self isNextEventOurs];
     }
     self.potentialEventView.hidden = potentialEventPosition == nil;
     
@@ -401,30 +398,31 @@
     return (PlayDirectionView *)nibViews[0];
 }
 
--(void)addDirectionViews {
-    self.ourTeamDirectionView = [self createPlayDirectionView];
-    [self addSubview:self.ourTeamDirectionView];
-    self.ourTeamDirectionView.isOurTeam = YES;
-    self.ourTeamDirectionView.teamName = [Team getCurrentTeam].name;
-    
-    self.theirTeamDirectionView = [self createPlayDirectionView];
-    [self addSubview:self.theirTeamDirectionView];
-    self.theirTeamDirectionView.isOurTeam = NO;
-    self.theirTeamDirectionView.teamName = [Game getCurrentGame].opponentName;
+-(void)addDirectionView {
+    self.directionView = [self createPlayDirectionView];
+    [self addSubview:self.directionView];
+    self.directionView.hidden = YES;
 }
 
 
 -(void)layoutDirectionViews {
-    CGFloat viewHeight = self.ourTeamDirectionView.frameHeight;
-    self.ourTeamDirectionView.frame = CGRectMake(0, -viewHeight, self.boundsWidth, viewHeight);
-    self.theirTeamDirectionView.frame = CGRectMake(0, self.boundsHeight, self.boundsWidth, viewHeight);
+    CGFloat viewHeight = self.directionView.frameHeight;
+    self.directionView.frame = CGRectMake(0, -viewHeight, self.boundsWidth, viewHeight);
 }
 
 -(void)updateDirectionArrows {
-    BOOL isOurTeamLeft = YES;  // todo...add correct logic here
-    
-    self.ourTeamDirectionView.isLeft = isOurTeamLeft;
-    self.theirTeamDirectionView.isLeft = !isOurTeamLeft;
+    Event* pullEvent = [self.game getInProgressPointPull];
+    self.directionView.hidden = pullEvent == nil;
+    if (pullEvent && pullEvent.beginPosition) {
+        BOOL isNextEventOurs = [self isNextEventOurs];
+        BOOL wasPullEventOurs = [pullEvent isDefense];
+        
+        self.directionView.isOurTeam = isNextEventOurs;
+        
+        BOOL wasPullPointingLeft = ![pullEvent.beginPosition isCloserToEndzoneZero];
+        wasPullPointingLeft = wasPullPointingLeft ^ self.inverted ^ pullEvent.beginPosition.inverted;
+        self.directionView.isPointingLeft = wasPullPointingLeft ^ isNextEventOurs ^ wasPullEventOurs;
+    }
 }
 
 #pragma mark - Misc.
@@ -432,5 +430,12 @@
 -(Game*)game {
     return [Game getCurrentGame];
 }
+
+-(BOOL)isNextEventOurs {
+    return
+    ([self.game isPointInProgress] && [self.game arePlayingOffense])||
+    (![self.game isPointInProgress] && ![self.game isCurrentlyOline]);
+}
+
 
 @end

@@ -76,6 +76,7 @@ typedef enum {
 - (BOOL) isOpponentPull;
 - (BOOL) isOpponentPullIb ;
 - (BOOL) isOpponentPullOb;
+- (BOOL) isPullOrOpponentPull;
 - (BOOL) isOpponentCatch;
 - (BOOL) isCallahan;
 - (BOOL) isThrowaway;

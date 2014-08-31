@@ -11,7 +11,6 @@
 @interface PlayDirectionView : UIView
 
 @property (nonatomic) BOOL isOurTeam;
-@property (nonatomic) BOOL isLeft;
-@property (strong, nonatomic) NSString* teamName;
+@property (nonatomic) BOOL isPointingLeft;
 
 @end

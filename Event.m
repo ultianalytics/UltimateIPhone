@@ -188,6 +188,10 @@
     return self.action == OpponentPullOb;
 }
 
+- (BOOL) isPullOrOpponentPull {
+    return [self isPull] || [self isOpponentPull];
+}
+
 - (BOOL) isOpponentCatch {
     return self.action == OpponentCatch;
 }

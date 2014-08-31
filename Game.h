@@ -72,6 +72,7 @@
 -(NSArray*)getLastEvents: (int) numberToRetrieve;
 -(Event*)getInProgressPointLastEvent;
 -(NSArray*)getInProgressPointLastEvents: (int) numberToRetrieve;
+-(Event*)getInProgressPointPull;
 
 // POINTS
 -(UPoint*)getCurrentPoint;

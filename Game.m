@@ -540,6 +540,19 @@ static Game* currentGame = nil;
     return [NSArray array];
 }
 
+-(Event*)getInProgressPointPull {
+    if ([self isPointInProgress]) {
+        UPoint* inProgressPoint = [self getCurrentPoint];
+        if ([inProgressPoint.events count] > 0) {
+            Event* pullEvent = inProgressPoint.events[0];
+            if ([pullEvent isPullOrOpponentPull]) {
+                return pullEvent;
+            }
+        }
+    }
+    return nil;
+}
+
 #pragma mark - Points
 
 -(void)addPoint: (UPoint*) point {

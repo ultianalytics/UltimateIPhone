@@ -27,5 +27,6 @@ typedef enum {
 +(EventPosition*)positionInArea: (EventPositionArea) area x: (CGFloat)x y: (CGFloat)y inverted: (BOOL)isInverted;
 +(EventPosition*)fromDictionary:(NSDictionary*) dict;
 -(NSDictionary*) asDictionary;
+-(BOOL)isCloserToEndzoneZero;  // than 100 endzone
 
 @end

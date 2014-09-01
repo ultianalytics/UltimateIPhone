@@ -59,6 +59,19 @@
     return self;
 }
 
+- (Event*) asBeginEvent {
+    Event* beginEvent;
+    if (self.beginPosition) {
+        if ([self isOpponentPull]) {
+            beginEvent = [[OffenseEvent alloc] initOpponentPullBegin];
+        } else {
+            beginEvent = [[OffenseEvent alloc] initPickupDiscWithPlayer:self.passer];
+        }
+        beginEvent.position = self.beginPosition;
+    }
+    return beginEvent;
+}
+
 -(void)useSharedPlayers {
     self.passer = [Player replaceWithSharedPlayer: self.passer];
     self.receiver = [Player replaceWithSharedPlayer: self.receiver];

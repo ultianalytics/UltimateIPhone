@@ -134,6 +134,19 @@
     return YES;
 }
 
+- (Event*) asBeginEvent {
+    Event* beginEvent;
+    if (self.beginPosition) {
+        if ([self isPull]) {
+            beginEvent = [[DefenseEvent alloc] initPullBegin:self.defender];
+        } else {
+            beginEvent = [[DefenseEvent alloc] initPickupDisc];  
+        }
+        beginEvent.position = self.beginPosition;
+    }
+    return beginEvent;
+}
+
 -(Player*)playerOne {
     return self.defender;
 }

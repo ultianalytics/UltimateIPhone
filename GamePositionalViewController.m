@@ -87,13 +87,16 @@
 
 -(Event*)removeLastEvent {
     if (self.game.positionalPickupEvent) {
-        Event* lastEventBefore =  self.game.positionalPickupEvent;
+        Event* lastEventForRemoval =  self.game.positionalPickupEvent;
         self.game.positionalPickupEvent = nil;
-        return lastEventBefore;
+        return lastEventForRemoval;
     } else {
-        Event* lastEventBefore = [[Game getCurrentGame] getLastEvent];
+        Event* lastEventForRemoval = [[Game getCurrentGame] getLastEvent];
         [[Game getCurrentGame] removeLastEvent];
-        return lastEventBefore;
+        if (lastEventForRemoval.beginPosition) {
+            self.game.positionalPickupEvent = [lastEventForRemoval asBeginEvent];
+        }
+        return lastEventForRemoval;
     }
 }
 

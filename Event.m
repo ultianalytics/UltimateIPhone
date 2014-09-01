@@ -249,8 +249,12 @@
     return NO;
 }
 
+- (Event*) asBeginEvent {
+    return nil;
+}
+
 - (BOOL) causesDirectionChange {
-    return !(self.action == Catch || self.action == Pull || self.action == PullOb);
+    return !(self.action == Catch || [self isPullOrOpponentPull]);
 }
 
 - (BOOL) causesLineChange {

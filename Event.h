@@ -87,6 +87,7 @@ typedef enum {
 - (BOOL) causesDirectionChange;
 - (BOOL) causesLineChange;
 - (BOOL) isNextEventOffense;
+- (Event*) asBeginEvent;
 - (NSArray*) getPlayers;
 - (Player*)playerOne;
 - (Player*)playerTwo;

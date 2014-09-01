@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UIColor* fieldBorderColor;
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
 @property (nonatomic) BOOL inverted;
-@property (nonatomic, strong) NSString* message;
+@property (nonatomic, strong) NSAttributedString* message;
 
 @property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint);
 @property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;

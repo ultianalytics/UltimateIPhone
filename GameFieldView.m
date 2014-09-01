@@ -145,7 +145,38 @@
 -(void)updateForCurrentEvents {
     [self updatePointViews:nil];
     [self updateDirectionArrows];
-    self.message = [self.game isPointInProgress] || self.game.positionalPickupEvent ? nil : @"Tap the field where the pull will be initiated";
+    [self updateMessage];
+
+}
+
+-(void)updateMessage {
+    if ([self.game isPointInProgress] || self.game.positionalPickupEvent) {
+        self.message = nil;
+    } else if ([self.game hasEvents]) {
+        self.message = [[NSMutableAttributedString alloc] initWithString:@"Tap the field where the pull will be initiated"];
+    } else {
+        UIColor* opponentColor = [UIColor redColor];
+        UIColor* ourTeamColor = [ColorMaster applicationTintColor];
+        NSAttributedString* nextPart;
+        NSMutableAttributedString* introMessage = [[NSMutableAttributedString alloc] initWithString:@"Ready to begin game.\n\nRemember that during the game all actions for "];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@"your team" attributes:@{NSForegroundColorAttributeName : ourTeamColor}];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@" will in "];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@"green" attributes:@{NSForegroundColorAttributeName : ourTeamColor}];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@". The "];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@"opponent's" attributes:@{NSForegroundColorAttributeName : opponentColor}];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@" actions will be in "];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@"red" attributes:@{NSForegroundColorAttributeName : opponentColor}];
+        [introMessage appendAttributedString:nextPart];
+        nextPart = [[NSMutableAttributedString alloc] initWithString:@".\n\nTap the field where the pull will be initiated."];
+        [introMessage appendAttributedString:nextPart];
+        self.message = introMessage;
+    }
 }
 
 -(void)updatePointViews: (EventPosition*)potentialEventPosition {
@@ -384,9 +415,9 @@
     [self addSubview:self.messageLabel];
 }
 
--(void)setMessage:(NSString *)message {
+-(void)setMessage:(NSAttributedString *)message {
     _message = message;
-    self.messageLabel.text = message;
+    self.messageLabel.attributedText = message;
     self.messageLabel.hidden = message ? NO : YES;
     [self setNeedsLayout];
 }

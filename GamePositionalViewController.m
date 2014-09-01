@@ -145,7 +145,7 @@
 
 -(void)showPickupDiscPlayerPickerViewForPoint:(CGPoint) eventPoint isPull: (BOOL) isPull {
     self.beginEventPlayerPickerViewController.line = self.game.currentLineSorted;
-    self.beginEventPlayerPickerViewController.instructions = isPull ? @"Player who will pull?" : @"Player who picked up disc?";
+    self.beginEventPlayerPickerViewController.instructions = isPull ? @"Who is pulling?" : @"Who picked up disc?";
     self.beginEventPlayerPickerViewController.allowCancel = !isPull;
     [self.beginEventPlayerPickerViewController refresh];
     [self repositionAndShowChooserView:self.beginEventPlayerPickerSubview adjacentToEventAt:eventPoint];

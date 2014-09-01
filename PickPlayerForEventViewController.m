@@ -53,6 +53,7 @@
     NSUInteger row = [indexPath row];
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"PlayerCell"];
+
     
     NSString* playerName;
     if (row < [self.line count]) {
@@ -61,6 +62,8 @@
         playerName = @"UNKNOWN";
     }
     
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.text = playerName;
     
     return cell;

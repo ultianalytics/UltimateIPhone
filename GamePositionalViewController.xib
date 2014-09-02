@@ -17,6 +17,7 @@
                 <outlet property="cancelButton" destination="6fr-r4-FaW" id="XBZ-cB-2c3"/>
                 <outlet property="eventsSubView" destination="XYS-GE-pHb" id="jWH-IW-uFt"/>
                 <outlet property="eventsViewContainer" destination="Oo2-sz-Ycp" id="tYR-wV-pqq"/>
+                <outlet property="fieldContainerView" destination="Pgf-H5-rtI" id="tFS-S7-Mrh"/>
                 <outlet property="fieldView" destination="P4W-Ek-UsM" id="s3T-zi-RNb"/>
                 <outlet property="flipSidesButton" destination="LHA-vH-M3T" id="IvB-av-Nis"/>
                 <outlet property="gameOverButton" destination="1Fv-fr-kvc" id="qdk-YL-UY9"/>
@@ -36,11 +37,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="768" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="Pgf-H5-rtI" userLabel="Field View">
+                        <view contentMode="scaleToFill" id="Pgf-H5-rtI" userLabel="Field Container View">
                             <rect key="frame" x="0.0" y="0.0" width="768" height="480"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" id="P4W-Ek-UsM" userLabel="Field" customClass="GameFieldView">
+                                <view contentMode="scaleToFill" id="P4W-Ek-UsM" userLabel="Field View" customClass="GameFieldView">
                                     <rect key="frame" x="30" y="30" width="708" height="420"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

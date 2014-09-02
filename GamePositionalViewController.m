@@ -27,6 +27,7 @@
 @interface GamePositionalViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton* otherTeamCatchButton;
+@property (nonatomic, strong) IBOutlet UIView* fieldContainerView;
 @property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
 @property (nonatomic, strong) IBOutlet UIView* actionViewContainer;
 @property (nonatomic, strong) IBOutlet UIView* topViewOverlay;
@@ -41,6 +42,7 @@
 @property (nonatomic, strong) IBOutlet UIView* actionViewPlayerButtons;
 @property (nonatomic, strong) IBOutlet UIView* opponentActionButtonsView;
 @property (nonatomic, strong) IBOutlet UIButton* flipSidesButton;
+@property (nonatomic, strong) UILabel* outOfBoundsToast;
 
 @property (nonatomic, strong) Game* game;
 
@@ -71,6 +73,9 @@
     [self.otherTeamCatchButton setTitle:@"Catch" forState:UIControlStateNormal];
     self.opponentActionButtonsView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.opponentActionButtonsView.layer.borderWidth = 1.0f;
+    UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outOfBoundsTapped:)];
+    [self.fieldContainerView addGestureRecognizer: tapRecognizer];
+    [self createOutOfBoundsToast];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -134,6 +139,46 @@
 - (void)hideActionView {
     [self hideChooserView:self.actionViewContainer];
 }
+
+- (void)updateActionViewForSelectedPasser {
+    Player* playerToSelect = self.game.positionalPickupEvent.playerOne;
+    if (!playerToSelect) {
+        Event* lastEvent = [self.game getLastEvent];
+        if (lastEvent.isOffense) {
+            playerToSelect = lastEvent.playerTwo;
+        }
+    }
+    BOOL playerSelected = NO;
+    if (playerToSelect) {
+        for (int i = 0; i < 7; i++) {
+            PlayerView* playerView = self.playerViews[i];
+            if ([playerView.player.name isEqualToString:playerToSelect.name]) {
+                [playerView makeSelected: YES];
+                playerSelected = YES;
+            } else {
+                [playerView makeSelected: NO];
+            }
+        }
+    }
+    [self.playerViews[7] makeSelected:!playerSelected]; // pick anon if nobody else fits
+}
+
+-(void)updateActionViewLayoutForOffenseOrDefenseIsLeft: (BOOL)isLeft {
+    self.opponentActionButtonsView.hidden = self.isOffense;
+    
+    if (self.isOffense) {
+        self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+    } else {
+        if (isLeft) {
+            self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(151, 0.0);
+            self.opponentActionButtonsView.transform = CGAffineTransformMakeTranslation(0, 0.0);
+        } else {
+            self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(0, 0.0);
+            self.opponentActionButtonsView.transform = CGAffineTransformMakeTranslation(164, 0.0);
+        }
+    }
+}
+
 
 #pragma mark - Pickup Disc, Pick Puller player picker
 
@@ -212,7 +257,7 @@
     } completion:nil];
 }
 
--(BOOL)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint {
+-(BOOL)handleFieldTappedAtPosition: (EventPosition*) position atPoint: (CGPoint) fieldPoint isOB: (BOOL)isOutOfBounds {
     CGPoint pointInMyView = [self.fieldView convertPoint:fieldPoint toView:self.view];
     if ([self.game needsPositionalBegin]) {
         if ([self.game isPointInProgress]) {
@@ -283,6 +328,67 @@
     [self.fieldView updateForCurrentEvents];
 };
 
+- (void)outOfBoundsTapped:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint obPoint = [gestureRecognizer locationInView:self.view];
+    CGFloat inBoundX;
+    CGFloat inBoundY;
+    
+    // find the nearest inbound point
+    if (obPoint.x < self.fieldView.frameX) {
+        inBoundX = 0;
+    } else  if (obPoint.x > self.fieldView.frameRight) {
+        inBoundX = self.fieldView.frameWidth - 1;
+    } else {
+        inBoundX = obPoint.x - self.fieldView.frameX;
+    }
+    if (obPoint.y < self.fieldView.frameY) {
+        inBoundY = 0;
+    } else  if (obPoint.y > self.fieldView.frameBottom) {
+        inBoundY = self.fieldView.frameHeight - 1;
+    } else {
+        inBoundY = obPoint.y - self.fieldView.frameY;
+    }
+    CGPoint inBoundPoint = CGPointMake(inBoundX, inBoundY);
+    
+    [self.fieldView handleTap:inBoundPoint isOB:YES];
+    [self showOutOfBoundsToastForPoint:inBoundPoint];
+
+}
+
+#pragma mark - Out of Bounds Toast
+
+- (void)createOutOfBoundsToast {
+    CGSize size = CGSizeMake(46, 40);
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,size.width, size.height)];
+    label.backgroundColor = self.fieldContainerView.backgroundColor;
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 0;
+    label.font = [UIFont boldSystemFontOfSize:12];
+    label.text = @"Out of\nBounds";
+    self.outOfBoundsToast = label;
+    [self.fieldContainerView addSubview:self.outOfBoundsToast];
+}
+
+- (void)showOutOfBoundsToastForPoint: (CGPoint)eventPointOnField {
+    CGPoint pointOnFieldContainer = [self.fieldContainerView convertPoint:eventPointOnField fromView:self.fieldView];
+    BOOL displayAbove = pointOnFieldContainer.y > CGRectGetMidY(self.fieldView.bounds);
+    CGFloat yOffset = 40;
+    CGFloat y = pointOnFieldContainer.y + (displayAbove ? (yOffset * -1) : yOffset);
+    self.outOfBoundsToast.center = CGPointMake(pointOnFieldContainer.x, y);
+    self.outOfBoundsToast.hidden = NO;
+    [self performSelector:@selector(hideToast) withObject:self afterDelay:1];
+}
+
+- (void)hideToast {
+    [UIView animateWithDuration:1 animations:^{
+        self.outOfBoundsToast.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.outOfBoundsToast.hidden = YES;
+        self.outOfBoundsToast.alpha = 1;
+    }];
+}
+
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -324,53 +430,14 @@
     chooserView.hidden = YES;
 }
 
-- (void)updateActionViewForSelectedPasser {
-    Player* playerToSelect = self.game.positionalPickupEvent.playerOne;
-    if (!playerToSelect) {
-        Event* lastEvent = [self.game getLastEvent];
-        if (lastEvent.isOffense) {
-            playerToSelect = lastEvent.playerTwo;
-        } 
-    }
-    BOOL playerSelected = NO;
-    if (playerToSelect) {
-        for (int i = 0; i < 7; i++) {
-            PlayerView* playerView = self.playerViews[i];
-            if ([playerView.player.name isEqualToString:playerToSelect.name]) {
-                [playerView makeSelected: YES];
-                playerSelected = YES;
-            } else {
-                [playerView makeSelected: NO];
-            }
-        }
-    }
-    [self.playerViews[7] makeSelected:!playerSelected]; // pick anon if nobody else fits
-}
-
--(void)updateActionViewLayoutForOffenseOrDefenseIsLeft: (BOOL)isLeft {
-    self.opponentActionButtonsView.hidden = self.isOffense;
-
-    if (self.isOffense) {
-        self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(0.0, 0.0);
-    } else {
-        if (isLeft) {
-            self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(151, 0.0);
-            self.opponentActionButtonsView.transform = CGAffineTransformMakeTranslation(0, 0.0);
-        } else {
-            self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(0, 0.0);
-            self.opponentActionButtonsView.transform = CGAffineTransformMakeTranslation(164, 0.0);
-        }
-    }
-}
-
 -(Game*)game {
     return [Game getCurrentGame];
 }
 
 - (void)configureFieldView {
     __typeof(self) __weak weakSelf = self;
-    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint) {
-        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint];
+    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint, BOOL isOutOfBounds) {
+        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint isOB: isOutOfBounds];
     };
 }
 

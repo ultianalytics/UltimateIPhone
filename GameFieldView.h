@@ -18,10 +18,10 @@
 @property (nonatomic) BOOL inverted;
 @property (nonatomic, strong) NSAttributedString* message;
 
-@property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint);
+@property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint, BOOL isOutOfBounds);
 @property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;
 
--(void)handleTap:(CGPoint) tapPoint;
+-(void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds;
 -(void)updateForCurrentEvents;
 
 @end

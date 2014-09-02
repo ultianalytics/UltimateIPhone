@@ -77,7 +77,7 @@
     __typeof(self) __weak weakSelf = self;
     view.tappedBlock = ^(CGPoint pointViewTapPoint, GameFieldEventPointView* pointView) {
         CGPoint tapPoint = [weakSelf convertPoint:pointViewTapPoint fromView:pointView];
-        [weakSelf handleTap:tapPoint];
+        [weakSelf handleTap:tapPoint isOB:NO];
     };
     return view;
 }
@@ -85,7 +85,7 @@
 #pragma mark - Touch handling
 
 - (void)viewTapped:(UIGestureRecognizer *)gestureRecognizer {
-    [self handleTap:[gestureRecognizer locationInView:self]];
+    [self handleTap:[gestureRecognizer locationInView:self] isOB:NO];
 }
 
 - (void)viewDragged:(UIGestureRecognizer *)gestureRecognizer {
@@ -103,15 +103,15 @@
             [self.game save];
         // we weren't moving an event consider a short drag a tap
         } else if ([self distanceBetweenPoint:dragPoint andPoint:self.initialDragPoint] < 20) {
-            [self handleTap:dragPoint];
+            [self handleTap:dragPoint isOB:NO];
         }
     }
 }
 
-- (void)handleTap:(CGPoint) tapPoint {
+- (void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds {
     EventPosition* eventPosition = [self calculatePosition:tapPoint];
     if (self.positionTappedBlock) {
-        BOOL shouldDisplayPotentialEvent = self.positionTappedBlock(eventPosition, tapPoint);
+        BOOL shouldDisplayPotentialEvent = self.positionTappedBlock(eventPosition, tapPoint, isOutOfBounds);
         [self updatePointViews: shouldDisplayPotentialEvent ? eventPosition : nil];
     }
 }

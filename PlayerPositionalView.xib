@@ -67,7 +67,7 @@
                     </connections>
                 </button>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="player" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="8" id="13" userLabel="label - defensive player name">
-                    <rect key="frame" x="30" y="0.0" width="80" height="30"/>
+                    <rect key="frame" x="16" y="0.0" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                     <fontDescription key="fontDescription" name="Arial-BoldItalicMT" family="Arial" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

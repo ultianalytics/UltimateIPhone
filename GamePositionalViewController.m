@@ -39,6 +39,7 @@
 @property (nonatomic, strong) PullLandPickerViewController* pullLandingViewController;
 @property (nonatomic, strong) IBOutlet UIView* pullLandSubview;
 @property (nonatomic, strong) IBOutlet UIView* actionViewPlayerButtons;
+@property (nonatomic, strong) IBOutlet UIView* opponentActionButtonsView;
 @property (nonatomic, strong) IBOutlet UIButton* flipSidesButton;
 
 @property (nonatomic, strong) Game* game;
@@ -65,7 +66,11 @@
     [self configureFieldView];
     [self.eventsViewController adjustInsetForTabBar];
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.otherTeamThrowAwayButton setTitle:@"Throwaway" forState:UIControlStateNormal];  // override vertical style used by superclass
+    [self.otherTeamThrowAwayButton setTitle:@"Throwaway" forState:UIControlStateNormal];
+    [self.otherTeamScoreButton setTitle:@"Goal" forState:UIControlStateNormal];
+    [self.otherTeamCatchButton setTitle:@"Catch" forState:UIControlStateNormal];
+    self.opponentActionButtonsView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.opponentActionButtonsView.layer.borderWidth = 1.0f;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -341,10 +346,10 @@
 }
 
 -(void)updateActionViewLayoutForOffenseOrDefense {
-    self.otherTeamCatchButton.hidden = self.isOffense;
+    self.opponentActionButtonsView.hidden = self.isOffense;
 
     // if defense, move the buttons over to make room for the team-level buttons
-    CGFloat playerButtonsOffsetOnDefense = 139;
+    CGFloat playerButtonsOffsetOnDefense = 151;
     CGAffineTransform transform = self.isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(playerButtonsOffsetOnDefense, 0.0);
     self.actionViewPlayerButtons.transform = transform;
 

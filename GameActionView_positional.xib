@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GamePositionalViewController">
             <connections>
                 <outlet property="actionViewPlayerButtons" destination="0JX-tB-u2W" id="dAu-SR-Vvy"/>
+                <outlet property="opponentActionButtonsView" destination="WL7-QW-Qdu" id="20h-PN-pRE"/>
                 <outlet property="otherTeamCatchButton" destination="wo6-0f-pau" id="xY9-Ic-M03"/>
                 <outlet property="otherTeamScoreButton" destination="53" id="WFo-Tf-P4J"/>
                 <outlet property="otherTeamThrowAwayButton" destination="wAs-fG-6vL" id="98D-OO-BZe"/>
@@ -86,42 +87,56 @@
                         <action selector="throwAwayButtonClicked:" destination="-1" eventType="touchUpInside" id="42"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAs-fG-6vL" userLabel="Other Team Throwaway Button" customClass="GameActionButton">
-                    <rect key="frame" x="13" y="314" width="104" height="56"/>
+                <view contentMode="scaleToFill" id="WL7-QW-Qdu" userLabel="Opponent Actions View">
+                    <rect key="frame" x="13" y="14" width="140" height="346"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Throwaway">
-                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="throwAwayButtonClicked:" destination="-1" eventType="touchUpInside" id="5pF-8y-z3V"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wo6-0f-pau" userLabel="Other Team Catch Button" customClass="GameActionButton">
-                    <rect key="frame" x="13" y="23" width="104" height="56"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Catch">
-                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="otherTeamCatchTapped:" destination="-1" eventType="touchUpInside" id="ObX-FX-G6D"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53" userLabel="Other Team Score Button" customClass="GameActionButton">
-                    <rect key="frame" x="13" y="165" width="104" height="56"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Goal">
-                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="otherTeamScoreClicked:" destination="-1" eventType="touchUpInside" id="55"/>
-                    </connections>
-                </button>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uRK-3V-eli">
+                            <rect key="frame" x="0.0" y="14" width="140" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wo6-0f-pau" userLabel="Other Team Catch Button" customClass="GameActionButton">
+                            <rect key="frame" x="20" y="57" width="100" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="Catch">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="otherTeamCatchTapped:" destination="-1" eventType="touchUpInside" id="ObX-FX-G6D"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAs-fG-6vL" userLabel="Other Team Throwaway Button" customClass="GameActionButton">
+                            <rect key="frame" x="20" y="157" width="100" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="Throwaway">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="throwAwayButtonClicked:" destination="-1" eventType="touchUpInside" id="5pF-8y-z3V"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53" userLabel="Other Team Score Button" customClass="GameActionButton">
+                            <rect key="frame" x="20" y="256" width="100" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="Goal">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="otherTeamScoreClicked:" destination="-1" eventType="touchUpInside" id="55"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.84705882349999995" green="0.84313725490000002" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
         </view>

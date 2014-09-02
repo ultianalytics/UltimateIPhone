@@ -7,22 +7,22 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PlayDirectionView">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DIh-2O-PtO" userLabel="Right Direction">
-                    <rect key="frame" x="169" y="0.0" width="262" height="20"/>
+                    <rect key="frame" x="169" y="0.0" width="262" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-re-PU3" userLabel="Right Team Name">
-                            <rect key="frame" x="0.0" y="0.0" width="92" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="92" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.51764705882352935" green="0.73725490196078436" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play-direction-our-team-right.png" translatesAutoresizingMaskIntoConstraints="NO" id="yDD-JJ-SuC" userLabel="Right Arrow">
-                            <rect key="frame" x="112" y="0.0" width="150" height="20"/>
+                            <rect key="frame" x="112" y="0.0" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="150" id="xi7-L0-M1X"/>
@@ -41,18 +41,18 @@
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xKJ-2J-kIQ" userLabel="Left Direction">
-                    <rect key="frame" x="169" y="0.0" width="262" height="20"/>
+                    <rect key="frame" x="169" y="0.0" width="262" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZ9-06-yBc" userLabel="Left Team Name">
-                            <rect key="frame" x="170" y="0.0" width="92" height="20"/>
+                            <rect key="frame" x="170" y="0.0" width="92" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.51764705879999995" green="0.73725490199999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play-direction-our-team-left.png" translatesAutoresizingMaskIntoConstraints="NO" id="GCE-HA-EPd" userLabel="Left Arrow">
-                            <rect key="frame" x="0.0" y="0.0" width="150" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="150" id="0g7-AF-O2e"/>

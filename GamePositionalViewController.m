@@ -196,7 +196,7 @@
     
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: @"Are you sure?"
-                          message: @"You should only \"Flip Sides\" if YOU (the stats keeper) switches the side of the field you are recording stats from."
+                          message: @"You should only \"Reorient\" if YOU (the stats keeper) switches the side of the field you are recording stats from."
                           delegate: self
                           cancelButtonTitle: @"Cancel"
                           otherButtonTitles: @"Continue", nil];

@@ -41,7 +41,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="P4W-Ek-UsM" userLabel="Field" customClass="GameFieldView">
-                                    <rect key="frame" x="20" y="20" width="728" height="440"/>
+                                    <rect key="frame" x="30" y="30" width="708" height="420"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
@@ -126,7 +126,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LHA-vH-M3T" customClass="GameCessationButton">
                                     <rect key="frame" x="14" y="114" width="108" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Flip Sides">
+                                    <state key="normal" title="Reorient">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>

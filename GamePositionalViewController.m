@@ -19,7 +19,6 @@
 #import "DefenseEvent.h"
 #import "PickPlayerForEventViewController.h"
 #import "Player.h"
-#import "PullLandPickerViewController.h"
 
 #define kActionViewMargin 20;
 #define kFlipSidesConfirmAlert 1;
@@ -37,7 +36,6 @@
 @property (nonatomic, strong) IBOutlet UIView* buttonsView;
 @property (nonatomic, strong) PickPlayerForEventViewController* beginEventPlayerPickerViewController;
 @property (nonatomic, strong) IBOutlet UIView* beginEventPlayerPickerSubview;
-@property (nonatomic, strong) PullLandPickerViewController* pullLandingViewController;
 @property (nonatomic, strong) IBOutlet UIView* pullLandSubview;
 @property (nonatomic, strong) IBOutlet UIView* actionViewPlayerButtons;
 @property (nonatomic, strong) IBOutlet UIView* opponentActionButtonsView;
@@ -64,7 +62,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configurePickupDiskPlayerPickerView];
-    [self configurePullLandingView];
     [self configureFieldView];
     [self.eventsViewController adjustInsetForTabBar];
     [self.cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -205,30 +202,10 @@
     [self hideChooserView:self.beginEventPlayerPickerSubview];
 }
 
-#pragma mark - Pull landing chooser
-
--(void)configurePullLandingView {
-    self.pullLandingViewController = [[PullLandPickerViewController alloc] init];
-    __typeof(self) __weak weakSelf = self;
-    self.pullLandingViewController.doneRequestedBlock = ^(Action action) {
-        [weakSelf handlePullLandingChosen:action];
-    };
-    [self addChildViewController:self.pullLandingViewController inSubView:self.pullLandSubview];
-}
-
--(void)showPullLandingPickerViewForPoint:(CGPoint) eventPoint {
-    [self repositionAndShowChooserView:self.pullLandSubview adjacentToEventAt:eventPoint];
-}
-
--(void)hidePullLandingPickerView {
-    [self hideChooserView:self.pullLandSubview];
-}
-
 #pragma mark - Event Handlers
 
 - (IBAction)cancelButtonTapped:(id)sender {
     [self hideActionView];
-    [self hidePullLandingPickerView];
     [self.fieldView updateForCurrentEvents];
 }
 
@@ -287,7 +264,16 @@
         }
     } else {
         if ([self.game.positionalPickupEvent isPullBegin]) {
-            [self showPullLandingPickerViewForPoint:pointInMyView];
+            Event* pullEvent;
+            if ([self.game.positionalPickupEvent isDefense]) {
+                pullEvent = [[DefenseEvent alloc] initDefender:self.game.positionalPickupEvent.playerOne action:isOutOfBounds ? PullOb : Pull];
+            } else {
+                pullEvent = [[OffenseEvent alloc] initOpponentPull:isOutOfBounds ? OpponentPullOb : OpponentPull];
+            }
+            pullEvent.position = position;
+            pullEvent.beginPosition = self.game.positionalPickupEvent.position;
+            [self addEvent:pullEvent];
+            return NO;  // do not show potential event
         } else {
             [self showActionViewForPoint:pointInMyView];
         }
@@ -312,7 +298,6 @@
 };
             
 -(void)handlePullLandingChosen: (Action) action {
-    [self hidePullLandingPickerView];
     Player* player = self.game.positionalPickupEvent.playerOne;
     if (action != None) {
         Event* pullEvent;
@@ -360,6 +345,7 @@
 - (void)createOutOfBoundsToast {
     CGSize size = CGSizeMake(46, 40);
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,size.width, size.height)];
+    label.hidden = YES;
     label.backgroundColor = self.fieldContainerView.backgroundColor;
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -400,7 +386,9 @@
 #pragma mark - Miscellaneous
 
 -(void) addEventProperties: (Event*) event {
-    event.position = self.fieldView.potentialEventPosition;
+    if (!event.position) {
+        event.position = self.fieldView.potentialEventPosition;
+    }
     event.beginPosition = self.game.positionalPickupEvent.position;  // only some events will have begin position
 }
 

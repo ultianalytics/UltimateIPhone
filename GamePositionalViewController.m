@@ -127,8 +127,8 @@
 
 - (void)showActionViewForPoint: (CGPoint) eventPoint {
     [self updateActionViewForSelectedPasser];
-    [self updateActionViewLayoutForOffenseOrDefense];
-    [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:eventPoint];
+    BOOL isLeft = [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:eventPoint];
+    [self updateActionViewLayoutForOffenseOrDefenseIsLeft: isLeft];
 }
 
 - (void)hideActionView {
@@ -298,10 +298,11 @@
     event.beginPosition = self.game.positionalPickupEvent.position;  // only some events will have begin position
 }
 
-- (void)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
+- (BOOL)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
+    BOOL isLeft = NO;
     chooserView.center = self.fieldView.center;  // center vertically in the field view
     if (eventPoint.x != 0 && eventPoint.y != 0) {
-        BOOL isLeft = eventPoint.x < (self.view.boundsWidth / 2.0f);
+        isLeft = eventPoint.x < (self.view.boundsWidth / 2.0f);
         CGFloat distanceFromPointToActionView = 40;
         CGFloat x;
         if (isLeft) {
@@ -314,6 +315,7 @@
     self.topViewOverlay.visible = YES;
     self.bottomViewOverlay.visible = YES;
     chooserView.visible = YES;
+    return isLeft;
 }
 
 - (void)hideChooserView: (UIView*)chooserView {
@@ -345,14 +347,20 @@
     [self.playerViews[7] makeSelected:!playerSelected]; // pick anon if nobody else fits
 }
 
--(void)updateActionViewLayoutForOffenseOrDefense {
+-(void)updateActionViewLayoutForOffenseOrDefenseIsLeft: (BOOL)isLeft {
     self.opponentActionButtonsView.hidden = self.isOffense;
 
-    // if defense, move the buttons over to make room for the team-level buttons
-    CGFloat playerButtonsOffsetOnDefense = 151;
-    CGAffineTransform transform = self.isOffense ? CGAffineTransformMakeTranslation(0.0, 0.0) : CGAffineTransformMakeTranslation(playerButtonsOffsetOnDefense, 0.0);
-    self.actionViewPlayerButtons.transform = transform;
-
+    if (self.isOffense) {
+        self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+    } else {
+        if (isLeft) {
+            self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(151, 0.0);
+            self.opponentActionButtonsView.transform = CGAffineTransformMakeTranslation(0, 0.0);
+        } else {
+            self.actionViewPlayerButtons.transform = CGAffineTransformMakeTranslation(0, 0.0);
+            self.opponentActionButtonsView.transform = CGAffineTransformMakeTranslation(164, 0.0);
+        }
+    }
 }
 
 -(Game*)game {

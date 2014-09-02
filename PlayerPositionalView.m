@@ -11,7 +11,7 @@
 @implementation PlayerPositionalView
 
 -(NSString*)nibName {
-    return @"PlayerView~iphone";
+    return @"PlayerPositionalView";
 }
 
 

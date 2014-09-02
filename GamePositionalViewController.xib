@@ -54,16 +54,16 @@
                             <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         </view>
                         <view contentMode="scaleToFill" id="fHk-v1-KAb" userLabel="Action View Container">
-                            <rect key="frame" x="36" y="30" width="330" height="406"/>
+                            <rect key="frame" x="36" y="30" width="330" height="410"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="qgk-91-QKV" userLabel="Action Sub View">
-                                    <rect key="frame" x="0.0" y="0.0" width="330" height="375"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="330" height="390"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="Jev-Fg-xfo" userLabel="Button(s) View">
-                                    <rect key="frame" x="0.0" y="375" width="330" height="31"/>
+                                    <rect key="frame" x="0.0" y="372" width="330" height="31"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6fr-r4-FaW" userLabel="Cancel Button" customClass="GameActionButton">
@@ -80,15 +80,15 @@
                                     <color key="backgroundColor" red="0.84705882349999995" green="0.84313725490000002" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.84705882349999995" green="0.84313725490000002" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <view hidden="YES" contentMode="scaleToFill" id="4mh-CX-KK0" userLabel="BeginEvent Player Picker SubView">
-                            <rect key="frame" x="393" y="30" width="160" height="406"/>
+                            <rect key="frame" x="393" y="30" width="200" height="406"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <view hidden="YES" contentMode="scaleToFill" id="wt8-dc-lks" userLabel="Pull Landing SubView">
-                            <rect key="frame" x="582" y="30" width="160" height="220"/>
+                            <rect key="frame" x="582" y="30" width="150" height="270"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>

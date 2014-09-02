@@ -88,7 +88,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <view hidden="YES" contentMode="scaleToFill" id="wt8-dc-lks" userLabel="Pull Landing SubView">
-                            <rect key="frame" x="582" y="30" width="150" height="270"/>
+                            <rect key="frame" x="582" y="30" width="160" height="220"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>

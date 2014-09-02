@@ -88,7 +88,7 @@
     return self.action == Halftime;
 }
 
-- (BOOL) causesDirectionChange {
+- (BOOL) causesOffenseDefenseChange {
     return YES;
 }
 

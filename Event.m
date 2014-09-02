@@ -253,7 +253,7 @@
     return nil;
 }
 
-- (BOOL) causesDirectionChange {
+- (BOOL) causesOffenseDefenseChange {
     return !(self.action == Catch || [self isPullOrOpponentPull]);
 }
 

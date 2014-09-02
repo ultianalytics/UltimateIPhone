@@ -84,7 +84,7 @@ typedef enum {
 - (BOOL) isDefenseThrowaway;
 - (BOOL) isFinalEventOfPoint;
 - (BOOL) isPeriodEnd;
-- (BOOL) causesDirectionChange;
+- (BOOL) causesOffenseDefenseChange;
 - (BOOL) causesLineChange;
 - (BOOL) isNextEventOffense;
 - (Event*) asBeginEvent;

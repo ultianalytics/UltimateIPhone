@@ -141,7 +141,7 @@
     [self updateEventViews];
     [self refreshTitle: event];
     [[Game getCurrentGame] save]; 
-    if ([event causesDirectionChange]) {
+    if ([event causesOffenseDefenseChange]) {
         self.isOffense = [[Game getCurrentGame] arePlayingOffense];
         if ([event isGoal] && [self shouldPublishScoresToLeaguevine]) {
             [self notifyLeaguevineOfScoreIsFinal:NO];
@@ -469,7 +469,7 @@
     Event* lastEventAfter = [[Game getCurrentGame] getLastEvent];
     [self refreshTitle: lastEventBefore];
     [[Game getCurrentGame] save];
-    if ([lastEventBefore causesDirectionChange]) {
+    if ([lastEventBefore causesOffenseDefenseChange]) {
         self.isOffense = [[Game getCurrentGame] arePlayingOffense];
         if ([lastEventAfter causesLineChange]) {
             [self goToPlayersOnFieldView];

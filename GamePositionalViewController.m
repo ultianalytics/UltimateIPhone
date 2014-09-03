@@ -276,15 +276,28 @@
             return NO;  // do not show potential event
         } else if (isOutOfBounds) {
             if (self.game.positionalPickupEvent) {
-                Event* pullEvent;
+                // out of bounds after a pickup...throwaway
+                Event* throwawayEvent;
                 if ([self.game.positionalPickupEvent isDefense]) {
-                    pullEvent = [[DefenseEvent alloc] initDefender:self.game.positionalPickupEvent.playerOne action:Throwaway];
+                    throwawayEvent = [[DefenseEvent alloc] initDefender:self.game.positionalPickupEvent.playerOne action:Throwaway];
                 } else {
-                    pullEvent = [[OffenseEvent alloc] initPasser:self.game.positionalPickupEvent.playerOne action:Throwaway];
+                    throwawayEvent = [[OffenseEvent alloc] initPasser:self.game.positionalPickupEvent.playerOne action:Throwaway];
                 }
-                pullEvent.position = position;
-                pullEvent.beginPosition = self.game.positionalPickupEvent.position;
-                [self addEvent:pullEvent];
+                throwawayEvent.position = position;
+                throwawayEvent.beginPosition = self.game.positionalPickupEvent.position;
+                [self addEvent:throwawayEvent];
+                return NO;  // do not show potential event
+            } else if ([self.game getLastEvent].action == Catch) {
+                // out of bounds after a catch...throwaway
+                Event* lastEvent = [self.game getLastEvent];
+                Event* throwawayEvent;
+                if (self.isOffense) {
+                    throwawayEvent = [[OffenseEvent alloc] initPasser:lastEvent.playerOne action:Throwaway];
+                } else {
+                    throwawayEvent = [[DefenseEvent alloc] initAction:Throwaway];
+                }
+                throwawayEvent.position = position;
+                [self addEvent:throwawayEvent];
                 return NO;  // do not show potential event
             } else {
                 [self showActionViewForPoint:pointInMyView];

@@ -125,11 +125,37 @@
 }
 
 - (void)refresh {
+    NSString* currentlySelectedPlayerName = [self currentlySelectedPlayerName];
     [self retrievePlayers];
     [self updateViewAnimated: NO];
     if ([self.players count] > 0) {
-        [self selectPlayer:self.players[0] animated: NO];
+        Player* player;
+        if (currentlySelectedPlayerName) {
+            player = [self playerNamed:currentlySelectedPlayerName];
+        }
+        if (!player) {
+            player = self.players[0];
+        }
+        [self selectPlayer:player animated:YES];
     }
+}
+
+-(NSString*)currentlySelectedPlayerName {
+    NSIndexPath* currentPath = [self.playersTableView indexPathForSelectedRow];
+    if (currentPath) {
+        UITableViewCell* cell = [self.playersTableView cellForRowAtIndexPath:currentPath];
+        return cell.textLabel.text;
+    }
+    return nil;
+}
+
+-(Player*)playerNamed: (NSString*) playerName {
+    for (Player* player in self.players) {
+        if ([playerName isEqualToString:player.name]) {
+            return player;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - View lifecycle
@@ -254,7 +280,7 @@
             }
         }
         self.detailController.player = self.players[playerIndex];
-        [self.playersTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:playerIndex inSection:0] animated:animated scrollPosition:UITableViewScrollPositionTop];
+        [self.playersTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:playerIndex inSection:0] animated:animated scrollPosition:UITableViewScrollPositionNone];
     }
 }
 

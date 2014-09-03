@@ -90,13 +90,15 @@
 
 - (void)viewDragged:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint dragPoint = [((UIPanGestureRecognizer*)gestureRecognizer) locationInView:self];
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.initialDragPoint = dragPoint;
-        self.eventHasBeenMoved = NO;
-    }
-    BOOL eventWasDragged = [self handlePossibleDragOfEvent:self.lastSavedEventView atPoint:dragPoint];
-    if (!eventWasDragged) {
-        [self handlePossibleDragOfEvent:self.previousSavedEventView atPoint:dragPoint];
+    if (CGRectContainsPoint(self.bounds, dragPoint)) {
+        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            self.initialDragPoint = dragPoint;
+            self.eventHasBeenMoved = NO;
+        }
+        BOOL eventWasDragged = [self handlePossibleDragOfEvent:self.lastSavedEventView atPoint:dragPoint];
+        if (!eventWasDragged) {
+            [self handlePossibleDragOfEvent:self.previousSavedEventView atPoint:dragPoint];
+        }
     }
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (self.eventHasBeenMoved) {

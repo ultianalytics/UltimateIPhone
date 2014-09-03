@@ -186,6 +186,12 @@
         if (self.player) {
             [self updatePlayer];
             if (IS_IPAD) {
+                // "flash" the view so that the user can see something happened
+                [UIView transitionWithView:self.view duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                    self.view.alpha = 0;
+                } completion:^(BOOL finished) {
+                    self.view.alpha = 1;
+                }];
                 [self notifyChangeListener];
             } else {
                 [self returnToTeamView];

@@ -62,12 +62,16 @@
 }
 
 +(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError {
-    NSError* error = nil;
     NSMutableDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
-    [gameAsDict setValue:team.cloudId forKey:kTeamIdKey];
+    [self uploadGameId:game.gameId withGameJson:gameAsDict forTeamId:team.teamId withCloudId:team.cloudId lastSaveGmt:game.lastSaveGMT error:uploadError];
+}
+
++(void) uploadGameId: (NSString*) gameId withGameJson: (NSMutableDictionary*) gameAsDict forTeamId: (NSString*) teamId withCloudId: (NSString*) cloudId lastSaveGmt: (NSTimeInterval) lastSaveGMT error:(NSError**) uploadError {
+    NSError* error = nil;
+    [gameAsDict setValue:cloudId forKey:kTeamIdKey];
     [CloudClient upload: gameAsDict relativeUrl: @"/rest/mobile/game" error: &error];
     if (!error) {
-        [UploadDownloadTracker updateLastUploadOrDownloadTime:game.lastSaveGMT forGameId:game.gameId inTeamId:team.teamId];
+        [UploadDownloadTracker updateLastUploadOrDownloadTime:lastSaveGMT forGameId:gameId inTeamId:teamId];
     }
     *uploadError = error;
 }

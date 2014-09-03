@@ -274,6 +274,21 @@
             pullEvent.beginPosition = self.game.positionalPickupEvent.position;
             [self addEvent:pullEvent];
             return NO;  // do not show potential event
+        } else if (isOutOfBounds) {
+            if (self.game.positionalPickupEvent) {
+                Event* pullEvent;
+                if ([self.game.positionalPickupEvent isDefense]) {
+                    pullEvent = [[DefenseEvent alloc] initDefender:self.game.positionalPickupEvent.playerOne action:Throwaway];
+                } else {
+                    pullEvent = [[OffenseEvent alloc] initPasser:self.game.positionalPickupEvent.playerOne action:Throwaway];
+                }
+                pullEvent.position = position;
+                pullEvent.beginPosition = self.game.positionalPickupEvent.position;
+                [self addEvent:pullEvent];
+                return NO;  // do not show potential event
+            } else {
+                [self showActionViewForPoint:pointInMyView];
+            }
         } else {
             [self showActionViewForPoint:pointInMyView];
         }

@@ -269,18 +269,27 @@
     }
 }
 
-- (void) updateAutoTweetingNotice {
+- (void) updateBroacastingNotices {
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
     BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
+    BOOL isAutoGameUploading = [Preferences getCurrentPreferences].gameAutoUpload;
     self.broadcast1Label.hidden = !isAutoTweeting;
-    self.broadcast2Label.hidden = !isLeaguevinePosting;
+    self.broadcast2Label.visible = isLeaguevinePosting || isAutoGameUploading;
+    if (self.broadcast2Label.visible) {
+        self.broadcast2Label.text = isAutoGameUploading ? @"auto-uploading" : @"leaguevine pub";
+    }
 
-    if ((isAutoTweeting || [self shouldPublishScoresToLeaguevine]) &&
+    if ((isAutoTweeting || isAutoGameUploading || [self shouldPublishScoresToLeaguevine]) &&
         [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
-        NSString* broadcastTarget = isAutoTweeting ?
-            isLeaguevinePosting ? @"auto-tweeting and posting scores to Leaguevine" : @"auto-tweeting" :
+        NSString* broadcastTarget;
+        if ([self shouldPublishScoresToLeaguevine]) {
+            broadcastTarget= isAutoTweeting ? isLeaguevinePosting ? @"auto-tweeting and posting scores to Leaguevine" : @"auto-tweeting" :
             @"posting scores to Leaguevine";
-        UIAlertView *alert = [[UIAlertView alloc] 
+        } else {
+            broadcastTarget = isAutoTweeting ? isAutoGameUploading ? @"auto-tweeting and auto-uploading games" : @"auto-tweeting" :
+            @"auto-uploading games";
+        }
+        UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: kNoInternetAlertTitle
                               message: [NSString stringWithFormat: @"Warning: You are %@ but we can't reach the internet.", broadcastTarget]
                               delegate: nil
@@ -305,7 +314,7 @@
     [self updateNavBarTitle];
     [[Game getCurrentGame] save];
     [self updateViewFromGame:[Game getCurrentGame]];
-    [self updateAutoTweetingNotice];
+    [self updateBroacastingNotices];
     [self updateTimeoutsButton];
 }
 
@@ -834,7 +843,7 @@
     [self initializeDetailSelectionViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(updateAutoTweetingNotice)
+                                             selector: @selector(updateBroacastingNotices)
                                                  name: @"UIApplicationWillEnterForegroundNotification"
                                                object: nil];
 }

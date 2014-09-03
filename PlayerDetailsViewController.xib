@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayerDetailsViewController">
             <connections>
                 <outlet property="absentTableCell" destination="jLo-6i-MWO" id="SP9-xR-JUK"/>
+                <outlet property="buttonsView" destination="b0q-RF-C48" id="Wwl-qX-MiU"/>
                 <outlet property="deleteButton" destination="19" id="21"/>
                 <outlet property="footerView" destination="e3Q-yX-th0" id="WNf-83-es5"/>
                 <outlet property="genderTableCell" destination="33" id="46"/>
@@ -17,7 +18,7 @@
                 <outlet property="numberTableCell" destination="31" id="44"/>
                 <outlet property="positionControl" destination="40" id="49"/>
                 <outlet property="positionTableCell" destination="32" id="45"/>
-                <outlet property="saveAndAddButton" destination="7" id="17"/>
+                <outlet property="savedMessageLabel" destination="coZ-h8-eSP" id="3nh-JB-k2s"/>
                 <outlet property="sexControl" destination="41" id="50"/>
                 <outlet property="statusControl" destination="TAd-1Z-OAC" id="Uqf-dD-9xA"/>
                 <outlet property="tableView" destination="42" id="53"/>
@@ -169,7 +170,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="b0q-RF-C48" customClass="CellishView">
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player saved...add another now or cancel to return" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="coZ-h8-eSP" userLabel="Saved Message Label">
+                    <rect key="frame" x="20" y="0.0" width="280" height="58"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" id="b0q-RF-C48" userLabel="Buttons View" customClass="CellishView">
                     <rect key="frame" x="0.0" y="10" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -182,17 +190,6 @@
                             </state>
                             <connections>
                                 <action selector="deleteClicked:" destination="-1" eventType="touchUpInside" id="20"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                            <state key="normal" title="Save and Add Another">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="addAnotherClicked:" destination="-1" eventType="touchUpInside" id="18"/>
                             </connections>
                         </button>
                     </subviews>

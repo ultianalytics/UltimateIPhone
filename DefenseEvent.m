@@ -200,7 +200,7 @@
     
     switch(self.action) {
         case Pull: {
-            return [NSString stringWithFormat:@"PULL LANDED\n%@", self.isAnonymous ? @" " : self.defender.name];
+            return [NSString stringWithFormat:@"PULL LAND\n%@", self.isAnonymous ? @" " : self.defender.name];
         }
         case PullOb: {
             return [NSString stringWithFormat:@"PULL OB\n%@", self.isAnonymous ? @" " : self.defender.name];

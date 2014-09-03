@@ -20,20 +20,4 @@
 @property (strong, nonatomic) void (^playerChangedBlock)(Player* player);
 @property (nonatomic) BOOL isModalAddMode;
 
--(IBAction)addAnotherClicked: (id) sender;
--(IBAction)deleteClicked: (id) sender;
--(void)okClicked;
--(void)cancelClicked;
--(void)returnToTeamView;
--(void)populateViewFromModel;
--(void)populateModelFromView;
--(void)addPlayer;
--(void)updatePlayer;
--(void)deletePlayer;
--(NSString*) getNickNameViewText;
--(NSString*) getNumberViewText;
--(BOOL)verifyPlayer;
--(BOOL)isDuplicatePlayerName: (NSString*) newPlayerName;
--(BOOL)isDuplicatePlayerNumber: (NSString*) newPlayerNumber;
-
 @end

@@ -310,7 +310,7 @@
             return [NSString stringWithFormat:@"PULL BEGIN\n "];
         }
         case OpponentPull:{
-            return [NSString stringWithFormat:@"PULL LANDED\n "];
+            return [NSString stringWithFormat:@"PULL LAND\n "];
         }
         case OpponentPullOb:{
             return [NSString stringWithFormat:@"PULL OB\n "];

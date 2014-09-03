@@ -23,8 +23,9 @@
 @property (nonatomic, strong) IBOutlet UltimateSegmentedControl* statusControl;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
-@property (nonatomic, strong) IBOutlet UIButton* saveAndAddButton;
+@property (strong, nonatomic) IBOutlet UIView *buttonsView;
 @property (nonatomic, strong) IBOutlet UIButton* deleteButton;
+@property (nonatomic, strong) IBOutlet UILabel* savedMessageLabel;
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* nameTableCell;
@@ -36,7 +37,7 @@
 @end
 
 @implementation PlayerDetailsViewController
-@synthesize nickNameField,numberField,positionControl,sexControl,saveAndAddButton,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
+@synthesize nickNameField,numberField,positionControl,sexControl,deleteButton,tableView,nameTableCell,numberTableCell,positionTableCell,genderTableCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,8 +62,7 @@
         [self.sexControl setSelection: @"Male"];
         [self.statusControl setSelection: @"Playing"];
     }
-    self.saveAndAddButton.hidden = self.player != nil;
-    self.deleteButton.hidden = self.player == nil;
+    self.buttonsView.hidden = self.player == nil;
 }
 
 -(void)populateModelFromView {
@@ -74,51 +74,6 @@
     self.player.isAbsent = [[self.statusControl getSelection] isEqualToString:@"Absent"] ? YES : NO;
 }
 
--(IBAction)addAnotherClicked: (id) sender{
-    if ([self verifyPlayer]) {
-        [self addPlayer];
-        self.player = nil;
-        if (IS_IPAD) {
-            [self notifyChangeListener];
-        }
-    }
-}
--(IBAction)deleteClicked: (id) sender {
-    [self deletePlayer];
-    if (IS_IPAD) {
-        [self notifyChangeListener];
-    } else {
-        [self returnToTeamView];
-    }
-}
--(void)okClicked {
-    if ([self verifyPlayer]) {
-        if (self.player) {
-            [self updatePlayer];
-            if (IS_IPAD) {
-                [self notifyChangeListener];
-            } else {
-                [self returnToTeamView];
-            }
-        } else {
-            [self addPlayer];
-            if (IS_IPAD) {
-                [self notifyChangeListener];
-                [self cancelModalDialog];
-            } else {
-                [self returnToTeamView];
-            }
-        }
-
-    }
-}
--(void)cancelClicked {
-    if (IS_IPAD) {
-        [self cancelModalDialog];
-    } else {
-        [self returnToTeamView];
-    }
-}
 -(void)returnToTeamView {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -215,6 +170,73 @@
     [self populateViewFromModel];
 }
 
+#pragma mark - Event Handlers
+
+-(IBAction)deleteClicked: (id) sender {
+    [self deletePlayer];
+    if (IS_IPAD) {
+        [self notifyChangeListener];
+    } else {
+        [self returnToTeamView];
+    }
+}
+
+-(void)okClicked {
+    if ([self verifyPlayer]) {
+        if (self.player) {
+            [self updatePlayer];
+            if (IS_IPAD) {
+                [self notifyChangeListener];
+            } else {
+                [self returnToTeamView];
+            }
+        } else {
+            [self addPlayer];
+            [self.view endEditing:YES];
+            self.player = nil;
+            [self flashAddAnotherMessage];
+            if (IS_IPAD) {
+                [self notifyChangeListener];
+            }
+        }
+        
+    }
+}
+
+
+-(void)cancelClicked {
+    if (IS_IPAD) {
+        [self cancelModalDialog];
+    } else {
+        [self returnToTeamView];
+    }
+}
+
+#pragma mark - Add Another Message
+
+- (void)flashAddAnotherMessage {
+    [self showSavedAddAnotherMessage];
+}
+
+- (void)showSavedAddAnotherMessage {
+    self.savedMessageLabel.alpha = 0;
+    self.savedMessageLabel.hidden = NO;
+    [UIView animateWithDuration:.5 animations:^{
+        self.savedMessageLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [self performSelector:@selector(animateHideSavedMessageLabel) withObject:self afterDelay:2];
+    }];
+}
+
+- (void)animateHideSavedMessageLabel {
+    [UIView animateWithDuration:.5 animations:^{
+        self.savedMessageLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.savedMessageLabel.hidden = YES;
+        self.savedMessageLabel.alpha = 1;
+    }];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -248,7 +270,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark = Table Source/Delegate
+#pragma mark - Table Source/Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -273,7 +295,7 @@
     return kSingleSectionGroupedTableSectionHeaderHeight;
 }
 
-#pragma mark  Text Delegate
+#pragma mark - Text Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];

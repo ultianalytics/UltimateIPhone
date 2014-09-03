@@ -170,6 +170,7 @@
     [self.eventView2 updateEvent: [lastFewEvents count] >= 2 ? [lastFewEvents objectAtIndex:1] : nil];
     [self.eventView3 updateEvent: [lastFewEvents count] >= 3 ? [lastFewEvents objectAtIndex:2] : nil];
     self.removeEventButton.hidden = [lastFewEvents count] == 0;
+    self.noEventsLabel.hidden = !self.removeEventButton.hidden;
 }
 
 -(void) refreshTitle: (Event*) event { 
@@ -829,7 +830,7 @@
         [self addChildViewController:self.eventsViewController inSubView:self.eventsSubView];
     }
     [self updateEventViews];
-
+    
     [self initializeDetailSelectionViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver: self

@@ -37,6 +37,9 @@
 - (void)update: (Game*) game;
 - (void) setNeedToSelectPasser: (BOOL) needToSelectPasser;
 - (CGPoint)firstButtonCenter;
-
+- (void)disableFirstButton;
+- (void)disableSecondButton;
+- (void)disableThirdButton;
+- (void)enableButtons;
 
 @end

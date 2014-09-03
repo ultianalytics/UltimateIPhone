@@ -161,4 +161,22 @@
     return self.firstButton.center;
 }
 
+- (void)disableFirstButton {
+    self.firstButton.enabled = NO;
+}
+
+- (void)disableSecondButton {
+    self.secondButton.enabled = NO;
+}
+
+- (void)disableThirdButton {
+    self.thirdButton.enabled = NO;
+}
+
+- (void)enableButtons {
+    self.firstButton.enabled = YES;
+    self.secondButton.enabled = YES;
+    self.thirdButton.enabled = YES;
+}
+
 @end

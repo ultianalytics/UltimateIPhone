@@ -126,9 +126,10 @@
     [self hideActionView];
 }
 
-- (void)showActionViewForPoint: (CGPoint) eventPoint {
+- (void)showActionViewForPoint: (CGPoint) pointInMyView fieldPoint: (CGPoint)pointInField {
+    [self updateActionViewEnabledButtons: pointInField];
     [self updateActionViewForSelectedPasser];
-    BOOL isLeft = [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:eventPoint];
+    BOOL isLeft = [self repositionAndShowChooserView:self.actionViewContainer adjacentToEventAt:pointInMyView];
     [self updateActionViewLayoutForOffenseOrDefenseIsLeft: isLeft];
 }
 
@@ -175,6 +176,14 @@
     }
 }
 
+-(void)updateActionViewEnabledButtons: (CGPoint) eventPoint {
+    [self enableAllButtons];
+    if ([self.fieldView isPointInGoalEndzone:eventPoint]) {
+        [self disableCatchButtons];
+    } else {
+        [self disableGoalButtons];
+    }
+}
 
 #pragma mark - Pickup Disc, Pick Puller player picker
 
@@ -299,10 +308,10 @@
                 [self addEvent:throwawayEvent];
                 return NO;  // do not show potential event
             } else {
-                [self showActionViewForPoint:pointInMyView];
+                [self showActionViewForPoint:pointInMyView fieldPoint:fieldPoint];
             }
         } else {
-            [self showActionViewForPoint:pointInMyView];
+            [self showActionViewForPoint:pointInMyView  fieldPoint:fieldPoint];
         }
         return YES; // show potential event
     }
@@ -425,6 +434,33 @@
     [self.eventsViewController refresh];
 }
 
+-(void)disableGoalButtons {
+    if (self.isOffense) {
+        for (PlayerView* playerVew in self.playerViews) {
+            [playerVew disableThirdButton];
+        }
+    } else {
+        self.otherTeamScoreButton.enabled = NO;
+    }
+}
+
+-(void)disableCatchButtons {
+    if (self.isOffense) {
+        for (PlayerView* playerVew in self.playerViews) {
+            [playerVew disableFirstButton];
+        }
+    } else {
+        self.otherTeamCatchButton.enabled = NO;
+    }
+}
+
+-(void)enableAllButtons {
+    for (PlayerView* playerVew in self.playerViews) {
+        [playerVew enableButtons];
+    }
+    self.otherTeamScoreButton.enabled = YES;
+    self.otherTeamCatchButton.enabled = YES;
+}
 
 
 @end

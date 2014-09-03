@@ -23,5 +23,6 @@
 
 -(void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds;
 -(void)updateForCurrentEvents;
+-(BOOL)isPointInGoalEndzone: (CGPoint)eventPoint;
 
 @end

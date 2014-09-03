@@ -473,5 +473,14 @@
     (![self.game isPointInProgress] && ![self.game isCurrentlyOline]);
 }
 
+-(BOOL)isPointInGoalEndzone: (CGPoint)eventPoint {
+    EventPosition* position = [self calculatePosition:eventPoint];
+    if ((position.area == EventPositionArea0Endzone && self.directionView.isPointingLeft) ||
+        (position.area == EventPositionArea100Endzone && !self.directionView.isPointingLeft)) {
+        return YES;
+    }
+    return NO;
+}
+
 
 @end

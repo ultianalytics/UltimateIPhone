@@ -9,14 +9,16 @@
 #import "GameFieldEventPointView.h"
 #import "UIView+Convenience.h"
 #import "ColorMaster.h"
+#import "GameFieldEventTextView.h"
 
 #define kNonEmphasizedPositionInset 4
 #define kEmphasizedPositionInnerCircleInset 8
 #define kTextLabelHeight 34
+#define kTextLabelWidth 66
 
 @interface GameFieldEventPointView()
 
-@property (strong, nonatomic) UILabel* textLabel;
+@property (strong, nonatomic) GameFieldEventTextView* textView;
 
 @end
 
@@ -27,15 +29,14 @@
 -(void)commonInit {
     [self addTapRecognizer];
     self.backgroundColor = [UIColor clearColor];
-    [self createLabel];
+    [self createTextView];
 }
 
--(void)createLabel {
-    self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, kTextLabelHeight)];
-    [self addSubview: self.textLabel];
-    self.textLabel.font = [UIFont boldSystemFontOfSize:12];
-    self.textLabel.numberOfLines = 0;
-    self.textLabel.textAlignment = NSTextAlignmentCenter;
+-(void)createTextView {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([GameFieldEventTextView class]) owner:nil options:nil];
+    self.textView = (GameFieldEventTextView *)nibViews[0];
+    self.textView.frame = CGRectMake(0, 0, kTextLabelWidth, kTextLabelHeight);
+    [self addSubview: self.textView];
 }
 
 -(void)addTapRecognizer {
@@ -68,9 +69,13 @@
 }
 
 -(void)layoutSubviews {
-    CGFloat verticalCenter = self.boundsHeight + kTextLabelHeight / 2;
-    CGFloat horizontalCenter = self.boundsWidth / 2;
-    self.textLabel.center = CGPointMake(horizontalCenter, verticalCenter);
+    [super layoutSubviews];
+  
+    // layout text
+    BOOL displayAbove = self.frameY > CGRectGetMidY(self.superview.bounds);
+    CGFloat textViewCenterOffset = self.boundsHeight / 2 + self.textView.frameHeight / 2;
+    CGFloat textViewY = CGRectGetMidY(self.bounds) + (displayAbove ? (-1 * textViewCenterOffset) : textViewCenterOffset);
+    self.textView.center = CGPointMake(CGRectGetMidX(self.bounds), textViewY);
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -100,7 +105,7 @@
 
 -(void)setIsOurEvent:(BOOL)isOurEvent {
     _isOurEvent = isOurEvent;
-    self.textLabel.textColor = [self dotColor];
+    self.textView.textColor = [self dotColor];
     [self setNeedsDisplay];
 }
 
@@ -115,11 +120,18 @@
 }
 
 -(void)updateText {
-    self.textLabel.text = [self.event positionalDescription];
+    self.textView.description = [self.event positionalDescription];
+    [self setNeedsLayout];
 }
 
 -(UIColor*)dotColor {
     return self.isOurEvent ? [ColorMaster applicationTintColor] : [UIColor redColor];
+}
+
+- (void)flashOutOfBoundsMessage {
+    if (![self.event isPositionalBegin]) {
+        [self.textView flashOutOfBoundsMessage];
+    }
 }
 
 

@@ -113,6 +113,9 @@
     if (self.positionTappedBlock) {
         BOOL shouldDisplayPotentialEvent = self.positionTappedBlock(eventPosition, tapPoint, isOutOfBounds);
         [self updatePointViews: shouldDisplayPotentialEvent ? eventPosition : nil];
+        if (isOutOfBounds) {
+            [self.lastSavedEventView flashOutOfBoundsMessage];
+        }
     }
 }
 

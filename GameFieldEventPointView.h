@@ -16,5 +16,6 @@
 @property (nonatomic) BOOL isEmphasizedEvent;
 @property (strong, nonatomic) void (^tappedBlock)(CGPoint tapPoint, GameFieldEventPointView* pointView);
 
+- (void)flashOutOfBoundsMessage;
 
 @end

@@ -62,6 +62,7 @@ typedef enum {
 - (BOOL) isPlayEvent;
 - (BOOL) isPickupDisc;
 - (BOOL) isPullBegin;
+- (BOOL) isPositionalBegin;
 - (BOOL) isOffense;
 - (BOOL) isDefense;
 - (BOOL) isGoal;

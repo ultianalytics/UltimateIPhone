@@ -220,6 +220,10 @@
     return self.action == PullBegin;
 }
 
+- (BOOL) isPositionalBegin {
+    return [self isPickupDisc] || [self isPullBegin];
+}
+
 - (BOOL) isPlayEvent {
     return NO;    
 }

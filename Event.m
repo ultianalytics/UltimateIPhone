@@ -196,6 +196,10 @@
     return self.action == OpponentCatch;
 }
 
+- (BOOL) isCatchOrOpponentCatch {
+    return self.action == Catch || self.action == OpponentCatch;
+}
+
 - (BOOL) isCallahan {
     return NO;
 }

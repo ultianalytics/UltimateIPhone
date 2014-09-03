@@ -287,7 +287,7 @@
                 throwawayEvent.beginPosition = self.game.positionalPickupEvent.position;
                 [self addEvent:throwawayEvent];
                 return NO;  // do not show potential event
-            } else if ([self.game getLastEvent].action == Catch) {
+            } else if ([[self.game getLastEvent] isCatchOrOpponentCatch]) {
                 // out of bounds after a catch...throwaway
                 Event* lastEvent = [self.game getLastEvent];
                 Event* throwawayEvent;

@@ -24,6 +24,7 @@
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* autoUploadCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* websiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* adminSiteCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* privacyPolicyCell;
@@ -36,6 +37,7 @@
 @property (nonatomic, strong) IBOutlet UIButton* downloadTeamButton;
 @property (nonatomic, strong) IBOutlet UIButton* downloadGameButton;
 @property (nonatomic, strong) IBOutlet UIButton* signoffButton;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* autoUploadSegmentedControl;
 @property (strong, nonatomic) IBOutlet UIView *scrubberView;
 @property (strong, nonatomic) IBOutlet UISwitch *scrubberSwitch;
 

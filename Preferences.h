@@ -22,6 +22,7 @@
 @property (nonatomic) AutoTweetLevel autoTweetLevel;
 @property (nonatomic, strong) NSString* twitterAccountDescription;
 @property (nonatomic, strong) NSString* leaguevineToken;
+@property (nonatomic) BOOL gameAutoUpload;
 
 +(Preferences*)getCurrentPreferences;
 +(NSString*)getFilePath;

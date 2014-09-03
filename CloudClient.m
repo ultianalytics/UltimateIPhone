@@ -188,6 +188,7 @@
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie: cookie];
     }
     [Preferences getCurrentPreferences].userid = nil;
+    [Preferences getCurrentPreferences].gameAutoUpload = NO;
     [[Preferences getCurrentPreferences] save];
 }
 

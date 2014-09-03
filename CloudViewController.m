@@ -65,6 +65,17 @@
     }
 }
 
+- (IBAction)autoUploadChanged:(id)sender {
+    BOOL shouldAutoUpdate = self.autoUploadSegmentedControl.selectedSegmentIndex == 1;
+    if (shouldAutoUpdate) {
+        [self startAutoUploadVerification];
+    } else {
+        [Preferences getCurrentPreferences].gameAutoUpload = NO;
+        [[Preferences getCurrentPreferences] save];
+        [self populateViewFromModel];
+    }
+}
+
 #pragma mark - Navigation
 
 -(void)goSignonView{
@@ -98,6 +109,12 @@
     };
     
     [self.navigationController pushViewController:gameUploadController animated: YES];
+}
+
+-(void)goGameAutoUploadConfirmed {
+    [Preferences getCurrentPreferences].gameAutoUpload = YES;
+    [[Preferences getCurrentPreferences] save];
+    [self populateViewFromModel];
 }
 
 #pragma mark - Upload Team/Games
@@ -289,6 +306,43 @@
     }
 }
 
+#pragma mark - Auto Upload verification (signed on to Google)
+
+// use the getTeams endpoint to verify we have connectivity and signed on
+
+-(void)startAutoUploadVerification {
+    [self startBusyDialog];
+    [self performSelectorInBackground:@selector(verifyReadyForAutoUpload) withObject:nil];
+}
+
+-(void)verifyReadyForAutoUpload {
+    NSError* requestError = nil;
+    NSArray* teams = [CloudClient getTeams:&requestError];
+    RequestContext* reqContext = requestError ?
+    [[RequestContext alloc] initWithReqData:nil responseData:nil error: requestError] :
+    [[RequestContext alloc] initWithReqData:nil responseData:teams];
+    [self performSelectorOnMainThread:@selector(handleVerifyReadyForAutoUploadCompletion:)
+                           withObject:reqContext waitUntilDone:YES];
+}
+
+-(void)handleVerifyReadyForAutoUploadCompletion: (RequestContext*) requestContext {
+    [self stopBusyDialog];
+    if ([requestContext hasError]) {
+        if ([requestContext getErrorCode] == Unauthorized) {
+            __weak CloudViewController* slf = self;
+            signonCompletion = ^{[slf goGameAutoUploadConfirmed];};
+            [self goSignonView];
+        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
+            [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: requestContext.errorExplanation];
+        } else {
+            [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: [requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to connect to the UltiAnalytics server to setup game auto-uploading.  Try again later."];
+        }
+    } else {
+        [self goGameAutoUploadConfirmed];
+    }
+}
+
+
 #pragma mark - Busy Dialog
 
 -(void)startBusyDialog {
@@ -343,6 +397,7 @@
     self.signoffButton.hidden = userid == nil;
     [self.cloudTableView reloadData];
     [self.scrubberSwitch setOn:[Scrubber currentScrubber].isOn];
+    self.autoUploadSegmentedControl.selectedSegmentIndex = [Preferences getCurrentPreferences].gameAutoUpload ? 1 : 0;
 #ifdef DEBUG
     self.scrubberView.hidden = NO;
 #endif
@@ -357,7 +412,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = @[self.userCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
+    cloudCells = @[self.userCell, self.autoUploadCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
     return [cloudCells count];
 }
 

@@ -312,6 +312,7 @@
 		381BC47F19B738D600CD8C20 /* GameFieldEventTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381BC47E19B738D600CD8C20 /* GameFieldEventTextView.xib */; };
 		381BC48219B7E95400CD8C20 /* broadcasting.png in Resources */ = {isa = PBXBuildFile; fileRef = 381BC48019B7E95400CD8C20 /* broadcasting.png */; };
 		381BC48319B7E95400CD8C20 /* broadcasting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 381BC48119B7E95400CD8C20 /* broadcasting@2x.png */; };
+		381BC48719B8A26200CD8C20 /* GameAutoUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC48619B8A26200CD8C20 /* GameAutoUploader.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -799,6 +800,8 @@
 		381BC47E19B738D600CD8C20 /* GameFieldEventTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFieldEventTextView.xib; sourceTree = "<group>"; };
 		381BC48019B7E95400CD8C20 /* broadcasting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = broadcasting.png; sourceTree = "<group>"; };
 		381BC48119B7E95400CD8C20 /* broadcasting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting@2x.png"; sourceTree = "<group>"; };
+		381BC48519B8A26200CD8C20 /* GameAutoUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAutoUploader.h; sourceTree = "<group>"; };
+		381BC48619B8A26200CD8C20 /* GameAutoUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAutoUploader.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1373,6 +1376,8 @@
 				1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */,
 				38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */,
 				38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */,
+				381BC48519B8A26200CD8C20 /* GameAutoUploader.h */,
+				381BC48619B8A26200CD8C20 /* GameAutoUploader.m */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -2089,6 +2094,7 @@
 				381BC45219AF4F8000CD8C20 /* PickPlayerForEventViewController.m in Sources */,
 				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
 				1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */,
+				381BC48719B8A26200CD8C20 /* GameAutoUploader.m in Sources */,
 				38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */,
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,

@@ -61,17 +61,34 @@
     *uploadError = error;
 }
 
-+(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError {
-    NSMutableDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
-    [self uploadGameId:game.gameId withGameJson:gameAsDict forTeamId:team.teamId withCloudId:team.cloudId lastSaveGmt:game.lastSaveGMT error:uploadError];
++(void) uploadGame: (NSString*)gameId forTeam: (NSString*)teamId error:(NSError**) uploadError {
+    NSError* error = nil;
+    Team* team = [Team readTeam:teamId];
+    if (!team) {
+        error = [NSError errorWithDomain:[self getBaseUrl] code: -1 userInfo:@{NSLocalizedDescriptionKey : @"Game's team not on file system"}];
+        SHSLog(@"Unable to read team for auto-upload of game");
+    } else {
+        Game* game = [Game readGame:gameId forTeam:teamId mergePlayersWithCurrentTeam:NO];
+        if (!game) {
+            error = [NSError errorWithDomain:[self getBaseUrl] code: -1 userInfo:@{NSLocalizedDescriptionKey : @"Game is not on  not on file system"}];
+            SHSLog(@"Unable to read game for auto-upload of game");
+        } else {
+            [self uploadTeam:team error:&error];
+            if (!error) {
+                [self uploadGame:game ofTeam: team error:&error];
+            }
+        }
+    }
+    *uploadError = error;
 }
 
-+(void) uploadGameId: (NSString*) gameId withGameJson: (NSMutableDictionary*) gameAsDict forTeamId: (NSString*) teamId withCloudId: (NSString*) cloudId lastSaveGmt: (NSTimeInterval) lastSaveGMT error:(NSError**) uploadError {
++(void) uploadGame: (Game*) game ofTeam: (Team*) team error:(NSError**) uploadError {
     NSError* error = nil;
-    [gameAsDict setValue:cloudId forKey:kTeamIdKey];
+    NSMutableDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
+    [gameAsDict setValue:team.cloudId forKey:kTeamIdKey];
     [CloudClient upload: gameAsDict relativeUrl: @"/rest/mobile/game" error: &error];
     if (!error) {
-        [UploadDownloadTracker updateLastUploadOrDownloadTime:lastSaveGMT forGameId:gameId inTeamId:teamId];
+        [UploadDownloadTracker updateLastUploadOrDownloadTime:game.lastSaveGMT forGameId:game.gameId inTeamId:team.teamId];
     }
     *uploadError = error;
 }

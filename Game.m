@@ -24,6 +24,7 @@
 #import "PlayerSubstitution.h"
 #import "TimeoutDetails.h"
 #import "GameDescription.h"
+#import "GameAutoUploader.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -367,6 +368,13 @@ static Game* currentGame = nil;
             }
 		}
 	}
+}
+
+-(void)saveWithUpload {
+    [self save];
+    if ([Preferences getCurrentPreferences].gameAutoUpload) {
+        [[GameAutoUploader sharedUploader] submitGameForUpload:self ofTeam:[Team getCurrentTeam]];
+    }
 }
 
 -(void)save {

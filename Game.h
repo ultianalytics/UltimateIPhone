@@ -47,6 +47,7 @@
 // CRUD
 +(Game*)readGame: (NSString*) gameId;
 +(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId;
++(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId mergePlayersWithCurrentTeam: (BOOL)mergePlayers;
 +(NSArray*)retrieveGameDescriptionsForCurrentTeam;
 +(NSArray*)getAllGameFileNames: (NSString*) teamId;
 +(NSString*)getFilePath: (NSString*) gameId team: (NSString *) teamId;

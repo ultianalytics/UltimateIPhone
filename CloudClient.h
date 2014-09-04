@@ -26,12 +26,12 @@ typedef enum {
 +(void) signOff;
 +(void) uploadTeam: (Team*) team error:(NSError**) error;
 +(void) uploadTeam: (Team*) team withGames: (NSArray*) gameIds error:(NSError**) error;
++(void) uploadGame: (NSString*)gameId forTeam: (NSString*)teamId error:(NSError**) uploadError;
 +(NSString*) getWebsiteURL: (Team*) team;
 +(NSArray*) getTeams: (NSError**) error; 
 +(NSString*) downloadTeam: (NSString*) cloudId error: (NSError**) error; 
 +(NSArray*) getGameDescriptions: (NSString*) teamcloudId error: (NSError**) error; 
 +(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId error: (NSError**) error;
-+(void) uploadGameId: (NSString*) gameId withGameJson: (NSMutableDictionary*) gameAsDict forTeamId: (NSString*) teamId withCloudId: (NSString*) cloudId lastSaveGmt: (NSTimeInterval) lastSaveGMT error:(NSError**) uploadError;
 +(NSString*) getBaseUrl;
 +(NSString*) getBaseWebUrl;
 +(BOOL)isConnected;

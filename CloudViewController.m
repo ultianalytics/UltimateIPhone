@@ -21,6 +21,8 @@
 #import "AppDelegate.h"
 #import "RequestContext.h"
 #import "UIView+Toast.h"
+#import "UIScrollView+Utilities.h"
+#import "UIView+Convenience.h"
 
 
 #define kNoInternetMessage @"We were unable to access the internet."
@@ -385,6 +387,8 @@
 }
 
 -(void)styleView {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.cloudTableView adjustInsetForTabBar];
     self.busyDisplay.layer.cornerRadius = 8.0;
 }
 
@@ -456,7 +460,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self styleView];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)
@@ -467,6 +470,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.cloudTableView.tableHeaderView = self.headerView;
     self.title = NSLocalizedString(@"Website", @"Website");
     [self populateViewFromModel];
     if  (teamDownloadController && teamDownloadController.selectedTeam) {

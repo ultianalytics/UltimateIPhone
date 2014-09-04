@@ -22,6 +22,7 @@
 }
 
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;
+@property (strong, nonatomic) IBOutlet UIView *headerView;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell* userCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* autoUploadCell;

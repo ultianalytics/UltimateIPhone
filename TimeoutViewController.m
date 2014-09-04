@@ -130,7 +130,7 @@
 -(void)saveTimeoutDetails {
     self.game.timeoutDetails = self.timeoutDetails;
     if ([self.game hasBeenSaved]) {
-        [self.game save];
+        [self.game saveWithUpload];
     }
 }
 

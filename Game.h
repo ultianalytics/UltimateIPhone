@@ -54,6 +54,7 @@
 +(NSString*)generateUniqueFileName;
 +(void)deleteAllGamesForTeam: (NSString*) teamId;
 -(void)save;
+-(void)saveWithUpload;
 -(BOOL)hasBeenSaved;
 -(void)delete;
 

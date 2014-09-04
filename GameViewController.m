@@ -140,7 +140,7 @@
     [[Game getCurrentGame] addEvent: event];  
     [self updateEventViews];
     [self refreshTitle: event];
-    [[Game getCurrentGame] save]; 
+    [self saveGame];
     if ([event causesOffenseDefenseChange]) {
         self.isOffense = [[Game getCurrentGame] arePlayingOffense];
         if ([event isGoal] && [self shouldPublishScoresToLeaguevine]) {
@@ -367,6 +367,10 @@
     return lastEventBefore;
 }
 
+-(void)saveGame {
+    [[Game getCurrentGame] saveWithUpload];
+}
+
 #pragma mark ActionListener
 
 - (void) action: (Action) action targetPlayer: (Player*) player fromView: (PlayerView*) view {
@@ -478,7 +482,7 @@
     [self updateEventViews];
     Event* lastEventAfter = [[Game getCurrentGame] getLastEvent];
     [self refreshTitle: lastEventBefore];
-    [[Game getCurrentGame] save];
+    [self saveGame];
     if ([lastEventBefore causesOffenseDefenseChange]) {
         self.isOffense = [[Game getCurrentGame] arePlayingOffense];
         if ([lastEventAfter causesLineChange]) {
@@ -913,7 +917,7 @@
         if (buttonIndex == 1) { // confirmed game over
             if ([[Game getCurrentGame] isTimeBasedEnd]) {
                 [[Game getCurrentGame] addEvent: [self createNextPeriodEndEvent]];
-                [[Game getCurrentGame] save];
+                    [self saveGame];
             }
             [[Tweeter getCurrent] tweetGameOver: [Game getCurrentGame]];
             if ([self shouldPublishToLeaguevine]) {

@@ -102,7 +102,7 @@
     }
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (self.eventHasBeenMoved) {
-            [self.game save];
+            [self.game saveWithUpload];
         // we weren't moving an event consider a short drag a tap
         } else if ([self distanceBetweenPoint:dragPoint andPoint:self.initialDragPoint] < 20) {
             [self handleTap:dragPoint isOB:NO];

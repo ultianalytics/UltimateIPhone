@@ -83,7 +83,7 @@
     changeController.playersInPoint = point.line;
     NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
     changeController.completion = ^{
-        [self.game save];
+        [self.game saveWithUpload];
         [self.eventTableView reloadData];
         [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
     };

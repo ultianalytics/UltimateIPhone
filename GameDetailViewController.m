@@ -264,7 +264,7 @@
     if ([self verifyOpponentName]) {
         self.game.startDateTime = [NSDate date];
         self.game.tournamentName = [self.tournamentNameField.text trim];
-        [self.game save];
+        [self.game saveWithUpload];
         [Game setCurrentGame:self.game.gameId];
         self.game = [Game getCurrentGame];
         [self upateViewTitle];

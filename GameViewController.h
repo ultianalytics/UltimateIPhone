@@ -32,5 +32,4 @@
 
 -(void) addEvent: (Event*) event;
 
-
 @end

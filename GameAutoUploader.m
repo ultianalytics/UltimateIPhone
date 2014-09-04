@@ -65,7 +65,7 @@
         gameUpload.gameLastUpdateGMT = game.lastSaveGMT;
         NSAssert(gameUpload.teamId != nil, @"team id required");
         NSAssert(gameUpload.gameId != nil, @"game data required");
-        NSAssert(gameUpload.gameLastUpdateGMT == 0, @"game last update time needed for auto game upload");
+        NSAssert(gameUpload.gameLastUpdateGMT != 0, @"game last update time needed for auto game upload");
         self.nextGameToUpload = gameUpload;
         [self save];
         [self scheduleNextUpload];
@@ -75,14 +75,17 @@
 #pragma mark - Async Uploading
 
 -(void)sendUploadToServer: (GameUpload*) gameUpload {
+    self.lastUploadTime = [NSDate timeIntervalSinceReferenceDate];
     if (gameUpload) {
         // this should be run on background background thread
         NSError* uploadError = nil;
         [CloudClient uploadGame:gameUpload.gameId forTeam:gameUpload.teamId error:&uploadError];
         if (uploadError) {
+            [self uploadFinished:nil];
             // log error
             // too many errors in a row?  turn off auto uploading
             // send a notification of error
+            
         } else {
             [self uploadFinished:gameUpload];
         }
@@ -91,6 +94,7 @@
 
 -(void)uploadFinished: (GameUpload*) gameUpload {
     @synchronized (self) {
+        self.lastUploadTime = [NSDate timeIntervalSinceReferenceDate];
         // if this game version was the last submitted upload then stop
         if ([self.nextGameToUpload isEqual:gameUpload]) {
             self.nextGameToUpload = nil;

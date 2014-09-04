@@ -20,7 +20,7 @@
 #define kLastUploadTimeKey      @"lastUpdloadTime"
 #define kNextGameToUploadKey    @"nextGame"
 
-#define kUploadIntervalSeconds 60
+#define kUploadIntervalSeconds 30
 
 @interface GameUpload : NSObject
 
@@ -34,7 +34,7 @@
 
 @property (nonatomic, strong) GameUpload* nextGameToUpload;
 @property (nonatomic) NSTimeInterval lastUploadTime;
-@property (nonatomic) BOOL isNextUploadScheduled;  // transient...default is false
+@property (nonatomic) BOOL isNextUploadScheduledOrInProgress;  // transient...default is false
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundUploadTaskIdentifier;
 @property (nonatomic) BOOL errorsOnLastUpload;
 
@@ -80,9 +80,9 @@
 -(void)flush {
     @synchronized (self) {
         if ([self isAutoUploading]) {
-            [[self class] cancelPreviousPerformRequestsWithTarget:self selector: @selector(performScheduledUpload) object:nil];
+            [[self class] cancelPreviousPerformRequestsWithTarget:self selector: @selector(upload) object:nil];
             self.lastUploadTime = 0;
-            self.isNextUploadScheduled = NO;
+            self.isNextUploadScheduledOrInProgress = NO;
             [self scheduleNextUpload];
         }
     }
@@ -95,24 +95,21 @@
 #pragma mark - Async Uploading
 
 -(void)sendUploadToServer: (GameUpload*) gameUpload {
+    // intended to be run on background background thread
     self.lastUploadTime = [NSDate timeIntervalSinceReferenceDate];
+    GameUpload* finishedGameUpload = nil;
     if (gameUpload) {
-        // this should be run on background background thread
         NSError* uploadError = nil;
         [CloudClient uploadGame:gameUpload.gameId forTeam:gameUpload.teamId error:&uploadError];
-        if (uploadError) {
-            self.errorsOnLastUpload = YES;
-            [self uploadFinished:nil];
-
-        } else {
-            self.errorsOnLastUpload = NO;
-            [self uploadFinished:gameUpload];
-        }
+        self.errorsOnLastUpload = uploadError != nil;
+        finishedGameUpload = uploadError ? nil : gameUpload;
     }
+    [self performSelectorOnMainThread:@selector(uploadFinished:) withObject:finishedGameUpload waitUntilDone:NO];
 }
 
 -(void)uploadFinished: (GameUpload*) gameUpload {
     @synchronized (self) {
+        self.isNextUploadScheduledOrInProgress = NO;
         self.lastUploadTime = [NSDate timeIntervalSinceReferenceDate];
         // if this game version was the last submitted upload then stop
         if ([self.nextGameToUpload isEqual:gameUpload]) {
@@ -127,19 +124,12 @@
 -(void)scheduleNextUpload {
     @synchronized (self) {
         // only schedule the next round if we haven't alredy done so AND there is a game to upload
-        if (!self.isNextUploadScheduled && self.nextGameToUpload) {
+        if (!self.isNextUploadScheduledOrInProgress && self.nextGameToUpload) {
             NSTimeInterval secondsSinceLastUpdate = MAX(0, [NSDate timeIntervalSinceReferenceDate] - self.lastUploadTime);
             NSTimeInterval delay = MAX(0, kUploadIntervalSeconds - secondsSinceLastUpdate);
-            self.isNextUploadScheduled = YES;
-           [self performSelector:@selector(performScheduledUpload) withObject:nil afterDelay:delay];
+            self.isNextUploadScheduledOrInProgress = YES;
+           [self performSelector:@selector(upload) withObject:nil afterDelay:delay];
         }
-    }
-}
-
--(void)performScheduledUpload {
-    @synchronized (self) {
-        self.isNextUploadScheduled = NO;
-        [self upload];
     }
 }
 

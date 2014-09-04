@@ -11,8 +11,11 @@
 
 @interface GameAutoUploader : NSObject
 
+@property (nonatomic, readonly) BOOL errorsOnLastUpload;
+
 + (GameAutoUploader*)sharedUploader;
 
+-(BOOL)isAutoUploading;
 -(void)submitGameForUpload: (Game*) game ofTeam:(Team*)team;
 -(void)flush;
 

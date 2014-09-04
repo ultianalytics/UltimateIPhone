@@ -36,6 +36,7 @@
 #import "LeaguevineEventQueue.h"
 #import "LeaguevinePostingLog.h"
 #import "UIView+Convenience.h"
+#import "GameAutoUploader.h"
 
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
@@ -45,6 +46,7 @@
 #define kLeaguevineCredentialsRejected @"Leaguevine Signon Needed"
 #define kLeaguevineGameInvalid @"Leaguevine Game Not Valid"
 #define kLeaguevineError @"Error Posting To Leaguevine"
+#define kAutoUploadErrorTitle @"Upload Errors"
 
 #define kIsNotFirstGameViewUsage @"IsNotFirstGameViewUsage"
 #define kHasUserSeenDeLongPressCallout @"HasUserSeenDeLongPressCallout"
@@ -158,6 +160,9 @@
     [self updateViewFromGame:[Game getCurrentGame]];
     [self notifyLeaguevineOfNewEvent:event];
     [self eventsUpdated];
+    if ([event isGoal]) {
+        [self warnAboutAutoGameUploadIfErrors];
+    }
 }
 
 -(void) addEventProperties: (Event*) event {
@@ -1076,6 +1081,23 @@
         // move the callouts off the screen and then animate their return.
         [self.infoCalloutsView slide: YES animated: NO];
         [self.infoCalloutsView slide: NO animated: YES];
+    }
+}
+
+
+#pragma mark - Game Auto Upload
+
+- (void) warnAboutAutoGameUploadIfErrors {
+    if ([[GameAutoUploader sharedUploader] isAutoUploading] && [GameAutoUploader sharedUploader].errorsOnLastUpload) {
+
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: kAutoUploadErrorTitle
+                              message: [NSString stringWithFormat: @"Game Upload is set to \"Auto\" but we are receiving errors when attempting to upload the game.\nPlease check your network connectivity and/or toggle the Game Upload setting (Website tab)."]
+                              delegate: nil
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
+
     }
 }
 

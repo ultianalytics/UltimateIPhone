@@ -36,6 +36,7 @@
 @property (nonatomic) NSTimeInterval lastUploadTime;
 @property (nonatomic) BOOL isNextUploadScheduled;  // transient...default is false
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundUploadTaskIdentifier;
+@property (nonatomic) BOOL errorsOnLastUpload;
 
 @end
 
@@ -61,7 +62,7 @@
 // OK to call this on the main thread: this method just pulls the meta info from the game and queues the real work for the next update cycle which happens on a background thread
 -(void)submitGameForUpload: (Game*) game ofTeam:(Team*)team {
     @synchronized (self) {
-        if ([Preferences getCurrentPreferences].gameAutoUpload) {
+        if ([self isAutoUploading]) {
             GameUpload* gameUpload = [[GameUpload alloc] init];
             gameUpload.gameId = game.gameId;
             gameUpload.teamId = team.teamId;
@@ -78,13 +79,17 @@
 
 -(void)flush {
     @synchronized (self) {
-        if ([Preferences getCurrentPreferences].gameAutoUpload) {
+        if ([self isAutoUploading]) {
             [[self class] cancelPreviousPerformRequestsWithTarget:self selector: @selector(performScheduledUpload) object:nil];
             self.lastUploadTime = 0;
             self.isNextUploadScheduled = NO;
             [self scheduleNextUpload];
         }
     }
+}
+
+-(BOOL)isAutoUploading {
+    return [Preferences getCurrentPreferences].gameAutoUpload;
 }
 
 #pragma mark - Async Uploading
@@ -96,12 +101,11 @@
         NSError* uploadError = nil;
         [CloudClient uploadGame:gameUpload.gameId forTeam:gameUpload.teamId error:&uploadError];
         if (uploadError) {
+            self.errorsOnLastUpload = YES;
             [self uploadFinished:nil];
-            // log error
-            // too many errors in a row?  turn off auto uploading
-            // send a notification of error
-            
+
         } else {
+            self.errorsOnLastUpload = NO;
             [self uploadFinished:gameUpload];
         }
     }

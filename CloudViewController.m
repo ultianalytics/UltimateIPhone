@@ -5,6 +5,7 @@
 //  Copyright (c) 2012 Summit Hill Software. All rights reserved.
 //
 #import "CloudViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "CloudClient.h"
@@ -19,7 +20,8 @@
 #import "CalloutView.h"
 #import "AppDelegate.h"
 #import "RequestContext.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UIView+Toast.h"
+
 
 #define kNoInternetMessage @"We were unable to access the internet."
 #define kButtonFont [UIFont boldSystemFontOfSize: 15]
@@ -339,6 +341,11 @@
         }
     } else {
         [self goGameAutoUploadConfirmed];
+        [self.view makeToast:@"Game data will now be\nperiodically uploaded to\nthe website as you\nrecord actions."
+                        duration:3.0
+                        position:@"center"
+                        title:@"Auto Uploading Started"
+                        image:[UIImage imageNamed:@"broadcasting"]];
     }
 }
 
@@ -449,6 +456,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self styleView];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)

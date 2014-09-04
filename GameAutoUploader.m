@@ -10,6 +10,7 @@
 #import "Game.h"
 #import "Team.h"
 #import "CloudClient.h"
+#import "Preferences.h"
 
 #define kAutoLoaderFileName     @"autoloader.dat"
 #define kAutoLoaderKey          @"autoloader"
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) GameUpload* nextGameToUpload;
 @property (nonatomic) NSTimeInterval lastUploadTime;
 @property (nonatomic) BOOL isNextUploadScheduled;  // transient...default is false
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundUploadTaskIdentifier;
 
 @end
 
@@ -56,19 +58,32 @@
     return sharedGameAutoUploader;
 }
 
+// OK to call this on the main thread: this method just pulls the meta info from the game and queues the real work for the next update cycle which happens on a background thread
 -(void)submitGameForUpload: (Game*) game ofTeam:(Team*)team {
     @synchronized (self) {
-        // OK to be on the main thread...just pulls the data from the game and queues the request for the next update cycle
-        GameUpload* gameUpload = [[GameUpload alloc] init];
-        gameUpload.gameId = game.gameId;
-        gameUpload.teamId = team.teamId;
-        gameUpload.gameLastUpdateGMT = game.lastSaveGMT;
-        NSAssert(gameUpload.teamId != nil, @"team id required");
-        NSAssert(gameUpload.gameId != nil, @"game data required");
-        NSAssert(gameUpload.gameLastUpdateGMT != 0, @"game last update time needed for auto game upload");
-        self.nextGameToUpload = gameUpload;
-        [self save];
-        [self scheduleNextUpload];
+        if ([Preferences getCurrentPreferences].gameAutoUpload) {
+            GameUpload* gameUpload = [[GameUpload alloc] init];
+            gameUpload.gameId = game.gameId;
+            gameUpload.teamId = team.teamId;
+            gameUpload.gameLastUpdateGMT = game.lastSaveGMT;
+            NSAssert(gameUpload.teamId != nil, @"team id required");
+            NSAssert(gameUpload.gameId != nil, @"game data required");
+            NSAssert(gameUpload.gameLastUpdateGMT != 0, @"game last update time needed for auto game upload");
+            self.nextGameToUpload = gameUpload;
+            [self save];
+            [self scheduleNextUpload];
+        }
+    }
+}
+
+-(void)flush {
+    @synchronized (self) {
+        if ([Preferences getCurrentPreferences].gameAutoUpload) {
+            [[self class] cancelPreviousPerformRequestsWithTarget:self selector: @selector(performScheduledUpload) object:nil];
+            self.lastUploadTime = 0;
+            self.isNextUploadScheduled = NO;
+            [self scheduleNextUpload];
+        }
     }
 }
 
@@ -131,11 +146,25 @@
             __typeof(self) __weak weakSelf = self;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 @autoreleasepool {
+                    [weakSelf beginBackgroundUploadTask];
                     [weakSelf sendUploadToServer:nextUpload];
+                    [weakSelf endBackgroundUploadTask];
                 }
             });
         }
     }
+}
+
+- (void) beginBackgroundUploadTask {
+    __typeof(self) __weak weakSelf = self;
+    self.backgroundUploadTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [weakSelf endBackgroundUploadTask];
+    }];
+}
+
+- (void) endBackgroundUploadTask {
+    [[UIApplication sharedApplication] endBackgroundTask: self.backgroundUploadTaskIdentifier];
+    self.backgroundUploadTaskIdentifier = UIBackgroundTaskInvalid;
 }
 
 #pragma mark - Persistence

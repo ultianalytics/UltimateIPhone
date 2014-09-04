@@ -14,5 +14,6 @@
 + (GameAutoUploader*)sharedUploader;
 
 -(void)submitGameForUpload: (Game*) game ofTeam:(Team*)team;
+-(void)flush;
 
 @end

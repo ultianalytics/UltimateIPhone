@@ -119,6 +119,11 @@
     [Preferences getCurrentPreferences].gameAutoUpload = YES;
     [[Preferences getCurrentPreferences] save];
     [self populateViewFromModel];
+    [self.view makeToast:@"Game data will now be\nperiodically uploaded to\nthe website as you\nrecord actions."
+                    duration:3.0
+                    position:@"center"
+                    title:@"Auto Uploading Started"
+                    image:[UIImage imageNamed:@"broadcasting"]];
 }
 
 #pragma mark - Upload Team/Games
@@ -343,11 +348,6 @@
         }
     } else {
         [self goGameAutoUploadConfirmed];
-        [self.view makeToast:@"Game data will now be\nperiodically uploaded to\nthe website as you\nrecord actions."
-                        duration:3.0
-                        position:@"center"
-                        title:@"Auto Uploading Started"
-                        image:[UIImage imageNamed:@"broadcasting"]];
     }
 }
 

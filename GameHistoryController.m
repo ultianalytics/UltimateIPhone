@@ -80,7 +80,7 @@
     EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
     changeController.event = event;
     changeController.pointDescription = [self.game getPointNameAtMostRecentIndex:(int)[indexPath section]];
-    changeController.playersInPoint = point.line;
+    changeController.playersInPoint = point.line ? point.line : [self.game currentLineSorted];
     NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
     changeController.completion = ^{
         [self.game saveWithUpload];

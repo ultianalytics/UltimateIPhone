@@ -184,7 +184,9 @@
 
 - (IBAction)eventActionChanged:(id)sender {
     self.eventTypeDescriptionLabel.text = @"Foo";
-    if ([self.event isOffense]) {
+    if ([self.event isOpponentPull]) {
+        self.event.action = self.eventActionSegmentedControl.selectedSegmentIndex == 1 ? OpponentPullOb : OpponentPull;
+    } else if ([self.event isOffense]) {
         // offense turnover
         switch (self.eventActionSegmentedControl.selectedSegmentIndex)
         {
@@ -305,6 +307,29 @@
 
     if ([self.event isOffense]) {
         switch (self.event.action) {
+            case PickupDisc: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Pickup Disc";
+                break;
+            }
+            case PullBegin: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Opponent Pull Begin";
+                self.player1TableView.hidden = YES;
+                break;
+            }
+            case OpponentPull: {
+                self.eventTypeDescriptionLabel.text = @"Opponent Pull";
+                self.player1TableView.hidden = YES;
+                [self configureActionControlFor:@[@"In Bounds", @"OB"] initial: initial ? @"In Bounds" : nil];
+                break;
+            }
+            case OpponentPullOb: {
+                self.eventTypeDescriptionLabel.text = @"Opponent Pull";
+                self.player1TableView.hidden = YES;
+                [self configureActionControlFor:@[@"In Bounds", @"OB"] initial: initial ? @"OB" : nil];
+                break;
+            }
             case Catch: {
                 self.eventActionSegmentedControl.hidden = YES;
                 self.eventTypeDescriptionLabel.text = @"Catch";
@@ -364,6 +389,23 @@
     } else if ([self.event isDefense]) {
         [self movePlayer1TableToCenter:YES animate:NO];
         switch (self.event.action) {
+            case OpponentCatch: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Opponent Catch";
+                self.player1TableView.hidden = YES;
+                break;
+            }
+            case PickupDisc: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Opponent Pickup Disc";
+                self.player1TableView.hidden = YES;
+                break;
+            }
+            case PullBegin: {
+                self.eventActionSegmentedControl.hidden = YES;
+                self.eventTypeDescriptionLabel.text = @"Pull Begin";
+                break;
+            }
             case Pull: {
                 self.eventTypeDescriptionLabel.text = @"Pull";
                 self.textFieldLabel.text = @"Hang Time:";

@@ -120,7 +120,7 @@
     [[Preferences getCurrentPreferences] save];
     [self populateViewFromModel];
     [self.view makeToast:@"Game data will now be\nperiodically uploaded to\nthe website as you\nrecord actions."
-                    duration:3.0
+                    duration:5.0
                     position:@"center"
                     title:@"Auto Uploading Started"
                     image:[UIImage imageNamed:@"broadcasting"]];

@@ -45,7 +45,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     int numberOfPoints = [self.game getNumberOfPoints];
-    if (numberOfPoints == 0 && self.game.positionalPickupEvent) {
+    if (numberOfPoints == 0 && self.game.positionalBeginEvent) {
         numberOfPoints++;
     }
     return numberOfPoints;
@@ -53,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     int number = [[self.game getPointAtMostRecentIndex:(int)section] getNumberOfEvents];
-    if ((section == 0) && self.game.positionalPickupEvent) {
+    if ((section == 0) && self.game.positionalBeginEvent) {
         number++;
     }
     return number;
@@ -232,10 +232,10 @@
 
 -(Event*)getEventForIndex: (NSIndexPath *)indexPath {
     UPoint* point = [self.game getPointAtMostRecentIndex:indexPath.section];
-    if ((indexPath.section == 0) && self.game.positionalPickupEvent) {
+    if ((indexPath.section == 0) && self.game.positionalBeginEvent) {
         // first row is the begin (pickup or pull start) event...others are normal events
         if (indexPath.row == 0) {
-            return self.game.positionalPickupEvent;
+            return self.game.positionalBeginEvent;
         } else {
             return [point getEventAtMostRecentIndex:indexPath.row - 1];
         }
@@ -245,7 +245,7 @@
 }
 
 -(BOOL)hasEvents {
-    return[[Game getCurrentGame] hasEvents] || [Game getCurrentGame].positionalPickupEvent;
+    return[[Game getCurrentGame] hasEvents] || [Game getCurrentGame].positionalBeginEvent;
 }
 
 @end

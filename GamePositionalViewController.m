@@ -92,15 +92,15 @@
 }
 
 -(Event*)removeLastEvent {
-    if (self.game.positionalPickupEvent) {
-        Event* lastEventForRemoval =  self.game.positionalPickupEvent;
-        self.game.positionalPickupEvent = nil;
+    if (self.game.positionalBeginEvent) {
+        Event* lastEventForRemoval =  self.game.positionalBeginEvent;
+        self.game.positionalBeginEvent = nil;
         return lastEventForRemoval;
     } else {
         Event* lastEventForRemoval = [[Game getCurrentGame] getLastEvent];
         [[Game getCurrentGame] removeLastEvent];
         if (lastEventForRemoval.beginPosition) {
-            self.game.positionalPickupEvent = [lastEventForRemoval asBeginEvent];
+            self.game.positionalBeginEvent = [lastEventForRemoval asBeginEvent];
         }
         return lastEventForRemoval;
     }
@@ -138,7 +138,7 @@
 }
 
 - (void)updateActionViewForSelectedPasser {
-    Player* playerToSelect = self.game.positionalPickupEvent.playerOne;
+    Player* playerToSelect = self.game.positionalBeginEvent.playerOne;
     if (!playerToSelect) {
         Event* lastEvent = [self.game getLastEvent];
         if (lastEvent.isOffense) {
@@ -271,28 +271,28 @@
             }
         }
     } else {
-        if ([self.game.positionalPickupEvent isPullBegin]) {
+        if ([self.game.positionalBeginEvent isPullBegin]) {
             Event* pullEvent;
-            if ([self.game.positionalPickupEvent isDefense]) {
-                pullEvent = [[DefenseEvent alloc] initDefender:self.game.positionalPickupEvent.playerOne action:isOutOfBounds ? PullOb : Pull];
+            if ([self.game.positionalBeginEvent isDefense]) {
+                pullEvent = [[DefenseEvent alloc] initDefender:self.game.positionalBeginEvent.playerOne action:isOutOfBounds ? PullOb : Pull];
             } else {
                 pullEvent = [[OffenseEvent alloc] initOpponentPull:isOutOfBounds ? OpponentPullOb : OpponentPull];
             }
             pullEvent.position = position;
-            pullEvent.beginPosition = self.game.positionalPickupEvent.position;
+            pullEvent.beginPosition = self.game.positionalBeginEvent.position;
             [self addEvent:pullEvent];
             return NO;  // do not show potential event
         } else if (isOutOfBounds) {
-            if (self.game.positionalPickupEvent) {
+            if (self.game.positionalBeginEvent) {
                 // out of bounds after a pickup...throwaway
                 Event* throwawayEvent;
-                if ([self.game.positionalPickupEvent isDefense]) {
-                    throwawayEvent = [[DefenseEvent alloc] initDefender:self.game.positionalPickupEvent.playerOne action:Throwaway];
+                if ([self.game.positionalBeginEvent isDefense]) {
+                    throwawayEvent = [[DefenseEvent alloc] initDefender:self.game.positionalBeginEvent.playerOne action:Throwaway];
                 } else {
-                    throwawayEvent = [[OffenseEvent alloc] initPasser:self.game.positionalPickupEvent.playerOne action:Throwaway];
+                    throwawayEvent = [[OffenseEvent alloc] initPasser:self.game.positionalBeginEvent.playerOne action:Throwaway];
                 }
                 throwawayEvent.position = position;
-                throwawayEvent.beginPosition = self.game.positionalPickupEvent.position;
+                throwawayEvent.beginPosition = self.game.positionalBeginEvent.position;
                 [self addEvent:throwawayEvent];
                 return NO;  // do not show potential event
             } else if ([[self.game getLastEvent] isCatchOrOpponentCatch]) {
@@ -334,10 +334,10 @@
 };
             
 -(void)handlePullLandingChosen: (Action) action {
-    Player* player = self.game.positionalPickupEvent.playerOne;
+    Player* player = self.game.positionalBeginEvent.playerOne;
     if (action != None) {
         Event* pullEvent;
-        if ([self.game.positionalPickupEvent isDefense]) {
+        if ([self.game.positionalBeginEvent isDefense]) {
             pullEvent = [[DefenseEvent alloc] initDefender:player action:action];
         } else {
             Action opponentAction = action == Pull ? OpponentPull : OpponentPullOb;
@@ -389,7 +389,7 @@
     if (!event.position) {
         event.position = self.fieldView.potentialEventPosition;
     }
-    event.beginPosition = self.game.positionalPickupEvent.position;  // only some events will have begin position
+    event.beginPosition = self.game.positionalBeginEvent.position;  // only some events will have begin position
 }
 
 - (BOOL)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
@@ -430,7 +430,7 @@
 }
 
 -(void)updateGameWithBeginEvent:(Event *)event {
-    self.game.positionalPickupEvent = event;
+    self.game.positionalBeginEvent = event;
     [self.eventsViewController refresh];
 }
 

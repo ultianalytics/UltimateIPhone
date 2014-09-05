@@ -42,7 +42,7 @@
 @property (nonatomic, readonly) int periodsComplete;
 @property (nonatomic, readonly) NSTimeInterval lastSaveGMT;
 @property (nonatomic) BOOL isPositional;
-@property (nonatomic, strong) Event* positionalPickupEvent;  // server transient
+@property (nonatomic, strong) Event* positionalBeginEvent;  // server transient
 
 // CRUD
 +(Game*)readGame: (NSString*) gameId;

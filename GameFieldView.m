@@ -155,7 +155,7 @@
 }
 
 -(void)updateMessage {
-    if ([self.game isPointInProgress] || self.game.positionalPickupEvent) {
+    if ([self.game isPointInProgress] || self.game.positionalBeginEvent) {
         self.message = nil;
     } else if ([self.game hasEvents]) {
         self.message = [[NSMutableAttributedString alloc] initWithString:@"Tap the field where the pull will be initiated"];
@@ -359,7 +359,7 @@
 #pragma mark - Event retrieval
 
 -(Event*)getLastPointEvent {
-    Event* pickupEvent = self.game.positionalPickupEvent;
+    Event* pickupEvent = self.game.positionalBeginEvent;
     if (pickupEvent) {
         return pickupEvent;
     } else {
@@ -376,7 +376,7 @@
     }
     
     // if the game has a pickup event then the previous is actually the last event
-    if (self.game.positionalPickupEvent) {
+    if (self.game.positionalBeginEvent) {
         return [self.game getInProgressPointLastEvent];
     }
     

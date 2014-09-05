@@ -9,13 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
 
+@protocol GameHistoryControllerDelegate <NSObject>
+
+- (void) eventHistoryUndoRequested;
+- (void) eventHistoryUpdated;
+
+@end
+
 @class Game;
 
 @interface GameHistoryController : UltimateViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) Game* game;
 @property (nonatomic) BOOL isCurlAnimation;
 @property (nonatomic) BOOL embeddedMode;
-@property (strong, nonatomic) void (^embeddedUndoTappedBlock)();
+@property (nonatomic, weak) id<GameHistoryControllerDelegate> delegate;
 
 -(void)refresh;
 -(void)adjustInsetForTabBar;

@@ -52,7 +52,7 @@
 #define kHasUserSeenDeLongPressCallout @"HasUserSeenDeLongPressCallout"
 #define kHasUserSeenThrowawayLongPressCallout @"HasUserSeenThrowawayLongPressCallout"
 
-@interface GameViewController()
+@interface GameViewController() <GameHistoryControllerDelegate>
 
 @property (nonatomic) BOOL isOffense;
 
@@ -346,11 +346,8 @@
 -(GameHistoryController*)createEventsViewController {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GameHistoryController" bundle:nil];
     GameHistoryController* historyController = [storyboard instantiateInitialViewController];
-    __typeof(self) __weak weakSelf = self;
+    historyController.delegate = self;
     historyController.game = [Game getCurrentGame];
-    historyController.embeddedUndoTappedBlock = ^{
-        [weakSelf removeEventClicked: nil];
-    };
     return historyController;
 }
 
@@ -1099,6 +1096,16 @@
         [alert show];
 
     }
+}
+
+#pragma mark - GameHistoryControllerDelegate
+
+- (void) eventHistoryUndoRequested {
+    [self removeEventClicked: nil];
+}
+
+- (void) eventHistoryUpdated {
+    [self eventsUpdated];
 }
 
 #pragma mark - Subclass support

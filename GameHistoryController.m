@@ -82,6 +82,7 @@
         [self.game saveWithUpload];
         [self.eventTableView reloadData];
         [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        [self.delegate eventHistoryUpdated];
     };
     
     if (self.embeddedMode) {
@@ -256,9 +257,7 @@
 #pragma mark - Cell delegate
 
 -(void)undoButtonTapped {
-    if (self.embeddedUndoTappedBlock) {
-        self.embeddedUndoTappedBlock();
-    }
+    [self.delegate eventHistoryUndoRequested];
 }
 
 #pragma mark - Miscellaneous

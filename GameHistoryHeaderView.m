@@ -57,6 +57,28 @@
 
 }
 
+-(void)setInfoForGame: (Game*)game point: (UPoint*) point withName: (NSString*) pointName isOline: (BOOL) isOline {
+    PointSummary* summary = point.summary;
+    
+    BOOL isCurrentPoint = [pointName isEqualToString:@"Current"];
+    
+    if (isCurrentPoint) {
+        self.pointLabel.text =  @"Current Point" ;
+        self.pointLabel.font = [UIFont boldSystemFontOfSize:14];
+    } else {
+        self.pointLabel.text = [NSString stringWithFormat: @"%@ %@", pointName, summary.score.ours > summary.score.theirs ? @"(us)" : summary.score.ours < summary.score.theirs ? @"(them)" : @""];
+    }
+    
+    if ([point.line count] > 0) {
+        if ([game isTimeBasedEnd] && [point isPeriodEnd] && [[point events] count] == 1) {
+            self.playersLabel.text = @"";
+        } else {
+            self.playersLabel.text = [NSString stringWithFormat:@"%@: %@", isOline ? @"O-line" : @"D-line", [self playersText: point]];
+        }
+    }
+    
+}
+
 -(NSString*)playersText: (UPoint*)point {
     NSMutableSet* allPlayerNames = [NSMutableSet setWithArray:[point.line valueForKeyPath: @"name"]];
     for (PlayerSubstitution* substitution in point.substitutions) {

@@ -44,16 +44,12 @@
 #pragma mark Table delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    int numberOfPoints = [self.game getNumberOfPoints];
-    if (numberOfPoints == 0 && self.game.positionalBeginEvent) {
-        numberOfPoints++;
-    }
-    return numberOfPoints;
+    return [self getNumberOfGamePoints];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    int number = [[self.game getPointAtMostRecentIndex:(int)section] getNumberOfEvents];
-    if ((section == 0) && self.game.positionalBeginEvent) {
+    int number = [[self getGamePointAtMostRecentIndex:(int)section] getNumberOfEvents];
+    if ((section == 0) && [self.game.positionalBeginEvent isPickupDisc]) {
         number++;
     }
     return number;
@@ -74,7 +70,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UPoint* point = [self.game getPointAtMostRecentIndex:indexPath.section];
+    UPoint* point = [self getGamePointAtMostRecentIndex:indexPath.section];
     Event* event = [self getEventForIndex:indexPath];
     
     EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
@@ -100,8 +96,25 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     GameHistoryHeaderView* header = [self createHeader];
+    
+    UPoint* point = [self getGamePointAtMostRecentIndex:(int)section];
 
-    [header setInfoForGame: self.game section: section];
+    NSString* pointName = @"";
+    BOOL isOline = false;
+    if ([self.game.positionalBeginEvent isPullBegin]) {
+        if (section == 0) {
+            pointName = @"Current";
+            isOline = [self.game.positionalBeginEvent isOffense];
+        } else {
+            pointName = [game getPointNameAtMostRecentIndex:section - 1];
+            isOline = [game isPointOline: point];
+        }
+    } else {
+        pointName = [game getPointNameAtMostRecentIndex:(int)section];
+        isOline = [game isPointOline: point];
+    }
+
+    [header setInfoForGame:self.game point:point withName:pointName isOline:isOline];
     
     return header;
 }
@@ -195,6 +208,51 @@
     }
 }
 
+#pragma mark - Point/Event Lookups
+
+-(UPoint*)getGamePointAtMostRecentIndex: (int) index {
+    // if there is a beginPull then we have a "pseudo" point to hold it
+    if ([self.game.positionalBeginEvent isPullBegin]) {
+        if (index == 0) {
+            UPoint* fakePoint = [[UPoint alloc] init];
+            [fakePoint addEvent:self.game.positionalBeginEvent];
+            fakePoint.line = [self.game currentLineSorted];
+            return fakePoint;
+        } else {
+            return [self.game getPointAtMostRecentIndex:index - 1];
+        }
+    } else {
+        return [self.game getPointAtMostRecentIndex:index];
+    }
+}
+
+-(int)getNumberOfGamePoints {
+    int numberOfPoints = [self.game getNumberOfPoints];
+    // if there is a beginPull then we have a "pseudo" point to hold it
+    if ([self.game.positionalBeginEvent isPullBegin]) {
+        numberOfPoints++;
+    }
+    return numberOfPoints;
+}
+
+-(Event*)getEventForIndex: (NSIndexPath *)indexPath {
+    UPoint* point = [self getGamePointAtMostRecentIndex:indexPath.section];
+    if ((indexPath.section == 0) && self.game.positionalBeginEvent) {
+        // first row is the begin (pickup or pull start) event...others are normal events
+        if (indexPath.row == 0) {
+            return self.game.positionalBeginEvent;
+        } else {
+            return [point getEventAtMostRecentIndex:indexPath.row - 1];
+        }
+    } else {
+        return [point getEventAtMostRecentIndex:indexPath.row];
+    }
+}
+
+-(BOOL)hasEvents {
+    return[[Game getCurrentGame] hasEvents] || [Game getCurrentGame].positionalBeginEvent;
+}
+
 #pragma mark - Cell delegate
 
 -(void)undoButtonTapped {
@@ -230,22 +288,5 @@
     [self.eventTableView adjustInsetForTabBar];
 }
 
--(Event*)getEventForIndex: (NSIndexPath *)indexPath {
-    UPoint* point = [self.game getPointAtMostRecentIndex:indexPath.section];
-    if ((indexPath.section == 0) && self.game.positionalBeginEvent) {
-        // first row is the begin (pickup or pull start) event...others are normal events
-        if (indexPath.row == 0) {
-            return self.game.positionalBeginEvent;
-        } else {
-            return [point getEventAtMostRecentIndex:indexPath.row - 1];
-        }
-    } else {
-        return [point getEventAtMostRecentIndex:indexPath.row];
-    }
-}
-
--(BOOL)hasEvents {
-    return[[Game getCurrentGame] hasEvents] || [Game getCurrentGame].positionalBeginEvent;
-}
 
 @end

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Game;
+@class Game, UPoint;
 
 @interface GameHistoryHeaderView : UIView
 
--(void)setInfoForGame: (Game*)game section: (NSInteger)section;
+-(void)setInfoForGame: (Game*)game point: (UPoint*) point withName: (NSString*) pointName isOline: (BOOL) isOline;
 
 @end

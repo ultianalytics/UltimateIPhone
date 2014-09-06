@@ -15,5 +15,6 @@
 
 @property (nonatomic, strong) Game* game;
 @property (nonatomic) BOOL modalMode;
+@property (strong, nonatomic) void (^timeoutsUpdatedBlock)();
 
 @end

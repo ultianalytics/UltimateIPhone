@@ -132,6 +132,9 @@
     if ([self.game hasBeenSaved]) {
         [self.game saveWithUpload];
     }
+    if (self.timeoutsUpdatedBlock) {
+        self.timeoutsUpdatedBlock();
+    }
 }
 
 #pragma Prompting

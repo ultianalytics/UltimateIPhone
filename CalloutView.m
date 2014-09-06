@@ -6,6 +6,7 @@
 //
 
 #import "CalloutView.h"
+#import "ColorMaster.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define radians(x) ((x) * M_PI/180 )
@@ -41,8 +42,8 @@
         self.widthConstraint = width;
         self.degreesFromNorth = degreesFromAnchor < 0 ? 360 - ((degreesFromAnchor * -1) % 360) : degreesFromAnchor;
         self.connectorLength = length;
-        self.calloutColor = [UIColor whiteColor];
-        self.borderColor = [UIColor blackColor];
+        self.calloutColor = [ColorMaster applicationTintColor];
+        self.borderColor = [ColorMaster applicationTintColor];
         self.useShadow = YES;
         self.connectorLineBaseWidth = kConnectorLineBaseWidthDefault;
         
@@ -64,6 +65,7 @@
     if (self.textLabel == nil) {
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.backgroundColor = self.calloutColor;
+        self.textLabel.textColor = [UIColor whiteColor];
         if (fontOverride) {
             self.textLabel.font = fontOverride;
         }

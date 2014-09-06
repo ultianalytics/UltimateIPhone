@@ -108,6 +108,11 @@
 -(CGFloat)boundsHeight {
     return self.bounds.size.height;
 }
+
+-(CGPoint)boundsCenter {
+    return CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+}
+
 -(BOOL)visible {
     return !self.hidden;
 }

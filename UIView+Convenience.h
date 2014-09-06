@@ -20,8 +20,10 @@
 @property (nonatomic) CGFloat boundsY;
 @property (nonatomic) CGFloat boundsHeight;
 @property (nonatomic) CGFloat boundsWidth;
+@property (nonatomic, readonly) CGPoint boundsCenter;
 @property (nonatomic) BOOL visible;
 
 -(CGFloat)distanceBetweenPoint: (CGPoint)p1 andPoint:(CGPoint)p2;
+
 
 @end

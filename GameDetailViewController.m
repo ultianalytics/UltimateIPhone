@@ -29,6 +29,8 @@
 #import "TimeoutViewController.h"
 #import "GameStartTimeViewController.h"
 #import "UIViewController+Additions.h"
+#import "CalloutsContainerView.h"
+#import "UIView+Convenience.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
@@ -40,6 +42,8 @@
 #define kAlertLeaguevineStatsStarting @"Posting Stats to Leaguevine"
 #define kAlertLeaguevineStatsStartingWithGameInProgress @"Warning: Game Started"
 #define kAlertOpeningFinishedGame @"Game Is Over"
+
+#define kIsNotFirstGameStartUsage @"IsNotFirstGameStartUsage"
 
 @interface GameDetailViewController()
 
@@ -74,6 +78,8 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* pubToLeaguevineSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* positionalEventsSegmentedControl;
+
+@property (nonatomic, strong) CalloutsContainerView *calloutsViewContainer;
 
 @end
 
@@ -568,6 +574,13 @@
     [self registerForKeyboardNotifications];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (IS_IPAD && self.isModalAddMode) {
+        [self showPositionalCallout];
+    }
+}
+
 -(void) viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -762,5 +775,25 @@
                           otherButtonTitles: nil];
     [alert show];
 }
+
+#pragma mark Callouts
+
+-(void)showPositionalCallout {
+    if (IS_IPAD && ![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameStartUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kIsNotFirstGameStartUsage];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = [self.positionalEventsSegmentedControl convertPoint:self.positionalEventsSegmentedControl.boundsCenter toView:self.view];
+        [calloutsView addCallout:@"Did you know?\nRecording action with \"Field Position\" can be quite challenging.  However, with this option you can broadcast games online, playback the game visually and get distance data.  Consider first recording a game at \"Normal\" level before attempting this on a live game." anchor: anchor width: 300 degrees: 210 connectorLength: 160 font: [UIFont systemFontOfSize:14]];
+        
+        self.calloutsViewContainer = calloutsView;
+        [self.view addSubview:self.calloutsViewContainer];
+        // move the callouts off the screen and then animate their return.
+        [self.calloutsViewContainer slide: YES animated: NO];
+        [self.calloutsViewContainer slide: NO animated: YES];
+    }
+}
+
+
 
 @end

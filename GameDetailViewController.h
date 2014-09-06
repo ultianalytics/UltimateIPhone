@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Game.h"
 #import "UltimateViewController.h"
+@class GameViewController;
 
 typedef enum {
     FloatStat,
@@ -21,6 +22,8 @@ typedef enum {
 
 @property (nonatomic, strong) Game* game;
 @property (nonatomic, weak) UIViewController* topViewController;
+
++(GameViewController*)createActionViewController;
 
 /* iPAD only stuff */
 @property (strong, nonatomic) void (^gameChangedBlock)(CRUD crud);

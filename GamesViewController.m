@@ -201,7 +201,7 @@
                 if (self.detailController) {
                    [self.detailController goToActionView];
                 } else {
-                    GameViewController* gameController = [[GameViewController alloc] init];
+                    GameViewController* gameController = [GameDetailViewController createActionViewController];
                     UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
                     [topNavigationController pushViewController:gameController animated:YES];
                 }

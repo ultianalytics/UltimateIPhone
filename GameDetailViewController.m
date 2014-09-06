@@ -658,7 +658,7 @@
 #pragma mark - Misc
 
 -(void)goToActionView {
-    GameViewController* gameController = IS_IPAD && self.game.isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
+    GameViewController* gameController = [[self class] createActionViewController];
     UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
     [topNavigationController pushViewController:gameController animated:YES];
 }
@@ -774,6 +774,11 @@
                           cancelButtonTitle: NSLocalizedString(@"OK",nil)
                           otherButtonTitles: nil];
     [alert show];
+}
+
++(GameViewController*)createActionViewController {
+    GameViewController* gameController = IS_IPAD && [Game getCurrentGame].isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
+    return gameController;
 }
 
 #pragma mark - Callouts

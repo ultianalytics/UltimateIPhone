@@ -129,7 +129,7 @@
                     event.pullHangtimeMilliseconds = (int)hangtimeMilliseconds;
                 }
                 [self addEvent: event];
-                [self showDidYouKnow];
+                [self showActionButtonDidYouKnow];
             }
         }];
     };
@@ -398,7 +398,7 @@
 - (void) passerSelected: (Player*) player view: (PlayerView*) view {
     if (self.isOffense) {
         [self setNeedToSelectPasser: NO];
-        [self showDidYouKnow];
+        [self showActionButtonDidYouKnow];
     }
     PlayerView* oldSelected = [self findSelectedPlayerView];
     if (oldSelected) {
@@ -991,59 +991,57 @@
 }
 
 -(void)toggleFirstTimeUsageCallouts {
-    if ([self calloutsAllowed]) {
-        if (self.firstTimeUsageCallouts) {
-            [self.firstTimeUsageCallouts removeFromSuperview];
-            self.firstTimeUsageCallouts = nil;
-        } else if ([self isFirstTimeGameViewUsage]) {
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
-            
-            CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
-            [calloutsView addNavControllerHelpAvailableCallout];
-            self.firstTimeUsageCallouts = calloutsView;
-            [self.view addSubview:calloutsView];
-        }
+    if (self.firstTimeUsageCallouts) {
+        [self.firstTimeUsageCallouts removeFromSuperview];
+        self.firstTimeUsageCallouts = nil;
+    } else if ([self isFirstTimeGameViewUsage]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameViewUsage];
+        
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        [calloutsView addNavControllerHelpAvailableCallout];
+        self.firstTimeUsageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
     }
 }
 
 -(void)toggleInfoCallouts {
-    if ([self calloutsAllowed]) {
-        [self toggleFirstTimeUsageCallouts];
+    [self toggleFirstTimeUsageCallouts];
+    
+    if (self.infoCalloutsView) {
+        [self.infoCalloutsView removeFromSuperview];
+        self.infoCalloutsView = nil;
+    } else {
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
-        if (self.infoCalloutsView) {
-            [self.infoCalloutsView removeFromSuperview];
-            self.infoCalloutsView = nil;
-        } else {
-            CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
-            
-            UIFont *textFont = [UIFont systemFontOfSize:14];
-            if ([[Game getCurrentGame] hasEvents]) {
-                if (IS_IPHONE) {
-                    // undo button
-                    [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
-                    // recents list
-                    [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
-                }
-                // long press
+        UIFont *textFont = [UIFont systemFontOfSize:14];
+        if ([[Game getCurrentGame] hasEvents]) {
+            if (IS_IPHONE) {
+                // undo button
+                [calloutsView addCallout:@"Tap to undo last event." anchor: CGPointTop(self.removeEventButton.frame) width: 100 degrees: 30 connectorLength: 80 font: textFont];
+                // recents list
+                [calloutsView addCallout:@"Last 3 actions.  Swipe up to see more events and make corrections." anchor: CGPointTop(self.eventView2.frame) width: 120 degrees: 50 connectorLength: 100 font: textFont];
+            }
+            // long press
+            if (![Game getCurrentGame].isPositional) {
                 CGPoint anchor = [self.view convertPoint:CGPointLeft(self.playerView2.firstButton.frame) fromView:self.playerView2];
                 [calloutsView addCallout:@"Press and hold action buttons to see other options." anchor: anchor width: 90 degrees: 270 connectorLength: 70 font: textFont];
             }
-            // line button
-            CGPoint anchor = CGPointTopRight(self.view.bounds);
-            anchor.x = anchor.x - 40;
-            [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80 font: textFont];
-            
-            self.infoCalloutsView = calloutsView;
-            [self.view addSubview:calloutsView];
-            // move the callouts off the screen and then animate their return.
-            [self.infoCalloutsView slide: YES animated: NO];
-            [self.infoCalloutsView slide: NO animated: YES];
         }
+        // line button
+        CGPoint anchor = CGPointTopRight(self.view.bounds);
+        anchor.x = anchor.x - 40;
+        [calloutsView addCallout:@"Tap to change players on field." anchor: anchor width: 120 degrees: 225 connectorLength: 80 font: textFont];
+        
+        self.infoCalloutsView = calloutsView;
+        [self.view addSubview:calloutsView];
+        // move the callouts off the screen and then animate their return.
+        [self.infoCalloutsView slide: YES animated: NO];
+        [self.infoCalloutsView slide: NO animated: YES];
     }
 }
 
--(void)showDidYouKnow {
-    if ([self calloutsAllowed]) {
+-(void)showActionButtonDidYouKnow {
+    if (![Game getCurrentGame].isPositional) {
         if (self.isOffense && ![[Game getCurrentGame] hasEvents] && !self.throwAwayButton.hidden) {
             [self showThrowawayPressCallout];
         } else if (!self.isOffense && [[Game getCurrentGame] hasOneEvent]) {
@@ -1115,10 +1113,6 @@
 
 -(void)eventsUpdated {
     // no-op...subclasses can re-implement
-}
-
--(BOOL)calloutsAllowed {
-    return YES;
 }
 
 @end

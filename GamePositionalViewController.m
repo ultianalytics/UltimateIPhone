@@ -112,10 +112,6 @@
     [self.fieldView updateForCurrentEvents];
 }
 
--(BOOL)calloutsAllowed {
-    return NO;
-}
-
 #pragma mark - ActionView (who/what for event)
 
 -(void)configureActionView {

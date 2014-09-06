@@ -39,7 +39,7 @@
     [encoder encodeFloat:self.x forKey:kEventPositionX];
     [encoder encodeFloat:self.y forKey:kEventPositionY];
     [encoder encodeBool:self.inverted forKey:kEventPositionInverted];
-    [encoder encodeInt:self.inverted forKey:kEventPositionArea];
+    [encoder encodeInt:self.area forKey:kEventPositionArea];
 }
 
 +(EventPosition*)fromDictionary:(NSDictionary*) dict {

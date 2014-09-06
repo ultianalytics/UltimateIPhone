@@ -432,6 +432,7 @@
 -(void)updateGameWithBeginEvent:(Event *)event {
     self.game.positionalBeginEvent = event;
     [self.eventsViewController refresh];
+    [self saveGame];
 }
 
 -(void)disableGoalButtons {

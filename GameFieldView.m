@@ -36,8 +36,9 @@
 @property (nonatomic, strong) UILabel* messageLabel;
 
 @property (nonatomic, strong) Game* game;
-@property (nonatomic) BOOL eventHasBeenMoved;
+@property (nonatomic) GameFieldEventPointView* movedPointView;
 @property (nonatomic) CGPoint initialDragPoint;
+@property (nonatomic) CGPoint lastLocation;
 
 @property (nonatomic, strong) PlayDirectionView* directionView;
 
@@ -84,29 +85,40 @@
 
 #pragma mark - Touch handling
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    self.lastLocation = self.center;  // stow the original location
+    [super touchesBegan:touches withEvent:event];
+}
+
 - (void)viewTapped:(UIGestureRecognizer *)gestureRecognizer {
     [self handleTap:[gestureRecognizer locationInView:self] isOB:NO];
 }
 
 - (void)viewDragged:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint dragPoint = [((UIPanGestureRecognizer*)gestureRecognizer) locationInView:self];
+    
     if (CGRectContainsPoint(self.bounds, dragPoint)) {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
             self.initialDragPoint = dragPoint;
-            self.eventHasBeenMoved = NO;
+            if ([self pointView:self.lastSavedEventView contains:dragPoint]) {
+                self.movedPointView = self.lastSavedEventView;
+            } else if ([self pointView:self.previousSavedEventView contains:dragPoint]) {
+                self.movedPointView = self.previousSavedEventView;
+            } 
         }
-        BOOL eventWasDragged = [self handlePossibleDragOfEvent:self.lastSavedEventView atPoint:dragPoint];
-        if (!eventWasDragged) {
-            [self handlePossibleDragOfEvent:self.previousSavedEventView atPoint:dragPoint];
+        if (self.movedPointView) {
+            self.movedPointView.event.position = [self calculatePosition:dragPoint];
+            self.movedPointView.center = [self calculatePoint:self.movedPointView.event.position];
         }
     }
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if (self.eventHasBeenMoved) {
+        if (self.movedPointView) {
             [self.game saveWithUpload];
         // we weren't moving an event consider a short drag a tap
         } else if ([self distanceBetweenPoint:dragPoint andPoint:self.initialDragPoint] < 20) {
             [self handleTap:dragPoint isOB:NO];
         }
+        self.movedPointView = nil;
     }
 }
 
@@ -121,14 +133,8 @@
     }
 }
 
-- (BOOL)handlePossibleDragOfEvent: (GameFieldEventPointView*)eventView atPoint:  (CGPoint) dragPoint{
-    if (CGRectContainsPoint(eventView.frame, dragPoint)) {
-        eventView.event.position = [self calculatePosition:dragPoint];
-        eventView.center = [self calculatePoint:eventView.event.position];
-        self.eventHasBeenMoved = YES;
-        return YES;
-    }
-    return NO;
+- (BOOL)pointView: (GameFieldEventPointView*)eventView contains: (CGPoint) dragPoint {
+    return (CGRectContainsPoint(eventView.frame, dragPoint));
 }
 
 #pragma mark - Event Point Views

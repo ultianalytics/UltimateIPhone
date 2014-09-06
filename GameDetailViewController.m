@@ -621,6 +621,9 @@
         if (startTimeController.date) {
             self.game.startDateTime = startTimeController.date;
             [self.game save];
+            if (IS_IPAD) {
+                [self notifyChangeListenerOfCRUD: CRUDUpdate];
+            }
         }
         [self.navigationController popViewControllerAnimated:YES];
     };

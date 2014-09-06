@@ -19,8 +19,10 @@
 #import "UPoint.h"
 #import "ColorMaster.h"
 #import "PlayDirectionView.h"
+#import "CalloutsContainerView.h"
 
 #define kPointViewWidth 30.0f
+#define kHasDragCalloutBeenShown @"HasDragCalloutBeenShown"
 
 @interface GameFieldView ()
 
@@ -40,6 +42,8 @@
 @property (nonatomic) CGPoint initialDragPoint;
 
 @property (nonatomic, strong) PlayDirectionView* directionView;
+
+@property (nonatomic, strong) CalloutsContainerView *calloutsViewContainer;
 
 @end
 
@@ -160,6 +164,7 @@
     [self updatePointViews:nil];
     [self updateDirectionArrows];
     [self updateMessage];
+    [self showAppropriateCallouts];
 
 }
 
@@ -467,6 +472,32 @@
         BOOL wasPullPointingLeft = ![pullEvent.beginPosition isCloserToEndzoneZero];
         wasPullPointingLeft = wasPullPointingLeft ^ self.inverted ^ pullEvent.beginPosition.inverted;
         self.directionView.isPointingLeft = wasPullPointingLeft ^ isNextEventOurs ^ wasPullEventOurs;
+    }
+}
+
+#pragma mark - Callouts
+
+-(void)showAppropriateCallouts {
+    if (self.lastSavedEventView && [self.lastSavedEventView.event isCatchOrOpponentCatch]) {
+        [self showDragCallout];
+    }
+}
+
+-(void)showDragCallout {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kHasDragCalloutBeenShown]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasDragCalloutBeenShown];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.bounds];
+        
+        GameFieldEventPointView* anchorView = self.lastSavedEventView;
+        CGPoint anchor = [anchorView convertPoint:anchorView.boundsCenter toView:self];
+        CGFloat degrees = [anchorView isBelowMidField] ? ([anchorView isRightOfMidField] ? 340 : 20) : ([anchorView isRightOfMidField] ? 200 : 160);
+        [calloutsView addCallout:@"Did you know?\nYou can drag actions to adjust their position" anchor: anchor width: 180 degrees: degrees connectorLength: 60 font: [UIFont systemFontOfSize:14]];
+        
+        self.calloutsViewContainer = calloutsView;
+        [self addSubview:self.calloutsViewContainer];
+        // move the callouts off the screen and then animate their return.
+        [self.calloutsViewContainer slide: YES animated: NO];
+        [self.calloutsViewContainer slide: NO animated: YES];
     }
 }
 

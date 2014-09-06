@@ -776,7 +776,7 @@
     [alert show];
 }
 
-#pragma mark Callouts
+#pragma mark - Callouts
 
 -(void)showPositionalCallout {
     if (IS_IPAD && ![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameStartUsage]) {

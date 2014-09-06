@@ -17,5 +17,7 @@
 @property (strong, nonatomic) void (^tappedBlock)(CGPoint tapPoint, GameFieldEventPointView* pointView);
 
 - (void)flashOutOfBoundsMessage;
+- (BOOL)isBelowMidField;
+- (BOOL)isRightOfMidField;
 
 @end

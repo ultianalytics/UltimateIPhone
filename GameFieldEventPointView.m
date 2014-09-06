@@ -72,9 +72,8 @@
     [super layoutSubviews];
   
     // layout text
-    BOOL displayAbove = self.frameY > CGRectGetMidY(self.superview.bounds);
     CGFloat textViewCenterOffset = self.boundsHeight / 2 + self.textView.frameHeight / 2;
-    CGFloat textViewY = CGRectGetMidY(self.bounds) + (displayAbove ? (-1 * textViewCenterOffset) : textViewCenterOffset);
+    CGFloat textViewY = CGRectGetMidY(self.bounds) + ([self isBelowMidField] ? (-1 * textViewCenterOffset) : textViewCenterOffset);
     self.textView.center = CGPointMake(CGRectGetMidX(self.bounds), textViewY);
 }
 
@@ -132,6 +131,14 @@
     if (![self.event isPositionalBegin]) {
         [self.textView flashOutOfBoundsMessage];
     }
+}
+
+-(BOOL)isBelowMidField {
+    return self.frameY > CGRectGetMidY(self.superview.bounds);
+}
+
+-(BOOL)isRightOfMidField {
+    return self.frameX > CGRectGetMidX(self.superview.bounds);
 }
 
 

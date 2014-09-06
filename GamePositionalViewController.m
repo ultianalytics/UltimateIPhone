@@ -19,6 +19,7 @@
 #import "DefenseEvent.h"
 #import "PickPlayerForEventViewController.h"
 #import "Player.h"
+#import "CalloutsContainerView.h"
 
 #define kActionViewMargin 20;
 #define kFlipSidesConfirmAlert 1;

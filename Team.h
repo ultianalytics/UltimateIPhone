@@ -50,6 +50,7 @@
 -(BOOL)hasGames;
 -(BOOL)hasPlayers;
 -(BOOL)arePlayersFromLeagueVine;
+-(BOOL)isAnonymous;
 
 // private
 +(NSString*)getFilePath: (NSString*) teamdId;

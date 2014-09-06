@@ -432,4 +432,8 @@ static Team* currentTeam = nil;
     return [self.players count] > 0 && [[self.players objectAtIndex:0] isLeaguevinePlayer];
 }
 
+-(BOOL)isAnonymous {
+    return self.name == nil || [self.name isEqualToString: kAnonymousTeam];
+}
+
 @end

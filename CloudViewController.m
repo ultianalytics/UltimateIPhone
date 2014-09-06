@@ -62,10 +62,14 @@
 }
 
 -(IBAction)uploadButtonClicked: (id) sender {
-    if ([[Team getCurrentTeam] hasGames]) {
-        [self goGameUploadPickerView];
+    if ([[Team getCurrentTeam] isAnonymous]) {
+        [self showSetNameFirstUploadAlert];
     } else {
-        [self showNoGamesToUploadAlert];
+        if ([[Team getCurrentTeam] hasGames]) {
+            [self goGameUploadPickerView];
+        } else {
+            [self showNoGamesToUploadAlert];
+        }
     }
 }
 
@@ -159,6 +163,16 @@
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: @"No Games for Team"
                           message: [NSString stringWithFormat: @"The %@ team has zero games.  You must first add a game before uploading", [Team getCurrentTeam].name]
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
+}
+
+-(void)showSetNameFirstUploadAlert {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"No Team Name"
+                          message: @"Please give your team a name before uploading."
                           delegate: nil
                           cancelButtonTitle: NSLocalizedString(@"OK",nil)
                           otherButtonTitles: nil];

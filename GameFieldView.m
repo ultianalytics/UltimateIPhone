@@ -38,7 +38,6 @@
 @property (nonatomic, strong) Game* game;
 @property (nonatomic) GameFieldEventPointView* movedPointView;
 @property (nonatomic) CGPoint initialDragPoint;
-@property (nonatomic) CGPoint lastLocation;
 
 @property (nonatomic, strong) PlayDirectionView* directionView;
 
@@ -86,7 +85,8 @@
 #pragma mark - Touch handling
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    self.lastLocation = self.center;  // stow the original location
+    self.initialDragPoint = [[[event allTouches] anyObject] locationInView:self];  // stow the original location
+    
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -94,8 +94,9 @@
     [self handleTap:[gestureRecognizer locationInView:self] isOB:NO];
 }
 
-- (void)viewDragged:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint dragPoint = [((UIPanGestureRecognizer*)gestureRecognizer) locationInView:self];
+- (void)viewDragged:(UIPanGestureRecognizer *)gestureRecognizer {
+    CGPoint pointFromOriginal = [gestureRecognizer translationInView:self];
+    CGPoint dragPoint = CGPointMake(self.initialDragPoint.x + pointFromOriginal.x, self.initialDragPoint.y + pointFromOriginal.y);
     
     if (CGRectContainsPoint(self.bounds, dragPoint)) {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -104,7 +105,7 @@
                 self.movedPointView = self.lastSavedEventView;
             } else if ([self pointView:self.previousSavedEventView contains:dragPoint]) {
                 self.movedPointView = self.previousSavedEventView;
-            } 
+            }
         }
         if (self.movedPointView) {
             self.movedPointView.event.position = [self calculatePosition:dragPoint];
@@ -114,12 +115,13 @@
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (self.movedPointView) {
             [self.game saveWithUpload];
-        // we weren't moving an event consider a short drag a tap
+            // we weren't moving an event consider a short drag a tap
         } else if ([self distanceBetweenPoint:dragPoint andPoint:self.initialDragPoint] < 20) {
             [self handleTap:dragPoint isOB:NO];
         }
         self.movedPointView = nil;
     }
+
 }
 
 - (void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds {

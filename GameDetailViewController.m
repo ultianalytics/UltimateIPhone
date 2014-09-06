@@ -733,12 +733,17 @@
 }
 
 -(void)setGame:(Game *)game {
+    BOOL animate = _game != nil;
     _game = game;
     if (IS_IPAD) {
         if (self.navigationController.visibleViewController == self) {
-            [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+            if (animate) {
+                [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                    [self populateUIFromModel];
+                } completion:nil];
+            } else {
                 [self populateUIFromModel];
-            } completion:nil];
+            }
         } else {
             [self.navigationController popToRootViewControllerAnimated:YES];
             [self populateUIFromModel];

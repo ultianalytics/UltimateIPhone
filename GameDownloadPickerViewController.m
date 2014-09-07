@@ -54,9 +54,20 @@
     return cell;
 }
 
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
-    self.selectedGame = [games objectAtIndex:[indexPath row]];
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    GameDescription* game = [games objectAtIndex:[indexPath row]];
+    if (IS_IPHONE && game.isPositional) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Game not supported on iPhone"
+                              message: [NSString stringWithFormat: @"The game you selected has positional data.  It is currently only supported on an iPad."]
+                              delegate: nil
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
+    } else {
+        self.selectedGame = game;
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -79,7 +90,7 @@
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, 60)];
     headerLabel.numberOfLines = 0;
     headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    headerLabel.text = @"Pick a game to download to your iPhone";
+    headerLabel.text = [NSString stringWithFormat:@"Pick a game to download to your %@", IS_IPAD ? @"iPad" : @"iPhone"];
     headerLabel.font = [UIFont boldSystemFontOfSize:18];
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerLabel];

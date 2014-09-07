@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
-@class Game;
+@class GameDescription;
 
 @interface GameDownloadPickerViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
@@ -16,7 +16,7 @@
 }
 
 @property (nonatomic, strong) NSArray* games;
-@property (nonatomic, strong) Game* selectedGame;
+@property (nonatomic, strong) GameDescription* selectedGame;
 @property (nonatomic, strong) IBOutlet UITableView* gamesTableView;
 
 @end

@@ -15,6 +15,7 @@
 #import "GameUploadPickerViewController.h"
 #import "Team.h"
 #import "Game.h"
+#import "GameDescription.h"
 #import "Scrubber.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
@@ -285,7 +286,7 @@
             [Game setCurrentGame:gameId];
         }
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: NSLocalizedString(@"The game was successfully downloaded to your iPhone.",nil)];         
+        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: [NSString stringWithFormat:@"The game was successfully downloaded to your %@.", IS_IPAD ? @"iPad" : @"iPhone"]];
     }
 }
 
@@ -325,7 +326,7 @@
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetTeamTab];
         [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
         [self populateViewFromModel];
-        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: NSLocalizedString(@"The team was successfully downloaded to your iPhone.",nil)];            
+        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: [NSString stringWithFormat:@"The team was successfully downloaded to your %@.", IS_IPAD ? @"iPad" : @"iPhone"]];
     }
 }
 

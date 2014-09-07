@@ -13,6 +13,7 @@
 #define kOpponentNameKey        @"opponentName"
 #define kTournamentNameKey      @"tournamentName"
 #define kStartDateTimeKey       @"timestamp"
+#define kPositionalKey          @"positional"
 #define kJsonDateFormat         @"yyyy-MM-dd HH:mm"
 
 @implementation GameDescription
@@ -28,7 +29,11 @@
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:kJsonDateFormat];
         game.startDate = [dateFormat dateFromString:startDateAsString];
-    }    
+    }
+    NSNumber* isPositional = [dict objectForKey:kPositionalKey];
+    if (isPositional) {
+        game.isPositional = [isPositional boolValue];
+    }
     return game;
 }
 
@@ -48,6 +53,7 @@
     self.lastSaveGMT = game.lastSaveGMT;
     NSString* tournament = game.tournamentName;
     self.tournamentName = tournament == nil ? nil : [tournament stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.isPositional = game.isPositional;
 }
 
 @end

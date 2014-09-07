@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString* formattedScore;
 @property (nonatomic, strong) NSString* tournamentName;
 @property (nonatomic) NSTimeInterval lastSaveGMT;
+@property (nonatomic) BOOL isPositional;
 
 +(GameDescription*) fromDictionary:(NSDictionary*) dict;
 +(NSDateFormatter*)startDateFormatter;

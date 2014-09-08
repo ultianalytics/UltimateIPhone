@@ -1113,4 +1113,13 @@ static Game* currentGame = nil;
     }
 }
 
+-(void)removePositionalData {
+    self.positionalBeginEvent = nil;
+    for (int i = 0; i < [self.points count]; i++) {
+        UPoint* point = self.points[i];
+        [point removePositionalData];
+    }
+    [self clearPointSummaries];
+}
+
 @end

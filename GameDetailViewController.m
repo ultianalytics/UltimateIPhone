@@ -42,8 +42,10 @@
 #define kAlertLeaguevineStatsStarting @"Posting Stats to Leaguevine"
 #define kAlertLeaguevineStatsStartingWithGameInProgress @"Warning: Game Started"
 #define kAlertOpeningFinishedGame @"Game Is Over"
+#define kAlertConfirmPositionalToNormalSwitch @"No so fast!"
 
 #define kIsNotFirstGameStartUsage @"IsNotFirstGameStartUsage"
+
 
 @interface GameDetailViewController()
 
@@ -207,34 +209,14 @@
 
 - (IBAction)positionalEventsChanged:(id)sender {
     BOOL shouldBePositional = self.positionalEventsSegmentedControl.selectedSegmentIndex == 1;
-    self.game.isPositional = shouldBePositional;
-    [self saveChanges];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if ([alertView.title isEqualToString:kAlertTitleDeleteGame]) {
-        if (buttonIndex == 1) {  // delete
-            [self.game delete];
-            if (IS_IPAD) {
-                [self notifyChangeListenerOfCRUD:CRUDDelete];
-            } else {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
-    } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsStartingWithGameInProgress] ||
-               [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
-               [alertView.title isEqualToString:kAlertLeaguevineStatsEnding]) {
-        [self updateLeaguevinePublishing];
-    } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsNotAllowedWithPrivatePlayers]) {
-        [self populateLeaguevineCells];
-    } else  if ([alertView.title isEqualToString:kAlertOpeningFinishedGame]) {
-        if (buttonIndex == 1) {  // re-open game
-            [[Game getCurrentGame] removeLastEvent];
-            [self goToActionView];
-        }
+    if ([self hasGameBeenStarted] && [self.game hasEvents]) {
+        [self handleInProgressGamePositionalChange: shouldBePositional];
+    } else {
+        self.game.isPositional = shouldBePositional;
+        [self saveChanges];
     }
 }
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     BOOL ok = [self verifyOpponentName];
@@ -281,6 +263,35 @@
         } else {
             [self goToActionView];
         }
+    }
+}
+
+#pragma mark - AlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alertView.title isEqualToString:kAlertTitleDeleteGame]) {
+        if (buttonIndex == 1) {  // delete
+            [self.game delete];
+            if (IS_IPAD) {
+                [self notifyChangeListenerOfCRUD:CRUDDelete];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsStartingWithGameInProgress] ||
+               [alertView.title isEqualToString:kAlertLeaguevineStatsStarting] ||
+               [alertView.title isEqualToString:kAlertLeaguevineStatsEnding]) {
+        [self updateLeaguevinePublishing];
+    } else if ([alertView.title isEqualToString:kAlertLeaguevineStatsNotAllowedWithPrivatePlayers]) {
+        [self populateLeaguevineCells];
+    } else  if ([alertView.title isEqualToString:kAlertOpeningFinishedGame]) {
+        if (buttonIndex == 1) {  // re-open game
+            [[Game getCurrentGame] removeLastEvent];
+            [self goToActionView];
+        }
+    } else if ([alertView.title isEqualToString:kAlertConfirmPositionalToNormalSwitch]) {
+        [self convertGameFromPositionalToNormal: buttonIndex == 1];
     }
 }
 
@@ -766,6 +777,28 @@
     }
 }
 
+
++(GameViewController*)createActionViewController {
+    GameViewController* gameController = IS_IPAD && [Game getCurrentGame].isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
+    return gameController;
+}
+
+-(BOOL)hasGameBeenStarted {
+    return self.game.startDateTime != 0;
+}
+
+
+#pragma mark - Positional Game
+
+-(void)handleInProgressGamePositionalChange: (BOOL) switchToPositional {
+    if (switchToPositional) {
+        self.positionalEventsSegmentedControl.selectedSegmentIndex = 0;
+        [self alertCannotSwitchToPositional];
+    } else {
+        [self confirmPositionalToNormal];
+    }
+}
+
 -(void)showPositionalGameNotAllowedOnIPhoneAlert {
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle: @"Cannot Open Positional Game"
@@ -776,9 +809,33 @@
     [alert show];
 }
 
-+(GameViewController*)createActionViewController {
-    GameViewController* gameController = IS_IPAD && [Game getCurrentGame].isPositional ? [[GamePositionalViewController alloc] init] : [[GameViewController alloc] init];
-    return gameController;
+-(void)confirmPositionalToNormal {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: kAlertConfirmPositionalToNormalSwitch
+                          message: @"Your game already has actions recorded with positions.  Are you sure you want to convert the game to normal?"
+                          delegate: self
+                          cancelButtonTitle: @"No"
+                          otherButtonTitles: @"Yes", nil];
+    [alert show];
+}
+
+-(void)alertCannotSwitchToPositional {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Cannot Switch Game to Positional"
+                          message: @"Your game already has actions without positions.  In order to switch the game to positional you must remove all of the actions."
+                          delegate: nil
+                          cancelButtonTitle: @"OK"
+                          otherButtonTitles: nil];
+    [alert show];
+}
+
+-(void)convertGameFromPositionalToNormal: (BOOL)convert {
+    if (convert) {
+        [self.game removePositionalData];
+        self.game.isPositional = NO;
+        [self saveChanges];
+    }
+    self.positionalEventsSegmentedControl.selectedSegmentIndex = convert ? 0 : 1;
 }
 
 #pragma mark - Callouts

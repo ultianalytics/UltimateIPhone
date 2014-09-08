@@ -134,5 +134,6 @@
 
 // MISC
 -(NSString*)shortOpponentName;
+-(void)removePositionalData;
 
 @end

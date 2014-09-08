@@ -45,5 +45,6 @@
 -(BOOL)isPeriodEnd;
 -(CessationEvent*)getPeriodEnd;
 -(void)useSharedPlayers;
+-(void)removePositionalData;
 
 @end

@@ -242,4 +242,17 @@
     }
 }
 
+-(void)removePositionalData {
+    NSMutableArray* newEvents = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.events count]; i++) {
+        Event* event = self.events[i];
+        if (![event isPositionalOnly]) {
+            [newEvents addObject:event];
+            event.position = nil;
+            event.beginPosition = nil;
+        }
+    }
+    self.events = newEvents;
+}
+
 @end

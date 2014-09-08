@@ -28,6 +28,7 @@
 
 -(void)commonInit {
     [self addTapRecognizer];
+    self.discColor = [UIColor whiteColor]; // default disc color
     self.backgroundColor = [UIColor clearColor];
     [self createTextView];
 }
@@ -88,11 +89,11 @@
     CGContextAddEllipseInRect(context, CGRectMake(origin,origin, diameter, diameter));
     CGContextFillPath(context);
     
-    // if emphasized draw an inner dot
-    if (self.isEmphasizedEvent) {
-        CGFloat origin = kEmphasizedPositionInnerCircleInset;
-        CGFloat diameter = self.boundsWidth - kEmphasizedPositionInnerCircleInset * 2;
-        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+    // if emphasized draw an inner dot (represents the disc)
+    if (self.isEmphasizedEvent && !self.isDiscHidden) {
+        CGFloat origin = (self.boundsWidth - self.discDiameter) / 2;
+        CGFloat diameter = self.discDiameter;
+        CGContextSetFillColorWithColor(context, self.discColor.CGColor);
         CGContextAddEllipseInRect(context, CGRectMake(origin,origin, diameter, diameter));
         CGContextFillPath(context);
     }

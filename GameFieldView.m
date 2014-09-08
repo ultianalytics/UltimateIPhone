@@ -20,8 +20,10 @@
 #import "ColorMaster.h"
 #import "PlayDirectionView.h"
 #import "CalloutsContainerView.h"
+#import "GameDiscView.h"
 
 #define kPointViewWidth 30.0f
+#define kDiscDiameter 15.0f
 #define kHasDragCalloutBeenShown @"HasDragCalloutBeenShown"
 
 @interface GameFieldView ()
@@ -34,6 +36,10 @@
 @property (nonatomic, strong) GameFieldEventPointView* lastSavedEventView;
 @property (nonatomic, strong) GameFieldEventPointView* previousSavedEventView;
 @property (nonatomic, strong) GameFieldEventPointView* potentialEventView;
+
+@property (nonatomic, strong) GameDiscView* movingDiscView;
+@property (nonatomic, strong) UIColor* discColor;
+
 @property (nonatomic, strong) EventPosition* potentialEventPosition;
 @property (nonatomic, strong) UILabel* messageLabel;
 
@@ -57,9 +63,11 @@
     [self addDragPressRecognizer];
     self.endzonePercent = .15; // default endzone percent
     self.fieldBorderColor = [UIColor whiteColor];  // default border color
+    self.discColor = [UIColor whiteColor]; // color of the frisbee
 
-    [self addPointViews];
     [self addMessageView];
+    [self addPointViews];
+    [self addAnimationViews];
     [self addDirectionView];
     
     [self.layer setNeedsDisplay];
@@ -77,6 +85,8 @@
 
 -(GameFieldEventPointView*)createPointView {
     GameFieldEventPointView* view = [[GameFieldEventPointView alloc] initWithFrame:CGRectMake(0, 0, kPointViewWidth, kPointViewWidth)];
+    view.discDiameter = kDiscDiameter;
+    view.discColor = self.discColor;
     view.hidden = YES;
     __typeof(self) __weak weakSelf = self;
     view.tappedBlock = ^(CGPoint pointViewTapPoint, GameFieldEventPointView* pointView) {
@@ -158,6 +168,13 @@
     [self addSubview:self.previousSavedEventView];
     [self addSubview:self.lastSavedEventView];
     [self addSubview:self.potentialEventView];
+}
+
+-(void)addAnimationViews {
+    self.movingDiscView = [[GameDiscView alloc] initWithFrame:CGRectMake(0, 0, kDiscDiameter, kDiscDiameter)];
+    self.movingDiscView.discColor = self.discColor;
+    self.movingDiscView.hidden = YES;
+    [self addSubview:self.movingDiscView];
 }
 
 -(void)updateForCurrentEvents {

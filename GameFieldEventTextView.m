@@ -42,8 +42,8 @@
     self.eventDescriptionLabel.textColor = textColor;
 }
 
--(void)setDescription:(NSString *)description {
-    _description = description;
+-(void)setPointDescription:(NSString *)description {
+    _pointDescription = description;
     self.eventDescriptionLabel.text = description;
 }
 

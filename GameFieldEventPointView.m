@@ -120,7 +120,7 @@
 }
 
 -(void)updateText {
-    self.textView.description = [self.event positionalDescription];
+    self.textView.pointDescription = [self.event positionalDescription];
     [self setNeedsLayout];
 }
 

@@ -11,7 +11,7 @@
 @interface GameFieldEventTextView : UIView
 
 @property (nonatomic, strong) UIColor* textColor;
-@property (nonatomic, strong) NSString* description;
+@property (nonatomic, strong) NSString* pointDescription;
 
 - (void)flashOutOfBoundsMessage;
 

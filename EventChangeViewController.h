@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString *pointDescription;
 @property (strong, nonatomic) NSArray *playersInPoint;
 @property (nonatomic) BOOL modalMode;
-@property (strong, nonatomic) void (^completion)();
+@property (nonatomic) BOOL deleteAllowed;
+@property (strong, nonatomic) void (^eventMaintenanceCompletion)(BOOL isDelete);
 
 @end

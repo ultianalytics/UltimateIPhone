@@ -35,6 +35,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *passedToLabel;
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) IBOutlet UILabel *textFieldLabel;
+@property (strong, nonatomic) IBOutlet UIView *deleteButtonView;
+@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 
 @property (strong, nonatomic) UIAlertView *hangtimeAlertView;
 
@@ -46,6 +48,7 @@
 @property (strong, nonatomic) Event *originalEvent;
 
 @property (nonatomic) BOOL showingFullTeam;
+@property (nonatomic) BOOL deleteRequested;
 
 @end
 
@@ -182,6 +185,11 @@
     [self close];
 }
 
+-(IBAction)deleteTapped:(id)sender {
+    self.deleteRequested = YES;
+    [self close];
+}
+
 - (IBAction)eventActionChanged:(id)sender {
     self.eventTypeDescriptionLabel.text = @"Foo";
     if ([self.event isOpponentPull]) {
@@ -254,6 +262,7 @@
     [self configureForEventType: YES];
     [self addTableFooterView: self.player1TableView];
     [self addTableFooterView: self.player2TableView];
+    [self addDeleteButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -268,6 +277,14 @@
     UINavigationItem* currentNavItem = self.navigationController.navigationBar.topItem;
     if (!currentNavItem.rightBarButtonItem) {
         [currentNavItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Save Change" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed)]animated: YES];
+    }
+}
+
+-(void)addDeleteButton {
+    if (self.deleteAllowed) {
+        self.deleteButtonView.hidden = NO;
+        self.player1TableView.frameHeight = self.player1TableView.frameHeight - self.deleteButtonView.frameHeight;
+        self.player2TableView.frameHeight = self.player2TableView.frameHeight - self.deleteButtonView.frameHeight;
     }
 }
 
@@ -635,8 +652,8 @@
 }
 
 -(void)close {
-    if (self.completion) {
-        self.completion();
+    if (self.eventMaintenanceCompletion) {
+        self.eventMaintenanceCompletion(self.deleteRequested);
     }
     if (self.modalMode) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];

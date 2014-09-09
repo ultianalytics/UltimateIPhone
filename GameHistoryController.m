@@ -75,14 +75,21 @@
     
     EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
     changeController.event = event;
+    if (IS_IPAD && indexPath.section == 0 && indexPath.row == 0) {
+        changeController.deleteAllowed = YES;
+    }
     changeController.pointDescription = [self.game getPointNameAtMostRecentIndex:(int)[indexPath section]];
     changeController.playersInPoint = point.line ? point.line : [self.game currentLineSorted];
     NSIndexPath* topVisibleRow = [self.eventTableView indexPathForCell:[self.eventTableView.visibleCells objectAtIndex:0]];
-    changeController.completion = ^{
-        [self.game saveWithUpload];
-        [self.eventTableView reloadData];
-        [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        [self.delegate eventHistoryUpdated];
+    changeController.eventMaintenanceCompletion = ^(BOOL isDelete){
+        if (isDelete) {
+            [self undoButtonTapped];
+        } else {
+            [self.game saveWithUpload];
+            [self.eventTableView reloadData];
+            [self.eventTableView scrollToRowAtIndexPath:topVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            [self.delegate eventHistoryUpdated];
+        }
     };
     
     if (self.embeddedMode) {

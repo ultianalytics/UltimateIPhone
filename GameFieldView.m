@@ -49,6 +49,8 @@
 
 @property (nonatomic, strong) PlayDirectionView* directionView;
 
+@property (nonatomic, strong) UILabel* benchSideLabel;
+
 @property (nonatomic, strong) CalloutsContainerView *calloutsViewContainer;
 
 @end
@@ -66,9 +68,10 @@
     self.discColor = [UIColor whiteColor]; // color of the frisbee
 
     [self addMessageView];
+    [self addBenchView];
+    [self addDirectionView];
     [self addPointViews];
     [self addAnimationViews];
-    [self addDirectionView];
     
     [self.layer setNeedsDisplay];
 }
@@ -317,6 +320,7 @@
         self.messageLabel.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     }
     [self layoutDirectionViews];
+    [self layoutBenchView];
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
@@ -505,7 +509,6 @@
     self.directionView.hidden = YES;
 }
 
-
 -(void)layoutDirectionViews {
     CGFloat viewHeight = self.directionView.frameHeight;
     self.directionView.frame = CGRectMake(0, -viewHeight, self.boundsWidth, viewHeight);
@@ -524,6 +527,24 @@
         wasPullPointingLeft = wasPullPointingLeft ^ self.inverted ^ pullEvent.beginPosition.inverted;
         self.directionView.isPointingLeft = wasPullPointingLeft ^ isNextEventOurs ^ wasPullEventOurs;
     }
+}
+
+#pragma mark - Bench label
+
+
+-(void)addBenchView {
+    self.benchSideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 15)];
+    self.benchSideLabel.textColor = [UIColor whiteColor];
+    self.benchSideLabel.textAlignment = NSTextAlignmentCenter;
+    self.benchSideLabel.font = [UIFont systemFontOfSize:10];
+    self.benchSideLabel.text = @"Bench";
+    [self addSubview:self.benchSideLabel];
+}
+
+-(void)layoutBenchView {
+    CGFloat viewHeight = self.inverted ? 15 : 21;
+    self.benchSideLabel.frame = CGRectMake(0, self.inverted ? -viewHeight : self.boundsHeight, self.boundsWidth, viewHeight);
+    self.benchSideLabel.font = [UIFont systemFontOfSize: self.inverted ? 10 : 14];
 }
 
 #pragma mark - Callouts

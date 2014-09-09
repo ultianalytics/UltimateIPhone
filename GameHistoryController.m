@@ -70,7 +70,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UPoint* point = [self getGamePointAtMostRecentIndex:indexPath.section];
+    UPoint* point = [self getGamePointAtMostRecentIndex:(int)indexPath.section];
     Event* event = [self getEventForIndex:indexPath];
     
     EventChangeViewController* changeController = [[EventChangeViewController alloc] init];
@@ -107,7 +107,7 @@
             pointName = @"Current";
             isOline = [self.game.positionalBeginEvent isOffense];
         } else {
-            pointName = [game getPointNameAtMostRecentIndex:section - 1];
+            pointName = [game getPointNameAtMostRecentIndex:(int)section - 1];
             isOline = [game isPointOline: point];
         }
     } else {
@@ -237,16 +237,16 @@
 }
 
 -(Event*)getEventForIndex: (NSIndexPath *)indexPath {
-    UPoint* point = [self getGamePointAtMostRecentIndex:indexPath.section];
+    UPoint* point = [self getGamePointAtMostRecentIndex:(int)indexPath.section];
     if ((indexPath.section == 0) && self.game.positionalBeginEvent) {
         // first row is the begin (pickup or pull start) event...others are normal events
         if (indexPath.row == 0) {
             return self.game.positionalBeginEvent;
         } else {
-            return [point getEventAtMostRecentIndex:indexPath.row - 1];
+            return [point getEventAtMostRecentIndex:(int)indexPath.row - 1];
         }
     } else {
-        return [point getEventAtMostRecentIndex:indexPath.row];
+        return [point getEventAtMostRecentIndex:(int)indexPath.row];
     }
 }
 

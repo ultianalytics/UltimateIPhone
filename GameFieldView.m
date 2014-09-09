@@ -144,6 +144,7 @@
     if (self.positionTappedBlock) {
         BOOL shouldDisplayPotentialEvent = self.positionTappedBlock(eventPosition, tapPoint, isOutOfBounds);
         [self updatePointViews: shouldDisplayPotentialEvent ? eventPosition : nil];
+        [self animateDiscThrow];
         if (isOutOfBounds) {
             [self.lastSavedEventView flashOutOfBoundsMessage];
         }
@@ -246,6 +247,39 @@
         self.previousSavedEventView.visible = YES;
     } else {
         self.previousSavedEventView.visible = NO;
+    }
+  
+}
+
+-(void)animateDiscThrow {
+    Event* lastEvent = [self getLastPointEvent];
+    
+    // animate a disc moving from last event to potential event
+    if (!self.potentialEventView.hidden && lastEvent) {
+        if ([lastEvent isPositionalBegin] || [lastEvent isCatchOrOpponentCatch]) {
+            self.movingDiscView.center = self.lastSavedEventView.center;
+            self.movingDiscView.hidden = NO;
+            self.potentialEventView.discHidden = YES;
+            [UIView animateWithDuration:.5 animations:^{
+                self.movingDiscView.center = self.potentialEventView.center;
+            } completion:^(BOOL finished) {
+                self.movingDiscView.hidden = YES;
+                self.potentialEventView.discHidden = NO;
+            }];
+        }
+    } else if (!self.lastSavedEventView.hidden && !self.previousSavedEventView.hidden) {
+        Event* previousEvent = self.previousSavedEventView.event;
+        if ([previousEvent isPositionalBegin] || [previousEvent isCatchOrOpponentCatch]) {
+            self.movingDiscView.center = self.previousSavedEventView.center;
+            self.movingDiscView.hidden = NO;
+            self.lastSavedEventView.discHidden = YES;
+            [UIView animateWithDuration:.5 animations:^{
+                self.movingDiscView.center = self.lastSavedEventView.center;
+            } completion:^(BOOL finished) {
+                self.movingDiscView.hidden = YES;
+                self.lastSavedEventView.discHidden = NO;
+            }];
+        }
     }
     
 }

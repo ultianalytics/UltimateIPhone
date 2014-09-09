@@ -14,7 +14,7 @@
 @property (nonatomic, strong) Event* event;
 @property (nonatomic) BOOL isOurEvent;
 @property (nonatomic) BOOL isEmphasizedEvent;
-@property (nonatomic) BOOL isDiscHidden;
+@property (nonatomic) BOOL discHidden;
 @property (nonatomic) CGFloat discDiameter;
 @property (nonatomic) UIColor* discColor;
 @property (strong, nonatomic) void (^tappedBlock)(CGPoint tapPoint, GameFieldEventPointView* pointView);

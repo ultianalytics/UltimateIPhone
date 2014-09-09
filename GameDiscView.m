@@ -18,6 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
         self.discColor = [UIColor whiteColor];  // default disc color
     }
     return self;

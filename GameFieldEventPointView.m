@@ -90,7 +90,7 @@
     CGContextFillPath(context);
     
     // if emphasized draw an inner dot (represents the disc)
-    if (self.isEmphasizedEvent && !self.isDiscHidden) {
+    if (self.isEmphasizedEvent && !self.discHidden) {
         CGFloat origin = (self.boundsWidth - self.discDiameter) / 2;
         CGFloat diameter = self.discDiameter;
         CGContextSetFillColorWithColor(context, self.discColor.CGColor);
@@ -117,6 +117,11 @@
 -(void)setEvent:(Event *)event {
     _event = event;
     [self updateText];
+}
+
+-(void)setDiscHidden:(BOOL)discHidden {
+    _discHidden = discHidden;
+    [self setNeedsDisplay];
 }
 
 -(void)updateText {

@@ -283,37 +283,37 @@
 -(NSString*)positionalDescription {
     switch(self.action) {
         case Catch: {
-            return [NSString stringWithFormat:@"CATCH\n%@", self.isAnonymous ? @" " : self.receiver.name];
+            return self.isAnonymous ? @"CATCH" : [NSString stringWithFormat:@"CATCH\n%@", self.receiver.name];
         }
         case Drop: {
-            return [NSString stringWithFormat:@"DROP\n%@", self.isAnonymous ? @" " : self.receiver.name];
+            return self.isAnonymous ? @"DROP" : [NSString stringWithFormat:@"DROP\n%@", self.receiver.name];
         }
         case Throwaway:{
-            return [NSString stringWithFormat:@"THROWAWAY\n%@", self.isAnonymous ? @" " : self.passer.name];
+            return self.isAnonymous ? @"THROWAWAY" :  [NSString stringWithFormat:@"THROWAWAY\n%@", self.passer.name];
         }
         case Stall:{
-            return [NSString stringWithFormat:@"STALL\n%@", self.isAnonymous ? @" " : self.passer.name];
+            return self.isAnonymous ? @"STALL" :  [NSString stringWithFormat:@"STALL\n%@", self.passer.name];
         }
         case MiscPenalty:{
-            return [NSString stringWithFormat:@"PENALTY\n%@", self.isAnonymous ? @" " : self.passer.name];
+            return self.isAnonymous ? @"PENALTY" :  [NSString stringWithFormat:@"PENALTY\n%@", self.passer.name];
         }
         case Goal: {
-            return [NSString stringWithFormat:@"GOAL\n%@", self.isAnonymous ? @" " : self.receiver.name];
+            return self.isAnonymous ? @"GOAL" :  [NSString stringWithFormat:@"GOAL\n%@", self.receiver.name];
         }
         case Callahan:{
-            return [NSString stringWithFormat:@"CALLAHAN\n%@", self.isAnonymous ? @" " : self.passer.name];
+            return self.isAnonymous ? @"CALLAHAN" :  [NSString stringWithFormat:@"CALLAHAN\n%@", self.passer.name];
         }
         case PickupDisc:{
-            return [NSString stringWithFormat:@"PICK UP\n%@", self.isAnonymous ? @" " : self.passer.name];
+            return self.isAnonymous ? @"PICK UP" :  [NSString stringWithFormat:@"PICK UP\n%@", self.passer.name];
         }
         case PullBegin:{
-            return [NSString stringWithFormat:@"PULL BEGIN\n "];
+            return [NSString stringWithFormat:@"PULL BEGIN"];
         }
         case OpponentPull:{
-            return [NSString stringWithFormat:@"PULL LAND\n "];
+            return [NSString stringWithFormat:@"PULL LAND"];
         }
         case OpponentPullOb:{
-            return [NSString stringWithFormat:@"PULL OB\n "];
+            return [NSString stringWithFormat:@"PULL OB"];
         }
         default:
             return @"";

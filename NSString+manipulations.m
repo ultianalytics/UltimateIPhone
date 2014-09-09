@@ -50,5 +50,8 @@
     return data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : nil;
 }
 
+-(BOOL)contains: (NSString*) anotherString {
+    return [self rangeOfString:anotherString].location != NSNotFound;
+}
 
 @end

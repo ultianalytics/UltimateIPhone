@@ -200,31 +200,31 @@
     
     switch(self.action) {
         case Pull: {
-            return [NSString stringWithFormat:@"PULL LAND\n%@", self.isAnonymous ? @" " : self.defender.name];
+            return self.isAnonymous ? @"PULL LAND" : [NSString stringWithFormat:@"PULL LAND\n%@", self.defender.name];
         }
         case PullOb: {
-            return [NSString stringWithFormat:@"PULL OB\n%@", self.isAnonymous ? @" " : self.defender.name];
+            return self.isAnonymous ? @"PULL OB" : [NSString stringWithFormat:@"PULL OB\n%@", self.defender.name];
         }
         case Goal: {
-            return [NSString stringWithFormat:@"THEIR GOAL\n "];
+            return [NSString stringWithFormat:@"THEIR GOAL"];
         }
         case Throwaway:{
-            return [NSString stringWithFormat:@"THROWAWAY\n "];
+            return [NSString stringWithFormat:@"THROWAWAY"];
         }
         case De: {
-            return [NSString stringWithFormat:@"D\n%@", self.isAnonymous ? @" " : self.defender.name];
+            return self.isAnonymous ? @"D" : [NSString stringWithFormat:@"D\n%@", self.defender.name];
         }
         case Callahan: {
-            return [NSString stringWithFormat:@"CALLAHAN\n%@", self.isAnonymous ? @" " : self.defender.name];
+            return self.isAnonymous ? @"CALLAHAN" : [NSString stringWithFormat:@"CALLAHAN\n%@", self.defender.name];
         }
         case PickupDisc:{
-            return [NSString stringWithFormat:@"PICK UP\n "];
+            return [NSString stringWithFormat:@"PICK UP"];
         }
         case PullBegin:{
-            return [NSString stringWithFormat:@"PULL BY\n%@", self.isAnonymous ? @" " : self.defender.name];
+            return self.isAnonymous ? @"PULL BEGIN" : [NSString stringWithFormat:@"PULL BY\n%@", self.defender.name];
         }
         case OpponentCatch:{
-            return [NSString stringWithFormat:@"CATCH\n "];
+            return [NSString stringWithFormat:@"CATCH"];
         }
         default:
             return @"";

@@ -10,10 +10,12 @@
 #import "UIView+Convenience.h"
 #import "ColorMaster.h"
 #import "GameFieldEventTextView.h"
+#import "NSString+manipulations.h"
 
 #define kNonEmphasizedPositionInset 4
 #define kEmphasizedPositionInnerCircleInset 8
-#define kTextLabelHeight 34
+#define kTextLabelTwoLineHeight 34
+#define kTextLabelOneLineHeight 18
 #define kTextLabelWidth 66
 
 @interface GameFieldEventPointView()
@@ -36,7 +38,7 @@
 -(void)createTextView {
     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([GameFieldEventTextView class]) owner:nil options:nil];
     self.textView = (GameFieldEventTextView *)nibViews[0];
-    self.textView.frame = CGRectMake(0, 0, kTextLabelWidth, kTextLabelHeight);
+    self.textView.frame = CGRectMake(0, 0, kTextLabelWidth, kTextLabelTwoLineHeight);
     [self addSubview: self.textView];
 }
 
@@ -73,7 +75,9 @@
     [super layoutSubviews];
   
     // layout text
-    CGFloat textViewCenterOffset = self.boundsHeight / 2 + self.textView.frameHeight / 2;
+    CGFloat textViewHeight = [self.textView.pointDescription contains:@"\n"] ? kTextLabelTwoLineHeight : kTextLabelOneLineHeight;
+    self.textView.frameHeight = textViewHeight;    
+    CGFloat textViewCenterOffset = self.boundsHeight / 2 + textViewHeight / 2;
     CGFloat textViewY = CGRectGetMidY(self.bounds) + ([self isBelowMidField] ? (-1 * textViewCenterOffset) : textViewCenterOffset);
     self.textView.center = CGPointMake(CGRectGetMidX(self.bounds), textViewY);
 }

@@ -23,7 +23,7 @@
 #import "GameDiscView.h"
 
 #define kPointViewWidth 30.0f
-#define kDiscDiameter 15.0f
+#define kDiscDiameter 16.0f
 #define kHasDragCalloutBeenShown @"HasDragCalloutBeenShown"
 
 @interface GameFieldView ()

@@ -949,7 +949,6 @@
     // iphone uses a child controller to show the details VC.  ipad presents it modally.
     if (IS_IPAD) {
         self.detailsController.modalPresentationStyle = UIModalPresentationFormSheet;
-        self.detailsController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     } else {
         [self addChildViewController:self.detailsController inSubView:self.detailSelectionView];
     }

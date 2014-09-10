@@ -112,11 +112,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="broadcasting-small.png" id="eeC-gh-rmf" userLabel="broadcast 1 imageview">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="broadcasting-small-dark.png" id="eeC-gh-rmf" userLabel="broadcast 1 imageview">
                             <rect key="frame" x="270" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="210-twitterbird.png" id="Omc-bq-Cu2" userLabel="broadcast 2 imageview">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter-bird-dark.png" id="Omc-bq-Cu2" userLabel="broadcast 2 imageview">
                             <rect key="frame" x="297" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -141,7 +141,7 @@
         </view>
     </objects>
     <resources>
-        <image name="210-twitterbird.png" width="22" height="22"/>
-        <image name="broadcasting-small.png" width="20" height="16"/>
+        <image name="broadcasting-small-dark.png" width="20" height="16"/>
+        <image name="twitter-bird-dark.png" width="44" height="35"/>
     </resources>
 </document>

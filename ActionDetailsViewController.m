@@ -40,6 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.choicesTable.rowHeight = 38.0f;
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;
     self.choicesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self refresh];
@@ -78,10 +79,6 @@
     
     [self refresh];
 
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 38.0f;
 }
 
 -(EventSelectTableViewCell*)createCell {

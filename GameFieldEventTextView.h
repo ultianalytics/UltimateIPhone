@@ -13,6 +13,4 @@
 @property (nonatomic, strong) UIColor* textColor;
 @property (nonatomic, strong) NSString* pointDescription;
 
-- (void)flashOutOfBoundsMessage;
-
 @end

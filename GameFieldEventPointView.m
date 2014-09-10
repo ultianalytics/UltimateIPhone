@@ -21,6 +21,7 @@
 @interface GameFieldEventPointView()
 
 @property (strong, nonatomic) GameFieldEventTextView* textView;
+@property (nonatomic, strong) IBOutlet UILabel* outOfBoundLabel;
 
 @end
 
@@ -33,6 +34,7 @@
     self.discColor = [UIColor whiteColor]; // default disc color
     self.backgroundColor = [UIColor clearColor];
     [self createTextView];
+    [self createOutOfBoundsLabel];
 }
 
 -(void)createTextView {
@@ -105,6 +107,43 @@
     CGContextRestoreGState(context);
 }
 
+#pragma mark - Out of Bounds message
+
+-(void)createOutOfBoundsLabel {
+    self.outOfBoundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, kTextLabelWidth, kTextLabelTwoLineHeight)];
+    self.outOfBoundLabel.numberOfLines = 2;
+    self.outOfBoundLabel.textAlignment = NSTextAlignmentCenter;
+    self.outOfBoundLabel.textColor = [UIColor whiteColor];
+    self.outOfBoundLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.outOfBoundLabel.hidden = YES;
+    self.outOfBoundLabel.text = @"Out of\nBounds";
+    [self addSubview: self.outOfBoundLabel];
+}
+
+- (void)flashOutOfBoundsMessage {
+    if (![self.event isPositionalBegin]) {
+        CGFloat obLabelCenterOffset = self.boundsHeight / 2 + self.outOfBoundLabel.frameHeight / 2;
+        CGFloat obLabelY = CGRectGetMidY(self.bounds) + ([self isBelowMidField] ? (-1 * obLabelCenterOffset) : obLabelCenterOffset);
+        self.outOfBoundLabel.center = CGPointMake(CGRectGetMidX(self.bounds), obLabelY);
+        
+        self.textView.hidden = YES;
+        self.outOfBoundLabel.hidden = NO;
+        [self performSelector:@selector(animateHideOfBoundsLabel) withObject:self afterDelay:1];
+    }
+}
+
+- (void)animateHideOfBoundsLabel {
+    self.textView.alpha = 0;
+    self.textView.hidden = NO;
+    [UIView animateWithDuration:.5 animations:^{
+        self.outOfBoundLabel.alpha = 0;
+        self.textView.alpha = 1;
+    } completion:^(BOOL finished) {
+        self.outOfBoundLabel.hidden = YES;
+        self.outOfBoundLabel.alpha = 1;
+    }];
+}
+
 #pragma mark - Misc
 
 -(void)setIsOurEvent:(BOOL)isOurEvent {
@@ -135,12 +174,6 @@
 
 -(UIColor*)dotColor {
     return self.isOurEvent ? [ColorMaster applicationTintColor] : [UIColor redColor];
-}
-
-- (void)flashOutOfBoundsMessage {
-    if (![self.event isPositionalBegin]) {
-        [self.textView flashOutOfBoundsMessage];
-    }
 }
 
 -(BOOL)isBelowMidField {

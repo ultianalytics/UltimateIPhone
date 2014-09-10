@@ -93,9 +93,9 @@
 @property (nonatomic, strong) IBOutlet UIButton* timeoutButton;
 @property (nonatomic, strong) IBOutlet UIButton* gameOverButton;
 
-// broadcasting labels
-@property (nonatomic, strong) IBOutlet UILabel* broadcast1Label;
-@property (nonatomic, strong) IBOutlet UILabel* broadcast2Label;
+// broadcasting views
+@property (nonatomic, strong) IBOutlet UIImageView* broadcast1ImageView;
+@property (nonatomic, strong) IBOutlet UIImageView* broadcast2ImageView;
 
 // events view controller subview (ipad only)
 @property (nonatomic, strong) IBOutlet UIView* eventsSubView;
@@ -278,11 +278,8 @@
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
     BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
     BOOL isAutoGameUploading = [Preferences getCurrentPreferences].gameAutoUpload;
-    self.broadcast1Label.hidden = !isAutoTweeting;
-    self.broadcast2Label.visible = isLeaguevinePosting || isAutoGameUploading;
-    if (self.broadcast2Label.visible) {
-        self.broadcast2Label.text = isAutoGameUploading ? @"auto-uploading" : @"leaguevine pub";
-    }
+    self.broadcast1ImageView.visible = isLeaguevinePosting || isAutoGameUploading;    
+    self.broadcast2ImageView.visible = isAutoTweeting;
 
     if ((isAutoTweeting || isAutoGameUploading || [self shouldPublishScoresToLeaguevine]) &&
         [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {

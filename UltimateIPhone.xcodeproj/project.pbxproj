@@ -325,6 +325,8 @@
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
 		38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */; };
 		38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */; };
+		3870812A19BFCD8E001174CB /* broadcasting-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812819BFCD8E001174CB /* broadcasting-small.png */; };
+		3870812B19BFCD8E001174CB /* broadcasting-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812919BFCD8E001174CB /* broadcasting-small@2x.png */; };
 		38B0997519BE6EF700831B6D /* GameDiscView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B0997419BE6EF700831B6D /* GameDiscView.m */; };
 		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
 		38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6119A0F77B008BE91B /* GameActionView.xib */; };
@@ -824,6 +826,8 @@
 		38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameUploadPickerViewController.storyboard; sourceTree = "<group>"; };
 		38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerTableViewCell.h; sourceTree = "<group>"; };
 		38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerTableViewCell.m; sourceTree = "<group>"; };
+		3870812819BFCD8E001174CB /* broadcasting-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small.png"; sourceTree = "<group>"; };
+		3870812919BFCD8E001174CB /* broadcasting-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small@2x.png"; sourceTree = "<group>"; };
 		38B0997319BE6EF700831B6D /* GameDiscView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDiscView.h; sourceTree = "<group>"; };
 		38B0997419BE6EF700831B6D /* GameDiscView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDiscView.m; sourceTree = "<group>"; };
 		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
@@ -1575,6 +1579,8 @@
 			children = (
 				381BC48019B7E95400CD8C20 /* broadcasting.png */,
 				381BC48119B7E95400CD8C20 /* broadcasting@2x.png */,
+				3870812819BFCD8E001174CB /* broadcasting-small.png */,
+				3870812919BFCD8E001174CB /* broadcasting-small@2x.png */,
 				381BC46219B3663800CD8C20 /* play-direction-our-team-left.png */,
 				381BC46319B3663800CD8C20 /* play-direction-our-team-left@2x.png */,
 				381BC46419B3663800CD8C20 /* play-direction-our-team-right.png */,
@@ -1890,6 +1896,7 @@
 				381BC46E19B3663800CD8C20 /* play-direction-their-team-left.png in Resources */,
 				381BC48319B7E95400CD8C20 /* broadcasting@2x.png in Resources */,
 				1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */,
+				3870812B19BFCD8E001174CB /* broadcasting-small@2x.png in Resources */,
 				1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */,
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
 				38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */,
@@ -1959,6 +1966,7 @@
 				1AA37B9718A6C5CB00CE9662 /* player_passing@2x.png in Resources */,
 				1AA37BF718B2DE7E00CE9662 /* first-passer-bracket-5@2x.png in Resources */,
 				38FD2FDD199686D700CE83BB /* PlayersMasterDetailViewController.xib in Resources */,
+				3870812A19BFCD8E001174CB /* broadcasting-small.png in Resources */,
 				1AA95A0E170EF647003B0781 /* LeaguevineWaitingViewController.xib in Resources */,
 				1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */,
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,

@@ -8,8 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController">
             <connections>
                 <outlet property="actionSubView" destination="a4f-J8-c9x" id="2pV-Q5-8sX"/>
-                <outlet property="broadcast1Label" destination="74" id="78"/>
-                <outlet property="broadcast2Label" destination="77" id="79"/>
+                <outlet property="broadcast1ImageView" destination="eeC-gh-rmf" id="Clz-sh-V8r"/>
+                <outlet property="broadcast2ImageView" destination="Omc-bq-Cu2" id="LiF-Yx-tUf"/>
                 <outlet property="detailSelectionView" destination="80" id="84"/>
                 <outlet property="eventView1" destination="59" id="60"/>
                 <outlet property="eventView2" destination="58" id="61"/>
@@ -112,20 +112,14 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="auto-tweeting" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="8" id="74" userLabel="Label: Broadcast 1 ">
-                            <rect key="frame" x="236" y="-2" width="82" height="14"/>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="broadcasting-small.png" id="eeC-gh-rmf" userLabel="broadcast 1 imageview">
+                            <rect key="frame" x="270" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="leaguevine pub" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" id="77" userLabel="Label: Broadcast 2">
-                            <rect key="frame" x="236" y="9" width="82" height="13"/>
+                        </imageView>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="210-twitterbird.png" id="Omc-bq-Cu2" userLabel="broadcast 2 imageview">
+                            <rect key="frame" x="297" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.84705882352941175" green="0.84313725490196079" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -146,4 +140,8 @@
             <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="210-twitterbird.png" width="22" height="22"/>
+        <image name="broadcasting-small.png" width="20" height="16"/>
+    </resources>
 </document>

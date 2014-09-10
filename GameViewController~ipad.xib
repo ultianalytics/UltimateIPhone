@@ -8,8 +8,8 @@
             <connections>
                 <outlet property="actionSubView" destination="fHk-v1-KAb" id="5K4-fg-WSK"/>
                 <outlet property="bottomOrRightView" destination="ofW-zR-MVS" id="ynO-Ab-32J"/>
-                <outlet property="broadcast1Label" destination="PDd-Pt-1lA" id="xvH-fB-VZi"/>
-                <outlet property="broadcast2Label" destination="Xvi-tb-wGI" id="OYO-aS-q1K"/>
+                <outlet property="broadcast1ImageView" destination="N4u-xa-5ZN" id="Mv4-a1-y9U"/>
+                <outlet property="broadcast2ImageView" destination="pi2-6f-Rqg" id="c9N-lW-upN"/>
                 <outlet property="eventsSubView" destination="XYS-GE-pHb" id="jWH-IW-uFt"/>
                 <outlet property="gameOverButton" destination="LHA-vH-M3T" id="YKQ-02-uga"/>
                 <outlet property="timeoutButton" destination="1Fv-fr-kvc" id="fMb-Eg-jab"/>
@@ -31,20 +31,14 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-Tweeting" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PDd-Pt-1lA" userLabel="Broadcast 1 Label">
-                            <rect key="frame" x="616" y="20" width="140" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leaguevine Posting" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xvi-tb-wGI" userLabel="Broadcast 2 Label">
-                            <rect key="frame" x="616" y="40" width="140" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="broadcasting-small.png" id="N4u-xa-5ZN" userLabel="broadcast 1 imageview">
+                            <rect key="frame" x="564" y="20" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="210-twitterbird.png" id="pi2-6f-Rqg" userLabel="broadcast 2 imageview">
+                            <rect key="frame" x="599" y="20" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <view contentMode="scaleToFill" id="PUJ-47-qSe" userLabel="Buttons View">
                             <rect key="frame" x="0.0" y="500" width="768" height="80"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -99,4 +93,8 @@
             <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
         </view>
     </objects>
+    <resources>
+        <image name="210-twitterbird.png" width="22" height="22"/>
+        <image name="broadcasting-small.png" width="20" height="16"/>
+    </resources>
 </document>

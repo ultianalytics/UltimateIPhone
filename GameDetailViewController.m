@@ -27,6 +27,7 @@
 #import "LeaguevineClient.h"
 #import "LeaguevineEventQueue.h"
 #import "TimeoutViewController.h"
+#import "GamePlaybackViewController.h"
 #import "GameStartTimeViewController.h"
 #import "UIViewController+Additions.h"
 #import "CalloutsContainerView.h"
@@ -66,6 +67,7 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePubCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* positionalEventsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* playbackCell;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 
@@ -115,6 +117,9 @@
     [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell]];
     if (IS_IPAD) {
         [self.cells addObject:self.positionalEventsCell];
+    }
+    if (self.game.isPositional && [self.game hasEvents]) {
+        [self.cells addObjectsFromArray:@[self.playbackCell]];
     }
     [self.cells addObjectsFromArray:@[self.timeoutsCell]];
     if ([self.game hasBeenSaved]) {
@@ -503,6 +508,13 @@
         TimeoutViewController* timeoutController = [[TimeoutViewController alloc] init];
         timeoutController.game = self.game;
         [self.navigationController pushViewController:timeoutController animated:YES];
+    } else if (cell == self.playbackCell) {
+        GamePlaybackViewController* playbackController = [[GamePlaybackViewController alloc] init];
+        playbackController.game = self.game;
+        playbackController.team = [Team getCurrentTeam];
+        UINavigationController* topNavigationController = self.topViewController ? self.topViewController.navigationController : self.navigationController;
+        topNavigationController.navigationBarHidden = NO;
+        [topNavigationController pushViewController:playbackController animated:YES];
     } else if (cell == self.opponentLeaguevineCell) {
         LeagueVineGameViewController* leaguevineController = [[LeagueVineGameViewController alloc] init];
         leaguevineController.team = [Team getCurrentTeam];

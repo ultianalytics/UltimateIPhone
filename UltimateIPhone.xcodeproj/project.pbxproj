@@ -330,6 +330,8 @@
 		3870812E19C07587001174CB /* broadcasting-small-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812C19C07587001174CB /* broadcasting-small-dark.png */; };
 		3870812F19C07587001174CB /* broadcasting-small-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */; };
 		3870813319C07944001174CB /* twitter-bird-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870813219C07944001174CB /* twitter-bird-dark.png */; };
+		38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */; };
+		38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */; };
 		38B0997519BE6EF700831B6D /* GameDiscView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B0997419BE6EF700831B6D /* GameDiscView.m */; };
 		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
 		38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6119A0F77B008BE91B /* GameActionView.xib */; };
@@ -834,6 +836,9 @@
 		3870812C19C07587001174CB /* broadcasting-small-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark.png"; sourceTree = "<group>"; };
 		3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark@2x.png"; sourceTree = "<group>"; };
 		3870813219C07944001174CB /* twitter-bird-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-bird-dark.png"; sourceTree = "<group>"; };
+		38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackViewController.h; sourceTree = "<group>"; };
+		38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackViewController.m; sourceTree = "<group>"; };
+		38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePlaybackViewController.xib; sourceTree = "<group>"; };
 		38B0997319BE6EF700831B6D /* GameDiscView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDiscView.h; sourceTree = "<group>"; };
 		38B0997419BE6EF700831B6D /* GameDiscView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDiscView.m; sourceTree = "<group>"; };
 		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
@@ -1329,6 +1334,7 @@
 				1AFFE8DC151764D9004B4590 /* Game */,
 				1AFFE8DD151764DB004B4590 /* Game Action */,
 				384C2D7F19A7F60700EE8290 /* Game Action - Positional */,
+				38AA389019C1E69100C6CF9A /* Game Playback */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
 				1AA37BE318AFBCEA00CE9662 /* Event */,
@@ -1755,6 +1761,16 @@
 			name = "Game Action - Positional";
 			sourceTree = "<group>";
 		};
+		38AA389019C1E69100C6CF9A /* Game Playback */ = {
+			isa = PBXGroup;
+			children = (
+				38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */,
+				38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */,
+				38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */,
+			);
+			name = "Game Playback";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1959,6 +1975,7 @@
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
 				38B2CE6419A11D65008BE91B /* GameActionView_iPhone_320x568.xib in Resources */,
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
+				38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */,
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
 				1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */,
 				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
@@ -2097,6 +2114,7 @@
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 				1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */,
+				38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */,
 				1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */,
 				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 				1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */,

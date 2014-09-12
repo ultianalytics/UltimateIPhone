@@ -334,6 +334,22 @@
 		38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */; };
 		38AA389819C324D000C6CF9A /* GameRecordingFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389719C324D000C6CF9A /* GameRecordingFieldView.m */; };
 		38AA389B19C32BAE00C6CF9A /* GamePlaybackFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389A19C32BAE00C6CF9A /* GamePlaybackFieldView.m */; };
+		38AA38A919C32F1400C6CF9A /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389D19C32F1400C6CF9A /* backward.png */; };
+		38AA38AA19C32F1400C6CF9A /* backward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389E19C32F1400C6CF9A /* backward@2x.png */; };
+		38AA38AB19C32F1400C6CF9A /* fast-backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389F19C32F1400C6CF9A /* fast-backward.png */; };
+		38AA38AC19C32F1400C6CF9A /* fast-backward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A019C32F1400C6CF9A /* fast-backward@2x.png */; };
+		38AA38AD19C32F1400C6CF9A /* fast-forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A119C32F1400C6CF9A /* fast-forward.png */; };
+		38AA38AE19C32F1400C6CF9A /* fast-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A219C32F1400C6CF9A /* fast-forward@2x.png */; };
+		38AA38AF19C32F1400C6CF9A /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A319C32F1400C6CF9A /* forward.png */; };
+		38AA38B019C32F1400C6CF9A /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A419C32F1400C6CF9A /* forward@2x.png */; };
+		38AA38B119C32F1400C6CF9A /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A519C32F1400C6CF9A /* pause.png */; };
+		38AA38B219C32F1400C6CF9A /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A619C32F1400C6CF9A /* pause@2x.png */; };
+		38AA38B319C32F1400C6CF9A /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A719C32F1400C6CF9A /* play.png */; };
+		38AA38B419C32F1400C6CF9A /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38A819C32F1400C6CF9A /* play@2x.png */; };
+		38AA38BA19C3360F00C6CF9A /* checkbox-checked-white-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38B619C3360F00C6CF9A /* checkbox-checked-white-border.png */; };
+		38AA38BB19C3360F00C6CF9A /* checkbox-checked-white-border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38B719C3360F00C6CF9A /* checkbox-checked-white-border@2x.png */; };
+		38AA38BC19C3360F00C6CF9A /* checkbox-unchecked-white-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38B819C3360F00C6CF9A /* checkbox-unchecked-white-border.png */; };
+		38AA38BD19C3360F00C6CF9A /* checkbox-unchecked-white-border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38AA38B919C3360F00C6CF9A /* checkbox-unchecked-white-border@2x.png */; };
 		38B0997519BE6EF700831B6D /* GameDiscView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B0997419BE6EF700831B6D /* GameDiscView.m */; };
 		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
 		38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6119A0F77B008BE91B /* GameActionView.xib */; };
@@ -845,6 +861,22 @@
 		38AA389719C324D000C6CF9A /* GameRecordingFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRecordingFieldView.m; sourceTree = "<group>"; };
 		38AA389919C32BAE00C6CF9A /* GamePlaybackFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackFieldView.h; sourceTree = "<group>"; };
 		38AA389A19C32BAE00C6CF9A /* GamePlaybackFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackFieldView.m; sourceTree = "<group>"; };
+		38AA389D19C32F1400C6CF9A /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
+		38AA389E19C32F1400C6CF9A /* backward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backward@2x.png"; sourceTree = "<group>"; };
+		38AA389F19C32F1400C6CF9A /* fast-backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fast-backward.png"; sourceTree = "<group>"; };
+		38AA38A019C32F1400C6CF9A /* fast-backward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fast-backward@2x.png"; sourceTree = "<group>"; };
+		38AA38A119C32F1400C6CF9A /* fast-forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fast-forward.png"; sourceTree = "<group>"; };
+		38AA38A219C32F1400C6CF9A /* fast-forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fast-forward@2x.png"; sourceTree = "<group>"; };
+		38AA38A319C32F1400C6CF9A /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
+		38AA38A419C32F1400C6CF9A /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward@2x.png"; sourceTree = "<group>"; };
+		38AA38A519C32F1400C6CF9A /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		38AA38A619C32F1400C6CF9A /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
+		38AA38A719C32F1400C6CF9A /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		38AA38A819C32F1400C6CF9A /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
+		38AA38B619C3360F00C6CF9A /* checkbox-checked-white-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked-white-border.png"; sourceTree = "<group>"; };
+		38AA38B719C3360F00C6CF9A /* checkbox-checked-white-border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked-white-border@2x.png"; sourceTree = "<group>"; };
+		38AA38B819C3360F00C6CF9A /* checkbox-unchecked-white-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked-white-border.png"; sourceTree = "<group>"; };
+		38AA38B919C3360F00C6CF9A /* checkbox-unchecked-white-border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked-white-border@2x.png"; sourceTree = "<group>"; };
 		38B0997319BE6EF700831B6D /* GameDiscView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDiscView.h; sourceTree = "<group>"; };
 		38B0997419BE6EF700831B6D /* GameDiscView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDiscView.m; sourceTree = "<group>"; };
 		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
@@ -1595,6 +1627,8 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				38AA38B519C335E500C6CF9A /* Checkbox */,
+				38AA389C19C32ED500C6CF9A /* Playback Controls */,
 				3870813219C07944001174CB /* twitter-bird-dark.png */,
 				381BC48019B7E95400CD8C20 /* broadcasting.png */,
 				381BC48119B7E95400CD8C20 /* broadcasting@2x.png */,
@@ -1613,8 +1647,6 @@
 				38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */,
 				38FD2FE31997F30800CE83BB /* left-caret-green.png */,
 				38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */,
-				38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */,
-				38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */,
 				1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */,
 				1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */,
 				1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */,
@@ -1781,6 +1813,38 @@
 			name = "Game Playback";
 			sourceTree = "<group>";
 		};
+		38AA389C19C32ED500C6CF9A /* Playback Controls */ = {
+			isa = PBXGroup;
+			children = (
+				38AA389D19C32F1400C6CF9A /* backward.png */,
+				38AA389E19C32F1400C6CF9A /* backward@2x.png */,
+				38AA389F19C32F1400C6CF9A /* fast-backward.png */,
+				38AA38A019C32F1400C6CF9A /* fast-backward@2x.png */,
+				38AA38A119C32F1400C6CF9A /* fast-forward.png */,
+				38AA38A219C32F1400C6CF9A /* fast-forward@2x.png */,
+				38AA38A319C32F1400C6CF9A /* forward.png */,
+				38AA38A419C32F1400C6CF9A /* forward@2x.png */,
+				38AA38A519C32F1400C6CF9A /* pause.png */,
+				38AA38A619C32F1400C6CF9A /* pause@2x.png */,
+				38AA38A719C32F1400C6CF9A /* play.png */,
+				38AA38A819C32F1400C6CF9A /* play@2x.png */,
+			);
+			name = "Playback Controls";
+			sourceTree = "<group>";
+		};
+		38AA38B519C335E500C6CF9A /* Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				38AA38B619C3360F00C6CF9A /* checkbox-checked-white-border.png */,
+				38AA38B719C3360F00C6CF9A /* checkbox-checked-white-border@2x.png */,
+				38AA38B819C3360F00C6CF9A /* checkbox-unchecked-white-border.png */,
+				38AA38B919C3360F00C6CF9A /* checkbox-unchecked-white-border@2x.png */,
+				38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */,
+				38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */,
+			);
+			name = Checkbox;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1866,6 +1930,8 @@
 				1AA37BF818B2DE7E00CE9662 /* first-passer-bracket@2x.png in Resources */,
 				1AFFE7F415175E7B004B4590 /* beaten.png in Resources */,
 				1AFFE7F515175E7B004B4590 /* big_smile.png in Resources */,
+				38AA38B019C32F1400C6CF9A /* forward@2x.png in Resources */,
+				38AA38BB19C3360F00C6CF9A /* checkbox-checked-white-border@2x.png in Resources */,
 				1AA37B9218A6C29D00CE9662 /* player_laying_out.png in Resources */,
 				1AFFE7F615175E7B004B4590 /* black_heart.png in Resources */,
 				1AFFE7F715175E7B004B4590 /* catch_trans.gif in Resources */,
@@ -1874,6 +1940,7 @@
 				1AFFE7FF15175E7B004B4590 /* delete.png in Resources */,
 				1AFFE80015175E7B004B4590 /* drop_trans2.gif in Resources */,
 				1AFFE80115175E7B004B4590 /* electric_shock.png in Resources */,
+				38AA38B219C32F1400C6CF9A /* pause@2x.png in Resources */,
 				1AFFE87D15175EB0004B4590 /* EventView.xib in Resources */,
 				1AFFE87E15175EB0004B4590 /* exciting.png in Resources */,
 				38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */,
@@ -1889,6 +1956,7 @@
 				381BC46B19B3663800CD8C20 /* play-direction-our-team-left@2x.png in Resources */,
 				1AFFE89015175EB0004B4590 /* haha.png in Resources */,
 				1AFFE89115175EB0004B4590 /* happy.png in Resources */,
+				38AA38AC19C32F1400C6CF9A /* fast-backward@2x.png in Resources */,
 				1AA37BAE18A8619700CE9662 /* color4D7F00Radius3.png in Resources */,
 				1AFFE89215175EB0004B4590 /* horror.png in Resources */,
 				1AFFE89515175EB0004B4590 /* left-arrow.png in Resources */,
@@ -1903,6 +1971,7 @@
 				1AA37BAB18A8619700CE9662 /* color1F3300Radius3.png in Resources */,
 				381BC47A19B6050D00CD8C20 /* PlayerPositionalView.xib in Resources */,
 				1AFFE8A215175EB0004B4590 /* PlayerButton.xib in Resources */,
+				38AA38AD19C32F1400C6CF9A /* fast-forward.png in Resources */,
 				1AFFE8A515175EB0004B4590 /* PlayerDetailsViewController.xib in Resources */,
 				1AFFE8A815175EB0004B4590 /* PlayerView~iphone.xib in Resources */,
 				1AFFE8AC15175EB0004B4590 /* PreferencesViewController.xib in Resources */,
@@ -1926,15 +1995,18 @@
 				38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */,
 				1AFFE8C515175EB0004B4590 /* victory.png in Resources */,
 				1AFFE8C615175EB0004B4590 /* what.png in Resources */,
+				38AA38A919C32F1400C6CF9A /* backward.png in Resources */,
 				1AA37B8418A6A10300CE9662 /* 768-female@2x.png in Resources */,
 				1AFFE8CA15175EB0004B4590 /* WindViewController.xib in Resources */,
 				381BC46E19B3663800CD8C20 /* play-direction-their-team-left.png in Resources */,
 				381BC48319B7E95400CD8C20 /* broadcasting@2x.png in Resources */,
 				1AFFE8CB15175EB0004B4590 /* woman.jpg in Resources */,
 				3870812B19BFCD8E001174CB /* broadcasting-small@2x.png in Resources */,
+				38AA38BC19C3360F00C6CF9A /* checkbox-unchecked-white-border.png in Resources */,
 				1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */,
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
 				38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */,
+				38AA38B319C32F1400C6CF9A /* play.png in Resources */,
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,
@@ -1952,11 +2024,14 @@
 				1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */,
 				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
 				1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */,
+				38AA38BA19C3360F00C6CF9A /* checkbox-checked-white-border.png in Resources */,
+				38AA38AA19C32F1400C6CF9A /* backward@2x.png in Resources */,
 				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
 				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,
 				1AA37B9418A6C29D00CE9662 /* player.png in Resources */,
 				38672B1B199BB3FD001DCDDE /* GamesViewController.storyboard in Resources */,
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
+				38AA38AF19C32F1400C6CF9A /* forward.png in Resources */,
 				1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */,
 				1A80C96E15612067007F03C2 /* man@2x.png in Resources */,
 				1A80C96F15612067007F03C2 /* man.png in Resources */,
@@ -1980,6 +2055,7 @@
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
 				38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */,
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
+				38AA38AB19C32F1400C6CF9A /* fast-backward.png in Resources */,
 				1AA37B7F18A6A0F800CE9662 /* 769-male.png in Resources */,
 				381BC46119B364D100CD8C20 /* PlayDirectionView.xib in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
@@ -1987,6 +2063,7 @@
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
 				38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */,
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
+				38AA38B419C32F1400C6CF9A /* play@2x.png in Resources */,
 				1AC9BA141621DF0A00390D3F /* chevron@2x.png in Resources */,
 				1A23B82C1625900C00EC9D92 /* EventChangeViewController.xib in Resources */,
 				1ACC079C1627AA070038F934 /* PlayerSelectionTableViewCell.xib in Resources */,
@@ -1999,6 +2076,8 @@
 				1A1B84FC1644588E008EF261 /* SubstitutionViewController.xib in Resources */,
 				1AA37B9818A6C5CB00CE9662 /* player_passing.png in Resources */,
 				1A59D36E16480487000EA798 /* GameHistoryHeaderView.xib in Resources */,
+				38AA38BD19C3360F00C6CF9A /* checkbox-unchecked-white-border@2x.png in Resources */,
+				38AA38AE19C32F1400C6CF9A /* fast-forward@2x.png in Resources */,
 				1A6C82E116E3C01600B84595 /* ActionDetailsViewController.xib in Resources */,
 				1A6C82E516E3C51E00B84595 /* EventSelectTableViewCell.xib in Resources */,
 				1AA37B9318A6C29D00CE9662 /* player@2x.png in Resources */,
@@ -2015,6 +2094,7 @@
 				38B2CE7019A17628008BE91B /* PlayerView~ipad.xib in Resources */,
 				38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */,
 				38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */,
+				38AA38B119C32F1400C6CF9A /* pause.png in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
 				38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */,
 				381BC47F19B738D600CD8C20 /* GameFieldEventTextView.xib in Resources */,

@@ -42,6 +42,18 @@
 
 #pragma mark - UIView overrides
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+-(void)awakeFromNib {
+    [self commonInit];
+}
+
 -(void)layoutSubviews {
     [super layoutSubviews];
     [self calculateFieldRectangles];

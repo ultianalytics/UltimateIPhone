@@ -10,4 +10,9 @@
 
 @interface GamePlaybackFieldView : GameFieldView
 
+@property (strong, nonatomic) void (^displayCompletionBlock)();
+
+-(void)displayNewEvent: (Event*) event;
+-(void)resetField;
+
 @end

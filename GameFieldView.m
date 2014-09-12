@@ -21,8 +21,6 @@
 @property (nonatomic) CGRect endzone0Rect;
 @property (nonatomic) CGRect endzone100Rect;
 
-@property (nonatomic, strong) UIColor* discColor;
-
 @end
 
 @implementation GameFieldView

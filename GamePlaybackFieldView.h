@@ -11,6 +11,7 @@
 @interface GamePlaybackFieldView : GameFieldView
 
 -(void)displayNewEvent: (Event*) event complete: (void (^)()) completionBlock;
+-(void)displayEvent: (Event*) event;
 -(void)resetField;
 
 @end

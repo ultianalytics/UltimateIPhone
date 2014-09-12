@@ -36,7 +36,7 @@
 
 // indexes are just used for positioning the game progress slider
 @property (nonatomic) int currentPointIndex;
-@property (nonatomic) int currentEventIndex;
+@property (nonatomic) int currentEventIndex; // 0 implies no event
 
 @end
 
@@ -59,11 +59,16 @@
 }
 
 - (IBAction)backwardButtonTapped:(id)sender {
-    
+    [self moveCurrentEventBackward];
+    [self displayCurrentEvent];
+    [self updateControls];
 }
 
 - (IBAction)fastBackwardButtonTapped:(id)sender {
-    
+    [self moveCurrentPointBackward];
+    self.currentEvent = nil;  // move to the FIRST event of the point
+    [self displayCurrentEvent];
+    [self updateControls];
 }
 
 - (IBAction)playButtonTapped:(id)sender {
@@ -75,7 +80,9 @@
 }
 
 - (IBAction)fastForwardButtonTapped:(id)sender {
-    
+    [self moveCurrentPointForward];
+    [self displayCurrentEvent];
+    [self updateControls];
 }
 
 - (IBAction)playbackSpeedChanged:(id)sender {
@@ -96,30 +103,36 @@
     Event* lastEvent = self.currentEvent;
     UPoint* lastPoint = self.currentPoint;
     [self moveCurrentEventForward];
-    if (lastEvent == nil || lastEvent != self.currentEvent) {
-        if (lastPoint == nil || lastPoint != self.currentPoint) {
-            [self.fieldView resetField];
-        }
-        if (self.currentEvent.beginPosition) {
-            Event* beginEvent = [self.currentEvent asBeginEvent];
-            [self.fieldView displayNewEvent:beginEvent complete:^{
+    if (self.currentEvent) {
+        if (lastEvent == nil || lastEvent != self.currentEvent) {
+            if (lastPoint == nil || lastPoint != self.currentPoint) {
+                [self.fieldView resetField];
+            }
+            if (self.currentEvent.beginPosition) {
+                Event* beginEvent = [self.currentEvent asBeginEvent];
+                [self.fieldView displayNewEvent:beginEvent complete:^{
+                    [self.fieldView displayNewEvent:self.currentEvent complete:^{
+                        [self updateControls];
+                    }];
+                }];
+            } else {
                 [self.fieldView displayNewEvent:self.currentEvent complete:^{
                     [self updateControls];
                 }];
-            }];
-        } else {
-            [self.fieldView displayNewEvent:self.currentEvent complete:^{
-                [self updateControls];
-            }];
+            }
         }
+    } else {
+        [self.fieldView resetField];
+        [self updateControls];
     }
 }
 
 
 -(void) moveCurrentEventForward {
     if (!self.currentPoint) {
-        [self moveCurrentPointForward];
-    } else {
+        self.currentPoint = self.game.points[0];
+    }
+    if (self.currentEvent) {
         BOOL nextEventInCurrentPoint = NO;
         for (int i = 0; i < [self.currentPoint.events count] - 1; i++) {  // not including the last event in iteration
             Event* event = self.currentPoint.events[i];
@@ -132,24 +145,21 @@
         if (!nextEventInCurrentPoint) {
             [self moveCurrentPointForward];
         }
+    } else {
+        self.currentEvent = self.currentPoint.events[0];
     }
 }
 
 -(void) moveCurrentEventBackward {
-    if (!self.currentPoint) {
+    if (!self.currentEvent) {
         [self moveCurrentPointBackward];
     } else {
-        BOOL nextEventInCurrentPoint = NO;
-        for (int i = 1; i < [self.currentPoint.events count]; i++) {  // not including the first event in iteration
+        for (int i = 0; i < [self.currentPoint.events count]; i++) {
             Event* event = self.currentPoint.events[i];
             if (event == self.currentEvent) {
-                self.currentEvent = self.currentPoint.events[i - 1];
-                nextEventInCurrentPoint = YES;
+                self.currentEvent = i == 0 ? nil : self.currentPoint.events[i - 1];
                 break;
             }
-        }
-        if (!nextEventInCurrentPoint) {
-            [self moveCurrentPointBackward];
         }
     }
 }
@@ -160,16 +170,14 @@
             UPoint* point = self.game.points[i];
             if (point == self.currentPoint) {
                 self.currentPoint = self.game.points[i + 1];
-                if ([self.currentPoint.events count] > 0) {
-                    self.currentEvent = self.currentPoint.events[0];
-                }
                 break;
             }
         }
     } else {
         self.currentPoint = self.game.points[0];
-        self.currentEvent = self.currentPoint.events[0];
+        
     }
+    self.currentEvent = nil;
 }
 
 -(void) moveCurrentPointBackward {
@@ -179,14 +187,30 @@
             if (point == self.currentPoint){
                 self.currentPoint = self.game.points[i - 1];
                 if ([self.currentPoint.events count] > 0) {
-                    self.currentEvent = self.currentPoint.events[0];
+                    self.currentEvent = self.currentPoint.events[[self.currentPoint.events count] - 1];
                 }
                 break;
             }
         }
     } else {
         self.currentPoint = self.game.points[0];
-        self.currentEvent = self.currentPoint.events[0];
+        self.currentEvent = nil;
+    }
+}
+
+-(void)displayCurrentEvent {
+    [self.fieldView resetField];
+    if (self.currentEvent) {
+        for (Event* event in self.currentPoint.events) {
+            if (event.beginPosition) {
+                Event* beginEvent = [event asBeginEvent];
+                [self.fieldView displayEvent:beginEvent];
+            }
+            [self.fieldView displayEvent:event];
+            if (event == self.currentEvent) { // only go until we hit our event
+                break;
+            };
+        }
     }
 }
 
@@ -194,7 +218,7 @@
 
 -(void)updateControls {
     [self updateGameProgressSlider];
-    [self updateContolButtons];
+    [self updateControlButtons];
     // todo: checkboxes
 }
 
@@ -208,7 +232,7 @@
             // add events played in this point
             if (numberOfEvents > 0) {
                 float percentPerPoint = 1.f / (float)[self numberOfPoints];
-                float relativeEventPercent = (float)(self.currentEventIndex + 1) / (float)numberOfEvents;
+                float relativeEventPercent = (float)(self.currentEventIndex) / (float)numberOfEvents;
                 gameProgressPercent += (relativeEventPercent * percentPerPoint);
             }
         }
@@ -218,13 +242,16 @@
     }
 }
 
--(void)updateContolButtons {
+-(void)updateControlButtons {
     [self.playButton setImage: self.isPlaying ? self.pauseImage : self.playImage forState:UIControlStateNormal];
     BOOL isFirstPoint = self.currentPointIndex == 0;
     BOOL isLastPoint = self.currentPointIndex == [self numberOfPoints] - 1;
+    BOOL isFirstEventOfPoint = self.currentEventIndex == 0;
+    BOOL isLastEventOfPoint = self.currentEventIndex == [self.currentPoint.events count];
     self.fastBackwardButton.enabled = !isFirstPoint;
     self.fastForwardButton.enabled = !isLastPoint;
-    // todo enable/disable forward/backward
+    self.backwardButton.enabled = !isFirstPoint || !isFirstEventOfPoint;
+    self.forwardButton.enabled = !isLastPoint || !isLastEventOfPoint;
 }
 
 #pragma mark - Misc
@@ -255,12 +282,13 @@
 
 -(void)setCurrentEvent:(Event *)currentEvent {
     _currentEvent = currentEvent;
-    self.currentEventIndex = 0;
+    self.currentEventIndex = 0;  // 0 implies no event
     if (currentEvent) {
         int index = 0;
         for (Event* event in self.currentPoint.events) {
             if (event == currentEvent) {
                 self.currentEventIndex = index;
+                self.currentEventIndex++;
                 break;
             }
             index++;

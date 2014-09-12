@@ -12,8 +12,6 @@
 
 @implementation GamePlaybackFieldView
 
-
-
 -(void)displayNewEvent: (Event*) event complete: (void (^)()) completionBlock {
     GameFieldEventPointView* eventView = [self createPointView];
     eventView.event = event;
@@ -23,6 +21,14 @@
     if (completionBlock) {
         completionBlock();
     }
+}
+
+-(void)displayEvent: (Event*) event {
+    GameFieldEventPointView* eventView = [self createPointView];
+    eventView.event = event;
+    eventView.isOurEvent = [self isOurEvent:event];
+    [self updatePointViewLocation:eventView toPosition:event.position];
+    [self addSubview:eventView];
 }
 
 -(GameFieldEventPointView*)createPointView {

@@ -68,6 +68,7 @@
     
     CGContextSetStrokeColorWithColor(context, self.fieldBorderColor.CGColor);
     CGContextSetLineWidth(context, lineWidth);
+    CGContextSetLineCap(context, kCGLineCapSquare);
     
     // draw the total field boundaries
     CGFloat borderLineInset = lineWidth - 1;  // stay inside the bounds

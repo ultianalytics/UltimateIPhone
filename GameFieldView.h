@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "EventPosition.h"
-@class Event;
+@class Event, GameFieldEventPointView;
+
+#define kPointViewWidth 30.0f
+#define kDiscDiameter 16.0f
 
 @interface GameFieldView : UIView
 
@@ -16,14 +19,19 @@
 @property (nonatomic, strong) UIColor* fieldBorderColor;
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
 @property (nonatomic) BOOL inverted;
-@property (nonatomic, strong) NSAttributedString* message;
 
-@property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint, BOOL isOutOfBounds);
-@property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;
+// subclass support
 
--(void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds;
--(void)updateForCurrentEvents;
--(BOOL)isPointInGoalEndzone: (CGPoint)eventPoint;
--(void)showDragCallout;
+-(void)commonInit;
+-(void)initFieldDefaults;
+
+-(void)calculateFieldRectangles;
+-(EventPosition*)calculatePosition: (CGPoint)point;
+-(EventPosition*)calculatePosition: (CGPoint)point inRect: (CGRect)rect area: (EventPositionArea)area;
+-(CGPoint)calculatePoint: (EventPosition*)position;
+-(void)updatePointViewLocation: (GameFieldEventPointView*)pointView toPosition: (EventPosition*)eventPosition;
+
+-(BOOL)isOurEvent:(Event*) event;
+
 
 @end

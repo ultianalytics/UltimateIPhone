@@ -9,7 +9,7 @@
 #import "GamePositionalViewController.h"
 #import "UIViewController+Additions.h"
 #import "UIView+Convenience.h"
-#import "GameFieldView.h"
+#import "GameRecordingFieldView.h"
 #import "ColorMaster.h"
 #import "GameHistoryController.h"
 #import "Game.h"
@@ -28,7 +28,7 @@
 
 @property (nonatomic, strong) IBOutlet UIButton* otherTeamCatchButton;
 @property (nonatomic, strong) IBOutlet UIView* fieldContainerView;
-@property (nonatomic, strong) IBOutlet GameFieldView* fieldView;
+@property (nonatomic, strong) IBOutlet GameRecordingFieldView* fieldView;
 @property (nonatomic, strong) IBOutlet UIView* actionViewContainer;
 @property (nonatomic, strong) IBOutlet UIView* topViewOverlay;
 @property (nonatomic, strong) IBOutlet UIView* bottomViewOverlay;

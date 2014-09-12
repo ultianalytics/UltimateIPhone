@@ -332,6 +332,8 @@
 		3870813319C07944001174CB /* twitter-bird-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870813219C07944001174CB /* twitter-bird-dark.png */; };
 		38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */; };
 		38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */; };
+		38AA389819C324D000C6CF9A /* GameRecordingFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389719C324D000C6CF9A /* GameRecordingFieldView.m */; };
+		38AA389B19C32BAE00C6CF9A /* GamePlaybackFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389A19C32BAE00C6CF9A /* GamePlaybackFieldView.m */; };
 		38B0997519BE6EF700831B6D /* GameDiscView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B0997419BE6EF700831B6D /* GameDiscView.m */; };
 		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
 		38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6119A0F77B008BE91B /* GameActionView.xib */; };
@@ -839,6 +841,10 @@
 		38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackViewController.h; sourceTree = "<group>"; };
 		38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackViewController.m; sourceTree = "<group>"; };
 		38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePlaybackViewController.xib; sourceTree = "<group>"; };
+		38AA389619C324D000C6CF9A /* GameRecordingFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameRecordingFieldView.h; sourceTree = "<group>"; };
+		38AA389719C324D000C6CF9A /* GameRecordingFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRecordingFieldView.m; sourceTree = "<group>"; };
+		38AA389919C32BAE00C6CF9A /* GamePlaybackFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackFieldView.h; sourceTree = "<group>"; };
+		38AA389A19C32BAE00C6CF9A /* GamePlaybackFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackFieldView.m; sourceTree = "<group>"; };
 		38B0997319BE6EF700831B6D /* GameDiscView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDiscView.h; sourceTree = "<group>"; };
 		38B0997419BE6EF700831B6D /* GameDiscView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDiscView.m; sourceTree = "<group>"; };
 		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
@@ -1740,6 +1746,8 @@
 				384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */,
 				384C2D8019A7F68B00EE8290 /* GameFieldView.h */,
 				384C2D8119A7F68B00EE8290 /* GameFieldView.m */,
+				38AA389619C324D000C6CF9A /* GameRecordingFieldView.h */,
+				38AA389719C324D000C6CF9A /* GameRecordingFieldView.m */,
 				384C2D8819A8C3BD00EE8290 /* GameFieldEventPointView.h */,
 				384C2D8919A8C3BD00EE8290 /* GameFieldEventPointView.m */,
 				38B0997319BE6EF700831B6D /* GameDiscView.h */,
@@ -1767,6 +1775,8 @@
 				38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */,
 				38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */,
 				38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */,
+				38AA389919C32BAE00C6CF9A /* GamePlaybackFieldView.h */,
+				38AA389A19C32BAE00C6CF9A /* GamePlaybackFieldView.m */,
 			);
 			name = "Game Playback";
 			sourceTree = "<group>";
@@ -2081,6 +2091,7 @@
 				1AFFE8B715175EB0004B4590 /* SoundPlayer.m in Sources */,
 				1AFFE8B915175EB0004B4590 /* StandardButton.m in Sources */,
 				1AFFE8BA15175EB0004B4590 /* Statistics.m in Sources */,
+				38AA389B19C32BAE00C6CF9A /* GamePlaybackFieldView.m in Sources */,
 				1AFFE8BB15175EB0004B4590 /* StatsEventDetails.m in Sources */,
 				1AFFE8BC15175EB0004B4590 /* StatsViewController.m in Sources */,
 				1AFFE8BF15175EB0004B4590 /* Team.m in Sources */,
@@ -2188,6 +2199,7 @@
 				1AB78D0417269E40003235AE /* SHSLogger.m in Sources */,
 				1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */,
 				1A7587F6172D767700638AD7 /* GameStartTimeViewController.m in Sources */,
+				38AA389819C324D000C6CF9A /* GameRecordingFieldView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

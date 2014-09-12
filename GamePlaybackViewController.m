@@ -49,9 +49,6 @@
     self.title = @"Game Playback";
     self.playImage = [UIImage imageNamed:@"play"];
     self.pauseImage = [UIImage imageNamed:@"pause"];
-    self.fieldView.displayCompletionBlock = ^{
-        [self updateControls];
-    };
     [self updateControls];
 }
 
@@ -103,7 +100,18 @@
         if (lastPoint == nil || lastPoint != self.currentPoint) {
             [self.fieldView resetField];
         }
-        [self.fieldView displayNewEvent:self.currentEvent];
+        if (self.currentEvent.beginPosition) {
+            Event* beginEvent = [self.currentEvent asBeginEvent];
+            [self.fieldView displayNewEvent:beginEvent complete:^{
+                [self.fieldView displayNewEvent:self.currentEvent complete:^{
+                    [self updateControls];
+                }];
+            }];
+        } else {
+            [self.fieldView displayNewEvent:self.currentEvent complete:^{
+                [self updateControls];
+            }];
+        }
     }
 }
 
@@ -195,12 +203,14 @@
     if ([self numberOfPoints] > 0) {
         // start at beginning of current point
         float gameProgressPercent = (float)self.currentPointIndex / (float)[self numberOfPoints];
-        float numberOfEvents = [self.currentPoint getNumberOfEvents];
-        // add events played in this point
-        if (numberOfEvents > 0) {
-            float percentPerPoint = 1.f / (float)numberOfEvents;
-            float relativeEventPercent = (float)self.currentEventIndex / (float)numberOfEvents;
-            gameProgressPercent += (relativeEventPercent * percentPerPoint);
+        if (self.currentEvent) {
+            float numberOfEvents = [self.currentPoint getNumberOfEvents];
+            // add events played in this point
+            if (numberOfEvents > 0) {
+                float percentPerPoint = 1.f / (float)[self numberOfPoints];
+                float relativeEventPercent = (float)(self.currentEventIndex + 1) / (float)numberOfEvents;
+                gameProgressPercent += (relativeEventPercent * percentPerPoint);
+            }
         }
         self.gameProgressSlider.value = gameProgressPercent;
     } else {

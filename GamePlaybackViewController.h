@@ -11,7 +11,7 @@
 
 @interface GamePlaybackViewController : UIViewController
 
-@property (nonatomic, weak) Game* game;
-@property (nonatomic, weak) Team* team;
+@property (nonatomic, strong) Game* game;
+@property (nonatomic, strong) Team* team;
 
 @end

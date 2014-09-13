@@ -10,6 +10,7 @@
 #import "GameFieldEventPointView.h"
 #import "Event.h"
 #import "GameDiscView.h"
+#import "GamePlaybackTracerView.h"
 
 #define kNormalPassAnimationDuration 1
 #define kNormalBeginEventAnimationDuration .5
@@ -146,6 +147,7 @@
                 lastEventViewCopy.alpha = 0;
             } completion:^(BOOL finished) {
                 [lastEventViewCopy removeFromSuperview];
+//                [self addTracerArrowFrom:lastEventView to:eventView];
                 [self safelyPeformCompletion:completionBlock];
             }];
         } else {
@@ -155,6 +157,15 @@
     
 }
 
+-(void)addTracerArrowFrom: (GameFieldEventPointView*) fromView to: (GameFieldEventPointView*) toView {
+    if (fromView && toView) {
+        GamePlaybackTracerView* tracerView = [[GamePlaybackTracerView alloc] initWithFrame:self.bounds];
+        tracerView.sourcePoint = fromView.center;
+        tracerView.destinationPoint = toView.center;
+        [self addSubview:tracerView];
+        [self sendSubviewToBack:tracerView];
+    }
+}
 
 #pragma mark - Misc
 

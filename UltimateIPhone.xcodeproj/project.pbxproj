@@ -314,6 +314,7 @@
 		381BC48319B7E95400CD8C20 /* broadcasting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 381BC48119B7E95400CD8C20 /* broadcasting@2x.png */; };
 		381BC48719B8A26200CD8C20 /* GameAutoUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC48619B8A26200CD8C20 /* GameAutoUploader.m */; };
 		381BC48C19B91D0A00CD8C20 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC48B19B91D0A00CD8C20 /* UIView+Toast.m */; };
+		381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -831,6 +832,8 @@
 		381BC48619B8A26200CD8C20 /* GameAutoUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAutoUploader.m; sourceTree = "<group>"; };
 		381BC48A19B91D0A00CD8C20 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		381BC48B19B91D0A00CD8C20 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		381F97C719C498E900CA1C8B /* GamePlaybackTracerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackTracerView.h; sourceTree = "<group>"; };
+		381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackTracerView.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1809,6 +1812,8 @@
 				38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */,
 				38AA389919C32BAE00C6CF9A /* GamePlaybackFieldView.h */,
 				38AA389A19C32BAE00C6CF9A /* GamePlaybackFieldView.m */,
+				381F97C719C498E900CA1C8B /* GamePlaybackTracerView.h */,
+				381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */,
 			);
 			name = "Game Playback";
 			sourceTree = "<group>";
@@ -2201,6 +2206,7 @@
 				38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */,
 				1ABC74CB190414F000D60660 /* mztools.c in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,
+				381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,

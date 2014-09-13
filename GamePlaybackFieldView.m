@@ -13,6 +13,7 @@
 
 #define kNormalPassAnimationDuration 1
 #define kNormalBeginEventAnimationDuration .5
+#define kNormalWrapUpAnimationDuration .5
 
 @interface GamePlaybackFieldView ()
 
@@ -90,34 +91,28 @@
 
     eventView.discHidden = NO;
     
-    float normal = kNormalBeginEventAnimationDuration * 2.f;
-    NSTimeInterval duration = MAX(kNormalBeginEventAnimationDuration * .1f, normal * relativeSpeedFactor);
-    
     GameFieldEventPointView* lastEventViewCopy;
     if (lastEventView) {
         // create a copy of the last event and cover the original so we can fade it's changes
         lastEventViewCopy = [GameFieldEventPointView copyOf:lastEventView];
         [self addSubview:lastEventViewCopy];
+        // adjust the original to the desired state
         lastEventView.isEmphasizedEvent = NO;
         lastEventView.discHidden = YES;
     }
     
     eventView.alpha = 0;
+    NSTimeInterval duration = [self scaleDuration:kNormalBeginEventAnimationDuration withRelativeFactor:relativeSpeedFactor];
     [UIView animateWithDuration:duration animations:^{
         lastEventViewCopy.alpha = 0;
         eventView.alpha = 1;
     } completion:^(BOOL finished) {
         [lastEventViewCopy removeFromSuperview];
-        if (completionBlock) {
-            completionBlock();
-        }
+        [self safelyPeformCompletion:completionBlock];
     }];
 }
 
 -(void)animateEventAppearance: (GameFieldEventPointView*) eventView atRelativeSpeed: (float) relativeSpeedFactor  lastEventView: (GameFieldEventPointView*) lastEventView complete: (void (^)()) completionBlock {
-    
-    float normal = kNormalPassAnimationDuration * 2.f;
-    NSTimeInterval duration = MAX(kNormalPassAnimationDuration * .1f, normal * relativeSpeedFactor);
     
     if (lastEventView) {
         eventView.discHidden = YES;
@@ -128,6 +123,7 @@
     }
     
     eventView.alpha = 0;
+    NSTimeInterval duration = [self scaleDuration:kNormalPassAnimationDuration withRelativeFactor:relativeSpeedFactor];
     [UIView animateWithDuration:duration animations:^{
         if (lastEventView) {
             self.movingDiscView.center = eventView.center;
@@ -136,8 +132,24 @@
     } completion:^(BOOL finished) {
         self.movingDiscView.hidden = YES;
         eventView.discHidden = NO;
-        if (completionBlock) {
-            completionBlock();
+        if (lastEventView) {
+            NSTimeInterval duration = [self scaleDuration:kNormalWrapUpAnimationDuration withRelativeFactor:relativeSpeedFactor];
+            
+            // create a copy of the last event and cover the original so we can fade it's changes
+            GameFieldEventPointView* lastEventViewCopy = [GameFieldEventPointView copyOf:lastEventView];
+            [self addSubview:lastEventViewCopy];
+            // adjust the original to the desired state
+            lastEventView.isEmphasizedEvent = NO;
+            lastEventView.discHidden = YES;
+            
+            [UIView animateWithDuration:duration animations:^{
+                lastEventViewCopy.alpha = 0;
+            } completion:^(BOOL finished) {
+                [lastEventViewCopy removeFromSuperview];
+                [self safelyPeformCompletion:completionBlock];
+            }];
+        } else {
+            [self safelyPeformCompletion:completionBlock];
         }
     }];
     
@@ -153,6 +165,18 @@
 -(void)addEventPointView:(GameFieldEventPointView*) eventView {
     [self addSubview:eventView];
     [self.currentEventViews addObject:eventView];
+}
+     
+-(void)safelyPeformCompletion: (void (^)()) completionBlock {
+    if (completionBlock) {
+        completionBlock();
+    }
+}
+
+-(NSTimeInterval)scaleDuration: (float)standardDuration withRelativeFactor: (float)relativeSpeedFactor {
+    float normal = standardDuration * 2.f;
+    NSTimeInterval duration = MAX(standardDuration * .1f, normal * relativeSpeedFactor);
+    return duration;
 }
 
 @end

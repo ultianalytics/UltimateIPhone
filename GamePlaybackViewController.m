@@ -74,7 +74,7 @@
 }
 
 - (IBAction)playButtonTapped:(id)sender {
-    
+    NSLog(@"");
 }
 
 - (IBAction)fowardButtonTapped:(id)sender {
@@ -124,9 +124,7 @@
 
 -(void)displayNewEvent: (Event*)event {
     [self.fieldView displayNewEvent:event atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-        [self.fieldView displayNewEvent:event atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-            [self updateControls];
-        }];
+        [self updateControls];
     }];
 }
 
@@ -312,7 +310,7 @@
 
 // answers between 0.0 and 1.0 (.5 is normal speed)
 -(float)playbackSpeedFactor {
-    return self.playbackSpeedSlider.value;
+    return 1 - self.playbackSpeedSlider.value;
 }
 
 -(NSTimeInterval)delayBetweenEvents {

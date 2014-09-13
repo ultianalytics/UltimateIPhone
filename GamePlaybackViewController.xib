@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -15,7 +16,6 @@
                 <outlet property="gameProgressSlider" destination="QM8-w5-ZtZ" id="DzP-bO-htG"/>
                 <outlet property="playButton" destination="RpK-yo-MPG" id="4Bp-ec-mf5"/>
                 <outlet property="playbackSpeedSlider" destination="3zU-Bf-dMr" id="NNs-gL-EW9"/>
-                <outlet property="tracerCheckbox" destination="Dtv-GL-KdW" id="7od-Ew-Sq0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -53,7 +53,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpK-yo-MPG" userLabel="Play/Pause Button">
-                    <rect key="frame" x="361" y="655" width="40" height="40"/>
+                    <rect key="frame" x="354" y="650" width="50" height="50"/>
                     <state key="normal" image="pause.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -85,17 +85,14 @@
                         <action selector="playbackSpeedChanged:" destination="-1" eventType="valueChanged" id="UvA-or-bCE"/>
                     </connections>
                 </slider>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dtv-GL-KdW" userLabel="Tracer Checkbox">
-                    <rect key="frame" x="27" y="655" width="40" height="40"/>
-                    <state key="normal" image="checkbox-checked-white-border.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="tracerCheckboxTapped:" destination="-1" eventType="touchUpInside" id="ogT-vC-c82"/>
-                    </connections>
-                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tracer Arrows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OD-fE-qNF" userLabel="Label - Tracer">
+                    <rect key="frame" x="69" y="666" width="116" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIT-VL-h3e" userLabel="Continuous Checkbox">
-                    <rect key="frame" x="27" y="696" width="39" height="37"/>
+                    <rect key="frame" x="22" y="658" width="39" height="37"/>
                     <state key="normal" image="checkbox-checked-white-border.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -103,18 +100,6 @@
                         <action selector="continuousCheckboxTapped:" destination="-1" eventType="touchUpInside" id="Gil-7o-l0q"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Continous" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdo-LC-g8D" userLabel="Label - Continous Checkbox">
-                    <rect key="frame" x="68" y="664" width="111" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tracer Arrows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OD-fE-qNF" userLabel="Label - Tracer">
-                    <rect key="frame" x="68" y="704" width="116" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>

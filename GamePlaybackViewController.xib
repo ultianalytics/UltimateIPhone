@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GamePlaybackViewController">
             <connections>
                 <outlet property="backwardButton" destination="vpW-fD-BLu" id="Nkc-zQ-qOt"/>
-                <outlet property="continuousCheckbox" destination="gIT-VL-h3e" id="cPP-LS-3lN"/>
                 <outlet property="fastBackwardButton" destination="6pd-r1-2s2" id="8Zu-IU-K9c"/>
                 <outlet property="fastForwardButton" destination="fVq-tu-FIP" id="6uK-N6-iJ8"/>
                 <outlet property="fieldView" destination="hLR-bA-I9p" id="o7h-Fs-KL0"/>
@@ -16,6 +15,7 @@
                 <outlet property="gameProgressSlider" destination="QM8-w5-ZtZ" id="DzP-bO-htG"/>
                 <outlet property="playButton" destination="RpK-yo-MPG" id="4Bp-ec-mf5"/>
                 <outlet property="playbackSpeedSlider" destination="3zU-Bf-dMr" id="NNs-gL-EW9"/>
+                <outlet property="tracerCheckbox" destination="Dtv-GL-KdW" id="7od-Ew-Sq0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -53,7 +53,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpK-yo-MPG" userLabel="Play/Pause Button">
-                    <rect key="frame" x="354" y="650" width="50" height="50"/>
+                    <rect key="frame" x="355" y="650" width="50" height="50"/>
                     <state key="normal" image="pause.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -81,25 +81,40 @@
                 </button>
                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3zU-Bf-dMr" userLabel="Playback Speed Slider">
                     <rect key="frame" x="553" y="660" width="201" height="31"/>
-                    <connections>
-                        <action selector="playbackSpeedChanged:" destination="-1" eventType="valueChanged" id="UvA-or-bCE"/>
-                    </connections>
                 </slider>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tracer Arrows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OD-fE-qNF" userLabel="Label - Tracer">
-                    <rect key="frame" x="69" y="666" width="116" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIT-VL-h3e" userLabel="Continuous Checkbox">
-                    <rect key="frame" x="22" y="658" width="39" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dtv-GL-KdW" userLabel="Tracer Checkbox">
+                    <rect key="frame" x="27" y="655" width="40" height="40"/>
                     <state key="normal" image="checkbox-checked-white-border.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="continuousCheckboxTapped:" destination="-1" eventType="touchUpInside" id="Gil-7o-l0q"/>
+                        <action selector="tracerCheckboxTapped:" destination="-1" eventType="touchUpInside" id="ogT-vC-c82"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tracer Arrows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OD-fE-qNF" userLabel="Label - Tracer">
+                    <rect key="frame" x="69" y="664" width="116" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Slow" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1l0-6e-JaE">
+                    <rect key="frame" x="555" y="691" width="38" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fast" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKt-06-E3C">
+                    <rect key="frame" x="718" y="690" width="34" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Playback Speed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubX-xQ-LqX">
+                    <rect key="frame" x="591" y="631" width="125" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>

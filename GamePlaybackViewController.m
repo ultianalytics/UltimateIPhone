@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *fastForwardButton;
 @property (weak, nonatomic) IBOutlet UISlider *playbackSpeedSlider;
 @property (weak, nonatomic) IBOutlet UIButton *tracerCheckbox;
-@property (weak, nonatomic) IBOutlet UIButton *continuousCheckbox;
 
 @property (strong, nonatomic) UIImage* playImage;
 @property (strong, nonatomic) UIImage* pauseImage;
@@ -92,17 +91,11 @@
     [self updateControls];
 }
 
-- (IBAction)playbackSpeedChanged:(id)sender {
-    
-}
 
 - (IBAction)tracerCheckboxTapped:(id)sender {
     
 }
 
-- (IBAction)continuousCheckboxTapped:(id)sender {
-    
-}
 
 #pragma mark - Playing events
 

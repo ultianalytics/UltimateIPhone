@@ -266,7 +266,7 @@
     BOOL isFirstPoint = self.currentPointIndex == 0;
     BOOL isLastPoint = self.currentPointIndex == [self numberOfPoints] - 1;
     BOOL isFirstEventOfPoint = self.currentEventIndex == 0;
-    BOOL isLastEventOfPoint = self.currentEventIndex == [self.currentPoint.events count];
+    BOOL isLastEventOfPoint = self.currentEvent && self.currentEventIndex == [self.currentPoint.events count];
     self.fastBackwardButton.enabled = !isFirstPoint;
     self.fastForwardButton.enabled = !isLastPoint;
     self.backwardButton.enabled = !isFirstPoint || !isFirstEventOfPoint;

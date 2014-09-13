@@ -29,6 +29,17 @@
 
 #pragma mark - Initialization
 
++(GameFieldEventPointView*)copyOf: (GameFieldEventPointView*) source {
+    GameFieldEventPointView* copy = [[GameFieldEventPointView alloc] initWithFrame:source.frame];
+    copy.event = source.event;
+    copy.isOurEvent = source.isOurEvent;
+    copy.isEmphasizedEvent = source.isEmphasizedEvent;
+    copy.discHidden = source.discHidden;
+    copy.discColor = source.discColor;
+    copy.discDiameter = source.discDiameter;
+    return copy;
+}
+
 -(void)commonInit {
     [self addTapRecognizer];
     self.discColor = [UIColor whiteColor]; // default disc color

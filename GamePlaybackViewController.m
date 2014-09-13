@@ -110,13 +110,13 @@
             }
             if (self.currentEvent.beginPosition) {
                 Event* beginEvent = [self.currentEvent asBeginEvent];
-                [self.fieldView displayNewEvent:beginEvent complete:^{
-                    [self.fieldView displayNewEvent:self.currentEvent complete:^{
+                [self.fieldView displayNewEvent:beginEvent atRelativeSpeed: [self playbackSpeedFactor] complete:^{
+                    [self.fieldView displayNewEvent:self.currentEvent atRelativeSpeed: [self playbackSpeedFactor] complete:^{
                         [self updateControls];
                     }];
                 }];
             } else {
-                [self.fieldView displayNewEvent:self.currentEvent complete:^{
+                [self.fieldView displayNewEvent:self.currentEvent  atRelativeSpeed: [self playbackSpeedFactor] complete:^{
                     [self updateControls];
                 }];
             }
@@ -300,6 +300,10 @@
     return [self.game getNumberOfPoints];
 }
 
+// answers between 0.0 and 1.0 (.5 is normal speed)
+-(float)playbackSpeedFactor {
+    return self.playbackSpeedSlider.value;
+}
 
 
 

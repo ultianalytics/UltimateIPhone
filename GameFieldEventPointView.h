@@ -19,6 +19,7 @@
 @property (nonatomic) UIColor* discColor;
 @property (strong, nonatomic) void (^tappedBlock)(CGPoint tapPoint, GameFieldEventPointView* pointView);
 
++ (GameFieldEventPointView*) copyOf: (GameFieldEventPointView*) source;
 - (void)flashOutOfBoundsMessage;
 - (BOOL)isBelowMidField;
 - (BOOL)isRightOfMidField;

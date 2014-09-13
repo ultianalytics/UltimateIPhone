@@ -14,6 +14,7 @@
 #import "GamePlaybackFieldView.h"
 
 #define kNormalDelayBetweenEvents 1
+#define kProgressSliderAnimationDuration .5
 
 @interface GamePlaybackViewController ()
 
@@ -247,10 +248,11 @@
 }
 
 -(void)updateGameProgressSlider {
+    float gameProgressPercent = 0;
     // update the slider to show game progess.  Each point is an equal increment in progress
     if ([self numberOfPoints] > 0) {
         // start at beginning of current point
-        float gameProgressPercent = (float)self.currentPointIndex / (float)[self numberOfPoints];
+        gameProgressPercent = (float)self.currentPointIndex / (float)[self numberOfPoints];
         if (self.currentEvent) {
             float numberOfEvents = [self.currentPoint getNumberOfEvents];
             // add events played in this point
@@ -260,10 +262,10 @@
                 gameProgressPercent += (relativeEventPercent * percentPerPoint);
             }
         }
-        self.gameProgressSlider.value = gameProgressPercent;
-    } else {
-        self.gameProgressSlider.value = 0;
     }
+    [UIView animateWithDuration:[self scaleDuration:kProgressSliderAnimationDuration] animations:^{
+        [self.gameProgressSlider setValue:gameProgressPercent animated:YES];
+    }];
 }
 
 -(void)updateControlButtons {
@@ -276,6 +278,24 @@
     self.fastForwardButton.enabled = !isLastPoint;
     self.backwardButton.enabled = !isFirstPoint || !isFirstEventOfPoint;
     self.forwardButton.enabled = !isLastPoint || !isLastEventOfPoint;
+}
+
+
+#pragma mark - Playback speed
+
+// answers between 0.0 and 1.0 (.5 is normal speed)
+-(float)playbackSpeedFactor {
+    return 1 - self.playbackSpeedSlider.value;
+}
+
+-(NSTimeInterval)delayBetweenEvents {
+    return [self scaleDuration:kNormalDelayBetweenEvents];
+}
+
+-(NSTimeInterval)scaleDuration: (float)standardDuration {
+    float normal = standardDuration * 2.f;
+    NSTimeInterval duration = MAX(standardDuration * .1f, normal * [self playbackSpeedFactor]);
+    return duration;
 }
 
 #pragma mark - Misc
@@ -324,14 +344,6 @@
     return [self.game getNumberOfPoints];
 }
 
-// answers between 0.0 and 1.0 (.5 is normal speed)
--(float)playbackSpeedFactor {
-    return 1 - self.playbackSpeedSlider.value;
-}
 
--(NSTimeInterval)delayBetweenEvents {
-    float normal = kNormalDelayBetweenEvents * 2.f;
-    return MAX(kNormalDelayBetweenEvents * .1f, normal * [self playbackSpeedFactor]);
-}
 
 @end

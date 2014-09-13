@@ -13,6 +13,8 @@
 #import "UPoint.h"
 #import "GamePlaybackFieldView.h"
 
+#define kNormalDelayBetweenEvents 1
+
 @interface GamePlaybackViewController ()
 
 @property (weak, nonatomic) IBOutlet GamePlaybackFieldView *fieldView;
@@ -109,22 +111,30 @@
                 [self.fieldView resetField];
             }
             if (self.currentEvent.beginPosition) {
-                Event* beginEvent = [self.currentEvent asBeginEvent];
-                [self.fieldView displayNewEvent:beginEvent atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-                    [self.fieldView displayNewEvent:self.currentEvent atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-                        [self updateControls];
-                    }];
-                }];
+                [self displayNewBeginEvent:self.currentEvent];
             } else {
-                [self.fieldView displayNewEvent:self.currentEvent  atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-                    [self updateControls];
-                }];
+                [self displayNewEvent:self.currentEvent];
             }
         }
     } else {
         [self.fieldView resetField];
         [self updateControls];
     }
+}
+
+-(void)displayNewEvent: (Event*)event {
+    [self.fieldView displayNewEvent:event atRelativeSpeed: [self playbackSpeedFactor] complete:^{
+        [self.fieldView displayNewEvent:event atRelativeSpeed: [self playbackSpeedFactor] complete:^{
+            [self updateControls];
+        }];
+    }];
+}
+
+-(void)displayNewBeginEvent: (Event*)event {
+    Event* beginEvent = [event asBeginEvent];
+    [self.fieldView displayNewEvent:beginEvent atRelativeSpeed: [self playbackSpeedFactor] complete:^{
+        [self performSelector:@selector(displayNewEvent:) withObject:event afterDelay:[self delayBetweenEvents]];
+    }];
 }
 
 
@@ -305,6 +315,9 @@
     return self.playbackSpeedSlider.value;
 }
 
-
+-(NSTimeInterval)delayBetweenEvents {
+    float normal = kNormalDelayBetweenEvents * 2.f;
+    return MAX(kNormalDelayBetweenEvents * .1f, normal * [self playbackSpeedFactor]);
+}
 
 @end

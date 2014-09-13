@@ -10,6 +10,8 @@
 #import "UIView+Convenience.h"
 #import "ColorMaster.h"
 
+#define kArrowHeadWidth  12
+#define kArrowHeadLength 16
 
 @interface GamePlaybackTracerView ()
 
@@ -24,7 +26,7 @@
 
 -(void)commonInit {
     self.backgroundColor = [UIColor clearColor];
-    self.endInset = 20.0f;
+    self.endInset = 46.0f;
     self.arrowColor = [UIColor whiteColor];
     self.isOurEvent = NO;
 }
@@ -53,26 +55,34 @@
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
     [super drawLayer:layer inContext:context];
     CGContextSaveGState(context);
-
-    CGContextSetStrokeColorWithColor(context, self.arrowColor.CGColor);
     
     // transform center of drawing to middle of line
     CGContextTranslateCTM(context, self.arrowCenter.x,self.arrowCenter.y) ;
-    // will always draw the line 90 degrees.  the rotation transform will angle it correctly
+    // rotate the drawing so it will point from source to destination.
     CGContextRotateCTM(context, self.radians) ;
     
-    CGFloat lineWidth = 2;
-    
+    // line properties
     CGContextSetStrokeColorWithColor(context, self.arrowColor.CGColor);
-    CGContextSetLineWidth(context, lineWidth);
+    CGContextSetFillColorWithColor(context, self.arrowColor.CGColor);
+    CGContextSetLineWidth(context, 1);
     
-    CGPoint point1 = CGPointMake(-self.arrowLength/2, 0);
-    CGPoint point2 = CGPointMake(self.arrowLength/2, 0);
-
+    // find line begin/end (always drawing it at 90 degrees since transform will rotate it)
+    CGPoint lineBeginPoint = CGPointMake(-self.arrowLength/2, 0);
+    CGPoint lineEndPoint = CGPointMake(self.arrowLength/2, 0);
     
-    CGContextMoveToPoint(context, point1.x, point1.y);
-    CGContextAddLineToPoint(context, point2.x, point2.y);
+    // draw the line
+    float dashAndSpaceLengths[] = {5,5};
+    CGContextSetLineDash(context, 0, dashAndSpaceLengths, 2);
+    CGContextMoveToPoint(context, lineBeginPoint.x, lineBeginPoint.y);
+    CGContextAddLineToPoint(context, lineEndPoint.x, lineEndPoint.y);
     CGContextStrokePath(context);
+    
+    // draw the arrow head
+    CGContextSetLineDash(context, 0, NULL, 0);
+    CGContextMoveToPoint(context, lineEndPoint.x - kArrowHeadLength, lineEndPoint.y - (kArrowHeadWidth / 2));
+    CGContextAddLineToPoint(context, lineEndPoint.x, lineEndPoint.y);
+    CGContextAddLineToPoint(context, lineEndPoint.x - kArrowHeadLength, lineEndPoint.y + (kArrowHeadWidth / 2));
+    CGContextFillPath(context);
     
     CGContextRestoreGState(context);
     
@@ -88,7 +98,7 @@
     self.arrowLength = (halfArrowDistance - self.endInset) * 2;
     
     self.radians = atan2f( self.destinationPoint.y - self.arrowCenter.y , self.destinationPoint.x - self.arrowCenter.x);
-    NSLog(@"arrow coordinates: center=%f,%f length=%f radians=%f", self.arrowCenter.x, self.arrowCenter.y, self.arrowLength, self.radians);
+//    NSLog(@"arrow coordinates: center=%f,%f length=%f radians=%f", self.arrowCenter.x, self.arrowCenter.y, self.arrowLength, self.radians);
 }
 
 

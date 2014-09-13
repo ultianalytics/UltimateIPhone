@@ -10,6 +10,8 @@
 
 @interface GamePlaybackFieldView : GameFieldView
 
+@property (nonatomic) BOOL tracerArrowsHidden;
+
 -(void)displayNewEvent: (Event*) event atRelativeSpeed: (float) speed complete: (void (^)()) completionBlock;
 -(void)displayEvent: (Event*) event;
 -(void)resetField;

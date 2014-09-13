@@ -30,6 +30,8 @@
 
 @property (strong, nonatomic) UIImage* playImage;
 @property (strong, nonatomic) UIImage* pauseImage;
+@property (strong, nonatomic) UIImage* checkboxCheckedImage;
+@property (strong, nonatomic) UIImage* checkboxUnCheckedImage;
 
 @property (strong, nonatomic) UPoint* currentPoint;
 @property (strong, nonatomic) Event* currentEvent;  // curent is the last event played
@@ -51,6 +53,9 @@
     self.title = @"Game Playback";
     self.playImage = [UIImage imageNamed:@"play"];
     self.pauseImage = [UIImage imageNamed:@"pause"];
+    self.checkboxCheckedImage = [UIImage imageNamed:@"checkbox-checked-white-border.png"];
+    self.checkboxUnCheckedImage = [UIImage imageNamed:@"checkbox-unchecked-white-border.png"];
+    self.fieldView.tracerArrowsHidden = NO;
     [self updateControls];
 }
 
@@ -93,7 +98,8 @@
 
 
 - (IBAction)tracerCheckboxTapped:(id)sender {
-    
+    self.fieldView.tracerArrowsHidden = !self.fieldView.tracerArrowsHidden;
+    [self updateTracerArrowCheckbox];
 }
 
 
@@ -237,7 +243,7 @@
 -(void)updateControls {
     [self updateGameProgressSlider];
     [self updateControlButtons];
-    // todo: checkboxes
+    [self updateTracerArrowCheckbox];
 }
 
 -(void)updateGameProgressSlider {
@@ -273,8 +279,11 @@
     self.forwardButton.enabled = !isLastPoint || !isLastEventOfPoint;
 }
 
+-(void)updateTracerArrowCheckbox {
+    [self.tracerCheckbox setImage:self.fieldView.tracerArrowsHidden ? self.checkboxUnCheckedImage : self.checkboxCheckedImage forState:UIControlStateNormal];
+}
 
-#pragma mark - Playback speed
+#pragma mark - Playback Speed
 
 // answers between 0.0 and 1.0 (.5 is normal speed)
 -(float)playbackSpeedFactor {

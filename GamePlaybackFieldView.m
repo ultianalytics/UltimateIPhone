@@ -69,6 +69,9 @@
     eventView.isOurEvent = [self isOurEvent:event];
     [self updatePointViewLocation:eventView toPosition:event.position];
     [self addEventPointView: eventView];
+    if (lastEventView && ![event isPositionalBegin]) {
+        [self addTracerArrowFrom:lastEventView to:eventView];
+    }
 }
 
 -(GameFieldEventPointView*)createPointView {
@@ -81,7 +84,7 @@
 
 -(void)resetField {
     for (UIView* subView in self.subviews) {
-        if ([subView isKindOfClass:[GameFieldEventPointView class]]) {
+        if ([subView isKindOfClass:[GameFieldEventPointView class]] || [subView isKindOfClass:[GamePlaybackTracerView class]]) {
             [subView removeFromSuperview];
         }
     }
@@ -125,6 +128,7 @@
     
     eventView.alpha = 0;
     NSTimeInterval duration = [self scaleDuration:kNormalPassAnimationDuration withRelativeFactor:relativeSpeedFactor];
+    // animate the moving of the frisbee from passer to receiver
     [UIView animateWithDuration:duration animations:^{
         if (lastEventView) {
             self.movingDiscView.center = eventView.center;
@@ -142,12 +146,20 @@
             // adjust the original to the desired state
             lastEventView.isEmphasizedEvent = NO;
             lastEventView.discHidden = YES;
-            
+            // add a tracer view
+            GamePlaybackTracerView* tracerView = [self addTracerArrowFrom:lastEventView to:eventView];
+            if (!self.tracerArrowsHidden) {
+                tracerView.alpha = 0;
+                tracerView.hidden = NO;
+            }
+            // animate the de-emphasizing of the old event
             [UIView animateWithDuration:duration animations:^{
                 lastEventViewCopy.alpha = 0;
+                if (!self.tracerArrowsHidden) {
+                    tracerView.alpha = 1;
+                }   
             } completion:^(BOOL finished) {
                 [lastEventViewCopy removeFromSuperview];
-                [self addTracerArrowFrom:lastEventView to:eventView];
                 [self safelyPeformCompletion:completionBlock];
             }];
         } else {
@@ -157,21 +169,33 @@
     
 }
 
--(void)addTracerArrowFrom: (GameFieldEventPointView*) fromView to: (GameFieldEventPointView*) toView {
+-(GamePlaybackTracerView*)addTracerArrowFrom: (GameFieldEventPointView*) fromView to: (GameFieldEventPointView*) toView {
+    GamePlaybackTracerView* tracerView = nil;
     if (fromView && toView) {
-        GamePlaybackTracerView* tracerView = [[GamePlaybackTracerView alloc] initWithFrame:self.bounds];
+        tracerView = [[GamePlaybackTracerView alloc] initWithFrame:self.bounds];
         tracerView.sourcePoint = fromView.center;
         tracerView.destinationPoint = toView.center;
         tracerView.isOurEvent = toView.isOurEvent;
+        tracerView.hidden = self.tracerArrowsHidden;
         [self addSubview:tracerView];
         [self sendSubviewToBack:tracerView];
     }
+    return tracerView;
 }
 
 #pragma mark - Misc
 
 -(GameFieldEventPointView*)lastEventView {
     return [self.currentEventViews count] > 0 ? [self.currentEventViews lastObject] : nil;
+}
+
+-(void)setTracerArrowsHidden:(BOOL)tracerArrowsHidden {
+    _tracerArrowsHidden = tracerArrowsHidden;
+    for (UIView* subView in self.subviews) {
+        if ([subView isKindOfClass:[GamePlaybackTracerView class]]) {
+            ((GamePlaybackTracerView*)subView).hidden = tracerArrowsHidden;
+        }
+    }
 }
 
 -(void)addEventPointView:(GameFieldEventPointView*) eventView {

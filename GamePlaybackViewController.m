@@ -74,7 +74,11 @@
 }
 
 - (IBAction)playButtonTapped:(id)sender {
-    NSLog(@"");
+    self.isPlaying = !self.isPlaying;
+    [self updateControls];
+    if (self.isPlaying) {
+        [self playNextEvent];
+    }
 }
 
 - (IBAction)fowardButtonTapped:(id)sender {
@@ -101,6 +105,18 @@
 
 #pragma mark - Playing events
 
+-(void)handleNewEventDisplayComplete {
+    [self updateControls];
+    if (self.isPlaying) {
+        if (!([self.game getLastEvent] == self.currentEvent)) {
+            [self performSelector:@selector(playNextEvent) withObject:nil afterDelay:[self delayBetweenEvents]];
+        } else {
+            self.isPlaying = NO;
+            [self updateControlButtons];
+        }
+    }
+}
+
 -(void) playNextEvent {
     Event* lastEvent = self.currentEvent;
     UPoint* lastPoint = self.currentPoint;
@@ -118,13 +134,13 @@
         }
     } else {
         [self.fieldView resetField];
-        [self updateControls];
+        [self handleNewEventDisplayComplete];
     }
 }
 
 -(void)displayNewEvent: (Event*)event {
     [self.fieldView displayNewEvent:event atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-        [self updateControls];
+        [self handleNewEventDisplayComplete];
     }];
 }
 

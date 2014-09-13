@@ -8,6 +8,7 @@
 
 #import "GamePlaybackTracerView.h"
 #import "UIView+Convenience.h"
+#import "ColorMaster.h"
 
 
 @interface GamePlaybackTracerView ()
@@ -15,6 +16,7 @@
 @property (nonatomic) CGPoint arrowCenter;
 @property (nonatomic) CGFloat arrowLength;
 @property (nonatomic) float radians;
+@property (nonatomic, strong) UIColor* arrowColor;
 
 @end
 
@@ -24,6 +26,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.endInset = 20.0f;
     self.arrowColor = [UIColor whiteColor];
+    self.isOurEvent = NO;
 }
 
 
@@ -77,7 +80,7 @@
 
 -(void)calculateArrowCoordinates {
     CGPoint rectTopLeft = CGPointMake(MIN(self.sourcePoint.x, self.destinationPoint.x), MIN(self.sourcePoint.y, self.destinationPoint.y));
-    CGPoint rectBottomRight = CGPointMake(MAX(self.sourcePoint.x, self.destinationPoint.x), MIN(self.sourcePoint.y, self.destinationPoint.y));
+    CGPoint rectBottomRight = CGPointMake(MAX(self.sourcePoint.x, self.destinationPoint.x), MAX(self.sourcePoint.y, self.destinationPoint.y));
     CGRect rectBetweenPoints = CGRectMake(rectTopLeft.x, rectTopLeft.y, rectBottomRight.x - rectTopLeft.x, rectBottomRight.y - rectTopLeft.y);
     self.arrowCenter = CGPointMake(CGRectGetMidX(rectBetweenPoints), CGRectGetMidY(rectBetweenPoints));
     
@@ -85,7 +88,24 @@
     self.arrowLength = (halfArrowDistance - self.endInset) * 2;
     
     self.radians = atan2f( self.destinationPoint.y - self.arrowCenter.y , self.destinationPoint.x - self.arrowCenter.x);
-//    NSLog(@"arrow coordinates: center=%f,%f length=%f radians=%f", self.arrowCenter.x, self.arrowCenter.y, self.arrowLength, self.radians);
+    NSLog(@"arrow coordinates: center=%f,%f length=%f radians=%f", self.arrowCenter.x, self.arrowCenter.y, self.arrowLength, self.radians);
+}
+
+
+-(void)setSourcePoint:(CGPoint)sourcePoint {
+    _sourcePoint = sourcePoint;
+    [self setNeedsLayout];
+}
+
+-(void)setDestinationPoint:(CGPoint)destinationPoint {
+    _destinationPoint = destinationPoint;
+    [self setNeedsLayout];
+}
+
+-(void)setIsOurEvent:(BOOL)isOurEvent {
+    _isOurEvent = isOurEvent;
+    self.arrowColor = isOurEvent ? [ColorMaster applicationTintColor] : [UIColor redColor];
+    [self setNeedsDisplay];
 }
 
 @end

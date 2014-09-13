@@ -147,7 +147,7 @@
                 lastEventViewCopy.alpha = 0;
             } completion:^(BOOL finished) {
                 [lastEventViewCopy removeFromSuperview];
-//                [self addTracerArrowFrom:lastEventView to:eventView];
+                [self addTracerArrowFrom:lastEventView to:eventView];
                 [self safelyPeformCompletion:completionBlock];
             }];
         } else {
@@ -162,6 +162,7 @@
         GamePlaybackTracerView* tracerView = [[GamePlaybackTracerView alloc] initWithFrame:self.bounds];
         tracerView.sourcePoint = fromView.center;
         tracerView.destinationPoint = toView.center;
+        tracerView.isOurEvent = toView.isOurEvent;
         [self addSubview:tracerView];
         [self sendSubviewToBack:tracerView];
     }

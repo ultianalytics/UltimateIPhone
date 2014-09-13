@@ -13,6 +13,6 @@
 @property (nonatomic) CGPoint sourcePoint;
 @property (nonatomic) CGPoint destinationPoint;
 @property (nonatomic) CGFloat endInset;  // how far from arrow end/begin to the center of the source/destination point
-@property (nonatomic, strong) UIColor* arrowColor;
+@property (nonatomic) BOOL isOurEvent;
 
 @end

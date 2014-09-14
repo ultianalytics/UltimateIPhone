@@ -37,6 +37,7 @@
 @property (strong, nonatomic) UIImage* checkboxUnCheckedImage;
 
 @property (strong, nonatomic) UPoint* currentPoint;
+@property (strong, nonatomic) NSArray* currentEvents;
 @property (strong, nonatomic) Event* currentEvent;  // curent is the last event played
 
 @property (nonatomic) BOOL isPlaying;
@@ -53,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self. currentEvents = @[];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"Game Playback";
     self.playImage = [UIImage imageNamed:@"play"];
@@ -133,11 +135,7 @@
             if (lastPoint == nil || lastPoint != self.currentPoint) {
                 [self.fieldView resetField];
             }
-            if (self.currentEvent.beginPosition) {
-                [self displayNewBeginEvent:self.currentEvent];
-            } else {
-                [self displayNewEvent:self.currentEvent];
-            }
+            [self displayNewEvent:self.currentEvent];
         }
     } else {
         [self.fieldView resetField];
@@ -151,24 +149,16 @@
     }];
 }
 
--(void)displayNewBeginEvent: (Event*)event {
-    Event* beginEvent = [event asBeginEvent];
-    [self.fieldView displayNewEvent:beginEvent atRelativeSpeed: [self playbackSpeedFactor] complete:^{
-        [self performSelector:@selector(displayNewEvent:) withObject:event afterDelay:[self delayBetweenEvents]];
-    }];
-}
-
-
 -(void) moveCurrentEventForward {
     if (!self.currentPoint) {
         self.currentPoint = self.game.points[0];
     }
     if (self.currentEvent) {
         BOOL nextEventInCurrentPoint = NO;
-        for (int i = 0; i < [self.currentPoint.events count] - 1; i++) {  // not including the last event in iteration
-            Event* event = self.currentPoint.events[i];
+        for (int i = 0; i < [self.currentEvents count] - 1; i++) {  // not including the last event in iteration
+            Event* event = self.currentEvents[i];
             if (event == self.currentEvent) {
-                self.currentEvent = self.currentPoint.events[i + 1];
+                self.currentEvent = self.currentEvents[i + 1];
                 nextEventInCurrentPoint = YES;
                 break;
             }
@@ -177,7 +167,7 @@
             [self moveCurrentPointForward];
         }
     } else {
-        self.currentEvent = self.currentPoint.events[0];
+        self.currentEvent = self.currentEvents[0];
     }
 }
 
@@ -185,10 +175,10 @@
     if (!self.currentEvent) {
         [self moveCurrentPointBackward];
     } else {
-        for (int i = 0; i < [self.currentPoint.events count]; i++) {
-            Event* event = self.currentPoint.events[i];
+        for (int i = 0; i < [self.currentEvents count]; i++) {
+            Event* event = self.currentEvents[i];
             if (event == self.currentEvent) {
-                self.currentEvent = i == 0 ? nil : self.currentPoint.events[i - 1];
+                self.currentEvent = i == 0 ? nil : self.currentEvents[i - 1];
                 break;
             }
         }
@@ -217,8 +207,8 @@
             UPoint* point = self.game.points[i];
             if (point == self.currentPoint){
                 self.currentPoint = self.game.points[i - 1];
-                if ([self.currentPoint.events count] > 0) {
-                    self.currentEvent = self.currentPoint.events[[self.currentPoint.events count] - 1];
+                if ([self.currentEvents count] > 0) {
+                    self.currentEvent = self.currentEvents[[self.currentEvents count] - 1];
                 }
                 break;
             }
@@ -232,7 +222,7 @@
 -(void)displayCurrentEvent {
     [self.fieldView resetField];
     if (self.currentEvent) {
-        for (Event* event in self.currentPoint.events) {
+        for (Event* event in self.currentEvents) {
             if (event.beginPosition) {
                 Event* beginEvent = [event asBeginEvent];
                 [self.fieldView displayEvent:beginEvent];
@@ -280,7 +270,7 @@
     BOOL isFirstPoint = self.currentPointIndex == 0;
     BOOL isLastPoint = self.currentPointIndex == [self numberOfPoints] - 1;
     BOOL isFirstEventOfPoint = self.currentEventIndex == 0;
-    BOOL isLastEventOfPoint = self.currentEvent && self.currentEventIndex == [self.currentPoint.events count];
+    BOOL isLastEventOfPoint = self.currentEvent && self.currentEventIndex == [self.currentEvents count];
     self.fastBackwardButton.enabled = !isFirstPoint;
     self.fastForwardButton.enabled = !isLastPoint;
     self.backwardButton.enabled = !isFirstPoint || !isFirstEventOfPoint;
@@ -364,6 +354,22 @@
             index++;
         }
     }
+    [self updateCurrentEventsFromCurrentPoint];
+}
+
+-(void)updateCurrentEventsFromCurrentPoint {
+    NSMutableArray* events = [NSMutableArray array];
+    if (self.currentPoint) {
+        for (Event* event in self.currentPoint.events) {
+            if (event.beginPosition) {
+                [events addObject:[event asBeginEvent]];
+                [events addObject:event];
+            } else {
+                [events addObject:event];
+            }
+        }
+    }
+    self.currentEvents = events;
 }
 
 -(void)setCurrentEvent:(Event *)currentEvent {
@@ -371,7 +377,7 @@
     self.currentEventIndex = 0;  // 0 implies no event
     if (currentEvent) {
         int index = 0;
-        for (Event* event in self.currentPoint.events) {
+        for (Event* event in self.currentEvents) {
             if (event == currentEvent) {
                 self.currentEventIndex = index;
                 self.currentEventIndex++;

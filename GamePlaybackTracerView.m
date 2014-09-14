@@ -98,7 +98,6 @@
     self.arrowLength = (halfArrowDistance - self.endInset) * 2;
     
     self.radians = atan2f( self.destinationPoint.y - self.arrowCenter.y , self.destinationPoint.x - self.arrowCenter.x);
-//    NSLog(@"arrow coordinates: center=%f,%f length=%f radians=%f", self.arrowCenter.x, self.arrowCenter.y, self.arrowLength, self.radians);
 }
 
 

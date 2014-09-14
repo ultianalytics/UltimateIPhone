@@ -13,7 +13,6 @@
 #import "GamePlaybackTracerView.h"
 
 #define kNormalPassAnimationDuration 1
-#define kNormalBeginEventAnimationDuration .5
 #define kNormalWrapUpAnimationDuration .5
 
 @interface GamePlaybackFieldView ()
@@ -50,11 +49,7 @@
     eventView.isOurEvent = [self isOurEvent:event];
     [self updatePointViewLocation:eventView toPosition:event.position];
     [self addEventPointView: eventView];
-    if ([event isPositionalBegin]) {
-        [self animateBeginEventAppearance:eventView atRelativeSpeed:relativeSpeedFactor lastEventView: lastEventView complete:completionBlock];
-    } else {
-        [self animateEventAppearance:eventView atRelativeSpeed:relativeSpeedFactor lastEventView: lastEventView complete:completionBlock];
-    }
+    [self animateEventAppearance:eventView atRelativeSpeed:relativeSpeedFactor lastEventView: lastEventView complete:completionBlock];
 }
 
 
@@ -91,41 +86,19 @@
     [self.currentEventViews removeAllObjects];
 }
 
--(void)animateBeginEventAppearance: (GameFieldEventPointView*) eventView atRelativeSpeed: (float) relativeSpeedFactor lastEventView: (GameFieldEventPointView*) lastEventView complete: (void (^)()) completionBlock {
-
-    eventView.discHidden = NO;
-    
-    GameFieldEventPointView* lastEventViewCopy;
-    if (lastEventView) {
-        // create a copy of the last event and cover the original so we can fade it's changes
-        lastEventViewCopy = [GameFieldEventPointView copyOf:lastEventView];
-        [self addSubview:lastEventViewCopy];
-        // adjust the original to the desired state
-        lastEventView.isEmphasizedEvent = NO;
-        lastEventView.discHidden = YES;
-    }
-    
-    eventView.alpha = 0;
-    [UIView animateWithDuration:[self scaleDuration:kNormalBeginEventAnimationDuration usingFactor:relativeSpeedFactor] animations:^{
-        lastEventViewCopy.alpha = 0;
-        eventView.alpha = 1;
-    } completion:^(BOOL finished) {
-        [lastEventViewCopy removeFromSuperview];
-        [self safelyPeformCompletion:completionBlock];
-    }];
-}
-
 -(void)animateEventAppearance: (GameFieldEventPointView*) eventView atRelativeSpeed: (float) relativeSpeedFactor  lastEventView: (GameFieldEventPointView*) lastEventView complete: (void (^)()) completionBlock {
     
     GamePlaybackTracerView* tracerView;
     GameFieldEventPointView* lastEventViewCopy;
     
     if (lastEventView) {
-        // add a tracer view
-        tracerView = [self addTracerArrowFrom:lastEventView to:eventView];
-        if (!self.tracerArrowsHidden) {
-            tracerView.alpha = 0;
-            tracerView.hidden = NO;
+        // add a tracer view (if not a pull or pickup)
+        if (![eventView.event isPositionalBegin]) {
+            tracerView = [self addTracerArrowFrom:lastEventView to:eventView];
+            if (!self.tracerArrowsHidden) {
+                tracerView.alpha = 0;
+                tracerView.hidden = NO;
+            }
         }
         
         // create a copy of the last event and cover the original so we can fade it's changes

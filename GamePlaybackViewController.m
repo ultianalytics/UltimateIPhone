@@ -251,7 +251,7 @@
         // start at beginning of current point
         gameProgressPercent = (float)self.currentPointIndex / (float)[self numberOfPoints];
         if (self.currentEvent) {
-            float numberOfEvents = [self.currentPoint getNumberOfEvents];
+            float numberOfEvents = [self.currentEvents count];
             // add events played in this point
             if (numberOfEvents > 0) {
                 float percentPerPoint = 1.f / (float)[self numberOfPoints];

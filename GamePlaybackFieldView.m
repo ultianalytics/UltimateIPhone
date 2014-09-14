@@ -106,8 +106,7 @@
     }
     
     eventView.alpha = 0;
-    NSTimeInterval duration = [self scaleDuration:kNormalBeginEventAnimationDuration withRelativeFactor:relativeSpeedFactor];
-    [UIView animateWithDuration:duration animations:^{
+    [UIView animateWithDuration:[self scaleDuration:kNormalBeginEventAnimationDuration usingFactor:relativeSpeedFactor] animations:^{
         lastEventViewCopy.alpha = 0;
         eventView.alpha = 1;
     } completion:^(BOOL finished) {
@@ -118,50 +117,56 @@
 
 -(void)animateEventAppearance: (GameFieldEventPointView*) eventView atRelativeSpeed: (float) relativeSpeedFactor  lastEventView: (GameFieldEventPointView*) lastEventView complete: (void (^)()) completionBlock {
     
+    GamePlaybackTracerView* tracerView;
+    GameFieldEventPointView* lastEventViewCopy;
+    
     if (lastEventView) {
+        // add a tracer view
+        tracerView = [self addTracerArrowFrom:lastEventView to:eventView];
+        if (!self.tracerArrowsHidden) {
+            tracerView.alpha = 0;
+            tracerView.hidden = NO;
+        }
+        
+        // create a copy of the last event and cover the original so we can fade it's changes
+        lastEventViewCopy = [GameFieldEventPointView copyOf:lastEventView];
+        [self addSubview:lastEventViewCopy];
+        
+        // adjust the last event
+        lastEventView.isEmphasizedEvent = NO;
+        lastEventView.discHidden = YES;
+        
+        // setup for moving disc view
         eventView.discHidden = YES;
         self.movingDiscView.center = lastEventView.center;
         [self bringSubviewToFront:self.movingDiscView];
         self.movingDiscView.hidden = NO;
-        lastEventView.discHidden = YES;
+        
     }
     
+    // animate the moving of the frisbee from passer to receiver, the appearance of the new event and disappearance of the old event
     eventView.alpha = 0;
-    NSTimeInterval duration = [self scaleDuration:kNormalPassAnimationDuration withRelativeFactor:relativeSpeedFactor];
-    // animate the moving of the frisbee from passer to receiver
-    [UIView animateWithDuration:duration animations:^{
+    [UIView animateWithDuration:[self scaleDuration:kNormalPassAnimationDuration usingFactor:relativeSpeedFactor] animations:^{
         if (lastEventView) {
             self.movingDiscView.center = eventView.center;
+            lastEventViewCopy.alpha = 0;
         }
         eventView.alpha = 1;
     } completion:^(BOOL finished) {
+        // cleanup
+        [lastEventViewCopy removeFromSuperview];
         self.movingDiscView.hidden = YES;
         eventView.discHidden = NO;
-        if (lastEventView) {
-            NSTimeInterval duration = [self scaleDuration:kNormalWrapUpAnimationDuration withRelativeFactor:relativeSpeedFactor];
+        
+        if (lastEventView && !self.tracerArrowsHidden) {
             
-            // create a copy of the last event and cover the original so we can fade it's changes
-            GameFieldEventPointView* lastEventViewCopy = [GameFieldEventPointView copyOf:lastEventView];
-            [self addSubview:lastEventViewCopy];
-            // adjust the original to the desired state
-            lastEventView.isEmphasizedEvent = NO;
-            lastEventView.discHidden = YES;
-            // add a tracer view
-            GamePlaybackTracerView* tracerView = [self addTracerArrowFrom:lastEventView to:eventView];
-            if (!self.tracerArrowsHidden) {
-                tracerView.alpha = 0;
-                tracerView.hidden = NO;
-            }
-            // animate the de-emphasizing of the old event
-            [UIView animateWithDuration:duration animations:^{
-                lastEventViewCopy.alpha = 0;
-                if (!self.tracerArrowsHidden) {
-                    tracerView.alpha = 1;
-                }   
+            // animate showing the arrow (if we are displaying them)
+            [UIView animateWithDuration:[self scaleDuration:kNormalWrapUpAnimationDuration usingFactor:relativeSpeedFactor] animations:^{
+                tracerView.alpha = 1;
             } completion:^(BOOL finished) {
-                [lastEventViewCopy removeFromSuperview];
                 [self safelyPeformCompletion:completionBlock];
             }];
+            
         } else {
             [self safelyPeformCompletion:completionBlock];
         }
@@ -209,7 +214,7 @@
     }
 }
 
--(NSTimeInterval)scaleDuration: (float)standardDuration withRelativeFactor: (float)relativeSpeedFactor {
+-(NSTimeInterval)scaleDuration: (float)standardDuration usingFactor: (float)relativeSpeedFactor {
     float normal = standardDuration * 2.f;
     NSTimeInterval duration = MAX(standardDuration * .1f, normal * relativeSpeedFactor);
     return duration;

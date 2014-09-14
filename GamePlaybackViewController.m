@@ -27,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *fastForwardButton;
 @property (weak, nonatomic) IBOutlet UISlider *playbackSpeedSlider;
 @property (weak, nonatomic) IBOutlet UIButton *tracerCheckbox;
+@property (weak, nonatomic) IBOutlet UILabel *gameTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *gameDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @property (strong, nonatomic) UIImage* playImage;
 @property (strong, nonatomic) UIImage* pauseImage;
@@ -50,12 +53,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"Game Playback";
     self.playImage = [UIImage imageNamed:@"play"];
     self.pauseImage = [UIImage imageNamed:@"pause"];
     self.checkboxCheckedImage = [UIImage imageNamed:@"checkbox-checked-white-border.png"];
     self.checkboxUnCheckedImage = [UIImage imageNamed:@"checkbox-unchecked-white-border.png"];
     self.fieldView.tracerArrowsHidden = NO;
+    [self populateGameTitleAndDate];
+    [self updateScoreAnimated: NO];
     [self updateControls];
 }
 
@@ -107,6 +113,7 @@
 
 -(void)handleNewEventDisplayComplete {
     [self updateControls];
+    [self updateScoreAnimated:YES];
     if (self.isPlaying) {
         if (!([self.game getLastEvent] == self.currentEvent)) {
             [self performSelector:@selector(playNextEvent) withObject:nil afterDelay:[self delayBetweenEvents]];
@@ -236,6 +243,7 @@
             };
         }
     }
+    [self updateScoreAnimated:NO];
 }
 
 #pragma mark - Controls updating
@@ -281,6 +289,38 @@
 
 -(void)updateTracerArrowCheckbox {
     [self.tracerCheckbox setImage:self.fieldView.tracerArrowsHidden ? self.checkboxUnCheckedImage : self.checkboxCheckedImage forState:UIControlStateNormal];
+}
+
+-(void)updateScoreAnimated: (BOOL)animateUpdate {
+    UPoint* scorePoint;
+    if ([self.currentEvent isGoal]) {
+        scorePoint = self.currentPoint;
+    } else {
+        scorePoint = [self.game findPreviousPoint:self.currentPoint];
+    }
+    
+    NSString* scoreText = @"";
+    if (scorePoint) {
+        Score score = scorePoint.summary.score;
+        NSString* formattedScore = [NSString stringWithFormat:@"%d-%d", score.ours, score.theirs];
+        NSString* winningTeam = score.ours > score.theirs ? self.team.name : (score.ours < score.theirs ? self.game.opponentName : @"");
+        scoreText = [NSString stringWithFormat:@"%@ %@", formattedScore, winningTeam];
+    } else {
+        scoreText = @"0-0";
+    }
+    NSString* newScoreText = [NSString stringWithFormat:@"Score: %@",scoreText];
+    NSString* oldText = self.scoreLabel.text;
+    self.scoreLabel.text = newScoreText;
+    if (animateUpdate && ![oldText isEqualToString:newScoreText]) {
+        CGFloat swellFactor = 1.5;
+        [UIView animateWithDuration:.3 animations:^{
+            self.scoreLabel.transform = CGAffineTransformScale(self.scoreLabel.transform, swellFactor, swellFactor);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.3 animations:^{
+                self.scoreLabel.transform = CGAffineTransformScale(self.scoreLabel.transform, 1/swellFactor, 1/swellFactor);
+            }];
+        }];
+    }
 }
 
 #pragma mark - Playback Speed
@@ -346,6 +386,13 @@
     return [self.game getNumberOfPoints];
 }
 
-
+-(void)populateGameTitleAndDate {
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEE MMM d h:mm a"];
+    NSString* dateString = self.game.startDateTime ? [dateFormat stringFromDate:self.game.startDateTime] : @"Start Time Unknown";
+    NSString* titleString = [NSString stringWithFormat:@"%@ vs. %@", self.team.name, self.game.opponentName];
+    self.gameTitleLabel.text = titleString;
+    self.gameDateLabel.text = dateString;
+}
 
 @end

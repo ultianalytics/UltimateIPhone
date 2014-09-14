@@ -11,9 +11,12 @@
                 <outlet property="fastForwardButton" destination="fVq-tu-FIP" id="6uK-N6-iJ8"/>
                 <outlet property="fieldView" destination="hLR-bA-I9p" id="o7h-Fs-KL0"/>
                 <outlet property="forwardButton" destination="Ya7-nf-cyb" id="Wsi-UQ-HUQ"/>
+                <outlet property="gameDateLabel" destination="C5R-t4-wck" id="z1A-3n-94c"/>
                 <outlet property="gameProgressSlider" destination="QM8-w5-ZtZ" id="DzP-bO-htG"/>
+                <outlet property="gameTitleLabel" destination="VYk-RJ-Vnp" id="Py6-ug-Vi7"/>
                 <outlet property="playButton" destination="RpK-yo-MPG" id="4Bp-ec-mf5"/>
                 <outlet property="playbackSpeedSlider" destination="3zU-Bf-dMr" id="NNs-gL-EW9"/>
+                <outlet property="scoreLabel" destination="j5S-hw-9gl" id="Rzl-TN-RMY"/>
                 <outlet property="tracerCheckbox" destination="Dtv-GL-KdW" id="7od-Ew-Sq0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -110,6 +113,24 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Playback Speed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubX-xQ-LqX">
                     <rect key="frame" x="591" y="631" width="125" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Our Guys vs. Opponents" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYk-RJ-Vnp" userLabel="Game Title Label">
+                    <rect key="frame" x="0.0" y="23" width="768" height="26"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0-0 our guys" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5S-hw-9gl" userLabel="Score Label">
+                    <rect key="frame" x="0.0" y="89" width="768" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sept 14, 4:30" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5R-t4-wck" userLabel="Game Date Label">
+                    <rect key="frame" x="0.0" y="46" width="768" height="22"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

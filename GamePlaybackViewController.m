@@ -70,7 +70,11 @@
 #pragma mark - Event Handling
 
 - (IBAction)gameSliderChanged:(id)sender {
-    
+    [self handleGameProgessSliderChanged];
+}
+
+- (IBAction)gameSliderReleased:(id)sender {
+    [self updateControls];
 }
 
 - (IBAction)backwardButtonTapped:(id)sender {
@@ -196,7 +200,6 @@
         }
     } else {
         self.currentPoint = self.game.points[0];
-        
     }
     self.currentEvent = nil;
 }
@@ -242,27 +245,6 @@
     [self updateGameProgressSlider];
     [self updateControlButtons];
     [self updateTracerArrowCheckbox];
-}
-
--(void)updateGameProgressSlider {
-    float gameProgressPercent = 0;
-    // update the slider to show game progess.  Each point is an equal increment in progress
-    if ([self numberOfPoints] > 0) {
-        // start at beginning of current point
-        gameProgressPercent = (float)self.currentPointIndex / (float)[self numberOfPoints];
-        if (self.currentEvent) {
-            float numberOfEvents = [self.currentEvents count];
-            // add events played in this point
-            if (numberOfEvents > 0) {
-                float percentPerPoint = 1.f / (float)[self numberOfPoints];
-                float relativeEventPercent = (float)(self.currentEventIndex) / (float)numberOfEvents;
-                gameProgressPercent += (relativeEventPercent * percentPerPoint);
-            }
-        }
-    }
-    [UIView animateWithDuration:[self scaleDuration:kProgressSliderAnimationDuration] animations:^{
-        [self.gameProgressSlider setValue:gameProgressPercent animated:YES];
-    }];
 }
 
 -(void)updateControlButtons {
@@ -328,6 +310,50 @@
     float normal = standardDuration * 2.f;
     NSTimeInterval duration = MAX(standardDuration * .1f, normal * [self playbackSpeedFactor]);
     return duration;
+}
+
+#pragma mark - Game Progress Slider
+
+-(void)updateGameProgressSlider {
+    float gameProgressPercent = 0;
+    // update the slider to show game progess.  Each point is an equal increment in progress
+    if ([self numberOfPoints] > 0) {
+        // start at beginning of current point
+        gameProgressPercent = (float)self.currentPointIndex / (float)[self numberOfPoints];
+        if (self.currentEvent) {
+            float numberOfEvents = [self.currentEvents count];
+            // add events played in this point
+            if (numberOfEvents > 0) {
+                float percentPerPoint = 1.f / (float)[self numberOfPoints];
+                float relativeEventPercent = (float)(self.currentEventIndex) / (float)numberOfEvents;
+                gameProgressPercent += (relativeEventPercent * percentPerPoint);
+            }
+        }
+    }
+    [UIView animateWithDuration:[self scaleDuration:kProgressSliderAnimationDuration] animations:^{
+        [self.gameProgressSlider setValue:gameProgressPercent animated:YES];
+    }];
+}
+
+- (void)handleGameProgessSliderChanged {
+    float gameProgessPercent = self.gameProgressSlider.value;
+    float gameProgresPercentPerPoint = 1.0f / (float)[self numberOfPoints];
+    int pointIndex = gameProgessPercent * [self numberOfPoints];
+    if (pointIndex < [self.game.points count]) {
+        // set point
+        UPoint* point = self.game.points[pointIndex];
+        [self setCurrentPoint:point];
+        
+        // set event
+        float numberOfEvents = [self.currentEvents count] + 1;
+        float progressPercentPerEvent = (float)(gameProgresPercentPerPoint) / (float)numberOfEvents;
+        float eventProgressPercentInPoint = gameProgessPercent - (pointIndex * gameProgresPercentPerPoint);
+        int eventIndex = progressPercentPerEvent > 0 ? (eventProgressPercentInPoint / progressPercentPerEvent) : 0;
+        self.currentEvent = eventIndex == 0 ? nil : (eventIndex < [self.currentEvents count] ? self.currentEvents[eventIndex] : [self.currentEvents lastObject]);
+        [self displayCurrentEvent];
+        //    NSLog(@"pointIndex = %d, eventIndex = %d", pointIndex, eventIndex);
+    }
+
 }
 
 #pragma mark - Misc

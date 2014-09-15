@@ -12,6 +12,8 @@
 #import "Event.h"
 #import "UPoint.h"
 #import "GamePlaybackFieldView.h"
+#import "PlayerSubstitution.h"
+#import "Player.h"
 
 #define kNormalDelayBetweenEvents 1
 #define kProgressSliderAnimationDuration .5
@@ -31,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gameDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *gameInstructionsImageView;
+@property (weak, nonatomic) IBOutlet UILabel *lineLabel;
 
 @property (strong, nonatomic) UIImage* playImage;
 @property (strong, nonatomic) UIImage* pauseImage;
@@ -66,6 +69,7 @@
     [self populateGameTitleAndDate];
     [self updateScoreAnimated: NO];
     [self updateControls];
+    [self updateLine];
     self.gameInstructionsImageView.hidden = NO;
 }
 
@@ -299,21 +303,34 @@
     }
 }
 
-#pragma mark - Playback Speed
-
-// answers between 0.0 and 1.0 (.5 is normal speed)
--(float)playbackSpeedFactor {
-    return 1 - self.playbackSpeedSlider.value;
-}
-
--(NSTimeInterval)delayBetweenEvents {
-    return [self scaleDuration:kNormalDelayBetweenEvents];
-}
-
--(NSTimeInterval)scaleDuration: (float)standardDuration {
-    float normal = standardDuration * 2.f;
-    NSTimeInterval duration = MAX(standardDuration * .1f, normal * [self playbackSpeedFactor]);
-    return duration;
+-(void)updateLine {
+    NSMutableAttributedString* lineText;
+    if (self.currentPoint) {
+        UPoint* point = self.currentPoint;
+        NSMutableSet* allPlayerNames = [NSMutableSet setWithArray:[point.line valueForKeyPath: @"name"]];
+        for (PlayerSubstitution* substitution in point.substitutions) {
+            [allPlayerNames addObject:substitution.fromPlayer.name];
+            [allPlayerNames addObject:substitution.toPlayer.name];
+        }
+        for (PlayerSubstitution* substitution in point.substitutions) {
+            if ([allPlayerNames containsObject:substitution.fromPlayer.name]) {
+                [allPlayerNames removeObject:substitution.fromPlayer.name];
+                [allPlayerNames addObject: [NSString stringWithFormat:@"%@ (partial)", substitution.fromPlayer.name]];
+            }
+            if ([allPlayerNames containsObject:substitution.toPlayer.name]) {
+                [allPlayerNames removeObject:substitution.toPlayer.name];
+                [allPlayerNames addObject: [NSString stringWithFormat:@"%@ (partial)", substitution.toPlayer.name]];
+            }
+        }
+        NSString* playerNames = [[allPlayerNames allObjects] componentsJoinedByString: @", "];
+        NSString* lineType = point.summary.isOline ? @"O-line: " : @"D-line: ";
+        lineText = [[NSMutableAttributedString alloc] initWithString:lineType attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:19]}];
+        [lineText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:playerNames]];
+    } else {
+        lineText = [[NSMutableAttributedString alloc] initWithString:@""];
+    }
+    self.lineLabel.attributedText = lineText;
+    [UIView transitionWithView:self.lineLabel duration:.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:nil completion:nil];
 }
 
 #pragma mark - Game Progress Slider
@@ -357,7 +374,25 @@
         [self displayCurrentEvent];
         //    NSLog(@"pointIndex = %d, eventIndex = %d", pointIndex, eventIndex);
     }
+    
+}
 
+
+#pragma mark - Playback Speed
+
+// answers between 0.0 and 1.0 (.5 is normal speed)
+-(float)playbackSpeedFactor {
+    return 1 - self.playbackSpeedSlider.value;
+}
+
+-(NSTimeInterval)delayBetweenEvents {
+    return [self scaleDuration:kNormalDelayBetweenEvents];
+}
+
+-(NSTimeInterval)scaleDuration: (float)standardDuration {
+    float normal = standardDuration * 2.f;
+    NSTimeInterval duration = MAX(standardDuration * .1f, normal * [self playbackSpeedFactor]);
+    return duration;
 }
 
 #pragma mark - Misc
@@ -369,6 +404,9 @@
 }
 
 -(void)setCurrentPoint:(UPoint *)currentPoint {
+    if (currentPoint == _currentPoint) {
+        return;
+    }
     if (currentPoint == nil || currentPoint != _currentPoint) {
         self.currentEvent = nil;
     }
@@ -385,6 +423,7 @@
         }
     }
     [self updateCurrentEventsFromCurrentPoint];
+    [self updateLine];
 }
 
 -(void)updateCurrentEventsFromCurrentPoint {

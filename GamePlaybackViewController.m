@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gameTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gameDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *gameInstructionsImageView;
 
 @property (strong, nonatomic) UIImage* playImage;
 @property (strong, nonatomic) UIImage* pauseImage;
@@ -65,6 +66,7 @@
     [self populateGameTitleAndDate];
     [self updateScoreAnimated: NO];
     [self updateControls];
+    self.gameInstructionsImageView.hidden = NO;
 }
 
 #pragma mark - Event Handling
@@ -148,6 +150,7 @@
 }
 
 -(void)displayNewEvent: (Event*)event {
+    self.gameInstructionsImageView.hidden = YES;
     [self.fieldView displayNewEvent:event atRelativeSpeed: [self playbackSpeedFactor] complete:^{
         [self handleNewEventDisplayComplete];
     }];
@@ -223,6 +226,7 @@
 }
 
 -(void)displayCurrentEvent {
+    self.gameInstructionsImageView.hidden = YES;
     [self.fieldView resetField];
     if (self.currentEvent) {
         for (Event* event in self.currentEvents) {

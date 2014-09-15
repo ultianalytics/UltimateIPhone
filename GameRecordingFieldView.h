@@ -14,12 +14,6 @@
 
 @interface GameRecordingFieldView : GameFieldView
 
-// view configuration
-@property (nonatomic, strong) UIColor* fieldBorderColor;
-@property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
-@property (nonatomic) BOOL inverted;
-@property (nonatomic, strong) NSAttributedString* message;
-
 @property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint, BOOL isOutOfBounds);
 @property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;
 

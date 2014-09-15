@@ -36,7 +36,6 @@
 @property (nonatomic, strong) UIColor* discColor;
 
 @property (nonatomic, strong) EventPosition* potentialEventPosition;
-@property (nonatomic, strong) UILabel* messageLabel;
 
 @property (nonatomic, strong) Game* game;
 @property (nonatomic) GameFieldEventPointView* movedPointView;
@@ -59,7 +58,6 @@
     [super commonInit];
     [self addTapRecognizer];
     [self addDragPressRecognizer];
-    [self addMessageView];
     [self addBenchView];
     [self addDirectionView];
     [self addPointViews];
@@ -284,9 +282,6 @@
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    if (self.message) {
-        self.messageLabel.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    }
     [self layoutDirectionViews];
     [self layoutBenchView];
 }
@@ -342,24 +337,6 @@
     } else {
         return nil;
     }
-}
-
-#pragma mark - Message
-
--(void)addMessageView {
-    self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
-    self.messageLabel.numberOfLines = 0;
-    self.messageLabel.textAlignment = NSTextAlignmentCenter;
-    self.messageLabel.textColor = [UIColor whiteColor];
-    self.messageLabel.hidden = YES;
-    [self addSubview:self.messageLabel];
-}
-
--(void)setMessage:(NSAttributedString *)message {
-    _message = message;
-    self.messageLabel.attributedText = message;
-    self.messageLabel.hidden = message ? NO : YES;
-    [self setNeedsLayout];
 }
 
 #pragma mark - Direction Arrows

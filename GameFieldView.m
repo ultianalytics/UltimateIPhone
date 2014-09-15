@@ -21,6 +21,8 @@
 @property (nonatomic) CGRect endzone0Rect;
 @property (nonatomic) CGRect endzone100Rect;
 
+@property (nonatomic, strong) UILabel* messageLabel;
+
 @end
 
 @implementation GameFieldView
@@ -29,6 +31,7 @@
 
 -(void)commonInit {
     [self initFieldDefaults];
+    [self addMessageView];
     [self.layer setNeedsDisplay];
 }
 
@@ -55,6 +58,9 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     [self calculateFieldRectangles];
+    if (self.message) {
+        self.messageLabel.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    }
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
@@ -162,6 +168,24 @@
 
 -(void)updatePointViewLocation: (GameFieldEventPointView*)pointView toPosition: (EventPosition*)eventPosition {
     pointView.center = [self calculatePoint:eventPosition];
+}
+
+#pragma mark - Message
+
+-(void)addMessageView {
+    self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
+    self.messageLabel.numberOfLines = 0;
+    self.messageLabel.textAlignment = NSTextAlignmentCenter;
+    self.messageLabel.textColor = [UIColor whiteColor];
+    self.messageLabel.hidden = YES;
+    [self addSubview:self.messageLabel];
+}
+
+-(void)setMessage:(NSAttributedString *)message {
+    _message = message;
+    self.messageLabel.attributedText = message;
+    self.messageLabel.hidden = message ? NO : YES;
+    [self setNeedsLayout];
 }
 
 

@@ -315,6 +315,8 @@
 		381BC48719B8A26200CD8C20 /* GameAutoUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC48619B8A26200CD8C20 /* GameAutoUploader.m */; };
 		381BC48C19B91D0A00CD8C20 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC48B19B91D0A00CD8C20 /* UIView+Toast.m */; };
 		381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */; };
+		381F97CC19C6B7DA00CA1C8B /* game-playback-instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */; };
+		381F97CD19C6B7DA00CA1C8B /* game-playback-instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -834,6 +836,8 @@
 		381BC48B19B91D0A00CD8C20 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		381F97C719C498E900CA1C8B /* GamePlaybackTracerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackTracerView.h; sourceTree = "<group>"; };
 		381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackTracerView.m; sourceTree = "<group>"; };
+		381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions.png"; sourceTree = "<group>"; };
+		381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions@2x.png"; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1375,7 +1379,7 @@
 				1AFFE8DC151764D9004B4590 /* Game */,
 				1AFFE8DD151764DB004B4590 /* Game Action */,
 				384C2D7F19A7F60700EE8290 /* Game Action - Positional */,
-				38AA389019C1E69100C6CF9A /* Game Playback */,
+				38AA389019C1E69100C6CF9A /* Game Positional Playback */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
 				1AA37BE318AFBCEA00CE9662 /* Event */,
@@ -1631,7 +1635,7 @@
 			isa = PBXGroup;
 			children = (
 				38AA38B519C335E500C6CF9A /* Checkbox */,
-				38AA389C19C32ED500C6CF9A /* Playback Controls */,
+				38AA389C19C32ED500C6CF9A /* Game Playback */,
 				3870813219C07944001174CB /* twitter-bird-dark.png */,
 				381BC48019B7E95400CD8C20 /* broadcasting.png */,
 				381BC48119B7E95400CD8C20 /* broadcasting@2x.png */,
@@ -1804,7 +1808,7 @@
 			name = "Game Action - Positional";
 			sourceTree = "<group>";
 		};
-		38AA389019C1E69100C6CF9A /* Game Playback */ = {
+		38AA389019C1E69100C6CF9A /* Game Positional Playback */ = {
 			isa = PBXGroup;
 			children = (
 				38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */,
@@ -1815,12 +1819,14 @@
 				381F97C719C498E900CA1C8B /* GamePlaybackTracerView.h */,
 				381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */,
 			);
-			name = "Game Playback";
+			name = "Game Positional Playback";
 			sourceTree = "<group>";
 		};
-		38AA389C19C32ED500C6CF9A /* Playback Controls */ = {
+		38AA389C19C32ED500C6CF9A /* Game Playback */ = {
 			isa = PBXGroup;
 			children = (
+				381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */,
+				381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */,
 				38AA389D19C32F1400C6CF9A /* backward.png */,
 				38AA389E19C32F1400C6CF9A /* backward@2x.png */,
 				38AA389F19C32F1400C6CF9A /* fast-backward.png */,
@@ -1834,7 +1840,7 @@
 				38AA38A719C32F1400C6CF9A /* play.png */,
 				38AA38A819C32F1400C6CF9A /* play@2x.png */,
 			);
-			name = "Playback Controls";
+			name = "Game Playback";
 			sourceTree = "<group>";
 		};
 		38AA38B519C335E500C6CF9A /* Checkbox */ = {
@@ -1938,6 +1944,7 @@
 				38AA38B019C32F1400C6CF9A /* forward@2x.png in Resources */,
 				38AA38BB19C3360F00C6CF9A /* checkbox-checked-white-border@2x.png in Resources */,
 				1AA37B9218A6C29D00CE9662 /* player_laying_out.png in Resources */,
+				381F97CC19C6B7DA00CA1C8B /* game-playback-instructions.png in Resources */,
 				1AFFE7F615175E7B004B4590 /* black_heart.png in Resources */,
 				1AFFE7F715175E7B004B4590 /* catch_trans.gif in Resources */,
 				1AFFE7FC15175E7B004B4590 /* cry.png in Resources */,
@@ -2012,6 +2019,7 @@
 				1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */,
 				38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */,
 				38AA38B319C32F1400C6CF9A /* play.png in Resources */,
+				381F97CD19C6B7DA00CA1C8B /* game-playback-instructions@2x.png in Resources */,
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE669FC152160FA000965B5 /* 234-cloud.png in Resources */,
 				1AE669FD152160FA000965B5 /* 234-cloud@2x.png in Resources */,

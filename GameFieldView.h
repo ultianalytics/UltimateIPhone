@@ -20,6 +20,7 @@
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
 @property (nonatomic) BOOL inverted;
 @property (nonatomic, strong) UIColor* discColor;
+@property (nonatomic, strong) NSAttributedString* message;
 
 // subclass support
 

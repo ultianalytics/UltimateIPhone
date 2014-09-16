@@ -40,6 +40,13 @@
     [self addSubview:self.movingDiscView];
 }
 
+#pragma mark - UIView overrides
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    [self layoutEvents];
+}
+
 #pragma mark - Displaying events
 
 -(void)displayNewEvent: (Event*) event atRelativeSpeed: (float) relativeSpeedFactor complete: (void (^)()) completionBlock {
@@ -159,6 +166,12 @@
         [self sendSubviewToBack:tracerView];
     }
     return tracerView;
+}
+
+-(void)layoutEvents {
+    for (GameFieldEventPointView* eventView in self.currentEventViews) {
+        [self updatePointViewLocation:eventView toPosition:eventView.event.position];
+    }
 }
 
 #pragma mark - Misc

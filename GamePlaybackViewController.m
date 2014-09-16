@@ -85,6 +85,10 @@
     [self configureForOrientation:toInterfaceOrientation];
 }
 
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self displayCurrentEvent];
+}
+
 #pragma mark - Event Handling
 
 - (IBAction)gameSliderChanged:(id)sender {
@@ -242,9 +246,9 @@
 }
 
 -(void)displayCurrentEvent {
-    self.gameInstructionsImageView.hidden = YES;
     [self.fieldView resetField];
     if (self.currentEvent) {
+        self.gameInstructionsImageView.hidden = YES;
         for (Event* event in self.currentEvents) {
             if (event.beginPosition) {
                 Event* beginEvent = [event asBeginEvent];

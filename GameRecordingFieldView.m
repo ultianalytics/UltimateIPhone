@@ -179,6 +179,18 @@
 
 }
 
+-(void)layoutPointViews {
+    if (self.lastSavedEventView.visible) {
+        [self updatePointViewLocation:self.lastSavedEventView toPosition:self.lastSavedEventView.event.position];
+    }
+    if (self.previousSavedEventView.visible) {
+        [self updatePointViewLocation:self.previousSavedEventView toPosition:self.previousSavedEventView.event.position];
+    }
+    if (self.potentialEventView.visible) {
+        [self updatePointViewLocation:self.potentialEventView toPosition:self.potentialEventPosition];
+    }
+}
+
 -(void)updateMessage {
     if ([self.game isPointInProgress] || self.game.positionalBeginEvent) {
         self.message = nil;
@@ -215,7 +227,6 @@
     // potential event
     if (potentialEventPosition) {
         self.potentialEventPosition = potentialEventPosition;
-        [self updatePointViewLocation:self.potentialEventView toPosition:potentialEventPosition];
         self.potentialEventView.isOurEvent = [self isNextEventOurs];
     }
     self.potentialEventView.hidden = potentialEventPosition == nil;
@@ -225,7 +236,6 @@
         self.lastSavedEventView.isEmphasizedEvent = !self.potentialEventView.visible;
         self.lastSavedEventView.isOurEvent = [self isOurEvent:lastEvent];
         self.lastSavedEventView.event = lastEvent;
-        [self updatePointViewLocation:self.lastSavedEventView toPosition:lastEvent.position];
         self.lastSavedEventView.visible = YES;
     } else {
         self.lastSavedEventView.visible = NO;
@@ -236,12 +246,12 @@
     if (self.potentialEventView.hidden && previousEvent && previousEvent.position != nil) {
         self.previousSavedEventView.event = previousEvent;
         self.previousSavedEventView.isOurEvent = [self isOurEvent:previousEvent];
-        [self updatePointViewLocation:self.previousSavedEventView toPosition:previousEvent.position];
         self.previousSavedEventView.visible = YES;
     } else {
         self.previousSavedEventView.visible = NO;
     }
-  
+    
+    [self layoutPointViews];
 }
 
 -(void)animateDiscThrow {
@@ -284,6 +294,7 @@
     [super layoutSubviews];
     [self layoutDirectionViews];
     [self layoutBenchView];
+    [self layoutPointViews];
 }
 
 #pragma mark - Event retrieval

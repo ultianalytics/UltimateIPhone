@@ -90,6 +90,7 @@
     }
     self.bottomOrRightView.frameWidth = self.view.boundsWidth;
     self.bottomOrRightView.frameHeight = self.view.boundsHeight - self.topOrLeftView.frameHeight;
+    [self repositionVisibleChooserView];
 }
 
 -(Event*)removeLastEvent {
@@ -390,6 +391,14 @@
 }
 
 - (BOOL)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
+    BOOL isLeft = [self repositionChooserView:chooserView adjacentToEventAt:eventPoint];
+    self.topViewOverlay.visible = YES;
+    self.bottomViewOverlay.visible = YES;
+    chooserView.visible = YES;
+    return isLeft;
+}
+
+-(BOOL)repositionChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
     BOOL isLeft = NO;
     chooserView.center = self.fieldView.center;  // center vertically in the field view
     if (eventPoint.x != 0 && eventPoint.y != 0) {
@@ -403,10 +412,15 @@
         }
         chooserView.frameX = x;
     }
-    self.topViewOverlay.visible = YES;
-    self.bottomViewOverlay.visible = YES;
-    chooserView.visible = YES;
     return isLeft;
+}
+
+-(void)repositionVisibleChooserView {
+    UIView* chooserView = self.actionViewContainer.visible ? self.actionViewContainer : self.beginEventPlayerPickerSubview.visible ? self.beginEventPlayerPickerSubview : nil;
+    if (chooserView) {
+        CGPoint eventPoint = [self.view convertPoint:self.fieldView.potentialEventPositionPoint fromView:self.fieldView];
+        [self repositionChooserView:chooserView adjacentToEventAt:eventPoint];
+    }
 }
 
 - (void)hideChooserView: (UIView*)chooserView {

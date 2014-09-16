@@ -50,7 +50,7 @@
 @end
 
 @implementation GameRecordingFieldView
-@dynamic game;
+@dynamic game, potentialEventPositionPoint;
 
 #pragma mark - Initialization
 
@@ -446,6 +446,10 @@
         return YES;
     }
     return NO;
+}
+
+-(CGPoint)potentialEventPositionPoint {
+    return [self calculatePoint:self.potentialEventPosition];
 }
 
 

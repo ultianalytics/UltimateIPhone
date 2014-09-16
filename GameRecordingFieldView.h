@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) BOOL (^positionTappedBlock)(EventPosition* position, CGPoint gameFieldPoint, BOOL isOutOfBounds);
 @property (nonatomic, strong, readonly) EventPosition* potentialEventPosition;
+@property (nonatomic, readonly) CGPoint potentialEventPositionPoint;
 
 -(void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds;
 -(void)updateForCurrentEvents;

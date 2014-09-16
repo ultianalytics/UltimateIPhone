@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -11,6 +10,7 @@
                 <outlet property="fastBackwardButton" destination="6pd-r1-2s2" id="8Zu-IU-K9c"/>
                 <outlet property="fastForwardButton" destination="fVq-tu-FIP" id="6uK-N6-iJ8"/>
                 <outlet property="fieldView" destination="hLR-bA-I9p" id="o7h-Fs-KL0"/>
+                <outlet property="fieldViewHeightConstraint" destination="x8z-lR-Adc" id="elN-Zb-Ook"/>
                 <outlet property="forwardButton" destination="Ya7-nf-cyb" id="Wsi-UQ-HUQ"/>
                 <outlet property="gameDateLabel" destination="C5R-t4-wck" id="z1A-3n-94c"/>
                 <outlet property="gameInstructionsImageView" destination="RFB-4T-Z0f" id="JpC-b8-2AQ"/>

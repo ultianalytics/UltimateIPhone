@@ -40,6 +40,8 @@
 @property (strong, nonatomic) UIImage* checkboxCheckedImage;
 @property (strong, nonatomic) UIImage* checkboxUnCheckedImage;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fieldViewHeightConstraint;
+
 @property (strong, nonatomic) UPoint* currentPoint;
 @property (strong, nonatomic) NSArray* currentEvents;
 @property (strong, nonatomic) Event* currentEvent;  // curent is the last event played
@@ -71,6 +73,16 @@
     [self updateControls];
     [self updateLine];
     self.gameInstructionsImageView.hidden = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self configureForOrientation:self.interfaceOrientation];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self configureForOrientation:toInterfaceOrientation];
 }
 
 #pragma mark - Event Handling
@@ -468,6 +480,15 @@
     NSString* titleString = [NSString stringWithFormat:@"%@ vs. %@", self.team.name, self.game.opponentName];
     self.gameTitleLabel.text = titleString;
     self.gameDateLabel.text = dateString;
+}
+
+- (void)configureForOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+        toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        self.fieldViewHeightConstraint.constant = 300;
+    } else {
+        self.fieldViewHeightConstraint.constant = 420;
+    }
 }
 
 @end

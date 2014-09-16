@@ -112,15 +112,16 @@
 }
 
 -(EventPosition*)calculatePosition: (CGPoint)point {
+    EventPosition* position = nil;
     if (CGRectContainsPoint(self.fieldRect, point)) {
-        return [self calculatePosition:point inRect:self.fieldRect area:EventPositionAreaField];
+        position = [self calculatePosition:point inRect:self.fieldRect area:EventPositionAreaField];
     } else if (CGRectContainsPoint(self.endzone0Rect, point)) {
-        return [self calculatePosition:point inRect:self.endzone0Rect area:EventPositionArea0Endzone];
+        position = [self calculatePosition:point inRect:self.endzone0Rect area:EventPositionArea0Endzone];
     } else if (CGRectContainsPoint(self.endzone100Rect, point)) {
-        return [self calculatePosition:point inRect:self.endzone100Rect area:EventPositionArea100Endzone];
-    } else {
-        return nil;
+        position = [self calculatePosition:point inRect:self.endzone100Rect area:EventPositionArea100Endzone];
     }
+    NSLog(@"calculating position.  point=(%f,%f)  calculated position=%@", point.x, point.y, position);
+    return position;
 }
 
 -(EventPosition*)calculatePosition: (CGPoint)point inRect: (CGRect)rect area: (EventPositionArea)area {
@@ -152,18 +153,19 @@
         positionY = 1 - positionY;
     }
     CGFloat y = roundf(positionY * self.fieldRect.size.height);
+    CGPoint point = CGPointMake(0, 0);;
     if (area == EventPositionAreaField) {
         CGFloat x = roundf(CGRectGetMaxX(self.endzone0Rect) + (self.fieldRect.size.width * positionX));
-        return CGPointMake(x, y);
+        point = CGPointMake(x, y);
     } else if (area == EventPositionArea0Endzone) {
         CGFloat x = roundf(self.endzone0Rect.size.width * positionX);
-        return CGPointMake(x, y);
+        point = CGPointMake(x, y);
     } else if (area == EventPositionArea100Endzone) {
         CGFloat x = CGRectGetMaxX(self.fieldRect) + (self.endzone100Rect.size.width * positionX);
-        return CGPointMake(x, y);
-    } else {
-        return CGPointMake(0, 0);
+        point = CGPointMake(x, y);
     }
+    NSLog(@"calculating point. position=%@, calculated point=(%f,%f)", position, point.x, point.y);
+    return point;
 }
 
 -(void)updatePointViewLocation: (GameFieldEventPointView*)pointView toPosition: (EventPosition*)eventPosition {

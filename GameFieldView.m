@@ -104,7 +104,7 @@
 
 -(void)calculateFieldRectangles {
     CGRect totalField = CGRectIntegral(self.bounds);
-    CGFloat endzoneWidth = ceilf(self.endzonePercent * totalField.size.height);
+    CGFloat endzoneWidth = ceilf(self.endzonePercent * totalField.size.width);
     self.endzone0Rect = CGRectMake(0, 0, endzoneWidth, ceilf(totalField.size.height));
     self.endzone100Rect = CGRectMake(totalField.size.width-endzoneWidth, 0, endzoneWidth, ceilf(totalField.size.height));
     self.fieldRect = CGRectMake(self.endzone0Rect.size.width, 0, self.endzone100Rect.origin.x - CGRectGetMaxX(self.endzone0Rect), ceilf(totalField.size.height));
@@ -120,7 +120,6 @@
     } else if (CGRectContainsPoint(self.endzone100Rect, point)) {
         position = [self calculatePosition:point inRect:self.endzone100Rect area:EventPositionArea100Endzone];
     }
-    NSLog(@"calculating position.  point=(%f,%f)  calculated position=%@", point.x, point.y, position);
     return position;
 }
 
@@ -164,7 +163,6 @@
         CGFloat x = CGRectGetMaxX(self.fieldRect) + (self.endzone100Rect.size.width * positionX);
         point = CGPointMake(x, y);
     }
-    NSLog(@"calculating point. position=%@, calculated point=(%f,%f)", position, point.x, point.y);
     return point;
 }
 

@@ -38,6 +38,8 @@
 -(void)initFieldDefaults {
     self.endzonePercent = .15; // default endzone percent
     self.fieldBorderColor = [UIColor whiteColor];  // default border color
+    self.endzone0BorderColor = [UIColor whiteColor];  // default endzone 0 border color
+    self.endzone100BorderColor = [UIColor whiteColor];  // default endzone 100 border color
     self.discColor = [UIColor whiteColor]; // color of the frisbee
 }
 
@@ -70,11 +72,11 @@
     
     CGContextSaveGState(context);
     
-    CGContextSetStrokeColorWithColor(context, self.fieldBorderColor.CGColor);
     CGContextSetLineWidth(context, lineWidth);
     CGContextSetLineCap(context, kCGLineCapSquare);
     
     // draw the total field boundaries
+    CGContextSetStrokeColorWithColor(context, self.fieldBorderColor.CGColor);
     CGFloat borderLineInset = lineWidth - 1;  // stay inside the bounds
     CGRect rect = self.totalFieldRect;
     CGContextMoveToPoint(context, rect.origin.x + borderLineInset, rect.origin.y + borderLineInset);
@@ -84,17 +86,13 @@
     CGContextAddLineToPoint(context, rect.origin.x + borderLineInset, rect.origin.y  + borderLineInset);
     CGContextStrokePath(context);
     
-    // draw endzone 0 line
-    CGFloat x = CGRectGetMaxX(self.endzone0Rect);
-    CGContextMoveToPoint(context, x, self.endzone0Rect.origin.y);
-    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone0Rect));
-    CGContextStrokePath(context);
+    // draw endzone 0
+    CGContextSetStrokeColorWithColor(context, self.endzone0BorderColor.CGColor);
+    CGContextStrokeRect(context, self.endzone0Rect);
     
-    // draw endzone 100 line
-    x = self.endzone100Rect.origin.x;
-    CGContextMoveToPoint(context, x, self.endzone100Rect.origin.y);
-    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone100Rect));
-    CGContextStrokePath(context);
+    // draw endzone 100
+    CGContextSetStrokeColorWithColor(context, self.endzone100BorderColor.CGColor);
+    CGContextStrokeRect(context, self.endzone100Rect);
     
     CGContextRestoreGState(context);
 

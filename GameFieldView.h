@@ -17,6 +17,8 @@
 
 // view configuration
 @property (nonatomic, strong) UIColor* fieldBorderColor;
+@property (nonatomic, strong) UIColor* endzone0BorderColor;
+@property (nonatomic, strong) UIColor* endzone100BorderColor;
 @property (nonatomic) float endzonePercent; // portion of the total field occupied by a single endzone
 @property (nonatomic) BOOL inverted;
 @property (nonatomic, strong) UIColor* discColor;

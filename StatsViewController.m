@@ -276,7 +276,7 @@
         
         CGPoint anchor = CGPointMake(CGRectGetMaxX(self.statTypeTableView.frame), CGRectGetMinY(self.statTypeTableView.frame) + 80);
         
-        [calloutsView addCallout:@"Not all stats are viewable on the iPhone.  To see the full stats for your team, upload the team to your website (Website tab)."  anchor: anchor width: 150 degrees: 90 connectorLength: 100 font:[UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"Not all stats are viewable on the iPhone or iPad.  To see the full stats for your team, upload the team to your website (Website tab)."  anchor: anchor width: 150 degrees: 90 connectorLength: 100 font:[UIFont systemFontOfSize:14]];
         
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];

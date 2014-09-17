@@ -88,11 +88,11 @@
     
     // draw endzone 0
     CGContextSetStrokeColorWithColor(context, self.endzone0BorderColor.CGColor);
-    CGContextStrokeRect(context, self.endzone0Rect);
+    CGContextStrokeRect(context, CGRectInset(self.endzone0Rect, borderLineInset, borderLineInset));
     
     // draw endzone 100
     CGContextSetStrokeColorWithColor(context, self.endzone100BorderColor.CGColor);
-    CGContextStrokeRect(context, self.endzone100Rect);
+    CGContextStrokeRect(context, CGRectInset(self.endzone100Rect, borderLineInset, borderLineInset));
     
     CGContextRestoreGState(context);
 

@@ -86,13 +86,20 @@
     CGContextAddLineToPoint(context, rect.origin.x + borderLineInset, rect.origin.y  + borderLineInset);
     CGContextStrokePath(context);
     
-    // draw endzone 0
+    // draw endzone 0 line
     CGContextSetStrokeColorWithColor(context, self.endzone0BorderColor.CGColor);
-    CGContextStrokeRect(context, CGRectInset(self.endzone0Rect, borderLineInset, borderLineInset));
-    
-    // draw endzone 100
+    CGFloat x = CGRectGetMaxX(self.endzone0Rect);
+    CGContextMoveToPoint(context, x, self.endzone0Rect.origin.y);
+    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone0Rect));
+    CGContextStrokePath(context);
+
+    // draw endzone 100 line
     CGContextSetStrokeColorWithColor(context, self.endzone100BorderColor.CGColor);
-    CGContextStrokeRect(context, CGRectInset(self.endzone100Rect, borderLineInset, borderLineInset));
+    x = self.endzone100Rect.origin.x;
+    CGContextMoveToPoint(context, x, self.endzone100Rect.origin.y);
+    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone100Rect));
+    CGContextStrokePath(context);
+
     
     CGContextRestoreGState(context);
 

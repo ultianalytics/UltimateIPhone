@@ -172,6 +172,7 @@
 
 -(IBAction)opponentNameChanged: (id) sender {
     self.game.opponentName = [self.opposingTeamNameField.text trim];
+    [self upateViewTitle];
     [self saveChanges];
 }
 
@@ -765,7 +766,7 @@
 }
 
 -(void)upateViewTitle {
-    self.title = [self.game hasBeenSaved] ? NSLocalizedString(@"Game", @"Game") : NSLocalizedString(@"Start New Game", @"Start New Game");
+    self.title = [self.game hasBeenSaved] ? (IS_IPAD ? [NSString stringWithFormat:@"vs. %@", self.game.opponentName] : @"Game") : @"Start New Game";
 }
 
 -(void)setGame:(Game *)game {
@@ -774,8 +775,9 @@
     if (IS_IPAD) {
         if (self.navigationController.visibleViewController == self) {
             if (animate) {
-                [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-                    [self populateUIFromModel];
+                [self populateUIFromModel];
+                [UIView transitionWithView:self.tableView duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                    
                 } completion:nil];
             } else {
                 [self populateUIFromModel];

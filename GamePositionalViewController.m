@@ -298,7 +298,7 @@
                 Event* lastEvent = [self.game getLastEvent];
                 Event* throwawayEvent;
                 if (self.isOffense) {
-                    throwawayEvent = [[OffenseEvent alloc] initPasser:lastEvent.playerOne action:Throwaway];
+                    throwawayEvent = [[OffenseEvent alloc] initPasser:lastEvent.playerTwo action:Throwaway];
                 } else {
                     throwawayEvent = [[DefenseEvent alloc] initAction:Throwaway];
                 }

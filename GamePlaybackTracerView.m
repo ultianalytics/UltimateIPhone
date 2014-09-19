@@ -71,7 +71,7 @@
     CGPoint lineEndPoint = CGPointMake(self.arrowLength/2, 0);
     
     // draw the line
-    float dashAndSpaceLengths[] = {5,5};
+    CGFloat dashAndSpaceLengths[] = {5,5};
     CGContextSetLineDash(context, 0, dashAndSpaceLengths, 2);
     CGContextMoveToPoint(context, lineBeginPoint.x, lineBeginPoint.y);
     CGContextAddLineToPoint(context, lineEndPoint.x, lineEndPoint.y);

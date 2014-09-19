@@ -18,22 +18,13 @@
 }
 
 @property (nonatomic, strong) Game* game;
-
-@property (nonatomic, strong) IBOutlet UITableView* benchTableView;
-@property (strong, nonatomic) IBOutlet UIView *substitutionsView;
-@property (strong, nonatomic) IBOutlet UIButton *undoSubstitutionButton;
-@property (strong, nonatomic) IBOutlet UITableView *substitutionTableView;
 @property (nonatomic, strong) NSMutableArray* benchTableCells;
-@property (nonatomic, strong) IBOutlet UIView* fieldView;
-@property (nonatomic, strong) IBOutlet UIButton* lastLineButton;
-@property (strong, nonatomic) IBOutlet UIButton *clearButton;
-@property (strong, nonatomic) IBOutlet UIButton *substitutionButton;
-@property (nonatomic, strong) IBOutlet UILabel* errorMessageLabel;
 @property (nonatomic, strong) NSMutableArray* fieldButtons;
 @property (nonatomic, strong) NSMutableArray* benchButtons;
 @property (nonatomic, strong) NSDictionary* pointsPerPlayer;
 @property (nonatomic, strong) NSDictionary* pointFactorPerPlayer;
 @property (strong, nonatomic) void (^controllerClosedBlock)();
+@property (nonatomic) BOOL flashGoal;
 
 +(void)halftimeWarning;
 

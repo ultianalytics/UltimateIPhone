@@ -34,6 +34,17 @@
 
 @interface PickPlayersController()
 
+@property (nonatomic, weak) IBOutlet UITableView* benchTableView;
+@property (nonatomic, weak) IBOutlet UIView *substitutionsView;
+@property (nonatomic, weak) IBOutlet UIButton *undoSubstitutionButton;
+@property (nonatomic, weak) IBOutlet UITableView *substitutionTableView;
+@property (nonatomic, weak) IBOutlet UIView* fieldView;
+@property (nonatomic, weak) IBOutlet UIButton* lastLineButton;
+@property (nonatomic, weak) IBOutlet UIButton *clearButton;
+@property (nonatomic, weak) IBOutlet UIButton *substitutionButton;
+@property (nonatomic, weak) IBOutlet UILabel* errorMessageLabel;
+@property (nonatomic, strong) IBOutlet UILabel* goalScoredOverlay;
+
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
 
@@ -267,10 +278,16 @@
         [self.navigationController popViewControllerAnimated:NO];
     }
     [self addInfoButtton];
+    if (IS_IPAD && self.flashGoal) {
+        [self flashGoalScoredOverlay];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self toggleFirstTimeUsageCallouts];
+    if (IS_IPAD && self.flashGoal) {
+        [self performSelector:@selector(hideGoalScoredOverlay) withObject:nil afterDelay:2];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -431,6 +448,37 @@
         self.firstTimeUsageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
     }
+}
+
+#pragma mark Goal Scored overlay (iPad only) 
+
+-(void)flashGoalScoredOverlay {
+    Event* lastEvent = [self.game getLastEvent];
+    if ([lastEvent isGoal]) {
+        self.goalScoredOverlay.attributedText = [self goalMessage:lastEvent];
+        self.goalScoredOverlay.frame = self.navigationController.view.bounds;
+        [self.navigationController.view addSubview:self.goalScoredOverlay];
+    }
+}
+
+-(void)hideGoalScoredOverlay {
+    [UIView transitionFromView:self.goalScoredOverlay toView:self.navigationController.view duration:.5 options:UIViewAnimationOptionShowHideTransitionViews | UIViewAnimationOptionTransitionCurlUp completion:^(BOOL finished) {
+        [self.goalScoredOverlay removeFromSuperview];
+    }];
+}
+
+-(NSAttributedString*)goalMessage: (Event*)goalEvent {
+    NSString* title = [NSString stringWithFormat:@"%@ Goal%@", [goalEvent isOffense] ? [Team getCurrentTeam].name : self.game.opponentName, [goalEvent isOffense] ? @"!!" : @""];
+    NSMutableAttributedString* message = [[NSMutableAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24]}];
+    
+    Score score = [self.game getScore];
+    NSString* leaderDescription = score.ours == score.theirs ? @"tied" : score.ours > score.theirs ? [Team getCurrentTeam].name :  self.game.opponentName;
+    NSString* scoreDescription = [NSString stringWithFormat:@"\n\n\nNew Score: %d-%d (%@)", score.ours, score.theirs, leaderDescription];
+    NSMutableAttributedString* details = [[NSMutableAttributedString alloc] initWithString:scoreDescription attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18]}];
+    
+    [message appendAttributedString:details];
+    
+    return message;
 }
 
 #pragma mark Miscellaneous

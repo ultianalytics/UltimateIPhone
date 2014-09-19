@@ -154,7 +154,7 @@
         } else if ([[Game getCurrentGame] doesGameAppearDone]) {
             [self gameOverChallenge];
         } else if ([event causesLineChange]) {
-            [self goToPlayersOnFieldView];
+            [self goToPlayersOnFieldViewFlashScore:YES];
         }
     }
     [self updateViewFromGame:[Game getCurrentGame]];
@@ -549,7 +549,12 @@
 #pragma mark Go To Other views
 
 -(void) goToPlayersOnFieldView {
+    [self goToPlayersOnFieldViewFlashScore: NO];
+}
+
+-(void) goToPlayersOnFieldViewFlashScore: (BOOL) newPoint {
     PickPlayersController* pickPlayersController = [[PickPlayersController alloc] init];
+    pickPlayersController.flashGoal = newPoint;
     pickPlayersController.game = [Game getCurrentGame];
     if (IS_IPAD) {
         __typeof(self) __weak weakSelf = self;

@@ -12,6 +12,7 @@
                 <outlet property="beginEventPlayerPickerSubview" destination="4mh-CX-KK0" id="ajR-dO-HEg"/>
                 <outlet property="bottomOrRightView" destination="ofW-zR-MVS" id="ynO-Ab-32J"/>
                 <outlet property="bottomViewOverlay" destination="h0w-8u-Zoq" id="xPg-WO-Nah"/>
+                <outlet property="broadcast0ImageView" destination="0Y1-4U-hi4" id="Zoc-fe-693"/>
                 <outlet property="broadcast1ImageView" destination="Rpx-C5-gN4" id="9uZ-Mk-DbO"/>
                 <outlet property="broadcast2ImageView" destination="mbC-qF-pgq" id="yY1-TL-oxo"/>
                 <outlet property="buttonsView" destination="PUJ-47-qSe" id="NuX-up-2PD"/>
@@ -47,6 +48,10 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
+                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="broadcast-leaguevine.png" id="0Y1-4U-hi4" userLabel="broadcast 0 image">
+                                    <rect key="frame" x="656" y="4" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="broadcasting-small.png" id="Rpx-C5-gN4" userLabel="broadcast 1 image">
                                     <rect key="frame" x="687" y="4" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -179,7 +184,8 @@
     </objects>
     <resources>
         <image name="210-twitterbird.png" width="22" height="22"/>
-        <image name="broadcasting-small.png" width="20" height="16"/>
+        <image name="broadcast-leaguevine.png" width="20" height="20"/>
+        <image name="broadcasting-small.png" width="20" height="20"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

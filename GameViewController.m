@@ -94,6 +94,7 @@
 @property (nonatomic, strong) IBOutlet UIButton* gameOverButton;
 
 // broadcasting views
+@property (nonatomic, strong) IBOutlet UIImageView* broadcast0ImageView;
 @property (nonatomic, strong) IBOutlet UIImageView* broadcast1ImageView;
 @property (nonatomic, strong) IBOutlet UIImageView* broadcast2ImageView;
 
@@ -278,7 +279,8 @@
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
     BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
     BOOL isAutoGameUploading = [Preferences getCurrentPreferences].gameAutoUpload;
-    self.broadcast1ImageView.visible = isLeaguevinePosting || isAutoGameUploading;    
+    self.broadcast0ImageView.visible = isLeaguevinePosting;
+    self.broadcast1ImageView.visible = isAutoGameUploading;
     self.broadcast2ImageView.visible = isAutoTweeting;
 
     if ((isAutoTweeting || isAutoGameUploading || [self shouldPublishScoresToLeaguevine]) &&

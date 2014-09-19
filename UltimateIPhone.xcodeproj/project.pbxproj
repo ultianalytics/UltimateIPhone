@@ -363,6 +363,8 @@
 		38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */; };
 		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B39B6219A64FC90008F0C9 /* EventPosition.m */; };
+		38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */; };
+		38E5EB9C19CC960900E7C6DF /* broadcast-leaguevine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
 		38EAE2B7197B64EE002F2A2D /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */; };
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
@@ -898,6 +900,8 @@
 		38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameHistoryController.storyboard; sourceTree = "<group>"; };
 		38B39B6119A64FC90008F0C9 /* EventPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPosition.h; sourceTree = "<group>"; };
 		38B39B6219A64FC90008F0C9 /* EventPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPosition.m; sourceTree = "<group>"; };
+		38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcast-leaguevine.png"; sourceTree = "<group>"; };
+		38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcast-leaguevine@2x.png"; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
 		38EAE2B5197B64EE002F2A2D /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
@@ -1634,15 +1638,9 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				38E5EB9819CC95EC00E7C6DF /* Broadcasting */,
 				38AA38B519C335E500C6CF9A /* Checkbox */,
 				38AA389C19C32ED500C6CF9A /* Game Playback */,
-				3870813219C07944001174CB /* twitter-bird-dark.png */,
-				381BC48019B7E95400CD8C20 /* broadcasting.png */,
-				381BC48119B7E95400CD8C20 /* broadcasting@2x.png */,
-				3870812819BFCD8E001174CB /* broadcasting-small.png */,
-				3870812919BFCD8E001174CB /* broadcasting-small@2x.png */,
-				3870812C19C07587001174CB /* broadcasting-small-dark.png */,
-				3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */,
 				381BC46219B3663800CD8C20 /* play-direction-our-team-left.png */,
 				381BC46319B3663800CD8C20 /* play-direction-our-team-left@2x.png */,
 				381BC46419B3663800CD8C20 /* play-direction-our-team-right.png */,
@@ -1856,6 +1854,22 @@
 			name = Checkbox;
 			sourceTree = "<group>";
 		};
+		38E5EB9819CC95EC00E7C6DF /* Broadcasting */ = {
+			isa = PBXGroup;
+			children = (
+				38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */,
+				38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */,
+				381BC48019B7E95400CD8C20 /* broadcasting.png */,
+				381BC48119B7E95400CD8C20 /* broadcasting@2x.png */,
+				3870812819BFCD8E001174CB /* broadcasting-small.png */,
+				3870812919BFCD8E001174CB /* broadcasting-small@2x.png */,
+				3870812C19C07587001174CB /* broadcasting-small-dark.png */,
+				3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */,
+				3870813219C07944001174CB /* twitter-bird-dark.png */,
+			);
+			name = Broadcasting;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1918,6 +1932,7 @@
 				384C2D8C19A9569000EE8290 /* GameActionView_positional.xib in Resources */,
 				1AFFE78615175D4A004B4590 /* InfoPlist.strings in Resources */,
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
+				38E5EB9C19CC960900E7C6DF /* broadcast-leaguevine@2x.png in Resources */,
 				1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */,
 				1AFFE7E315175E7B004B4590 /* 19-gear@2x.png in Resources */,
 				1AA37BA218A857BC00CE9662 /* white200radius3@2x.png in Resources */,
@@ -1951,6 +1966,7 @@
 				1AFFE7FE15175E7B004B4590 /* delete-icon-md.png in Resources */,
 				1AFFE7FF15175E7B004B4590 /* delete.png in Resources */,
 				1AFFE80015175E7B004B4590 /* drop_trans2.gif in Resources */,
+				38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */,
 				1AFFE80115175E7B004B4590 /* electric_shock.png in Resources */,
 				38AA38B219C32F1400C6CF9A /* pause@2x.png in Resources */,
 				1AFFE87D15175EB0004B4590 /* EventView.xib in Resources */,

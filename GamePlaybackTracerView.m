@@ -113,7 +113,7 @@
 
 -(void)setIsOurEvent:(BOOL)isOurEvent {
     _isOurEvent = isOurEvent;
-    self.arrowColor = isOurEvent ? [ColorMaster applicationTintColor] : [UIColor redColor];
+    self.arrowColor = isOurEvent ? [ColorMaster ourTeamPositionalColor] : [ColorMaster theirTeamPositionalColor];
     [self setNeedsDisplay];
 }
 

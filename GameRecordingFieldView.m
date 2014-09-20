@@ -197,8 +197,8 @@
     } else if ([self.game hasEvents]) {
         self.message = [[NSMutableAttributedString alloc] initWithString:@"Tap the field where the pull will be initiated"];
     } else {
-        UIColor* opponentColor = [UIColor redColor];
-        UIColor* ourTeamColor = [ColorMaster applicationTintColor];
+        UIColor* opponentColor = [ColorMaster theirTeamPositionalColor];
+        UIColor* ourTeamColor = [ColorMaster ourTeamPositionalColor];
         NSAttributedString* nextPart;
         NSMutableAttributedString* introMessage = [[NSMutableAttributedString alloc] initWithString:@"Ready to begin game.\n\nRemember that during the game all actions for "];
         nextPart = [[NSMutableAttributedString alloc] initWithString:@"your team" attributes:@{NSForegroundColorAttributeName : ourTeamColor}];

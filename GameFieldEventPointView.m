@@ -184,7 +184,7 @@
 }
 
 -(UIColor*)dotColor {
-    return self.isOurEvent ? [ColorMaster applicationTintColor] : [UIColor redColor];
+    return self.isOurEvent ? [ColorMaster ourTeamPositionalColor] : [ColorMaster theirTeamPositionalColor];
 }
 
 -(BOOL)isBelowMidField {

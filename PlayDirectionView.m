@@ -51,10 +51,10 @@
     self.rightView.hidden = self.leftView.visible;
     if (self.leftView.visible) {
         self.leftArrow.image = [UIImage imageNamed:self.isOurTeam ? @"play-direction-our-team-left" : @"play-direction-their-team-left"];
-        self.leftTeamName.textColor = self.isOurTeam ? [ColorMaster applicationTintColor] : [UIColor redColor];
+        self.leftTeamName.textColor = self.isOurTeam ? [ColorMaster ourTeamPositionalColor] : [ColorMaster theirTeamPositionalColor];
     } else {
         self.rightArrow.image = [UIImage imageNamed:self.isOurTeam ? @"play-direction-our-team-right" : @"play-direction-their-team-right"];
-        self.rightTeamName.textColor = self.isOurTeam ? [ColorMaster applicationTintColor] : [UIColor redColor];
+        self.rightTeamName.textColor = self.isOurTeam ? [ColorMaster ourTeamPositionalColor] : [ColorMaster theirTeamPositionalColor];
     }
 }
 

@@ -70,4 +70,12 @@
     return uirgb(216, 215, 200);  // sort of mouse grey
 }
 
++(UIColor*)ourTeamPositionalColor {
+    return [self applicationTintColor];
+}
+
++(UIColor*)theirTeamPositionalColor {
+    return [UIColor redColor];
+}
+
 @end

@@ -14,6 +14,7 @@
 #import "GamePlaybackFieldView.h"
 #import "PlayerSubstitution.h"
 #import "Player.h"
+#import "ColorMaster.h"
 
 #define kNormalDelayBetweenEvents 1
 #define kProgressSliderAnimationDuration .5
@@ -440,6 +441,7 @@
     }
     [self updateCurrentEventsFromCurrentPoint];
     [self updateLine];
+    [self updateGoalLineColors];
 }
 
 -(void)updateCurrentEventsFromCurrentPoint {
@@ -455,6 +457,20 @@
         }
     }
     self.currentEvents = events;
+}
+
+-(void)updateGoalLineColors {
+    if (self.currentPoint) {
+        Event* pullEvent = [self.currentPoint getPullEvent];
+        BOOL wasPullFromLeft = [pullEvent.beginPosition isCloserToEndzoneZero];
+        wasPullFromLeft = wasPullFromLeft ^ self.fieldView.inverted ^ pullEvent.beginPosition.inverted;
+        BOOL isLeftGoalOurTeam = (wasPullFromLeft && [pullEvent isDefense]) || (!wasPullFromLeft && [pullEvent isOffense]);
+        self.fieldView.endzone0BorderColor = isLeftGoalOurTeam ? [ColorMaster ourTeamPositionalColor] : [ColorMaster theirTeamPositionalColor];
+        self.fieldView.endzone100BorderColor = isLeftGoalOurTeam ? [ColorMaster theirTeamPositionalColor] : [ColorMaster ourTeamPositionalColor];
+    } else {
+        self.fieldView.endzone0BorderColor = [UIColor whiteColor];
+        self.fieldView.endzone100BorderColor = [UIColor whiteColor];
+    }
 }
 
 -(void)setCurrentEvent:(Event *)currentEvent {

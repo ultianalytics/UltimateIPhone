@@ -551,12 +551,7 @@ static Game* currentGame = nil;
 -(Event*)getInProgressPointPull {
     if ([self isPointInProgress]) {
         UPoint* inProgressPoint = [self getCurrentPoint];
-        if ([inProgressPoint.events count] > 0) {
-            Event* pullEvent = inProgressPoint.events[0];
-            if ([pullEvent isPullOrOpponentPull]) {
-                return pullEvent;
-            }
-        }
+        return [inProgressPoint getPullEvent];
     }
     return nil;
 }

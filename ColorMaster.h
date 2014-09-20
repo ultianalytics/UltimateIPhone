@@ -25,5 +25,7 @@
 +(UIColor*)separatorColor;
 +(UIColor*)darkGrayColor;
 +(UIColor*)actionBackgroundColor;
++(UIColor*)ourTeamPositionalColor;
++(UIColor*)theirTeamPositionalColor;
 
 @end

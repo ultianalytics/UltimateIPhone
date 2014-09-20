@@ -203,4 +203,14 @@
     }
 }
 
+-(void)setEndzone0BorderColor:(UIColor *)endzone0BorderColor {
+    _endzone0BorderColor = endzone0BorderColor;
+    [self.layer setNeedsDisplay];
+}
+
+-(void)setEndzone100BorderColor:(UIColor *)endzone100BorderColor {
+    _endzone100BorderColor = endzone100BorderColor;
+   [self.layer setNeedsDisplay];
+}
+
 @end

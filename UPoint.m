@@ -112,6 +112,16 @@
     return nil;
 }
 
+-(Event*)getPullEvent {
+    if ([self.events count] > 0) {
+        Event* pullEvent = self.events[0];
+        if ([pullEvent isPullOrOpponentPull]) {
+            return pullEvent;
+        }
+    }
+    return nil;
+}
+
 -(NSEnumerator*)getLastEvents: (int) number {
     int numberToReturn = MIN(number, (int)[self.events count]);
     NSArray* lastEvents = [self.events subarrayWithRange: NSMakeRange ([self.events count] - numberToReturn, numberToReturn)];

@@ -473,7 +473,7 @@
     
     Score score = [self.game getScore];
     NSString* leaderDescription = score.ours == score.theirs ? @"tied" : score.ours > score.theirs ? [Team getCurrentTeam].name :  self.game.opponentName;
-    NSString* scoreDescription = [NSString stringWithFormat:@"\n\n\nNew Score: %d-%d (%@)", score.ours, score.theirs, leaderDescription];
+    NSString* scoreDescription = [NSString stringWithFormat:@"\n\n\nNew Score: %d-%d (%@)\n\n", score.ours, score.theirs, leaderDescription];
     NSMutableAttributedString* details = [[NSMutableAttributedString alloc] initWithString:scoreDescription attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18]}];
     
     [message appendAttributedString:details];

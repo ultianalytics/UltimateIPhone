@@ -135,11 +135,11 @@
         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wDc-DE-Rrn">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="textColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="highlightedColor"/>
-            <point key="canvasLocation" x="1066" y="469"/>
+            <point key="canvasLocation" x="648" y="453"/>
         </label>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

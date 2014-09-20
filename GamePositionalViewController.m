@@ -373,22 +373,37 @@
 
 }
 
-#pragma mark - UIAlertViewDelegate
+#pragma mark - Button enablement
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 1 && buttonIndex == 1) {
-        [self handleFlipSides];
+-(void)disableGoalButtons {
+    if (self.isOffense) {
+        for (PlayerView* playerVew in self.playerViews) {
+            [playerVew disableThirdButton];
+        }
+    } else {
+        self.otherTeamScoreButton.enabled = NO;
     }
 }
 
-#pragma mark - Miscellaneous
-
--(void) addEventProperties: (Event*) event {
-    if (!event.position) {
-        event.position = self.fieldView.potentialEventPosition;
+-(void)disableCatchButtons {
+    if (self.isOffense) {
+        for (PlayerView* playerVew in self.playerViews) {
+            [playerVew disableFirstButton];
+        }
+    } else {
+        self.otherTeamCatchButton.enabled = NO;
     }
-    event.beginPosition = self.game.positionalBeginEvent.position;  // only some events will have begin position
 }
+
+-(void)enableAllButtons {
+    for (PlayerView* playerVew in self.playerViews) {
+        [playerVew enableButtons];
+    }
+    self.otherTeamScoreButton.enabled = YES;
+    self.otherTeamCatchButton.enabled = YES;
+}
+
+#pragma mark - Chooser view positioning
 
 - (BOOL)repositionAndShowChooserView: (UIView*)chooserView adjacentToEventAt: (CGPoint) eventPoint {
     BOOL isLeft = [self repositionChooserView:chooserView adjacentToEventAt:eventPoint];
@@ -429,15 +444,25 @@
     chooserView.hidden = YES;
 }
 
--(Game*)game {
-    return [Game getCurrentGame];
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 1 && buttonIndex == 1) {
+        [self handleFlipSides];
+    }
 }
 
-- (void)configureFieldView {
-    __typeof(self) __weak weakSelf = self;
-    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint, BOOL isOutOfBounds) {
-        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint isOB: isOutOfBounds];
-    };
+#pragma mark - Miscellaneous
+
+-(void) addEventProperties: (Event*) event {
+    if (!event.position) {
+        event.position = self.fieldView.potentialEventPosition;
+    }
+    event.beginPosition = self.game.positionalBeginEvent.position;  // only some events will have begin position
+}
+
+-(Game*)game {
+    return [Game getCurrentGame];
 }
 
 -(void)updateGameWithBeginEvent:(Event *)event {
@@ -446,33 +471,11 @@
     [self saveGame];
 }
 
--(void)disableGoalButtons {
-    if (self.isOffense) {
-        for (PlayerView* playerVew in self.playerViews) {
-            [playerVew disableThirdButton];
-        }
-    } else {
-        self.otherTeamScoreButton.enabled = NO;
-    }
+- (void)configureFieldView {
+    __typeof(self) __weak weakSelf = self;
+    self.fieldView.positionTappedBlock = ^(EventPosition* position, CGPoint fieldPoint, BOOL isOutOfBounds) {
+        return [weakSelf handleFieldTappedAtPosition:position atPoint:fieldPoint isOB: isOutOfBounds];
+    };
 }
-
--(void)disableCatchButtons {
-    if (self.isOffense) {
-        for (PlayerView* playerVew in self.playerViews) {
-            [playerVew disableFirstButton];
-        }
-    } else {
-        self.otherTeamCatchButton.enabled = NO;
-    }
-}
-
--(void)enableAllButtons {
-    for (PlayerView* playerVew in self.playerViews) {
-        [playerVew enableButtons];
-    }
-    self.otherTeamScoreButton.enabled = YES;
-    self.otherTeamCatchButton.enabled = YES;
-}
-
 
 @end

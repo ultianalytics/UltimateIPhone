@@ -1337,7 +1337,7 @@
 				1AFFE8DC151764D9004B4590 /* Game */,
 				1AFFE8DD151764DB004B4590 /* Game Action */,
 				384C2D7F19A7F60700EE8290 /* Game Action - Positional */,
-				38AA389019C1E69100C6CF9A /* Game Positional Playback */,
+				38AA389019C1E69100C6CF9A /* Game Playback */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
 				1AA37BE318AFBCEA00CE9662 /* Event */,
@@ -1653,7 +1653,7 @@
 			name = "Game Action - Positional";
 			sourceTree = "<group>";
 		};
-		38AA389019C1E69100C6CF9A /* Game Positional Playback */ = {
+		38AA389019C1E69100C6CF9A /* Game Playback */ = {
 			isa = PBXGroup;
 			children = (
 				38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */,
@@ -1664,7 +1664,7 @@
 				381F97C719C498E900CA1C8B /* GamePlaybackTracerView.h */,
 				381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */,
 			);
-			name = "Game Positional Playback";
+			name = "Game Playback";
 			sourceTree = "<group>";
 		};
 		38AA389C19C32ED500C6CF9A /* Game Playback */ = {

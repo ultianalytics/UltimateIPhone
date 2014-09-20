@@ -75,6 +75,20 @@
     CGContextSetLineWidth(context, lineWidth);
     CGContextSetLineCap(context, kCGLineCapSquare);
     
+    // draw endzone 0 line
+    CGContextSetStrokeColorWithColor(context, self.endzone0BorderColor.CGColor);
+    CGFloat x = CGRectGetMaxX(self.endzone0Rect);
+    CGContextMoveToPoint(context, x, self.endzone0Rect.origin.y);
+    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone0Rect));
+    CGContextStrokePath(context);
+    
+    // draw endzone 100 line
+    CGContextSetStrokeColorWithColor(context, self.endzone100BorderColor.CGColor);
+    x = self.endzone100Rect.origin.x;
+    CGContextMoveToPoint(context, x, self.endzone100Rect.origin.y);
+    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone100Rect));
+    CGContextStrokePath(context);
+    
     // draw the total field boundaries
     CGContextSetStrokeColorWithColor(context, self.fieldBorderColor.CGColor);
     CGFloat borderLineInset = lineWidth - 1;  // stay inside the bounds
@@ -85,21 +99,6 @@
     CGContextAddLineToPoint(context, rect.size.width - borderLineInset, rect.origin.y  + borderLineInset);
     CGContextAddLineToPoint(context, rect.origin.x + borderLineInset, rect.origin.y  + borderLineInset);
     CGContextStrokePath(context);
-    
-    // draw endzone 0 line
-    CGContextSetStrokeColorWithColor(context, self.endzone0BorderColor.CGColor);
-    CGFloat x = CGRectGetMaxX(self.endzone0Rect);
-    CGContextMoveToPoint(context, x, self.endzone0Rect.origin.y);
-    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone0Rect));
-    CGContextStrokePath(context);
-
-    // draw endzone 100 line
-    CGContextSetStrokeColorWithColor(context, self.endzone100BorderColor.CGColor);
-    x = self.endzone100Rect.origin.x;
-    CGContextMoveToPoint(context, x, self.endzone100Rect.origin.y);
-    CGContextAddLineToPoint(context, x, CGRectGetMaxY(self.endzone100Rect));
-    CGContextStrokePath(context);
-
     
     CGContextRestoreGState(context);
 

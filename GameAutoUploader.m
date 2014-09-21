@@ -92,6 +92,10 @@
     return [Preferences getCurrentPreferences].gameAutoUpload;
 }
 
+-(void)resetErrorsOnLastUpload {
+    self.errorsOnLastUpload = NO;
+}
+
 #pragma mark - Async Uploading
 
 -(void)sendUploadToServer: (GameUpload*) gameUpload {

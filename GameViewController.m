@@ -1090,6 +1090,7 @@
 
 - (void) warnAboutAutoGameUploadIfErrors {
     if ([[GameAutoUploader sharedUploader] isAutoUploading] && [GameAutoUploader sharedUploader].errorsOnLastUpload) {
+        [[GameAutoUploader sharedUploader] resetErrorsOnLastUpload];
 
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: kAutoUploadErrorTitle

@@ -18,5 +18,6 @@
 -(BOOL)isAutoUploading;
 -(void)submitGameForUpload: (Game*) game ofTeam:(Team*)team;
 -(void)flush;
+-(void)resetErrorsOnLastUpload;
 
 @end

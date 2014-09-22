@@ -93,7 +93,7 @@ static Preferences* currentPreferences= nil;
     [archiver finishEncoding]; 
     BOOL success = [data writeToFile:self.filePath atomically:YES]; 
     if (!success) {
-        [NSException raise:@"Failed trying to save team" format:@"failed saving team"];
+        [NSException raise:@"Failed trying to save preferences" format:@"failed saving preferences"];
     }
 }
 

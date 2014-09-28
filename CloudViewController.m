@@ -475,6 +475,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.cloudTableView.tableHeaderView = self.headerView;
     [self styleView];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(populateViewFromModel)
@@ -485,7 +486,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.cloudTableView.tableHeaderView = self.headerView;
     self.title = NSLocalizedString(@"Website", @"Website");
     [self populateViewFromModel];
     if  (teamDownloadController && teamDownloadController.selectedTeam) {

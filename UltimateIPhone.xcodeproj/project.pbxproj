@@ -294,6 +294,20 @@
 		381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */; };
 		381F97CC19C6B7DA00CA1C8B /* game-playback-instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */; };
 		381F97CD19C6B7DA00CA1C8B /* game-playback-instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */; };
+		3832DD1519D8DDAD002762D1 /* GTMGatherInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DCFD19D8DDAD002762D1 /* GTMGatherInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1619D8DDAD002762D1 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DCFF19D8DDAD002762D1 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1719D8DDAD002762D1 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0119D8DDAD002762D1 /* GTMHTTPFetcherLogging.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1819D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0319D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1919D8DDAD002762D1 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0519D8DDAD002762D1 /* GTMHTTPFetcherService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1A19D8DDAD002762D1 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0719D8DDAD002762D1 /* GTMHTTPFetchHistory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1B19D8DDAD002762D1 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0919D8DDAD002762D1 /* GTMHTTPUploadFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1C19D8DDAD002762D1 /* GTMMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0B19D8DDAD002762D1 /* GTMMIMEDocument.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1E19D8DDAD002762D1 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0F19D8DDAD002762D1 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD1F19D8DDAD002762D1 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD1119D8DDAD002762D1 /* GTMOAuth2SignIn.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD2019D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */; };
+		3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -794,6 +808,33 @@
 		381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackTracerView.m; sourceTree = "<group>"; };
 		381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions.png"; sourceTree = "<group>"; };
 		381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions@2x.png"; sourceTree = "<group>"; };
+		3832DCFC19D8DDAD002762D1 /* GTMGatherInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGatherInputStream.h; sourceTree = "<group>"; };
+		3832DCFD19D8DDAD002762D1 /* GTMGatherInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMGatherInputStream.m; sourceTree = "<group>"; };
+		3832DCFE19D8DDAD002762D1 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
+		3832DCFF19D8DDAD002762D1 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
+		3832DD0019D8DDAD002762D1 /* GTMHTTPFetcherLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherLogging.h; sourceTree = "<group>"; };
+		3832DD0119D8DDAD002762D1 /* GTMHTTPFetcherLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherLogging.m; sourceTree = "<group>"; };
+		3832DD0219D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherLogViewController.h; sourceTree = "<group>"; };
+		3832DD0319D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherLogViewController.m; sourceTree = "<group>"; };
+		3832DD0419D8DDAD002762D1 /* GTMHTTPFetcherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherService.h; sourceTree = "<group>"; };
+		3832DD0519D8DDAD002762D1 /* GTMHTTPFetcherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherService.m; sourceTree = "<group>"; };
+		3832DD0619D8DDAD002762D1 /* GTMHTTPFetchHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetchHistory.h; sourceTree = "<group>"; };
+		3832DD0719D8DDAD002762D1 /* GTMHTTPFetchHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetchHistory.m; sourceTree = "<group>"; };
+		3832DD0819D8DDAD002762D1 /* GTMHTTPUploadFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPUploadFetcher.h; sourceTree = "<group>"; };
+		3832DD0919D8DDAD002762D1 /* GTMHTTPUploadFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPUploadFetcher.m; sourceTree = "<group>"; };
+		3832DD0A19D8DDAD002762D1 /* GTMMIMEDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMMIMEDocument.h; sourceTree = "<group>"; };
+		3832DD0B19D8DDAD002762D1 /* GTMMIMEDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMMIMEDocument.m; sourceTree = "<group>"; };
+		3832DD0C19D8DDAD002762D1 /* GTMReadMonitorInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMReadMonitorInputStream.h; sourceTree = "<group>"; };
+		3832DD0D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
+		3832DD0E19D8DDAD002762D1 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
+		3832DD0F19D8DDAD002762D1 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2Authentication.m; sourceTree = "<group>"; };
+		3832DD1019D8DDAD002762D1 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2SignIn.h; sourceTree = "<group>"; };
+		3832DD1119D8DDAD002762D1 /* GTMOAuth2SignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2SignIn.m; sourceTree = "<group>"; };
+		3832DD1219D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
+		3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2ViewControllerTouch.m; sourceTree = "<group>"; };
+		3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
+		3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleOAuth2Authenticator.h; sourceTree = "<group>"; };
+		3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleOAuth2Authenticator.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1256,22 +1297,24 @@
 			isa = PBXGroup;
 			children = (
 				1AA37BE918B1385100CE9662 /* Images.xcassets */,
+				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
+				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
 				1AC8579815FE2A150070BA24 /* Common */,
 				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
 				1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */,
 				1A2DA03815458AB800D59B29 /* Reachability */,
 				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
+				3832DD2219D8DF70002762D1 /* Cloud2 */,
 				1AFFE8D11517643A004B4590 /* Model */,
 				1A4C42B31609DA110067BB96 /* Leaguevine */,
 				1AFFE8DE151764E0004B4590 /* Stats */,
 				1AFFE8D015176431004B4590 /* UI */,
 				1A00013B151769AE00600916 /* Sound Player */,
 				1AFFE8DF151765B7004B4590 /* Images */,
-				1AFFE85B15175EB0004B4590 /* sounds */,
-				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
-				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
+				3832DCFA19D8DDAD002762D1 /* Google OAuth2 Library */,
 				1AFFE78215175D4A004B4590 /* Supporting Files */,
+				1AFFE85B15175EB0004B4590 /* sounds */,
 				1A59838C15445D5900E97F09 /* Tests */,
 				1AFFE77A15175D4A004B4590 /* Frameworks */,
 				1AFFE77815175D4A004B4590 /* Products */,
@@ -1620,6 +1663,57 @@
 				381BC48B19B91D0A00CD8C20 /* UIView+Toast.m */,
 			);
 			name = Toast;
+			sourceTree = "<group>";
+		};
+		3832DCFA19D8DDAD002762D1 /* Google OAuth2 Library */ = {
+			isa = PBXGroup;
+			children = (
+				3832DD0E19D8DDAD002762D1 /* GTMOAuth2Authentication.h */,
+				3832DD0F19D8DDAD002762D1 /* GTMOAuth2Authentication.m */,
+				3832DD1019D8DDAD002762D1 /* GTMOAuth2SignIn.h */,
+				3832DD1119D8DDAD002762D1 /* GTMOAuth2SignIn.m */,
+				3832DD1219D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.h */,
+				3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */,
+				3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */,
+				3832DCFB19D8DDAD002762D1 /* Google Fetcher Library */,
+			);
+			name = "Google OAuth2 Library";
+			path = "gtm-oauth2";
+			sourceTree = "<group>";
+		};
+		3832DCFB19D8DDAD002762D1 /* Google Fetcher Library */ = {
+			isa = PBXGroup;
+			children = (
+				3832DCFC19D8DDAD002762D1 /* GTMGatherInputStream.h */,
+				3832DCFD19D8DDAD002762D1 /* GTMGatherInputStream.m */,
+				3832DCFE19D8DDAD002762D1 /* GTMHTTPFetcher.h */,
+				3832DCFF19D8DDAD002762D1 /* GTMHTTPFetcher.m */,
+				3832DD0019D8DDAD002762D1 /* GTMHTTPFetcherLogging.h */,
+				3832DD0119D8DDAD002762D1 /* GTMHTTPFetcherLogging.m */,
+				3832DD0219D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.h */,
+				3832DD0319D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m */,
+				3832DD0419D8DDAD002762D1 /* GTMHTTPFetcherService.h */,
+				3832DD0519D8DDAD002762D1 /* GTMHTTPFetcherService.m */,
+				3832DD0619D8DDAD002762D1 /* GTMHTTPFetchHistory.h */,
+				3832DD0719D8DDAD002762D1 /* GTMHTTPFetchHistory.m */,
+				3832DD0819D8DDAD002762D1 /* GTMHTTPUploadFetcher.h */,
+				3832DD0919D8DDAD002762D1 /* GTMHTTPUploadFetcher.m */,
+				3832DD0A19D8DDAD002762D1 /* GTMMIMEDocument.h */,
+				3832DD0B19D8DDAD002762D1 /* GTMMIMEDocument.m */,
+				3832DD0C19D8DDAD002762D1 /* GTMReadMonitorInputStream.h */,
+				3832DD0D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m */,
+			);
+			name = "Google Fetcher Library";
+			path = "gtm-http-fetcher";
+			sourceTree = "<group>";
+		};
+		3832DD2219D8DF70002762D1 /* Cloud2 */ = {
+			isa = PBXGroup;
+			children = (
+				3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */,
+				3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */,
+			);
+			name = Cloud2;
 			sourceTree = "<group>";
 		};
 		384C2D7F19A7F60700EE8290 /* Game Action - Positional */ = {
@@ -2030,6 +2124,7 @@
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
+				3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
 				38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */,
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
@@ -2200,6 +2295,18 @@
 				1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */,
 				1A4C431B160F4A5E0067BB96 /* LeagueVineSignonViewController.m in Sources */,
 				1A5D7AF318F99FE600239A22 /* UIScrollView+Utilities.m in Sources */,
+				3832DD1D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m in Sources */,
+				3832DD2019D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m in Sources */,
+				3832DD1E19D8DDAD002762D1 /* GTMOAuth2Authentication.m in Sources */,
+				3832DD1619D8DDAD002762D1 /* GTMHTTPFetcher.m in Sources */,
+				3832DD1F19D8DDAD002762D1 /* GTMOAuth2SignIn.m in Sources */,
+				3832DD1919D8DDAD002762D1 /* GTMHTTPFetcherService.m in Sources */,
+				3832DD1A19D8DDAD002762D1 /* GTMHTTPFetchHistory.m in Sources */,
+				3832DD1B19D8DDAD002762D1 /* GTMHTTPUploadFetcher.m in Sources */,
+				3832DD1C19D8DDAD002762D1 /* GTMMIMEDocument.m in Sources */,
+				3832DD1519D8DDAD002762D1 /* GTMGatherInputStream.m in Sources */,
+				3832DD1719D8DDAD002762D1 /* GTMHTTPFetcherLogging.m in Sources */,
+				3832DD1819D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m in Sources */,
 				1A4C4322160F625B0067BB96 /* LeagueVineSelectorLeagueViewController.m in Sources */,
 				1A4C4323160F625B0067BB96 /* LeaguevineSelectorAbstractViewController.m in Sources */,
 				1A4C4326160F6BEF0067BB96 /* LeaguevineItem.m in Sources */,
@@ -2208,8 +2315,8 @@
 				384C2D8A19A8C3BD00EE8290 /* GameFieldEventPointView.m in Sources */,
 				1A7A89271611D50700CAB5EF /* LeaguevineTournament.m in Sources */,
 				1A7A893A1613233300CAB5EF /* LeaguevineGame.m in Sources */,
-				1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */,
 				1AD50DE11614643600605947 /* LeagueVineSelectorTournamentViewController.m in Sources */,
+				1AD50DE01614643600605947 /* LeagueVineSelectorGameViewController.m in Sources */,
 				1AD50DFA1615C9A600605947 /* LeagueVineGameViewController.m in Sources */,
 				1A7994D816172D2300E77FC5 /* LeagueVineSelectorGameTableViewCell.m in Sources */,
 				384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */,
@@ -2229,6 +2336,7 @@
 				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
 				1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */,
 				381BC48719B8A26200CD8C20 /* GameAutoUploader.m in Sources */,
+				3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */,
 				38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */,
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,

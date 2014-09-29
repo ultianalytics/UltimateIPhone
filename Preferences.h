@@ -19,6 +19,7 @@
 @property (nonatomic) int timeoutsPerHalf;
 @property (nonatomic) int timeoutFloaters;
 @property (nonatomic, strong) NSString* userid;
+@property (nonatomic, strong) NSString* accessToken;
 @property (nonatomic) AutoTweetLevel autoTweetLevel;
 @property (nonatomic, strong) NSString* twitterAccountDescription;
 @property (nonatomic, strong) NSString* leaguevineToken;

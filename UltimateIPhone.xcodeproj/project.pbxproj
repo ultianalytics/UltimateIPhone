@@ -308,6 +308,7 @@
 		3832DD2019D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */; };
 		3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */; };
+		3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2719D97C34002762D1 /* CloudClient2.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -835,6 +836,8 @@
 		3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
 		3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleOAuth2Authenticator.h; sourceTree = "<group>"; };
 		3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleOAuth2Authenticator.m; sourceTree = "<group>"; };
+		3832DD2619D97C34002762D1 /* CloudClient2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudClient2.h; sourceTree = "<group>"; };
+		3832DD2719D97C34002762D1 /* CloudClient2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudClient2.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1710,6 +1713,8 @@
 		3832DD2219D8DF70002762D1 /* Cloud2 */ = {
 			isa = PBXGroup;
 			children = (
+				3832DD2619D97C34002762D1 /* CloudClient2.h */,
+				3832DD2719D97C34002762D1 /* CloudClient2.m */,
 				3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */,
 				3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */,
 			);
@@ -2220,6 +2225,7 @@
 				1AFFE88215175EB0004B4590 /* Game.m in Sources */,
 				1AFFE88315175EB0004B4590 /* GameDescription.m in Sources */,
 				1AFFE88415175EB0004B4590 /* GameDetailViewController.m in Sources */,
+				3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */,
 				1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */,
 				1AFFE88A15175EB0004B4590 /* GameViewController.m in Sources */,
 				1AA37BFB18B2E1FC00CE9662 /* GameCessationButton.m in Sources */,

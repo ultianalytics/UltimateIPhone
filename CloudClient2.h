@@ -7,17 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CloudRequestStatus.h"
 @class Team;
 @class Game;
-
-typedef enum {
-    CloudRequestStatusOk,
-    CloudRequestStatusUnauthorized,
-    CloudRequestStatusNotConnectedToInternet,
-    CloudRequestStatusMarshallingError,
-    CloudRequestStatusUnacceptableAppVersion,
-    CloudRequestStatusUnknownError
-} CloudRequestStatus;
 
 @interface CloudClient2 : NSObject
 
@@ -29,6 +21,9 @@ typedef enum {
 
 // Important: completion block may not be on main thread.  It is caller's duty to make sure the block
 // does UI work on main thread
-+(void) downloadTeamsAtCompletion:  (void (^)(CloudRequestStatus status, NSArray* teams)) completion;
++(void) downloadTeamsAtCompletion:  (void (^)(CloudRequestStatus* status, NSArray* teams)) completion;
++(void) downloadTeam: (NSString*) cloudId atCompletion:  (void (^)(CloudRequestStatus* status, NSString* teamId)) completion;
++(void) downloadGameDescriptionsForTeam: (NSString*) teamCloudId atCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* gameDescriptions)) completion;
++(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId atCompletion: (void (^)(CloudRequestStatus* requestStatus)) completion;
 
 @end

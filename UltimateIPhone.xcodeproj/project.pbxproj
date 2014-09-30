@@ -309,6 +309,7 @@
 		3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */; };
 		3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */; };
 		3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2719D97C34002762D1 /* CloudClient2.m */; };
+		3832DD2B19DAD6BA002762D1 /* CloudRequestStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -838,6 +839,8 @@
 		3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleOAuth2Authenticator.m; sourceTree = "<group>"; };
 		3832DD2619D97C34002762D1 /* CloudClient2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudClient2.h; sourceTree = "<group>"; };
 		3832DD2719D97C34002762D1 /* CloudClient2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudClient2.m; sourceTree = "<group>"; };
+		3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudRequestStatus.h; sourceTree = "<group>"; };
+		3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudRequestStatus.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1715,6 +1718,8 @@
 			children = (
 				3832DD2619D97C34002762D1 /* CloudClient2.h */,
 				3832DD2719D97C34002762D1 /* CloudClient2.m */,
+				3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */,
+				3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */,
 				3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */,
 				3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */,
 			);
@@ -2349,6 +2354,7 @@
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
 				38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
+				3832DD2B19DAD6BA002762D1 /* CloudRequestStatus.m in Sources */,
 				1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */,
 				38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */,
 				1A74B0B6170603B000D667F1 /* LeaguevineEvent.m in Sources */,

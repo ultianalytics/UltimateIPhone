@@ -7,6 +7,7 @@
 //
 
 #import "CloudClient2.h"
+#import "CloudRequestStatus.h"
 #import "GoogleOAuth2Authenticator.h"
 #import "Team.h"
 #import "Game.h"
@@ -46,92 +47,207 @@
     return [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated];
 }
 
-+(void) downloadTeamsAtCompletion:  (void (^)(CloudRequestStatus status, NSArray* teams)) completion {
-    [self get:@"/rest/mobile/teams" completion:^(CloudRequestStatus status, NSData *responseData) {
-        if (status == CloudRequestStatusOk) {
-            NSError* unmarshallingError = nil;
-            if (responseData) {
-                NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
-                if (unmarshallingError) {
-                    completion(CloudRequestStatusMarshallingError, nil);
-                } else {
-                    NSMutableArray* teams = [NSMutableArray array];
-                    for (NSDictionary* teamAsDictionary in responseArray) {
-                        Team* team = [Team fromDictionary:teamAsDictionary];
-                        [teams addObject:team];
-                    }
-                    completion(status, teams);
-                }
++(void) downloadTeamsAtCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* teams)) completion {
+    [self getObjectsFromUrl:@"/rest/mobile/teams" completion:^(CloudRequestStatus* getObjectsStatus, NSArray* arrayOfDictionaries) {
+        if (getObjectsStatus.ok) {
+            NSMutableArray* teams = [NSMutableArray array];
+            for (NSDictionary* teamAsDictionary in arrayOfDictionaries) {
+                Team* team = [Team fromDictionary:teamAsDictionary];
+                [teams addObject:team];
             }
+            completion(getObjectsStatus, teams);
+        } else {
+            completion(getObjectsStatus,  nil);
+        }
+    }];
+}
+
+// return teamId
++(void) downloadTeam: (NSString*) cloudId atCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSString* teamId)) completion {
+    [self getObjectFromUrl:[NSString stringWithFormat: @"/rest/mobile/team/%@?players=true", cloudId] completion:^(CloudRequestStatus* getObjectStatus, NSDictionary* objectAsDictionary) {
+        if (getObjectStatus.ok) {
+            Team* team = [Team fromDictionary:objectAsDictionary];
+            NSString* existingTeamId = [Team getTeamIdForCloudId:cloudId];
+            if (existingTeamId) {
+                team.teamId = existingTeamId;
+            }
+            [team save];
+            [Team setCurrentTeam: team.teamId];
+            completion(getObjectStatus, team.teamId);
+        } else {
+            completion(getObjectStatus,  nil);
+        }
+    }];
+}
+
++(void) downloadGameDescriptionsForTeam: (NSString*) teamCloudId atCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* gameDescriptions)) completion {
+    [self getObjectsFromUrl:[NSString stringWithFormat:@"/rest/mobile/team/%@/games", teamCloudId] completion:^(CloudRequestStatus* getObjectsStatus, NSArray* arrayOfDictionaries) {
+        if (getObjectsStatus.ok) {
+            NSMutableArray* games = [NSMutableArray array];
+            for (NSDictionary* gameAsDictionary in arrayOfDictionaries) {
+                GameDescription* game = [GameDescription fromDictionary:gameAsDictionary];
+                [games addObject:game];
+            }
+            completion(getObjectsStatus, games);
+        } else {
+            completion(getObjectsStatus,  nil);
+        }
+    }];
+}
+
++(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId atCompletion: (void (^)(CloudRequestStatus* requestStatus)) completion {
+    [self getObjectFromUrl:[NSString stringWithFormat: @"/rest/mobile/team/%@/game/%@", teamCloudId, gameId] completion:^(CloudRequestStatus* getObjectStatus, NSDictionary* objectAsDictionary) {
+        if (getObjectStatus.ok) {
+            Game* game = [Game fromDictionary:objectAsDictionary];
+            [game save];
+            [UploadDownloadTracker updateLastUploadOrDownloadTime:game.lastSaveGMT forGameId:game.gameId inTeamId:[Team getCurrentTeam].teamId];
+            completion(getObjectStatus);
+        } else {
+            completion(getObjectStatus);
+        }
+    }];
+}
+
++(void) downloadCloudMetaDataAtCompletion:  (void (^)(CloudRequestStatus* status, CloudMetaInfo* metaInfo)) completion {
+    // endpoint needs current app version
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    appVersion = [appVersion stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+    NSString* metaDataRelativeUrl = [NSString stringWithFormat:@"/rest/mobile/meta/%@", appVersion];
+    
+    [self getObjectFromUrl:metaDataRelativeUrl completion:^(CloudRequestStatus* status, NSDictionary* objectAsDictionary) {
+        if (status == CloudRequestStatusCodeOk) {
+            completion(status, [CloudMetaInfo fromDictionary:objectAsDictionary]);
         } else {
             completion(status,  nil);
         }
     }];
 }
 
-+(void) get: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus status, NSData* responseData)) completion {
++(void) getObjectFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSDictionary* objectAsDictionary)) completion {
+    [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
+        if (getDataStatus.ok) {
+            NSError* unmarshallingError = nil;
+            if (responseData) {
+                NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                if (unmarshallingError) {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+                } else {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
+                }
+            }
+        } else {
+            completion(getDataStatus,  nil);
+        }
+    }];
+}
+
++(void) getObjectsFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* arrayOfDictionaries)) completion {
+    [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
+        if (getDataStatus.ok) {
+            NSError* unmarshallingError = nil;
+            if (responseData) {
+                NSArray* responseAsArrayOfDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                if (unmarshallingError) {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+                } else {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseAsArrayOfDict);
+                }
+            }
+        } else {
+            completion(getDataStatus,  nil);
+        }
+    }];
+}
+
++(void) verifyAppVersionAndThenGetDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
+        if (verifyStatus.ok) {
+            [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus *getDataStatus, NSData *responseData) {
+                completion(getDataStatus, responseData);
+            }];
+        } else {
+            completion(verifyStatus, nil);
+        }
+    }];
+}
+
++(void) verifyAppVersionAtCompletion:  (void (^)(CloudRequestStatus* status)) completion {
+    [self downloadCloudMetaDataAtCompletion:^(CloudRequestStatus *status, CloudMetaInfo *metaInfo) {
+        if (status.ok && !metaInfo.isAppVersionAcceptable) {
+            CloudRequestStatus* unacceptableAppStatus = [CloudRequestStatus status: CloudRequestStatusCodeUnacceptableAppVersion];
+            status.explanation = metaInfo.messageToUser;
+            SHSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
+            completion(unacceptableAppStatus);
+        } else {
+            completion(status);
+        }
+    }];
+}
+
++(void) getDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     NSAssert(completion, @"completion block required");
     if ([self isConnected]) {
         if ([[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
             NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
             [request setHTTPMethod:@"GET"];
-            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus status) {
-                if (status == AuthenticationStatusOk) {
+            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
+            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
+                if (authStatus == AuthenticationStatusOk) {
                     NSURLSession *session = [NSURLSession sharedSession];
                     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
                         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                         if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
                             SHSLog(@"http GET successful");
-                            completion(CloudRequestStatusOk, data);
+                            completion(CloudRequestStatusCodeOk, data);
                         } else {
-                            CloudRequestStatus errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
+                            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
                             NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
                             SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [self statusCodeDescripton:errorStatus], httpStatus, sendError);
-                            completion(errorStatus, nil);
+                            completion([CloudRequestStatus status: errorStatus], nil);
                         }
                     }] resume];
                 } else {
-                    completion(CloudRequestStatusUnauthorized,  nil);
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
                 }
             }];
         } else {
-            completion(CloudRequestStatusUnauthorized,  nil);
+            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
         }
     } else {
-        completion(CloudRequestStatusNotConnectedToInternet,  nil);
+        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
     }
 }
 
-
-+(CloudRequestStatus) errorCodeFromResponse: (NSHTTPURLResponse*) httpResponse error: (NSError*) sendError {
++(CloudRequestStatusCode) errorCodeFromResponse: (NSHTTPURLResponse*) httpResponse error: (NSError*) sendError {
     if (httpResponse.statusCode == 401) {
-        return CloudRequestStatusUnauthorized;
+        return CloudRequestStatusCodeUnauthorized;
     } else if (sendError && sendError.code == NSURLErrorUserCancelledAuthentication) {
         // 401's aren't handled correctly in synch http requests...this is the workaround...
-        return CloudRequestStatusUnauthorized;
+        return CloudRequestStatusCodeUnauthorized;
     }
-    return CloudRequestStatusUnknownError;
+    return CloudRequestStatusCodeUnknownError;
 }
 
-+(NSString*) statusCodeDescripton: (CloudRequestStatus) status {
++(NSString*) statusCodeDescripton: (CloudRequestStatusCode) status {
     switch (status) {
-        case CloudRequestStatusOk:
+        case CloudRequestStatusCodeOk:
             return @"OK";
             break;
-        case CloudRequestStatusUnauthorized:
+        case CloudRequestStatusCodeUnauthorized:
             return @"Unauthorized";
             break;
-        case CloudRequestStatusNotConnectedToInternet:
+        case CloudRequestStatusCodeNotConnectedToInternet:
             return @"NotConnectedToInternet";
             break;
-        case CloudRequestStatusMarshallingError:
+        case CloudRequestStatusCodeMarshallingError:
             return @"MarshallingError";
             break;
-        case CloudRequestStatusUnacceptableAppVersion:
+        case CloudRequestStatusCodeUnacceptableAppVersion:
             return @"UnacceptableAppVersion";
             break;
-        case CloudRequestStatusUnknownError:
+        case CloudRequestStatusCodeUnknownError:
             return @"UnknownError";
             break;
         default:

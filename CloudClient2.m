@@ -115,21 +115,6 @@
     }];
 }
 
-+(void) downloadCloudMetaDataAtCompletion:  (void (^)(CloudRequestStatus* status, CloudMetaInfo* metaInfo)) completion {
-    // endpoint needs current app version
-    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    appVersion = [appVersion stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-    NSString* metaDataRelativeUrl = [NSString stringWithFormat:@"/rest/mobile/meta/%@", appVersion];
-    
-    [self getObjectFromUrl:metaDataRelativeUrl completion:^(CloudRequestStatus* status, NSDictionary* objectAsDictionary) {
-        if (status == CloudRequestStatusCodeOk) {
-            completion(status, [CloudMetaInfo fromDictionary:objectAsDictionary]);
-        } else {
-            completion(status,  nil);
-        }
-    }];
-}
-
 #pragma mark - Public - Uploading
 
 +(void)uploadTeam:(Team*) team completion: (void (^)(CloudRequestStatus* requestStatus)) completion {
@@ -378,6 +363,31 @@
     }];
 }
 
++(void) downloadCloudMetaDataAtCompletion:  (void (^)(CloudRequestStatus* status, CloudMetaInfo* metaInfo)) completion {
+    // add app version to URL
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    appVersion = [appVersion stringByReplacingOccurrencesOfString:@"." withString:@"_"];  // make the version URL safe
+    NSString* metaDataRelativeUrl = [NSString stringWithFormat:@"/rest/mobile/meta/%@", appVersion];
+    
+    [self getDataFromUrl:metaDataRelativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
+        if (getDataStatus.ok) {
+            NSError* unmarshallingError = nil;
+            if (responseData) {
+                NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                if (unmarshallingError) {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], [CloudMetaInfo fromDictionary:responseJsonAsDict]);
+                } else {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], nil);
+                }
+            } else {
+                SHSLog(@"meta data endpoint did not return a response");
+                completion([CloudRequestStatus status: CloudRequestStatusCodeUnknownError], nil);
+            }
+        } else {
+            completion(getDataStatus,  nil);
+        }
+    }];
+}
 
 #pragma mark - Private - Miscellaneous
 

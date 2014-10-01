@@ -26,4 +26,9 @@
 +(void) downloadGameDescriptionsForTeam: (NSString*) teamCloudId atCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* gameDescriptions)) completion;
 +(void) downloadGame: (NSString*) gameId forTeam: (NSString*) teamCloudId atCompletion: (void (^)(CloudRequestStatus* requestStatus)) completion;
 
++(void)uploadTeam:(Team*) team completion: (void (^)(CloudRequestStatus* requestStatus)) completion;
++(void)uploadGame: (NSString*)gameId forTeam: (NSString*)teamId completion: (void (^)(CloudRequestStatus* requestStatus)) completion;
++(void)uploadTeam:(Team*) team withGames: (NSArray*) gameIds completion: (void (^)(CloudRequestStatus* requestStatus)) completion;
+
 @end
+

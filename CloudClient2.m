@@ -24,7 +24,12 @@
 //#define kHostHame @"http://local.appspot.com:8888"
 //#define kHostHame @"http://local.appspot.com:8890" // tcp monitor
 
+#define kTeamIdKey          @"teamId"
+#define kCloudIdKey         @"cloudId"
+
 @implementation CloudClient2
+
+#pragma mark - Public - Miscelleanous
 
 +(NSString*) getBaseUrl {
     return kHostHame;
@@ -46,6 +51,8 @@
 +(BOOL) isSignedOn {
     return [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated];
 }
+
+#pragma mark - Public - Downloading
 
 +(void) downloadTeamsAtCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* teams)) completion {
     [self getObjectsFromUrl:@"/rest/mobile/teams" completion:^(CloudRequestStatus* getObjectsStatus, NSArray* arrayOfDictionaries) {
@@ -123,6 +130,136 @@
     }];
 }
 
+#pragma mark - Public - Uploading
+
++(void)uploadTeam:(Team*) team completion: (void (^)(CloudRequestStatus* requestStatus)) completion {
+    NSDictionary* teamAsDict = [team asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
+    [self postObject:teamAsDict toUrl:@"/rest/mobile/team" completion:^(CloudRequestStatus *requestStatus, NSDictionary *responseObjectAsDictionary) {
+        if (requestStatus.ok) {
+            [Team getCurrentTeam].cloudId = [responseObjectAsDictionary objectForKey:kCloudIdKey];
+            [[Team getCurrentTeam] save];
+        }
+        completion(requestStatus);
+    }];
+}
+
++(void)uploadTeam:(Team*) team withGames: (NSArray*) gameIds completion: (void (^)(CloudRequestStatus* requestStatus)) completion {
+    [self uploadTeam:team completion:^(CloudRequestStatus *teamUploadStatus) {
+        if (teamUploadStatus.ok) {
+            [self uploadNextGameForTeam:team withGames:gameIds completion:completion];
+        } else {
+            completion(teamUploadStatus);
+        }
+    }];
+}
+
++(void)uploadNextGameForTeam:(Team*) team withGames: (NSArray*) gameIds completion: (void (^)(CloudRequestStatus* requestStatus)) allGamesCompleteCompletion {
+    // all games uploaded?  invoke the original completion block
+    if ([gameIds count] == 0) {
+        allGamesCompleteCompletion([CloudRequestStatus status: CloudRequestStatusCodeOk]);
+    // otherwise, upload the next game
+    } else {
+        NSMutableArray* remainingGames = [gameIds mutableCopy];
+        NSString* nextGameId = [remainingGames lastObject];
+        [remainingGames removeLastObject];
+        [self uploadGame:nextGameId forTeam:team.cloudId completion:^(CloudRequestStatus *uploadStatus) {
+            if (uploadStatus.ok) {
+                [self uploadNextGameForTeam:team withGames:remainingGames completion:allGamesCompleteCompletion];
+            } else {
+                allGamesCompleteCompletion(uploadStatus);
+            }
+        }];
+    }
+}
+
++(void)uploadGame: (NSString*)gameId forTeam: (NSString*)teamId completion: (void (^)(CloudRequestStatus* requestStatus)) completion {
+    Team* team = [Team readTeam:teamId];
+    if (!team) {
+        SHSLog(@"Unable to read team for upload of game");
+        completion([CloudRequestStatus status: CloudRequestStatusCodeUnknownError]);
+    } else {
+        Game* game = [Game readGame:gameId forTeam:teamId mergePlayersWithCurrentTeam:NO];
+        if (!game) {
+            SHSLog(@"Unable to read game for upload of game");
+            completion([CloudRequestStatus status: CloudRequestStatusCodeUnknownError]);
+        } else {
+            NSDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
+            [gameAsDict setValue:team.cloudId forKey:kTeamIdKey];
+            [self postObject:gameAsDict toUrl:@"/rest/mobile/game" completion:^(CloudRequestStatus *postStatus, NSDictionary *responseObjectAsDictionary) {
+                completion(postStatus);
+            }];
+        }
+    }
+}
+
+
+#pragma mark - Private - Uploading
+
++(void) postObject: (NSDictionary*) objectAsDictionary toUrl: (NSString*) relativeUrl completion: (void (^)(CloudRequestStatus* requestStatus, NSDictionary* responseObjectAsDictionary)) completion {
+    NSError* marshallError = nil;
+    NSData* objectAsJson = [NSJSONSerialization dataWithJSONObject:objectAsDictionary options:0 error:&marshallError];
+    if (marshallError) {
+        SHSLog(@"Error attempting to marshall object to JSON for upload: %@", marshallError);
+        completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+    } else {
+        [self postData:objectAsJson toUrl:relativeUrl completion:^(CloudRequestStatus *requestStatus, NSData *responseData) {
+            if (requestStatus.ok) {
+                if (responseData != nil) {
+                    NSError* unmarshallingError = nil;
+                    NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                    if (unmarshallingError) {
+                        SHSLog(@"Error attempting to unmarshall upload response data: %@", unmarshallingError);
+                        completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+                    } else {
+                        completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
+                    }
+                }
+            } else {
+                completion(requestStatus, nil);
+            }
+        }];
+    }
+}
+
++(void) postData: (NSData*) data toUrl: (NSString*) relativeUrl completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    NSAssert(completion, @"completion block required");
+    if ([self isConnected]) {
+        if ([[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
+            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+            [request setHTTPMethod:@"POST"];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
+            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
+                if (authStatus == AuthenticationStatusOk) {
+                    [[[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
+                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                        if (sendError == nil && [httpResponse statusCode] == 200) {
+                            SHSLog(@"http POST successful");
+                            completion(CloudRequestStatusCodeOk, data);
+                        } else {
+                            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
+                            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
+                            SHSLog(@"Failed http POST request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [self statusCodeDescripton:errorStatus], httpStatus, sendError);
+                            completion([CloudRequestStatus status: errorStatus], nil);
+                        }
+                    }] resume];
+                } else {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+                }
+            }];
+        } else {
+            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+        }
+    } else {
+        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
+    }
+}
+
+
+#pragma mark - Private - Downloading
+
 +(void) getObjectFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSDictionary* objectAsDictionary)) completion {
     [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
         if (getDataStatus.ok) {
@@ -159,6 +296,44 @@
     }];
 }
 
++(void) getDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    NSAssert(completion, @"completion block required");
+    if ([self isConnected]) {
+        if ([[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
+            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+            [request setHTTPMethod:@"GET"];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
+            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
+                if (authStatus == AuthenticationStatusOk) {
+                    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
+                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                        if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
+                            SHSLog(@"http GET successful");
+                            completion(CloudRequestStatusCodeOk, data);
+                        } else {
+                            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
+                            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
+                            SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [self statusCodeDescripton:errorStatus], httpStatus, sendError);
+                            completion([CloudRequestStatus status: errorStatus], nil);
+                        }
+                    }] resume];
+                } else {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+                }
+            }];
+        } else {
+            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+        }
+    } else {
+        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
+    }
+}
+
+#pragma mark - Private - Verify App Version
+
+
 +(void) verifyAppVersionAndThenGetDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
         if (verifyStatus.ok) {
@@ -184,41 +359,9 @@
     }];
 }
 
-+(void) getDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
-    NSAssert(completion, @"completion block required");
-    if ([self isConnected]) {
-        if ([[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
-            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-            [request setHTTPMethod:@"GET"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
-            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
-                if (authStatus == AuthenticationStatusOk) {
-                    NSURLSession *session = [NSURLSession sharedSession];
-                    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
-                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                        if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
-                            SHSLog(@"http GET successful");
-                            completion(CloudRequestStatusCodeOk, data);
-                        } else {
-                            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
-                            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
-                            SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [self statusCodeDescripton:errorStatus], httpStatus, sendError);
-                            completion([CloudRequestStatus status: errorStatus], nil);
-                        }
-                    }] resume];
-                } else {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-                }
-            }];
-        } else {
-            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-        }
-    } else {
-        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
-    }
-}
+
+#pragma mark - Private - Miscellaneous
+
 
 +(CloudRequestStatusCode) errorCodeFromResponse: (NSHTTPURLResponse*) httpResponse error: (NSError*) sendError {
     if (httpResponse.statusCode == 401) {

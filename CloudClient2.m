@@ -221,6 +221,16 @@
     }
 }
 
++(void) verifyAppVersionAndPostData: (NSData*) data toUrl: (NSString*) relativeUrl completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
+        if (verifyStatus.ok) {
+            [self postData:data toUrl:relativeUrl completion:completion];
+        } else {
+            completion(verifyStatus, nil);
+        }
+    }];
+}
+
 +(void) postData: (NSData*) data toUrl: (NSString*) relativeUrl completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     NSAssert(completion, @"completion block required");
     if ([self isConnected]) {
@@ -261,37 +271,59 @@
 #pragma mark - Private - Downloading
 
 +(void) getObjectFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSDictionary* objectAsDictionary)) completion {
-    [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
-        if (getDataStatus.ok) {
-            NSError* unmarshallingError = nil;
-            if (responseData) {
-                NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
-                if (unmarshallingError) {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+    [self verifyAppVersionAndGetDataFromUrl:relativeUrl completion:^(CloudRequestStatus *appVersionVerifyRequestStatus, NSData *responseData) {
+        if(appVersionVerifyRequestStatus.ok) {
+            [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
+                if (getDataStatus.ok) {
+                    NSError* unmarshallingError = nil;
+                    if (responseData) {
+                        NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                        if (unmarshallingError) {
+                            completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+                        } else {
+                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
+                        }
+                    }
                 } else {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
+                    completion(getDataStatus,  nil);
                 }
-            }
+            }];
         } else {
-            completion(getDataStatus,  nil);
+            completion(appVersionVerifyRequestStatus, nil);
         }
     }];
 }
 
 +(void) getObjectsFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* arrayOfDictionaries)) completion {
-    [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
-        if (getDataStatus.ok) {
-            NSError* unmarshallingError = nil;
-            if (responseData) {
-                NSArray* responseAsArrayOfDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
-                if (unmarshallingError) {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+    [self verifyAppVersionAndGetDataFromUrl:relativeUrl completion:^(CloudRequestStatus *appVersionVerifyRequestStatus, NSData *responseData) {
+        if(appVersionVerifyRequestStatus.ok) {
+            [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
+                if (getDataStatus.ok) {
+                    NSError* unmarshallingError = nil;
+                    if (responseData) {
+                        NSArray* responseAsArrayOfDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                        if (unmarshallingError) {
+                            completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
+                        } else {
+                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseAsArrayOfDict);
+                        }
+                    }
                 } else {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseAsArrayOfDict);
+                    completion(getDataStatus,  nil);
                 }
-            }
+            }];
         } else {
-            completion(getDataStatus,  nil);
+            completion(appVersionVerifyRequestStatus, nil);
+        }
+    }];
+}
+
++(void) verifyAppVersionAndGetDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
+        if (verifyStatus.ok) {
+            [self getDataFromUrl:relativeUrl completion:completion];
+        } else {
+            completion(verifyStatus, nil);
         }
     }];
 }
@@ -332,19 +364,6 @@
 }
 
 #pragma mark - Private - Verify App Version
-
-
-+(void) verifyAppVersionAndThenGetDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
-    [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
-        if (verifyStatus.ok) {
-            [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus *getDataStatus, NSData *responseData) {
-                completion(getDataStatus, responseData);
-            }];
-        } else {
-            completion(verifyStatus, nil);
-        }
-    }];
-}
 
 +(void) verifyAppVersionAtCompletion:  (void (^)(CloudRequestStatus* status)) completion {
     [self downloadCloudMetaDataAtCompletion:^(CloudRequestStatus *status, CloudMetaInfo *metaInfo) {

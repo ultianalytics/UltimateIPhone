@@ -306,7 +306,11 @@
 +(void) verifyAppVersionAndGetDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
         if (verifyStatus.ok) {
-            [self getDataFromUrl:relativeUrl completion:completion];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                @autoreleasepool {
+                    [self getDataFromUrl:relativeUrl completion:completion];
+                }
+            });
         } else {
             completion(verifyStatus, nil);
         }
@@ -328,7 +332,7 @@
                         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                         if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
                             SHSLog(@"http GET successful");
-                            completion(CloudRequestStatusCodeOk, data);
+                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
                         } else {
                             CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
                             NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
@@ -375,9 +379,9 @@
             if (responseData) {
                 NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
                 if (unmarshallingError) {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], [CloudMetaInfo fromDictionary:responseJsonAsDict]);
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
                 } else {
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], nil);
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], [CloudMetaInfo fromDictionary:responseJsonAsDict]);
                 }
             } else {
                 SHSLog(@"meta data endpoint did not return a response");

@@ -24,5 +24,6 @@ typedef enum {
 @property (nonatomic, readonly) BOOL ok;
 
 +(CloudRequestStatus*) status: (CloudRequestStatusCode) code;
++(NSString*) statusCodeDescripton: (CloudRequestStatusCode) status;
 
 @end

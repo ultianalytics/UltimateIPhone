@@ -25,4 +25,34 @@
     return self.code == CloudRequestStatusCodeOk;
 }
 
+-(NSString*)description {
+    return [NSString stringWithFormat:@"CloudRequestStatus: %@", [[self class] statusCodeDescripton: self.code]];
+}
+
++(NSString*) statusCodeDescripton: (CloudRequestStatusCode) status {
+    switch (status) {
+        case CloudRequestStatusCodeOk:
+            return @"OK";
+            break;
+        case CloudRequestStatusCodeUnauthorized:
+            return @"Unauthorized";
+            break;
+        case CloudRequestStatusCodeNotConnectedToInternet:
+            return @"NotConnectedToInternet";
+            break;
+        case CloudRequestStatusCodeMarshallingError:
+            return @"MarshallingError";
+            break;
+        case CloudRequestStatusCodeUnacceptableAppVersion:
+            return @"UnacceptableAppVersion";
+            break;
+        case CloudRequestStatusCodeUnknownError:
+            return @"UnknownError";
+            break;
+        default:
+            return @"UNKNOWN STATUS";
+            break;
+    }
+}
+
 @end

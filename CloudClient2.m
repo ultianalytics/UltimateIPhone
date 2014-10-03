@@ -236,18 +236,21 @@
                         } else {
                             CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
                             NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
-                            SHSLog(@"Failed http POST request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [self statusCodeDescripton:errorStatus], httpStatus, sendError);
+                            SHSLog(@"Failed http POST request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [CloudRequestStatus statusCodeDescripton:errorStatus], httpStatus, sendError);
                             completion([CloudRequestStatus status: errorStatus], nil);
                         }
                     }] resume];
                 } else {
+                    SHSLog(@"http POST not attempted: authenticator says signon needed");
                     completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
                 }
             }];
         } else {
+            SHSLog(@"http POST not attempted: no authentication was done previously");
             completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
         }
     } else {
+        SHSLog(@"http POST not attempted: device is not connected to net");
         completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
     }
 }
@@ -256,49 +259,37 @@
 #pragma mark - Private - Downloading
 
 +(void) getObjectFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSDictionary* objectAsDictionary)) completion {
-    [self verifyAppVersionAndGetDataFromUrl:relativeUrl completion:^(CloudRequestStatus *appVersionVerifyRequestStatus, NSData *responseData) {
-        if(appVersionVerifyRequestStatus.ok) {
-            [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
-                if (getDataStatus.ok) {
-                    NSError* unmarshallingError = nil;
-                    if (responseData) {
-                        NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
-                        if (unmarshallingError) {
-                            completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
-                        } else {
-                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
-                        }
-                    }
+    [self verifyAppVersionAndGetDataFromUrl:relativeUrl completion:^(CloudRequestStatus *verifyAndGetStatus, NSData *responseData) {
+        if (verifyAndGetStatus.ok) {
+            NSError* unmarshallingError = nil;
+            if (responseData) {
+                NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                if (unmarshallingError) {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
                 } else {
-                    completion(getDataStatus,  nil);
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
                 }
-            }];
+            }
         } else {
-            completion(appVersionVerifyRequestStatus, nil);
+            completion(verifyAndGetStatus,  nil);
         }
     }];
 }
 
 +(void) getObjectsFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* arrayOfDictionaries)) completion {
-    [self verifyAppVersionAndGetDataFromUrl:relativeUrl completion:^(CloudRequestStatus *appVersionVerifyRequestStatus, NSData *responseData) {
-        if(appVersionVerifyRequestStatus.ok) {
-            [self getDataFromUrl:relativeUrl completion:^(CloudRequestStatus* getDataStatus, NSData *responseData) {
-                if (getDataStatus.ok) {
-                    NSError* unmarshallingError = nil;
-                    if (responseData) {
-                        NSArray* responseAsArrayOfDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
-                        if (unmarshallingError) {
-                            completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
-                        } else {
-                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseAsArrayOfDict);
-                        }
-                    }
+    [self verifyAppVersionAndGetDataFromUrl:relativeUrl completion:^(CloudRequestStatus *verifyAndGetStatus, NSData *responseData) {
+        if (verifyAndGetStatus.ok) {
+            NSError* unmarshallingError = nil;
+            if (responseData) {
+                NSArray* responseAsArrayOfDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
+                if (unmarshallingError) {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
                 } else {
-                    completion(getDataStatus,  nil);
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseAsArrayOfDict);
                 }
-            }];
+            }
         } else {
-            completion(appVersionVerifyRequestStatus, nil);
+            completion(verifyAndGetStatus,  nil);
         }
     }];
 }
@@ -306,11 +297,7 @@
 +(void) verifyAppVersionAndGetDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     [self verifyAppVersionAtCompletion:^(CloudRequestStatus *verifyStatus) {
         if (verifyStatus.ok) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                @autoreleasepool {
-                    [self getDataFromUrl:relativeUrl completion:completion];
-                }
-            });
+            [self getDataFromUrl:relativeUrl completion:completion];
         } else {
             completion(verifyStatus, nil);
         }
@@ -331,23 +318,26 @@
                     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
                         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                         if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
-                            SHSLog(@"http GET successful");
+                            SHSLog(@"http GET successful.  URL is %@", request.URL.absoluteString);
                             completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
                         } else {
                             CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
                             NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
-                            SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [self statusCodeDescripton:errorStatus], httpStatus, sendError);
+                            SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@.  URL is %@", [CloudRequestStatus statusCodeDescripton:errorStatus], httpStatus, sendError, request.URL.absoluteString);
                             completion([CloudRequestStatus status: errorStatus], nil);
                         }
                     }] resume];
                 } else {
+                    SHSLog(@"http GET not attempted: authenticator says signon needed");
                     completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
                 }
             }];
         } else {
+            SHSLog(@"http GET not attempted: no authentication was done previously");
             completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
         }
     } else {
+        SHSLog(@"http GET not attempted: device is not connected to net");
         completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
     }
 }
@@ -355,16 +345,20 @@
 #pragma mark - Private - Verify App Version
 
 +(void) verifyAppVersionAtCompletion:  (void (^)(CloudRequestStatus* status)) completion {
-    [self downloadCloudMetaDataAtCompletion:^(CloudRequestStatus *status, CloudMetaInfo *metaInfo) {
-        if (status.ok && !metaInfo.isAppVersionAcceptable) {
-            CloudRequestStatus* unacceptableAppStatus = [CloudRequestStatus status: CloudRequestStatusCodeUnacceptableAppVersion];
-            status.explanation = metaInfo.messageToUser;
-            SHSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
-            completion(unacceptableAppStatus);
-        } else {
-            completion(status);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @autoreleasepool {
+            [self downloadCloudMetaDataAtCompletion:^(CloudRequestStatus *status, CloudMetaInfo *metaInfo) {
+                if (status.ok && !metaInfo.isAppVersionAcceptable) {
+                    CloudRequestStatus* unacceptableAppStatus = [CloudRequestStatus status: CloudRequestStatusCodeUnacceptableAppVersion];
+                    status.explanation = metaInfo.messageToUser;
+                    SHSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
+                    completion(unacceptableAppStatus);
+                } else {
+                    completion(status);
+                }
+            }];
         }
-    }];
+    });
 }
 
 +(void) downloadCloudMetaDataAtCompletion:  (void (^)(CloudRequestStatus* status, CloudMetaInfo* metaInfo)) completion {
@@ -379,6 +373,7 @@
             if (responseData) {
                 NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
                 if (unmarshallingError) {
+                    SHSLog(@"error unmarshalling meta data from sever");
                     completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
                 } else {
                     completion([CloudRequestStatus status: CloudRequestStatusCodeOk], [CloudMetaInfo fromDictionary:responseJsonAsDict]);
@@ -404,32 +399,6 @@
         return CloudRequestStatusCodeUnauthorized;
     }
     return CloudRequestStatusCodeUnknownError;
-}
-
-+(NSString*) statusCodeDescripton: (CloudRequestStatusCode) status {
-    switch (status) {
-        case CloudRequestStatusCodeOk:
-            return @"OK";
-            break;
-        case CloudRequestStatusCodeUnauthorized:
-            return @"Unauthorized";
-            break;
-        case CloudRequestStatusCodeNotConnectedToInternet:
-            return @"NotConnectedToInternet";
-            break;
-        case CloudRequestStatusCodeMarshallingError:
-            return @"MarshallingError";
-            break;
-        case CloudRequestStatusCodeUnacceptableAppVersion:
-            return @"UnacceptableAppVersion";
-            break;
-        case CloudRequestStatusCodeUnknownError:
-            return @"UnknownError";
-            break;
-        default:
-            return @"UNKNOWN STATUS";
-            break;
-    }
 }
 
 @end

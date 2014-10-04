@@ -19,6 +19,7 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 @interface GoogleOAuth2Authenticator ()
 
 @property (strong, nonatomic) void (^signonViewControllerCompletion)(SignonStatus signStatus);
+@property (strong, nonatomic) GTMOAuth2Authentication* currentAuthentication;
 
 @end
 
@@ -41,21 +42,21 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 }
 
 -(BOOL)hasBeenAuthenticated {
-    return [Preferences getCurrentPreferences].userid != nil && [self getAuthFromKeyChain];
+    return [Preferences getCurrentPreferences].userid != nil && [self getCurrentAuth];
     
 }
 
 -(void)signInUsingNavigationController: (UINavigationController*)navController completion: (void (^)(SignonStatus signonStatus)) completionBlock {
     self.signonViewControllerCompletion = completionBlock;
     [self signOut];
- 
+    
     // create the oAuth controller that will do the signon
     GTMOAuth2ViewControllerTouch* authViewController = [GTMOAuth2ViewControllerTouch controllerWithScope:kGoogleAppScope
-                                             clientID:kGoogleClientID
-                                         clientSecret:kGoogleClientSecret
-                                     keychainItemName:kKeychainItemName
-                                             delegate:self
-                                     finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+                                                                                                clientID:kGoogleClientID
+                                                                                            clientSecret:kGoogleClientSecret
+                                                                                        keychainItemName:kKeychainItemName
+                                                                                                delegate:self
+                                                                                        finishedSelector:@selector(viewController:finishedWithAuth:error:)];
     
     // We can set a URL for deleting the cookies after sign-in so the next time
     // the user signs in, the browser does not assume the user is already signed in
@@ -69,11 +70,11 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
     navController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
     // Now push our sign-in view
     [navController pushViewController:authViewController animated:YES];
-
+    
 }
 
 - (void)signOut {
-    GTMOAuth2Authentication* auth =  [self getAuthFromKeyChain];
+    GTMOAuth2Authentication* auth =  [self getCurrentAuth];
     if (auth) {
         // remove the token from Google's servers
         [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:auth];
@@ -86,17 +87,22 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 }
 
 
--(GTMOAuth2Authentication*)getAuthFromKeyChain {
-    GTMOAuth2Authentication* auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
-                                                                 clientID:kGoogleClientID
-                                                             clientSecret:kGoogleClientSecret];
-    auth.accessToken = [Preferences getCurrentPreferences].accessToken;
-    return auth;
+-(GTMOAuth2Authentication*)getCurrentAuth {
+    if (!self.currentAuthentication) {
+        GTMOAuth2Authentication* auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                              clientID:kGoogleClientID
+                                                                                          clientSecret:kGoogleClientSecret];
+        auth.accessToken = [Preferences getCurrentPreferences].accessToken;
+        self.currentAuthentication = auth;
+    }
+    return self.currentAuthentication;
 }
 
 - (void)authorizeRequest:(NSMutableURLRequest *)request completionHandler:(void (^)(AuthenticationStatus status))handler {
     if ([self hasBeenAuthenticated]) {
-        [[self getAuthFromKeyChain] authorizeRequest:request completionHandler:^(NSError *error) {
+        [[self getCurrentAuth] authorizeRequest:request completionHandler:^(NSError *error) {
+            [Preferences getCurrentPreferences].accessToken = [self getCurrentAuth].accessToken;
+            [[Preferences getCurrentPreferences] save];
             AuthenticationStatus status = error == nil ? AuthenticationStatusOk : AuthenticationStatusNeedSignon;
             handler(status);
         }];
@@ -107,7 +113,7 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 
 -(BOOL)authorizeRequest:(NSMutableURLRequest *)request {
     if ([self hasBeenAuthenticated]) {
-        return [[self getAuthFromKeyChain] authorizeRequest:request];
+        return [[self getCurrentAuth] authorizeRequest:request];
     } else {
         return NO;
     }
@@ -129,16 +135,16 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
         // The auth data is stored in the keychain by google's authViewController...we don't need to do more to save it
         
         // We also want to remember the user's e-mail so we can tell them who is signed on.
-         /* Per Google's doc:
-            By default, the controller will fetch the user's email, but not the rest of
-            the user's profile.  The full profile can be requested from Google's server
-            by setting this property before sign-in: 
+        /* Per Google's doc:
+         By default, the controller will fetch the user's email, but not the rest of
+         the user's profile.  The full profile can be requested from Google's server
+         by setting this property before sign-in:
          
-                authViewController.signIn.shouldFetchGoogleUserProfile = YES;
+         authViewController.signIn.shouldFetchGoogleUserProfile = YES;
          
-            The profile will be available after sign-in as
+         The profile will be available after sign-in as
          
-                NSDictionary *profile = authViewController.signIn.userProfile;
+         NSDictionary *profile = authViewController.signIn.userProfile;
          
          */
         NSString* email = authViewController.signIn.userProfile[@"email"];
@@ -147,14 +153,16 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
         // insert it in the auth object later (neeeded for doing synchronous request authorizations)
         [Preferences getCurrentPreferences].accessToken = auth.accessToken;
         [[Preferences getCurrentPreferences] save];
-
+        
+        self.currentAuthentication = auth;
+        
         SHSLog(@"authentication complete for user %@.  expire is %@.  Now is %@", email, auth.expirationDate, [NSDate date]);
         
         if (self.signonViewControllerCompletion) {
             self.signonViewControllerCompletion(SignonStatusOk);
         }
     }
-
+    
     
 }
 

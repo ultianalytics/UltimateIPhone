@@ -345,20 +345,16 @@
 #pragma mark - Private - Verify App Version
 
 +(void) verifyAppVersionAtCompletion:  (void (^)(CloudRequestStatus* status)) completion {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        @autoreleasepool {
-            [self downloadCloudMetaDataAtCompletion:^(CloudRequestStatus *status, CloudMetaInfo *metaInfo) {
-                if (status.ok && !metaInfo.isAppVersionAcceptable) {
-                    CloudRequestStatus* unacceptableAppStatus = [CloudRequestStatus status: CloudRequestStatusCodeUnacceptableAppVersion];
-                    status.explanation = metaInfo.messageToUser;
-                    SHSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
-                    completion(unacceptableAppStatus);
-                } else {
-                    completion(status);
-                }
-            }];
+    [self downloadCloudMetaDataAtCompletion:^(CloudRequestStatus *status, CloudMetaInfo *metaInfo) {
+        if (status.ok && !metaInfo.isAppVersionAcceptable) {
+            CloudRequestStatus* unacceptableAppStatus = [CloudRequestStatus status: CloudRequestStatusCodeUnacceptableAppVersion];
+            status.explanation = metaInfo.messageToUser;
+            SHSLog(@"App at unacceptable version: %@", metaInfo.messageToUser);
+            completion(unacceptableAppStatus);
+        } else {
+            completion(status);
         }
-    });
+    }];
 }
 
 +(void) downloadCloudMetaDataAtCompletion:  (void (^)(CloudRequestStatus* status, CloudMetaInfo* metaInfo)) completion {

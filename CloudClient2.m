@@ -52,6 +52,13 @@
     return [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated];
 }
 
++(NSString*) getWebsiteURL: (Team*) team {
+    if (team.cloudId != nil && ![team.cloudId isEqualToString: @""]) {
+        return [NSString stringWithFormat:@"%@/team/%@/main", [self getBaseWebUrl], team.cloudId];
+    }
+    return nil;
+}
+
 #pragma mark - Public - Downloading
 
 +(void) downloadTeamsAtCompletion:  (void (^)(CloudRequestStatus* requestStatus, NSArray* teams)) completion {
@@ -147,7 +154,7 @@
         NSMutableArray* remainingGames = [gameIds mutableCopy];
         NSString* nextGameId = [remainingGames lastObject];
         [remainingGames removeLastObject];
-        [self uploadGame:nextGameId forTeam:team.cloudId completion:^(CloudRequestStatus *uploadStatus) {
+        [self uploadGame:nextGameId forTeam:team.teamId completion:^(CloudRequestStatus *uploadStatus) {
             if (uploadStatus.ok) {
                 [self uploadNextGameForTeam:team withGames:remainingGames completion:allGamesCompleteCompletion];
             } else {
@@ -171,6 +178,9 @@
             NSDictionary* gameAsDict = [game asDictionaryWithScrubbing:[Scrubber currentScrubber].isOn];
             [gameAsDict setValue:team.cloudId forKey:kTeamIdKey];
             [self postObject:gameAsDict toUrl:@"/rest/mobile/game" completion:^(CloudRequestStatus *postStatus, NSDictionary *responseObjectAsDictionary) {
+                if (postStatus.ok) {
+                    [UploadDownloadTracker updateLastUploadOrDownloadTime:game.lastSaveGMT forGameId:game.gameId inTeamId:team.teamId];
+                }
                 completion(postStatus);
             }];
         }
@@ -189,7 +199,7 @@
     } else {
         [self postData:objectAsJson toUrl:relativeUrl completion:^(CloudRequestStatus *requestStatus, NSData *responseData) {
             if (requestStatus.ok) {
-                if (responseData != nil) {
+                if (responseData != nil && responseData.length > 0) {
                     NSError* unmarshallingError = nil;
                     NSDictionary* responseJsonAsDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&unmarshallingError];
                     if (unmarshallingError) {
@@ -198,6 +208,8 @@
                     } else {
                         completion([CloudRequestStatus status: CloudRequestStatusCodeOk], responseJsonAsDict);
                     }
+                } else {
+                    completion([CloudRequestStatus status: CloudRequestStatusCodeOk], nil);
                 }
             } else {
                 completion(requestStatus, nil);
@@ -231,8 +243,8 @@
                     [[[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
                         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                         if (sendError == nil && [httpResponse statusCode] == 200) {
-                            SHSLog(@"http POST successful");
-                            completion(CloudRequestStatusCodeOk, data);
+                            SHSLog(@"http POST successful.  URL is %@", request.URL.absoluteString);
+                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
                         } else {
                             CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
                             NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];

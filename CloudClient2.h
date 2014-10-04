@@ -18,6 +18,7 @@
 +(NSString*) getBaseUrl;
 +(NSString*) getBaseWebUrl;
 +(BOOL)isConnected;
++(NSString*) getWebsiteURL: (Team*) team;
 
 // Important: completion block may not be on main thread.  It is caller's duty to make sure the block
 // does UI work on main thread

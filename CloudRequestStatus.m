@@ -10,6 +10,8 @@
 
 @interface CloudRequestStatus ()
 
+@property (strong, nonatomic) NSDate* timestamp;
+
 @end
 
 @implementation CloudRequestStatus
@@ -19,6 +21,14 @@
     CloudRequestStatus* status = [[CloudRequestStatus alloc] init];
     status.code = code;
     return status;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.timestamp = [NSDate date];
+    }
+    return self;
 }
 
 -(BOOL)ok {

@@ -19,6 +19,7 @@ typedef enum {
 
 @interface CloudRequestStatus : NSObject
 
+@property (nonatomic, readonly) NSDate* timestamp;
 @property (nonatomic) CloudRequestStatusCode code;
 @property (nonatomic) NSString* explanation;
 @property (nonatomic, readonly) BOOL ok;

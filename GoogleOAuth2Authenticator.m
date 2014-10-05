@@ -100,12 +100,14 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 
 - (void)authorizeRequest:(NSMutableURLRequest *)request completionHandler:(void (^)(AuthenticationStatus status))handler {
     if ([self hasBeenAuthenticated]) {
-        [[self getCurrentAuth] authorizeRequest:request completionHandler:^(NSError *error) {
-            [Preferences getCurrentPreferences].accessToken = [self getCurrentAuth].accessToken;
-            [[Preferences getCurrentPreferences] save];
-            AuthenticationStatus status = error == nil ? AuthenticationStatusOk : AuthenticationStatusNeedSignon;
-            handler(status);
-        }];
+        dispatch_async(dispatch_get_main_queue(), ^{  // google's code gets hung if not started from the main thread
+            [[self getCurrentAuth] authorizeRequest:request completionHandler:^(NSError *error) {
+                [Preferences getCurrentPreferences].accessToken = [self getCurrentAuth].accessToken;
+                [[Preferences getCurrentPreferences] save];
+                AuthenticationStatus status = error == nil ? AuthenticationStatusOk : AuthenticationStatusNeedSignon;
+                handler(status);
+            }];
+        });
     } else {
         handler(AuthenticationStatusNeedSignon);
     }

@@ -86,6 +86,12 @@
     }
 }
 
+-(IBAction)signoffButtonClicked: (id) sender {
+    [CloudClient2 signOff];
+    [Preferences getCurrentPreferences].gameAutoUpload = NO;
+    [self populateViewFromModel];
+}
+
 #pragma mark - Navigation
 
 -(void)goTeamPickerView: (NSArray*) teams {
@@ -411,11 +417,6 @@
             break;
         }
     }
-}
-
--(IBAction)signoffButtonClicked: (id) sender {
-    [CloudClient2 signOff];
-    [self populateViewFromModel];
 }
 
 -(void)showCompleteAlert: (NSString*) title message: (NSString*) message {

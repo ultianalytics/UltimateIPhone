@@ -54,6 +54,7 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
             navButtonsView = navButtonsView_,
             rightBarButtonItem = rightBarButtonItem_,
             webView = webView_,
+            signInCompleteLabel = signInCompleteLabel,
             initialActivityIndicator = initialActivityIndicator_;
 
 @synthesize keychainItemName = keychainItemName_,
@@ -241,6 +242,7 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
   [browserCookiesURL_ release];
   [userData_ release];
   [properties_ release];
+  [signInCompleteLabel_ release];    
 
   [super dealloc];
 }
@@ -851,6 +853,11 @@ static Class gSignInClass = Nil;
 
     [self updateUI];
   }
+ // Jim...added this to make sure the "Please copy this code, switch to your application and paste it there" message does not appear
+  if ([webView.request.URL.absoluteString rangeOfString:@"https://accounts.google.com/o/oauth2/approval?"].location != NSNotFound) {
+    self.signInCompleteLabel.hidden = NO;
+  }
+    
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

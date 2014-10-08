@@ -8,7 +8,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Preferences.h"
 #import "ColorMaster.h"
-#import "CloudClient.h"
 #import "WebViewSignonController.h"
 #import "TeamDownloadPickerViewController.h"
 #import "GameDownloadPickerViewController.h"
@@ -24,9 +23,12 @@
 #import "UIView+Toast.h"
 #import "UIScrollView+Utilities.h"
 #import "UIView+Convenience.h"
+#import "CloudClient2.h"
+#import "GoogleOAuth2Authenticator.h"
 
 
 #define kNoInternetMessage @"We were unable to access the internet."
+#define kDefaultInvalidAppVersionMessage @"Sorry...a more current version of this app is required in order to talk to the server.\n\nPlease download the latest version."
 #define kButtonFont [UIFont boldSystemFontOfSize: 15]
 
 #define kIsNotFirstCloudViewUsage @"IsNotFirstCloudViewUsage"
@@ -51,11 +53,11 @@
 #pragma mark - Event handling
 
 -(IBAction)downloadTeamButtonClicked: (id) sender {
-    [self startTeamsDownload];
+    [self downloadTeamDescriptions];
 }
 
 -(IBAction)downloadGameButtonClicked: (id) sender {
-    [self startGamesDownload];
+    [self downloadGameDescriptions];
 }
 
 - (IBAction)scrubSwitchChanged:(id)sender {
@@ -77,7 +79,7 @@
 - (IBAction)autoUploadChanged:(id)sender {
     BOOL shouldAutoUpdate = self.autoUploadSegmentedControl.selectedSegmentIndex == 1;
     if (shouldAutoUpdate) {
-        [self startAutoUploadVerification];
+        [self verfifySignedOnForAutoUploading];
     } else {
         [Preferences getCurrentPreferences].gameAutoUpload = NO;
         [[Preferences getCurrentPreferences] save];
@@ -114,7 +116,7 @@
     gameUploadController.dismissBlock = ^(NSArray* selectedGameIds) {
         [self.navigationController popViewControllerAnimated:YES];
         self.gameIdsToUpload = selectedGameIds;
-        [self startUpload];
+        [self uploadTeamWithSelectedGames];
     };
     
     [self.navigationController pushViewController:gameUploadController animated: YES];
@@ -133,31 +135,39 @@
 
 #pragma mark - Upload Team/Games
 
--(void)startUpload {
+-(void)uploadTeamWithSelectedGames {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(uploadToServer) withObject:nil];
-}
-
--(void)uploadToServer {
-    NSError* uploadError = nil;
-    [CloudClient uploadTeam:[Team getCurrentTeam] withGames:self.self.gameIdsToUpload error: &uploadError];
-    [self performSelectorOnMainThread:@selector(handleUploadCompletion:) withObject: uploadError waitUntilDone:NO];
-}
-
--(void)handleUploadCompletion: (NSError*) error {
-    [self stopBusyDialog];
-    if (error && error.code == Unauthorized) {
-        __weak CloudViewController* slf = self;
-        signonCompletion = ^{[slf startUpload];};
-        [self goSignonView];
-    } else if (error && error.code == UnacceptableAppVersion) {
-        [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: [error.userInfo objectForKey:kCloudErrorExplanationKey]]; 
-    } else if (error) {
-        [self showCompleteAlert:NSLocalizedString(@"Upload FAILED",nil) message: NSLocalizedString(error.code == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to upload your data to the cloud.  Try again later.", nil)];
-    } else {
-        [self populateViewFromModel];
-        [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)];
-    }
+    [CloudClient2 uploadTeam:[Team getCurrentTeam] withGames:self.gameIdsToUpload completion:^(CloudRequestStatus *status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopBusyDialog];
+            switch (status.code) {
+                case CloudRequestStatusCodeOk: {
+                    [self populateViewFromModel];
+                    [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)];
+                    break;
+                }
+                case CloudRequestStatusCodeUnauthorized: {
+                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
+                        switch (signonStatus) {
+                            case SignonStatusOk:
+                                [self uploadTeamWithSelectedGames];
+                                break;
+                            case SignonStatusError:
+                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
+                                break;
+                            default: // cancel
+                                break;
+                        }
+                    }];
+                    break;
+                }
+                default: {
+                    [self showErrorAlertForStatus: status isDownload: NO];
+                    break;
+                }
+            }
+        });
+    }];
 }
 
 -(void)showNoGamesToUploadAlert {
@@ -182,190 +192,203 @@
 
 #pragma mark - Download Team descriptions (for picking one to download)
 
--(void)startTeamsDownload {
+-(void)downloadTeamDescriptions {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(downloadTeamsFromServer) withObject:nil];
-}
-
--(void)downloadTeamsFromServer {
-    NSError* requestError = nil;
-    NSArray* teams = [CloudClient getTeams:&requestError];
-    RequestContext* reqContext = requestError ? 
-        [[RequestContext alloc] initWithReqData:nil responseData:nil error: requestError] :
-        [[RequestContext alloc] initWithReqData:nil responseData:teams];
-    [self performSelectorOnMainThread:@selector(handleTeamsDownloadCompletion:) 
-                           withObject:reqContext waitUntilDone:YES];
-}
-
--(void)handleTeamsDownloadCompletion: (RequestContext*) requestContext {
-    [self stopBusyDialog];
-    if ([requestContext hasError]) {
-        if ([requestContext getErrorCode] == Unauthorized) {
-            __weak CloudViewController* slf = self;
-            signonCompletion = ^{[slf startTeamsDownload];};
-            [self goSignonView];
-        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
-        } else {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team list from the cloud.  Try again later.", nil)];            
-        }
-    } else {
-        NSArray* teams = (NSArray*)requestContext.responseData;
-        [self goTeamPickerView: teams];
-    } 
+    [CloudClient2 downloadTeamsAtCompletion:^(CloudRequestStatus *status, NSArray *teams) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopBusyDialog];
+            switch (status.code) {
+                case CloudRequestStatusCodeOk: {
+                    [self goTeamPickerView: teams];
+                    break;
+                }
+                case CloudRequestStatusCodeUnauthorized: {
+                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
+                        switch (signonStatus) {
+                            case SignonStatusOk:
+                                [self downloadTeamDescriptions];
+                                break;
+                            case SignonStatusError:
+                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
+                                break;
+                            default: // cancel
+                                break;
+                        }
+                    }];
+                    break;
+                }
+                default: {
+                    [self showErrorAlertForStatus: status isDownload: YES];
+                    break;
+                }
+            }
+        });
+    }];
 }
 
 #pragma mark - Download Games info (for picking one to download)
 
--(void)startGamesDownload {
+-(void)downloadGameDescriptions {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(downloadGamesFromServer) withObject:nil];
-}
-
--(void)downloadGamesFromServer {
-    NSError* requestError = nil;
     NSString* cloudId = [Team getCurrentTeam].cloudId;
-    NSArray* games = [CloudClient getGameDescriptions:cloudId error:&requestError];
-    RequestContext* reqContext = requestError ? 
-    [[RequestContext alloc] initWithReqData:nil responseData:nil error: requestError] :
-    [[RequestContext alloc] initWithReqData:nil responseData:games];
-    [self performSelectorOnMainThread:@selector(handleGamesDownloadCompletion:) 
-                           withObject:reqContext waitUntilDone:YES];
-}
-
--(void)handleGamesDownloadCompletion: (RequestContext*) requestContext {
-    [self stopBusyDialog];
-    if ([requestContext hasError]) {
-        if ([requestContext getErrorCode] == Unauthorized) {
-            __weak CloudViewController* slf = self;          
-            signonCompletion = ^{[slf startGamesDownload];};
-            [self goSignonView];
-        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
-        } else {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your games list from the cloud.  Try again later.", nil)];                
-        }
-    } else {
-        NSArray* games = (NSArray*)requestContext.responseData;
-        [self goGameDownloadPickerView: games];
-    } 
+    [CloudClient2 downloadGameDescriptionsForTeam:cloudId atCompletion:^(CloudRequestStatus *status, NSArray *gameDescriptions) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopBusyDialog];
+            switch (status.code) {
+                case CloudRequestStatusCodeOk: {
+                    [self goGameDownloadPickerView: gameDescriptions];
+                    break;
+                }
+                case CloudRequestStatusCodeUnauthorized: {
+                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
+                        switch (signonStatus) {
+                            case SignonStatusOk:
+                                [self downloadGameDescriptions];
+                                break;
+                            case SignonStatusError:
+                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
+                                break;
+                            default: // cancel
+                                break;
+                        }
+                    }];
+                    break;
+                }
+                default: {
+                    [self showErrorAlertForStatus: status isDownload: YES];
+                    break;
+                }
+            }
+        });
+    }];
 }
 
 #pragma mark - Download Game
 
--(void)startGameDownload:(NSString*) gameId {
+-(void)downloadGame: (NSString*) gameId {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(downloadGameFromServer:) withObject:gameId];
-}
-
--(void)downloadGameFromServer: (NSString*) gameId {
-    NSError* requestError = nil;
-    [CloudClient downloadGame:gameId forTeam: [Team getCurrentTeam].cloudId error:&requestError];
-    RequestContext* reqContext = requestError ? 
-    [[RequestContext alloc] initWithReqData:gameId responseData:nil error: requestError] :
-    [[RequestContext alloc] initWithReqData:gameId responseData:nil];
-    [self performSelectorOnMainThread:@selector(handleGameDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
-}
-
--(void)handleGameDownloadCompletion: (RequestContext*) requestContext {
-    [self stopBusyDialog];
-    if ([requestContext hasError]) {
-        if ([requestContext getErrorCode] == Unauthorized) {
-            NSString* gameId = (NSString*)requestContext.requestData;
-            __weak CloudViewController* slf = self;
-            signonCompletion = ^{[slf startGameDownload: gameId];};
-            [self goSignonView];
-        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
-        } else {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your game from the cloud.  Try again later.", nil)];               
-        }
-    } else {
-        NSString* gameId = (NSString*)requestContext.requestData;
-        if ([Game isCurrentGame:gameId]) {
-            [Game setCurrentGame:gameId];
-        }
-        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: [NSString stringWithFormat:@"The game was successfully downloaded to your %@.", IS_IPAD ? @"iPad" : @"iPhone"]];
-    }
+    [CloudClient2 downloadGame:gameId forTeam:[Team getCurrentTeam].cloudId atCompletion:^(CloudRequestStatus *status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopBusyDialog];
+            switch (status.code) {
+                case CloudRequestStatusCodeOk: {
+                    if ([Game isCurrentGame:gameId]) {
+                        [Game setCurrentGame:gameId];
+                    }
+                    [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+                    [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: [NSString stringWithFormat:@"The game was successfully downloaded to your %@.", IS_IPAD ? @"iPad" : @"iPhone"]];
+                    break;
+                }
+                case CloudRequestStatusCodeUnauthorized: {
+                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
+                        switch (signonStatus) {
+                            case SignonStatusOk:
+                                [self downloadGame:gameId];
+                                break;
+                            case SignonStatusError:
+                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
+                                break;
+                            default: // cancel
+                                break;
+                        }
+                    }];
+                    break;
+                }
+                default: {
+                    [self showErrorAlertForStatus: status isDownload: YES];
+                    break;
+                }
+            }
+        });
+    }];
 }
 
 #pragma mark - Download Team
 
--(void)startTeamDownload: (NSString*) cloudId {
+-(void)downloadTeam: (NSString*) cloudId {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(downloadTeamFromServer:) withObject:cloudId];
+    [CloudClient2 downloadTeam:cloudId atCompletion:^(CloudRequestStatus *status, NSString *teamId) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopBusyDialog];
+            switch (status.code) {
+                case CloudRequestStatusCodeOk: {
+                    [Team setCurrentTeam:nil];
+                    [Team setCurrentTeam:teamId];
+                    [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetTeamTab];
+                    [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
+                    [self populateViewFromModel];
+                    [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: [NSString stringWithFormat:@"The team was successfully downloaded to your %@.", IS_IPAD ? @"iPad" : @"iPhone"]];
+                    break;
+                }
+                case CloudRequestStatusCodeUnauthorized: {
+                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
+                        switch (signonStatus) {
+                            case SignonStatusOk:
+                                [self downloadTeam: cloudId];
+                                break;
+                            case SignonStatusError:
+                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
+                                break;
+                            default: // cancel
+                                break;
+                        }
+                    }];
+                    break;
+                }
+                default: {
+                    [self showErrorAlertForStatus: status isDownload: YES];
+                    break;
+                }
+            }
+        });
+    }];
 }
 
--(void)downloadTeamFromServer: (NSString*) cloudId {
-    NSError* requestError = nil;
-    NSString* teamId = [CloudClient downloadTeam: cloudId error:&requestError];
-    RequestContext* reqContext = requestError ? 
-                   [[RequestContext alloc] initWithReqData:cloudId responseData:nil error: requestError] :
-                   [[RequestContext alloc] initWithReqData:cloudId responseData:teamId];
-    [self performSelectorOnMainThread:@selector(handleTeamDownloadCompletion:) withObject:reqContext waitUntilDone:YES];
-}
+#pragma mark - Auto Upload Signon Verification (ensure that we are signed on to Google)
 
--(void)handleTeamDownloadCompletion: (RequestContext*) requestContext {
-    [self stopBusyDialog];
-    if ([requestContext hasError]) {
-        if ([requestContext getErrorCode] == Unauthorized) {
-            NSString* cloudId = (NSString*)requestContext.requestData;
-            __weak CloudViewController* slf = self;
-            signonCompletion = ^{[slf startTeamDownload: cloudId];};
-            [self goSignonView];
-        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: requestContext.errorExplanation];               
-        } else {
-            [self showCompleteAlert:NSLocalizedString(@"Download FAILED",nil) message: NSLocalizedString([requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to download your team from the cloud.  Try again later.", nil)];                   
-        }
-    } else {
-        NSString* teamId = (NSString*)requestContext.responseData;
-        [Team setCurrentTeam:nil];
-        [Team setCurrentTeam:teamId];
-        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetTeamTab];
-        [((AppDelegate*)[[UIApplication sharedApplication]delegate]) resetGameTab];
-        [self populateViewFromModel];
-        [self showCompleteAlert:NSLocalizedString(@"Download Complete",nil) message: [NSString stringWithFormat:@"The team was successfully downloaded to your %@.", IS_IPAD ? @"iPad" : @"iPhone"]];
-    }
-}
-
-#pragma mark - Auto Upload verification (signed on to Google)
-
-// use the getTeams endpoint to verify we have connectivity and signed on
-
--(void)startAutoUploadVerification {
+-(void)verfifySignedOnForAutoUploading {
     [self startBusyDialog];
-    [self performSelectorInBackground:@selector(verifyReadyForAutoUpload) withObject:nil];
+    // use the getTeams endpoint to verify we have connectivity and signed on
+    [CloudClient2 downloadTeamsAtCompletion:^(CloudRequestStatus *status, NSArray *teams) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopBusyDialog];
+            switch (status.code) {
+                case CloudRequestStatusCodeOk: {
+                    [self goGameAutoUploadConfirmed];
+                    break;
+                }
+                case CloudRequestStatusCodeUnauthorized: {
+                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
+                        switch (signonStatus) {
+                            case SignonStatusOk:
+                                [self verfifySignedOnForAutoUploading];
+                                break;
+                            case SignonStatusError:
+                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
+                                break;
+                            default: // cancel
+                                break;
+                        }
+                    }];
+                    break;
+                }
+                case CloudRequestStatusCodeUnacceptableAppVersion: {
+                    [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: status.explanation ? status.explanation :kDefaultInvalidAppVersionMessage];
+                    break;
+                }
+                case CloudRequestStatusCodeNotConnectedToInternet: {
+                    [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: kNoInternetMessage];
+                    break;
+                }
+                default: {
+                    NSString* message = @"We were unable to connect to the UltiAnalytics server to setup game auto-uploading.  Try again later.";
+                    [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: message];
+                    break;
+                }
+            }
+        });
+    }];
 }
-
--(void)verifyReadyForAutoUpload {
-    NSError* requestError = nil;
-    NSArray* teams = [CloudClient getTeams:&requestError];
-    RequestContext* reqContext = requestError ?
-    [[RequestContext alloc] initWithReqData:nil responseData:nil error: requestError] :
-    [[RequestContext alloc] initWithReqData:nil responseData:teams];
-    [self performSelectorOnMainThread:@selector(handleVerifyReadyForAutoUploadCompletion:)
-                           withObject:reqContext waitUntilDone:YES];
-}
-
--(void)handleVerifyReadyForAutoUploadCompletion: (RequestContext*) requestContext {
-    [self stopBusyDialog];
-    if ([requestContext hasError]) {
-        if ([requestContext getErrorCode] == Unauthorized) {
-            __weak CloudViewController* slf = self;
-            signonCompletion = ^{[slf goGameAutoUploadConfirmed];};
-            [self goSignonView];
-        } else if ([requestContext getErrorCode] == UnacceptableAppVersion) {
-            [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: requestContext.errorExplanation];
-        } else {
-            [self showCompleteAlert:@"Auto Game Uploading Setup FAILED" message: [requestContext getErrorCode] == NotConnectedToInternet ? kNoInternetMessage : @"We were unable to connect to the UltiAnalytics server to setup game auto-uploading.  Try again later."];
-        }
-    } else {
-        [self goGameAutoUploadConfirmed];
-    }
-}
-
 
 #pragma mark - Busy Dialog
 
@@ -379,6 +402,25 @@
 
 #pragma mark - Miscellaneous
 
+-(void)showErrorAlertForStatus: (CloudRequestStatus*) status isDownload: (BOOL)download {
+    NSString* title = download ? @"Download FAILED" : @"Upload FAILED";
+    switch (status.code) {
+        case CloudRequestStatusCodeUnacceptableAppVersion: {
+            [self showCompleteAlert:title message: status.explanation ? status.explanation :kDefaultInvalidAppVersionMessage];
+            break;
+        }
+        case CloudRequestStatusCodeNotConnectedToInternet: {
+            [self showCompleteAlert:title message: kNoInternetMessage];
+            break;
+        }
+        default: {
+            NSString* message = download ?  @"We were unable to download your data from the server.  Try again later." :  @"We were unable to upload your data to the server.  Try again later.";
+            [self showCompleteAlert:title message: message];
+            break;
+        }
+    }
+}
+
 -(void)dismissSignonController:(BOOL) isSignedOn email: (NSString*) userEmail {
     [Preferences getCurrentPreferences].userid = userEmail;
     [[Preferences getCurrentPreferences] save];
@@ -387,7 +429,7 @@
 }
 
 -(IBAction)signoffButtonClicked: (id) sender {
-    [CloudClient signOff];
+    [CloudClient2 signOff];
     [self populateViewFromModel];
 }
 
@@ -408,12 +450,12 @@
 }
 
 -(void)populateViewFromModel {
-    NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
+    NSString* websiteURL = [CloudClient2 getWebsiteURL: [Team getCurrentTeam]];
     self.websiteLabel.text = websiteURL == nil ?  @"Unknown...do upload" : websiteURL;
     self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.websiteCell.selectionStyle = websiteURL == nil ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleNone;
     NSString* userid = [Preferences getCurrentPreferences].userid;
-    NSString* adminURL = [NSString stringWithFormat:@"%@/team/admin", [CloudClient getBaseWebUrl]];
+    NSString* adminURL = [NSString stringWithFormat:@"%@/team/admin", [CloudClient2 getBaseWebUrl]];
     self.adminSiteLabel.text = adminURL;
     self.userUnknownLabel.hidden = userid != nil;
     self.userLabel.hidden = userid == nil;
@@ -452,7 +494,7 @@
     if (tableView == self.cloudTableView) {
         UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
         if (cell == self.websiteCell) {
-            NSString* websiteURL = [CloudClient getWebsiteURL: [Team getCurrentTeam]];
+            NSString* websiteURL = [CloudClient2 getWebsiteURL: [Team getCurrentTeam]];
             if (websiteURL != nil) {
                 NSURL *url = [NSURL URLWithString:websiteURL];
                 [[UIApplication sharedApplication] openURL:url];
@@ -461,7 +503,7 @@
             NSString* adminUrl = self.adminSiteLabel.text;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adminUrl]];
         } else if (cell == self.privacyPolicyCell) {
-            NSString* privacyPolicyUrl = [NSString stringWithFormat: @"%@/privacy.html", [CloudClient getBaseWebUrl]];
+            NSString* privacyPolicyUrl = [NSString stringWithFormat: @"%@/privacy.html", [CloudClient2 getBaseWebUrl]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
         }
     }
@@ -490,12 +532,12 @@
     [self populateViewFromModel];
     if  (teamDownloadController && teamDownloadController.selectedTeam) {
         if (teamDownloadController.selectedTeam) {
-            [self startTeamDownload: teamDownloadController.selectedTeam.cloudId];
+            [self downloadTeam: teamDownloadController.selectedTeam.cloudId];
         }
         teamDownloadController = nil;
     } else if  (gameDownloadController && gameDownloadController.selectedGame) {
         if (gameDownloadController.selectedGame) {
-            [self startGameDownload: gameDownloadController.selectedGame.gameId];
+            [self downloadGame: gameDownloadController.selectedGame.gameId];
         }
         gameDownloadController = nil;
     } 

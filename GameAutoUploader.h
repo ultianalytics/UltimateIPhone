@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-@class Game, Team;
+@class Game, Team, CloudRequestStatus;
 
 @interface GameAutoUploader : NSObject
 
-@property (nonatomic, readonly) BOOL errorsOnLastUpload;
+@property (nonatomic, readonly) CloudRequestStatus* lastUploadStatus;
 
 + (GameAutoUploader*)sharedUploader;
 
@@ -19,5 +19,6 @@
 -(void)submitGameForUpload: (Game*) game ofTeam:(Team*)team;
 -(void)flush;
 -(void)resetErrorsOnLastUpload;
+-(BOOL)errorOnLastUpload;
 
 @end

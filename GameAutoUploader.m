@@ -10,6 +10,7 @@
 #import "Game.h"
 #import "Team.h"
 #import "CloudClient.h"
+#import "CloudClient2.h"
 #import "Preferences.h"
 
 #define kAutoLoaderFileName     @"autoloader.dat"
@@ -36,7 +37,7 @@
 @property (nonatomic) NSTimeInterval lastUploadTime;
 @property (nonatomic) BOOL isNextUploadScheduledOrInProgress;  // transient...default is false
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundUploadTaskIdentifier;
-@property (nonatomic) BOOL errorsOnLastUpload;
+@property (nonatomic) CloudRequestStatus* lastUploadStatus;
 
 @end
 
@@ -93,22 +94,25 @@
 }
 
 -(void)resetErrorsOnLastUpload {
-    self.errorsOnLastUpload = NO;
+    self.lastUploadStatus = nil;
+}
+
+-(BOOL)errorOnLastUpload {
+    return self.lastUploadStatus && !self.lastUploadStatus.ok;
 }
 
 #pragma mark - Async Uploading
 
 -(void)sendUploadToServer: (GameUpload*) gameUpload {
-    // intended to be run on background background thread
     self.lastUploadTime = [NSDate timeIntervalSinceReferenceDate];
-    GameUpload* finishedGameUpload = nil;
     if (gameUpload) {
-        NSError* uploadError = nil;
-        [CloudClient uploadGame:gameUpload.gameId forTeam:gameUpload.teamId error:&uploadError];
-        self.errorsOnLastUpload = uploadError != nil;
-        finishedGameUpload = uploadError ? nil : gameUpload;
+        [CloudClient2 uploadGame:gameUpload.gameId forTeam:gameUpload.teamId completion:^(CloudRequestStatus *requestStatus) {
+            GameUpload* finishedGameUpload = requestStatus.ok ? gameUpload : nil;
+            self.lastUploadStatus = requestStatus;
+            [self uploadFinished:finishedGameUpload];
+        }];
     }
-    [self performSelectorOnMainThread:@selector(uploadFinished:) withObject:finishedGameUpload waitUntilDone:NO];
+
 }
 
 -(void)uploadFinished: (GameUpload*) gameUpload {
@@ -141,14 +145,9 @@
     @synchronized (self) {
         GameUpload* nextUpload = self.nextGameToUpload;
         if (nextUpload) {
-            __typeof(self) __weak weakSelf = self;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                @autoreleasepool {
-                    [weakSelf beginBackgroundUploadTask];
-                    [weakSelf sendUploadToServer:nextUpload];
-                    [weakSelf endBackgroundUploadTask];
-                }
-            });
+            [self beginBackgroundUploadTask];
+            [self sendUploadToServer:nextUpload];
+            [self endBackgroundUploadTask];
         }
     }
 }

@@ -37,6 +37,7 @@
 #import "LeaguevinePostingLog.h"
 #import "UIView+Convenience.h"
 #import "GameAutoUploader.h"
+#import "CloudRequestStatus.h"
 
 
 #define kConfirmNewGameAlertTitle @"Confirm Game Over"
@@ -109,6 +110,7 @@
 @property (nonatomic, strong) LeaguevineClient *leaguevineClient;
 @property (nonatomic, strong) ActionDetailsViewController* detailsController;
 @property (nonatomic, strong) GameHistoryController* eventsViewController;
+@property (nonatomic, strong) NSDate* lastAutoUploadWarning;
 
 @end
 
@@ -275,7 +277,7 @@
     }
 }
 
-- (void) updateBroacastingNotices {
+- (void) updateBroacastingNoticesWithWarning: (BOOL)shouldWarn {
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
     BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
     BOOL isAutoGameUploading = [Preferences getCurrentPreferences].gameAutoUpload;
@@ -283,23 +285,25 @@
     self.broadcast1ImageView.visible = isAutoGameUploading;
     self.broadcast2ImageView.visible = isAutoTweeting;
 
-    if ((isAutoTweeting || isAutoGameUploading || [self shouldPublishScoresToLeaguevine]) &&
-        [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
-        NSString* broadcastTarget;
-        if ([self shouldPublishScoresToLeaguevine]) {
-            broadcastTarget= isAutoTweeting ? isLeaguevinePosting ? @"auto-tweeting and posting scores to Leaguevine" : @"auto-tweeting" :
-            @"posting scores to Leaguevine";
-        } else {
-            broadcastTarget = isAutoTweeting ? isAutoGameUploading ? @"auto-tweeting and auto-uploading games" : @"auto-tweeting" :
-            @"auto-uploading games";
+    if (shouldWarn) {
+        if ((isAutoTweeting || isAutoGameUploading || [self shouldPublishScoresToLeaguevine]) &&
+            [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+            NSString* broadcastTarget;
+            if ([self shouldPublishScoresToLeaguevine]) {
+                broadcastTarget= isAutoTweeting ? isLeaguevinePosting ? @"auto-tweeting and posting scores to Leaguevine" : @"auto-tweeting" :
+                @"posting scores to Leaguevine";
+            } else {
+                broadcastTarget = isAutoTweeting ? isAutoGameUploading ? @"auto-tweeting and auto-uploading games" : @"auto-tweeting" :
+                @"auto-uploading games";
+            }
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: kNoInternetAlertTitle
+                                  message: [NSString stringWithFormat: @"Warning: You are %@ but we can't reach the internet.", broadcastTarget]
+                                  delegate: nil
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
         }
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: kNoInternetAlertTitle
-                              message: [NSString stringWithFormat: @"Warning: You are %@ but we can't reach the internet.", broadcastTarget]
-                              delegate: nil
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
     }
 }
 
@@ -318,7 +322,7 @@
     [self updateNavBarTitle];
     [[Game getCurrentGame] save];
     [self updateViewFromGame:[Game getCurrentGame]];
-    [self updateBroacastingNotices];
+    [self updateBroacastingNoticesWithWarning:NO];
     [self updateTimeoutsButton];
 }
 
@@ -855,10 +859,7 @@
     
     [self initializeDetailSelectionViewController];
     
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(updateBroacastingNotices)
-                                                 name: @"UIApplicationWillEnterForegroundNotification"
-                                               object: nil];
+    [self updateBroacastingNoticesWithWarning:YES];
 }
 
 - (void)viewDidUnload
@@ -1089,17 +1090,29 @@
 #pragma mark - Game Auto Upload
 
 - (void) warnAboutAutoGameUploadIfErrors {
-    if ([[GameAutoUploader sharedUploader] isAutoUploading] && [GameAutoUploader sharedUploader].errorsOnLastUpload) {
+    if ([[GameAutoUploader sharedUploader] isAutoUploading] && [GameAutoUploader sharedUploader].errorOnLastUpload) {
+        CloudRequestStatus* errorStatus = [GameAutoUploader sharedUploader].lastUploadStatus;
         [[GameAutoUploader sharedUploader] resetErrorsOnLastUpload];
-
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: kAutoUploadErrorTitle
-                              message: [NSString stringWithFormat: @"Game Upload is set to \"Auto\" but we are receiving errors when attempting to upload the game.\nPlease check your network connectivity and/or toggle the Game Upload setting (Website tab)."]
-                              delegate: nil
-                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
-                              otherButtonTitles: nil];
-        [alert show];
-
+        
+        // only warn the user if it is a recent error (don't want to bother them about ancient history)
+        BOOL isRecentError = ABS([errorStatus.timestamp timeIntervalSinceNow]) < 3600 * 3; // within 3 hours
+        // don't warn the user again if we just warned them
+        BOOL wasJustWarned = self.lastAutoUploadWarning != nil && ABS([self.lastAutoUploadWarning timeIntervalSinceNow]) < 60; // 1 minute
+        
+        if (isRecentError && !wasJustWarned) {
+            NSString* instructions = (errorStatus.code == CloudRequestStatusCodeUnauthorized) ?
+                @"It appears you need to refresh your signon.  Please go to the Website tab and toggle the Game Uploading switch" :
+                @"Please check your network connectivity or turn-off auto-uploading (Website tab, Game Uploading switch)";
+            self.lastAutoUploadWarning = [NSDate date];
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: kAutoUploadErrorTitle
+                                  message: [NSString stringWithFormat: @"Game Uploading is set to \"Auto\" but we are receiving errors when attempting to upload the game.\n\n%@.", instructions]
+                                  delegate: nil
+                                  cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                                  otherButtonTitles: nil];
+            [alert show];
+            
+        };
     }
 }
 

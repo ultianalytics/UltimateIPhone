@@ -307,6 +307,10 @@
 		3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */; };
 		3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2719D97C34002762D1 /* CloudClient2.m */; };
 		3832DD2B19DAD6BA002762D1 /* CloudRequestStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */; };
+		383F17D519E552B400FC6541 /* browser-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D119E552B400FC6541 /* browser-back.png */; };
+		383F17D619E552B400FC6541 /* browser-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D219E552B400FC6541 /* browser-back@2x.png */; };
+		383F17D719E552B400FC6541 /* browser-forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D319E552B400FC6541 /* browser-forward.png */; };
+		383F17D819E552B400FC6541 /* browser-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D419E552B400FC6541 /* browser-forward@2x.png */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -833,6 +837,10 @@
 		3832DD2719D97C34002762D1 /* CloudClient2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudClient2.m; sourceTree = "<group>"; };
 		3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudRequestStatus.h; sourceTree = "<group>"; };
 		3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudRequestStatus.m; sourceTree = "<group>"; };
+		383F17D119E552B400FC6541 /* browser-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-back.png"; sourceTree = "<group>"; };
+		383F17D219E552B400FC6541 /* browser-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-back@2x.png"; sourceTree = "<group>"; };
+		383F17D319E552B400FC6541 /* browser-forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-forward.png"; sourceTree = "<group>"; };
+		383F17D419E552B400FC6541 /* browser-forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-forward@2x.png"; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1870,6 +1878,10 @@
 		38E5EBA019CDB9F300E7C6DF /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				383F17D119E552B400FC6541 /* browser-back.png */,
+				383F17D219E552B400FC6541 /* browser-back@2x.png */,
+				383F17D319E552B400FC6541 /* browser-forward.png */,
+				383F17D419E552B400FC6541 /* browser-forward@2x.png */,
 				38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */,
 				38FD2FE31997F30800CE83BB /* left-caret-green.png */,
 				38FD2FE41997F30800CE83BB /* left-caret-green@2x.png */,
@@ -1980,6 +1992,7 @@
 				1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */,
 				38E5EB9C19CC960900E7C6DF /* broadcast-leaguevine@2x.png in Resources */,
 				1AA37BF418B14D4000CE9662 /* passer-arrow@2x.png in Resources */,
+				383F17D519E552B400FC6541 /* browser-back.png in Resources */,
 				1AFFE7E315175E7B004B4590 /* 19-gear@2x.png in Resources */,
 				1AA37BA218A857BC00CE9662 /* white200radius3@2x.png in Resources */,
 				1AFFE7E415175E7B004B4590 /* 63-runner.png in Resources */,
@@ -2059,6 +2072,7 @@
 				1AFFE8C615175EB0004B4590 /* what.png in Resources */,
 				38AA38A919C32F1400C6CF9A /* backward.png in Resources */,
 				1AFFE8CA15175EB0004B4590 /* WindViewController.xib in Resources */,
+				383F17D819E552B400FC6541 /* browser-forward@2x.png in Resources */,
 				381BC46E19B3663800CD8C20 /* play-direction-their-team-left.png in Resources */,
 				381BC48319B7E95400CD8C20 /* broadcasting@2x.png in Resources */,
 				3870812B19BFCD8E001174CB /* broadcasting-small@2x.png in Resources */,
@@ -2092,6 +2106,7 @@
 				1A0124F4153BDA3200C2DDC0 /* GameDownloadPickerViewController.xib in Resources */,
 				38AA38AF19C32F1400C6CF9A /* forward.png in Resources */,
 				1AA37BB818A9185100CE9662 /* 19-circle-check.png in Resources */,
+				383F17D719E552B400FC6541 /* browser-forward.png in Resources */,
 				1AA37BBB18A9185100CE9662 /* 26-checkmark@2x.png in Resources */,
 				381BC44F19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard in Resources */,
 				3870812F19C07587001174CB /* broadcasting-small-dark@2x.png in Resources */,
@@ -2142,6 +2157,7 @@
 				1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */,
 				1AC6613817164CB500DCFF58 /* 137-presentation@2x.png in Resources */,
 				1A047EFC171E4CE7006DE1C9 /* stopwatch1.png in Resources */,
+				383F17D619E552B400FC6541 /* browser-back@2x.png in Resources */,
 				1A047EFE171E4D04006DE1C9 /* finishflag.png in Resources */,
 				38B2CE7019A17628008BE91B /* PlayerView~ipad.xib in Resources */,
 				38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */,

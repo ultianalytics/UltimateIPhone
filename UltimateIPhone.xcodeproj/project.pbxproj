@@ -124,8 +124,6 @@
 		1ABC74CD190414F000D60660 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C6190414F000D60660 /* zip.c */; };
 		1ABC74CE190414F000D60660 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC74C9190414F000D60660 /* SSZipArchive.m */; };
 		1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */; };
-		1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */; };
-		1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */; };
 		1AC6613317164B1800DCFF58 /* TimeoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC6613117164B1800DCFF58 /* TimeoutViewController.m */; };
 		1AC6613417164B1800DCFF58 /* TimeoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6613217164B1800DCFF58 /* TimeoutViewController.xib */; };
 		1AC6613717164CB500DCFF58 /* 137-presentation.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6613517164CB500DCFF58 /* 137-presentation.png */; };
@@ -196,7 +194,6 @@
 		1AFFE7F415175E7B004B4590 /* beaten.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7CF15175E7B004B4590 /* beaten.png */; };
 		1AFFE7F515175E7B004B4590 /* big_smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D015175E7B004B4590 /* big_smile.png */; };
 		1AFFE7F615175E7B004B4590 /* black_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D115175E7B004B4590 /* black_heart.png */; };
-		1AFFE7F815175E7B004B4590 /* CloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D415175E7B004B4590 /* CloudClient.m */; };
 		1AFFE7F915175E7B004B4590 /* ColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D615175E7B004B4590 /* ColorButton.m */; };
 		1AFFE7FA15175E7B004B4590 /* ColorMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7D815175E7B004B4590 /* ColorMaster.m */; };
 		1AFFE7FB15175E7B004B4590 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFFE7DA15175E7B004B4590 /* Constants.m */; };
@@ -567,9 +564,6 @@
 		1ABC74C9190414F000D60660 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		1AC1C6CD1540D247001F82CF /* UltimateSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UltimateSegmentedControl.h; sourceTree = "<group>"; };
 		1AC1C6CE1540D247001F82CF /* UltimateSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UltimateSegmentedControl.m; sourceTree = "<group>"; };
-		1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewSignonController.h; sourceTree = "<group>"; };
-		1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewSignonController.m; sourceTree = "<group>"; };
-		1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewSignonController.xib; sourceTree = "<group>"; };
 		1AC6613017164B1800DCFF58 /* TimeoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeoutViewController.h; sourceTree = "<group>"; };
 		1AC6613117164B1800DCFF58 /* TimeoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeoutViewController.m; sourceTree = "<group>"; };
 		1AC6613217164B1800DCFF58 /* TimeoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeoutViewController.xib; sourceTree = "<group>"; };
@@ -668,8 +662,6 @@
 		1AFFE7CF15175E7B004B4590 /* beaten.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beaten.png; sourceTree = "<group>"; };
 		1AFFE7D015175E7B004B4590 /* big_smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = big_smile.png; sourceTree = "<group>"; };
 		1AFFE7D115175E7B004B4590 /* black_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_heart.png; sourceTree = "<group>"; };
-		1AFFE7D315175E7B004B4590 /* CloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudClient.h; sourceTree = "<group>"; };
-		1AFFE7D415175E7B004B4590 /* CloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudClient.m; sourceTree = "<group>"; };
 		1AFFE7D515175E7B004B4590 /* ColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorButton.h; sourceTree = "<group>"; };
 		1AFFE7D615175E7B004B4590 /* ColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButton.m; sourceTree = "<group>"; };
 		1AFFE7D715175E7B004B4590 /* ColorMaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMaster.h; sourceTree = "<group>"; };
@@ -949,16 +941,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A00013A1517697500600916 /* Signon */ = {
-			isa = PBXGroup;
-			children = (
-				1AC309FD15BAFA65006362A3 /* WebViewSignonController.h */,
-				1AC309FE15BAFA65006362A3 /* WebViewSignonController.m */,
-				1AC30A0115BAFD0A006362A3 /* WebViewSignonController.xib */,
-			);
-			name = Signon;
-			sourceTree = "<group>";
-		};
 		1A00013B151769AE00600916 /* Sound Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -1311,7 +1293,6 @@
 				1A2DA03815458AB800D59B29 /* Reachability */,
 				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
-				3832DD2219D8DF70002762D1 /* Cloud2 */,
 				1AFFE8D11517643A004B4590 /* Model */,
 				1A4C42B31609DA110067BB96 /* Leaguevine */,
 				1AFFE8DE151764E0004B4590 /* Stats */,
@@ -1380,7 +1361,6 @@
 				1AE5C6EB178ED33800B604FE /* Callouts */,
 				1A999EF816062E990015B891 /* LeagueVine */,
 				1AE669EF1521534B000965B5 /* Cloud */,
-				1A00013A1517697500600916 /* Signon */,
 				1AF34E7915176A260065A16D /* Stats */,
 				1AEE549F1529442E0067F539 /* Twitter */,
 				1AFFE8DC151764D9004B4590 /* Game */,
@@ -1444,8 +1424,12 @@
 		1AFFE8D215176449004B4590 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				1AFFE7D315175E7B004B4590 /* CloudClient.h */,
-				1AFFE7D415175E7B004B4590 /* CloudClient.m */,
+				3832DD2619D97C34002762D1 /* CloudClient2.h */,
+				3832DD2719D97C34002762D1 /* CloudClient2.m */,
+				3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */,
+				3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */,
+				3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */,
+				3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */,
 				1AACE07915974D87004C03A1 /* CloudMetaInfo.h */,
 				1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */,
 				38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */,
@@ -1711,19 +1695,6 @@
 			);
 			name = "Google Fetcher Library";
 			path = "gtm-http-fetcher";
-			sourceTree = "<group>";
-		};
-		3832DD2219D8DF70002762D1 /* Cloud2 */ = {
-			isa = PBXGroup;
-			children = (
-				3832DD2619D97C34002762D1 /* CloudClient2.h */,
-				3832DD2719D97C34002762D1 /* CloudClient2.m */,
-				3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */,
-				3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */,
-				3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */,
-				3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */,
-			);
-			name = Cloud2;
 			sourceTree = "<group>";
 		};
 		384C2D7F19A7F60700EE8290 /* Game Action - Positional */ = {
@@ -2129,7 +2100,6 @@
 				1AE52B4D15A13FC8003EF5E6 /* passser-arrow.png in Resources */,
 				1AE52B4E15A13FC8003EF5E6 /* passser-arrow@2x.png in Resources */,
 				1AA37BAC18A8619700CE9662 /* color2E4C00Radius3.png in Resources */,
-				1AC30A0215BAFD0A006362A3 /* WebViewSignonController.xib in Resources */,
 				3870813319C07944001174CB /* twitter-bird-dark.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
@@ -2217,7 +2187,6 @@
 				1AFFE7EF15175E7B004B4590 /* AnonymousPlayer.m in Sources */,
 				1AFFE7F015175E7B004B4590 /* AppDelegate.m in Sources */,
 				1AFFE7F115175E7B004B4590 /* ArrowView.m in Sources */,
-				1AFFE7F815175E7B004B4590 /* CloudClient.m in Sources */,
 				1AFFE7F915175E7B004B4590 /* ColorButton.m in Sources */,
 				1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */,
 				381BC47419B36A0700CD8C20 /* PlayDirectionView.m in Sources */,
@@ -2290,7 +2259,6 @@
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 				1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */,
 				38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */,
-				1AC309FF15BAFA65006362A3 /* WebViewSignonController.m in Sources */,
 				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 				1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */,
 				1ABC74CC190414F000D60660 /* unzip.c in Sources */,

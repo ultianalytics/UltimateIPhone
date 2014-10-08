@@ -8,7 +8,9 @@
 
 #import "RequestContext.h"
 #import "CloudMetaInfo.h"
-#import "CloudClient.h"
+
+
+#define kCloudErrorExplanationKey @"CloudErrorExplanation"
 
 @interface RequestContext() 
 

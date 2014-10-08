@@ -14,11 +14,11 @@
 #import "LeagueVineSelectorSeasonViewController.h"
 #import "LeagueVineSelectorTeamViewController.h"
 #import "LeaguevineSelectorAbstractViewController.h"
-#import "CloudClient.h"
 #import "Team.h"
 #import "LeaguevineTeam.h"
 #import "LeaguevineSeason.h"
 #import "LeaguevineLeague.h"
+#import "CloudClient2.h"
 
 #define kHeaderHeight 30
 
@@ -219,7 +219,7 @@
 #pragma mark - Error alerting
 
 -(BOOL)verifyConnected {
-    if ([CloudClient isConnected]) {
+    if ([CloudClient2 isConnected]) {
         return YES;
     } else {
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Error talking to Leaguevine"

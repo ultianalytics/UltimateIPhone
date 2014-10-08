@@ -8,7 +8,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Preferences.h"
 #import "ColorMaster.h"
-#import "WebViewSignonController.h"
 #import "TeamDownloadPickerViewController.h"
 #import "GameDownloadPickerViewController.h"
 #import "GameUploadPickerViewController.h"
@@ -88,13 +87,6 @@
 }
 
 #pragma mark - Navigation
-
--(void)goSignonView{
-    WebViewSignonController* signonController = [[WebViewSignonController alloc] init];
-    UINavigationController* signonNavController = [[UINavigationController alloc] initWithRootViewController:signonController];
-    signonController.delegate = self;
-    [self presentViewController:signonNavController animated:YES completion:nil];
-}
 
 -(void)goTeamPickerView: (NSArray*) teams {
     teamDownloadController = [[TeamDownloadPickerViewController alloc] init];
@@ -419,13 +411,6 @@
             break;
         }
     }
-}
-
--(void)dismissSignonController:(BOOL) isSignedOn email: (NSString*) userEmail {
-    [Preferences getCurrentPreferences].userid = userEmail;
-    [[Preferences getCurrentPreferences] save];
-    void (^completionBlock)() = isSignedOn ? signonCompletion : nil;
-    [self.presentedViewController dismissViewControllerAnimated:NO completion:completionBlock];
 }
 
 -(IBAction)signoffButtonClicked: (id) sender {

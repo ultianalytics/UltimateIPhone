@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "LeagueVineSignonViewController.h" 
 #import "ColorMaster.h"
-#import "CloudClient.h"
+#import "CloudClient2.h"
 #import "Reachability.h"
 #import "CalloutsContainerView.h"
 #import "CalloutView.h"
@@ -144,7 +144,7 @@
 }
 
 -(BOOL)isNetworkAvailable {
-    if (![CloudClient isConnected]) {
+    if (![CloudClient2 isConnected]) {
         [self showAlert:@"No Internet Access" message: @"We are not able to connect to Leaguevine.com.  Please make sure you have Internet access."];
         return NO;
     } else {

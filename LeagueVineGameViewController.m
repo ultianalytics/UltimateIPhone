@@ -13,7 +13,7 @@
 #import "LeagueVineSelectorTournamentViewController.h"
 #import "LeagueVineSelectorGameViewController.h"
 #import "LeaguevineSelectorAbstractViewController.h"
-#import "CloudClient.h"
+#import "CloudClient2.h"
 #import "Team.h"
 #import "LeaguevineTeam.h"
 #import "LeaguevineTournament.h"
@@ -196,7 +196,7 @@
 #pragma mark - Error alerting
 
 -(BOOL)verifyConnected {
-    if ([CloudClient isConnected]) {
+    if ([CloudClient2 isConnected]) {
         return YES;
     } else {
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"Error talking to Leaguevine"

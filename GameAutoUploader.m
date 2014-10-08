@@ -9,7 +9,6 @@
 #import "GameAutoUploader.h"
 #import "Game.h"
 #import "Team.h"
-#import "CloudClient.h"
 #import "CloudClient2.h"
 #import "Preferences.h"
 

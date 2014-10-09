@@ -21,6 +21,7 @@
 #define kPlayersKey             @"players"
 #define kNameKey                @"name"
 #define kIsMixedKey             @"mixed"
+#define kIsAutoUploading            @"autoUploading"
 #define kLeagueVineTeamAsJsonKey      @"leaguevineJson"
 #define kPlayersAreLeaguevineKey      @"playersAreLeaguevine"
 #define kDisplayPlayerNumberKey @"displayPlayerNumber"
@@ -245,6 +246,7 @@ static Team* currentTeam = nil;
         self.cloudId = [decoder decodeObjectForKey:kCloudIdKey];
         self.leaguevineTeam = [decoder decodeObjectForKey:kLeaguevineTeamKey];
         self.arePlayersFromLeagueVine = [decoder decodeBoolForKey:kPlayersAreLeaguevineKey];
+        self.isAutoUploading = [decoder decodeBoolForKey:kIsAutoUploading];
     } 
     return self; 
 } 
@@ -258,6 +260,7 @@ static Team* currentTeam = nil;
     [encoder encodeObject:self.cloudId forKey:kCloudIdKey];
     [encoder encodeObject:self.leaguevineTeam forKey:kLeaguevineTeamKey];
     [encoder encodeBool:self.arePlayersFromLeagueVine forKey:kPlayersAreLeaguevineKey];
+    [encoder encodeBool:self.isAutoUploading forKey:kIsAutoUploading];    
 } 
 
 -(void)save {

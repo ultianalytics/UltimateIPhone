@@ -372,7 +372,7 @@ static Game* currentGame = nil;
 
 -(void)saveWithUpload {
     [self save];
-    if ([Preferences getCurrentPreferences].gameAutoUpload) {
+    if ([Team getCurrentTeam].isAutoUploading) {
         [[GameAutoUploader sharedUploader] submitGameForUpload:self ofTeam:[Team getCurrentTeam]];
     }
 }

@@ -89,7 +89,7 @@
 }
 
 -(BOOL)isAutoUploading {
-    return [Preferences getCurrentPreferences].gameAutoUpload;
+    return [Team getCurrentTeam].isAutoUploading;
 }
 
 -(void)resetErrorsOnLastUpload {

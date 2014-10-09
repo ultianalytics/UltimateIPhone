@@ -80,15 +80,16 @@
     if (shouldAutoUpdate) {
         [self verfifySignedOnForAutoUploading];
     } else {
-        [Preferences getCurrentPreferences].gameAutoUpload = NO;
-        [[Preferences getCurrentPreferences] save];
+        [Team getCurrentTeam].isAutoUploading = NO;
+        [[Team getCurrentTeam] save];
         [self populateViewFromModel];
     }
 }
 
 -(IBAction)signoffButtonClicked: (id) sender {
     [CloudClient2 signOff];
-    [Preferences getCurrentPreferences].gameAutoUpload = NO;
+    [Team getCurrentTeam].isAutoUploading = NO;
+    [[Team getCurrentTeam] save];
     [self populateViewFromModel];
 }
 
@@ -121,10 +122,10 @@
 }
 
 -(void)goGameAutoUploadConfirmed {
-    [Preferences getCurrentPreferences].gameAutoUpload = YES;
-    [[Preferences getCurrentPreferences] save];
+    [Team getCurrentTeam].isAutoUploading = YES;
+    [[Team getCurrentTeam] save];
     [self populateViewFromModel];
-    [self.view makeToast:@"Game data will now be\nperiodically uploaded to\nthe website as you\nrecord actions."
+    [self.view makeToast:@"Game data for this team\nwill now be periodically\nuploaded to the website\n as you record actions."
                     duration:5.0
                     position:@"center"
                     title:@"Auto Uploading Started"
@@ -346,8 +347,8 @@
 
 -(void)verfifySignedOnForAutoUploading {
     [self startBusyDialog];
-    // use the getTeams endpoint to verify we have connectivity and signed on
-    [CloudClient2 downloadTeamsAtCompletion:^(CloudRequestStatus *status, NSArray *teams) {
+    // use the upload team endpoint to verify we have connectivity and signed on (and that the team has been uploaded at least once)
+    [CloudClient2 uploadTeam:[Team getCurrentTeam] completion:^(CloudRequestStatus *status) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self stopBusyDialog];
             switch (status.code) {
@@ -451,13 +452,12 @@
     self.signoffButton.hidden = userid == nil;
     [self.cloudTableView reloadData];
     [self.scrubberSwitch setOn:[Scrubber currentScrubber].isOn];
-    self.autoUploadSegmentedControl.selectedSegmentIndex = [Preferences getCurrentPreferences].gameAutoUpload ? 1 : 0;
+    self.autoUploadSegmentedControl.selectedSegmentIndex = [Team getCurrentTeam].isAutoUploading ? 1 : 0;
 #ifdef DEBUG
     self.scrubberView.hidden = NO;
 #endif
     
 }
-
 
 #pragma mark - Table handling
 

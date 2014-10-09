@@ -19,7 +19,6 @@
 #define kLeaguevineTokenKey     @"leagevineToken"
 #define kTimeoutPerHalfKey      @"timeoutPerHalf"
 #define kTimeoutFloaterKey      @"timeoutFloater"
-#define kGameAutoUploadKey      @"gameAutoUpload"
 #define kDefaultGamePoint       13
 #define kDefaultTimeoutsPerHalf 2
 #define kMinGamePoint           9
@@ -54,8 +53,7 @@ static Preferences* currentPreferences= nil;
         self.leaguevineToken = [decoder decodeObjectForKey:kLeaguevineTokenKey];
         self.timeoutsPerHalf = [decoder decodeIntForKey:kTimeoutPerHalfKey];
         self.timeoutFloaters = [decoder decodeIntForKey:kTimeoutFloaterKey];
-        self.gameAutoUpload = [decoder decodeBoolForKey:kGameAutoUploadKey];
-    } 
+    }
     return self; 
 } 
 
@@ -70,8 +68,7 @@ static Preferences* currentPreferences= nil;
     [encoder encodeObject:self.leaguevineToken forKey:kLeaguevineTokenKey];
     [encoder encodeInt:self.timeoutsPerHalf forKey:kTimeoutPerHalfKey];
     [encoder encodeInt:self.timeoutFloaters forKey:kTimeoutFloaterKey];
-    [encoder encodeBool:self.gameAutoUpload forKey:kGameAutoUploadKey];
-} 
+}
 
 +(Preferences*)getCurrentPreferences {
     @synchronized(self) {

@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSString* cloudId;
 @property (nonatomic, strong) LeaguevineTeam* leaguevineTeam;
 @property (nonatomic) BOOL arePlayersFromLeagueVine;
+@property (nonatomic) BOOL isAutoUploading;  // server transient
 
 +(Team*)getCurrentTeam;
 +(Team*)readTeam: (NSString*) teamId;

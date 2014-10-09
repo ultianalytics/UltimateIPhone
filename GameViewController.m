@@ -280,7 +280,7 @@
 - (void) updateBroacastingNoticesWithWarning: (BOOL)shouldWarn {
     BOOL isAutoTweeting = [Tweeter getCurrent].isTweetingEvents;
     BOOL isLeaguevinePosting = [self shouldPublishToLeaguevine];
-    BOOL isAutoGameUploading = [Preferences getCurrentPreferences].gameAutoUpload;
+    BOOL isAutoGameUploading = [Team getCurrentTeam].isAutoUploading;
     self.broadcast0ImageView.visible = isLeaguevinePosting;
     self.broadcast1ImageView.visible = isAutoGameUploading;
     self.broadcast2ImageView.visible = isAutoTweeting;

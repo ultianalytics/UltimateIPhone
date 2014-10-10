@@ -105,13 +105,13 @@
 -(void)sendUploadToServer: (GameUpload*) gameUpload {
     self.lastUploadTime = [NSDate timeIntervalSinceReferenceDate];
     if (gameUpload) {
-        [CloudClient2 uploadGame:gameUpload.gameId forTeam:gameUpload.teamId completion:^(CloudRequestStatus *requestStatus) {
+        Team* team = [Team readTeam:gameUpload.teamId];
+        [CloudClient2 uploadTeam:team withGames:@[gameUpload.gameId]  completion:^(CloudRequestStatus *requestStatus) {
             GameUpload* finishedGameUpload = requestStatus.ok ? gameUpload : nil;
             self.lastUploadStatus = requestStatus;
             [self uploadFinished:finishedGameUpload];
         }];
     }
-
 }
 
 -(void)uploadFinished: (GameUpload*) gameUpload {

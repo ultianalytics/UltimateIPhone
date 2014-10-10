@@ -194,7 +194,7 @@
     NSError* marshallError = nil;
     NSData* objectAsJson = [NSJSONSerialization dataWithJSONObject:objectAsDictionary options:0 error:&marshallError];
     if (marshallError) {
-        SHSLog(@"Error attempting to marshall object to JSON for upload: %@", marshallError);
+        SHSLog(@"Error attempting to marshall object %@ to JSON for upload: %@", objectAsDictionary, marshallError);
         completion([CloudRequestStatus status: CloudRequestStatusCodeMarshallingError], nil);
     } else {
         [self postData:objectAsJson toUrl:relativeUrl completion:^(CloudRequestStatus *requestStatus, NSData *responseData) {

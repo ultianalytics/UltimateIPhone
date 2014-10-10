@@ -10,6 +10,7 @@
 #import "TweetQueue.h"
 #import "Tweet.h"
 #import "Tweeter.h"
+#import "SHSAnalytics.h"
 
 #define kSendWaitSeconds 10.0
 #define kTimerIntervalSeconds 3.0
@@ -118,6 +119,7 @@ static TweetQueue* current = nil;
 }
 
 -(void)sendTweet: (Tweet*) tweet toAccount: (ACAccount*) twitterAccount {
+    [[SHSAnalytics sharedAnalytics] logEvent:kAnalyticsGameAutoTweeted ifFirstForGame: YES];
 //    SHSLog(@"Sending tweet %@ to twitter", tweet.message);
     @try {
         // Build a twitter request

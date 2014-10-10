@@ -18,6 +18,7 @@
 #import "Team.h"
 #import "Preferences.h"
 #import "NSDictionary+JSON.h"
+#import "SHSAnalytics.h"
 
 #define BASE_API_URL @"https://api.leaguevine.com/v1/"
 
@@ -198,6 +199,7 @@
 #pragma mark private Post methods
 
 -(LeaguevineInvokeStatus)postEventRequest: (NSMutableURLRequest*) request forEvent: (LeaguevineEvent*) leaguevineEvent {
+    [[SHSAnalytics sharedAnalytics] logEvent:kAnalyticsGameScorePostedToLeaguevine ifFirstForGame:YES];
     NSString* leaguevineToken = [Preferences getCurrentPreferences].leaguevineToken;
     if (![leaguevineToken isNotEmpty]) {
         return LeaguevineInvokeCredentialsRejected;
@@ -267,6 +269,7 @@
 }
 
 -(void)postGameScore: (NSMutableURLRequest*) request completion: (void (^)(LeaguevineInvokeStatus, id result)) finishedBlock {
+    [[SHSAnalytics sharedAnalytics] logEvent:kAnalyticsGameScorePostedToLeaguevine ifFirstForGame:YES];
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* sendError) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (sendError != nil || httpResponse.statusCode < 200) {

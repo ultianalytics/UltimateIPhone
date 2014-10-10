@@ -32,6 +32,7 @@
 #import "UIViewController+Additions.h"
 #import "CalloutsContainerView.h"
 #import "UIView+Convenience.h"
+#import "SHSAnalytics.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
@@ -269,6 +270,7 @@
         } else {
             [self goToActionView];
         }
+        [[SHSAnalytics sharedAnalytics] logGameStart];
     }
 }
 

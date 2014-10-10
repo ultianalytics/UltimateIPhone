@@ -19,6 +19,7 @@
 #import "Wind.h"
 #import "Player.h"
 #import "UPoint.h"
+#import "SHSAnalytics.h"
 
 #pragma mark - Private Method Category
 

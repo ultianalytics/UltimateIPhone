@@ -7,6 +7,7 @@
 //
 
 #import "UploadDownloadTracker.h"
+#import "SHSAnalytics.h"
 
 #define kUploadDownloadTrackerKey   @"uploadDownloadTracker"
 #define kUploadDownloadLookupKey    @"uploadDownloadLookup"
@@ -33,6 +34,9 @@
 +(void)updateLastUploadOrDownloadTime: (NSTimeInterval)timestamp forGameId: (NSString*)gameId inTeamId: (NSString*)teamId {
     @synchronized (self) {
         UploadDownloadTracker* tracker = [self readTeamTracker:teamId];
+        if ([tracker lastUploadOrDownloadForGameId:gameId] == 0) {
+            [[SHSAnalytics sharedAnalytics] logEvent:kAnalyticsGameFirstUpload];
+        }
         [tracker updateLastUploadOrDownloadTime:timestamp ForGameId:gameId];
         [tracker save];
     };

@@ -21,6 +21,7 @@
 #import "Reachability.h"
 #import "BufferedNavigationController.h"
 #import "GameAutoUploader.h"
+#import "SHSAnalytics.h"
 
 @interface AppDelegate ()
 
@@ -42,6 +43,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[SHSAnalytics sharedAnalytics] initializeAnalytics];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

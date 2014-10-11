@@ -137,10 +137,12 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.title = NSLocalizedString(@"Games", @"Games");
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if (IS_IPHONE) {
         [self reset];
     }

@@ -23,6 +23,7 @@
 @implementation GameStartTimeViewController
 
 -(void)viewDidLoad {
+    [super viewDidLoad];
     self.title = @"Start Date/Time";
     self.datePicker.date = self.date ? self.date : [NSDate date];
 }

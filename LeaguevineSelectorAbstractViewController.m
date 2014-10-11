@@ -53,10 +53,6 @@
     [super viewDidUnload];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-
-}
-
 #pragma mark TableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

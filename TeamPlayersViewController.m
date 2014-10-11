@@ -182,6 +182,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if ([[Team getCurrentTeam] isLeaguevineTeam]) {
         if (!([self.players count] > 0) && ![[Team getCurrentTeam] arePlayersFromLeagueVine]) {
             if (!self.hasShownLVPlayerStatsCallout) {

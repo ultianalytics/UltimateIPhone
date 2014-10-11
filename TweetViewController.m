@@ -151,8 +151,8 @@
     [self.tweetTextView becomeFirstResponder]; // makes the text view "in focus" and shows the keyboard
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self checkAccountAvailable];
 }
 

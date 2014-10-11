@@ -180,6 +180,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     // if the app is starting go to the current team view (don't make the user pick the only team they probably have)
     if (IS_IPHONE && !self.hasAppearedPreviously) {
         self.hasAppearedPreviously = YES;
@@ -190,6 +191,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.firstTimeUsageCallouts removeFromSuperview];
 }
 

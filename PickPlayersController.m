@@ -43,7 +43,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *clearButton;
 @property (nonatomic, weak) IBOutlet UIButton *substitutionButton;
 @property (nonatomic, weak) IBOutlet UILabel* errorMessageLabel;
-@property (nonatomic, strong) IBOutlet UILabel* goalScoredOverlay;
+@property (nonatomic, weak) IBOutlet UILabel* goalScoredOverlay;
 
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
 @property (nonatomic, strong) CalloutsContainerView *infoCalloutsView;
@@ -189,7 +189,7 @@
         newPlayer.isMale ? male++ : female++;
         for (int i = 0; i < 7; i++) {
             PlayerButton* fieldButton = [fieldButtons objectAtIndex:i];
-            Player* player = [fieldButton getPlayer];
+            Player* player = fieldButton.player;
             if (player) {
                 player.isMale ? male++ : female++;
                 if ((male > 4 && newPlayer.isMale) || (female > 4 && !newPlayer.isMale)) {
@@ -207,8 +207,8 @@
 - (void) updateGameCurrentLineFromView {
     [[Game getCurrentGame] clearCurrentLine];
     for (PlayerButton* playerButton in self.fieldButtons) {
-        if ([playerButton getPlayer] != nil) {
-            [[[Game getCurrentGame] currentLine] addObject:[playerButton getPlayer]];
+        if (playerButton.player != nil) {
+            [[[Game getCurrentGame] currentLine] addObject:playerButton.player];
         }
     }
 }
@@ -311,15 +311,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
-    [self setClearButton:nil];
-    [self setSubstitutionButton:nil];
-    [self setSubstitutionTableView:nil];
-    [self setSubstitutionsView:nil];
-    [self setUndoSubstitutionButton:nil];
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -348,9 +339,9 @@
     }
 }
 
-- (void)fieldPlayerClicked:(id)fieldButton
+- (void)fieldPlayerClicked:(PlayerButton*)fieldButton
 {
-    Player* player = [fieldButton getPlayer];
+    Player* player = fieldButton.player;
     [[[Game getCurrentGame] currentLine] removeObject:player];
     
     [fieldButton setPlayer:nil];
@@ -361,14 +352,14 @@
     }
 }
 
-- (void)benchPlayerClicked:(id)benchButton {
+- (void)benchPlayerClicked:(PlayerButton*)benchButton {
     if ([[[Game getCurrentGame] currentLine] count] >= 7) {
         [SoundPlayer playMaxPlayersAlreadyOnField];
-    } else if (![self willGenderBeUnbalanced: [benchButton getPlayer]]) {
+    } else if (![self willGenderBeUnbalanced: benchButton.player]) {
         for (int i = 0; i < 7; i++) {
             PlayerButton* fieldButton = [fieldButtons objectAtIndex:i];
-            if (![fieldButton getPlayer]) {
-                Player* player = [benchButton getPlayer];
+            if (!fieldButton.player) {
+                Player* player = benchButton.player;
                 [self setPlayer:player inButton:fieldButton];
                 [self setPlayer:nil inButton:benchButton];
                 [self updateGameCurrentLineFromView];

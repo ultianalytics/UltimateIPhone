@@ -14,18 +14,28 @@
 
 #define NUMBER_OF_BUTTON_COLORS 7
 
+@interface PlayerButton ()
+
+@property (nonatomic, strong) IBOutlet UIButton* button;
+@property (nonatomic, strong) IBOutlet UILabel* nameLabel;
+@property (nonatomic, strong) IBOutlet UILabel* positionLabel;
+@property (nonatomic, strong) IBOutlet UILabel* pointsLabel;
+@property (nonatomic, strong) IBOutlet UIImageView* genderImage;
+
+@end
+
 @implementation PlayerButton
 
 -(void)buttonClicked: (id) actualPlayerButton {
-    [listener buttonClicked: self isOnField: isOnField];
+    [self.clickListener buttonClicked: self isOnField: isOnField];
 }
 
 -(void)setOnField: (BOOL) shouldBeOnField {
     isOnField = shouldBeOnField;
 }
 
--(void)setClickListener: (id<PlayerButtonListener>) aListener {
-    listener = aListener;
+-(void)setClickListener:(id<PlayerButtonListener>)clickListener {
+    _clickListener = clickListener;
     [self.button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -69,16 +79,12 @@
     [self.button setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
 }
 
--(Player*)getPlayer {
-    return _player;
-}
-
 -(NSString*)getPlayerName {
-    return _player == nil ? self.nameLabel.text : [_player getDisplayName];
+    return self.player == nil ? self.nameLabel.text : [_player getDisplayName];
 }
 
 - (NSString* )description {
-    return [NSString stringWithFormat:@"PlayerButton player = %@, player name = %@, isOnField = %@\n%@", [_player description], [self getPlayerName], isOnField ? @"YES" : @"NO", [super description]];
+    return [NSString stringWithFormat:@"PlayerButton player = %@, player name = %@, isOnField = %@\n%@", [self.player description], [self getPlayerName], isOnField ? @"YES" : @"NO", [super description]];
 }
 
 

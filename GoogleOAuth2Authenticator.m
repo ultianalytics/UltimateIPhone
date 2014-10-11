@@ -124,7 +124,7 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 #pragma mark - GTMOAuth2ViewControllerTouch delegate
 
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)authViewController finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error {
-    SignonStatus status = SignonStatusOk;
+    SignonStatus status = SignonStatusUserCancel;
     if (error) {
         if (error.code == kGTMOAuth2ErrorWindowClosed) {  // user cancelled
             status = SignonStatusUserCancel;
@@ -158,13 +158,15 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
         
         self.currentAuthentication = auth;
         
-        SHSLog(@"authentication complete for user %@.  expire is %@.  Now is %@", email, auth.expirationDate, [NSDate date]);
+        status = SignonStatusOk;
         
-        if (self.signonViewControllerCompletion) {
-            self.signonViewControllerCompletion(SignonStatusOk);
-        }
+        SHSLog(@"authentication complete for user %@.  expire is %@.  Now is %@", email, auth.expirationDate, [NSDate date]);
+
     }
     
+    if (self.signonViewControllerCompletion) {
+        self.signonViewControllerCompletion(status);
+    }
     
 }
 

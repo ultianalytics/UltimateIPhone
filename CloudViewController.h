@@ -17,7 +17,6 @@
     NSArray* cloudCells;
     TeamDownloadPickerViewController* teamDownloadController;
     GameDownloadPickerViewController* gameDownloadController;
-    void (^signonCompletion)();
 }
 
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;

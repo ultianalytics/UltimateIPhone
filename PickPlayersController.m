@@ -286,7 +286,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [self toggleFirstTimeUsageCallouts];
     if (IS_IPAD && self.flashGoal) {
-        [self performSelector:@selector(hideGoalScoredOverlay) withObject:nil afterDelay:2];
+        [self performSelector:@selector(hideGoalScoredOverlay) withObject:nil afterDelay:1];
     }
 }
 

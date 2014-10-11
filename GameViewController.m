@@ -124,6 +124,7 @@
     double currentTime = CACurrentMediaTime();
     PullLandingViewController* pullLandingVC = [[PullLandingViewController alloc] init];
     pullLandingVC.pullBeginTime = currentTime;
+    __typeof(self) __weak weakSelf = self;
     pullLandingVC.completion = ^(BOOL cancelled, BOOL isOutOfBounds, long hangtimeMilliseconds) {
         [self dismissViewControllerAnimated:YES completion:^{
             if(!cancelled) {
@@ -131,8 +132,8 @@
                 if (hangtimeMilliseconds > 0) {
                     event.pullHangtimeMilliseconds = (int)hangtimeMilliseconds;
                 }
-                [self addEvent: event];
-                [self showActionButtonDidYouKnow];
+                [weakSelf addEvent: event];
+                [weakSelf showActionButtonDidYouKnow];
             }
         }];
     };
@@ -581,8 +582,9 @@
     timeoutController.game = [Game getCurrentGame];
     if (IS_IPAD) {
         timeoutController.modalMode = YES;
+        __typeof(self) __weak weakSelf = self;
         timeoutController.timeoutsUpdatedBlock = ^{
-            [self updateTimeoutsButton];
+            [weakSelf updateTimeoutsButton];
         };
         UINavigationController* timeoutNavController = [[UINavigationController alloc] initWithRootViewController:timeoutController];
         timeoutNavController.modalPresentationStyle = UIModalPresentationFormSheet;

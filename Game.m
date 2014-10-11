@@ -25,6 +25,7 @@
 #import "TimeoutDetails.h"
 #import "GameDescription.h"
 #import "GameAutoUploader.h"
+#import "NSString+manipulations.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -310,9 +311,7 @@ static Game* currentGame = nil;
 }
 
 +(NSString*)generateUniqueFileName {
-    CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
-    //get the string representation of the UUID
-    return [NSString stringWithFormat:@"%@%@", kGameFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
+    return [NSString stringWithFormat:@"%@%@", kGameFileNamePrefixKey, [NSString stringWithGuid]];
 }
 
 + (NSString*)getFilePath: (NSString*) gameId team: (NSString *) teamId { 

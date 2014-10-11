@@ -17,5 +17,6 @@
 -(NSData*)asData;
 -(BOOL)contains: (NSString*) anotherString;
 +(NSString*)stringWithData: (NSData*)data;
++(NSString*)stringWithGuid;
 
 @end

@@ -14,6 +14,7 @@
 #import "LeaguevineTeam.h"
 #import "NSDictionary+JSON.h"
 #import "UploadDownloadTracker.h"
+#import "NSString+manipulations.h"
 
 #define kArchiveFileName        @"team"
 #define kTeamKey                @"team"
@@ -221,9 +222,7 @@ static Team* currentTeam = nil;
 }
 
 +(NSString*)generateUniqueFileName {
-    CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
-    //get the string representation of the UUID
-    return [NSString stringWithFormat:@"%@%@", kTeamFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
+    return [NSString stringWithFormat:@"%@%@", kTeamFileNamePrefixKey, [NSString stringWithGuid]];
 }
 
 -(id) init {

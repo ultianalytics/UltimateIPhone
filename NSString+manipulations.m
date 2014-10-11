@@ -54,4 +54,11 @@
     return [self rangeOfString:anotherString].location != NSNotFound;
 }
 
++(NSString*)stringWithGuid {
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    NSString* guid = (__bridge_transfer NSString*)CFUUIDCreateString(kCFAllocatorDefault, theUUID);
+    CFRelease (theUUID);
+    return guid;
+}
+
 @end

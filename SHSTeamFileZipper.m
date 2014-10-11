@@ -8,6 +8,7 @@
 
 #import "SHSTeamFileZipper.h"
 #import "SHSDirectoryZipper.h"
+#import "NSString+manipulations.h"
 
 #define kZipFileNamePrefixKey  @"ultimate-files-"
 
@@ -32,9 +33,7 @@
 }
 
 +(NSString*)generateUniqueFileName {
-    CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
-    //get the string representation of the UUID
-    return [NSString stringWithFormat:@"%@%@.zip", kZipFileNamePrefixKey, (__bridge NSString*)CFUUIDCreateString(nil, uuidObj)];
+    return [NSString stringWithFormat:@"%@%@.zip", kZipFileNamePrefixKey, [NSString stringWithGuid]];
 }
 
 @end

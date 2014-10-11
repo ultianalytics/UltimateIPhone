@@ -41,5 +41,4 @@
     return newTimestamp;
 }
 
-
 @end

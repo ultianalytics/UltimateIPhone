@@ -12,7 +12,6 @@
 @interface TwitterController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
     NSArray* twitterCells;
-    UIAlertView* busyView;
 }
 
 +(void)showNoConnectivityAlert;

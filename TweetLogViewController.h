@@ -12,7 +12,6 @@
 
 @interface TweetLogViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
     @private
-    UIFont* tweetFont;
     NSArray* tweetLog;
 }
 

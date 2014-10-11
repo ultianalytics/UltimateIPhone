@@ -124,10 +124,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Player* player = [self.players objectAtIndex:[indexPath row]];
-    BOOL isChange = NO;
     if (tableView == self.player1TableView) {
         if ([self.event isOffense])  {
-            isChange = [self.offenseEvent.passer.name isEqualToString:player.name];
             self.offenseEvent.passer = player;
             if ([self.offenseEvent.receiver.name isEqualToString:player.name]) {
                 self.offenseEvent.receiver = [Player getAnonymous];
@@ -137,7 +135,6 @@
             self.defenseEvent.defender = player;
         }
     } else if (tableView == self.player2TableView) {
-        isChange = [self.offenseEvent.receiver.name isEqualToString:player.name];
         self.offenseEvent.receiver = player;
         if ([self.offenseEvent.passer.name isEqualToString:player.name]) {
             self.offenseEvent.passer = [Player getAnonymous];

@@ -313,6 +313,9 @@
 		383F17D819E552B400FC6541 /* browser-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D419E552B400FC6541 /* browser-forward@2x.png */; };
 		383F17DC19E7FA1700FC6541 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */; };
 		383F17DF19E7FB0600FC6541 /* SHSAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */; };
+		383F181D19EBF27400FC6541 /* GameFieldDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F181C19EBF27400FC6541 /* GameFieldDimensionsViewController.m */; };
+		383F181F19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */; };
+		383F182219EBF2D200FC6541 /* FieldDimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F182119EBF2D200FC6541 /* FieldDimensions.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -847,6 +850,11 @@
 		383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		383F17DD19E7FB0600FC6541 /* SHSAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSAnalytics.h; sourceTree = "<group>"; };
 		383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSAnalytics.m; sourceTree = "<group>"; };
+		383F181B19EBF27400FC6541 /* GameFieldDimensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionsViewController.h; sourceTree = "<group>"; };
+		383F181C19EBF27400FC6541 /* GameFieldDimensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionsViewController.m; sourceTree = "<group>"; };
+		383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameFieldDimensionsViewController.storyboard; sourceTree = "<group>"; };
+		383F182019EBF2D200FC6541 /* FieldDimensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDimensions.h; sourceTree = "<group>"; };
+		383F182119EBF2D200FC6541 /* FieldDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDimensions.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1384,6 +1392,7 @@
 				1AFFE8DD151764DB004B4590 /* Game Action */,
 				384C2D7F19A7F60700EE8290 /* Game Action - Positional */,
 				38AA389019C1E69100C6CF9A /* Game Playback */,
+				383F181A19EBF23400FC6541 /* Game Field Dimensions */,
 				1AA37BE418AFBD6A00CE9662 /* Pull */,
 				1AC6612F17164AE400DCFF58 /* Timeout */,
 				1AA37BE318AFBCEA00CE9662 /* Event */,
@@ -1434,6 +1443,8 @@
 				1AEAE9E9152D1D80008574C2 /* TeamDescription.m */,
 				1A209AB817177A5400BF9D6A /* TimeoutDetails.h */,
 				1A209AB917177A5400BF9D6A /* TimeoutDetails.m */,
+				383F182019EBF2D200FC6541 /* FieldDimensions.h */,
+				383F182119EBF2D200FC6541 /* FieldDimensions.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1722,6 +1733,16 @@
 				383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */,
 			);
 			path = Flurry;
+			sourceTree = "<group>";
+		};
+		383F181A19EBF23400FC6541 /* Game Field Dimensions */ = {
+			isa = PBXGroup;
+			children = (
+				383F181B19EBF27400FC6541 /* GameFieldDimensionsViewController.h */,
+				383F181C19EBF27400FC6541 /* GameFieldDimensionsViewController.m */,
+				383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */,
+			);
+			name = "Game Field Dimensions";
 			sourceTree = "<group>";
 		};
 		384C2D7F19A7F60700EE8290 /* Game Action - Positional */ = {
@@ -2113,6 +2134,7 @@
 				38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */,
 				1AA37BA118A857BC00CE9662 /* white100radius3@2x.png in Resources */,
 				1AEE549C15293DD30067F539 /* 210-twitterbird.png in Resources */,
+				383F181F19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard in Resources */,
 				1AEE549D15293DD30067F539 /* 210-twitterbird@2x.png in Resources */,
 				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
 				1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */,
@@ -2297,6 +2319,8 @@
 				38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */,
 				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 				1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */,
+				383F182219EBF2D200FC6541 /* FieldDimensions.m in Sources */,
+				383F181D19EBF27400FC6541 /* GameFieldDimensionsViewController.m in Sources */,
 				1ABC74CC190414F000D60660 /* unzip.c in Sources */,
 				1A4C42B71609DA4F0067BB96 /* LeaguevineClient.m in Sources */,
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,

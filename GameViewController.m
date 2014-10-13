@@ -910,8 +910,8 @@
 - (void)configureForOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
         toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-        self.topOrLeftView.frame = CGRectMake(0, 0, 500, 648);
-        self.bottomOrRightView.frame = CGRectMake(501, 0, 523, 648);
+        self.topOrLeftView.frame = CGRectMake(0, 0, 500, 654);
+        self.bottomOrRightView.frame = CGRectMake(501, 0, 523, 654);
         // shift action view to left
         self.actionSubView.transform = CGAffineTransformMakeTranslation(-120.0, 0.0);
     } else {

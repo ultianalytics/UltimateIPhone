@@ -313,7 +313,6 @@
 		383F17D819E552B400FC6541 /* browser-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D419E552B400FC6541 /* browser-forward@2x.png */; };
 		383F17DC19E7FA1700FC6541 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */; };
 		383F17DF19E7FB0600FC6541 /* SHSAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */; };
-		383F181D19EBF27400FC6541 /* GameFieldDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F181C19EBF27400FC6541 /* GameFieldDimensionsViewController.m */; };
 		383F181F19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */; };
 		383F182219EBF2D200FC6541 /* FieldDimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F182119EBF2D200FC6541 /* FieldDimensions.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
@@ -362,6 +361,7 @@
 		38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */; };
 		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B39B6219A64FC90008F0C9 /* EventPosition.m */; };
+		38CF2E6919ED54600090F814 /* GameFieldDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */; };
 		38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */; };
 		38E5EB9C19CC960900E7C6DF /* broadcast-leaguevine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
@@ -850,8 +850,6 @@
 		383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		383F17DD19E7FB0600FC6541 /* SHSAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSAnalytics.h; sourceTree = "<group>"; };
 		383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSAnalytics.m; sourceTree = "<group>"; };
-		383F181B19EBF27400FC6541 /* GameFieldDimensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionsViewController.h; sourceTree = "<group>"; };
-		383F181C19EBF27400FC6541 /* GameFieldDimensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionsViewController.m; sourceTree = "<group>"; };
 		383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameFieldDimensionsViewController.storyboard; sourceTree = "<group>"; };
 		383F182019EBF2D200FC6541 /* FieldDimensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDimensions.h; sourceTree = "<group>"; };
 		383F182119EBF2D200FC6541 /* FieldDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDimensions.m; sourceTree = "<group>"; };
@@ -915,6 +913,8 @@
 		38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameHistoryController.storyboard; sourceTree = "<group>"; };
 		38B39B6119A64FC90008F0C9 /* EventPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPosition.h; sourceTree = "<group>"; };
 		38B39B6219A64FC90008F0C9 /* EventPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPosition.m; sourceTree = "<group>"; };
+		38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionsViewController.h; sourceTree = "<group>"; };
+		38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionsViewController.m; sourceTree = "<group>"; };
 		38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcast-leaguevine.png"; sourceTree = "<group>"; };
 		38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcast-leaguevine@2x.png"; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
@@ -1738,8 +1738,8 @@
 		383F181A19EBF23400FC6541 /* Game Field Dimensions */ = {
 			isa = PBXGroup;
 			children = (
-				383F181B19EBF27400FC6541 /* GameFieldDimensionsViewController.h */,
-				383F181C19EBF27400FC6541 /* GameFieldDimensionsViewController.m */,
+				38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */,
+				38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */,
 				383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */,
 			);
 			name = "Game Field Dimensions";
@@ -2246,6 +2246,7 @@
 				1AFFE7F115175E7B004B4590 /* ArrowView.m in Sources */,
 				1AFFE7F915175E7B004B4590 /* ColorButton.m in Sources */,
 				1AA37BDF18AFBB6600CE9662 /* GameActionButton.m in Sources */,
+				38CF2E6919ED54600090F814 /* GameFieldDimensionsViewController.m in Sources */,
 				381BC47419B36A0700CD8C20 /* PlayDirectionView.m in Sources */,
 				1AFFE7FA15175E7B004B4590 /* ColorMaster.m in Sources */,
 				1AFFE7FB15175E7B004B4590 /* Constants.m in Sources */,
@@ -2320,7 +2321,6 @@
 				1A2F9E0215F4E51400037C70 /* NSArray+Utilities.m in Sources */,
 				1A999F0C16063CDC0015B891 /* LeagueVineTeamViewController.m in Sources */,
 				383F182219EBF2D200FC6541 /* FieldDimensions.m in Sources */,
-				383F181D19EBF27400FC6541 /* GameFieldDimensionsViewController.m in Sources */,
 				1ABC74CC190414F000D60660 /* unzip.c in Sources */,
 				1A4C42B71609DA4F0067BB96 /* LeaguevineClient.m in Sources */,
 				1A4C42D4160C7C550067BB96 /* LeaguevineResponseParser.m in Sources */,

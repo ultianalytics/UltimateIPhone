@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Tweeter.h"
+#import "FieldDimensions.h"
 
 @interface Preferences : NSObject 
     
@@ -23,6 +24,7 @@
 @property (nonatomic) AutoTweetLevel autoTweetLevel;
 @property (nonatomic, strong) NSString* twitterAccountDescription;
 @property (nonatomic, strong) NSString* leaguevineToken;
+@property (nonatomic, strong) FieldDimensions* fieldDimensions;
 
 +(Preferences*)getCurrentPreferences;
 +(NSString*)getFilePath;

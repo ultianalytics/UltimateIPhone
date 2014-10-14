@@ -32,4 +32,7 @@ typedef enum {
 
 -(void)initWithType: (FieldDimensionType) type;
 
++(FieldDimensions*)fromDictionary:(NSDictionary*) dict;
+-(NSDictionary*) asDictionary;
+
 @end

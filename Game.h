@@ -16,6 +16,7 @@
 @class Wind;
 @class LeaguevineGame;
 @class TimeoutDetails;
+@class FieldDimensions;
 
 #define kDefaultGamePoint 15
 #define kTimeBasedGame    1000
@@ -38,6 +39,7 @@
 @property (nonatomic) BOOL publishScoreToLeaguevine;
 @property (nonatomic) BOOL publishStatsToLeaguevine;
 @property (nonatomic, strong) TimeoutDetails* timeoutDetails;
+@property (nonatomic, strong) FieldDimensions* fieldDimensions;
 @property (nonatomic, weak) Event* firstEventTweeted; // transient
 @property (nonatomic, readonly) int periodsComplete;
 @property (nonatomic, readonly) NSTimeInterval lastSaveGMT;

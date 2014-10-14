@@ -35,6 +35,11 @@
     return obj == nil ? defaultDouble : ((NSNumber*)obj).doubleValue;
 }
 
+- (float)floatForJsonProperty:(NSString *)propertyName defaultValue: (float) defaultFloat {
+    id obj = [self objectForJsonProperty:propertyName];
+    return obj == nil ? defaultFloat : ((NSNumber*)obj).floatValue;
+}
+
 - (NSString *)stringForJsonProperty:(NSString *)propertyName {
     id obj = [self objectForJsonProperty:propertyName];
     return obj == nil ? nil : [obj isKindOfClass:[NSNumber class]] ? [NSString stringWithFormat:@"%d", ((NSNumber*)obj).intValue] : obj;

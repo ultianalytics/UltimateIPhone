@@ -26,6 +26,8 @@
 #import "GameDescription.h"
 #import "GameAutoUploader.h"
 #import "NSString+manipulations.h"
+#import "FieldDimensions.h"
+#import "Preferences.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -50,12 +52,14 @@
 #define klastSaveKey            @"lastSave"
 #define kIsPositionalKey            @"positional"
 #define kPickupDiscKey            @"pickupDiscEvent"
+#define kFieldDimensionsJsonKey       @"fieldDimensionsJson"
 
 static Game* currentGame = nil;
 
 @interface Game()
 
 @property (nonatomic, strong) NSString* timeoutJson;
+@property (nonatomic, strong) NSString* fieldDimensionsJson;
 @property (nonatomic, strong) CessationEvent* lastPeriodEnd; // transient
 @property (nonatomic) NSTimeInterval lastSaveGMT;
 
@@ -65,6 +69,7 @@ static Game* currentGame = nil;
 @synthesize gameId, points,isFirstPointOline, lastOLine, lastDLine, startDateTime,wind,gamePoint,firstEventTweeted;
 @synthesize timeoutDetails=_timeoutDetails;
 @synthesize periodsComplete=_periodsComplete;
+@synthesize fieldDimensions=_fieldDimensions;
 
 #pragma mark - Initialization
 
@@ -131,6 +136,7 @@ static Game* currentGame = nil;
         }
     }
     game.timeoutJson = [dict objectForKey:kTimeoutDetailsJsonKey];
+    game.fieldDimensionsJson = [dict objectForKey:kFieldDimensionsJsonKey];
     NSDictionary* windDict = [dict objectForKey:kWindKey];
     if (windDict) {
         game.wind = [Wind fromDictionary:windDict];
@@ -193,6 +199,7 @@ static Game* currentGame = nil;
     [dict setValue: [NSNumber numberWithInt:score.theirs] forKey:kScoreTheirsProperty];
     [dict setValue: [wind asDictionary] forKey: kWindKey];
     [dict setValue: self.timeoutJson forKey: kTimeoutDetailsJsonKey];
+    [dict setValue: self.fieldDimensionsJson forKey:kFieldDimensionsJsonKey];
     [dict setValue: [NSNumber numberWithBool:self.isPositional] forKey:kIsPositionalKey];
     
     return dict;
@@ -435,6 +442,7 @@ static Game* currentGame = nil;
         self.publishScoreToLeaguevine = [decoder decodeBoolForKey:kLeagueVineScoresPublishKey];
         self.publishStatsToLeaguevine = [decoder decodeBoolForKey:kLeagueVineStatsPublishKey];
         self.timeoutJson = [decoder decodeObjectForKey:kTimeoutDetailsJsonKey];
+        self.fieldDimensionsJson = [decoder decodeObjectForKey:kFieldDimensionsJsonKey];
         self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
         self.isPositional = [decoder decodeBoolForKey:kIsPositionalKey];
         self.positionalBeginEvent = [decoder decodeObjectForKey:kPickupDiscKey];
@@ -458,6 +466,7 @@ static Game* currentGame = nil;
     [encoder encodeBool:self.publishScoreToLeaguevine forKey:kLeagueVineScoresPublishKey];
     [encoder encodeBool:self.publishStatsToLeaguevine forKey:kLeagueVineStatsPublishKey];
     [encoder encodeObject:self.timeoutJson forKey:kTimeoutDetailsJsonKey];
+    [encoder encodeObject:self.fieldDimensionsJson forKey:kFieldDimensionsJsonKey];
     [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
     [encoder encodeBool:self.isPositional forKey:kIsPositionalKey];
     [encoder encodeObject:self.positionalBeginEvent forKey:kPickupDiscKey];
@@ -1013,6 +1022,44 @@ static Game* currentGame = nil;
     return YES;
 }
 
+#pragma mark - Field Dimensions
+
+-(void)setFieldDimensions:(FieldDimensions *)fieldDimensions {
+    _fieldDimensions = fieldDimensions;
+    if (fieldDimensions) {
+        NSDictionary* fieldDimDict = [fieldDimensions asDictionary];
+        NSError* marshallError;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:fieldDimDict options:0 error:&marshallError];
+        if (marshallError) {
+            SHSLog(@"Error creating JSON of field dimensions");
+        } else {
+            self.fieldDimensionsJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+    } else {
+        self.fieldDimensionsJson = nil;
+    }
+    
+    
+}
+
+-(FieldDimensions*)fieldDimensions {
+    if (_fieldDimensions == nil) {
+        if (self.fieldDimensionsJson) {
+            NSError* marshallError;
+            NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary* fieldDimDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
+            if (marshallError) {
+                SHSLog(@"Error parsing field dimensions JSON");
+            } else {
+                _fieldDimensions = [FieldDimensions fromDictionary: fieldDimDict];
+            }
+        } else {
+            self.fieldDimensions = [Preferences getCurrentPreferences].fieldDimensions;
+        }
+    }
+    return _fieldDimensions;
+}
+
 
 #pragma mark - Timeouts 
 
@@ -1039,7 +1086,7 @@ static Game* currentGame = nil;
             NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary* timeoutDetailsDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
             if (marshallError) {
-                SHSLog(@"Error parsing leaguevine JSON");
+                SHSLog(@"Error parsing timeout JSON");
             } else {
                 _timeoutDetails = [TimeoutDetails fromDictionary: timeoutDetailsDict];
             }

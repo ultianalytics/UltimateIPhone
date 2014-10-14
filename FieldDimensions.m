@@ -7,8 +7,24 @@
 //
 
 #import "FieldDimensions.h"
+#import "NSDictionary+JSON.h"
+
+#define kFieldTypeKey               @"type"
+#define kFieldTypeUMKey             @"um"
+#define kFieldWidthKey              @"width"
+#define kFieldCentralZoneLengthKey  @"centralZoneLength"
+#define kFieldEndZoneLengthKey      @"endzone"
+#define kFieldBrickKey              @"brick"
 
 @implementation FieldDimensions
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self initWithType:FieldDimensionTypeUPA];
+    }
+    return self;
+}
 
 -(void)initWithType: (FieldDimensionType) type {
     switch (type) {
@@ -60,6 +76,49 @@
     }
 }
 
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super init]) {
+        self.type = [decoder decodeIntForKey:kFieldTypeKey];
+        self.unitOfMeasure = [decoder decodeIntForKey:kFieldTypeUMKey];
+        self.width = [decoder decodeFloatForKey:kFieldWidthKey];
+        self.centralZoneLength = [decoder decodeFloatForKey:kFieldCentralZoneLengthKey];
+        self.endZoneLength = [decoder decodeFloatForKey:kFieldEndZoneLengthKey];
+        self.brickMark = [decoder decodeFloatForKey:kFieldBrickKey];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInt:self.type forKey:kFieldTypeKey];
+    [encoder encodeInt:self.unitOfMeasure forKey:kFieldTypeUMKey];
+    [encoder encodeFloat:self.width forKey:kFieldWidthKey];
+    [encoder encodeFloat:self.centralZoneLength forKey:kFieldCentralZoneLengthKey];
+    [encoder encodeFloat:self.endZoneLength forKey:kFieldEndZoneLengthKey];
+    [encoder encodeFloat:self.brickMark forKey:kFieldBrickKey];
+}
+
++(FieldDimensions*)fromDictionary:(NSDictionary*) dict {
+    FieldDimensions* fd = [[FieldDimensions alloc] init];
+    fd.type = [dict intForJsonProperty:kFieldTypeKey defaultValue:0];
+    fd.type = [dict intForJsonProperty:kFieldTypeUMKey defaultValue:0];
+    fd.width = [dict floatForJsonProperty:kFieldWidthKey defaultValue:0];
+    fd.centralZoneLength = [dict floatForJsonProperty:kFieldCentralZoneLengthKey defaultValue:0];
+    fd.endZoneLength = [dict floatForJsonProperty:kFieldEndZoneLengthKey defaultValue:0];
+    fd.brickMark = [dict floatForJsonProperty:kFieldBrickKey defaultValue:0];
+    return fd;
+}
+
+-(NSDictionary*) asDictionary {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue: [NSNumber numberWithInt:self.type ] forKey:kFieldTypeKey];
+    [dict setValue: [NSNumber numberWithInt:self.unitOfMeasure ] forKey:kFieldTypeUMKey];
+    [dict setValue: [NSNumber numberWithFloat:self.width ] forKey:kFieldWidthKey];
+    [dict setValue: [NSNumber numberWithFloat:self.centralZoneLength ] forKey:kFieldCentralZoneLengthKey];
+    [dict setValue: [NSNumber numberWithFloat:self.endZoneLength ] forKey:kFieldEndZoneLengthKey];
+    [dict setValue: [NSNumber numberWithFloat:self.brickMark ] forKey:kFieldBrickKey];
+    return dict;
+}
+
 -(NSString*)name {
     switch (self.type) {
         case FieldDimensionTypeUPA: {
@@ -91,6 +150,10 @@
     int endzone = (int)self.endZoneLength;
     NSString* width = (self.type == FieldDimensionTypeMLU || self.type == FieldDimensionTypeAUDL) ? @"53\u2153" : [NSString stringWithFormat:@"%d", (int)self.width];
     return [NSString stringWithFormat:@"%d%@ x %@%@ with %d%@ endzone", length, um, width, um, endzone, um];
+}
+
+-(NSString*)description {
+    return self.type == FieldDimensionTypeOther ? [self dimensionsDescription] : self.name;
 }
 
 @end

@@ -33,6 +33,7 @@
 #import "CalloutsContainerView.h"
 #import "UIView+Convenience.h"
 #import "SHSAnalytics.h"
+#import "GameFieldDimensionsViewController.h"
 
 #define kLowestGamePoint 9
 #define kHeaderHeight 50
@@ -68,12 +69,14 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* tournamentCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* leaguevinePubCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* positionalEventsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* fieldDimensionsCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* playbackCell;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 
 @property (nonatomic, strong) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UILabel* leaguevineGameLabel;
+@property (nonatomic, strong) IBOutlet UILabel* fieldDimensionsLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
 @property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;
 @property (nonatomic, strong) IBOutlet UIView* deleteButtonView;
@@ -119,8 +122,11 @@
     if (IS_IPAD) {
         [self.cells addObject:self.positionalEventsCell];
     }
-    if (self.game.isPositional && [self.game hasEvents]) {
-        [self.cells addObjectsFromArray:@[self.playbackCell]];
+    if (self.game.isPositional) {
+        [self.cells addObjectsFromArray:@[self.fieldDimensionsCell]];
+        if ([self.game hasEvents]) {
+            [self.cells addObjectsFromArray:@[self.playbackCell]];
+        }
     }
     [self.cells addObjectsFromArray:@[self.timeoutsCell]];
     if ([self.game hasBeenSaved]) {
@@ -150,6 +156,13 @@
         }
     }
     return NO;
+}
+
+-(void)reconfigureCells {
+    [self.tableView reloadData];
+    [UIView transitionWithView:self.view duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+
+    } completion:nil];
 }
 
 #pragma mark - Event Handlers
@@ -221,6 +234,7 @@
     } else {
         self.game.isPositional = shouldBePositional;
         [self saveChanges];
+        [self reconfigureCells];
     }
 }
 
@@ -526,6 +540,8 @@
             [self handleLeaguevineGameSelected: leaguevineGame];
         };
         [self.navigationController pushViewController:leaguevineController animated:YES];
+    } else if (cell == self.fieldDimensionsCell) {
+        [self showFieldDimensionsView];
     }
 }
 
@@ -738,6 +754,10 @@
     
     self.positionalEventsSegmentedControl.selectedSegmentIndex = self.game.isPositional ? 1 : 0;
     
+    if (self.game.isPositional) {
+        self.fieldDimensionsLabel.text = [self.game.fieldDimensions description];
+    }
+    
     [self populateLeaguevineCells];
     
     [self.tableView reloadData];
@@ -851,8 +871,16 @@
         [self.game removePositionalData];
         self.game.isPositional = NO;
         [self saveChanges];
+        [self reconfigureCells];
+    } else {
+        self.positionalEventsSegmentedControl.selectedSegmentIndex = 1;
     }
-    self.positionalEventsSegmentedControl.selectedSegmentIndex = convert ? 0 : 1;
+}
+
+-(void)showFieldDimensionsView {
+    GameFieldDimensionsViewController* dimensionsVC = [[GameFieldDimensionsViewController alloc] init];
+
+    [self.navigationController pushViewController:dimensionsVC animated:YES];
 }
 
 #pragma mark - Callouts

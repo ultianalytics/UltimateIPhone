@@ -19,6 +19,7 @@
 #define kLeaguevineTokenKey     @"leagevineToken"
 #define kTimeoutPerHalfKey      @"timeoutPerHalf"
 #define kTimeoutFloaterKey      @"timeoutFloater"
+#define kFieldDimensionsKey     @"fieldDimensions"
 #define kDefaultGamePoint       13
 #define kDefaultTimeoutsPerHalf 2
 #define kMinGamePoint           9
@@ -53,6 +54,7 @@ static Preferences* currentPreferences= nil;
         self.leaguevineToken = [decoder decodeObjectForKey:kLeaguevineTokenKey];
         self.timeoutsPerHalf = [decoder decodeIntForKey:kTimeoutPerHalfKey];
         self.timeoutFloaters = [decoder decodeIntForKey:kTimeoutFloaterKey];
+        self.fieldDimensions = [decoder decodeObjectForKey:kFieldDimensionsKey];
     }
     return self; 
 } 
@@ -68,6 +70,7 @@ static Preferences* currentPreferences= nil;
     [encoder encodeObject:self.leaguevineToken forKey:kLeaguevineTokenKey];
     [encoder encodeInt:self.timeoutsPerHalf forKey:kTimeoutPerHalfKey];
     [encoder encodeInt:self.timeoutFloaters forKey:kTimeoutFloaterKey];
+    [encoder encodeObject:self.fieldDimensions forKey:kFieldDimensionsKey];
 }
 
 +(Preferences*)getCurrentPreferences {
@@ -101,6 +104,13 @@ static Preferences* currentPreferences= nil;
     NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
     NSString* documentsDirectory = [paths objectAtIndex:0]; 
     return [documentsDirectory stringByAppendingPathComponent:kPreferencesFileName]; 
+}
+
+-(FieldDimensions*)fieldDimensions {
+    if (!_fieldDimensions) {
+        _fieldDimensions = [[FieldDimensions alloc] init];
+    }
+    return _fieldDimensions;
 }
 
 @end

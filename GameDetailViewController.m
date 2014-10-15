@@ -878,8 +878,9 @@
 }
 
 -(void)showFieldDimensionsView {
-    GameFieldDimensionsViewController* dimensionsVC = [[GameFieldDimensionsViewController alloc] init];
-
+    UIStoryboard *dimensionsStoryboard = [UIStoryboard storyboardWithName:@"GameFieldDimensionsViewController" bundle:nil];
+    GameFieldDimensionsViewController* dimensionsVC  = [dimensionsStoryboard instantiateInitialViewController];
+    dimensionsVC.game = self.game;
     [self.navigationController pushViewController:dimensionsVC animated:YES];
 }
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Game.h"
 
 @interface GameFieldDimensionsViewController : UIViewController
+
+@property (strong, nonatomic) Game* game;
 
 @end

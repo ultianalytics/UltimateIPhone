@@ -30,7 +30,7 @@ typedef enum {
 @property (nonatomic) float endZoneLength;
 @property (nonatomic) float brickMark;
 
--(void)initWithType: (FieldDimensionType) type;
++(instancetype)fieldWithType: (FieldDimensionType) type;
 
 +(FieldDimensions*)fromDictionary:(NSDictionary*) dict;
 -(NSDictionary*) asDictionary;

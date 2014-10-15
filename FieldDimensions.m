@@ -18,62 +18,58 @@
 
 @implementation FieldDimensions
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self initWithType:FieldDimensionTypeUPA];
-    }
-    return self;
-}
++(instancetype)fieldWithType: (FieldDimensionType) type {
+    
+    FieldDimensions* fd = [[FieldDimensions alloc] init];
 
--(void)initWithType: (FieldDimensionType) type {
     switch (type) {
         case FieldDimensionTypeUPA: {
-            self.type = FieldDimensionTypeUPA;
-            self.unitOfMeasure = FieldUnitOfMeasureYards;
-            self.width = 40;
-            self.centralZoneLength = 75;
-            self.endZoneLength = 25;
-            self.brickMark = 20;
+            fd.type = FieldDimensionTypeUPA;
+            fd.unitOfMeasure = FieldUnitOfMeasureYards;
+            fd.width = 40;
+            fd.centralZoneLength = 75;
+            fd.endZoneLength = 25;
+            fd.brickMark = 20;
             break;
         }
         case FieldDimensionTypeAUDL: {
-            self.type = FieldDimensionTypeAUDL;
-            self.unitOfMeasure = FieldUnitOfMeasureYards;
-            self.width = 53.33;
-            self.centralZoneLength = 80;
-            self.endZoneLength = 20;
-            self.brickMark = 20;
+            fd.type = FieldDimensionTypeAUDL;
+            fd.unitOfMeasure = FieldUnitOfMeasureYards;
+            fd.width = 53.33;
+            fd.centralZoneLength = 80;
+            fd.endZoneLength = 20;
+            fd.brickMark = 20;
             break;
         }
         case FieldDimensionTypeMLU: {
-            self.type = FieldDimensionTypeMLU;
-            self.unitOfMeasure = FieldUnitOfMeasureYards;
-            self.width = 53.33;
-            self.centralZoneLength = 80;
-            self.endZoneLength = 20;
-            self.brickMark = 20;
+            fd.type = FieldDimensionTypeMLU;
+            fd.unitOfMeasure = FieldUnitOfMeasureYards;
+            fd.width = 53.33;
+            fd.centralZoneLength = 80;
+            fd.endZoneLength = 20;
+            fd.brickMark = 20;
             break;
         }
         case FieldDimensionTypeWFDF: {
-            self.type = FieldDimensionTypeMLU;
-            self.unitOfMeasure = FieldUnitOfMeasureMeters;
-            self.width = 37;
-            self.centralZoneLength = 64;
-            self.endZoneLength = 18;
-            self.brickMark = 18;
+            fd.type = FieldDimensionTypeMLU;
+            fd.unitOfMeasure = FieldUnitOfMeasureMeters;
+            fd.width = 37;
+            fd.centralZoneLength = 64;
+            fd.endZoneLength = 18;
+            fd.brickMark = 18;
             break;
         }
         default: {
-            self.type = FieldDimensionTypeUPA;
-            self.unitOfMeasure = FieldUnitOfMeasureYards;
-            self.width = 40;
-            self.centralZoneLength = 75;
-            self.endZoneLength = 25;
-            self.brickMark = 20;
+            fd.type = FieldDimensionTypeUPA;
+            fd.unitOfMeasure = FieldUnitOfMeasureYards;
+            fd.width = 40;
+            fd.centralZoneLength = 75;
+            fd.endZoneLength = 25;
+            fd.brickMark = 20;
             break;
         }
     }
+    return fd;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -100,7 +96,7 @@
 +(FieldDimensions*)fromDictionary:(NSDictionary*) dict {
     FieldDimensions* fd = [[FieldDimensions alloc] init];
     fd.type = [dict intForJsonProperty:kFieldTypeKey defaultValue:0];
-    fd.type = [dict intForJsonProperty:kFieldTypeUMKey defaultValue:0];
+    fd.unitOfMeasure = [dict intForJsonProperty:kFieldTypeUMKey defaultValue:0];
     fd.width = [dict floatForJsonProperty:kFieldWidthKey defaultValue:0];
     fd.centralZoneLength = [dict floatForJsonProperty:kFieldCentralZoneLengthKey defaultValue:0];
     fd.endZoneLength = [dict floatForJsonProperty:kFieldEndZoneLengthKey defaultValue:0];

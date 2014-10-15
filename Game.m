@@ -1046,7 +1046,7 @@ static Game* currentGame = nil;
     if (_fieldDimensions == nil) {
         if (self.fieldDimensionsJson) {
             NSError* marshallError;
-            NSData* jsonData = [self.timeoutJson dataUsingEncoding:NSUTF8StringEncoding];
+            NSData* jsonData = [self.fieldDimensionsJson dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary* fieldDimDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&marshallError];
             if (marshallError) {
                 SHSLog(@"Error parsing field dimensions JSON");

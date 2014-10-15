@@ -13,18 +13,21 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *fieldTypeSegmentedControl;
 
+@property (strong, nonatomic) FieldDimensions* fieldDimensions;
+
 @end
 
 @implementation GameFieldDimensionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fieldDimensions = self.game.fieldDimensions;
     [self populateView];
 }
 
 -(void)populateView {
     int typeIndex;
-    switch (self.game.fieldDimensions.type) {
+    switch (self.fieldDimensions.type) {
         case FieldDimensionTypeUPA:
             typeIndex = 0;
             break;
@@ -46,7 +49,7 @@
     self.fieldTypeSegmentedControl.selectedSegmentIndex = typeIndex;
 }
 
--(void)populateFieldDimensions {
+- (IBAction)fieldTypeChanged:(id)sender {
     FieldDimensionType fdType;
     switch (self.fieldTypeSegmentedControl.selectedSegmentIndex) {
         case 0:
@@ -65,13 +68,18 @@
             fdType = FieldDimensionTypeOther;
             break;
         default:
+            fdType = FieldDimensionTypeUPA;
             break;
     }
-    self.game.fieldDimensions.type = fdType;
+    if (self.fieldDimensions.type != fdType) {
+        self.fieldDimensions = [FieldDimensions fieldWithType:fdType];
+        [self saveChanges];
+    }
 }
 
-- (IBAction)fieldTypeChanged:(id)sender {
-    [self populateFieldDimensions];
+-(void)saveChanges {
+    self.game.fieldDimensions = self.fieldDimensions;
+    
 }
 
 @end

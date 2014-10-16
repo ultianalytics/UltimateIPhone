@@ -362,6 +362,7 @@
 		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B39B6219A64FC90008F0C9 /* EventPosition.m */; };
 		38CF2E6919ED54600090F814 /* GameFieldDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */; };
+		38CF2E7519EFF68C0090F814 /* DimensionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E7419EFF68C0090F814 /* DimensionView.m */; };
 		38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */; };
 		38E5EB9C19CC960900E7C6DF /* broadcast-leaguevine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */; };
 		38EAE2B4197AD586002F2A2D /* player_passing_absent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */; };
@@ -915,6 +916,8 @@
 		38B39B6219A64FC90008F0C9 /* EventPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPosition.m; sourceTree = "<group>"; };
 		38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionsViewController.h; sourceTree = "<group>"; };
 		38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionsViewController.m; sourceTree = "<group>"; };
+		38CF2E7319EFF68C0090F814 /* DimensionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimensionView.h; sourceTree = "<group>"; };
+		38CF2E7419EFF68C0090F814 /* DimensionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DimensionView.m; sourceTree = "<group>"; };
 		38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcast-leaguevine.png"; sourceTree = "<group>"; };
 		38E5EB9A19CC960900E7C6DF /* broadcast-leaguevine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcast-leaguevine@2x.png"; sourceTree = "<group>"; };
 		38EAE2B3197AD586002F2A2D /* player_passing_absent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_passing_absent@2x.png"; sourceTree = "<group>"; };
@@ -1741,6 +1744,8 @@
 				38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */,
 				38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */,
 				383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */,
+				38CF2E7319EFF68C0090F814 /* DimensionView.h */,
+				38CF2E7419EFF68C0090F814 /* DimensionView.m */,
 			);
 			name = "Game Field Dimensions";
 			sourceTree = "<group>";
@@ -2405,6 +2410,7 @@
 				1AB78D0417269E40003235AE /* SHSLogger.m in Sources */,
 				1AB78D071726B0DE003235AE /* SHSLogsMailer.m in Sources */,
 				1A7587F6172D767700638AD7 /* GameStartTimeViewController.m in Sources */,
+				38CF2E7519EFF68C0090F814 /* DimensionView.m in Sources */,
 				38AA389819C324D000C6CF9A /* GameRecordingFieldView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

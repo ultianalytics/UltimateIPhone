@@ -9,6 +9,8 @@
 #import "DimensionView.h"
 #import "UIView+Convenience.h"
 
+#define kButtonMargin 2.0f
+#define kEndMarksMargin 2.0f
 
 @interface DimensionView ()
 
@@ -48,12 +50,16 @@
 -(void)configureButton {
     self.dimensionButton = [[UIButton alloc] init];
     [self.dimensionButton setTitleColor:self.lineColor forState:UIControlStateNormal];
+    self.dimensionButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [self addSubview:self.dimensionButton];
 }
 
 -(void)layoutButton {
     [self.dimensionButton sizeToFit];
+    self.dimensionButton.frameWidth =  self.dimensionButton.frameWidth  + (kButtonMargin * 2);
     self.dimensionButton.center = self.boundsCenter;
+    self.dimensionButton.frame = CGRectIntegral(self.dimensionButton.frame);
+    [self.dimensionButton setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -66,11 +72,33 @@
     CGContextSetLineWidth(context, 1);
     
     // draw the line
-    CGFloat dashAndSpaceLengths[] = {2,2};
+    CGFloat dashAndSpaceLengths[] = {2,3};
     CGContextSetLineDash(context, 0, dashAndSpaceLengths, 2);
     CGContextMoveToPoint(context, self.lineBeginPoint.x, self.lineBeginPoint.y);
     CGContextAddLineToPoint(context, self.lineEndPoint.x, self.lineEndPoint.y);
     CGContextStrokePath(context);
+    CGContextSetLineDash(context, 0, NULL, 0);
+    
+    // end marks
+    if (self.includeEndMarks) {
+        if (self.orientation == DimensionViewOrientationHorizontal) {
+            CGContextMoveToPoint(context, self.boundsX, self.boundsY + kEndMarksMargin);
+            CGContextAddLineToPoint(context, self.boundsX, self.boundsY + self.boundsHeight - (kEndMarksMargin * 2));
+            CGContextStrokePath(context);
+            
+            CGContextMoveToPoint(context, self.boundsX + self.boundsWidth, self.boundsY + kEndMarksMargin);
+            CGContextAddLineToPoint(context, self.boundsX  + self.boundsWidth, self.boundsY + self.boundsHeight - (kEndMarksMargin * 2));
+            CGContextStrokePath(context);
+        } else {
+            CGContextMoveToPoint(context, self.boundsX + kEndMarksMargin, self.boundsY);
+            CGContextAddLineToPoint(context, self.boundsX + self.boundsWidth - (kEndMarksMargin * 2), self.boundsY);
+            CGContextStrokePath(context);
+            
+            CGContextMoveToPoint(context, self.boundsX + kEndMarksMargin, self.boundsY + self.boundsHeight);
+            CGContextAddLineToPoint(context, self.boundsX + self.boundsWidth - (kEndMarksMargin * 2) , self.boundsY + self.boundsHeight);
+            CGContextStrokePath(context);
+        }
+    }
     
     CGContextRestoreGState(context);
     

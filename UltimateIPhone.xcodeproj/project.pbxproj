@@ -269,6 +269,7 @@
 		1AFFE8CA15175EB0004B4590 /* WindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE87915175EB0004B4590 /* WindViewController.xib */; };
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
+		3801729C19F2C83E00F5346F /* FieldDimensionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3801729A19F2C83E00F5346F /* FieldDimensionsView.m */; };
 		381BC44F19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */; };
 		381BC45219AF4F8000CD8C20 /* PickPlayerForEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */; };
 		381BC46119B364D100CD8C20 /* PlayDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381BC46019B364D100CD8C20 /* PlayDirectionView.xib */; };
@@ -784,6 +785,8 @@
 		1AFFE87915175EB0004B4590 /* WindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WindViewController.xib; sourceTree = "<group>"; };
 		1AFFE8CC151761AA004B4590 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
+		3801729A19F2C83E00F5346F /* FieldDimensionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDimensionsView.m; sourceTree = "<group>"; };
+		3801729B19F2C83E00F5346F /* FieldDimensionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDimensionsView.h; sourceTree = "<group>"; };
 		381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PickPlayerForEventViewController.storyboard; sourceTree = "<group>"; };
 		381BC45019AF4F8000CD8C20 /* PickPlayerForEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPlayerForEventViewController.h; sourceTree = "<group>"; };
 		381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPlayerForEventViewController.m; sourceTree = "<group>"; };
@@ -1744,6 +1747,8 @@
 				38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */,
 				38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */,
 				383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */,
+				3801729B19F2C83E00F5346F /* FieldDimensionsView.h */,
+				3801729A19F2C83E00F5346F /* FieldDimensionsView.m */,
 				38CF2E7319EFF68C0090F814 /* DimensionView.h */,
 				38CF2E7419EFF68C0090F814 /* DimensionView.m */,
 			);
@@ -2269,6 +2274,7 @@
 				1AFFE89315175EB0004B4590 /* IBView.m in Sources */,
 				1AFFE89415175EB0004B4590 /* ImageMaster.m in Sources */,
 				1AFFE89C15175EB0004B4590 /* OffenseEvent.m in Sources */,
+				3801729C19F2C83E00F5346F /* FieldDimensionsView.m in Sources */,
 				1AFFE89D15175EB0004B4590 /* PasserButton.m in Sources */,
 				381BC48C19B91D0A00CD8C20 /* UIView+Toast.m in Sources */,
 				1AFFE89E15175EB0004B4590 /* PickPlayersController.m in Sources */,

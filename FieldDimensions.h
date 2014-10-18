@@ -25,10 +25,10 @@ typedef enum {
 
 @property (nonatomic) FieldDimensionType type;
 @property (nonatomic) FieldUnitOfMeasure unitOfMeasure;
-@property (nonatomic) float width;
-@property (nonatomic) float centralZoneLength; // exclusive of endzone
-@property (nonatomic) float endZoneLength;
-@property (nonatomic) float brickMark;
+@property (nonatomic) int width;
+@property (nonatomic) int centralZoneLength; // exclusive of endzone
+@property (nonatomic) int endZoneLength;
+@property (nonatomic) int brickMarkDistance;
 
 +(instancetype)fieldWithType: (FieldDimensionType) type;
 

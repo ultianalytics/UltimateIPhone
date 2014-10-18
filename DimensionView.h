@@ -17,8 +17,10 @@ typedef enum {
 
 @property (nonatomic) DimensionViewOrientation orientation;
 @property (nonatomic, strong) UIColor* lineColor;
+@property (nonatomic, strong) UIColor* changeEnabledTextColor;
 @property (nonatomic, strong) NSString* distanceDescription;
 @property (nonatomic) BOOL includeEndMarks;
+@property (nonatomic) BOOL changedEnabled;
 
 -(void)setTapHandler:(id) handler selector:(SEL) handlerSelector;
 

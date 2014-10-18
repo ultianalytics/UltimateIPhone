@@ -17,6 +17,9 @@
 @property (nonatomic, strong) UIButton* dimensionButton;
 @property (nonatomic) CGPoint lineBeginPoint;
 @property (nonatomic) CGPoint lineEndPoint;
+@property (nonatomic, weak) id tapHandler;
+@property (nonatomic) SEL tapHandlerSelector;
+
 
 @end
 
@@ -34,6 +37,7 @@
 -(void)commonInit {
     self.backgroundColor = [UIColor clearColor];
     self.lineColor = [UIColor blackColor];
+    self.changeEnabledTextColor = [UIColor blackColor];
     [self configureButton];
 }
 
@@ -51,6 +55,7 @@
     self.dimensionButton = [[UIButton alloc] init];
     [self.dimensionButton setTitleColor:self.lineColor forState:UIControlStateNormal];
     self.dimensionButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [self.dimensionButton addTarget:self action:@selector(handleButtonTap) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.dimensionButton];
 }
 
@@ -122,7 +127,20 @@
 }
 
 -(void)setTapHandler:(id) handler selector:(SEL) handlerSelector {
-    [self.dimensionButton addTarget:handler action:handlerSelector forControlEvents:UIControlEventTouchUpInside];
+    self.tapHandler = handler;
+    self.tapHandlerSelector = handlerSelector;
+}
+
+-(void)handleButtonTap {
+    if (self.tapHandler && self.changedEnabled) {
+        [self.tapHandler performSelector:self.tapHandlerSelector withObject:self];
+    }
+}
+
+-(void)setChangedEnabled:(BOOL)changedEnabled {
+    _changedEnabled = changedEnabled;
+    UIColor* textColor = changedEnabled ? self.changeEnabledTextColor : self.lineColor;
+    [self.dimensionButton setTitleColor:textColor forState:UIControlStateNormal];
 }
 
 

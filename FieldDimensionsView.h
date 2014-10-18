@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "FieldDimensions.h"
 
+typedef enum {
+    DimensionTypeEndZone = 0,
+    DimensionTypeCentralZone,
+    DimensionTypeWidth,
+    DimensionTypeBrickMarkDistance,
+} DimensionType;
+
 @interface FieldDimensionsView : UIView
 
 @property (nonatomic, strong) FieldDimensions* fieldDimensions;
 @property (nonatomic, strong) UIColor* lineColor;
+@property (nonatomic) BOOL changedEnabled;
+@property (strong, nonatomic) void (^changeRequested)(DimensionType dimensionType);
 
 @end

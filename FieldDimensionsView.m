@@ -20,6 +20,7 @@
 @property (nonatomic, strong) DimensionView* centralZoneDimensionView;
 @property (nonatomic, strong) DimensionView* widthDimensionView;
 @property (nonatomic, strong) DimensionView* brickMarkDimensionView;
+@property (nonatomic, strong) NSArray* dimensionViews;
 @property (nonatomic) CGRect fieldRect;
 @property (nonatomic) CGRect endzone0Rect;
 @property (nonatomic) CGRect endzone100Rect;
@@ -43,6 +44,7 @@
 }
 
 -(void)commonInit {
+    self.lineColor = [UIColor blackColor];    
     [self initializeDimensionViews];
 }
 
@@ -53,13 +55,20 @@
     self.widthDimensionView = [self createDimensionView];
     self.widthDimensionView.orientation = DimensionViewOrientationVertical;
     self.brickMarkDimensionView = [self createDimensionView];
+    self.dimensionViews = @[self.endZoneDimensionView,self.centralZoneDimensionView,self.widthDimensionView,self.brickMarkDimensionView];
 }
 
 -(DimensionView*)createDimensionView {
     DimensionView* dimView = [[DimensionView alloc] init];
+    [dimView setTapHandler:self selector:@selector(dimensionViewTapped:)];
     dimView.lineColor = self.lineColor;
+    dimView.changeEnabledTextColor = [UIColor blueColor];
     [self addSubview:dimView];
     return dimView;
+}
+
+-(void)dimensionViewTapped: (DimensionView*) dimView {
+    NSLog(@"dimView tapped.  dimView is %@", dimView);
 }
 
 -(void)populateDimensionViews {
@@ -69,6 +78,10 @@
         self.widthDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.width];
         self.brickMarkDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.brickMarkDistance];
     }
+    for (DimensionView* dView in self.dimensionViews) {
+        dView.changedEnabled = self.changedEnabled;
+    }
+    [self setNeedsLayout];
 }
 
 -(NSString*)dimensionDescription: (int) dim {
@@ -165,7 +178,11 @@
 -(void)setFieldDimensions:(FieldDimensions *)fieldDimensions {
     _fieldDimensions = fieldDimensions;
     [self populateDimensionViews];
-    [self setNeedsLayout];
+}
+
+-(void)setChangedEnabled:(BOOL)changedEnabled {
+    _changedEnabled = changedEnabled;
+    [self populateDimensionViews];
 }
 
 @end

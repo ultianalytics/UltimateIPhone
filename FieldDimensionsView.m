@@ -179,14 +179,25 @@
     CGContextAddLineToPoint(context, rect.origin.x + borderLineInset, rect.origin.y  + borderLineInset);
     CGContextStrokePath(context);
     
-    // draw the endzone 0 & 100 brickmark
+    // draw the brick marks
     CGContextSetFillColorWithColor(context, self.lineColor.CGColor);
     CGContextAddEllipseInRect(context, self.brickMark0Rect);
     CGContextFillPath(context);
     CGContextAddEllipseInRect(context, self.brickMark100Rect);
+//    [self drawXAt:self.brickMark0Rect onContext:context];
+//    [self drawXAt:self.brickMark100Rect onContext:context];
     CGContextFillPath(context);
     
     CGContextRestoreGState(context);
+}
+
+-(void)drawXAt: (CGRect) rect onContext: (CGContextRef) context {
+    CGContextMoveToPoint(context, rect.origin.x, rect.origin.y);
+    CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+    CGContextStrokePath(context);
+    CGContextMoveToPoint(context, rect.origin.x + rect.size.width, rect.origin.y);
+    CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height);
+    CGContextStrokePath(context);
 }
 
 -(void)setFieldDimensions:(FieldDimensions *)fieldDimensions {

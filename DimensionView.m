@@ -133,6 +133,7 @@
 
 -(void)handleButtonTap {
     if (self.tapHandler && self.changedEnabled) {
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self.tapHandler performSelector:self.tapHandlerSelector withObject:self];
     }
 }

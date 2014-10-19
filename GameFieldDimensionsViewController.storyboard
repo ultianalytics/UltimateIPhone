@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Hmi-wb-JfM">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -18,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-h1-Qq7" customClass="CellishView">
-                                <rect key="frame" x="0.0" y="68" width="600" height="410"/>
+                                <rect key="frame" x="0.0" y="68" width="600" height="348"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KLA-Sh-9mL">
                                         <rect key="frame" x="67" y="21" width="366" height="29"/>
@@ -27,7 +26,7 @@
                                             <segment title="WFDF"/>
                                             <segment title="AUDL"/>
                                             <segment title="MLU"/>
-                                            <segment title="Other"/>
+                                            <segment title="Custom"/>
                                         </segments>
                                         <connections>
                                             <action selector="fieldTypeChanged:" destination="Hmi-wb-JfM" eventType="valueChanged" id="ktd-lH-NDz"/>
@@ -54,6 +53,7 @@
                         <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="dmR-h1-Qq7" id="1EP-lo-XEk"/>
                         <outlet property="fieldDimensionsView" destination="aQ1-Uk-13Q" id="EE5-6j-aeq"/>
                         <outlet property="fieldTypeSegmentedControl" destination="KLA-Sh-9mL" id="dbZ-IA-Sn6"/>
                         <outlet property="unitOfMeasureSegmentedControl" destination="lhj-nu-Hnr" id="WKx-gh-uNE"/>

@@ -11,7 +11,7 @@
 #import "FieldDimensions.h"
 #import "GameFieldDimensionViewController.h"
 
-@interface GameFieldDimensionsViewController () <GameFieldDimensionViewControllerDelegate>
+@interface GameFieldDimensionsViewController () <GameFieldDimensionViewControllerDelegate, UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *fieldTypeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *unitOfMeasureSegmentedControl;
@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.fieldDimensions = self.game.fieldDimensions;
+    self.fieldDimensionsView.lineColor = [UIColor darkGrayColor];
     self.fieldDimensionsView.changeRequested = ^(DimensionType dimensionType, UIView* anchorView) {
         [self showDimensionChangePopover:anchorView forDimension:dimensionType];
     };
@@ -107,18 +108,26 @@
     changeVC.delegate = self;
     changeVC.dimensionType = dimensionType;
     self.popover = [[UIPopoverController alloc] initWithContentViewController:changeVC];
+    self.popover.delegate = self;
     
     CGRect anchorViewRect = [self.view convertRect:anchorView.frame fromView:self.fieldDimensionsView];
     [self.popover presentPopoverFromRect:anchorViewRect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
 }
 
-#pragma GameFieldDimensionViewControllerDelegate
+#pragma mark - GameFieldDimensionViewControllerDelegate
 
 -(void)fieldDimensionControllerRequestsClose {
     [self.popover dismissPopoverAnimated:YES];
     self.popover = nil;
     [self populateView];
+}
+
+#pragma mark - UIPopoverControllerDelegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+     self.popover = nil;
+     [self populateView];
 }
 
 @end

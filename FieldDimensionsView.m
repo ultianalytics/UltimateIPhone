@@ -14,6 +14,7 @@
 #define kDimensionViewHeight 40.0f
 #define kDimensionViewWidth 40.0f
 #define kBrickMarkRadius 3.0f
+#define kMinBrickMarkDimensionViewWidth 40.0f
 
 @interface FieldDimensionsView ()
 
@@ -92,6 +93,7 @@
     }
     for (DimensionView* dView in self.dimensionViews) {
         dView.changedEnabled = self.changedEnabled;
+        dView.lineColor = self.lineColor;
     }
     [self setNeedsLayout];
 }
@@ -123,7 +125,7 @@
     self.endzone0Rect = CGRectMake(totalFieldViewX, 0, endZoneViewWidth, self.fieldRect.size.height);
     self.endzone100Rect = CGRectMake(totalFieldViewX + totalFieldViewWidth - endZoneViewWidth, 0, endZoneViewWidth, self.fieldRect.size.height);
     
-    CGFloat brickMarkToEndzone = self.fieldDimensions.brickMarkDistance * scale;
+    CGFloat brickMarkToEndzone = MAX(self.fieldDimensions.brickMarkDistance * scale, kMinBrickMarkDimensionViewWidth);
     self.brickMark0Rect = CGRectMakeIntegral(CGRectGetMaxX(self.endzone0Rect) + brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
     self.brickMark100Rect = CGRectMakeIntegral(CGRectGetMinX(self.endzone100Rect) - brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
 }
@@ -194,6 +196,11 @@
 
 -(void)setChangedEnabled:(BOOL)changedEnabled {
     _changedEnabled = changedEnabled;
+    [self populateDimensionViews];
+}
+
+-(void)setLineColor:(UIColor *)lineColor {
+    _lineColor = lineColor;
     [self populateDimensionViews];
 }
 

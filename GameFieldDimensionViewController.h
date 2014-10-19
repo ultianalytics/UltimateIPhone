@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FieldDimensionsView.h"
+
+@protocol GameFieldDimensionViewControllerDelegate <NSObject>
+
+-(void)fieldDimensionControllerRequestsClose;
+
+@end
 
 @interface GameFieldDimensionViewController : UIViewController
+
+@property (nonatomic) FieldDimensions* fieldDimensions;
+@property (nonatomic) DimensionType dimensionType;
+@property (nonatomic, weak) id<GameFieldDimensionViewControllerDelegate> delegate;
 
 @end

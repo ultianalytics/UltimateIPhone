@@ -32,6 +32,16 @@
                                             <action selector="fieldTypeChanged:" destination="Hmi-wb-JfM" eventType="valueChanged" id="ktd-lH-NDz"/>
                                         </connections>
                                     </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-nu-Hnr">
+                                        <rect key="frame" x="198" y="57" width="113" height="29"/>
+                                        <segments>
+                                            <segment title="Yards"/>
+                                            <segment title="Meters"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="unitOfMeasureChanged:" destination="Hmi-wb-JfM" eventType="valueChanged" id="e28-43-Ckn"/>
+                                        </connections>
+                                    </segmentedControl>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aQ1-Uk-13Q" userLabel="Field View" customClass="FieldDimensionsView">
                                         <rect key="frame" x="67" y="105" width="366" height="216"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -45,6 +55,7 @@
                     <connections>
                         <outlet property="fieldDimensionsView" destination="aQ1-Uk-13Q" id="EE5-6j-aeq"/>
                         <outlet property="fieldTypeSegmentedControl" destination="KLA-Sh-9mL" id="dbZ-IA-Sn6"/>
+                        <outlet property="unitOfMeasureSegmentedControl" destination="lhj-nu-Hnr" id="WKx-gh-uNE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tc3-DC-I53" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -140,6 +140,7 @@
 -(void)setChangedEnabled:(BOOL)changedEnabled {
     _changedEnabled = changedEnabled;
     UIColor* textColor = changedEnabled ? self.changeEnabledTextColor : self.lineColor;
+    self.dimensionButton.titleLabel.font = changedEnabled ? [UIFont boldSystemFontOfSize:16] : [UIFont systemFontOfSize:16];
     [self.dimensionButton setTitleColor:textColor forState:UIControlStateNormal];
 }
 

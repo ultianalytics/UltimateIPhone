@@ -9,6 +9,7 @@
 #import "FieldDimensionsView.h"
 #import "DimensionView.h"
 #import "UIView+Convenience.h"
+#import "ColorMaster.h"
 
 #define kDimensionViewHeight 40.0f
 #define kDimensionViewWidth 40.0f
@@ -62,7 +63,7 @@
     DimensionView* dimView = [[DimensionView alloc] init];
     [dimView setTapHandler:self selector:@selector(dimensionViewTapped:)];
     dimView.lineColor = self.lineColor;
-    dimView.changeEnabledTextColor = [UIColor blueColor];
+    dimView.changeEnabledTextColor = [ColorMaster applicationTintColor];
     [self addSubview:dimView];
     return dimView;
 }

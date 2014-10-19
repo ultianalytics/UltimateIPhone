@@ -69,6 +69,17 @@
 
 -(void)dimensionViewTapped: (DimensionView*) dimView {
     NSLog(@"dimView tapped.  dimView is %@", dimView);
+    if (self.changeRequested) {
+        if (dimView == self.endZoneDimensionView) {
+            self.changeRequested(DimensionTypeEndZone, dimView);
+        } else if (dimView == self.centralZoneDimensionView) {
+            self.changeRequested(DimensionTypeCentralZone, dimView);
+        } else if (dimView == self.widthDimensionView) {
+            self.changeRequested(DimensionTypeWidth, dimView);
+        } else if (dimView == self.brickMarkDimensionView) {
+            self.changeRequested(DimensionTypeBrickMarkDistance, dimView);
+        }
+    }
 }
 
 -(void)populateDimensionViews {

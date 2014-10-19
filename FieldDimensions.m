@@ -18,57 +18,18 @@
 
 @implementation FieldDimensions
 
-+(instancetype)fieldWithType: (FieldDimensionType) type {
-    
-    FieldDimensions* fd = [[FieldDimensions alloc] init];
-
-    switch (type) {
-        case FieldDimensionTypeUPA: {
-            fd.type = FieldDimensionTypeUPA;
-            fd.unitOfMeasure = FieldUnitOfMeasureYards;
-            fd.width = 40;
-            fd.centralZoneLength = 75;
-            fd.endZoneLength = 25;
-            fd.brickMarkDistance = 20;
-            break;
-        }
-        case FieldDimensionTypeAUDL: {
-            fd.type = FieldDimensionTypeAUDL;
-            fd.unitOfMeasure = FieldUnitOfMeasureYards;
-            fd.width = 53.33;
-            fd.centralZoneLength = 80;
-            fd.endZoneLength = 20;
-            fd.brickMarkDistance = 20;
-            break;
-        }
-        case FieldDimensionTypeMLU: {
-            fd.type = FieldDimensionTypeMLU;
-            fd.unitOfMeasure = FieldUnitOfMeasureYards;
-            fd.width = 53.33;
-            fd.centralZoneLength = 80;
-            fd.endZoneLength = 20;
-            fd.brickMarkDistance = 20;
-            break;
-        }
-        case FieldDimensionTypeWFDF: {
-            fd.type = FieldDimensionTypeMLU;
-            fd.unitOfMeasure = FieldUnitOfMeasureMeters;
-            fd.width = 37;
-            fd.centralZoneLength = 64;
-            fd.endZoneLength = 18;
-            fd.brickMarkDistance = 18;
-            break;
-        }
-        default: {
-            fd.type = FieldDimensionTypeUPA;
-            fd.unitOfMeasure = FieldUnitOfMeasureYards;
-            fd.width = 40;
-            fd.centralZoneLength = 75;
-            fd.endZoneLength = 25;
-            fd.brickMarkDistance = 20;
-            break;
-        }
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self initializeDimensions];
     }
+    return self;
+}
+
++(instancetype)fieldWithType: (FieldDimensionType) type {
+    FieldDimensions* fd = [[FieldDimensions alloc] init];
+    fd.type = type;
+    [fd initializeDimensions];
     return fd;
 }
 
@@ -150,6 +111,51 @@
 
 -(NSString*)description {
     return self.type == FieldDimensionTypeOther ? [self dimensionsDescription] : self.name;
+}
+
+-(void)initializeDimensions {
+    switch (self.type) {
+        case FieldDimensionTypeUPA: {
+            self.unitOfMeasure = FieldUnitOfMeasureYards;
+            self.width = 40;
+            self.centralZoneLength = 75;
+            self.endZoneLength = 25;
+            self.brickMarkDistance = 20;
+            break;
+        }
+        case FieldDimensionTypeAUDL: {
+            self.unitOfMeasure = FieldUnitOfMeasureYards;
+            self.width = 53.33;
+            self.centralZoneLength = 80;
+            self.endZoneLength = 20;
+            self.brickMarkDistance = 20;
+            break;
+        }
+        case FieldDimensionTypeMLU: {
+            self.unitOfMeasure = FieldUnitOfMeasureYards;
+            self.width = 53.33;
+            self.centralZoneLength = 80;
+            self.endZoneLength = 20;
+            self.brickMarkDistance = 20;
+            break;
+        }
+        case FieldDimensionTypeWFDF: {
+            self.unitOfMeasure = FieldUnitOfMeasureMeters;
+            self.width = 37;
+            self.centralZoneLength = 64;
+            self.endZoneLength = 18;
+            self.brickMarkDistance = 18;
+            break;
+        }
+        default: {
+            self.unitOfMeasure = FieldUnitOfMeasureYards;
+            self.width = 40;
+            self.centralZoneLength = 75;
+            self.endZoneLength = 25;
+            self.brickMarkDistance = 20;
+            break;
+        }
+    }
 }
 
 @end

@@ -21,6 +21,6 @@ typedef enum {
 @property (nonatomic, strong) FieldDimensions* fieldDimensions;
 @property (nonatomic, strong) UIColor* lineColor;
 @property (nonatomic) BOOL changedEnabled;
-@property (strong, nonatomic) void (^changeRequested)(DimensionType dimensionType);
+@property (nonatomic, strong) void (^changeRequested)(DimensionType dimensionType, UIView* anchorView);
 
 @end

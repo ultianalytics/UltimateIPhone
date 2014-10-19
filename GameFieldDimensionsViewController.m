@@ -7,13 +7,17 @@
 //
 
 #import "GameFieldDimensionsViewController.h"
+#import "FieldDimensionsView.h"
 #import "FieldDimensions.h"
+#import "GameFieldDimensionViewController.h"
 
 @interface GameFieldDimensionsViewController ()
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *fieldTypeSegmentedControl;
+@property (weak, nonatomic) IBOutlet FieldDimensionsView *fieldDimensionsView;
 
 @property (strong, nonatomic) FieldDimensions* fieldDimensions;
+@property (strong, nonatomic) UIPopoverController* popover;
 
 @end
 
@@ -47,6 +51,7 @@
             break;
     }
     self.fieldTypeSegmentedControl.selectedSegmentIndex = typeIndex;
+    self.fieldDimensionsView.fieldDimensions = self.fieldDimensions;
 }
 
 - (IBAction)fieldTypeChanged:(id)sender {
@@ -73,12 +78,22 @@
     }
     if (self.fieldDimensions.type != fdType) {
         self.fieldDimensions = [FieldDimensions fieldWithType:fdType];
+        [self populateView];
         [self saveChanges];
     }
 }
 
 -(void)saveChanges {
     self.game.fieldDimensions = self.fieldDimensions;
+    
+}
+
+-(void)showDimensionChangePopover: (UIView*) anchorView {
+    GameFieldDimensionViewController *changeVC = [[GameFieldDimensionViewController alloc] init];
+    self.popover = [[UIPopoverController alloc] initWithContentViewController:changeVC];
+    
+//    CGRect anchorViewRect = [self.view convertRect:anchorView.frame fromView:anchorView];
+    [self.popover presentPopoverFromRect:anchorView.frame inView:anchorView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
 }
 

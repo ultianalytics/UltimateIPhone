@@ -270,6 +270,8 @@
 		1AFFE8CE151761AA004B4590 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CC151761AA004B4590 /* GameViewController.xib */; };
 		1AFFE8CF151761AA004B4590 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE8CD151761AA004B4590 /* TeamViewController.xib */; };
 		3801729C19F2C83E00F5346F /* FieldDimensionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3801729A19F2C83E00F5346F /* FieldDimensionsView.m */; };
+		380172A319F383B500F5346F /* GameFieldDimensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380172A119F383B500F5346F /* GameFieldDimensionViewController.m */; };
+		380172A419F383B500F5346F /* GameFieldDimensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 380172A219F383B500F5346F /* GameFieldDimensionViewController.xib */; };
 		381BC44F19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */; };
 		381BC45219AF4F8000CD8C20 /* PickPlayerForEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */; };
 		381BC46119B364D100CD8C20 /* PlayDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381BC46019B364D100CD8C20 /* PlayDirectionView.xib */; };
@@ -787,6 +789,9 @@
 		1AFFE8CD151761AA004B4590 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
 		3801729A19F2C83E00F5346F /* FieldDimensionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDimensionsView.m; sourceTree = "<group>"; };
 		3801729B19F2C83E00F5346F /* FieldDimensionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDimensionsView.h; sourceTree = "<group>"; };
+		380172A019F383B500F5346F /* GameFieldDimensionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionViewController.h; sourceTree = "<group>"; };
+		380172A119F383B500F5346F /* GameFieldDimensionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionViewController.m; sourceTree = "<group>"; };
+		380172A219F383B500F5346F /* GameFieldDimensionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFieldDimensionViewController.xib; sourceTree = "<group>"; };
 		381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PickPlayerForEventViewController.storyboard; sourceTree = "<group>"; };
 		381BC45019AF4F8000CD8C20 /* PickPlayerForEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPlayerForEventViewController.h; sourceTree = "<group>"; };
 		381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPlayerForEventViewController.m; sourceTree = "<group>"; };
@@ -1747,6 +1752,9 @@
 				38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */,
 				38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */,
 				383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */,
+				380172A019F383B500F5346F /* GameFieldDimensionViewController.h */,
+				380172A119F383B500F5346F /* GameFieldDimensionViewController.m */,
+				380172A219F383B500F5346F /* GameFieldDimensionViewController.xib */,
 				3801729B19F2C83E00F5346F /* FieldDimensionsView.h */,
 				3801729A19F2C83E00F5346F /* FieldDimensionsView.m */,
 				38CF2E7319EFF68C0090F814 /* DimensionView.h */,
@@ -2176,6 +2184,7 @@
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
 				38AA38AB19C32F1400C6CF9A /* fast-backward.png in Resources */,
 				381BC46119B364D100CD8C20 /* PlayDirectionView.xib in Resources */,
+				380172A419F383B500F5346F /* GameFieldDimensionViewController.xib in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
 				38B2CE6419A11D65008BE91B /* GameActionView_iPhone_320x568.xib in Resources */,
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
@@ -2392,6 +2401,7 @@
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,
 				1A6C82EC16E3C8B600B84595 /* UIViewController+Additions.m in Sources */,
 				38FD2FE11996FF4E00CE83BB /* GamesMasterDetailViewController.m in Sources */,
+				380172A319F383B500F5346F /* GameFieldDimensionViewController.m in Sources */,
 				1AB219731701CBCE0034DD5A /* LeaguevinePlayer.m in Sources */,
 				3832DD2B19DAD6BA002762D1 /* CloudRequestStatus.m in Sources */,
 				1A5D7B4218FC4BF700239A22 /* SHSTeamFileZipper.m in Sources */,

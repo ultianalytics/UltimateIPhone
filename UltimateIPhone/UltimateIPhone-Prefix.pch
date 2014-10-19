@@ -31,6 +31,9 @@
 
 #define NSStringFromBOOL(bool) (bool ? @"YES" : @"NO")
 
+#define CGRectMakeIntegral(x, y, width, height) CGRectIntegral(CGRectMake(x, y, width, height))
+
+
 typedef enum {
     CRUDAdd=0,
     CRUDUpdate, 

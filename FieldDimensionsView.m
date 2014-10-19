@@ -117,28 +117,28 @@
     CGFloat totalFieldViewWidth = totalFieldLength * scale;
     CGFloat totalFieldViewHeight = self.fieldDimensions.width * scale;
     CGFloat totalFieldViewX = totalFieldViewWidth < self.boundsWidth ? MAX(0,(self.boundsWidth - totalFieldViewWidth) / 2.0f) : 0;
-    self.fieldRect = CGRectIntegral(CGRectMake(totalFieldViewX, 0, totalFieldViewWidth, totalFieldViewHeight));
+    self.fieldRect = CGRectMakeIntegral(totalFieldViewX, 0, totalFieldViewWidth, totalFieldViewHeight);
 
     CGFloat endZoneViewWidth = floorf(self.fieldDimensions.endZoneLength * scale);
     self.endzone0Rect = CGRectMake(totalFieldViewX, 0, endZoneViewWidth, self.fieldRect.size.height);
     self.endzone100Rect = CGRectMake(totalFieldViewX + totalFieldViewWidth - endZoneViewWidth, 0, endZoneViewWidth, self.fieldRect.size.height);
     
     CGFloat brickMarkToEndzone = self.fieldDimensions.brickMarkDistance * scale;
-    self.brickMark0Rect = CGRectMake(CGRectGetMaxX(self.endzone0Rect) + brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
-    self.brickMark100Rect = CGRectMake(CGRectGetMinX(self.endzone100Rect) - brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
+    self.brickMark0Rect = CGRectMakeIntegral(CGRectGetMaxX(self.endzone0Rect) + brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
+    self.brickMark100Rect = CGRectMakeIntegral(CGRectGetMinX(self.endzone100Rect) - brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
 }
 
 -(void)layoutDimensionViews {
     CGFloat x = CGRectGetMidX(self.endzone0Rect) - (kDimensionViewWidth / 2.0f);
-    self.widthDimensionView.frame = CGRectMake(x, 0, kDimensionViewWidth, self.endzone0Rect.size.height);
+    self.widthDimensionView.frame = CGRectMakeIntegral(x, 0, kDimensionViewWidth, self.endzone0Rect.size.height);
     
     CGFloat midFieldDimViewsY = CGRectGetMidY(self.endzone100Rect) - (kDimensionViewHeight / 2.0f);
-    self.endZoneDimensionView.frame = CGRectIntegral(CGRectMake(self.endzone100Rect.origin.x, midFieldDimViewsY, self.endzone100Rect.size.width, kDimensionViewHeight));
+    self.endZoneDimensionView.frame = CGRectMakeIntegral(self.endzone100Rect.origin.x, midFieldDimViewsY, self.endzone100Rect.size.width, kDimensionViewHeight);
     
     x = CGRectGetMaxX(self.endzone0Rect);
-    self.centralZoneDimensionView.frame = CGRectMake(x, CGRectGetMaxY(self.fieldRect), self.endzone100Rect.origin.x - x, kDimensionViewHeight);
+    self.centralZoneDimensionView.frame = CGRectMakeIntegral(x, CGRectGetMaxY(self.fieldRect), self.endzone100Rect.origin.x - x, kDimensionViewHeight);
 
-    self.brickMarkDimensionView.frame = CGRectMake(CGRectGetMaxX(self.endzone0Rect), midFieldDimViewsY, self.brickMark0Rect.origin.x - x, kDimensionViewHeight);
+    self.brickMarkDimensionView.frame = CGRectMakeIntegral(CGRectGetMaxX(self.endzone0Rect), midFieldDimViewsY, self.brickMark0Rect.origin.x - x, kDimensionViewHeight);
 }
 
 - (void)drawRect:(CGRect)drawingRect {

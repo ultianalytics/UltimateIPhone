@@ -71,23 +71,23 @@
 #pragma mark - UIPickerViewDelegate, UIPickerViewDataSource
 
 // The number of columns of data
-- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
 // The number of rows of data
-- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return self.lastDimension - self.firstDimension;
 }
 
 // The data to return for the row and component (column) that's being passed in
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    int value = self.firstDimension + row;
-    return [NSString stringWithFormat:@"%d", value];
+    NSInteger value = self.firstDimension + row;
+    return [NSString stringWithFormat:@"%ld", (long)value];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    int selectedDimension = row + self.firstDimension;
+    NSInteger selectedDimension = row + self.firstDimension;
     switch (self.dimensionType) {
         case DimensionTypeEndZone:
             self.fieldDimensions.endZoneLength = selectedDimension;

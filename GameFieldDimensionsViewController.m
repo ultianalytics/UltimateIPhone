@@ -32,8 +32,9 @@
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.fieldDimensions = self.game.fieldDimensions;
     self.fieldDimensionsView.lineColor = [UIColor darkGrayColor];
+    __typeof(self) __weak weakSelf = self;
     self.fieldDimensionsView.changeRequested = ^(DimensionType dimensionType, UIView* anchorView) {
-        [self showDimensionChangePopover:anchorView forDimension:dimensionType];
+        [weakSelf showDimensionChangePopover:anchorView forDimension:dimensionType];
     };
     [self populateViewAnimated: NO];
 }

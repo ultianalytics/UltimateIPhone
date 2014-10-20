@@ -229,6 +229,9 @@
 
 - (IBAction)positionalEventsChanged:(id)sender {
     BOOL shouldBePositional = self.positionalEventsSegmentedControl.selectedSegmentIndex == 1;
+    if (shouldBePositional) {
+        self.fieldDimensionsLabel.text = [self.game.fieldDimensions description];
+    }
     if ([self hasGameBeenStarted] && [self.game hasEvents]) {
         [self handleInProgressGamePositionalChange: shouldBePositional];
     } else {

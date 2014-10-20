@@ -9,6 +9,7 @@
 #import "GameFieldDimensionsViewController.h"
 #import "FieldDimensionsView.h"
 #import "FieldDimensions.h"
+#import "Preferences.h"
 #import "GameFieldDimensionViewController.h"
 #import "UIView+Toast.h"
 
@@ -114,7 +115,11 @@
 
 -(void)saveChanges {
     self.game.fieldDimensions = self.fieldDimensions;
-    
+    if ([self.game hasBeenSaved]) {
+        [self.game save];
+    }
+    [Preferences getCurrentPreferences].fieldDimensions = self.fieldDimensions;
+    [[Preferences getCurrentPreferences] save];
 }
 
 -(void)showDimensionChangePopover: (UIView*) anchorView forDimension: (DimensionType) dimensionType{
@@ -130,19 +135,23 @@
     
 }
 
+-(void)dimensionChangePopoverClosed {
+    self.popover = nil;
+    [self populateViewAnimated: YES];
+    [self saveChanges];
+}
+
 #pragma mark - GameFieldDimensionViewControllerDelegate
 
 -(void)fieldDimensionControllerRequestsClose {
     [self.popover dismissPopoverAnimated:YES];
-    self.popover = nil;
-    [self populateViewAnimated: YES];
+    [self dimensionChangePopoverClosed];
 }
 
 #pragma mark - UIPopoverControllerDelegate
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-     self.popover = nil;
-     [self populateViewAnimated: YES];
+    [self dimensionChangePopoverClosed];
 }
 
 @end

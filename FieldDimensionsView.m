@@ -14,6 +14,7 @@
 #define kDimensionViewHeight 40.0f
 #define kDimensionViewWidth 40.0f
 #define kBrickMarkRadius 3.0f
+#define kMinEndZoneDimensionViewWidth 40.0f
 #define kMinBrickMarkDimensionViewWidth 40.0f
 
 @interface FieldDimensionsView ()
@@ -121,7 +122,7 @@
     CGFloat totalFieldViewX = totalFieldViewWidth < self.boundsWidth ? MAX(0,(self.boundsWidth - totalFieldViewWidth) / 2.0f) : 0;
     self.fieldRect = CGRectMakeIntegral(totalFieldViewX, 0, totalFieldViewWidth, totalFieldViewHeight);
 
-    CGFloat endZoneViewWidth = floorf(self.fieldDimensions.endZoneLength * scale);
+    CGFloat endZoneViewWidth = MAX(floorf(self.fieldDimensions.endZoneLength * scale), kMinEndZoneDimensionViewWidth);
     self.endzone0Rect = CGRectMake(totalFieldViewX, 0, endZoneViewWidth, self.fieldRect.size.height);
     self.endzone100Rect = CGRectMake(totalFieldViewX + totalFieldViewWidth - endZoneViewWidth, 0, endZoneViewWidth, self.fieldRect.size.height);
     

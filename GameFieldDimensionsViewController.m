@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Field Dimensions";
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.fieldDimensions = self.game.fieldDimensions;
     self.fieldDimensionsView.lineColor = [UIColor darkGrayColor];

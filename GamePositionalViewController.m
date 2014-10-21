@@ -62,6 +62,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fieldView.fieldDimensions = self.game.fieldDimensions;
     [self configurePickupDiskPlayerPickerView];
     [self configureFieldView];
     [self.eventsViewController adjustInsetForTabBar];

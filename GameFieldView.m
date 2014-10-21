@@ -13,6 +13,9 @@
 #import "Event.h"
 #import "Game.h"
 #import "ColorMaster.h"
+#import "FieldDimensions.h"
+
+#define kBrickMarkRadius 3.0f
 
 @interface GameFieldView ()
 
@@ -20,6 +23,8 @@
 @property (nonatomic) CGRect fieldRect;
 @property (nonatomic) CGRect endzone0Rect;
 @property (nonatomic) CGRect endzone100Rect;
+@property (nonatomic) CGRect brickMark0Rect;
+@property (nonatomic) CGRect brickMark100Rect;
 
 @property (nonatomic, strong) UILabel* messageLabel;
 
@@ -63,6 +68,7 @@
     if (self.message) {
         self.messageLabel.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     }
+    [self.layer setNeedsDisplay];
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
@@ -100,8 +106,23 @@
     CGContextAddLineToPoint(context, rect.origin.x + borderLineInset, rect.origin.y  + borderLineInset);
     CGContextStrokePath(context);
     
+    // draw the brick marks
+    if (self.fieldDimensions) {
+        [self drawXAt:self.brickMark0Rect onContext:context];
+        [self drawXAt:self.brickMark100Rect onContext:context];
+    }
+    
     CGContextRestoreGState(context);
 
+}
+
+-(void)drawXAt: (CGRect) rect onContext: (CGContextRef) context {
+    CGContextMoveToPoint(context, rect.origin.x, rect.origin.y);
+    CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+    CGContextStrokePath(context);
+    CGContextMoveToPoint(context, rect.origin.x + rect.size.width, rect.origin.y);
+    CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height);
+    CGContextStrokePath(context);
 }
 
 #pragma mark - Point/Position calculations 
@@ -113,6 +134,12 @@
     self.endzone100Rect = CGRectMake(totalField.size.width-endzoneWidth, 0, endzoneWidth, ceilf(totalField.size.height));
     self.fieldRect = CGRectMake(self.endzone0Rect.size.width, 0, self.endzone100Rect.origin.x - CGRectGetMaxX(self.endzone0Rect), ceilf(totalField.size.height));
     self.totalFieldRect = totalField;
+    
+    // brick marks
+    CGFloat centralZoneScale = self.fieldRect.size.width / self.fieldDimensions.centralZoneLength;
+    CGFloat brickMarkToEndzone = floorf(self.fieldDimensions.brickMarkDistance * centralZoneScale);
+    self.brickMark0Rect = CGRectMakeIntegral(CGRectGetMaxX(self.endzone0Rect) + brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
+    self.brickMark100Rect = CGRectMakeIntegral(CGRectGetMinX(self.endzone100Rect) - brickMarkToEndzone - kBrickMarkRadius, CGRectGetMidY(self.fieldRect) - kBrickMarkRadius, kBrickMarkRadius * 2, kBrickMarkRadius * 2);
 }
 
 -(EventPosition*)calculatePosition: (CGPoint)point {

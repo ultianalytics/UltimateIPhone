@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EventPosition.h"
-@class Event, GameFieldEventPointView;
+@class Event, GameFieldEventPointView, FieldDimensions;
 
 #define kPointViewWidth 30.0f
 #define kDiscDiameter 16.0f
@@ -23,6 +23,7 @@
 @property (nonatomic) BOOL inverted;
 @property (nonatomic, strong) UIColor* discColor;
 @property (nonatomic, strong) NSAttributedString* message;
+@property (nonatomic, strong) FieldDimensions* fieldDimensions;
 
 // subclass support
 

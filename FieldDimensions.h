@@ -10,8 +10,7 @@
 
 typedef enum {
     FieldDimensionTypeUPA = 0,
-    FieldDimensionTypeAUDL,
-    FieldDimensionTypeMLU,
+    FieldDimensionTypePRO,
     FieldDimensionTypeWFDF,
     FieldDimensionTypeOther
 } FieldDimensionType;

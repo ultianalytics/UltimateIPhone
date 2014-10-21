@@ -48,14 +48,11 @@
         case FieldDimensionTypeWFDF:
             typeIndex = 1;
             break;
-        case FieldDimensionTypeAUDL:
+        case FieldDimensionTypePRO:
             typeIndex = 2;
             break;
-        case FieldDimensionTypeMLU:
-            typeIndex = 3;
-            break;
         case FieldDimensionTypeOther:
-            typeIndex = 4;
+            typeIndex = 3;
             break;
         default:
             break;
@@ -85,12 +82,9 @@
             fdType = FieldDimensionTypeWFDF;
             break;
         case 2:
-            fdType = FieldDimensionTypeAUDL;
+            fdType = FieldDimensionTypePRO;
             break;
         case 3:
-            fdType = FieldDimensionTypeMLU;
-            break;
-        case 4:
             fdType = FieldDimensionTypeOther;
             [self.containerView makeToast:@"Tap the numbers on\nthe field to change any\ndimension."
                         duration:3.0

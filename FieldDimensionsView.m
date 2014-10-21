@@ -89,7 +89,11 @@
     if (self.fieldDimensions) {
         self.endZoneDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.endZoneLength];
         self.centralZoneDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.centralZoneLength];
-        self.widthDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.width];
+        if (self.fieldDimensions.type == FieldDimensionTypePRO) {
+            self.widthDimensionView.distanceDescription = @"53\u2153";
+        } else {
+            self.widthDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.width];
+        }
         self.brickMarkDimensionView.distanceDescription = [self dimensionDescription:self.fieldDimensions.brickMarkDistance];
     }
     for (DimensionView* dView in self.dimensionViews) {

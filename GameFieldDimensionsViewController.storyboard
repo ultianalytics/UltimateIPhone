@@ -28,8 +28,7 @@
                                         <segments>
                                             <segment title="UPA"/>
                                             <segment title="WFDF"/>
-                                            <segment title="AUDL"/>
-                                            <segment title="MLU"/>
+                                            <segment title="AUDL/MLU"/>
                                             <segment title="Custom"/>
                                         </segments>
                                         <connections>

@@ -42,36 +42,19 @@
     
 }
 
-
+// Given a keyboard show notifiation, answer the Y coordinate of the keyboard in the my view coordinates
 - (CGFloat)calcKeyboardOrigin:(NSNotification *)uiKeyboardWillShowNotification {
-	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	BOOL isPortrait = orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown;
-	CGFloat windowHeight = isPortrait ? self.view.window.frame.size.height : self.view.window.frame.size.width;
+    // where is the keyboard in the window
+    CGRect keyboardFrame = [[[uiKeyboardWillShowNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-	CGRect keyboardBeginFrame = [[[uiKeyboardWillShowNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-	CGFloat keyboardHeight = isPortrait ? keyboardBeginFrame.size.height : keyboardBeginFrame.size.width;
+    // where is my view in the window
+    CGRect viewFrameInWindowCoord = [self.view.window convertRect:self.view.bounds fromView:self.view];
     
-	CGRect viewFrame = [self.view convertRect:self.view.frame toView:nil];
-	CGFloat viewMaxInWindowCoord;
-    
-	switch (orientation) {
-		case UIInterfaceOrientationPortrait:
-			viewMaxInWindowCoord = CGRectGetMaxY(viewFrame);
-	        break;
-		case UIInterfaceOrientationPortraitUpsideDown:
-			viewMaxInWindowCoord = (windowHeight - (viewFrame.size.height + viewFrame.origin.y)) + viewFrame.size.height;
-	        break;
-		case UIInterfaceOrientationLandscapeLeft:
-			viewMaxInWindowCoord = CGRectGetMaxX(viewFrame);
-	        break;
-		default:
-			viewMaxInWindowCoord = (windowHeight - (viewFrame.size.width + viewFrame.origin.x)) + viewFrame.size.width;
-	        break;
-	}
-    
-	CGFloat keyboardHeightWithinView = viewMaxInWindowCoord - (windowHeight - keyboardHeight);
-	CGFloat keyboardOriginInView = CGRectGetMaxY(self.view.frame) - keyboardHeightWithinView;
-	return keyboardOriginInView;
+    // we now have the coordinates of the keyboard and my view in the same coordinate system (the window)
+    // return the keyboard's Y orgin in my view
+    CGFloat keyboardY = keyboardFrame.origin.y - viewFrameInWindowCoord.origin.y;
+    return keyboardY;
 }
 
 @end
+

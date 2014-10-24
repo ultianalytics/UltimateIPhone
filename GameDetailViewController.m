@@ -661,6 +661,7 @@
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, newBottomInset, 0.0);
     self.tableView.contentInset = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification {

@@ -454,11 +454,11 @@
 #pragma mark - Keyboard Up/Down Handling
 
 - (void)registerForKeyboardNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeShown:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification {
+- (void)keyboardWillBeShown:(NSNotification*)aNotification {
     // make the view port smaller so the user can scroll up to see all of the view
     CGFloat keyboardY = [self calcKeyboardOrigin:aNotification];
     CGFloat tableBottom = CGRectGetMaxY(self.teamTableView.frame);

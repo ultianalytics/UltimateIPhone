@@ -7,18 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define CGPointTop(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect))
-#define CGPointBottom(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect))
-#define CGPointRight(rect) CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect))
-#define CGPointLeft(rect) CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect))
-
-#define CGPointMid(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
-
-#define CGPointTopRight(rect) CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect))
-#define CGPointTopLeft(rect) CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect))
-#define CGPointBottomRight(rect) CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect))
-#define CGPointBottomLeft(rect) CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect))
-
 /*
 
  This view provides a visual "callout" useful for providing instructions to 

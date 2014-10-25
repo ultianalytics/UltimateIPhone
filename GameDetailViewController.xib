@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameDetailViewController">
@@ -23,6 +24,7 @@
                 <outlet property="opponentRegularCell" destination="11" id="K7u-m3-iJa"/>
                 <outlet property="opposingTeamNameField" destination="13" id="27"/>
                 <outlet property="playbackCell" destination="1Ki-Au-uYQ" id="DLE-oh-PlB"/>
+                <outlet property="playbackLabel" destination="qwZ-Er-kBe" id="Gza-oE-vdN"/>
                 <outlet property="positionalEventsCell" destination="54o-7e-J9a" id="nNd-QU-Ect"/>
                 <outlet property="positionalEventsSegmentedControl" destination="NNk-Mp-Xlg" id="qYl-bv-1NF"/>
                 <outlet property="pubToLeaguevineSegmentedControl" destination="91" id="92"/>

@@ -48,6 +48,7 @@
 #define kAlertConfirmPositionalToNormalSwitch @"No so fast!"
 
 #define kIsNotFirstGameStartUsage @"IsNotFirstGameStartUsage"
+#define kHasBeenShownPlaybackCallout @"HasBeenShownPlaybackCallout"
 
 
 @interface GameDetailViewController()
@@ -79,6 +80,7 @@
 @property (nonatomic, strong) IBOutlet UILabel* fieldDimensionsLabel;
 @property (nonatomic, strong) IBOutlet UITextField* opposingTeamNameField;
 @property (nonatomic, strong) IBOutlet UITextField* tournamentNameField;
+@property (nonatomic, strong) IBOutlet UILabel* playbackLabel;
 @property (nonatomic, strong) IBOutlet UIView* deleteButtonView;
 @property (nonatomic, strong) IBOutlet UIView* startButtonView;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* initialLine;
@@ -624,6 +626,9 @@
     if (IS_IPAD && self.isModalAddMode) {
         [self showPositionalCallout];
     }
+    if (self.game.isPositional && [self.game hasEvents]) {
+        [self showPlaybackCallout];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -897,6 +902,22 @@
         
         CGPoint anchor = [self.positionalEventsSegmentedControl convertPoint:self.positionalEventsSegmentedControl.boundsCenter toView:self.view];
         [calloutsView addCallout:@"Did you know?\nRecording action with \"Field Position\" can be quite challenging.  However, with this option you can broadcast games online, playback the game visually and get distance data.  Consider first recording a game at \"Normal\" level before attempting this on a live game." anchor: anchor width: 300 degrees: 210 connectorLength: 160 font: [UIFont systemFontOfSize:14]];
+        
+        self.calloutsViewContainer = calloutsView;
+        [self.view addSubview:self.calloutsViewContainer];
+        // move the callouts off the screen and then animate their return.
+        [self.calloutsViewContainer slide: YES animated: NO];
+        [self.calloutsViewContainer slide: NO animated: YES];
+    }
+}
+
+-(void)showPlaybackCallout {
+    if (IS_IPAD && ![[NSUserDefaults standardUserDefaults] boolForKey: kHasBeenShownPlaybackCallout]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasBeenShownPlaybackCallout];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = [self.playbackCell convertPoint:CGPointBottomRight(self.playbackLabel.bounds) toView:self.view];
+        [calloutsView addCallout:@"Did you know?\nGames with positions can be played back!" anchor: anchor width: 200 degrees: 140 connectorLength: 80 font: [UIFont systemFontOfSize:14]];
         
         self.calloutsViewContainer = calloutsView;
         [self.view addSubview:self.calloutsViewContainer];

@@ -13,6 +13,7 @@
 #import "Player.h"
 #import "UltimateSegmentedControl.h"
 #import "AppDelegate.h"
+#import "UIViewController+Additions.h"
 
 @interface PlayerDetailsViewController ()
 
@@ -268,12 +269,44 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self populateViewFromModel];
+    [self registerForKeyboardNotifications];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Keyboard Up/Down Handling
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    // make the view port smaller so the user can scroll up to see all of the view
+    CGFloat keyboardY = [self calcKeyboardOrigin:aNotification];
+    CGFloat tableBottom = CGRectGetMaxY(self.tableView.frame);
+    CGFloat newBottomInset = MAX(tableBottom - keyboardY, 0);
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, newBottomInset, 0.0);
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    // undo the view port
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark - Table Source/Delegate

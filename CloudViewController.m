@@ -128,8 +128,8 @@
     GameUploadPickerViewController* gameUploadController = [gamesStoryboard instantiateInitialViewController];
     __typeof(self) __weak weakSelf = self;
     self.pushedControllerDismissBlock = ^{
-        if ([gameUploadController.selectedGameIds count] > 0) {
-            weakSelf.gameIdsToUpload = [gameUploadController.selectedGameIds allObjects];
+        if ([gameUploadController.gameIdsToUpload count] > 0) {
+            weakSelf.gameIdsToUpload = gameUploadController.gameIdsToUpload;
             [weakSelf uploadTeamWithSelectedGames];
         }
     };

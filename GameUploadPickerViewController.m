@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 @property (strong, nonatomic) NSArray* gameDescriptions;
 @property (strong, nonatomic) NSMutableSet* selectedGameIds;
+@property (strong, nonatomic) NSArray* gameIdsToUpload;
 
 @end
 
@@ -38,6 +39,7 @@
 #pragma mark - Event Handling
 
 - (IBAction)uploadButtonTapped:(id)sender {
+    self.gameIdsToUpload = [self.selectedGameIds allObjects];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

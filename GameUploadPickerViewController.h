@@ -10,6 +10,6 @@
 
 @interface GameUploadPickerViewController : UIViewController
 
-@property (strong, nonatomic, readonly) NSMutableSet* selectedGameIds;
+@property (strong, nonatomic, readonly) NSArray* gameIdsToUpload;
 
 @end

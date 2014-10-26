@@ -13,10 +13,8 @@
 @class GameDownloadPickerViewController;
 
 @interface CloudViewController : UltimateViewController <UITableViewDelegate, UITableViewDataSource> {
-    @private
-    NSArray* cloudCells;
-    TeamDownloadPickerViewController* teamDownloadController;
-    GameDownloadPickerViewController* gameDownloadController;
+
+
 }
 
 @property (nonatomic, strong) IBOutlet UITableView* cloudTableView;

@@ -27,6 +27,7 @@ typedef enum {
 -(BOOL)hasBeenAuthenticated;
 -(void)signInUsingNavigationController: (UINavigationController*)navController completion: (void (^)(SignonStatus signonStatus)) completionBlock;
 -(void)signOut;
+-(void)forceExpiration;
 
 // Asynch authorizing: This method will refresh an expired token
 -(void)authorizeRequest:(NSMutableURLRequest *)request completionHandler:(void (^)(AuthenticationStatus status))handler;

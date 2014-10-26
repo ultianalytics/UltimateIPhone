@@ -32,8 +32,11 @@
 
 #define kIsNotFirstCloudViewUsage @"IsNotFirstCloudViewUsage"
 
-@interface CloudViewController() 
+@interface CloudViewController()
 
+@property (nonatomic, strong) NSArray* cloudCells;
+
+@property (strong, nonatomic) void (^pushedControllerDismissBlock)();
 @property (nonatomic, strong) CalloutsContainerView *usageCallouts;
 @property (nonatomic, strong) NSArray *gameIdsToUpload;
 
@@ -96,28 +99,40 @@
 #pragma mark - Navigation
 
 -(void)goTeamPickerView: (NSArray*) teams {
-    teamDownloadController = [[TeamDownloadPickerViewController alloc] init];
+    TeamDownloadPickerViewController* teamDownloadController = [[TeamDownloadPickerViewController alloc] init];
     teamDownloadController.teams = teams;
+    __typeof(self) __weak weakSelf = self;
+    self.pushedControllerDismissBlock = ^{
+        if (teamDownloadController.selectedTeam) {
+            [weakSelf downloadTeam: teamDownloadController.selectedTeam.cloudId];
+        }
+    };
     [self.navigationController pushViewController:teamDownloadController animated: YES];
 }
 
 -(void)goGameDownloadPickerView: (NSArray*) games {
-    gameDownloadController = [[GameDownloadPickerViewController alloc] init];
+    GameDownloadPickerViewController* gameDownloadController = [[GameDownloadPickerViewController alloc] init];
     gameDownloadController.games = games;
+    __typeof(self) __weak weakSelf = self;
+    self.pushedControllerDismissBlock = ^{
+        if (gameDownloadController.selectedGame) {
+            [weakSelf downloadGame: gameDownloadController.selectedGame.gameId];
+        }
+    };
     [self.navigationController pushViewController:gameDownloadController animated: YES];
 }
 
 -(void)goGameUploadPickerView {
     self.gameIdsToUpload = [NSArray array];
-   
     UIStoryboard *gamesStoryboard = [UIStoryboard storyboardWithName:@"GameUploadPickerViewController" bundle:nil];
-    GameUploadPickerViewController* gameUploadController  = [gamesStoryboard instantiateInitialViewController];
-    gameUploadController.dismissBlock = ^(NSArray* selectedGameIds) {
-        [self.navigationController popViewControllerAnimated:YES];
-        self.gameIdsToUpload = selectedGameIds;
-        [self uploadTeamWithSelectedGames];
+    GameUploadPickerViewController* gameUploadController = [gamesStoryboard instantiateInitialViewController];
+    __typeof(self) __weak weakSelf = self;
+    self.pushedControllerDismissBlock = ^{
+        if ([gameUploadController.selectedGameIds count] > 0) {
+            weakSelf.gameIdsToUpload = [gameUploadController.selectedGameIds allObjects];
+            [weakSelf uploadTeamWithSelectedGames];
+        }
     };
-    
     [self.navigationController pushViewController:gameUploadController animated: YES];
 }
 
@@ -142,7 +157,7 @@
             switch (status.code) {
                 case CloudRequestStatusCodeOk: {
                     [self populateViewFromModel];
-                    [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the cloud",nil)];
+                    [self showCompleteAlert:NSLocalizedString(@"Upload Complete",nil) message: NSLocalizedString(@"Your data was successfully uploaded to the website",nil)];
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
@@ -453,9 +468,9 @@
     [self.cloudTableView reloadData];
     [self.scrubberSwitch setOn:[Scrubber currentScrubber].isOn];
     self.autoUploadSegmentedControl.selectedSegmentIndex = [Team getCurrentTeam].isAutoUploading ? 1 : 0;
-#ifdef DEBUG
-    self.scrubberView.hidden = NO;
-#endif
+//#ifdef DEBUG
+//    self.scrubberView.hidden = NO;
+//#endif
     
 }
 
@@ -466,19 +481,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    cloudCells = @[self.userCell, self.autoUploadCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
-    return [cloudCells count];
+    self.cloudCells = @[self.userCell, self.autoUploadCell, self.websiteCell, self.adminSiteCell, self.privacyPolicyCell];
+    return [self.cloudCells count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
+    UITableViewCell* cell = [self.cloudCells objectAtIndex:[indexPath row]];
     cell.backgroundColor = [ColorMaster getFormTableCellColor];
     return cell;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath { 
     if (tableView == self.cloudTableView) {
-        UITableViewCell* cell = [cloudCells objectAtIndex:[indexPath row]];
+        UITableViewCell* cell = [self.cloudCells objectAtIndex:[indexPath row]];
         if (cell == self.websiteCell) {
             NSString* websiteURL = [CloudClient2 getWebsiteURL: [Team getCurrentTeam]];
             if (websiteURL != nil) {
@@ -511,27 +526,30 @@
                                                object: nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = NSLocalizedString(@"Website", @"Website");
     [self populateViewFromModel];
-    if  (teamDownloadController && teamDownloadController.selectedTeam) {
-        if (teamDownloadController.selectedTeam) {
-            [self downloadTeam: teamDownloadController.selectedTeam.cloudId];
-        }
-        teamDownloadController = nil;
-    } else if  (gameDownloadController && gameDownloadController.selectedGame) {
-        if (gameDownloadController.selectedGame) {
-            [self downloadGame: gameDownloadController.selectedGame.gameId];
-        }
-        gameDownloadController = nil;
-    } 
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self showNewLogonUsageCallouts];
+    
+    // If we had previously pushed a team/game selection VC then continue the upload/download based on the selection(s)
+    
+    // NOTE: This approach (handling the action required after the selection VC is popped) is taken because it
+    // is not safe to start the upload/download if this VC's viewWillAppear hasn't been called yet.  This is
+    // due to the fact that the signon dialog may be immediately pushed if a signon is needed .  In other
+    // words, if we did not use this approach the signon VC might be pushed before the selection VC was done
+    // popping (resulting in "nested push animation can result in corrupted navigation bar" errors.
+    
+    if  (self.pushedControllerDismissBlock) {
+        void (^continueBlock)() = self.pushedControllerDismissBlock;
+        self.pushedControllerDismissBlock = nil;
+        continueBlock();
+    } else {
+        [self showNewLogonUsageCallouts];
+    }
 }
 
 - (void)viewDidUnload

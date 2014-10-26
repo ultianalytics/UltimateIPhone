@@ -38,9 +38,7 @@
 #pragma mark - Event Handling
 
 - (IBAction)uploadButtonTapped:(id)sender {
-    if (self.dismissBlock) {
-        self.dismissBlock([self.selectedGameIds allObjects]);
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table

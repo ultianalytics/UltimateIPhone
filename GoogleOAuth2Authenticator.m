@@ -121,6 +121,10 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
     }
 }
 
+-(void)forceExpiration {
+    [self getCurrentAuth].expirationDate = [NSDate dateWithTimeIntervalSince1970:0];
+}
+
 #pragma mark - GTMOAuth2ViewControllerTouch delegate
 
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)authViewController finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error {
@@ -164,10 +168,15 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 
     }
     
-    if (self.signonViewControllerCompletion) {
-        self.signonViewControllerCompletion(status);
-    }
+    // pause to allow time for the pop of the signon VC
+    [self performSelector:@selector(invokeSignonViewControllerCompletionWithStatus:) withObject:[NSNumber numberWithInt: status]  afterDelay:0.5];
     
+}
+
+-(void)invokeSignonViewControllerCompletionWithStatus: (NSNumber*)status {
+    if (self.signonViewControllerCompletion) {
+        self.signonViewControllerCompletion(status.intValue);
+    }
 }
 
 @end

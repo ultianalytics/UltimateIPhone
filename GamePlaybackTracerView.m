@@ -95,7 +95,7 @@
     self.arrowCenter = CGPointMake(CGRectGetMidX(rectBetweenPoints), CGRectGetMidY(rectBetweenPoints));
     
     CGFloat halfArrowDistance =  sqrtf(powf(self.arrowCenter.x - rectTopLeft.x, 2) + powf(self.arrowCenter.y - rectTopLeft.y, 2));
-    self.arrowLength = (halfArrowDistance - self.endInset) * 2;
+    self.arrowLength = MAX(24, (halfArrowDistance - self.endInset) * 2);
     
     self.radians = atan2f( self.destinationPoint.y - self.arrowCenter.y , self.destinationPoint.x - self.arrowCenter.x);
 }

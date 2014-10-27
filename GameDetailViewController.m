@@ -616,7 +616,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];  
     [self dismissKeyboard];
-    self.windLabel.text = [self.game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", self.game.wind.mph] : @"NOT SPECIFIED YET"; 
     [self populateUIFromModel];
     [self registerForKeyboardNotifications];
 }
@@ -768,6 +767,8 @@
     }
     
     [self populateLeaguevineCells];
+    
+    self.windLabel.text = [self.game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", self.game.wind.mph] : @"NOT SPECIFIED YET"; 
     
     [self.tableView reloadData];
 }

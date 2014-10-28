@@ -35,4 +35,6 @@ typedef enum {
 // Synchronous entry point; This method will NOT refresh an expired token
 -(BOOL)authorizeRequest:(NSMutableURLRequest *)request;
 
+-(void)applicationStarted;
+
 @end

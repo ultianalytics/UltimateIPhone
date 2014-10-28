@@ -11,6 +11,9 @@
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "GTMOAuth2SignIn.h"
 
+#define kHasAppVersionWithOauthStartedPreviously @"hasOAuthAppLoaded"
+
+
 static NSString *const kKeychainItemName = @"com.summithillsoftware.UltimateIPhone";
 static NSString *const kGoogleClientID = @"308589977906-jcsohi4nbdq3rf6ls8qph3n9mtm0u9ce.apps.googleusercontent.com";  // from https://console.developers.google.com/project
 static NSString *const kGoogleClientSecret = @"4YzUz4OwNQXJ-pVyTeRAMWcV";  // from https://console.developers.google.com/project
@@ -176,6 +179,15 @@ static NSString *const kGoogleAppScope = @"https://www.googleapis.com/auth/useri
 -(void)invokeSignonViewControllerCompletionWithStatus: (NSNumber*)status {
     if (self.signonViewControllerCompletion) {
         self.signonViewControllerCompletion(status.intValue);
+    }
+}
+
+-(void)applicationStarted {
+    // if this is the first time the user has started the app with OAuth support clear the userid so that we force them to signon with OAuth the next upload/download
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kHasAppVersionWithOauthStartedPreviously]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasAppVersionWithOauthStartedPreviously];
+            [Preferences getCurrentPreferences].userid = nil;
+            [[Preferences getCurrentPreferences] save];
     }
 }
 

@@ -22,6 +22,7 @@
 #import "BufferedNavigationController.h"
 #import "GameAutoUploader.h"
 #import "SHSAnalytics.h"
+#import "GoogleOAuth2Authenticator.h"
 
 @interface AppDelegate ()
 
@@ -106,6 +107,8 @@
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
+    [[GoogleOAuth2Authenticator sharedAuthenticator] applicationStarted];
     
     return YES;
 }
@@ -193,6 +196,7 @@
      See also applicationDidEnterBackground:.
      */
 }
+
 
 
 @end

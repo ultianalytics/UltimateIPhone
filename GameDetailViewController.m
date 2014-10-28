@@ -121,9 +121,10 @@
         [self.cells addObjectsFromArray:@[self.opponentRegularCell, self.tournamentCell]];
     }
     [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell]];
-    if (IS_IPAD) {
-        [self.cells addObject:self.positionalEventsCell];
-    }
+// COMMENTED OUT POSITIONAL FOR THIS RELEASE
+//    if (IS_IPAD) {
+//        [self.cells addObject:self.positionalEventsCell];
+//    }
     if (self.game.isPositional) {
         [self.cells addObjectsFromArray:@[self.fieldDimensionsCell]];
         if ([self.game hasEvents]) {

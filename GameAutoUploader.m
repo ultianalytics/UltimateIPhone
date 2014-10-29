@@ -180,9 +180,13 @@
 
 +(GameAutoUploader*)readAutoLoader {
     NSData *data = [[NSData alloc] initWithContentsOfFile: [self getFilePath]];
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc]
+    if (data) {
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc]
                                      initForReadingWithData:data];
-    return [unarchiver decodeObjectForKey:kAutoLoaderKey];
+        return [unarchiver decodeObjectForKey:kAutoLoaderKey];
+    } else {
+        return nil;
+    }
 }
 
 -(void)save {

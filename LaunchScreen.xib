@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="B0c-MQ-Vzv">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="B0c-MQ-Vzv" secondAttribute="trailing" id="4AV-NP-pII"/>
+                <constraint firstItem="B0c-MQ-Vzv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="D1L-u8-aYC"/>
+                <constraint firstAttribute="bottom" secondItem="B0c-MQ-Vzv" secondAttribute="bottom" id="R0I-g8-HM5"/>
+                <constraint firstItem="B0c-MQ-Vzv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qMN-HQ-mci"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="LaunchScreenImage" width="300" height="300"/>
+    </resources>
+</document>

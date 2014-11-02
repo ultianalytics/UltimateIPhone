@@ -358,9 +358,22 @@
 -(void)configureActionView {
     // add the action view
     NSString* actionViewNib = @"GameActionView";
-    if (IS_IPHONE && [UIScreen mainScreen].bounds.size.height > 480) {
-        actionViewNib = @"GameActionView_iPhone_320x568";
+    if (IS_IPHONE) {
+        /* iPHone dimensions: 
+            6+  540x960
+            6   375x667
+            5   320x568
+            4   320x480
+         */
+        if ([UIScreen mainScreen].bounds.size.height > 667) {
+            actionViewNib = @"GameActionView_iPhone_6Plus";
+        } else if ([UIScreen mainScreen].bounds.size.height > 568) {
+            actionViewNib = @"GameActionView_iPhone_6";
+        } else if ([UIScreen mainScreen].bounds.size.height > 480) {
+            actionViewNib = @"GameActionView_iPhone_5";
+        }
     }
+    
     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
     UIView* actionView = (UIView*)nibViews[0];
     [self.actionSubView addSubview:actionView];

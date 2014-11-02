@@ -272,6 +272,10 @@
 		3801729C19F2C83E00F5346F /* FieldDimensionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3801729A19F2C83E00F5346F /* FieldDimensionsView.m */; };
 		380172AA19F405E200F5346F /* GameFieldDimensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380172A819F405E200F5346F /* GameFieldDimensionViewController.m */; };
 		380172AB19F405E200F5346F /* GameFieldDimensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 380172A919F405E200F5346F /* GameFieldDimensionViewController.xib */; };
+		381941DB1A06812A0061E674 /* GameActionView_iPhone_5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941D81A06812A0061E674 /* GameActionView_iPhone_5.xib */; };
+		381941DC1A06812A0061E674 /* GameActionView_iPhone_6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941D91A06812A0061E674 /* GameActionView_iPhone_6.xib */; };
+		381941DD1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941DA1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib */; };
+		381941DF1A068C950061E674 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941DE1A068C950061E674 /* LaunchScreen.xib */; };
 		381BC44F19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */; };
 		381BC45219AF4F8000CD8C20 /* PickPlayerForEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */; };
 		381BC46119B364D100CD8C20 /* PlayDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381BC46019B364D100CD8C20 /* PlayDirectionView.xib */; };
@@ -357,7 +361,6 @@
 		38B0997519BE6EF700831B6D /* GameDiscView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B0997419BE6EF700831B6D /* GameDiscView.m */; };
 		38B2CE5B199FBE11008BE91B /* female-symbol-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */; };
 		38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6119A0F77B008BE91B /* GameActionView.xib */; };
-		38B2CE6419A11D65008BE91B /* GameActionView_iPhone_320x568.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6319A11D65008BE91B /* GameActionView_iPhone_320x568.xib */; };
 		38B2CE6C19A16FFB008BE91B /* GameViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */; };
 		38B2CE7019A17628008BE91B /* PlayerView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */; };
 		38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */; };
@@ -792,6 +795,10 @@
 		380172A719F405E200F5346F /* GameFieldDimensionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionViewController.h; sourceTree = "<group>"; };
 		380172A819F405E200F5346F /* GameFieldDimensionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionViewController.m; sourceTree = "<group>"; };
 		380172A919F405E200F5346F /* GameFieldDimensionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFieldDimensionViewController.xib; sourceTree = "<group>"; };
+		381941D81A06812A0061E674 /* GameActionView_iPhone_5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_5.xib; sourceTree = "<group>"; };
+		381941D91A06812A0061E674 /* GameActionView_iPhone_6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_6.xib; sourceTree = "<group>"; };
+		381941DA1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_6Plus.xib; sourceTree = "<group>"; };
+		381941DE1A068C950061E674 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		381BC44E19AF4C8000CD8C20 /* PickPlayerForEventViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PickPlayerForEventViewController.storyboard; sourceTree = "<group>"; };
 		381BC45019AF4F8000CD8C20 /* PickPlayerForEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPlayerForEventViewController.h; sourceTree = "<group>"; };
 		381BC45119AF4F8000CD8C20 /* PickPlayerForEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPlayerForEventViewController.m; sourceTree = "<group>"; };
@@ -913,7 +920,6 @@
 		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "female-symbol-small@2x.png"; sourceTree = "<group>"; };
 		38B2CE6119A0F77B008BE91B /* GameActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView.xib; sourceTree = "<group>"; };
-		38B2CE6319A11D65008BE91B /* GameActionView_iPhone_320x568.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_320x568.xib; sourceTree = "<group>"; };
 		38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameViewController~ipad.xib"; sourceTree = "<group>"; };
 		38B2CE6F19A17628008BE91B /* PlayerView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PlayerView~ipad.xib"; sourceTree = "<group>"; };
 		38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameActionView~ipad.xib"; sourceTree = "<group>"; };
@@ -1320,7 +1326,6 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
-				1AA37BE918B1385100CE9662 /* Images.xcassets */,
 				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
 				1AC8579815FE2A150070BA24 /* Common */,
@@ -1621,8 +1626,10 @@
 				1AFFE8CC151761AA004B4590 /* GameViewController.xib */,
 				38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */,
 				38B2CE6119A0F77B008BE91B /* GameActionView.xib */,
+				381941D81A06812A0061E674 /* GameActionView_iPhone_5.xib */,
+				381941D91A06812A0061E674 /* GameActionView_iPhone_6.xib */,
+				381941DA1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib */,
 				38B2CE7119A2448A008BE91B /* GameActionView~ipad.xib */,
-				38B2CE6319A11D65008BE91B /* GameActionView_iPhone_320x568.xib */,
 				1AFFE80415175EB0004B4590 /* EventView.h */,
 				1AFFE80515175EB0004B4590 /* EventView.m */,
 				1AFFE80615175EB0004B4590 /* EventView.xib */,
@@ -1663,6 +1670,8 @@
 		1AFFE8DF151765B7004B4590 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1AA37BE918B1385100CE9662 /* Images.xcassets */,
+				381941DE1A068C950061E674 /* LaunchScreen.xib */,
 				38E5EBA119CDB9FF00E7C6DF /* Tabs */,
 				38E5EB9F19CDB9BE00E7C6DF /* Line - Points Played Colors */,
 				38E5EB9E19CDB86600E7C6DF /* Events */,
@@ -2053,6 +2062,7 @@
 				383F17D519E552B400FC6541 /* browser-back.png in Resources */,
 				1AFFE7E315175E7B004B4590 /* 19-gear@2x.png in Resources */,
 				1AA37BA218A857BC00CE9662 /* white200radius3@2x.png in Resources */,
+				381941DF1A068C950061E674 /* LaunchScreen.xib in Resources */,
 				1AFFE7E415175E7B004B4590 /* 63-runner.png in Resources */,
 				1AFFE7E515175E7B004B4590 /* 63-runner@2x.png in Resources */,
 				1AFFE7E615175E7B004B4590 /* 112-group.png in Resources */,
@@ -2177,6 +2187,7 @@
 				3870813319C07944001174CB /* twitter-bird-dark.png in Resources */,
 				1A999EF616062B8F0015B891 /* leaguevine_logo.png in Resources */,
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
+				381941DC1A06812A0061E674 /* GameActionView_iPhone_6.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
 				3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
@@ -2184,9 +2195,9 @@
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
 				38AA38AB19C32F1400C6CF9A /* fast-backward.png in Resources */,
 				381BC46119B364D100CD8C20 /* PlayDirectionView.xib in Resources */,
+				381941DB1A06812A0061E674 /* GameActionView_iPhone_5.xib in Resources */,
 				380172AB19F405E200F5346F /* GameFieldDimensionViewController.xib in Resources */,
 				1AD50DFB1615C9A600605947 /* LeagueVineGameViewController.xib in Resources */,
-				38B2CE6419A11D65008BE91B /* GameActionView_iPhone_320x568.xib in Resources */,
 				1A7994DB16172D5200E77FC5 /* LeagueVineSelectorGameTableViewCell.xib in Resources */,
 				38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */,
 				1AC9BA131621DF0A00390D3F /* chevron.png in Resources */,
@@ -2223,6 +2234,7 @@
 				38FD2FE51997F30800CE83BB /* left-caret-green.png in Resources */,
 				38B2CE7219A2448A008BE91B /* GameActionView~ipad.xib in Resources */,
 				38AA38B119C32F1400C6CF9A /* pause.png in Resources */,
+				381941DD1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib in Resources */,
 				1A7587F8172D768B00638AD7 /* GameStartTimeViewController.xib in Resources */,
 				38FD2FE21996FF4E00CE83BB /* GamesMasterDetailViewController.xib in Resources */,
 				381BC47F19B738D600CD8C20 /* GameFieldEventTextView.xib in Resources */,
@@ -2488,7 +2500,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-iOS7";
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2588,7 +2600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-iOS7";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2623,7 +2635,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-iOS7";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;

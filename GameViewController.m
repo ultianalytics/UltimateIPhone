@@ -376,6 +376,8 @@
     
     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:actionViewNib owner:self options:nil];
     UIView* actionView = (UIView*)nibViews[0];
+    self.actionSubView.frameHeight = actionView.frameHeight;
+    self.actionSubView.frameWidth = actionView.frameWidth;
     [self.actionSubView addSubview:actionView];
     actionView.backgroundColor = [ColorMaster actionBackgroundColor];
 }

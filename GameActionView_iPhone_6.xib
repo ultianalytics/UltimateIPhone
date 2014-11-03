@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController">
             <connections>
+                <outlet property="firstPasserBracketImage" destination="PBJ-6R-jhw" id="dUn-Or-Hxc"/>
                 <outlet property="hideReceiverView" destination="70" id="fCX-dV-TVf"/>
                 <outlet property="otherTeamScoreButton" destination="53" id="WFo-Tf-P4J"/>
                 <outlet property="otherTeamThrowAwayButton" destination="kev-mS-vpU" id="F1O-Zg-lZb"/>
@@ -29,47 +30,47 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="11" userLabel="Player View 1" customClass="PlayerView">
-                    <rect key="frame" x="5" y="23" width="280" height="40"/>
+                    <rect key="frame" x="5" y="50" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="8" userLabel="Player View 2" customClass="PlayerView">
-                    <rect key="frame" x="5" y="67" width="280" height="40"/>
+                    <rect key="frame" x="5" y="100" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="12" userLabel="Player View 3" customClass="PlayerView">
-                    <rect key="frame" x="5" y="111" width="280" height="40"/>
+                    <rect key="frame" x="5" y="150" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="13" userLabel="Player View 4" customClass="PlayerView">
-                    <rect key="frame" x="5" y="155" width="280" height="40"/>
+                    <rect key="frame" x="5" y="200" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="14" userLabel="Player View 5" customClass="PlayerView">
-                    <rect key="frame" x="5" y="199" width="280" height="40"/>
+                    <rect key="frame" x="5" y="250" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="15" userLabel="Player View 6" customClass="PlayerView">
-                    <rect key="frame" x="5" y="243" width="280" height="40"/>
+                    <rect key="frame" x="5" y="300" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="17" userLabel="Player View 7" customClass="PlayerView">
-                    <rect key="frame" x="5" y="287" width="280" height="40"/>
+                    <rect key="frame" x="5" y="350" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="51" userLabel="Player View Anonymous" customClass="PlayerView">
-                    <rect key="frame" x="5" y="331" width="280" height="40"/>
+                    <rect key="frame" x="5" y="400" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" id="18" userLabel="Throwaway Button" customClass="GameActionButton">
-                    <rect key="frame" x="287" y="23" width="30" height="347"/>
+                    <rect key="frame" x="287" y="50" width="52" height="390"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
@@ -82,7 +83,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" id="kev-mS-vpU" userLabel="Other Team Throwaway Button" customClass="GameActionButton">
-                    <rect key="frame" x="187" y="23" width="30" height="347"/>
+                    <rect key="frame" x="187" y="50" width="52" height="390"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
@@ -95,7 +96,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53" userLabel="Other Team Score Button" customClass="GameActionButton">
-                    <rect key="frame" x="248" y="165" width="60" height="56"/>
+                    <rect key="frame" x="248" y="221" width="60" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Score">
@@ -107,15 +108,15 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" id="70" userLabel="Hide Receiver View">
-                    <rect key="frame" x="97" y="0.0" width="224" height="375"/>
+                    <rect key="frame" x="97" y="0.0" width="278" height="474"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first-passer-bracket-5.png" id="PBJ-6R-jhw">
-                            <rect key="frame" x="20" y="23" width="49" height="331"/>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first-passer-bracket-6.png" id="PBJ-6R-jhw">
+                            <rect key="frame" x="20" y="53" width="25" height="380"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap the first passer (player that picked up the disc)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" minimumFontSize="10" id="71">
-                            <rect key="frame" x="68" y="37" width="102" height="317"/>
+                            <rect key="frame" x="61" y="94" width="102" height="317"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <color key="textColor" red="0.34589851429409857" green="0.35528372177600936" blue="0.55612244897959184" alpha="1" colorSpace="calibratedRGB"/>
@@ -127,14 +128,14 @@
                     <color key="backgroundColor" red="0.84705882349999995" green="0.84313725490000002" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Passer" lineBreakMode="tailTruncation" minimumFontSize="10" id="9" userLabel="Label - Passer/Defender">
-                    <rect key="frame" x="52" y="0.0" width="72" height="21"/>
+                    <rect key="frame" x="52" y="10" width="72" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Receiver" lineBreakMode="tailTruncation" minimumFontSize="10" id="10">
-                    <rect key="frame" x="151" y="0.0" width="68" height="21"/>
+                    <rect key="frame" x="151" y="10" width="68" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -147,7 +148,7 @@
         </view>
     </objects>
     <resources>
-        <image name="first-passer-bracket-5.png" width="25" height="331"/>
+        <image name="first-passer-bracket-6.png" width="25" height="380"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

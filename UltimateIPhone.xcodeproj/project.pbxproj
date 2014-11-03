@@ -333,6 +333,9 @@
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
 		38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */; };
 		38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */; };
+		386946161A07BF560093804C /* first-passer-bracket-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 386946131A07BF560093804C /* first-passer-bracket-6.png */; };
+		386946171A07BF560093804C /* first-passer-bracket-6.png@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 386946141A07BF560093804C /* first-passer-bracket-6.png@2x.png */; };
+		386946181A07BF560093804C /* first-passer-bracket-6.png@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 386946151A07BF560093804C /* first-passer-bracket-6.png@3x.png */; };
 		3870812A19BFCD8E001174CB /* broadcasting-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812819BFCD8E001174CB /* broadcasting-small.png */; };
 		3870812B19BFCD8E001174CB /* broadcasting-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812919BFCD8E001174CB /* broadcasting-small@2x.png */; };
 		3870812E19C07587001174CB /* broadcasting-small-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812C19C07587001174CB /* broadcasting-small-dark.png */; };
@@ -887,6 +890,9 @@
 		38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameUploadPickerViewController.storyboard; sourceTree = "<group>"; };
 		38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerTableViewCell.h; sourceTree = "<group>"; };
 		38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerTableViewCell.m; sourceTree = "<group>"; };
+		386946131A07BF560093804C /* first-passer-bracket-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket-6.png"; sourceTree = "<group>"; };
+		386946141A07BF560093804C /* first-passer-bracket-6.png@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket-6.png@2x.png"; sourceTree = "<group>"; };
+		386946151A07BF560093804C /* first-passer-bracket-6.png@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first-passer-bracket-6.png@3x.png"; sourceTree = "<group>"; };
 		3870812819BFCD8E001174CB /* broadcasting-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small.png"; sourceTree = "<group>"; };
 		3870812919BFCD8E001174CB /* broadcasting-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small@2x.png"; sourceTree = "<group>"; };
 		3870812C19C07587001174CB /* broadcasting-small-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark.png"; sourceTree = "<group>"; };
@@ -1870,6 +1876,9 @@
 		38E5EB9D19CDB80800E7C6DF /* Game Action */ = {
 			isa = PBXGroup;
 			children = (
+				386946131A07BF560093804C /* first-passer-bracket-6.png */,
+				386946141A07BF560093804C /* first-passer-bracket-6.png@2x.png */,
+				386946151A07BF560093804C /* first-passer-bracket-6.png@3x.png */,
 				1AA37BF518B2DE7E00CE9662 /* first-passer-bracket-5@2x.png */,
 				1AA37BF618B2DE7E00CE9662 /* first-passer-bracket@2x.png */,
 				1AA37BF318B14D4000CE9662 /* passer-arrow@2x.png */,
@@ -2052,6 +2061,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				386946171A07BF560093804C /* first-passer-bracket-6.png@2x.png in Resources */,
 				38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */,
 				1A3A559617A6967C002B3C84 /* TweetLogTableViewCell.xib in Resources */,
 				384C2D8C19A9569000EE8290 /* GameActionView_positional.xib in Resources */,
@@ -2087,6 +2097,7 @@
 				38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */,
 				1AFFE80115175E7B004B4590 /* electric_shock.png in Resources */,
 				38AA38B219C32F1400C6CF9A /* pause@2x.png in Resources */,
+				386946161A07BF560093804C /* first-passer-bracket-6.png in Resources */,
 				1AFFE87D15175EB0004B4590 /* EventView.xib in Resources */,
 				1AFFE87E15175EB0004B4590 /* exciting.png in Resources */,
 				38B2CE6219A0F77B008BE91B /* GameActionView.xib in Resources */,
@@ -2167,6 +2178,7 @@
 				1AEE54A81529D2CA0067F539 /* TweetLogViewController.xib in Resources */,
 				1AEAE9E7152D1C88008574C2 /* TeamsViewController.xib in Resources */,
 				38AA38BA19C3360F00C6CF9A /* checkbox-checked-white-border.png in Resources */,
+				386946181A07BF560093804C /* first-passer-bracket-6.png@3x.png in Resources */,
 				38AA38AA19C32F1400C6CF9A /* backward@2x.png in Resources */,
 				1A7B427C152DBBF400CA839E /* TeamPlayersViewController.xib in Resources */,
 				1A30994315307E7D00DDC9CD /* TeamDownloadPickerViewController.xib in Resources */,

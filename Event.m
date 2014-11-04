@@ -360,9 +360,9 @@
      Timeout                16	22
      */
     if (self.action <= 10 ) {
-        self.action = self.action -1;
+        self.action = self.action - 1;
     } else if (self.action >=16 ) {
-        self.action = self.action -6;
+        self.action = self.action - 6;
     }
 }
 

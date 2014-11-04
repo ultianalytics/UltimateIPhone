@@ -318,6 +318,8 @@
 		383F17DF19E7FB0600FC6541 /* SHSAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */; };
 		383F181F19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */; };
 		383F182219EBF2D200FC6541 /* FieldDimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F182119EBF2D200FC6541 /* FieldDimensions.m */; };
+		38458B2B1A08789E0060780A /* EventEnumFixRegistar.m in Sources */ = {isa = PBXBuildFile; fileRef = 38458B2A1A08789E0060780A /* EventEnumFixRegistar.m */; };
+		38458B2E1A0878BF0060780A /* SHSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 38458B2D1A0878BF0060780A /* SHSVersion.m */; };
 		384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */; };
 		384C2D7E19A779A000EE8290 /* GamePositionalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */; };
 		384C2D8219A7F68B00EE8290 /* GameFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 384C2D8119A7F68B00EE8290 /* GameFieldView.m */; };
@@ -862,6 +864,10 @@
 		383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameFieldDimensionsViewController.storyboard; sourceTree = "<group>"; };
 		383F182019EBF2D200FC6541 /* FieldDimensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDimensions.h; sourceTree = "<group>"; };
 		383F182119EBF2D200FC6541 /* FieldDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDimensions.m; sourceTree = "<group>"; };
+		38458B291A08789E0060780A /* EventEnumFixRegistar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventEnumFixRegistar.h; sourceTree = "<group>"; };
+		38458B2A1A08789E0060780A /* EventEnumFixRegistar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventEnumFixRegistar.m; sourceTree = "<group>"; };
+		38458B2C1A0878BF0060780A /* SHSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSVersion.h; sourceTree = "<group>"; };
+		38458B2D1A0878BF0060780A /* SHSVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSVersion.m; sourceTree = "<group>"; };
 		384C2D7A19A7793600EE8290 /* GamePositionalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePositionalViewController.h; sourceTree = "<group>"; };
 		384C2D7B19A7793600EE8290 /* GamePositionalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePositionalViewController.m; sourceTree = "<group>"; };
 		384C2D7D19A779A000EE8290 /* GamePositionalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePositionalViewController.xib; sourceTree = "<group>"; };
@@ -1174,6 +1180,8 @@
 		1AC8579815FE2A150070BA24 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				38458B2C1A0878BF0060780A /* SHSVersion.h */,
+				38458B2D1A0878BF0060780A /* SHSVersion.m */,
 				1AB78D0217269E40003235AE /* SHSLogger.h */,
 				1AB78D0317269E40003235AE /* SHSLogger.m */,
 				1A5D7B4018FC4BF700239A22 /* SHSTeamFileZipper.h */,
@@ -1419,6 +1427,8 @@
 		1AFFE8D11517643A004B4590 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				38458B291A08789E0060780A /* EventEnumFixRegistar.h */,
+				38458B2A1A08789E0060780A /* EventEnumFixRegistar.m */,
 				1AFFE86F15175EB0004B4590 /* UPoint.h */,
 				1AFFE87015175EB0004B4590 /* UPoint.m */,
 				1AFFE84515175EB0004B4590 /* PointSummary.h */,
@@ -2353,6 +2363,7 @@
 				1A4C42FF160D5FC20067BB96 /* LeaguevineTeam.m in Sources */,
 				1A4C4302160D66A50067BB96 /* LeaguevineSeason.m in Sources */,
 				1A4C431B160F4A5E0067BB96 /* LeagueVineSignonViewController.m in Sources */,
+				38458B2E1A0878BF0060780A /* SHSVersion.m in Sources */,
 				1A5D7AF318F99FE600239A22 /* UIScrollView+Utilities.m in Sources */,
 				3832DD1D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m in Sources */,
 				3832DD2019D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m in Sources */,
@@ -2413,6 +2424,7 @@
 				1AD1231217087D0200B89BC1 /* LeaguevinePostingLog.m in Sources */,
 				38B0997519BE6EF700831B6D /* GameDiscView.m in Sources */,
 				1AD1231B17088D0400B89BC1 /* DDFileReader.m in Sources */,
+				38458B2B1A08789E0060780A /* EventEnumFixRegistar.m in Sources */,
 				1AD1231E1708A00C00B89BC1 /* LeaguevineEventConverter.m in Sources */,
 				1ACED4DD170BB8220041AA23 /* LeaguevineScore.m in Sources */,
 				38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */,

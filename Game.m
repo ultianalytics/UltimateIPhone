@@ -283,7 +283,8 @@ static Game* currentGame = nil;
     } 
     NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data]; 
     Game* loadedGame = [unarchiver decodeObjectForKey:kGameKey];
-    if ([loadedGame.lastSaveAppVersion isEqualToString:kEventEnumProblemAppVersion]) {
+    if ([loadedGame.lastSaveAppVersion isEqualToString:kEventEnumProblemAppVersion] && ![[loadedGame getFirstEvent] isPull]) {
+        // a game started with 3.0 which had the bad enum mapping...we need to fix it
         [EventEnumFixRegistar sharedRegister].shouldFixEventEnums = YES;
         NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
         loadedGame = [unarchiver decodeObjectForKey:kGameKey];
@@ -535,6 +536,13 @@ static Game* currentGame = nil;
 -(Event*)getLastEvent {
     if ([self getCurrentPoint] != nil) {
         return [[self getCurrentPoint] getLastEvent]; 
+    }
+    return nil;
+}
+
+-(Event*)getFirstEvent {
+    if ([self.points count] > 0) {
+        return [self.points[0] getFirstEvent];
     }
     return nil;
 }

@@ -103,7 +103,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) { 
         self.action = [decoder decodeIntForKey:kActionKey];
-        if ([self needsV3EnumFix: decoder]) {
+        if ([self needsV3EnumFix]) {
             [self applyV3EnumFix];
         }
         self.timestamp = [decoder decodeDoubleForKey:kTimestampKey];
@@ -332,7 +332,7 @@
     return nil;
 }
 
--(BOOL)needsV3EnumFix:(NSCoder *)decoder {
+-(BOOL)needsV3EnumFix {
     return [EventEnumFixRegistar sharedRegister].shouldFixEventEnums;
 }
 

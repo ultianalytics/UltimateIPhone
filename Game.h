@@ -72,6 +72,7 @@
 -(BOOL)hasEvents;
 -(BOOL)hasOneEvent;
 -(void)removeLastEvent;
+-(Event*)getFirstEvent;
 -(Event*)getLastEvent;
 -(NSArray*)getLastEvents: (int) numberToRetrieve;
 -(Event*)getInProgressPointLastEvent;

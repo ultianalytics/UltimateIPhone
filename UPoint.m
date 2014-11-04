@@ -100,6 +100,14 @@
     }
 }
 
+-(Event*)getFirstEvent {
+    if ([self.events count] > 0) {
+        return self.events[0];
+    } else {
+        return nil;
+    }
+}
+
 -(Event*)getLastPlayEvent {
     if ([self.events count] > 0) {
         for (int i = (int)[self.events count] - 1; i >= 0; i--) {

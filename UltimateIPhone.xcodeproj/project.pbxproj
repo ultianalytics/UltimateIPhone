@@ -329,8 +329,6 @@
 		38672B21199BBD2D001DCDDE /* GameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B20199BBD2D001DCDDE /* GameTableViewCell.m */; };
 		38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */; };
 		38672B2C199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */; };
-		386946211A0868F50093804C /* SHSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 386946201A0868F50093804C /* SHSVersion.m */; };
-		386946241A086B140093804C /* EventEnumFixRegistar.m in Sources */ = {isa = PBXBuildFile; fileRef = 386946231A086B140093804C /* EventEnumFixRegistar.m */; };
 		3870812A19BFCD8E001174CB /* broadcasting-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812819BFCD8E001174CB /* broadcasting-small.png */; };
 		3870812B19BFCD8E001174CB /* broadcasting-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812919BFCD8E001174CB /* broadcasting-small@2x.png */; };
 		3870812E19C07587001174CB /* broadcasting-small-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812C19C07587001174CB /* broadcasting-small-dark.png */; };
@@ -882,10 +880,6 @@
 		38672B28199D1947001DCDDE /* GameUploadPickerViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameUploadPickerViewController.storyboard; sourceTree = "<group>"; };
 		38672B2A199D1BEB001DCDDE /* GameUploadPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUploadPickerTableViewCell.h; sourceTree = "<group>"; };
 		38672B2B199D1BEB001DCDDE /* GameUploadPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerTableViewCell.m; sourceTree = "<group>"; };
-		3869461F1A0868F50093804C /* SHSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSVersion.h; sourceTree = "<group>"; };
-		386946201A0868F50093804C /* SHSVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSVersion.m; sourceTree = "<group>"; };
-		386946221A086B140093804C /* EventEnumFixRegistar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventEnumFixRegistar.h; sourceTree = "<group>"; };
-		386946231A086B140093804C /* EventEnumFixRegistar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventEnumFixRegistar.m; sourceTree = "<group>"; };
 		3870812819BFCD8E001174CB /* broadcasting-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small.png"; sourceTree = "<group>"; };
 		3870812919BFCD8E001174CB /* broadcasting-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small@2x.png"; sourceTree = "<group>"; };
 		3870812C19C07587001174CB /* broadcasting-small-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark.png"; sourceTree = "<group>"; };
@@ -1180,8 +1174,6 @@
 		1AC8579815FE2A150070BA24 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				3869461F1A0868F50093804C /* SHSVersion.h */,
-				386946201A0868F50093804C /* SHSVersion.m */,
 				1AB78D0217269E40003235AE /* SHSLogger.h */,
 				1AB78D0317269E40003235AE /* SHSLogger.m */,
 				1A5D7B4018FC4BF700239A22 /* SHSTeamFileZipper.h */,
@@ -1433,8 +1425,6 @@
 				1AFFE84615175EB0004B4590 /* PointSummary.m */,
 				1AFFE86615175EB0004B4590 /* Team.h */,
 				1AFFE86715175EB0004B4590 /* Team.m */,
-				386946221A086B140093804C /* EventEnumFixRegistar.h */,
-				386946231A086B140093804C /* EventEnumFixRegistar.m */,
 				1AFFE80215175EB0004B4590 /* Event.h */,
 				1AFFE80315175EB0004B4590 /* Event.m */,
 				1AFFE82E15175EB0004B4590 /* OffenseEvent.h */,
@@ -2306,7 +2296,6 @@
 				1AFFE8A915175EB0004B4590 /* PointSummary.m in Sources */,
 				384C2D7C19A7793600EE8290 /* GamePositionalViewController.m in Sources */,
 				1AFFE8AA15175EB0004B4590 /* Preferences.m in Sources */,
-				386946211A0868F50093804C /* SHSVersion.m in Sources */,
 				1AFFE8AB15175EB0004B4590 /* PreferencesViewController.m in Sources */,
 				1AFFE8AF15175EB0004B4590 /* RedButton.m in Sources */,
 				1AFFE8B715175EB0004B4590 /* SoundPlayer.m in Sources */,
@@ -2331,7 +2320,6 @@
 				1A6B266215250FC400C119A5 /* Tweet.m in Sources */,
 				1AEE548B15293B350067F539 /* TwitterController.m in Sources */,
 				1AEE54A71529D2CA0067F539 /* TweetLogViewController.m in Sources */,
-				386946241A086B140093804C /* EventEnumFixRegistar.m in Sources */,
 				1AEAE9E6152D1C88008574C2 /* TeamsViewController.m in Sources */,
 				1AEAE9EA152D1D80008574C2 /* TeamDescription.m in Sources */,
 				1A7B427B152DBBF400CA839E /* TeamPlayersViewController.m in Sources */,

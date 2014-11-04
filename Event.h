@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @class Player, EventPosition;
+
 typedef enum {
-    None,
-    
     Catch,
     Drop,
     Goal,
@@ -22,6 +21,14 @@ typedef enum {
     Stall,
     MiscPenalty,
     
+    EndOfFirstQuarter,
+    Halftime,
+    EndOfThirdQuarter,
+    EndOfFourthQuarter,
+    EndOfOvertime,
+    GameOver,
+    Timeout,
+    
     // positional only
     OpponentPull,
     OpponentPullOb,
@@ -29,20 +36,13 @@ typedef enum {
     PickupDisc,  // ephemeral
     PullBegin,   // ephemeral
     
-    // cessation
-    EndOfFirstQuarter,
-    Halftime,
-    EndOfThirdQuarter,
-    EndOfFourthQuarter,
-    EndOfOvertime,
-    GameOver,
-    Timeout
+    None
+
 } Action;
 
 #define kActionKey              @"action"
 #define kDetailsKey             @"details"
 #define kEventTypeProperty      @"type"
-
 
 @interface Event : NSObject <NSCoding, NSCopying>
 

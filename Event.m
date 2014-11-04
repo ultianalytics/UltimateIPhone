@@ -13,6 +13,7 @@
 #import "Team.h"
 #import "Game.h"
 #import "EventPosition.h"
+#import "EventEnumFixRegistar.h"
 
 #define kTimestampKey     @"timestamp"
 #define kIsHalftimeCauseKey     @"halftimeCause"
@@ -102,6 +103,9 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) { 
         self.action = [decoder decodeIntForKey:kActionKey];
+        if ([self needsV3EnumFix: decoder]) {
+            [self applyV3EnumFix];
+        }
         self.timestamp = [decoder decodeDoubleForKey:kTimestampKey];
         self.details = [decoder decodeObjectForKey:kDetailsKey];
         self.isHalftimeCause = [decoder decodeBoolForKey:kIsHalftimeCauseKey];
@@ -326,6 +330,40 @@
 
 -(Player*)playerTwo {
     return nil;
+}
+
+-(BOOL)needsV3EnumFix:(NSCoder *)decoder {
+    return [EventEnumFixRegistar sharedRegister].shouldFixEventEnums;
+}
+
+-(void)applyV3EnumFix {
+    /*
+     
+     PRE-3.0     3.0
+     Catch,         0       1
+     Drop,          1       2
+     Goal,          2       3
+     Throwaway,     3       4
+     Pull,          4       5
+     De,            5       6
+     Callahan,      6       7
+     PullOb,        7       8
+     Stall,         8       9
+     MiscPenalty    9       10
+     
+     EndOfFirstQuarter      10	16
+     Halftime,              11	17
+     EndOfThirdQuarter      12	18
+     EndOfFourthQuarter     13	19
+     EndOfOvertime          14	20
+     GameOver               15	21
+     Timeout                16	22
+     */
+    if (self.action <= 10 ) {
+        self.action = self.action -1;
+    } else if (self.action >=16 ) {
+        self.action = self.action -6;
+    }
 }
 
 @end

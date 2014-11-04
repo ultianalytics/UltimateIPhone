@@ -28,6 +28,8 @@
 #import "NSString+manipulations.h"
 #import "FieldDimensions.h"
 #import "Preferences.h"
+#import "SHSVersion.h"
+#import "EventEnumFixRegistar.h"
 
 #define kGameFileNamePrefixKey  @"game-"
 #define kGameKey                @"game"
@@ -53,6 +55,9 @@
 #define kIsPositionalKey            @"positional"
 #define kPickupDiscKey            @"pickupDiscEvent"
 #define kFieldDimensionsJsonKey       @"fieldDimensionsJson"
+#define kLastSaveAppVersionKey       @"lastSaveAppVersion"
+
+#define kEventEnumProblemAppVersion @"3.0"
 
 static Game* currentGame = nil;
 
@@ -62,6 +67,7 @@ static Game* currentGame = nil;
 @property (nonatomic, strong) NSString* fieldDimensionsJson;
 @property (nonatomic, strong) CessationEvent* lastPeriodEnd; // transient
 @property (nonatomic) NSTimeInterval lastSaveGMT;
+@property (nonatomic, strong) NSString* lastSaveAppVersion;
 
 @end
 
@@ -265,6 +271,7 @@ static Game* currentGame = nil;
 }
 
 +(Game*)readGame: (NSString*) gameId forTeam: (NSString *) teamId mergePlayersWithCurrentTeam: (BOOL)mergePlayers {
+    [EventEnumFixRegistar sharedRegister].shouldFixEventEnums = NO;
     if (gameId == nil) {
         return nil;
     }
@@ -276,6 +283,12 @@ static Game* currentGame = nil;
     } 
     NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data]; 
     Game* loadedGame = [unarchiver decodeObjectForKey:kGameKey];
+    if ([loadedGame.lastSaveAppVersion isEqualToString:kEventEnumProblemAppVersion]) {
+        [EventEnumFixRegistar sharedRegister].shouldFixEventEnums = YES;
+        NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        loadedGame = [unarchiver decodeObjectForKey:kGameKey];
+        [EventEnumFixRegistar sharedRegister].shouldFixEventEnums = NO;
+    }
     if (mergePlayers) {
         [loadedGame mergePlayersWithCurrentTeam];
     }
@@ -384,6 +397,7 @@ static Game* currentGame = nil;
 }
 
 -(void)save {
+    self.lastSaveAppVersion = [SHSVersion sharedInstance].currentAppVersion;
     [self updatelastSaveGMT];
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc]
@@ -446,6 +460,12 @@ static Game* currentGame = nil;
         self.lastSaveGMT = [decoder decodeDoubleForKey:klastSaveKey];
         self.isPositional = [decoder decodeBoolForKey:kIsPositionalKey];
         self.positionalBeginEvent = [decoder decodeObjectForKey:kPickupDiscKey];
+        self.lastSaveAppVersion = [decoder decodeObjectForKey:kLastSaveAppVersionKey];
+        if (!self.lastSaveAppVersion) {
+            if ([decoder containsValueForKey: kIsPositionalKey]) {
+                self.lastSaveAppVersion = kEventEnumProblemAppVersion;
+            }
+        }
     } 
     return self; 
 } 
@@ -470,6 +490,7 @@ static Game* currentGame = nil;
     [encoder encodeDouble:self.lastSaveGMT forKey:klastSaveKey];
     [encoder encodeBool:self.isPositional forKey:kIsPositionalKey];
     [encoder encodeObject:self.positionalBeginEvent forKey:kPickupDiscKey];
+    [encoder encodeObject:self.lastSaveAppVersion forKey:kLastSaveAppVersionKey];
 } 
 
 #pragma mark - Events

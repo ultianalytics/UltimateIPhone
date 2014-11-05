@@ -33,6 +33,7 @@
 -(void)addEvent: (Event*) event;
 -(Event*)getEventAtMostRecentIndex: (int) index;
 -(Event*)getLastEvent;
+-(Event*)getFirstEvent;
 -(Event*)getPullEvent;
 -(NSEnumerator*)getLastEvents: (int) number;
 -(void)removeLastEvent;

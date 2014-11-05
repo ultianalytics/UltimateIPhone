@@ -360,7 +360,7 @@
     NSString* actionViewNib = @"GameActionView";
     if (IS_IPHONE) {
         /* iPHone dimensions: 
-            6+  540x960
+            6+  414x736
             6   375x667
             5   320x568
             4   320x480

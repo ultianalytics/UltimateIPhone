@@ -26,6 +26,9 @@
 #define kDiscDiameter 16.0f
 #define kHasDragCalloutBeenShown @"HasDragCalloutBeenShown"
 
+#define kEndZoneCloseTolerance .05f
+#define kFieldCloseTolerance .02f
+
 @interface GameRecordingFieldView ()
 
 @property (nonatomic, strong) GameFieldEventPointView* lastSavedEventView;
@@ -443,6 +446,21 @@
     EventPosition* position = [self calculatePosition:eventPoint];
     if ((position.area == EventPositionArea0Endzone && self.directionView.isPointingLeft) ||
         (position.area == EventPositionArea100Endzone && !self.directionView.isPointingLeft)) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)isPointVeryNearGoalLine: (CGPoint)eventPoint {
+    EventPosition* position = [self calculatePosition:eventPoint];
+    return [self isPositionVeryNearGoalLine:position];
+}
+
+-(BOOL)isPositionVeryNearGoalLine: (EventPosition*)position {
+    if ((position.area == EventPositionArea0Endzone && position.x > (1 - kEndZoneCloseTolerance)) ||
+        (position.area == EventPositionArea100Endzone && position.x < kEndZoneCloseTolerance) ||
+        (position.area == EventPositionAreaField && position.x > (1 - kFieldCloseTolerance)) ||
+        (position.area == EventPositionAreaField && position.x < kFieldCloseTolerance)) {
         return YES;
     }
     return NO;

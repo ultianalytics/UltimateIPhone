@@ -21,6 +21,8 @@
 -(void)handleTap:(CGPoint) tapPoint isOB: (BOOL) isOutOfBounds;
 -(void)updateForCurrentEvents;
 -(BOOL)isPointInGoalEndzone: (CGPoint)eventPoint;
+-(BOOL)isPointVeryNearGoalLine: (CGPoint)eventPoint;
+-(BOOL)isPositionVeryNearGoalLine: (EventPosition*)evnetPosition;
 -(void)showDragCallout;
 
 @end

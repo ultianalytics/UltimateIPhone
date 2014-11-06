@@ -178,10 +178,12 @@
 
 -(void)updateActionViewEnabledButtons: (CGPoint) eventPoint {
     [self enableAllButtons];
-    if ([self.fieldView isPointInGoalEndzone:eventPoint]) {
-        [self disableCatchButtons];
-    } else {
-        [self disableGoalButtons];
+    if (![self.fieldView isPointVeryNearGoalLine:eventPoint]) {
+        if ([self.fieldView isPointInGoalEndzone:eventPoint]) {
+            [self disableCatchButtons];
+        } else {
+            [self disableGoalButtons];
+        }
     }
 }
 
@@ -460,7 +462,31 @@
     if (!event.position) {
         event.position = self.fieldView.potentialEventPosition;
     }
+    [self adjustPositionToMatchAction:event];
     event.beginPosition = self.game.positionalBeginEvent.position;  // only some events will have begin position
+}
+
+-(void) adjustPositionToMatchAction: (Event*) event {
+    // if the event was close was very close to the goal so we allowed the user to pick goal or catch...move
+    // the position to accomodate their choise if necessary
+    EventPosition* position = event.position;
+    if ([self.fieldView isPositionVeryNearGoalLine:position]) {
+        if (position.area == EventPositionArea0Endzone && [event isCatchOrOpponentCatch]) {
+            position.area = EventPositionAreaField;
+            position.x = .001;
+        } else if (position.area == EventPositionArea100Endzone && [event isCatchOrOpponentCatch]) {
+            position.area = EventPositionAreaField;
+            position.x = .999;
+        } else if (position.area == EventPositionAreaField && [event isGoal]) {
+            if (position.x > .5) {
+                position.area = EventPositionArea100Endzone;
+                position.x = .001;
+            } else {
+                position.area = EventPositionArea0Endzone;
+                position.x = .999;
+            }
+        }
+    }
 }
 
 -(Game*)game {

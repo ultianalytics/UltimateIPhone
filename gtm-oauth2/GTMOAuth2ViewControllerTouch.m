@@ -28,6 +28,10 @@
 
 #import "GTMOAuth2SignIn.h"
 #import "GTMOAuth2Authentication.h"
+// BEGIN iULTIMATE CHANGE
+#import "CalloutsContainerView.h"
+#import "Preferences.h"
+// END iULTIMATE CHANGE
 
 NSString *const kGTMOAuth2KeychainErrorDomain = @"com.google.GTMOAuthKeychain";
 
@@ -41,6 +45,11 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
 @property (nonatomic, copy) NSURLRequest *request;
 @property (nonatomic, copy) NSArray *systemCookies;
 @property (nonatomic, copy) NSArray *signInCookies;
+
+// BEGIN iULTIMATE CHANGE
+@property (nonatomic, strong) CalloutsContainerView *usageCallouts;
+// END iULTIMATE CHANGE
+
 @end
 
 @implementation GTMOAuth2ViewControllerTouch
@@ -746,7 +755,30 @@ static Class gSignInClass = Nil;
 - (void)viewDidAppear:(BOOL)animated {
   didViewAppear_ = YES;
   [super viewDidAppear:animated];
+  // BEGIN iULTIMATE CHANGE
+  [self showNewLogonUsageCallouts];
+  // END iULTIMATE CHANGE
 }
+
+// BEGIN iULTIMATE CHANGE
+#pragma mark - Help Callouts
+
+-(BOOL)showNewLogonUsageCallouts {
+    if (![[Preferences getCurrentPreferences].userid isNotEmpty]) {
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = self.webView.center;
+        
+        [calloutsView addCallout:@"This app uses Google for authentication so you must signon to a Google account (e.g., Gmail™) before uploading or downloading.\n\nNOTE: If you will be sharing upload/download duties with other people it is suggested you create and use a separate Gmail™ account for this app.\n\n              - Tap to dismiss -" anchor: anchor width: 240 degrees: 180 connectorLength: 0 font: [UIFont systemFontOfSize:14]];
+        
+        self.usageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+// END iULTIMATE CHANGE
 
 - (void)viewWillDisappear:(BOOL)animated {
   if (![self isBeingObscured:self]) {

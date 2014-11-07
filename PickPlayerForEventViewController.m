@@ -15,6 +15,10 @@
 @property (weak, nonatomic) IBOutlet UITableView* playersTableView;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 
+@property (weak, nonatomic) UIFont* cellNameFont;
+
+
+
 @end
 
 @implementation PickPlayerForEventViewController
@@ -64,6 +68,7 @@
     
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
     cell.textLabel.text = playerName;
     
     return cell;

@@ -284,6 +284,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView transitionWithView:self.eventTableView duration:0.1f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
                 [self.eventTableView reloadData];
+                if ([self.game hasEvents]) {
+                    [self.eventTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
             } completion:nil];
         });
     }

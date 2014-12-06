@@ -381,6 +381,7 @@
 		38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */; };
 		38EAE2BC197C064F002F2A2D /* GameUploadPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */; };
 		38EAE2C0197D3E0C002F2A2D /* UploadDownloadTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */; };
+		38F2A15F1A3296A6000F305D /* WindSpeedClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F2A15E1A3296A6000F305D /* WindSpeedClient.m */; };
 		38FD2F8A19951DFB00CE83BB /* TeamsMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */; };
 		38FD2F8B19951DFB00CE83BB /* TeamsMasterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */; };
 		38FD2FDC199686D700CE83BB /* PlayersMasterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FD2FDA199686D700CE83BB /* PlayersMasterDetailViewController.m */; };
@@ -953,6 +954,8 @@
 		38EAE2BA197C064F002F2A2D /* GameUploadPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUploadPickerViewController.m; sourceTree = "<group>"; };
 		38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDownloadTracker.h; sourceTree = "<group>"; };
 		38EAE2BF197D3E0C002F2A2D /* UploadDownloadTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDownloadTracker.m; sourceTree = "<group>"; };
+		38F2A15D1A3296A6000F305D /* WindSpeedClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindSpeedClient.h; sourceTree = "<group>"; };
+		38F2A15E1A3296A6000F305D /* WindSpeedClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindSpeedClient.m; sourceTree = "<group>"; };
 		38FD2F8719951DFB00CE83BB /* TeamsMasterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsMasterDetailViewController.h; sourceTree = "<group>"; };
 		38FD2F8819951DFB00CE83BB /* TeamsMasterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsMasterDetailViewController.m; sourceTree = "<group>"; };
 		38FD2F8919951DFB00CE83BB /* TeamsMasterDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamsMasterDetailViewController.xib; sourceTree = "<group>"; };
@@ -1346,6 +1349,7 @@
 				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
 				1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */,
 				1A2DA03815458AB800D59B29 /* Reachability */,
+				38F2A15C1A32964B000F305D /* Wind */,
 				1AEE549E152944190067F539 /* Twitter */,
 				1AFFE8D215176449004B4590 /* Cloud */,
 				1AFFE8D11517643A004B4590 /* Model */,
@@ -2014,6 +2018,15 @@
 			name = Tabs;
 			sourceTree = "<group>";
 		};
+		38F2A15C1A32964B000F305D /* Wind */ = {
+			isa = PBXGroup;
+			children = (
+				38F2A15D1A3296A6000F305D /* WindSpeedClient.h */,
+				38F2A15E1A3296A6000F305D /* WindSpeedClient.m */,
+			);
+			name = Wind;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2309,6 +2322,7 @@
 				1AFFE87C15175EB0004B4590 /* EventView.m in Sources */,
 				1AFFE88215175EB0004B4590 /* Game.m in Sources */,
 				1AFFE88315175EB0004B4590 /* GameDescription.m in Sources */,
+				38F2A15F1A3296A6000F305D /* WindSpeedClient.m in Sources */,
 				1AFFE88415175EB0004B4590 /* GameDetailViewController.m in Sources */,
 				3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */,
 				1AFFE88615175EB0004B4590 /* GameHistoryController.m in Sources */,

@@ -17,6 +17,7 @@
 #import "GameTableViewCell.h"
 #import "GameViewController.h"
 #import "GameAutoUploader.h"
+#import "WindSpeedClient.h"
 
 @interface GamesViewController ()
 
@@ -42,6 +43,7 @@
 
 -(void)goToGameAsNew: (BOOL)isNew {
     [[GameAutoUploader sharedUploader] flush]; // before we switch games, make sure we don't have another game with data that still needs to be posted
+    [[WindSpeedClient shared] updateWindSpeed];  // get wind speed now
     Game* game = isNew ? [[Game alloc] init] : [Game getCurrentGame];
     if (IS_IPAD) {
         if (isNew) {

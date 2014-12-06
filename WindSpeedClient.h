@@ -15,4 +15,6 @@
 @property (nonatomic, strong, readonly) NSDate* windLastUpdatedTimestamp;
 @property (nonatomic, readonly) float lastWindSpeedMph;
 
+-(void)updateWindSpeed;
+
 @end

@@ -45,7 +45,7 @@
 
 -(void)updateWindSpeed {
     @synchronized (self) {
-        if ([self.windLastUpdatedTimestamp isEarlierThanDate:[NSDate dateWithMinutesBeforeNow: kMaxWindAgeMinutes]]) {
+        if (self.windLastUpdatedTimestamp == nil || [self.windLastUpdatedTimestamp isEarlierThanDate:[NSDate dateWithMinutesBeforeNow: kMaxWindAgeMinutes]]) {
             [self startLocationLookup];
         }
     }
@@ -55,6 +55,10 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     [self.locationManager startUpdatingLocation];
 }
 
@@ -83,7 +87,7 @@
         [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
             if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
-                // SHSLog(@"http GET for wind successful.  URL is %@", request.URL.absoluteString);
+                // NSLog(@"http GET for wind successful.  URL is %@", request.URL.absoluteString);
                 completion(YES, data);
             } else {
                 NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];

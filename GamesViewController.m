@@ -43,7 +43,6 @@
 
 -(void)goToGameAsNew: (BOOL)isNew {
     [[GameAutoUploader sharedUploader] flush]; // before we switch games, make sure we don't have another game with data that still needs to be posted
-    [[WindSpeedClient shared] updateWindSpeed];  // get wind speed now
     Game* game = isNew ? [[Game alloc] init] : [Game getCurrentGame];
     if (IS_IPAD) {
         if (isNew) {
@@ -140,6 +139,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[WindSpeedClient shared] updateWindSpeed];
     self.title = NSLocalizedString(@"Games", @"Games");
 }
 

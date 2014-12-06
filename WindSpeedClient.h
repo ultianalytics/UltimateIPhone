@@ -8,13 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol WindSpeedClientDelegate <NSObject>
+
+-(void)windSpeedUpdated;
+
+@end
+
 @interface WindSpeedClient : NSObject
 
 + (WindSpeedClient*)shared;
 
-@property (nonatomic, strong, readonly) NSDate* windLastUpdatedTimestamp;
 @property (nonatomic, readonly) float lastWindSpeedMph;
+@property (nonatomic, weak) id<WindSpeedClientDelegate> delegate;
 
 -(void)updateWindSpeed;
+-(BOOL)hasWindSpeedBeenUpdatedRecently;
 
 @end

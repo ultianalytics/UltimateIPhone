@@ -45,8 +45,15 @@
 
 -(void)updateWindSpeed {
     @synchronized (self) {
-        if (self.windLastUpdatedTimestamp == nil || [self.windLastUpdatedTimestamp isEarlierThanDate:[NSDate dateWithMinutesBeforeNow: kMaxWindAgeMinutes]]) {
+        if (![self hasWindSpeedBeenUpdatedRecently]) {
             [self startLocationLookup];
+        }
+    }
+}
+
+-(BOOL)hasWindSpeedBeenUpdatedRecently {
+    @synchronized (self) {
+        return [self.windLastUpdatedTimestamp isLaterThanDate:[NSDate dateWithMinutesBeforeNow: kMaxWindAgeMinutes]]; {
         }
     }
 }
@@ -70,6 +77,11 @@
                 if (speed > -1) {
                     self.lastWindSpeedMph = speed;
                     self.locationManager = nil;
+                    if (self.delegate) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.delegate windSpeedUpdated];
+                        });
+                    }
                 }
             }
         }];

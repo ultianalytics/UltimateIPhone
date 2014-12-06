@@ -34,6 +34,7 @@
 #import "UIView+Convenience.h"
 #import "SHSAnalytics.h"
 #import "GameFieldDimensionsViewController.h"
+#import "WindSpeedClient.h"
 
 
 #define kLowestGamePoint 9
@@ -52,7 +53,7 @@
 #define kHasBeenShownPlaybackCallout @"HasBeenShownPlaybackCallout"
 
 
-@interface GameDetailViewController()
+@interface GameDetailViewController() <WindSpeedClientDelegate>
 
 @property (nonatomic, strong) NSDateFormatter* dateFormat;
 @property (nonatomic, strong) NSMutableArray* cells;
@@ -623,6 +624,9 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    if (![self.game hasBeenSaved]) {
+        [self updateWindSpeed];
+    }
     if (IS_IPAD && self.isModalAddMode) {
         [self showPositionalCallout];
     }
@@ -894,6 +898,29 @@
     dimensionsVC.game = self.game;
     [self.navigationController pushViewController:dimensionsVC animated:YES];
 }
+
+
+#pragma mark -  Wind Speed Updating
+
+-(void)updateWindSpeed {
+    if (![self.game hasBeenSaved]) {
+        [WindSpeedClient shared].delegate = self;
+        [[WindSpeedClient shared] updateWindSpeed];
+    }
+}
+
+#pragma mark -  WindSpeedClientDelegate
+
+-(void)windSpeedUpdated {
+    [WindSpeedClient shared].delegate = nil;
+    if ([[WindSpeedClient shared] hasWindSpeedBeenUpdatedRecently]) {
+        // TODO
+        // 1.) Update the wind on the game
+        // 2.) Update the wind cell on the view
+        // 3.) First time callout to tell user
+    }
+}
+
 
 #pragma mark - Callouts
 

@@ -156,9 +156,13 @@
                              duration:2.0
                              position:@"center"];
     } else {
-        [self.view makeToast:@"Sorry, could not update speed from weather service"
-                    duration:3.0
-                    position:@"center"];
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Wind Speed Error"
+                              message: @"Sorry, we could not update wind speed from the weather service. Perhaps you are not connected?  Or, perhaps you did not agree to enable location services for this app?  If so, you can re-enable this from the iPad/iPhone settings for this app."
+                              delegate: nil
+                              cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                              otherButtonTitles: nil];
+        [alert show];
     }
 }
 @end

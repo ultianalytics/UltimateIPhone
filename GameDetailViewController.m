@@ -51,6 +51,7 @@
 
 #define kIsNotFirstGameStartUsage @"IsNotFirstGameStartUsage"
 #define kHasBeenShownPlaybackCallout @"HasBeenShownPlaybackCallout"
+#define kHasBeenShownWindUpdateCallout @"HasBeenShownWindUpdateCallout"
 
 
 @interface GameDetailViewController() <WindSpeedClientDelegate>
@@ -613,6 +614,10 @@
         UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
         self.navigationItem.leftBarButtonItem = cancelBarItem;
     }
+    
+    if (![self.game hasBeenSaved]) {
+        [self updateWindSpeed];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -624,9 +629,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (![self.game hasBeenSaved]) {
-        [self updateWindSpeed];
-    }
     if (IS_IPAD && self.isModalAddMode) {
         [self showPositionalCallout];
     }
@@ -637,6 +639,7 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [WindSpeedClient shared].delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -773,9 +776,13 @@
     
     [self populateLeaguevineCells];
     
-    self.windLabel.text = [self.game.wind isSpecified] ? [NSString stringWithFormat:@"%d mph", self.game.wind.mph] : @"NOT SPECIFIED YET"; 
+    [self populateWindCell];
     
     [self.tableView reloadData];
+}
+
+-(void)populateWindCell {
+    self.windLabel.text = [self.game.wind isDirectionSpecified] ? [NSString stringWithFormat:@"%d mph", self.game.wind.mph] : [NSString stringWithFormat:@"%d mph, unknown direction", self.game.wind.mph];
 }
 
 -(BOOL)verifyOpponentName {
@@ -903,24 +910,22 @@
 #pragma mark -  Wind Speed Updating
 
 -(void)updateWindSpeed {
-    if (![self.game hasBeenSaved]) {
-        [WindSpeedClient shared].delegate = self;
-        [[WindSpeedClient shared] updateWindSpeed];
-    }
+    [WindSpeedClient shared].delegate = self;
+    [[WindSpeedClient shared] updateWindSpeed];
 }
 
 #pragma mark -  WindSpeedClientDelegate
 
--(void)windSpeedUpdated {
+-(void)windSpeedUpdateAttempted {
     [WindSpeedClient shared].delegate = nil;
     if ([[WindSpeedClient shared] hasWindSpeedBeenUpdatedRecently]) {
+        self.game.wind.mph = [WindSpeedClient shared].lastWindSpeedMph;
+        [self populateWindCell];
+        [self showAutoWindUpdateCallout];
         // TODO
-        // 1.) Update the wind on the game
-        // 2.) Update the wind cell on the view
         // 3.) First time callout to tell user
     }
 }
-
 
 #pragma mark - Callouts
 
@@ -930,7 +935,7 @@
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
         
         CGPoint anchor = [self.positionalEventsSegmentedControl convertPoint:self.positionalEventsSegmentedControl.boundsCenter toView:self.view];
-        [calloutsView addCallout:@"Did you know?\nRecording action with \"Field Position\" can be quite challenging.  However, with this option you can broadcast games online, playback the game visually and get distance data.  Consider first recording a game at \"Normal\" level before attempting this on a live game." anchor: anchor width: 300 degrees: 210 connectorLength: 160 font: [UIFont systemFontOfSize:14]];
+        [calloutsView addCallout:@"Did you know?\nRecording action with \"Field Position\" can be quite challenging.  However, with this option you can broadcast games online, playback the game visually and get distance data.  Consider first recording a game at \"Normal\" level before attempting this on a live game." anchor: anchor width: 340 degrees: 320 connectorLength: 160 font: [UIFont systemFontOfSize:14]];
         
         self.calloutsViewContainer = calloutsView;
         [self.view addSubview:self.calloutsViewContainer];
@@ -955,6 +960,24 @@
         [self.calloutsViewContainer slide: NO animated: YES];
     }
 }
+
+
+-(void)showAutoWindUpdateCallout {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: kHasBeenShownWindUpdateCallout]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasBeenShownWindUpdateCallout];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = [self.windLabel convertPoint:CGPointBottomRight(self.playbackLabel.bounds) toView:self.view];
+        [calloutsView addCallout:@"Wind speed is set using your current location.  You can override this at any time." anchor: anchor width: 160 degrees: 180 connectorLength: 80 font: [UIFont systemFontOfSize:14]];
+        
+        self.calloutsViewContainer = calloutsView;
+        [self.view addSubview:self.calloutsViewContainer];
+        // move the callouts off the screen and then animate their return.
+        [self.calloutsViewContainer slide: YES animated: NO];
+        [self.calloutsViewContainer slide: NO animated: YES];
+    }
+}
+
 
 
 

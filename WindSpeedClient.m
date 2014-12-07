@@ -47,6 +47,8 @@
     @synchronized (self) {
         if (![self hasWindSpeedBeenUpdatedRecently]) {
             [self startLocationLookup];
+        } else {
+            [self notifyDelegate];
         }
     }
 }
@@ -77,14 +79,20 @@
                 if (speed > -1) {
                     self.lastWindSpeedMph = speed;
                     self.locationManager = nil;
-                    if (self.delegate) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.delegate windSpeedUpdated];
-                        });
-                    }
                 }
             }
+            [self notifyDelegate];
         }];
+    }
+}
+
+-(void)notifyDelegate {
+    @synchronized (self) {
+        if (self.delegate) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate windSpeedUpdateAttempted];
+            });
+        }
     }
 }
 
@@ -144,6 +152,7 @@
     NSLog(@"location manager (for wind speed determination) failed: %@", error);
     @synchronized (self) {
         self.locationManager = nil;
+        [self notifyDelegate];
     }
 }
 

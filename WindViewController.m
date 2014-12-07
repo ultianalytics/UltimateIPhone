@@ -12,9 +12,23 @@
 #import "Game.h"
 #import "ArrowView.h"
 #import "Wind.h"
+#import "WindSpeedClient.h"
+#import "UIView+Toast.h"
+
+@interface WindViewController () <WindSpeedClientDelegate>
+
+@property (nonatomic, strong) IBOutlet UISegmentedControl* playStartSideSegmentedControl;
+@property (nonatomic, strong) IBOutlet UIView* directionView;
+@property (nonatomic, strong) IBOutlet UIView* directionSwipeView;  // transparent view on top of other view to enlarge swipe zone
+@property (nonatomic, strong) IBOutlet ArrowView* directionArrowView;
+@property (nonatomic, strong) IBOutlet UIButton* askWeatherServiceButton;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* busyIndicator;
+@property (nonatomic, retain) IBOutlet UISlider* speedSlider;
+@property (nonatomic, retain) IBOutlet UILabel* speedLabel;
+
+@end
 
 @implementation WindViewController
-@synthesize game,playStartSideSegmentedControl,directionView,directionSwipeView,directionArrowView,askWeatherServiceButton,speedSlider,speedLabel;
 
 -(void)populateViewFromModel {
     [self populateSpeedLabel];
@@ -28,16 +42,13 @@
 }
 
 -(IBAction)askWeatherStationClicked:(id)sender {
-    //NSURL *url = [NSURL URLWithString:@"http://i.wund.com/cgi-bin/findweather/getForecast?brand=iphone&query=44.935760553650894,-93.1225314237645"];
-    NSURL *url = [NSURL URLWithString:@"http://i.wund.com"];
-    [[UIApplication sharedApplication] openURL:url];
+    [self updateWindSpeedFromService];
 }
 
 - (void)windDirectionSwipe:(UISwipeGestureRecognizer *)recognizer 
 { 
     WindDirectionSwipeRecognizer* swipeRecognizer = (WindDirectionSwipeRecognizer*)recognizer;
     self.game.wind.directionDegrees = [swipeRecognizer getDegrees];
-    //SHSLog(@"Swipe - degrees %d", wind.directionDegrees);
     self.directionArrowView.degrees = self.game.wind.directionDegrees;
     [self.directionArrowView setNeedsDisplay];
     [self saveChanges];
@@ -56,7 +67,7 @@
 
 
 -(IBAction)speedSliderChanged: (id)sender {
-    int speedValue = speedSlider.value;
+    int speedValue = self.speedSlider.value;
     self.game.wind.mph = speedValue; 
     [self populateSpeedLabel];
 }
@@ -66,8 +77,8 @@
 }
 
 -(void)populateSpeedLabel {
-    speedSlider.value = self.game.wind.mph;
-    speedLabel.text = [NSString stringWithFormat:@"%d", self.game.wind.mph];
+    self.speedSlider.value = self.game.wind.mph;
+    self.speedLabel.text = [NSString stringWithFormat:@"%d", self.game.wind.mph];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -89,9 +100,9 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    self.busyIndicator.hidden = YES;
     
     WindDirectionSwipeRecognizer* swipeRecognizer = 
         [[WindDirectionSwipeRecognizer alloc] initWithTarget:self action:@selector(windDirectionSwipe:)];
@@ -121,4 +132,33 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+#pragma mark -  Wind Speed Updating
+
+-(void)updateWindSpeedFromService {
+    [WindSpeedClient shared].delegate = self;
+    self.busyIndicator.hidden = NO;
+    [[WindSpeedClient shared] updateWindSpeed];
+}
+
+#pragma mark -  WindSpeedClientDelegate
+
+-(void)windSpeedUpdateAttempted {
+    [WindSpeedClient shared].delegate = nil;
+    self.busyIndicator.hidden = YES;
+    if ([[WindSpeedClient shared] hasWindSpeedBeenUpdatedRecently]) {
+        self.game.wind.mph = [WindSpeedClient shared].lastWindSpeedMph;
+        [self populateSpeedLabel];
+        [UIView transitionWithView:self.speedLabel duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+            
+        } completion:nil];
+        [self.view makeToast:@"Wind speed updated from weather service"
+                             duration:2.0
+                             position:@"center"];
+    } else {
+        [self.view makeToast:@"Sorry, could not update speed from weather service"
+                    duration:3.0
+                    position:@"center"];
+    }
+}
 @end

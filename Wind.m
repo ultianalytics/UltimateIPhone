@@ -39,8 +39,8 @@
     [encoder encodeBool:self.isFirstPullLeftToRight forKey:kIsFirstLeftToRightKey]; 
 } 
 
--(BOOL)isSpecified {
-    return self.mph != 0 && self.directionDegrees > -1;
+-(BOOL)isDirectionSpecified {
+    return self.directionDegrees > -1;
 }
 
 +(Wind*)fromDictionary:(NSDictionary*) dict {
@@ -66,6 +66,10 @@
     [dict setValue: [NSNumber numberWithInt:self.directionDegrees ] forKey:kDirectionDegreesKey];
     [dict setValue: [NSNumber numberWithBool:self.isFirstPullLeftToRight ] forKey:kIsFirstLeftToRightKey];
     return dict;
+}
+
+-(BOOL)windDescription {
+    return self.mph != 0 && self.directionDegrees > -1;
 }
 
 @end

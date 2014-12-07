@@ -12,6 +12,7 @@
 #import "GameDetailViewController.h"
 #import "Team.h"
 #import "UIView+Convenience.h"
+#import "WindSpeedClient.h"
 
 @interface GamesMasterDetailViewController ()
 

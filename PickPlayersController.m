@@ -509,10 +509,9 @@
 
 +(void)halftimeWarning {
     NSString* message = [[Game getCurrentGame] isCurrentlyOline] ? @"Our team will RECEIVE on the next point" : @"Our team will DEFEND on the next point";
-    NSString* windReminder = [[Game getCurrentGame].wind isSpecified] ? @"\n\nREMINDER: check wind speed" : @"";
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Half Time!"
-                          message: [NSString stringWithFormat:@"%@%@", message, windReminder]
+                          message: message
                           delegate:self
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil];

@@ -10,7 +10,7 @@
 
 @protocol WindSpeedClientDelegate <NSObject>
 
--(void)windSpeedUpdated;
+-(void)windSpeedUpdateAttempted;
 
 @end
 

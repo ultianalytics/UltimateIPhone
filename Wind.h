@@ -16,7 +16,7 @@
 
 +(Wind*)fromDictionary:(NSDictionary*) dict;
 
--(BOOL)isSpecified;
+-(BOOL)isDirectionSpecified;
 -(NSDictionary*) asDictionary;
 
 @end

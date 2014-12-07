@@ -139,7 +139,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[WindSpeedClient shared] updateWindSpeed];
+    if (IS_IPHONE) {
+        [[WindSpeedClient shared] updateWindSpeed];
+    }
     self.title = NSLocalizedString(@"Games", @"Games");
 }
 

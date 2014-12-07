@@ -922,8 +922,6 @@
         self.game.wind.mph = [WindSpeedClient shared].lastWindSpeedMph;
         [self populateWindCell];
         [self showAutoWindUpdateCallout];
-        // TODO
-        // 3.) First time callout to tell user
     }
 }
 

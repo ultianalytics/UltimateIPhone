@@ -101,8 +101,10 @@
 
 // events view controller subview (ipad only)
 @property (nonatomic, strong) IBOutlet UIView* eventsSubView;
-
 @property (nonatomic, strong) IBOutlet UILabel* noEventsLabel;
+
+// callouts button
+@property (nonatomic, strong) UIButton* infoButton;
 
 @property (nonatomic, strong) NSMutableArray* playerViews;
 @property (nonatomic, strong) CalloutsContainerView *firstTimeUsageCallouts;
@@ -700,16 +702,16 @@
     int buttonTag = 989898;
     UIView *navBar = self.navigationController.navigationBar;
     if (![navBar viewWithTag:buttonTag]) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 0)];
-        button.center = navBar.center;  // move to center of nav bar
-        button.frameY = 0;
-        button.frameHeight = navBar.frameHeight;
-        button.tag = 98989;
+        self.infoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 0)];
+        self.infoButton.center = navBar.center;  // move to center of nav bar
+        self.infoButton.frameY = 0;
+        self.infoButton.frameHeight = navBar.frameHeight;
+        self.infoButton.tag = 98989;
 
-        button.backgroundColor = [UIColor clearColor];  // should sit over the title transparently
+        self.infoButton.backgroundColor = [UIColor clearColor];  // should sit over the title transparently
         
-        [button addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-        [navBar addSubview:button];
+        [self.infoButton addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [navBar addSubview:self.infoButton];
     }
 }
 
@@ -902,6 +904,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.infoButton removeFromSuperview];
     self.title = NSLocalizedString(@"Action", @"Action");
 }
 

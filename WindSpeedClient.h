@@ -23,5 +23,6 @@
 
 -(void)updateWindSpeed;
 -(BOOL)hasWindSpeedBeenUpdatedRecently;
+-(BOOL)isGeoLocationEnabled;
 
 @end

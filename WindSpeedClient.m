@@ -53,6 +53,10 @@
     }
 }
 
+-(BOOL)isGeoLocationEnabled {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
+}
+    
 -(BOOL)hasWindSpeedBeenUpdatedRecently {
     @synchronized (self) {
         return [self.windLastUpdatedTimestamp isLaterThanDate:[NSDate dateWithMinutesBeforeNow: kMaxWindAgeMinutes]]; {

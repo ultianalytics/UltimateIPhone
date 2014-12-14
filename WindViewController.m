@@ -156,9 +156,10 @@
                              duration:2.0
                              position:@"center"];
     } else {
+        NSString* explanation = [[WindSpeedClient shared] isGeoLocationEnabled] ? @"We could not determine windspeed.  Perhaps you are not connected?" : @"It appears you did not enable location detection for this app.  You can re-enable this by going to iOS settings for this app and changing the Location setting.";
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: @"Wind Speed Error"
-                              message: @"Sorry, we could not update wind speed from the weather service. Perhaps you are not connected?  Or, perhaps you did not agree to enable location services for this app?  If so, you can re-enable this from the iPad/iPhone settings for this app."
+                              message: explanation
                               delegate: nil
                               cancelButtonTitle: NSLocalizedString(@"OK",nil)
                               otherButtonTitles: nil];

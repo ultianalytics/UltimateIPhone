@@ -89,15 +89,21 @@
 }
 
 -(BOOL)isAutoUploading {
-    return [Team getCurrentTeam].isAutoUploading;
+    @synchronized (self) {
+        return [Team getCurrentTeam].isAutoUploading;
+    }
 }
 
 -(void)resetErrorsOnLastUpload {
-    self.lastUploadStatus = nil;
+    @synchronized (self) {
+        self.lastUploadStatus = nil;
+    }
 }
 
 -(BOOL)errorOnLastUpload {
-    return self.lastUploadStatus && !self.lastUploadStatus.ok;
+    @synchronized (self) {
+        return self.lastUploadStatus && !self.lastUploadStatus.ok;
+    }
 }
 
 #pragma mark - Async Uploading

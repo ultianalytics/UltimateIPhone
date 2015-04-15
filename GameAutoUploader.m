@@ -141,7 +141,9 @@
             NSTimeInterval secondsSinceLastUpdate = MAX(0, [NSDate timeIntervalSinceReferenceDate] - self.lastUploadTime);
             NSTimeInterval delay = MAX(0, kUploadIntervalSeconds - secondsSinceLastUpdate);
             self.isNextUploadScheduledOrInProgress = YES;
-           [self performSelector:@selector(upload) withObject:nil afterDelay:delay];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self upload];
+            });
         }
     }
 }

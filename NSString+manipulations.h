@@ -18,5 +18,8 @@
 -(BOOL)contains: (NSString*) anotherString;
 +(NSString*)stringWithData: (NSData*)data;
 +(NSString*)stringWithGuid;
+-(BOOL)writeToTempDirectoryFile: (NSString*)fileName;
++(NSString*)readFromTempDirectoryFile: (NSString*)fileName;
++(BOOL)deleteFromTempDirectoryFile: (NSString*)fileName;
 
 @end

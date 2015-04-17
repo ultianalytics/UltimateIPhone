@@ -53,6 +53,8 @@
 #define kHasBeenShownPlaybackCallout @"HasBeenShownPlaybackCallout"
 #define kHasBeenShownWindUpdateCallout @"HasBeenShownWindUpdateCallout"
 
+#define kPositionalFlagFileName @"PostionalGamesEnabled"
+
 
 @interface GameDetailViewController() <WindSpeedClientDelegate>
 
@@ -125,7 +127,9 @@
     }
     [self.cells addObjectsFromArray:@[self.initialLineCell, self.gamePointsCell]];
     if (IS_IPAD) {
-        [self.cells addObject:self.positionalEventsCell];
+        if ([self arePositionalGamesSupported]) {
+            [self.cells addObject:self.positionalEventsCell];
+        }
     }
     if (self.game.isPositional) {
         [self.cells addObjectsFromArray:@[self.fieldDimensionsCell]];
@@ -846,6 +850,35 @@
     return self.game.startDateTime != 0;
 }
 
+
+#pragma mark - Positional Game - BETA Enabling
+
+// Positional Indicator (only to used until positional support completed enabled)
+-(BOOL)arePositionalGamesSupported {
+    NSString* positionalEnabledIndicator = [NSString readFromTempDirectoryFile:kPositionalFlagFileName];
+    return positionalEnabledIndicator == nil ? NO : [positionalEnabledIndicator isEqualToString:@"YES"];
+}
+
+-(void)enablePositionalGames {
+    [@"YES" writeToTempDirectoryFile:kPositionalFlagFileName];
+    [self reconfigureCells];
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Positional Games Enabled"
+                          message: @"You have the enabled beta positional game support. Please let us know if you have suggestions"
+                          delegate: nil
+                          cancelButtonTitle: NSLocalizedString(@"OK",nil)
+                          otherButtonTitles: nil];
+    [alert show];
+}
+
+-(void)addEnablePositionalTapZone {
+    UIView* tapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 600, 150)];
+    tapView.backgroundColor = [UIColor clearColor];
+}
+
+- (IBAction)enablePositionalTapped:(id)sender {
+    [self enablePositionalGames];
+}
 
 #pragma mark - Positional Game
 

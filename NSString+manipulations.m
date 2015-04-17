@@ -61,4 +61,31 @@
     return guid;
 }
 
+-(BOOL)writeToTempDirectoryFile: (NSString*)fileName {
+    NSError* writeError = nil;
+    NSString* filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: fileName];
+    [self writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&writeError];
+    return writeError != nil;
+}
+
++(NSString*)readFromTempDirectoryFile: (NSString*)fileName {
+    NSString* filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: fileName];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSData* data = [[NSData alloc] initWithContentsOfFile: filePath];
+        if (data) {
+            return [NSString stringWithData:data];
+        } else {
+            return nil;
+        }
+    } else {
+        return nil;
+    }
+}
+
++(BOOL)deleteFromTempDirectoryFile: (NSString*)fileName {
+    NSString* filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: fileName];
+    return [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+}
+
+
 @end

@@ -37,5 +37,6 @@ typedef enum {
 -(NSDictionary*) asDictionaryWithScrubbing: (BOOL) shouldScrub;
 -(BOOL)isPlayerNamed: (NSString*)playerName;
 -(BOOL)isLeaguevinePlayer;
+-(NSComparisonResult)compareUsingNumber:(Player*)anotherPlayer;
 
 @end

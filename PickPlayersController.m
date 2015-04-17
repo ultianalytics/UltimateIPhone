@@ -92,6 +92,9 @@
     self.fieldButtons = [self initializePlayersViewCount: 7 players: 
                          [[Game getCurrentGame] currentLineSorted] isField: true];
     NSArray* currentPlayers = [self getCurrentTeamPlayers];
+    currentPlayers = [Team getCurrentTeam].isDiplayingPlayerNumber ?
+        [currentPlayers sortedArrayUsingSelector:@selector(compareUsingNumber:)] :
+        [currentPlayers sortedArrayUsingSelector:@selector(compare:)];
     self.benchButtons = [self initializePlayersViewCount: (int)[currentPlayers count] players: currentPlayers isField: false];
 }
 
@@ -490,7 +493,12 @@
     NSArray* activePlayers = [[Team getCurrentTeam].players filter:^BOOL(id player) {
         return ![player isAbsent];
     }];
-    return [activePlayers sortedArrayUsingSelector:@selector(compare:)];
+    if ([Team getCurrentTeam].isDiplayingPlayerNumber) {
+        return [activePlayers sortedArrayUsingSelector:@selector(compareUsingNumber:)];
+    } else {
+        return [activePlayers sortedArrayUsingSelector:@selector(compare:)];
+    }
+    
 }
 
 - (void) showGenderImbalanceIndicator: (BOOL) isMaleImbalance {

@@ -169,6 +169,22 @@ static AnonymousPlayer* singleAnonymous = nil;
     return [self.name caseInsensitiveCompare:anotherPlayer.name];
 }
 
+- (NSComparisonResult)compareUsingNumber:(Player*)anotherPlayer {
+    
+    if (self.number && anotherPlayer.number) {
+        int myNumber = self.number.intValue;
+        int otherPlayerNumber = anotherPlayer.number.intValue;
+        if (myNumber < otherPlayerNumber) {
+            return NSOrderedAscending;
+        } else if (myNumber > otherPlayerNumber) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }
+    return [self.name caseInsensitiveCompare:anotherPlayer.name];
+}
+
 -(NSString*)getDisplayName {
     return [[Team getCurrentTeam]isDiplayingPlayerNumber] && self.number !=  nil && (![self.number isEqualToString: @""]) ? self.number : self.name;
 }

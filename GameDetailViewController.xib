@@ -26,6 +26,7 @@
                 <outlet property="playbackCell" destination="1Ki-Au-uYQ" id="DLE-oh-PlB"/>
                 <outlet property="playbackLabel" destination="qwZ-Er-kBe" id="Gza-oE-vdN"/>
                 <outlet property="positionalEventsCell" destination="54o-7e-J9a" id="nNd-QU-Ect"/>
+                <outlet property="positionalEventsEnableTapZoneView" destination="sPp-Rd-cY9" id="tAd-vx-pXe"/>
                 <outlet property="positionalEventsSegmentedControl" destination="NNk-Mp-Xlg" id="qYl-bv-1NF"/>
                 <outlet property="pubToLeaguevineSegmentedControl" destination="91" id="92"/>
                 <outlet property="startButtonView" destination="0z4-xw-PaM" id="JyR-Nc-4oU"/>

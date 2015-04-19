@@ -93,6 +93,7 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl* gameTypeSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* pubToLeaguevineSegmentedControl;
 @property (nonatomic, strong) IBOutlet UISegmentedControl* positionalEventsSegmentedControl;
+@property (nonatomic, strong) IBOutlet UIView *positionalEventsEnableTapZoneView;
 
 @property (nonatomic, strong) CalloutsContainerView *calloutsViewContainer;
 
@@ -621,6 +622,10 @@
     
     if (![self.game hasBeenSaved]) {
         [self updateWindSpeed];
+    }
+    
+    if (IS_IPHONE) {
+        self.positionalEventsEnableTapZoneView.hidden = YES;
     }
 }
 

@@ -27,6 +27,7 @@
 
 +(Team*)getCurrentTeam;
 +(Team*)readTeam: (NSString*) teamId;
++(BOOL)doesTeamExist: (NSString*) teamId;
 +(void)setCurrentTeam: (NSString*) teamId;
 +(BOOL)isCurrentTeam: (NSString*) teamId;
 +(NSArray*)getAllTeamFileNames;

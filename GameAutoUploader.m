@@ -152,9 +152,15 @@
     @synchronized (self) {
         GameUpload* nextUpload = self.nextGameToUpload;
         if (nextUpload) {
-            [self beginBackgroundUploadTask];
-            [self sendUploadToServer:nextUpload];
-            [self endBackgroundUploadTask];
+            if ([Team doesTeamExist:nextUpload.teamId]) {
+                [self beginBackgroundUploadTask];
+                [self sendUploadToServer:nextUpload];
+                [self endBackgroundUploadTask];
+            } else {
+                SHSLog(@"Warning...auto-upload encountered an upload for a team that no longer exists.  The auto-uploader is being cleared");
+                self.nextGameToUpload = nil;
+                [self save];
+            }
         }
     }
 }

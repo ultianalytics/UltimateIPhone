@@ -105,6 +105,14 @@ static Team* currentTeam = nil;
     return loadedTeam;
 }
 
++(BOOL)doesTeamExist: (NSString*) teamId {
+    if (teamId == nil) {
+        return false;
+    }
+    NSString* filePath = [Team getFilePath: teamId];
+    return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+}
+
 +(NSArray*)getAllTeamFileNames {
     NSArray* paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES); 
     NSString* documentsDirectory = [paths objectAtIndex:0];

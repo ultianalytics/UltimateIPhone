@@ -48,7 +48,7 @@
     if (x) {
         position.x = [x floatValue];
     }
-    NSNumber* y = [dict objectForKey:kEventPositionX];
+    NSNumber* y = [dict objectForKey:kEventPositionY];
     if (y) {
         position.y = [y floatValue];
     }

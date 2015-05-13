@@ -184,7 +184,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[LeaguevineEventQueue sharedQueue] triggerImmediateSubmit];
-//    [[GameAutoUploader sharedUploader] flush];  // push anything out that didn't make it before the app quit
+    [[GameAutoUploader sharedUploader] flush];  // push anything out that didn't make it before the app quit
     [[Reachability reachabilityForInternetConnection] startNotifier];
 }
 

@@ -36,7 +36,6 @@
 @property (nonatomic, strong) GameFieldEventPointView* potentialEventView;
 
 @property (nonatomic, strong) GameDiscView* movingDiscView;
-@property (nonatomic, strong) UIColor* discColor;
 
 @property (nonatomic, strong) EventPosition* potentialEventPosition;
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FB058747-7492-4C77-8494-E05EE6869FCA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>UltimateIPhone</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DA7B42AAB60AE64B6E249E542B2721C717E34837</key>
+		<string>https://bitbucket.org/velohomme/iultimate-iphone.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>UltimateIPhone.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DA7B42AAB60AE64B6E249E542B2721C717E34837</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/velohomme/iultimate-iphone.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DA7B42AAB60AE64B6E249E542B2721C717E34837</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DA7B42AAB60AE64B6E249E542B2721C717E34837</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iultimate-iphone</string>
+		</dict>
+	</array>
+</dict>
+</plist>

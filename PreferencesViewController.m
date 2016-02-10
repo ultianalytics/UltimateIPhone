@@ -22,7 +22,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        preferencesCells = [NSArray arrayWithObjects: nil];
+        preferencesCells = [[NSArray alloc] init];
         return [preferencesCells count];
 }
 

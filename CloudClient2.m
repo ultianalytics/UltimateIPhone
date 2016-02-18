@@ -231,32 +231,25 @@
 +(void) postData: (NSData*) data toUrl: (NSString*) relativeUrl completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     NSAssert(completion, @"completion block required");
     if ([self isConnected]) {
-        if ([[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
+        if ([self isLocalTestMode] || [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
             NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
             [request setHTTPMethod:@"POST"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
             [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
-            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
-                if (authStatus == AuthenticationStatusOk) {
-                    [[[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
-                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                        if (sendError == nil && [httpResponse statusCode] == 200) {
-                            SHSLog(@"http POST successful.  URL is %@", request.URL.absoluteString);
-                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
-                        } else {
-                            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
-                            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
-                            SHSLog(@"Failed http POST request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [CloudRequestStatus statusCodeDescripton:errorStatus], httpStatus, sendError);
-                            completion([CloudRequestStatus status: errorStatus], nil);
-                        }
-                    }] resume];
-                } else {
-                    SHSLog(@"http POST not attempted: authenticator says signon needed");
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-                }
-            }];
+            if ([self isLocalTestMode]) {
+                [self postData:data inRequest:request completion:completion];
+            } else {
+                [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
+                    if (authStatus == AuthenticationStatusOk) {
+                        [self postData:data inRequest:request completion:completion];
+                    } else {
+                        SHSLog(@"http POST not attempted: authenticator says signon needed");
+                        completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+                    }
+                }];
+            }
         } else {
             SHSLog(@"http POST not attempted: no authentication was done previously");
             completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
@@ -267,6 +260,20 @@
     }
 }
 
++(void) postData: (NSData*) data inRequest: (NSURLRequest*) request completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    [[[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        if (sendError == nil && [httpResponse statusCode] == 200) {
+            SHSLog(@"http POST successful.  URL is %@", request.URL.absoluteString);
+            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
+        } else {
+            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
+            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
+            SHSLog(@"Failed http POST request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@", [CloudRequestStatus statusCodeDescripton:errorStatus], httpStatus, sendError);
+            completion([CloudRequestStatus status: errorStatus], nil);
+        }
+    }] resume];
+}
 
 #pragma mark - Private - Downloading
 
@@ -319,31 +326,24 @@
 +(void) getDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     NSAssert(completion, @"completion block required");
     if ([self isConnected]) {
-        if ([[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
+        if ([self isLocalTestMode] || [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
             NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
             [request setHTTPMethod:@"GET"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
             [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
-            [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
-                if (authStatus == AuthenticationStatusOk) {
-                    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
-                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                        if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
-                            SHSLog(@"http GET successful.  URL is %@", request.URL.absoluteString);
-                            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
-                        } else {
-                            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
-                            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
-                            SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@.  URL is %@", [CloudRequestStatus statusCodeDescripton:errorStatus], httpStatus, sendError, request.URL.absoluteString);
-                            completion([CloudRequestStatus status: errorStatus], nil);
-                        }
-                    }] resume];
-                } else {
-                    SHSLog(@"http GET not attempted: authenticator says signon needed");
-                    completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-                }
-            }];
+            if ([self isLocalTestMode]) {
+                [self getDataFromRequest:request completion:completion];
+            } else {
+                [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
+                    if (authStatus == AuthenticationStatusOk) {
+                        [self getDataFromRequest:request completion:completion];
+                    } else {
+                        SHSLog(@"http GET not attempted: authenticator says signon needed");
+                        completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+                    }
+                }];
+            }
         } else {
             SHSLog(@"http GET not attempted: no authentication was done previously");
             completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
@@ -352,6 +352,21 @@
         SHSLog(@"http GET not attempted: device is not connected to net");
         completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
     }
+}
+
++(void) getDataFromRequest: (NSURLRequest*) request completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
+            SHSLog(@"http GET successful.  URL is %@", request.URL.absoluteString);
+            completion([CloudRequestStatus status: CloudRequestStatusCodeOk], data);
+        } else {
+            CloudRequestStatusCode errorStatus = [self errorCodeFromResponse:httpResponse error:sendError];
+            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
+            SHSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@.  URL is %@", [CloudRequestStatus statusCodeDescripton:errorStatus], httpStatus, sendError, request.URL.absoluteString);
+            completion([CloudRequestStatus status: errorStatus], nil);
+        }
+    }] resume];
 }
 
 #pragma mark - Private - Verify App Version
@@ -407,6 +422,11 @@
         return CloudRequestStatusCodeUnauthorized;
     }
     return CloudRequestStatusCodeUnknownError;
+}
+
++(BOOL)isLocalTestMode {
+    NSString* host = kHostHame;
+    return [host contains:@"local"];
 }
 
 @end

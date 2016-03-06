@@ -318,7 +318,6 @@
 		383F17D619E552B400FC6541 /* browser-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D219E552B400FC6541 /* browser-back@2x.png */; };
 		383F17D719E552B400FC6541 /* browser-forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D319E552B400FC6541 /* browser-forward.png */; };
 		383F17D819E552B400FC6541 /* browser-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D419E552B400FC6541 /* browser-forward@2x.png */; };
-		383F17DC19E7FA1700FC6541 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */; };
 		383F17DF19E7FB0600FC6541 /* SHSAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */; };
 		383F181F19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */; };
 		383F182219EBF2D200FC6541 /* FieldDimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F182119EBF2D200FC6541 /* FieldDimensions.m */; };
@@ -868,8 +867,6 @@
 		383F17D219E552B400FC6541 /* browser-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-back@2x.png"; sourceTree = "<group>"; };
 		383F17D319E552B400FC6541 /* browser-forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-forward.png"; sourceTree = "<group>"; };
 		383F17D419E552B400FC6541 /* browser-forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browser-forward@2x.png"; sourceTree = "<group>"; };
-		383F17DA19E7FA1700FC6541 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		383F17DD19E7FB0600FC6541 /* SHSAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSAnalytics.h; sourceTree = "<group>"; };
 		383F17DE19E7FB0600FC6541 /* SHSAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSAnalytics.m; sourceTree = "<group>"; };
 		383F181E19EBF29100FC6541 /* GameFieldDimensionsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameFieldDimensionsViewController.storyboard; sourceTree = "<group>"; };
@@ -988,7 +985,6 @@
 				1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */,
 				1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */,
 				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
-				383F17DC19E7FA1700FC6541 /* libFlurry_5.4.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1706,7 +1702,6 @@
 			isa = PBXGroup;
 			children = (
 				3832DCFA19D8DDAD002762D1 /* Google OAuth2 Library */,
-				383F17D919E7FA1700FC6541 /* Flurry */,
 				381BC48919B91CD600CD8C20 /* Toast */,
 				1ABC74BD190414F000D60660 /* SSZipArchive */,
 			);
@@ -1762,15 +1757,6 @@
 			);
 			name = "Google Fetcher Library";
 			path = "gtm-http-fetcher";
-			sourceTree = "<group>";
-		};
-		383F17D919E7FA1700FC6541 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				383F17DA19E7FA1700FC6541 /* Flurry.h */,
-				383F17DB19E7FA1700FC6541 /* libFlurry_5.4.0.a */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 		383F181A19EBF23400FC6541 /* Game Field Dimensions */ = {
@@ -2555,7 +2541,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2657,7 +2642,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"$(PROJECT_DIR)/Flurry",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2690,7 +2674,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

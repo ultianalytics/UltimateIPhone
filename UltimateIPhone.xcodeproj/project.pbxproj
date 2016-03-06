@@ -930,7 +930,6 @@
 		38AA38B919C3360F00C6CF9A /* checkbox-unchecked-white-border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked-white-border@2x.png"; sourceTree = "<group>"; };
 		38B0997319BE6EF700831B6D /* GameDiscView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDiscView.h; sourceTree = "<group>"; };
 		38B0997419BE6EF700831B6D /* GameDiscView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDiscView.m; sourceTree = "<group>"; };
-		38B2CE54199F9DA4008BE91B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		38B2CE5A199FBE11008BE91B /* female-symbol-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "female-symbol-small@2x.png"; sourceTree = "<group>"; };
 		38B2CE6119A0F77B008BE91B /* GameActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView.xib; sourceTree = "<group>"; };
 		38B2CE6B19A16FFB008BE91B /* GameViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GameViewController~ipad.xib"; sourceTree = "<group>"; };
@@ -1378,7 +1377,6 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				38B2CE54199F9DA4008BE91B /* Reveal.framework */,
 				1A246D1F17CA5A8200B8868D /* CoreText.framework */,
 				1A8C5F0017B519E300601D21 /* Social.framework */,
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
@@ -2661,11 +2659,7 @@
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)/Flurry",
 				);
-				"OTHER_LDFLAGS[arch=*]" = (
-					"-ObjC",
-					"-framework",
-					Reveal,
-				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

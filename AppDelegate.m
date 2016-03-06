@@ -23,6 +23,7 @@
 #import "GameAutoUploader.h"
 #import "SHSAnalytics.h"
 #import "GoogleOAuth2Authenticator.h"
+#import "LeaguevineConfiguration.h"
 
 @interface AppDelegate ()
 
@@ -45,6 +46,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[SHSAnalytics sharedAnalytics] initializeAnalytics];
+    [LeaguevineConfiguration configureSettings];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

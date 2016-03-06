@@ -26,6 +26,20 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>FalseValue</key>
+			<false/>
+			<key>Key</key>
+			<string>leaguevine_preference</string>
+			<key>Title</key>
+			<string>Leaguevine Integration</string>
+			<key>TrueValue</key>
+			<true/>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -24,6 +24,7 @@
 #import "CalloutView.h"
 #import "UIView+Convenience.h"
 #import "UIViewController+Additions.h"
+#import "LeaguevineConfiguration.h"
 
 #define kIsNotFirstGameDetailViewUsage @"IsNotFirstGameDetailViewUsage"
 
@@ -352,8 +353,10 @@
     if (!self.cells) {
         if (self.isModalAddMode) {
             self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, nil];
-        } else {
+        } else if (self.team.isLeaguevineTeam || [LeaguevineConfiguration leaguevineEnabled]) {
             self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.leagueVineCell, self.playersCell, nil];
+        } else {
+            self.cells = [[NSArray alloc] initWithObjects:self.nameCell, self.typeCell, self.displayCell, self.playersCell, nil];
         }
     }
     return [self.cells count];
@@ -424,17 +427,13 @@
 #pragma mark - Callouts
 
 
--(BOOL)showFirstTimeUsageCallouts {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameDetailViewUsage]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameDetailViewUsage];
-        
-        [self performSelector:@selector(displayFirstTimeCallouts) withObject:nil afterDelay:.1];
-
-        return YES;
-    } else {
-        return NO;
+-(void)showFirstTimeUsageCallouts {
+    if ([LeaguevineConfiguration leaguevineEnabled]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey: kIsNotFirstGameDetailViewUsage]) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstGameDetailViewUsage];
+            [self performSelector:@selector(displayFirstTimeCallouts) withObject:nil afterDelay:.1];
+        }
     }
-    
 }
 
 -(void)displayFirstTimeCallouts {

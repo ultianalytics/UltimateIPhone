@@ -272,6 +272,7 @@
 		3801729C19F2C83E00F5346F /* FieldDimensionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3801729A19F2C83E00F5346F /* FieldDimensionsView.m */; };
 		380172AA19F405E200F5346F /* GameFieldDimensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380172A819F405E200F5346F /* GameFieldDimensionViewController.m */; };
 		380172AB19F405E200F5346F /* GameFieldDimensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 380172A919F405E200F5346F /* GameFieldDimensionViewController.xib */; };
+		38094A101C8C7EC2004C5090 /* LeaguevineConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 38094A0F1C8C7EC2004C5090 /* LeaguevineConfiguration.m */; };
 		381941DB1A06812A0061E674 /* GameActionView_iPhone_5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941D81A06812A0061E674 /* GameActionView_iPhone_5.xib */; };
 		381941DC1A06812A0061E674 /* GameActionView_iPhone_6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941D91A06812A0061E674 /* GameActionView_iPhone_6.xib */; };
 		381941DD1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381941DA1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib */; };
@@ -800,6 +801,8 @@
 		380172A719F405E200F5346F /* GameFieldDimensionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionViewController.h; sourceTree = "<group>"; };
 		380172A819F405E200F5346F /* GameFieldDimensionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionViewController.m; sourceTree = "<group>"; };
 		380172A919F405E200F5346F /* GameFieldDimensionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFieldDimensionViewController.xib; sourceTree = "<group>"; };
+		38094A0E1C8C7EC2004C5090 /* LeaguevineConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaguevineConfiguration.h; sourceTree = "<group>"; };
+		38094A0F1C8C7EC2004C5090 /* LeaguevineConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaguevineConfiguration.m; sourceTree = "<group>"; };
 		381941D81A06812A0061E674 /* GameActionView_iPhone_5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_5.xib; sourceTree = "<group>"; };
 		381941D91A06812A0061E674 /* GameActionView_iPhone_6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_6.xib; sourceTree = "<group>"; };
 		381941DA1A06812A0061E674 /* GameActionView_iPhone_6Plus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameActionView_iPhone_6Plus.xib; sourceTree = "<group>"; };
@@ -1227,6 +1230,8 @@
 				1A7A89261611D50700CAB5EF /* LeaguevineTournament.m */,
 				1AB219711701CBCD0034DD5A /* LeaguevinePlayer.h */,
 				1AB219721701CBCE0034DD5A /* LeaguevinePlayer.m */,
+				38094A0E1C8C7EC2004C5090 /* LeaguevineConfiguration.h */,
+				38094A0F1C8C7EC2004C5090 /* LeaguevineConfiguration.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2367,6 +2372,7 @@
 				381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */,
 				1AAFDE3A1574F199005EA598 /* NSString+manipulations.m in Sources */,
 				1A78D9C415949DC300115BE5 /* CalloutView.m in Sources */,
+				38094A101C8C7EC2004C5090 /* LeaguevineConfiguration.m in Sources */,
 				1AACE078159627B9004C03A1 /* CalloutsContainerView.m in Sources */,
 				1AACE07B15974D87004C03A1 /* CloudMetaInfo.m in Sources */,
 				38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */,

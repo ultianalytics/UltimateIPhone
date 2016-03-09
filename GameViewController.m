@@ -441,10 +441,6 @@
     } else {
         if (self.isOffense) {
             PlayerView* oldSelected = [self findSelectedPlayerView];
-            if (oldSelected) {
-                [oldSelected makeSelected:NO];
-            }
-            [view makeSelected:YES];
             Player* passer = oldSelected.player;
             OffenseEvent* defaultEvent = [[OffenseEvent alloc] initPasser:passer action:action receiver:player];
             [self.detailsController setCandidateEvents:@[defaultEvent] initialChosen:defaultEvent];
@@ -462,6 +458,13 @@
         }
         GameViewController* __weak weakSelf = self;
         self.detailsController.saveBlock = ^(Event* event){
+            if (weakSelf.isOffense) {
+                PlayerView* oldSelected = [weakSelf findSelectedPlayerView];
+                if (oldSelected) {
+                    [oldSelected makeSelected:NO];
+                }
+                [view makeSelected:YES];
+            }
             [weakSelf addEvent: event];
             [weakSelf showDetailSelectionView:NO];
         };

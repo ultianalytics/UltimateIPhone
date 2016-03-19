@@ -34,7 +34,7 @@
 +(void)updateLastUploadOrDownloadTime: (NSTimeInterval)timestamp forGameId: (NSString*)gameId inTeamId: (NSString*)teamId {
     @synchronized (self) {
         UploadDownloadTracker* tracker = [self readTeamTracker:teamId];
-        if ([tracker lastUploadOrDownloadForGameId:gameId] == 0) {
+        if ([tracker lastUploadOrDownloadForGameId:gameId] == -1) {
             [[SHSAnalytics sharedAnalytics] logEvent:kAnalyticsGameFirstUpload];
         }
         [tracker updateLastUploadOrDownloadTime:timestamp ForGameId:gameId];

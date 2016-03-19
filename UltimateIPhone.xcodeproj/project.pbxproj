@@ -373,6 +373,8 @@
 		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B39B6219A64FC90008F0C9 /* EventPosition.m */; };
 		38B7AAAF1C9DA3DA00EFA791 /* PickPlayersRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B7AAAE1C9DA3DA00EFA791 /* PickPlayersRowView.m */; };
+		38B7AAB61C9DB85D00EFA791 /* libFlurry_7.5.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B7AAB41C9DB85D00EFA791 /* libFlurry_7.5.2.a */; };
+		38B7AAB71C9DB85D00EFA791 /* libFlurryWatch_7.5.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B7AAB51C9DB85D00EFA791 /* libFlurryWatch_7.5.2.a */; };
 		38CF2E6919ED54600090F814 /* GameFieldDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */; };
 		38CF2E7519EFF68C0090F814 /* DimensionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E7419EFF68C0090F814 /* DimensionView.m */; };
 		38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */; };
@@ -943,6 +945,10 @@
 		38B39B6219A64FC90008F0C9 /* EventPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPosition.m; sourceTree = "<group>"; };
 		38B7AAAD1C9DA3DA00EFA791 /* PickPlayersRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPlayersRowView.h; sourceTree = "<group>"; };
 		38B7AAAE1C9DA3DA00EFA791 /* PickPlayersRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPlayersRowView.m; sourceTree = "<group>"; };
+		38B7AAB21C9DB85D00EFA791 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		38B7AAB31C9DB85D00EFA791 /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		38B7AAB41C9DB85D00EFA791 /* libFlurry_7.5.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.5.2.a; sourceTree = "<group>"; };
+		38B7AAB51C9DB85D00EFA791 /* libFlurryWatch_7.5.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryWatch_7.5.2.a; sourceTree = "<group>"; };
 		38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionsViewController.h; sourceTree = "<group>"; };
 		38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionsViewController.m; sourceTree = "<group>"; };
 		38CF2E7319EFF68C0090F814 /* DimensionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimensionView.h; sourceTree = "<group>"; };
@@ -980,6 +986,8 @@
 				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
 				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
 				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
+				38B7AAB61C9DB85D00EFA791 /* libFlurry_7.5.2.a in Frameworks */,
+				38B7AAB71C9DB85D00EFA791 /* libFlurryWatch_7.5.2.a in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
 				1AFFE7B215175DC6004B4590 /* AudioToolbox.framework in Frameworks */,
@@ -1710,6 +1718,7 @@
 		381BC48819B91CA900CD8C20 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				38B7AAB11C9DB85D00EFA791 /* Flurry */,
 				3832DCFA19D8DDAD002762D1 /* Google OAuth2 Library */,
 				381BC48919B91CD600CD8C20 /* Toast */,
 				1ABC74BD190414F000D60660 /* SSZipArchive */,
@@ -1871,6 +1880,17 @@
 				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
 			);
 			name = App;
+			sourceTree = "<group>";
+		};
+		38B7AAB11C9DB85D00EFA791 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				38B7AAB21C9DB85D00EFA791 /* Flurry.h */,
+				38B7AAB31C9DB85D00EFA791 /* FlurryWatch.h */,
+				38B7AAB41C9DB85D00EFA791 /* libFlurry_7.5.2.a */,
+				38B7AAB51C9DB85D00EFA791 /* libFlurryWatch_7.5.2.a */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 		38E5EB9819CC95EC00E7C6DF /* Broadcasting */ = {
@@ -2561,6 +2581,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2662,6 +2683,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2694,6 +2716,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.summithillsoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

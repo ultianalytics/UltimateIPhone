@@ -10,7 +10,7 @@
 #define kFlurryAppId 
 
 #import "SHSAnalytics.h"
-//#import "Flurry.h"
+#import "Flurry.h"
 
 /*
  
@@ -51,11 +51,11 @@
 
 -(void)initializeAnalytics {
     
-//    //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
-//    [Flurry setCrashReportingEnabled:YES];
-//    
-//    // Replace YOUR_API_KEY with the api key in the downloaded package
-//    [Flurry startSession:@"NY7WRUDU774YNR26GQZ9"];
+    //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
+    [Flurry setCrashReportingEnabled:YES];
+    
+    // Replace YOUR_API_KEY with the api key in the downloaded package
+    [Flurry startSession:@"NY7WRUDU774YNR26GQZ9"];
 }
 
 -(void)logGameStart {
@@ -77,15 +77,15 @@
 }
 
 -(void)logEvent: (NSString*)eventName {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [Flurry logEvent:eventName];
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [Flurry logEvent:eventName];
+    });
 }
 
 -(void)logEvent: (NSString*)eventName withParameters: (NSDictionary*)eventParameters {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [Flurry logEvent:eventName withParameters:eventParameters];
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [Flurry logEvent:eventName withParameters:eventParameters];
+    });
 }
 
 @end

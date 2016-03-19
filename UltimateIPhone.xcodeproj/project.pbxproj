@@ -372,6 +372,7 @@
 		38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B2CE7619A25BD7008BE91B /* GameHistoryTableViewCell.m */; };
 		38B2CE7919A25EFC008BE91B /* GameHistoryController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */; };
 		38B39B6319A64FC90008F0C9 /* EventPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B39B6219A64FC90008F0C9 /* EventPosition.m */; };
+		38B7AAAF1C9DA3DA00EFA791 /* PickPlayersRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B7AAAE1C9DA3DA00EFA791 /* PickPlayersRowView.m */; };
 		38CF2E6919ED54600090F814 /* GameFieldDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */; };
 		38CF2E7519EFF68C0090F814 /* DimensionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CF2E7419EFF68C0090F814 /* DimensionView.m */; };
 		38E5EB9B19CC960900E7C6DF /* broadcast-leaguevine.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E5EB9919CC960900E7C6DF /* broadcast-leaguevine.png */; };
@@ -940,6 +941,8 @@
 		38B2CE7819A25EFC008BE91B /* GameHistoryController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameHistoryController.storyboard; sourceTree = "<group>"; };
 		38B39B6119A64FC90008F0C9 /* EventPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPosition.h; sourceTree = "<group>"; };
 		38B39B6219A64FC90008F0C9 /* EventPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPosition.m; sourceTree = "<group>"; };
+		38B7AAAD1C9DA3DA00EFA791 /* PickPlayersRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPlayersRowView.h; sourceTree = "<group>"; };
+		38B7AAAE1C9DA3DA00EFA791 /* PickPlayersRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPlayersRowView.m; sourceTree = "<group>"; };
 		38CF2E6719ED54600090F814 /* GameFieldDimensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFieldDimensionsViewController.h; sourceTree = "<group>"; };
 		38CF2E6819ED54600090F814 /* GameFieldDimensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFieldDimensionsViewController.m; sourceTree = "<group>"; };
 		38CF2E7319EFF68C0090F814 /* DimensionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimensionView.h; sourceTree = "<group>"; };
@@ -1597,6 +1600,8 @@
 				1A1B84FA1644588E008EF261 /* SubstitutionViewController.h */,
 				1A1B84FB1644588E008EF261 /* SubstitutionViewController.m */,
 				1A1B84F91644588E008EF261 /* SubstitutionViewController.xib */,
+				38B7AAAD1C9DA3DA00EFA791 /* PickPlayersRowView.h */,
+				38B7AAAE1C9DA3DA00EFA791 /* PickPlayersRowView.m */,
 			);
 			name = Line;
 			sourceTree = "<group>";
@@ -2366,6 +2371,7 @@
 				1A0124F5153BDA3200C2DDC0 /* GameDownloadPickerViewController.m in Sources */,
 				1AC1C6CF1540D247001F82CF /* UltimateSegmentedControl.m in Sources */,
 				1A2DA03C15458AE200D59B29 /* Reachability.m in Sources */,
+				38B7AAAF1C9DA3DA00EFA791 /* PickPlayersRowView.m in Sources */,
 				38672B1E199BB4AF001DCDDE /* GamesViewController.m in Sources */,
 				1ABC74CB190414F000D60660 /* mztools.c in Sources */,
 				1A40B1C7156D10B700EFD6C2 /* Scrubber.m in Sources */,

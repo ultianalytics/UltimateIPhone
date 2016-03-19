@@ -27,6 +27,7 @@
 #import "UIView+Convenience.h"
 #import "LeaguevineEventQueue.h"
 #import "NSArray+Utilities.h"
+#import "PickPlayersRowView.h"
 
 #define kIsNotFirstPickPlayerViewUsage @"IsNotFirstPickPlayerViewUsage"
 #define kSetHalfimeText @"Halftime"
@@ -122,7 +123,7 @@
     int y = buttonMargin;
     int x = isField ?  leftSlackMargin + buttonMargin + buttonWidth + buttonMargin : leftSlackMargin + buttonMargin;
     int columnCount = isField ? 1 : 0;
-    UIView* rowView = nil;
+    PickPlayersRowView* rowView = nil;
     UITableViewCell* tableCell = nil;
     for (int i = 0; i <numberOfButtons; i++) {
         if (columnCount >= maxButtonsPerRow) {
@@ -132,7 +133,10 @@
             rowView = nil;
         }
         if (rowView == nil) {
-            rowView = [[UIView alloc] initWithFrame:CGRectMake(0, isField ? y : 0, rowWidth, rowHeight)];
+            rowView = [[PickPlayersRowView alloc] initWithFrame:CGRectMake(0, isField ? y : 0, rowWidth, rowHeight)];
+            rowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            rowView.maxButtonsPerRow = maxButtonsPerRow;
+            rowView.buttonHeight = 40;
             if (isField) {
                 [fieldView addSubview:rowView];
             } else {
@@ -144,6 +148,7 @@
         }
         CGRect buttonRectangle = CGRectMake(x, 0, buttonWidth, buttonHeight);
         PlayerButton* button = [self createPlayerButton];
+        button.tag = columnCount;
         [button setOnField:isField];
         button.frame = buttonRectangle;
         [self setPlayer: i < [players count] ? [players objectAtIndex:i] : nil inButton: button];

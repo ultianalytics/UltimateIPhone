@@ -1346,8 +1346,7 @@
 		1AFFE76C15175D49004B4590 = {
 			isa = PBXGroup;
 			children = (
-				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
-				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
+				38B7AAB01C9DB65200EFA791 /* App */,
 				1AC8579815FE2A150070BA24 /* Common */,
 				1AAFDE3B1574F1A1005EA598 /* Categories on Apple Classes */,
 				1A40B1C4156D108C00EFD6C2 /* Test Data Scrubbing */,
@@ -1863,6 +1862,15 @@
 				38EAE2B6197B64EE002F2A2D /* checkbox-unchecked@2x.png */,
 			);
 			name = Checkbox;
+			sourceTree = "<group>";
+		};
+		38B7AAB01C9DB65200EFA791 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1AFFE7C915175E7B004B4590 /* AppDelegate.h */,
+				1AFFE7CA15175E7B004B4590 /* AppDelegate.m */,
+			);
+			name = App;
 			sourceTree = "<group>";
 		};
 		38E5EB9819CC95EC00E7C6DF /* Broadcasting */ = {

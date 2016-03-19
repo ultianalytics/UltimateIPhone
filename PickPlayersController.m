@@ -114,21 +114,17 @@
     
     int maxButtonsPerRow = IS_IPAD ? 6 : 4;
     int buttonMargin = 2;
-    int buttonWidth = (self.view.boundsWidth - ((maxButtonsPerRow + 1) * buttonMargin)) / maxButtonsPerRow;
-    int leftSlackMargin = (self.view.boundsWidth - ((maxButtonsPerRow + 1) * buttonMargin) - (maxButtonsPerRow * buttonWidth)) / 2;
     int buttonHeight = 40;
     int rowWidth = self.view.boundsWidth;
     int rowHeight = buttonHeight + buttonMargin;
     
     int y = buttonMargin;
-    int x = isField ?  leftSlackMargin + buttonMargin + buttonWidth + buttonMargin : leftSlackMargin + buttonMargin;
     int columnCount = isField ? 1 : 0;
     PickPlayersRowView* rowView = nil;
     UITableViewCell* tableCell = nil;
     for (int i = 0; i <numberOfButtons; i++) {
         if (columnCount >= maxButtonsPerRow) {
             columnCount = 0;
-            x = buttonMargin + leftSlackMargin;
             y = y + buttonMargin + buttonHeight;
             rowView = nil;
         }
@@ -137,6 +133,7 @@
             rowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             rowView.maxButtonsPerRow = maxButtonsPerRow;
             rowView.buttonHeight = 40;
+            rowView.buttonMargin = buttonMargin;
             if (isField) {
                 [fieldView addSubview:rowView];
             } else {
@@ -146,16 +143,13 @@
                 [benchTableCells addObject: tableCell];
             }
         }
-        CGRect buttonRectangle = CGRectMake(x, 0, buttonWidth, buttonHeight);
         PlayerButton* button = [self createPlayerButton];
         button.tag = columnCount;
         [button setOnField:isField];
-        button.frame = buttonRectangle;
         [self setPlayer: i < [players count] ? [players objectAtIndex:i] : nil inButton: button];
         [button setClickListener: self];
         [buttons addObject:button];
         [rowView addSubview:button];
-        x = x + buttonWidth + buttonMargin;
         columnCount++;
     }
     

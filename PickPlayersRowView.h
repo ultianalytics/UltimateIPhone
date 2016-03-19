@@ -12,5 +12,6 @@
 
 @property (nonatomic) int maxButtonsPerRow;
 @property (nonatomic) int buttonHeight;
+@property (nonatomic) int buttonMargin;
 
 @end

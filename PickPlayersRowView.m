@@ -15,8 +15,9 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     
-    int buttonWidth = (self.boundsWidth - ((self.maxButtonsPerRow + 1) * self.buttonMargin)) / self.maxButtonsPerRow;
-    int leftSlackMargin = (self.boundsWidth - ((self.maxButtonsPerRow + 1) * self.buttonMargin) - (self.maxButtonsPerRow * buttonWidth)) / 2;
+    CGFloat viewWidth = self.superview.boundsWidth;
+    int buttonWidth = (viewWidth - ((self.maxButtonsPerRow + 1) * self.buttonMargin)) / self.maxButtonsPerRow;
+    int leftSlackMargin = (viewWidth - ((self.maxButtonsPerRow + 1) * self.buttonMargin) - (self.maxButtonsPerRow * buttonWidth)) / 2;
     
     for (UIView* subView in self.subviews) {
         if ([subView isKindOfClass:[PlayerButton class]]) {

@@ -138,7 +138,7 @@
                 [fieldView addSubview:rowView];
             } else {
                 tableCell = [[UITableViewCell alloc] init];
-                [tableCell addSubview:rowView];
+                [tableCell.contentView addSubview:rowView];
                 rowView.backgroundColor = self.benchTableView.backgroundColor;
                 [benchTableCells addObject: tableCell];
             }

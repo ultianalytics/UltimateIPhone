@@ -36,7 +36,7 @@
 @property (nonatomic) NSTimeInterval lastUploadTime;
 @property (nonatomic) BOOL isNextUploadScheduledOrInProgress;  // transient...default is false
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundUploadTaskIdentifier;
-@property (nonatomic) CloudRequestStatus* lastUploadStatus;
+@property (nonatomic) int recentContiguousErrors;
 
 @end
 
@@ -94,15 +94,15 @@
     }
 }
 
--(void)resetErrorsOnLastUpload {
+-(void)resetRecentErrors {
     @synchronized (self) {
-        self.lastUploadStatus = nil;
+        self.recentContiguousErrors = 0;
     }
 }
 
--(BOOL)errorOnLastUpload {
+-(BOOL)recentUploadsFailing {
     @synchronized (self) {
-        return self.lastUploadStatus && !self.lastUploadStatus.ok;
+        return self.recentContiguousErrors > 2;
     }
 }
 
@@ -114,7 +114,11 @@
         Team* team = [Team readTeam:gameUpload.teamId];
         [CloudClient2 uploadTeam:team withGames:@[gameUpload.gameId]  completion:^(CloudRequestStatus *requestStatus) {
             GameUpload* finishedGameUpload = requestStatus.ok ? gameUpload : nil;
-            self.lastUploadStatus = requestStatus;
+            if (requestStatus.ok) {
+                [self resetRecentErrors];
+            } else {
+                self.recentContiguousErrors++;
+            }
             [self uploadFinished:finishedGameUpload];
         }];
     }

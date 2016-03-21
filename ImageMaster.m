@@ -39,29 +39,29 @@ static UIImage* unknownImage = nil;
 
 
 + (void) initialize {
-    catchImage = [UIImage imageNamed:@"big_smile.png"];
-    dropImage = [UIImage imageNamed:@"eyes_droped.png"];
-    ourGoalImage = [UIImage imageNamed:@"super_man.png"];
-    theirGoalImage = [UIImage imageNamed:@"cry.png"];
-    offenseThrowawayImage = [UIImage imageNamed:@"shame.png"];
-    defenseThrowawayImage = [UIImage imageNamed:@"exciting.png"];
-    pullImage = [UIImage imageNamed:@"nothing.png"];
-    pullObImage = [UIImage imageNamed:@"what.png"];
-    deImage = [UIImage imageNamed:@"electric_shock.png"];
-    ourCallahanImage = [UIImage imageNamed:@"victory.png"];
-    theirCallahanImage = [UIImage imageNamed:@"shocked"];
-    opponentPullImage = [UIImage imageNamed:@"amazing"];
-    opponentPullObImage = [UIImage imageNamed:@"secret_smile"];
-    opponentCatchImage = [UIImage imageNamed:@"scorn"];
-    pullBeginImage = [UIImage imageNamed:@"nothing.png"];
-    pickupDiskImage = [UIImage imageNamed:@"bad_egg"];
-    unknownImage = [UIImage imageNamed:@"hearts.png"];
+    catchImage = [UIImage imageNamed:@"Event-catch"];
+    dropImage = [UIImage imageNamed:@"Event-drop"];
+    ourGoalImage = [UIImage imageNamed:@"Event-goal"];
+    theirGoalImage = [UIImage imageNamed:@"Event-goal-opponent"];
+    offenseThrowawayImage = [UIImage imageNamed:@"Event-throwaway"];
+    defenseThrowawayImage = [UIImage imageNamed:@"Event-throwaway"];
+    pullImage = [UIImage imageNamed:@"Event-pull"];
+    pullObImage = [UIImage imageNamed:@"Event-pull-ob"];
+    deImage = [UIImage imageNamed:@"Event-d"];
+    ourCallahanImage = [UIImage imageNamed:@"Event-callhan"];
+    theirCallahanImage = [UIImage imageNamed:@"Event-callahan-opponent"];
+    opponentPullImage = [UIImage imageNamed:@"Event-pull"];
+    opponentPullObImage = [UIImage imageNamed:@"Event-pull-ob"];
+    opponentCatchImage = [UIImage imageNamed:@"Event-catch"];
+    pullBeginImage = [UIImage imageNamed:@"Event-pull-begin"];
+    pickupDiskImage = [UIImage imageNamed:@"Event-pickup"];
+    unknownImage = [UIImage imageNamed:@"Event-unkown"];
     maleImage = [UIImage imageNamed:@"769-male.png"];
     femaleImage = [UIImage imageNamed:@"768-female.png"];
     neutralGenderImage = [UIImage imageNamed:@"player_passing.png"];
     neutralGenderAbsentImage = [UIImage imageNamed:@"player_passing_absent.png"];
-    cessationImage = [UIImage imageNamed:@"stopwatch1.png"];
-    gameoverImage = [UIImage imageNamed:@"finishflag.png"];
+    cessationImage = [UIImage imageNamed:@"Event-period-end"];
+    gameoverImage = [UIImage imageNamed:@"Event-game-over"];
 }
 
 + (UIImage*) getImageForEvent: (Event*) event {

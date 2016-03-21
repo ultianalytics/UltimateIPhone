@@ -1113,9 +1113,9 @@
 #pragma mark - Game Auto Upload
 
 - (void) warnAboutAutoGameUploadIfErrors {
-    if ([[GameAutoUploader sharedUploader] isAutoUploading] && [GameAutoUploader sharedUploader].errorOnLastUpload) {
+    if ([[GameAutoUploader sharedUploader] isAutoUploading] && [GameAutoUploader sharedUploader].recentUploadsFailing) {
         CloudRequestStatus* errorStatus = [GameAutoUploader sharedUploader].lastUploadStatus;
-        [[GameAutoUploader sharedUploader] resetErrorsOnLastUpload];
+        [[GameAutoUploader sharedUploader] resetRecentErrors];
         
         // only warn the user if it is a recent error (don't want to bother them about ancient history)
         BOOL isRecentError = ABS([errorStatus.timestamp timeIntervalSinceNow]) < 3600 * 3; // within 3 hours
@@ -1125,11 +1125,11 @@
         if (isRecentError && !wasJustWarned) {
             NSString* instructions = (errorStatus.code == CloudRequestStatusCodeUnauthorized) ?
                 @"It appears you need to refresh your signon.  Please go to the Website tab and toggle the Game Uploading switch" :
-                @"Please check your network connectivity or turn-off auto-uploading (Website tab, Game Uploading switch)";
+                @"Please check your network connectivity.  If errors continue you might want to turn-off auto-uploading (Website tab, Game Uploading switch)";
             self.lastAutoUploadWarning = [NSDate date];
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle: kAutoUploadErrorTitle
-                                  message: [NSString stringWithFormat: @"Game Uploading is set to \"Auto\" but we are receiving errors when attempting to upload the game.\n\n%@.", instructions]
+                                  message: [NSString stringWithFormat: @"Game Uploading is set to \"Auto\" but we are received an error when attempting to upload the game.\n\n%@.", instructions]
                                   delegate: nil
                                   cancelButtonTitle: NSLocalizedString(@"OK",nil)
                                   otherButtonTitles: nil];

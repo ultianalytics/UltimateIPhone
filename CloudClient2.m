@@ -41,7 +41,7 @@
 
 +(BOOL)isConnected {
     Reachability* reachability = [Reachability reachabilityForInternetConnection];
-    return ![reachability currentReachabilityStatus] == NotReachable;
+    return !([reachability currentReachabilityStatus] == NotReachable);
 }
 
 +(void) signOff {

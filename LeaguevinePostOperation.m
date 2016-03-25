@@ -22,7 +22,7 @@
     NSArray* filesInQueueFolder = [[LeaguevineEventQueue sharedQueue] filesInQueueFolder];
     if ([filesInQueueFolder count] > 0) {
         Reachability* reachability = [Reachability reachabilityForInternetConnection];
-        if (![reachability currentReachabilityStatus] == NotReachable) {
+        if (!([reachability currentReachabilityStatus] == NotReachable)) {
             // post all of the events
             [self postEvents:filesInQueueFolder];
         } else {

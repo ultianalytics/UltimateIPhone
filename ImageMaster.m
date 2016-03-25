@@ -16,6 +16,8 @@ static UIImage* dropImage = nil;
 static UIImage* ourGoalImage = nil;
 static UIImage* theirGoalImage = nil;
 static UIImage* offenseThrowawayImage = nil;
+static UIImage* penaltyImage = nil;
+static UIImage* stallImage = nil;
 static UIImage* defenseThrowawayImage = nil;
 static UIImage* pullImage = nil;
 static UIImage* pullObImage = nil;
@@ -45,6 +47,8 @@ static UIImage* unknownImage = nil;
     theirGoalImage = [UIImage imageNamed:@"Event-goal-opponent"];
     offenseThrowawayImage = [UIImage imageNamed:@"Event-throwaway"];
     defenseThrowawayImage = [UIImage imageNamed:@"Event-throwaway"];
+    stallImage = [UIImage imageNamed:@"Event-stall"];
+    penaltyImage = [UIImage imageNamed:@"Event-penalty"];
     pullImage = [UIImage imageNamed:@"Event-pull"];
     pullObImage = [UIImage imageNamed:@"Event-pull-ob"];
     deImage = [UIImage imageNamed:@"Event-d"];
@@ -82,9 +86,9 @@ static UIImage* unknownImage = nil;
         case Throwaway:
             return [ImageMaster getThrowawayImage];
         case Stall:
-            return [ImageMaster getThrowawayImage];
+            return [ImageMaster getStallImage];
         case MiscPenalty:
-            return [ImageMaster getThrowawayImage];
+            return [ImageMaster getPenaltyImage];
         case Pull:
             return [ImageMaster getPullImage];
         case PullOb:
@@ -139,6 +143,14 @@ static UIImage* unknownImage = nil;
 
 +(UIImage*)getThrowawayImage {
     return offenseThrowawayImage;
+}
+
++(UIImage*)getStallImage {
+    return stallImage;
+}
+
++(UIImage*)getPenaltyImage {
+    return penaltyImage;
 }
 
 +(UIImage*)getOpponentThrowawayImage {

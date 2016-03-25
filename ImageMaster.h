@@ -17,6 +17,8 @@
 +(UIImage*)getOurGoalImage;
 +(UIImage*)getTheirGoalImage;
 +(UIImage*)getThrowawayImage;
++(UIImage*)getStallImage;
++(UIImage*)getPenaltyImage;
 +(UIImage*)getOpponentThrowawayImage;
 +(UIImage*)getPullImage;
 +(UIImage*)getPullObImage;

@@ -630,7 +630,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];  
+    [super viewWillAppear:animated];
+    if ([self.game hasBeenSaved]) {
+        self.game = [Game readGame:self.game.gameId];
+    }
     [self dismissKeyboard];
     [self populateUIFromModel];
     [self registerForKeyboardNotifications];

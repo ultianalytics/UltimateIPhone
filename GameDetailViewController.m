@@ -632,7 +632,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if ([self.game hasBeenSaved]) {
-        self.game = [Game readGame:self.game.gameId];
+        [Game setCurrentGame: self.game.gameId];  // causes re-read of game from DB
+        self.game = [Game getCurrentGame];
     }
     [self dismissKeyboard];
     [self populateUIFromModel];

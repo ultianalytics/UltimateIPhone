@@ -26,6 +26,7 @@
 }
 
 -(void)awakeFromNib {
+    [super awakeFromNib];
     self.eventDescriptionLabel.text = @"";
     self.eventDescriptionLabel.preferredMaxLayoutWidth = self.boundsWidth;
 }

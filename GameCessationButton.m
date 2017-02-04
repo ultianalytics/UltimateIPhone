@@ -13,6 +13,7 @@
 @implementation GameCessationButton
 
 -(void)awakeFromNib {
+    [super awakeFromNib];
     [self setBackgroundImage:[ImageMaster stretchableWhite100Radius3] forState:UIControlStateNormal];
     [self setBackgroundImage:[ImageMaster stretchableWhite200Radius3] forState:UIControlStateSelected];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -19,6 +19,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self.contentView bringSubviewToFront: self.undoButton];
 }
 

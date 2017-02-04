@@ -13,6 +13,7 @@
 @implementation GameActionButton
 
 -(void)awakeFromNib {
+    [super awakeFromNib];
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor colorWithWhite:225.0f/255.0f alpha:1] forState:UIControlStateDisabled];
     self.backgroundColor = [UIColor whiteColor];

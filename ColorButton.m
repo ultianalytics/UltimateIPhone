@@ -20,6 +20,7 @@
 @synthesize highColor, highDisabledColor, lowColor, lowDisabledColor, gradientLayer, borderColor, borderDisabledColor, isLabelStyle, buttonStyleNormalTextColor,buttonStyleHighlightTextColor,labelStyleNormalTextColor,labelStyleDisabledTextColor;
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self initCharacteristics];
     [self initStyle];
 }

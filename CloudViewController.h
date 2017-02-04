@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UltimateViewController.h"
-@class GTMOAuthAuthentication;
 @class TeamDownloadPickerViewController;
 @class GameDownloadPickerViewController;
 

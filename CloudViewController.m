@@ -6,6 +6,7 @@
 //
 #import "CloudViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "TeamDownloadPickerViewController.h"
@@ -31,7 +32,7 @@
 
 #define kIsNotFirstCloudViewUsage @"IsNotFirstCloudViewUsage"
 
-@interface CloudViewController()
+@interface CloudViewController() <GIDSignInDelegate, GIDSignInUIDelegate>
 
 @property (nonatomic, strong) NSArray* cloudCells;
 
@@ -206,6 +207,11 @@
 #pragma mark - Download Team descriptions (for picking one to download)
 
 -(void)downloadTeamDescriptions {
+    GIDSignIn* signin = [GIDSignIn sharedInstance];
+    [signin signIn];
+}
+
+-(void)downloadTeamDescriptionsOLD {
     [self startBusyDialog];
     [CloudClient2 downloadTeamsAtCompletion:^(CloudRequestStatus *status, NSArray *teams) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -556,6 +562,7 @@
     [self setUserUnknownLabel:nil];
     [self setScrubberView:nil];
     [self setScrubberSwitch:nil];
+    [self initializeGoogleSignin];
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
@@ -591,5 +598,73 @@
         return NO;
     }
 }
+
+- (void)presentSignInViewController:(UIViewController *)viewController {
+    [[self navigationController] pushViewController:viewController animated:YES];
+}
+
+#pragma mark - Google Login
+
+-(void)initializeGoogleSignin {
+    // Make sure the GIDSignInButton class is linked in because references from
+    // xib file doesn't count.
+    [GIDSignInButton class];
+
+    GIDSignIn *signIn = [GIDSignIn sharedInstance];
+    signIn.shouldFetchBasicProfile = YES;
+    signIn.delegate = self;
+    signIn.uiDelegate = self;
+}
+
+#pragma mark - GIDSignInDelegate
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    if (error) {
+        SHSLog(@"Status: Authentication error: %@", error);
+        return;
+    }
+    [self loadTeams:user.authentication.accessToken];
+}
+
+- (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    if (error) {
+        SHSLog(@"Status: Failed to disconnect: %@", error);
+    } else {
+        SHSLog(@"Status: Disconnected");
+    }
+}
+
+#pragma - TEST service call
+
+
+- (void)loadTeams: (NSString*) token {
+    NSURL *url = [NSURL URLWithString:@"https://ultimate-team.appspot.com/rest/mobile/teams"];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", token] forHTTPHeaderField:@"Authorization"];
+    [self getDataFromRequest:request completion:^(NSData *responseData) {
+        if (responseData) {
+            NSLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+        }
+    }];
+}
+
+
+- (void) getDataFromRequest: (NSURLRequest*) request completion:  (void (^)(NSData* responseData)) completion {
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
+            NSLog(@"http GET successful.  URL is %@", request.URL.absoluteString);
+            completion(data);
+        } else {
+            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
+            NSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@.  URL is %@", @"error", httpStatus, sendError, request.URL.absoluteString);
+            completion(nil);
+        }
+    }] resume];
+}
+
 
 @end

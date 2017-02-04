@@ -133,15 +133,13 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     [self.cloudNavController popToRootViewControllerAnimated:NO];
 }
 
+// deprecated (only for iOS8 and previous)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if (!url) {  
-        return NO; 
-    }
-    
-    NSString *urlString = [url absoluteString];
-    SHSLog(@"app opening via registered URL %@", urlString);
+    return [[GIDSignIn sharedInstance] handleURL:url sourceApplication:sourceApplication annotation:annotation];
+}
 
-    return YES;
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options {
+    return [[GIDSignIn sharedInstance] handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
 }
 
 -(void)setupGlobalAppearance: (UIApplication *)application {
@@ -204,6 +202,7 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
      See also applicationDidEnterBackground:.
      */
 }
+
 
 
 

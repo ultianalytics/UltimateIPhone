@@ -298,20 +298,6 @@
 		381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */; };
 		381F97CC19C6B7DA00CA1C8B /* game-playback-instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */; };
 		381F97CD19C6B7DA00CA1C8B /* game-playback-instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */; };
-		3832DD1519D8DDAD002762D1 /* GTMGatherInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DCFD19D8DDAD002762D1 /* GTMGatherInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1619D8DDAD002762D1 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DCFF19D8DDAD002762D1 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1719D8DDAD002762D1 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0119D8DDAD002762D1 /* GTMHTTPFetcherLogging.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1819D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0319D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1919D8DDAD002762D1 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0519D8DDAD002762D1 /* GTMHTTPFetcherService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1A19D8DDAD002762D1 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0719D8DDAD002762D1 /* GTMHTTPFetchHistory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1B19D8DDAD002762D1 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0919D8DDAD002762D1 /* GTMHTTPUploadFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1C19D8DDAD002762D1 /* GTMMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0B19D8DDAD002762D1 /* GTMMIMEDocument.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1E19D8DDAD002762D1 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD0F19D8DDAD002762D1 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD1F19D8DDAD002762D1 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD1119D8DDAD002762D1 /* GTMOAuth2SignIn.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD2019D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */; };
-		3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */; };
 		3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2719D97C34002762D1 /* CloudClient2.m */; };
 		3832DD2B19DAD6BA002762D1 /* CloudRequestStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */; };
 		383F17D519E552B400FC6541 /* browser-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D119E552B400FC6541 /* browser-back.png */; };
@@ -342,6 +328,12 @@
 		3870812E19C07587001174CB /* broadcasting-small-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812C19C07587001174CB /* broadcasting-small-dark.png */; };
 		3870812F19C07587001174CB /* broadcasting-small-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */; };
 		3870813319C07944001174CB /* twitter-bird-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870813219C07944001174CB /* twitter-bird-dark.png */; };
+		389992331E467920008D3381 /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3899922E1E467920008D3381 /* GoogleAppUtilities.framework */; };
+		389992341E467920008D3381 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3899922F1E467920008D3381 /* GoogleSignIn.bundle */; };
+		389992351E467920008D3381 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992301E467920008D3381 /* GoogleSignIn.framework */; };
+		389992361E467920008D3381 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992311E467920008D3381 /* GoogleSignInDependencies.framework */; };
+		389992371E467920008D3381 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992321E467920008D3381 /* GoogleSymbolUtilities.framework */; };
+		389992391E4679CD008D3381 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992381E4679CD008D3381 /* SafariServices.framework */; };
 		38AA389419C1E6D400C6CF9A /* GamePlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */; };
 		38AA389519C1E6D400C6CF9A /* GamePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */; };
 		38AA389819C324D000C6CF9A /* GameRecordingFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AA389719C324D000C6CF9A /* GameRecordingFieldView.m */; };
@@ -834,33 +826,6 @@
 		381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackTracerView.m; sourceTree = "<group>"; };
 		381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions.png"; sourceTree = "<group>"; };
 		381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions@2x.png"; sourceTree = "<group>"; };
-		3832DCFC19D8DDAD002762D1 /* GTMGatherInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGatherInputStream.h; sourceTree = "<group>"; };
-		3832DCFD19D8DDAD002762D1 /* GTMGatherInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMGatherInputStream.m; sourceTree = "<group>"; };
-		3832DCFE19D8DDAD002762D1 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
-		3832DCFF19D8DDAD002762D1 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
-		3832DD0019D8DDAD002762D1 /* GTMHTTPFetcherLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherLogging.h; sourceTree = "<group>"; };
-		3832DD0119D8DDAD002762D1 /* GTMHTTPFetcherLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherLogging.m; sourceTree = "<group>"; };
-		3832DD0219D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherLogViewController.h; sourceTree = "<group>"; };
-		3832DD0319D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherLogViewController.m; sourceTree = "<group>"; };
-		3832DD0419D8DDAD002762D1 /* GTMHTTPFetcherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherService.h; sourceTree = "<group>"; };
-		3832DD0519D8DDAD002762D1 /* GTMHTTPFetcherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherService.m; sourceTree = "<group>"; };
-		3832DD0619D8DDAD002762D1 /* GTMHTTPFetchHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetchHistory.h; sourceTree = "<group>"; };
-		3832DD0719D8DDAD002762D1 /* GTMHTTPFetchHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetchHistory.m; sourceTree = "<group>"; };
-		3832DD0819D8DDAD002762D1 /* GTMHTTPUploadFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPUploadFetcher.h; sourceTree = "<group>"; };
-		3832DD0919D8DDAD002762D1 /* GTMHTTPUploadFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPUploadFetcher.m; sourceTree = "<group>"; };
-		3832DD0A19D8DDAD002762D1 /* GTMMIMEDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMMIMEDocument.h; sourceTree = "<group>"; };
-		3832DD0B19D8DDAD002762D1 /* GTMMIMEDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMMIMEDocument.m; sourceTree = "<group>"; };
-		3832DD0C19D8DDAD002762D1 /* GTMReadMonitorInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMReadMonitorInputStream.h; sourceTree = "<group>"; };
-		3832DD0D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
-		3832DD0E19D8DDAD002762D1 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
-		3832DD0F19D8DDAD002762D1 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2Authentication.m; sourceTree = "<group>"; };
-		3832DD1019D8DDAD002762D1 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2SignIn.h; sourceTree = "<group>"; };
-		3832DD1119D8DDAD002762D1 /* GTMOAuth2SignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2SignIn.m; sourceTree = "<group>"; };
-		3832DD1219D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
-		3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2ViewControllerTouch.m; sourceTree = "<group>"; };
-		3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleOAuth2Authenticator.h; sourceTree = "<group>"; };
-		3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleOAuth2Authenticator.m; sourceTree = "<group>"; };
 		3832DD2619D97C34002762D1 /* CloudClient2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudClient2.h; sourceTree = "<group>"; };
 		3832DD2719D97C34002762D1 /* CloudClient2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudClient2.m; sourceTree = "<group>"; };
 		3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudRequestStatus.h; sourceTree = "<group>"; };
@@ -904,6 +869,12 @@
 		3870812C19C07587001174CB /* broadcasting-small-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark.png"; sourceTree = "<group>"; };
 		3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark@2x.png"; sourceTree = "<group>"; };
 		3870813219C07944001174CB /* twitter-bird-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-bird-dark.png"; sourceTree = "<group>"; };
+		3899922E1E467920008D3381 /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleAppUtilities.framework; sourceTree = "<group>"; };
+		3899922F1E467920008D3381 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
+		389992301E467920008D3381 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
+		389992311E467920008D3381 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignInDependencies.framework; sourceTree = "<group>"; };
+		389992321E467920008D3381 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		389992381E4679CD008D3381 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		38AA389119C1E6D400C6CF9A /* GamePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlaybackViewController.h; sourceTree = "<group>"; };
 		38AA389219C1E6D400C6CF9A /* GamePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackViewController.m; sourceTree = "<group>"; };
 		38AA389319C1E6D400C6CF9A /* GamePlaybackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePlaybackViewController.xib; sourceTree = "<group>"; };
@@ -976,12 +947,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				389992391E4679CD008D3381 /* SafariServices.framework in Frameworks */,
 				1A246D2017CA5A8200B8868D /* CoreText.framework in Frameworks */,
 				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
+				389992371E467920008D3381 /* GoogleSymbolUtilities.framework in Frameworks */,
 				1AB78D091726B1E1003235AE /* MessageUI.framework in Frameworks */,
 				1AE66A141522769B000965B5 /* Accounts.framework in Frameworks */,
 				38B7AAB61C9DB85D00EFA791 /* libFlurry_7.5.2.a in Frameworks */,
 				1AE669D31520012C000965B5 /* Twitter.framework in Frameworks */,
+				389992331E467920008D3381 /* GoogleAppUtilities.framework in Frameworks */,
+				389992351E467920008D3381 /* GoogleSignIn.framework in Frameworks */,
+				389992361E467920008D3381 /* GoogleSignInDependencies.framework in Frameworks */,
 				1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */,
 				1AFFE7B215175DC6004B4590 /* AudioToolbox.framework in Frameworks */,
 				1AFFE7B315175DC6004B4590 /* AVFoundation.framework in Frameworks */,
@@ -1379,6 +1355,12 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				389992381E4679CD008D3381 /* SafariServices.framework */,
+				3899922E1E467920008D3381 /* GoogleAppUtilities.framework */,
+				3899922F1E467920008D3381 /* GoogleSignIn.bundle */,
+				389992301E467920008D3381 /* GoogleSignIn.framework */,
+				389992311E467920008D3381 /* GoogleSignInDependencies.framework */,
+				389992321E467920008D3381 /* GoogleSymbolUtilities.framework */,
 				1A246D1F17CA5A8200B8868D /* CoreText.framework */,
 				1A8C5F0017B519E300601D21 /* Social.framework */,
 				1AFFE7B615175DF8004B4590 /* libz.dylib */,
@@ -1491,8 +1473,6 @@
 				3832DD2719D97C34002762D1 /* CloudClient2.m */,
 				3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */,
 				3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */,
-				3832DD2319D8DFF8002762D1 /* GoogleOAuth2Authenticator.h */,
-				3832DD2419D8DFF8002762D1 /* GoogleOAuth2Authenticator.m */,
 				1AACE07915974D87004C03A1 /* CloudMetaInfo.h */,
 				1AACE07A15974D87004C03A1 /* CloudMetaInfo.m */,
 				38EAE2BE197D3E0C002F2A2D /* UploadDownloadTracker.h */,
@@ -1710,7 +1690,6 @@
 			isa = PBXGroup;
 			children = (
 				38B7AAB11C9DB85D00EFA791 /* Flurry */,
-				3832DCFA19D8DDAD002762D1 /* Google OAuth2 Library */,
 				381BC48919B91CD600CD8C20 /* Toast */,
 				1ABC74BD190414F000D60660 /* SSZipArchive */,
 			);
@@ -1724,48 +1703,6 @@
 				381BC48B19B91D0A00CD8C20 /* UIView+Toast.m */,
 			);
 			name = Toast;
-			sourceTree = "<group>";
-		};
-		3832DCFA19D8DDAD002762D1 /* Google OAuth2 Library */ = {
-			isa = PBXGroup;
-			children = (
-				3832DD0E19D8DDAD002762D1 /* GTMOAuth2Authentication.h */,
-				3832DD0F19D8DDAD002762D1 /* GTMOAuth2Authentication.m */,
-				3832DD1019D8DDAD002762D1 /* GTMOAuth2SignIn.h */,
-				3832DD1119D8DDAD002762D1 /* GTMOAuth2SignIn.m */,
-				3832DD1219D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.h */,
-				3832DD1319D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m */,
-				3832DD1419D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib */,
-				3832DCFB19D8DDAD002762D1 /* Google Fetcher Library */,
-			);
-			name = "Google OAuth2 Library";
-			path = "gtm-oauth2";
-			sourceTree = "<group>";
-		};
-		3832DCFB19D8DDAD002762D1 /* Google Fetcher Library */ = {
-			isa = PBXGroup;
-			children = (
-				3832DCFC19D8DDAD002762D1 /* GTMGatherInputStream.h */,
-				3832DCFD19D8DDAD002762D1 /* GTMGatherInputStream.m */,
-				3832DCFE19D8DDAD002762D1 /* GTMHTTPFetcher.h */,
-				3832DCFF19D8DDAD002762D1 /* GTMHTTPFetcher.m */,
-				3832DD0019D8DDAD002762D1 /* GTMHTTPFetcherLogging.h */,
-				3832DD0119D8DDAD002762D1 /* GTMHTTPFetcherLogging.m */,
-				3832DD0219D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.h */,
-				3832DD0319D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m */,
-				3832DD0419D8DDAD002762D1 /* GTMHTTPFetcherService.h */,
-				3832DD0519D8DDAD002762D1 /* GTMHTTPFetcherService.m */,
-				3832DD0619D8DDAD002762D1 /* GTMHTTPFetchHistory.h */,
-				3832DD0719D8DDAD002762D1 /* GTMHTTPFetchHistory.m */,
-				3832DD0819D8DDAD002762D1 /* GTMHTTPUploadFetcher.h */,
-				3832DD0919D8DDAD002762D1 /* GTMHTTPUploadFetcher.m */,
-				3832DD0A19D8DDAD002762D1 /* GTMMIMEDocument.h */,
-				3832DD0B19D8DDAD002762D1 /* GTMMIMEDocument.m */,
-				3832DD0C19D8DDAD002762D1 /* GTMReadMonitorInputStream.h */,
-				3832DD0D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m */,
-			);
-			name = "Google Fetcher Library";
-			path = "gtm-http-fetcher";
 			sourceTree = "<group>";
 		};
 		383F181A19EBF23400FC6541 /* Game Field Dimensions */ = {
@@ -2201,6 +2138,7 @@
 				1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */,
 				1AA37BAF18A8619700CE9662 /* color5D9900Radius3.png in Resources */,
 				1AEE548C15293B350067F539 /* TwitterController.xib in Resources */,
+				389992341E467920008D3381 /* GoogleSignIn.bundle in Resources */,
 				381BC47019B3663800CD8C20 /* play-direction-their-team-right.png in Resources */,
 				1AA37B9118A6C29D00CE9662 /* player_laying_out@2x.png in Resources */,
 				3870812E19C07587001174CB /* broadcasting-small-dark.png in Resources */,
@@ -2235,7 +2173,6 @@
 				1A999F0D16063CDC0015B891 /* LeagueVineTeamViewController.xib in Resources */,
 				381941DC1A06812A0061E674 /* GameActionView_iPhone_6.xib in Resources */,
 				1A4C431A160F4A5E0067BB96 /* LeagueVineSignonViewController.xib in Resources */,
-				3832DD2119D8DDAD002762D1 /* GTMOAuth2ViewTouch.xib in Resources */,
 				1A7A89101610705F00CAB5EF /* LeaguevineSelectorAbstractViewController.xib in Resources */,
 				38672B29199D1947001DCDDE /* GameUploadPickerViewController.storyboard in Resources */,
 				38EAE2B8197B64EE002F2A2D /* checkbox-unchecked@2x.png in Resources */,
@@ -2416,18 +2353,6 @@
 				1A4C431B160F4A5E0067BB96 /* LeagueVineSignonViewController.m in Sources */,
 				38458B2E1A0878BF0060780A /* SHSVersion.m in Sources */,
 				1A5D7AF318F99FE600239A22 /* UIScrollView+Utilities.m in Sources */,
-				3832DD1D19D8DDAD002762D1 /* GTMReadMonitorInputStream.m in Sources */,
-				3832DD2019D8DDAD002762D1 /* GTMOAuth2ViewControllerTouch.m in Sources */,
-				3832DD1E19D8DDAD002762D1 /* GTMOAuth2Authentication.m in Sources */,
-				3832DD1619D8DDAD002762D1 /* GTMHTTPFetcher.m in Sources */,
-				3832DD1F19D8DDAD002762D1 /* GTMOAuth2SignIn.m in Sources */,
-				3832DD1919D8DDAD002762D1 /* GTMHTTPFetcherService.m in Sources */,
-				3832DD1A19D8DDAD002762D1 /* GTMHTTPFetchHistory.m in Sources */,
-				3832DD1B19D8DDAD002762D1 /* GTMHTTPUploadFetcher.m in Sources */,
-				3832DD1C19D8DDAD002762D1 /* GTMMIMEDocument.m in Sources */,
-				3832DD1519D8DDAD002762D1 /* GTMGatherInputStream.m in Sources */,
-				3832DD1719D8DDAD002762D1 /* GTMHTTPFetcherLogging.m in Sources */,
-				3832DD1819D8DDAD002762D1 /* GTMHTTPFetcherLogViewController.m in Sources */,
 				1A4C4322160F625B0067BB96 /* LeagueVineSelectorLeagueViewController.m in Sources */,
 				1A4C4323160F625B0067BB96 /* LeaguevineSelectorAbstractViewController.m in Sources */,
 				1A4C4326160F6BEF0067BB96 /* LeaguevineItem.m in Sources */,
@@ -2456,7 +2381,6 @@
 				1A6C82DC16E3A90000B84595 /* ActionButtonLongPressGestureRecognizer.m in Sources */,
 				1AA37B8C18A6B65600CE9662 /* CellishView.m in Sources */,
 				381BC48719B8A26200CD8C20 /* GameAutoUploader.m in Sources */,
-				3832DD2519D8DFF8002762D1 /* GoogleOAuth2Authenticator.m in Sources */,
 				38B2CE7719A25BD7008BE91B /* GameHistoryTableViewCell.m in Sources */,
 				1A6C82E016E3C01600B84595 /* ActionDetailsViewController.m in Sources */,
 				1A6C82E616E3C51E00B84595 /* EventSelectTableViewCell.m in Sources */,

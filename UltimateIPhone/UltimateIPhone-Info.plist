@@ -36,6 +36,16 @@
 				<string>iultimate</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.googleusercontent.apps.308589977906-jcsohi4nbdq3rf6ls8qph3n9mtm0u9ce</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.308589977906-jcsohi4nbdq3rf6ls8qph3n9mtm0u9ce</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3.7.0</string>

@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <GoogleSignIn/GoogleSignIn.h>
 #import "AppDelegate.h"
 #import "TeamsViewController.h"
 #import "TeamsMasterDetailViewController.h"
@@ -22,8 +23,10 @@
 #import "BufferedNavigationController.h"
 #import "GameAutoUploader.h"
 #import "SHSAnalytics.h"
-#import "GoogleOAuth2Authenticator.h"
 #import "LeaguevineConfiguration.h"
+
+// Google OAuth ClientID
+static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qph3n9mtm0u9ce.apps.googleusercontent.com";
 
 @interface AppDelegate ()
 
@@ -46,6 +49,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[SHSAnalytics sharedAnalytics] initializeAnalytics];
+    [self initializeGoogleSignInClient];
     [LeaguevineConfiguration configureSettings];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -110,8 +114,6 @@
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
-    [[GoogleOAuth2Authenticator sharedAuthenticator] applicationStarted];
-    
     return YES;
 }
 
@@ -159,6 +161,10 @@
     
     // table view
     [UITableView appearance].separatorColor = [ColorMaster separatorColor];
+}
+
+-(void)initializeGoogleSignInClient {
+    [GIDSignIn sharedInstance].clientID = kGoogleAppClientID;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

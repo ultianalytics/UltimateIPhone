@@ -963,7 +963,6 @@
     if ([[WindSpeedClient shared] hasWindSpeedBeenUpdatedRecently]) {
         self.game.wind.mph = [WindSpeedClient shared].lastWindSpeedMph;
         [self populateWindCell];
-        [self showAutoWindUpdateCallout];
     }
 }
 
@@ -992,23 +991,6 @@
         
         CGPoint anchor = [self.playbackCell convertPoint:CGPointBottomRight(self.playbackLabel.bounds) toView:self.view];
         [calloutsView addCallout:@"Did you know?\nGames with positions can be played back!" anchor: anchor width: 200 degrees: 140 connectorLength: 80 font: [UIFont systemFontOfSize:14]];
-        
-        self.calloutsViewContainer = calloutsView;
-        [self.view addSubview:self.calloutsViewContainer];
-        // move the callouts off the screen and then animate their return.
-        [self.calloutsViewContainer slide: YES animated: NO];
-        [self.calloutsViewContainer slide: NO animated: YES];
-    }
-}
-
-
--(void)showAutoWindUpdateCallout {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey: kHasBeenShownWindUpdateCallout]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: kHasBeenShownWindUpdateCallout];
-        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
-        
-        CGPoint anchor = [self.windLabel convertPoint:CGPointBottomRight(self.playbackLabel.bounds) toView:self.view];
-        [calloutsView addCallout:@"Wind speed is set using your current location.  You can override this at any time." anchor: anchor width: 160 degrees: 180 connectorLength: 80 font: [UIFont systemFontOfSize:14]];
         
         self.calloutsViewContainer = calloutsView;
         [self.view addSubview:self.calloutsViewContainer];

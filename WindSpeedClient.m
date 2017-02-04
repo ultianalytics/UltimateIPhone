@@ -15,7 +15,6 @@
 #import "WindSpeedClient.h"
 #import "CloudClient2.h"
 #import "NSDictionary+JSON.h"
-#import "NSDate+Utilities.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define kMaxWindAgeMinutes 5
@@ -58,10 +57,7 @@
 }
     
 -(BOOL)hasWindSpeedBeenUpdatedRecently {
-    @synchronized (self) {
-        return [self.windLastUpdatedTimestamp isLaterThanDate:[NSDate dateWithMinutesBeforeNow: kMaxWindAgeMinutes]]; {
-        }
-    }
+    return true;
 }
 
 -(void)startLocationLookup {

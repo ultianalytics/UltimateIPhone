@@ -15,7 +15,6 @@
 #import "LeaguevineClient.h"
 #import "Team.h"
 #import "LeagueVineSelectorGameTableViewCell.h"
-#import "NSDate+Utilities.h"
 
 
 @interface LeagueVineSelectorGameViewController ()
@@ -92,11 +91,6 @@
     NSDate* date = game.startTime;
     if (!date) {
         return @"Not sure";
-    } else if ([date isToday]) {
-        return [self.timeFormatter stringFromDate:date];
-        // if yesterday or we are within 5 days(future)...use short date form
-    } else if ([date isYesterday] || ([date laterDate:[NSDate date]] == date && [date earlierDate:[NSDate dateWithDaysFromNow:5]] == date)) {
-        return [NSString stringWithFormat:@"%@, %@", [self.nearDateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
     } else {
         return [NSString stringWithFormat:@"%@, %@", [self.farDateFormatter stringFromDate:date], [self.timeFormatter stringFromDate:date]];
     }

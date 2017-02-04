@@ -11,7 +11,6 @@
 #import "Team.h"
 #import "LeaguevineTeam.h"
 #import "LeaguevineTournament.h"
-#import "NSDate+Utilities.h"
 #import "NSString+manipulations.h"
 
 #define kLeaguevineGameStartTime @"start_time"
@@ -120,11 +119,7 @@
         return [self opponentDescription];
     }
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    if ([self.startTime isToday]) {
-        [dateFormatter setDateFormat:@"'Today at' h:mm"];
-    } else {
-        [dateFormatter setDateFormat:@"MMM d 'at' h:mm"];
-    }
+    [dateFormatter setDateFormat:@"MMM d 'at' h:mm"];
     NSString* time = [dateFormatter stringFromDate:self.startTime];
     return [NSString stringWithFormat:@"%@ (%@)", [self opponentDescription], time];
 }

@@ -896,7 +896,7 @@
     self.navigationController.navigationBarHidden = NO;
     [self addInfoButton];
     [self refreshView];
-    [self configureForOrientation:self.interfaceOrientation];
+    [self configureForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -79,7 +79,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self configureForOrientation:self.interfaceOrientation];
+    [self configureForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

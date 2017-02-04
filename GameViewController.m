@@ -788,7 +788,7 @@
 }
 
 -(void)askUserForLeauguevineCredentials: (void (^)(BOOL hasLeaguevineCredentials)) completion {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
     lvController.finishedBlock = ^(BOOL isSignedOn, LeagueVineSignonViewController* signonController) {
@@ -847,7 +847,7 @@
     [swipeRecognizer setDirection: UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown];
     [self.swipeEventsView addGestureRecognizer:swipeRecognizer];
     
-    UIBarButtonItem *navBarLineButton = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStyleBordered target:self action:@selector(goToPlayersOnFieldView)];
+    UIBarButtonItem *navBarLineButton = [[UIBarButtonItem alloc] initWithTitle: @"Line" style: UIBarButtonItemStylePlain target:self action:@selector(goToPlayersOnFieldView)];
     self.navigationItem.rightBarButtonItem = navBarLineButton;
     
     self.throwAwayButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;

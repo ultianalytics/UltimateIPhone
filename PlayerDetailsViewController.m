@@ -255,11 +255,11 @@
     self.numberField.delegate = self;
     
     if (IS_IPHONE || self.isModalAddMode) {
-        UIBarButtonItem *cancelNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelClicked)];
+        UIBarButtonItem *cancelNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(cancelClicked)];
         self.navigationItem.leftBarButtonItem = cancelNavBarItem;
     }
     
-    UIBarButtonItem *saveNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(okClicked)];
+    UIBarButtonItem *saveNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStylePlain target:self action:@selector(okClicked)];
     self.navigationItem.rightBarButtonItem = saveNavBarItem;    
     
     self.title = self.isModalAddMode ? @"New Player" : @"Player";

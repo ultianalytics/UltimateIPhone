@@ -133,10 +133,10 @@
     tableView.sectionHeaderHeight = 3.0;
     tableView.sectionFooterHeight = 1.0;
     
-    UIBarButtonItem *playersNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelSend)];
+    UIBarButtonItem *playersNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(cancelSend)];
     self.navigationItem.leftBarButtonItem = playersNavBarItem;
     
-    UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleBordered target:self action:@selector(sendTweet)];
+    UIBarButtonItem *historyNavBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStylePlain target:self action:@selector(sendTweet)];
     self.navigationItem.rightBarButtonItem = historyNavBarItem;  
     self.navigationItem.rightBarButtonItem.tag = 44;
     historyNavBarItem.tag = 55;

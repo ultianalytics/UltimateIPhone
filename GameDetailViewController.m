@@ -373,7 +373,7 @@
 }
 
 -(void)askUserForLeauguevineCredentials: (void (^)(BOOL hasLeaguevineCredentials)) completion {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     LeagueVineSignonViewController* lvController = [[LeagueVineSignonViewController alloc] init];
     UINavigationController* lvNavController = [[UINavigationController alloc] initWithRootViewController:lvController];
@@ -616,7 +616,7 @@
     self.opposingTeamNameField.delegate = self; 
     self.tournamentNameField.delegate = self;
     if (self.isModalAddMode) {
-        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(cancelModalDialog)];
         self.navigationItem.leftBarButtonItem = cancelBarItem;
     }
     
@@ -775,7 +775,7 @@
     self.deleteButtonView.hidden = !self.startButtonView.hidden;
     
     if ([self.game hasBeenSaved]) {
-        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStyleBordered target:self action:@selector(actionButtonTapped)];
+        UIBarButtonItem *navBarActionButton = [[UIBarButtonItem alloc] initWithTitle: @"Action" style: UIBarButtonItemStylePlain target:self action:@selector(actionButtonTapped)];
         self.navigationItem.rightBarButtonItem = navBarActionButton;
     }
     

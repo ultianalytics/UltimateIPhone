@@ -63,7 +63,7 @@
     [super viewDidLoad];
     self.clearLeaguevineButtonView.hidden = !self.team.leaguevineTeam;
     if (self.isModalMode) {
-        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(closeModalDialog)];
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(closeModalDialog)];
         self.navigationItem.leftBarButtonItem = cancelBarItem;
     }
 }
@@ -212,7 +212,7 @@
 
 
 -(void)pushSelectorController: (UIViewController*) selectorController {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     [self.navigationController pushViewController:selectorController animated:YES];
 }

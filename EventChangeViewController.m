@@ -250,7 +250,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.modalMode) {
-        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelPressed)];
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(cancelPressed)];
         self.navigationItem.leftBarButtonItem = cancelBarItem;
     }
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight;

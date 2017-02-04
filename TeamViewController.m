@@ -180,7 +180,7 @@
             self.playersViewRequestedBlock();
         }
     } else {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Team" style:UIBarButtonItemStylePlain target:nil action:nil];
         [[self navigationItem] setBackBarButtonItem:backButton];
         TeamPlayersViewController* playersController = [[TeamPlayersViewController alloc] init];
         [self.navigationController pushViewController:playersController animated:animated];
@@ -302,10 +302,10 @@
     self.clearCloudIdButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.teamNameField.delegate = self;
     [self.teamNameField addTarget:self action:@selector(nameChanged:) forControlEvents:UIControlEventEditingChanged];
-    UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStyleBordered target:self action:@selector(saveAndContinue)];
+    UIBarButtonItem *saveBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Save" style: UIBarButtonItemStylePlain target:self action:@selector(saveAndContinue)];
     self.navigationItem.rightBarButtonItem = saveBarItem;
     if (self.isModalAddMode) {
-        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelModalDialog)];
+        UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(cancelModalDialog)];
         self.navigationItem.leftBarButtonItem = cancelBarItem;
     }
 

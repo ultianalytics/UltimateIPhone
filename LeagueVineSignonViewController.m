@@ -168,7 +168,7 @@
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Leaguevine Signon", @"Leaguevine Signon");
-    UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonTapped)];
+    UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped)];
     self.navigationItem.leftBarButtonItem = cancelBarItem;
 }
 

@@ -176,7 +176,6 @@
 		1AFFE7B215175DC6004B4590 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B015175DC6004B4590 /* AudioToolbox.framework */; };
 		1AFFE7B315175DC6004B4590 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B115175DC6004B4590 /* AVFoundation.framework */; };
 		1AFFE7B515175DDC004B4590 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B415175DDC004B4590 /* QuartzCore.framework */; };
-		1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFFE7B615175DF8004B4590 /* libz.dylib */; };
 		1AFFE7E215175E7B004B4590 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7B815175E7B004B4590 /* 19-gear.png */; };
 		1AFFE7E315175E7B004B4590 /* 19-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7B915175E7B004B4590 /* 19-gear@2x.png */; };
 		1AFFE7E415175E7B004B4590 /* 63-runner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFE7BA15175E7B004B4590 /* 63-runner.png */; };
@@ -298,6 +297,8 @@
 		381F97C919C498E900CA1C8B /* GamePlaybackTracerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */; };
 		381F97CC19C6B7DA00CA1C8B /* game-playback-instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */; };
 		381F97CD19C6B7DA00CA1C8B /* game-playback-instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */; };
+		382BE30D1E46E20400A46CEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 382BE30C1E46E20400A46CEA /* libz.tbd */; };
+		382BE30F1E46E2C300A46CEA /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382BE30E1E46E2C300A46CEA /* GoogleSignIn.bundle */; };
 		3832DD2819D97C34002762D1 /* CloudClient2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2719D97C34002762D1 /* CloudClient2.m */; };
 		3832DD2B19DAD6BA002762D1 /* CloudRequestStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 3832DD2A19DAD6BA002762D1 /* CloudRequestStatus.m */; };
 		383F17D519E552B400FC6541 /* browser-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 383F17D119E552B400FC6541 /* browser-back.png */; };
@@ -329,7 +330,6 @@
 		3870812F19C07587001174CB /* broadcasting-small-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */; };
 		3870813319C07944001174CB /* twitter-bird-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3870813219C07944001174CB /* twitter-bird-dark.png */; };
 		389992331E467920008D3381 /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3899922E1E467920008D3381 /* GoogleAppUtilities.framework */; };
-		389992341E467920008D3381 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3899922F1E467920008D3381 /* GoogleSignIn.bundle */; };
 		389992351E467920008D3381 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992301E467920008D3381 /* GoogleSignIn.framework */; };
 		389992361E467920008D3381 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992311E467920008D3381 /* GoogleSignInDependencies.framework */; };
 		389992371E467920008D3381 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389992321E467920008D3381 /* GoogleSymbolUtilities.framework */; };
@@ -654,7 +654,6 @@
 		1AFFE7B015175DC6004B4590 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1AFFE7B115175DC6004B4590 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1AFFE7B415175DDC004B4590 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1AFFE7B615175DF8004B4590 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		1AFFE7B815175E7B004B4590 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		1AFFE7B915175E7B004B4590 /* 19-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear@2x.png"; sourceTree = "<group>"; };
 		1AFFE7BA15175E7B004B4590 /* 63-runner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "63-runner.png"; sourceTree = "<group>"; };
@@ -826,6 +825,8 @@
 		381F97C819C498E900CA1C8B /* GamePlaybackTracerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlaybackTracerView.m; sourceTree = "<group>"; };
 		381F97CA19C6B7DA00CA1C8B /* game-playback-instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions.png"; sourceTree = "<group>"; };
 		381F97CB19C6B7DA00CA1C8B /* game-playback-instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-playback-instructions@2x.png"; sourceTree = "<group>"; };
+		382BE30C1E46E20400A46CEA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		382BE30E1E46E2C300A46CEA /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		3832DD2619D97C34002762D1 /* CloudClient2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudClient2.h; sourceTree = "<group>"; };
 		3832DD2719D97C34002762D1 /* CloudClient2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudClient2.m; sourceTree = "<group>"; };
 		3832DD2919DAD6BA002762D1 /* CloudRequestStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudRequestStatus.h; sourceTree = "<group>"; };
@@ -870,7 +871,6 @@
 		3870812D19C07587001174CB /* broadcasting-small-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "broadcasting-small-dark@2x.png"; sourceTree = "<group>"; };
 		3870813219C07944001174CB /* twitter-bird-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-bird-dark.png"; sourceTree = "<group>"; };
 		3899922E1E467920008D3381 /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleAppUtilities.framework; sourceTree = "<group>"; };
-		3899922F1E467920008D3381 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		389992301E467920008D3381 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
 		389992311E467920008D3381 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		389992321E467920008D3381 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
@@ -947,6 +947,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				382BE30D1E46E20400A46CEA /* libz.tbd in Frameworks */,
 				389992391E4679CD008D3381 /* SafariServices.framework in Frameworks */,
 				1A246D2017CA5A8200B8868D /* CoreText.framework in Frameworks */,
 				1A8C5F0117B519E300601D21 /* Social.framework in Frameworks */,
@@ -967,7 +968,6 @@
 				1AFFE77C15175D4A004B4590 /* UIKit.framework in Frameworks */,
 				1AFFE77E15175D4A004B4590 /* Foundation.framework in Frameworks */,
 				1AFFE78015175D4A004B4590 /* CoreGraphics.framework in Frameworks */,
-				1AFFE7B715175DF8004B4590 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1355,15 +1355,15 @@
 		1AFFE77A15175D4A004B4590 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				382BE30E1E46E2C300A46CEA /* GoogleSignIn.bundle */,
+				382BE30C1E46E20400A46CEA /* libz.tbd */,
 				389992381E4679CD008D3381 /* SafariServices.framework */,
 				3899922E1E467920008D3381 /* GoogleAppUtilities.framework */,
-				3899922F1E467920008D3381 /* GoogleSignIn.bundle */,
 				389992301E467920008D3381 /* GoogleSignIn.framework */,
 				389992311E467920008D3381 /* GoogleSignInDependencies.framework */,
 				389992321E467920008D3381 /* GoogleSymbolUtilities.framework */,
 				1A246D1F17CA5A8200B8868D /* CoreText.framework */,
 				1A8C5F0017B519E300601D21 /* Social.framework */,
-				1AFFE7B615175DF8004B4590 /* libz.dylib */,
 				1AB78D081726B1E0003235AE /* MessageUI.framework */,
 				1A5983A115445F9D00E97F09 /* GHUnitIOS.framework */,
 				1AE66A131522769B000965B5 /* Accounts.framework */,
@@ -2135,10 +2135,10 @@
 				1AE669F915215485000965B5 /* CloudViewController.xib in Resources */,
 				1AE66A0A1521EA9B000965B5 /* tweet-button.png in Resources */,
 				1AE66A1D15233217000965B5 /* TweetViewController.xib in Resources */,
+				382BE30F1E46E2C300A46CEA /* GoogleSignIn.bundle in Resources */,
 				1AE66A2315235315000965B5 /* TwitterAccountPickViewController.xib in Resources */,
 				1AA37BAF18A8619700CE9662 /* color5D9900Radius3.png in Resources */,
 				1AEE548C15293B350067F539 /* TwitterController.xib in Resources */,
-				389992341E467920008D3381 /* GoogleSignIn.bundle in Resources */,
 				381BC47019B3663800CD8C20 /* play-direction-their-team-right.png in Resources */,
 				1AA37B9118A6C29D00CE9662 /* player_laying_out@2x.png in Resources */,
 				3870812E19C07587001174CB /* broadcasting-small-dark.png in Resources */,

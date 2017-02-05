@@ -29,11 +29,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.summithillsoftware.iultimate</string>
+			<string>com.summithillsoftware.UltimateIPhone</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>iultimate</string>
+				<string>com.summithillsoftware.UltimateIPhone</string>
 			</array>
 		</dict>
 		<dict>

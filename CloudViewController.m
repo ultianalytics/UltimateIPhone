@@ -6,7 +6,6 @@
 //
 #import "CloudViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import <GoogleSignIn/GoogleSignIn.h>
 #import "Preferences.h"
 #import "ColorMaster.h"
 #import "TeamDownloadPickerViewController.h"
@@ -207,8 +206,7 @@
 #pragma mark - Download Team descriptions (for picking one to download)
 
 -(void)downloadTeamDescriptions {
-    GIDSignIn* signin = [GIDSignIn sharedInstance];
-    [signin signIn];
+
 }
 
 -(void)downloadTeamDescriptionsOLD {
@@ -597,10 +595,6 @@
     } else {
         return NO;
     }
-}
-
-- (void)presentSignInViewController:(UIViewController *)viewController {
-    [[self navigationController] pushViewController:viewController animated:YES];
 }
 
 #pragma mark - Google Login

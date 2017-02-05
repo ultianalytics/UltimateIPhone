@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 #import "UltimateViewController.h"
 @class TeamDownloadPickerViewController;
 @class GameDownloadPickerViewController;
@@ -39,6 +40,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *busyView;
 @property (strong, nonatomic) IBOutlet UIView *busyDisplay;
+
+@property (strong, nonatomic) IBOutlet UIView *signInButton;
 
 -(IBAction)uploadButtonClicked: (id) sender;
 -(IBAction)downloadTeamButtonClicked: (id) sender;

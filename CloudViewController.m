@@ -47,6 +47,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [self initializeGoogleSignin];
     }
     return self;
 }
@@ -560,7 +561,6 @@
     [self setUserUnknownLabel:nil];
     [self setScrubberView:nil];
     [self setScrubberSwitch:nil];
-    [self initializeGoogleSignin];
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }

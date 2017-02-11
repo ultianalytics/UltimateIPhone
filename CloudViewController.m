@@ -207,10 +207,6 @@
 #pragma mark - Download Team descriptions (for picking one to download)
 
 -(void)downloadTeamDescriptions {
-
-}
-
--(void)downloadTeamDescriptionsOLD {
     [self startBusyDialog];
     [CloudClient2 downloadTeamsAtCompletion:^(CloudRequestStatus *status, NSArray *teams) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -221,18 +217,7 @@
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
-//                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
-//                        switch (signonStatus) {
-//                            case SignonStatusOk:
-//                                [self downloadTeamDescriptions];
-//                                break;
-//                            case SignonStatusError:
-//                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
-//                                break;
-//                            default: // cancel
-//                                break;
-//                        }
-//                    }];
+                    [self resetLoginStatus];
                     break;
                 }
                 default: {
@@ -258,18 +243,7 @@
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
-//                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
-//                        switch (signonStatus) {
-//                            case SignonStatusOk:
-//                                [self downloadGameDescriptions];
-//                                break;
-//                            case SignonStatusError:
-//                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
-//                                break;
-//                            default: // cancel
-//                                break;
-//                        }
-//                    }];
+                    [self resetLoginStatus];
                     break;
                 }
                 default: {
@@ -298,18 +272,7 @@
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
-//                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
-//                        switch (signonStatus) {
-//                            case SignonStatusOk:
-//                                [self downloadGame:gameId];
-//                                break;
-//                            case SignonStatusError:
-//                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
-//                                break;
-//                            default: // cancel
-//                                break;
-//                        }
-//                    }];
+                    [self resetLoginStatus];
                     break;
                 }
                 default: {
@@ -339,18 +302,7 @@
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
-//                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
-//                        switch (signonStatus) {
-//                            case SignonStatusOk:
-//                                [self downloadTeam: cloudId];
-//                                break;
-//                            case SignonStatusError:
-//                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
-//                                break;
-//                            default: // cancel
-//                                break;
-//                        }
-//                    }];
+                    [self resetLoginStatus];
                     break;
                 }
                 default: {
@@ -376,18 +328,7 @@
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
-//                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
-//                        switch (signonStatus) {
-//                            case SignonStatusOk:
-//                                [self verfifySignedOnForAutoUploading];
-//                                break;
-//                            case SignonStatusError:
-//                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
-//                                break;
-//                            default: // cancel
-//                                break;
-//                        }
-//                    }];
+                    [self resetLoginStatus];
                     break;
                 }
                 case CloudRequestStatusCodeUnacceptableAppVersion: {
@@ -572,14 +513,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - Help Callouts
 
 
@@ -598,50 +531,22 @@
     }
 }
 
-#pragma - TEST service call
-
-
-- (void)loadTeams: (NSString*) token {
-    NSURL *url = [NSURL URLWithString:@"https://ultimate-team.appspot.com/rest/mobile/teams"];
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", token] forHTTPHeaderField:@"Authorization"];
-    [self getDataFromRequest:request completion:^(NSData *responseData) {
-        if (responseData) {
-            NSLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-        }
-    }];
-}
-
-
-- (void) getDataFromRequest: (NSURLRequest*) request completion:  (void (^)(NSData* responseData)) completion {
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *sendError) {
-        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-        if (sendError == nil && response != nil && [httpResponse statusCode] == 200) {
-            NSLog(@"http GET successful.  URL is %@", request.URL.absoluteString);
-            completion(data);
-        } else {
-            NSString* httpStatus = response == nil ? @"Unknown" :  [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
-            NSLog(@"Failed http GET request. Cloud status code = %@. Server returned HTTP status code %@. More Info = %@.  URL is %@", @"error", httpStatus, sendError, request.URL.absoluteString);
-            completion(nil);
-        }
-    }] resume];
-}
-
-
 #pragma mark - Google Login
 
 -(void)initializeGoogleSignin {
-    // Make sure the GIDSignInButton class is linked in because references from
-    // xib file doesn't count.
-    [GIDSignInButton class];
+    [GIDSignInButton class]; // Make sure the GIDSignInButton class is linked in because references from xib file doesn't count.
     
     GIDSignIn *signIn = [GIDSignIn sharedInstance];
     signIn.shouldFetchBasicProfile = YES;
     signIn.delegate = self;
     signIn.uiDelegate = self;
+}
+
+-(void)resetLoginStatus {
+    [CloudClient2 signOff];
+    [Preferences getCurrentPreferences].userid = nil;
+    [[Preferences getCurrentPreferences] save];
+    [self populateViewFromModel];
 }
 
 #pragma mark - GIDSignInDelegate
@@ -655,7 +560,6 @@
     [Preferences getCurrentPreferences].userid = user.profile.email;
     [[Preferences getCurrentPreferences] save];
     [self populateViewFromModel];
-    [self loadTeams:[Preferences getCurrentPreferences].accessToken];
 }
 
 - (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user withError:(NSError *)error {

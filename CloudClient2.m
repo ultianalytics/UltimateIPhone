@@ -236,34 +236,25 @@
 
 +(void) postData: (NSData*) data toUrl: (NSString*) relativeUrl completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     NSAssert(completion, @"completion block required");
-//    if ([self isConnected]) {
-//        if ([self isLocalTestMode] || [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
-//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
-//            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-//            [request setHTTPMethod:@"POST"];
-//            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//            [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
-//            if ([self isLocalTestMode]) {
-//                [self postData:data inRequest:request completion:completion];
-//            } else {
-//                [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
-//                    if (authStatus == AuthenticationStatusOk) {
-//                        [self postData:data inRequest:request completion:completion];
-//                    } else {
-//                        SHSLog(@"http POST not attempted: authenticator says signon needed");
-//                        completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-//                    }
-//                }];
-//            }
-//        } else {
-//            SHSLog(@"http POST not attempted: no authentication was done previously");
-//            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-//        }
-//    } else {
-//        SHSLog(@"http POST not attempted: device is not connected to net");
-//        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
-//    }
+    if ([self isConnected]) {
+        NSString* accessToken = [Preferences getCurrentPreferences].accessToken;
+        if (accessToken) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
+            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+            [request setHTTPMethod:@"POST"];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
+            [request setValue:[NSString stringWithFormat:@"Bearer %@", accessToken] forHTTPHeaderField:@"Authorization"];
+            [self postData:data inRequest:request completion:completion];
+        } else {
+            SHSLog(@"http POST not attempted: no authentication was done previously");
+            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+        }
+    } else {
+        SHSLog(@"http POST not attempted: device is not connected to net");
+        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
+    }
 }
 
 +(void) postData: (NSData*) data inRequest: (NSURLRequest*) request completion: (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
@@ -331,33 +322,24 @@
 
 +(void) getDataFromUrl: (NSString*) relativeUrl completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {
     NSAssert(completion, @"completion block required");
-//    if ([self isConnected]) {
-//        if ([self isLocalTestMode] || [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated]) {
-//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
-//            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-//            [request setHTTPMethod:@"GET"];
-//            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
-//            if ([self isLocalTestMode]) {
-//                [self getDataFromRequest:request completion:completion];
-//            } else {
-//                [[GoogleOAuth2Authenticator sharedAuthenticator] authorizeRequest:request completionHandler:^(AuthenticationStatus authStatus) {
-//                    if (authStatus == AuthenticationStatusOk) {
-//                        [self getDataFromRequest:request completion:completion];
-//                    } else {
-//                        SHSLog(@"http GET not attempted: authenticator says signon needed");
-//                        completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-//                    }
-//                }];
-//            }
-//        } else {
-//            SHSLog(@"http GET not attempted: no authentication was done previously");
-//            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
-//        }
-//    } else {
-//        SHSLog(@"http GET not attempted: device is not connected to net");
-//        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
-//    }
+    if ([self isConnected]) {
+        NSString* accessToken = [Preferences getCurrentPreferences].accessToken;
+        if (accessToken) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",  [self getBaseUrl], relativeUrl]];
+            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+            [request setHTTPMethod:@"GET"];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [request setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData]; // cache buster
+            [request setValue:[NSString stringWithFormat:@"Bearer %@", accessToken] forHTTPHeaderField:@"Authorization"];
+            [self getDataFromRequest:request completion:completion];
+        } else {
+            SHSLog(@"http GET not attempted: no authentication was done previously");
+            completion([CloudRequestStatus status: CloudRequestStatusCodeUnauthorized],  nil);
+        }
+    } else {
+        SHSLog(@"http GET not attempted: device is not connected to net");
+        completion([CloudRequestStatus status: CloudRequestStatusCodeNotConnectedToInternet],  nil);
+    }
 }
 
 +(void) getDataFromRequest: (NSURLRequest*) request completion:  (void (^)(CloudRequestStatus* requestStatus, NSData* responseData)) completion {

@@ -38,6 +38,8 @@
 @property (strong, nonatomic) IBOutlet UIView *scrubberView;
 @property (strong, nonatomic) IBOutlet UISwitch *scrubberSwitch;
 
+@property (strong, nonatomic) IBOutlet UIView *signInView;
+
 @property (strong, nonatomic) IBOutlet UIView *busyView;
 @property (strong, nonatomic) IBOutlet UIView *busyDisplay;
 

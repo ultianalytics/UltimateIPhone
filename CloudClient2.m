@@ -44,12 +44,18 @@
 }
 
 +(void) signOff {
-//    [[GoogleOAuth2Authenticator sharedAuthenticator] signOut];
+    [self setAccessToken:nil];
+    [Preferences getCurrentPreferences].userid = nil;
+    [[Preferences getCurrentPreferences] save];
 }
 
 +(BOOL) isSignedOn {
-    return false;
-//    return [[GoogleOAuth2Authenticator sharedAuthenticator] hasBeenAuthenticated];
+    return [Preferences getCurrentPreferences].accessToken != nil;
+}
+
++(void) setAccessToken: (NSString*) accessToken {
+    [Preferences getCurrentPreferences].accessToken = accessToken;
+    [[Preferences getCurrentPreferences] save];
 }
 
 +(NSString*) getWebsiteURL: (Team*) team {

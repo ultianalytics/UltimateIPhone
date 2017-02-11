@@ -456,6 +456,7 @@
 }
 
 -(void)populateViewFromModel {
+    self.signInView.hidden = [CloudClient2 isSignedOn];
     NSString* websiteURL = [CloudClient2 getWebsiteURL: [Team getCurrentTeam]];
     self.websiteLabel.text = websiteURL == nil ?  @"Unknown...do upload" : websiteURL;
     self.websiteCell.accessoryType = websiteURL == nil ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
@@ -597,37 +598,6 @@
     }
 }
 
-#pragma mark - Google Login
-
--(void)initializeGoogleSignin {
-    // Make sure the GIDSignInButton class is linked in because references from
-    // xib file doesn't count.
-    [GIDSignInButton class];
-
-    GIDSignIn *signIn = [GIDSignIn sharedInstance];
-    signIn.shouldFetchBasicProfile = YES;
-    signIn.delegate = self;
-    signIn.uiDelegate = self;
-}
-
-#pragma mark - GIDSignInDelegate
-
-- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
-    if (error) {
-        SHSLog(@"Status: Authentication error: %@", error);
-        return;
-    }
-    [self loadTeams:user.authentication.accessToken];
-}
-
-- (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user withError:(NSError *)error {
-    if (error) {
-        SHSLog(@"Status: Failed to disconnect: %@", error);
-    } else {
-        SHSLog(@"Status: Disconnected");
-    }
-}
-
 #pragma - TEST service call
 
 
@@ -658,6 +628,44 @@
             completion(nil);
         }
     }] resume];
+}
+
+
+#pragma mark - Google Login
+
+-(void)initializeGoogleSignin {
+    // Make sure the GIDSignInButton class is linked in because references from
+    // xib file doesn't count.
+    [GIDSignInButton class];
+    
+    GIDSignIn *signIn = [GIDSignIn sharedInstance];
+    signIn.shouldFetchBasicProfile = YES;
+    signIn.delegate = self;
+    signIn.uiDelegate = self;
+}
+
+#pragma mark - GIDSignInDelegate
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    if (error) {
+        SHSLog(@"Status: Authentication error: %@", error);
+        return;
+    }
+    [CloudClient2 setAccessToken: user.authentication.accessToken];
+    [Preferences getCurrentPreferences].userid = user.profile.email;
+    [[Preferences getCurrentPreferences] save];
+    [self populateViewFromModel];
+    [self loadTeams:[Preferences getCurrentPreferences].accessToken];
+}
+
+- (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    if (error) {
+        SHSLog(@"Status: Failed to disconnect: %@", error);
+    } else {
+        [CloudClient2 signOff];
+        [self populateViewFromModel];
+        SHSLog(@"Status: Disconnected");
+    }
 }
 
 

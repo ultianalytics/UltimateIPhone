@@ -43,7 +43,7 @@
 @property (strong, nonatomic) IBOutlet UIView *busyView;
 @property (strong, nonatomic) IBOutlet UIView *busyDisplay;
 
-@property (strong, nonatomic) IBOutlet UIView *signInButton;
+@property (strong, nonatomic) IBOutlet GIDSignInButton *signInButton;
 
 -(IBAction)uploadButtonClicked: (id) sender;
 -(IBAction)downloadTeamButtonClicked: (id) sender;

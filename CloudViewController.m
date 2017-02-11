@@ -383,6 +383,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.cloudTableView adjustInsetForTabBar];
     self.busyDisplay.layer.cornerRadius = 8.0;
+    self.signInButton.colorScheme = kGIDSignInButtonColorSchemeDark;
 }
 
 -(void)populateViewFromModel {

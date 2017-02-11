@@ -161,18 +161,7 @@
                     break;
                 }
                 case CloudRequestStatusCodeUnauthorized: {
-//                    [[GoogleOAuth2Authenticator sharedAuthenticator] signInUsingNavigationController:self.navigationController completion:^(SignonStatus signonStatus) {
-//                        switch (signonStatus) {
-//                            case SignonStatusOk:
-//                                [self uploadTeamWithSelectedGames];
-//                                break;
-//                            case SignonStatusError:
-//                                [self showCompleteAlert:@"Signon FAILED" message: @"We were unable to signon to Google.  Try again later."];
-//                                break;
-//                            default: // cancel
-//                                break;
-//                        }
-//                    }];
+                    [self resetLoginStatus];
                     break;
                 }
                 default: {

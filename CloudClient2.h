@@ -15,7 +15,7 @@
 
 +(BOOL) isSignedOn;
 +(void) signOff;
-+(void) setAccessToken: (NSString*) accessToken;
++(void) setAccessToken: (NSString*) accessToken userid: (NSString*) email;
 +(NSString*) getBaseUrl;
 +(NSString*) getBaseWebUrl;
 +(BOOL)isConnected;

@@ -543,12 +543,10 @@
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
     if (error) {
         SHSLog(@"Status: Authentication error: %@", error);
-        return;
+    } else {
+        [CloudClient2 setAccessToken: user.authentication.accessToken userid:user.profile.email];
+        [self populateViewFromModel];
     }
-    [CloudClient2 setAccessToken: user.authentication.accessToken];
-    [Preferences getCurrentPreferences].userid = user.profile.email;
-    [[Preferences getCurrentPreferences] save];
-    [self populateViewFromModel];
 }
 
 - (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user withError:(NSError *)error {

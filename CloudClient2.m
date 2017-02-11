@@ -44,7 +44,7 @@
 }
 
 +(void) signOff {
-    [self setAccessToken:nil];
+    [self setAccessToken:nil userid: nil];
     [Preferences getCurrentPreferences].userid = nil;
     [[Preferences getCurrentPreferences] save];
 }
@@ -53,8 +53,9 @@
     return [Preferences getCurrentPreferences].accessToken != nil;
 }
 
-+(void) setAccessToken: (NSString*) accessToken {
++(void) setAccessToken: (NSString*) accessToken userid: (NSString*) userid {
     [Preferences getCurrentPreferences].accessToken = accessToken;
+    [Preferences getCurrentPreferences].userid = userid;
     [[Preferences getCurrentPreferences] save];
 }
 

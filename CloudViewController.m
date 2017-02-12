@@ -30,6 +30,7 @@
 #define kButtonFont [UIFont boldSystemFontOfSize: 15]
 
 #define kIsNotFirstCloudViewUsage @"IsNotFirstCloudViewUsage"
+#define kIsNotNewCloudViewUsage @"IsNotNewCloudViewUsage"
 
 @interface CloudViewController() <GIDSignInDelegate, GIDSignInUIDelegate>
 
@@ -404,6 +405,7 @@
     [self.cloudTableView reloadData];
     [self.scrubberSwitch setOn:[Scrubber currentScrubber].isOn];
     self.autoUploadSegmentedControl.selectedSegmentIndex = [Team getCurrentTeam].isAutoUploading ? 1 : 0;
+    [self showNewLogonUsageCallouts];
 //#ifdef DEBUG
 //    self.scrubberView.hidden = NO;
 //#endif
@@ -479,13 +481,13 @@
     // words, if we did not use this approach the signon VC might be pushed before the selection VC was done
     // popping (resulting in "nested push animation can result in corrupted navigation bar" errors.
     
-//    if  (self.pushedControllerDismissBlock) {
-//        void (^continueBlock)() = self.pushedControllerDismissBlock;
-//        self.pushedControllerDismissBlock = nil;
-//        continueBlock();
-//    } else {
+    if  (self.pushedControllerDismissBlock) {
+        void (^continueBlock)() = self.pushedControllerDismissBlock;
+        self.pushedControllerDismissBlock = nil;
+        continueBlock();
+    } else {
         [self showNewLogonUsageCallouts];
-//    }
+    }
 }
 
 - (void)viewDidUnload
@@ -506,8 +508,7 @@
 #pragma mark - Help Callouts
 
 
--(BOOL)showNewLogonUsageCallouts {
-    
+-(BOOL)showFirstLogonUsageCallouts {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kIsNotFirstCloudViewUsage] && self.signInView.hidden) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotFirstCloudViewUsage];
         CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
@@ -515,6 +516,21 @@
         CGPoint anchor = CGPointTop([self.adminSiteCell convertRect:self.adminSiteCell.bounds toView:self.view]);
         [calloutsView addCallout:@"If you would like to keep your team statistics private, you can set a password on your team website and only share it with your teammates.\n\nTo set the password, go to Admin website after you upload your team for the first time." anchor: anchor width: 250 degrees: 0 connectorLength: 110 font:[UIFont systemFontOfSize:14]];
         
+        self.usageCallouts = calloutsView;
+        [self.view addSubview:calloutsView];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+-(BOOL)showNewLogonUsageCallouts {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kIsNotNewCloudViewUsage] && !self.signInView.hidden) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsNotNewCloudViewUsage];
+        CalloutsContainerView *calloutsView = [[CalloutsContainerView alloc] initWithFrame:self.view.bounds];
+        
+        CGPoint anchor = CGPointBottom(self.signInButton.frame);
+        [calloutsView addCallout:@"If you will be sharing statistic collection duties with other people it is suggested you create and use a separate google account for this app." anchor: anchor width: 250 degrees: 180 connectorLength: 110 font:[UIFont systemFontOfSize:14]];
         self.usageCallouts = calloutsView;
         [self.view addSubview:calloutsView];
         return YES;
@@ -549,7 +565,7 @@
     } else {
         [CloudClient2 setAccessToken: user.authentication.accessToken userid:user.profile.email];
         [self populateViewFromModel];
-        [self showNewLogonUsageCallouts];
+        [self showFirstLogonUsageCallouts];
     }
 }
 

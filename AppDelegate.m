@@ -161,10 +161,6 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     [UITableView appearance].separatorColor = [ColorMaster separatorColor];
 }
 
--(void)initializeGoogleSignInClient {
-    [GIDSignIn sharedInstance].clientID = kGoogleAppClientID;
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -202,6 +198,14 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
      See also applicationDidEnterBackground:.
      */
 }
+
+-(void)initializeGoogleSignInClient {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [GIDSignIn sharedInstance].clientID = kGoogleAppClientID;
+    });
+}
+
+
 
 
 

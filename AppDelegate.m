@@ -24,11 +24,12 @@
 #import "GameAutoUploader.h"
 #import "SHSAnalytics.h"
 #import "LeaguevineConfiguration.h"
+#import "CloudClient2.h"
 
 // Google OAuth ClientID
 static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qph3n9mtm0u9ce.apps.googleusercontent.com";
 
-@interface AppDelegate ()
+@interface AppDelegate () <GIDSignInDelegate>
 
 @property (nonatomic, strong) UINavigationController* cloudNavController;
 @property (nonatomic, strong) UINavigationController* teamNavController;
@@ -49,7 +50,7 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[SHSAnalytics sharedAnalytics] initializeAnalytics];
-    [self initializeGoogleSignInClient];
+    [self initializeGoogleSignIn];
     [LeaguevineConfiguration configureSettings];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -161,10 +162,6 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     [UITableView appearance].separatorColor = [ColorMaster separatorColor];
 }
 
--(void)initializeGoogleSignInClient {
-    [GIDSignIn sharedInstance].clientID = kGoogleAppClientID;
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -203,6 +200,33 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
      */
 }
 
+#pragma mark - Google Login
+
+
+-(void)initializeGoogleSignIn {
+    [GIDSignIn sharedInstance].clientID = kGoogleAppClientID;
+    if ([CloudClient2 isSignedOn]) {
+        // renew the signon
+        GIDSignIn *signIn = [GIDSignIn sharedInstance];
+        signIn.shouldFetchBasicProfile = YES;
+        signIn.delegate = self;
+        [signIn signInSilently];
+    }
+}
+
+#pragma mark - GIDSignInDelegate
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    if (error) {
+        SHSLog(@"Status: Authentication error: %@", error);
+    } else {
+        [CloudClient2 setAccessToken: user.authentication.accessToken userid:user.profile.email];
+    }
+}
+
+- (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    // no-op
+}
 
 
 

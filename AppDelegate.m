@@ -189,6 +189,7 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     [[LeaguevineEventQueue sharedQueue] triggerImmediateSubmit];
     [[GameAutoUploader sharedUploader] flush];  // push anything out that didn't make it before the app quit
     [[Reachability reachabilityForInternetConnection] startNotifier];
+    [self renewGoogleSignIn];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -205,12 +206,19 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
 
 -(void)initializeGoogleSignIn {
     [GIDSignIn sharedInstance].clientID = kGoogleAppClientID;
-    if ([CloudClient2 isSignedOn]) {
+    self.lastSilentSignonDate = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:0];
+}
+
+-(void)renewGoogleSignIn {
+    if ([CloudClient2 isConnected] && [CloudClient2 isSignedOn]) {
+        BOOL signonMightNeedRenewal = [self.lastSilentSignonDate timeIntervalSinceNow] * -1 > (60 * 30);  // more than half an hour since last signon?
         // renew the signon
-        GIDSignIn *signIn = [GIDSignIn sharedInstance];
-        signIn.shouldFetchBasicProfile = YES;
-        signIn.delegate = self;
-        [signIn signInSilently];
+        if (signonMightNeedRenewal) {
+            GIDSignIn *signIn = [GIDSignIn sharedInstance];
+            signIn.shouldFetchBasicProfile = YES;
+            signIn.delegate = self;
+            [signIn signInSilently];
+        }
     }
 }
 
@@ -220,6 +228,7 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     if (error) {
         SHSLog(@"Status: Authentication error: %@", error);
     } else {
+        self.lastSilentSignonDate = [NSDate date];
         [CloudClient2 setAccessToken: user.authentication.accessToken userid:user.profile.email];
     }
 }

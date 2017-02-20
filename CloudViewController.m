@@ -467,6 +467,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = NSLocalizedString(@"Website", @"Website");
+    [self initializeGoogleSignin];
     [self populateViewFromModel];
 }
 

@@ -16,6 +16,7 @@
 #import "Scrubber.h"
 #import "Reachability.h"
 #import "UploadDownloadTracker.h"
+#import <GoogleSignIn/GIDSignIn.h>
 
 
 #define kHostHame @"https://ultimate-team.appspot.com"
@@ -44,6 +45,7 @@
 }
 
 +(void) signOff {
+    [[GIDSignIn sharedInstance] signOut];
     [self setAccessToken:nil userid: nil];
     [Preferences getCurrentPreferences].userid = nil;
     [[Preferences getCurrentPreferences] save];

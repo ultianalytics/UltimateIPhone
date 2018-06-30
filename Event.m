@@ -47,6 +47,9 @@
         event.isHalftimeCause = [isCauseOfHalftime boolValue];
     }
     event.details = [dict objectForKey:kDetailsKey];
+    if (event.details) {
+        event.details = [event.details mutableCopy];
+    }
     NSDictionary* positionDict = [dict objectForKey:kPositionKey];
     if (positionDict) {
         event.position = [EventPosition fromDictionary:positionDict];

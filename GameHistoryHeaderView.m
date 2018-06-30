@@ -8,7 +8,7 @@
 
 #import "GameHistoryHeaderView.h"
 #import "Game.h"
-#import "Upoint.h"
+#import "UPoint.h"
 #import "PointSummary.h"
 #import "PlayerSubstitution.h"
 #import "NSArray+Utilities.h"

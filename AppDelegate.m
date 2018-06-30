@@ -89,12 +89,13 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     viewController3 = self.cloudNavController;
     
     // Tab 4: twitter
-    TwitterController* twitterController = [[TwitterController alloc] init];
-    UINavigationController* twitterNavController = [[BufferedNavigationController alloc] initWithRootViewController:twitterController];
-    viewController4 = twitterNavController;
+//    TwitterController* twitterController = [[TwitterController alloc] init];
+//    UINavigationController* twitterNavController = [[BufferedNavigationController alloc] initWithRootViewController:twitterController];
+//    viewController4 = twitterNavController;
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,nil];
+//    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4,nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, nil];
     
     UITabBarItem* tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:0];
     tabBarItem.image = [UIImage imageNamed:@"112-group.png"];
@@ -108,9 +109,9 @@ static NSString * const kGoogleAppClientID = @"308589977906-jcsohi4nbdq3rf6ls8qp
     tabBarItem.image = [UIImage imageNamed:@"137-presentation.png"];
     tabBarItem.title = @"Website";  
     
-    tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
-    tabBarItem.image = [UIImage imageNamed:@"210-twitterbird.png"];
-    tabBarItem.title = @"Tweeting";  
+//    tabBarItem = [self.tabBarController.tabBar.items objectAtIndex:3];
+//    tabBarItem.image = [UIImage imageNamed:@"210-twitterbird.png"];
+//    tabBarItem.title = @"Tweeting";  
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

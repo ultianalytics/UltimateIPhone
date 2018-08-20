@@ -20,7 +20,7 @@
 
 
 #define kHostHame @"https://ultimate-team.appspot.com"
-#define kWebHostHame @"http://www.ultianalytics.com"
+#define kWebHostHame @"https://www.ultianalytics.com"
 //#define kHostHame @"http://local.appspot.com:8888"
 //#define kHostHame @"http://local.appspot.com:8890" // tcp monitor
 
@@ -63,7 +63,7 @@
 
 +(NSString*) getWebsiteURL: (Team*) team {
     if (team.cloudId != nil && ![team.cloudId isEqualToString: @""]) {
-        return [NSString stringWithFormat:@"%@/team/%@/main", [self getBaseWebUrl], team.cloudId];
+        return [NSString stringWithFormat:@"%@/app/#/%@/players", [self getBaseWebUrl], team.cloudId];
     }
     return nil;
 }
